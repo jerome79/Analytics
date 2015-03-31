@@ -1,0 +1,547 @@
+/**
+ * Copyright (C) 2013 - present by OpenGamma Inc. and the OpenGamma group of companies
+ *
+ * Please see distribution for license.
+ */
+package com.opengamma.analytics.financial.legalentity;
+
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.joda.beans.Bean;
+import org.joda.beans.BeanBuilder;
+import org.joda.beans.BeanDefinition;
+import org.joda.beans.JodaBeanUtils;
+import org.joda.beans.MetaProperty;
+import org.joda.beans.Property;
+import org.joda.beans.PropertyDefinition;
+import org.joda.beans.impl.direct.DirectBeanBuilder;
+import org.joda.beans.impl.direct.DirectMetaBean;
+import org.joda.beans.impl.direct.DirectMetaProperty;
+import org.joda.beans.impl.direct.DirectMetaPropertyMap;
+
+import com.opengamma.analytics.financial.util.types.ParameterizedTypeImpl;
+import com.opengamma.analytics.financial.util.types.VariantType;
+import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.location.Country;
+import com.opengamma.strata.collect.ArgChecker;
+
+/**
+ * Gets the region or sub-fields of the region of an {@link LegalEntity}.
+ */
+@BeanDefinition
+public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
+
+  /** Serialization version. */
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * True if the name is to be used as a filter.
+   */
+  @PropertyDefinition
+  private boolean useName;
+
+  /**
+   * True if the countries are to be used as a filter.
+   */
+  @PropertyDefinition
+  private boolean useCountry;
+
+  /**
+   * The set of countries to be used as a filter.
+   */
+  @PropertyDefinition(validate = "notNull", set = "manual")
+  private Set<Country> countries;
+
+  /**
+   * True if the currencies are to be used as a filter.
+   */
+  @PropertyDefinition
+  private boolean useCurrency;
+
+  /**
+   * The set of currencies to be used as a filter.
+   */
+  @PropertyDefinition(validate = "notNull", set = "manual")
+  private Set<Currency> currencies;
+
+  /**
+   * For the builder.
+   */
+  public LegalEntityRegion() {
+    setUseName(false);
+    setUseCountry(false);
+    setCountries(Collections.<Country>emptySet());
+    setUseCurrency(false);
+    setCurrencies(Collections.<Currency>emptySet());
+  }
+
+  /**
+   * @param useName True if the name of the region is to be used as a filter
+   * @param useCountries True if the countries are to be used as a filter
+   * @param countries A set of countries to be used as a filter, not null. Can be empty
+   * @param useCurrencies True if the countries are to be used as a filter
+   * @param currencies A set of currencies to be used as a filter, not null. Can be empty
+   */
+  public LegalEntityRegion(final boolean useName, final boolean useCountries, final Set<Country> countries, final boolean useCurrencies, final Set<Currency> currencies) {
+    setUseName(useName);
+    setUseCountry(useCountries);
+    setCountries(countries);
+    setUseCurrency(useCurrencies);
+    setCurrencies(currencies);
+  }
+
+  @Override
+  public Object getFilteredData(final LegalEntity legalEntity) {
+    ArgChecker.notNull(legalEntity, "legal entity");
+    final Region region = legalEntity.getRegion();
+    if (region == null) {
+      throw new IllegalStateException("Region for this legal entity " + legalEntity + " was null");
+    }
+    if (!(useName || useCountry || useCurrency)) {
+      return region;
+    }
+    final Set<Object> selections = new HashSet<>();
+    if (useName) {
+      selections.add(region.getName());
+    }
+    if (useCountry) {
+      final Set<Country> countries = region.getCountries();
+      if (this.countries.isEmpty()) {
+        selections.addAll(countries);
+      } else if (countries.containsAll(this.countries)) {
+        selections.addAll(this.countries);
+      }
+    }
+    if (useCurrency) {
+      final Set<Currency> currencies = region.getCurrencies();
+      if (this.currencies.isEmpty()) {
+        selections.addAll(currencies);
+      } else if (currencies.containsAll(this.currencies)) {
+        selections.addAll(this.currencies);
+      }
+    }
+    return selections;
+  }
+
+  @Override
+  public Type getFilteredDataType() {
+    if (!(useName || useCountry || useCurrency)) {
+      return Region.class;
+    }
+    Type setMember = null;
+    if (useName) {
+      // Set gets a string
+      setMember = VariantType.either(setMember, String.class);
+    }
+    if (useCountry) {
+      // Set might contain Country instances
+      setMember = VariantType.either(setMember, Country.class);
+    }
+    if (useCurrency) {
+      // Set might contain Currency instances
+      setMember = VariantType.either(setMember, Currency.class);
+    }
+    return ParameterizedTypeImpl.of(Set.class, setMember);
+  }
+
+  /**
+   * Sets the countries to be used as a filter. This also sets the {@link LegalEntityRegion#useCountry} field to true.
+   * 
+   * @param countries The new value of the property, not null
+   */
+  public void setCountries(final Set<Country> countries) {
+    JodaBeanUtils.notNull(countries, "countries");
+    if (!countries.isEmpty()) {
+      setUseCountry(true);
+    }
+    this.countries = countries;
+  }
+
+  /**
+   * Sets the currencies to be used as a filter. This also sets the {@link LegalEntityRegion#useCountry} field to true.
+   * 
+   * @param currencies The new value of the property, not null
+   */
+  public void setCurrencies(final Set<Currency> currencies) {
+    JodaBeanUtils.notNull(currencies, "currencies");
+    if (!currencies.isEmpty()) {
+      setUseCurrency(true);
+    }
+    this.currencies = currencies;
+  }
+
+  //------------------------- AUTOGENERATED START -------------------------
+  ///CLOVER:OFF
+  /**
+   * The meta-bean for {@code LegalEntityRegion}.
+   * @return the meta-bean, not null
+   */
+  public static LegalEntityRegion.Meta meta() {
+    return LegalEntityRegion.Meta.INSTANCE;
+  }
+
+  static {
+    JodaBeanUtils.registerMetaBean(LegalEntityRegion.Meta.INSTANCE);
+  }
+
+  @Override
+  public LegalEntityRegion.Meta metaBean() {
+    return LegalEntityRegion.Meta.INSTANCE;
+  }
+
+  @Override
+  public <R> Property<R> property(String propertyName) {
+    return metaBean().<R>metaProperty(propertyName).createProperty(this);
+  }
+
+  @Override
+  public Set<String> propertyNames() {
+    return metaBean().metaPropertyMap().keySet();
+  }
+
+  //-----------------------------------------------------------------------
+  /**
+   * Gets true if the name is to be used as a filter.
+   * @return the value of the property
+   */
+  public boolean isUseName() {
+    return useName;
+  }
+
+  /**
+   * Sets true if the name is to be used as a filter.
+   * @param useName  the new value of the property
+   */
+  public void setUseName(boolean useName) {
+    this.useName = useName;
+  }
+
+  /**
+   * Gets the the {@code useName} property.
+   * @return the property, not null
+   */
+  public final Property<Boolean> useName() {
+    return metaBean().useName().createProperty(this);
+  }
+
+  //-----------------------------------------------------------------------
+  /**
+   * Gets true if the countries are to be used as a filter.
+   * @return the value of the property
+   */
+  public boolean isUseCountry() {
+    return useCountry;
+  }
+
+  /**
+   * Sets true if the countries are to be used as a filter.
+   * @param useCountry  the new value of the property
+   */
+  public void setUseCountry(boolean useCountry) {
+    this.useCountry = useCountry;
+  }
+
+  /**
+   * Gets the the {@code useCountry} property.
+   * @return the property, not null
+   */
+  public final Property<Boolean> useCountry() {
+    return metaBean().useCountry().createProperty(this);
+  }
+
+  //-----------------------------------------------------------------------
+  /**
+   * Gets the set of countries to be used as a filter.
+   * @return the value of the property, not null
+   */
+  public Set<Country> getCountries() {
+    return countries;
+  }
+
+  /**
+   * Gets the the {@code countries} property.
+   * @return the property, not null
+   */
+  public final Property<Set<Country>> countries() {
+    return metaBean().countries().createProperty(this);
+  }
+
+  //-----------------------------------------------------------------------
+  /**
+   * Gets true if the currencies are to be used as a filter.
+   * @return the value of the property
+   */
+  public boolean isUseCurrency() {
+    return useCurrency;
+  }
+
+  /**
+   * Sets true if the currencies are to be used as a filter.
+   * @param useCurrency  the new value of the property
+   */
+  public void setUseCurrency(boolean useCurrency) {
+    this.useCurrency = useCurrency;
+  }
+
+  /**
+   * Gets the the {@code useCurrency} property.
+   * @return the property, not null
+   */
+  public final Property<Boolean> useCurrency() {
+    return metaBean().useCurrency().createProperty(this);
+  }
+
+  //-----------------------------------------------------------------------
+  /**
+   * Gets the set of currencies to be used as a filter.
+   * @return the value of the property, not null
+   */
+  public Set<Currency> getCurrencies() {
+    return currencies;
+  }
+
+  /**
+   * Gets the the {@code currencies} property.
+   * @return the property, not null
+   */
+  public final Property<Set<Currency>> currencies() {
+    return metaBean().currencies().createProperty(this);
+  }
+
+  //-----------------------------------------------------------------------
+  @Override
+  public LegalEntityRegion clone() {
+    return JodaBeanUtils.cloneAlways(this);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (obj != null && obj.getClass() == this.getClass()) {
+      LegalEntityRegion other = (LegalEntityRegion) obj;
+      return (isUseName() == other.isUseName()) &&
+          (isUseCountry() == other.isUseCountry()) &&
+          JodaBeanUtils.equal(getCountries(), other.getCountries()) &&
+          (isUseCurrency() == other.isUseCurrency()) &&
+          JodaBeanUtils.equal(getCurrencies(), other.getCurrencies());
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = getClass().hashCode();
+    hash = hash * 31 + JodaBeanUtils.hashCode(isUseName());
+    hash = hash * 31 + JodaBeanUtils.hashCode(isUseCountry());
+    hash = hash * 31 + JodaBeanUtils.hashCode(getCountries());
+    hash = hash * 31 + JodaBeanUtils.hashCode(isUseCurrency());
+    hash = hash * 31 + JodaBeanUtils.hashCode(getCurrencies());
+    return hash;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder buf = new StringBuilder(192);
+    buf.append("LegalEntityRegion{");
+    int len = buf.length();
+    toString(buf);
+    if (buf.length() > len) {
+      buf.setLength(buf.length() - 2);
+    }
+    buf.append('}');
+    return buf.toString();
+  }
+
+  protected void toString(StringBuilder buf) {
+    buf.append("useName").append('=').append(JodaBeanUtils.toString(isUseName())).append(',').append(' ');
+    buf.append("useCountry").append('=').append(JodaBeanUtils.toString(isUseCountry())).append(',').append(' ');
+    buf.append("countries").append('=').append(JodaBeanUtils.toString(getCountries())).append(',').append(' ');
+    buf.append("useCurrency").append('=').append(JodaBeanUtils.toString(isUseCurrency())).append(',').append(' ');
+    buf.append("currencies").append('=').append(JodaBeanUtils.toString(getCurrencies())).append(',').append(' ');
+  }
+
+  //-----------------------------------------------------------------------
+  /**
+   * The meta-bean for {@code LegalEntityRegion}.
+   */
+  public static class Meta extends DirectMetaBean {
+    /**
+     * The singleton instance of the meta-bean.
+     */
+    static final Meta INSTANCE = new Meta();
+
+    /**
+     * The meta-property for the {@code useName} property.
+     */
+    private final MetaProperty<Boolean> useName = DirectMetaProperty.ofReadWrite(
+        this, "useName", LegalEntityRegion.class, Boolean.TYPE);
+    /**
+     * The meta-property for the {@code useCountry} property.
+     */
+    private final MetaProperty<Boolean> useCountry = DirectMetaProperty.ofReadWrite(
+        this, "useCountry", LegalEntityRegion.class, Boolean.TYPE);
+    /**
+     * The meta-property for the {@code countries} property.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes" })
+    private final MetaProperty<Set<Country>> countries = DirectMetaProperty.ofReadWrite(
+        this, "countries", LegalEntityRegion.class, (Class) Set.class);
+    /**
+     * The meta-property for the {@code useCurrency} property.
+     */
+    private final MetaProperty<Boolean> useCurrency = DirectMetaProperty.ofReadWrite(
+        this, "useCurrency", LegalEntityRegion.class, Boolean.TYPE);
+    /**
+     * The meta-property for the {@code currencies} property.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes" })
+    private final MetaProperty<Set<Currency>> currencies = DirectMetaProperty.ofReadWrite(
+        this, "currencies", LegalEntityRegion.class, (Class) Set.class);
+    /**
+     * The meta-properties.
+     */
+    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+        this, null,
+        "useName",
+        "useCountry",
+        "countries",
+        "useCurrency",
+        "currencies");
+
+    /**
+     * Restricted constructor.
+     */
+    protected Meta() {
+    }
+
+    @Override
+    protected MetaProperty<?> metaPropertyGet(String propertyName) {
+      switch (propertyName.hashCode()) {
+        case -148203342:  // useName
+          return useName;
+        case -663407601:  // useCountry
+          return useCountry;
+        case 1352637108:  // countries
+          return countries;
+        case 1856611000:  // useCurrency
+          return useCurrency;
+        case -1089470353:  // currencies
+          return currencies;
+      }
+      return super.metaPropertyGet(propertyName);
+    }
+
+    @Override
+    public BeanBuilder<? extends LegalEntityRegion> builder() {
+      return new DirectBeanBuilder<LegalEntityRegion>(new LegalEntityRegion());
+    }
+
+    @Override
+    public Class<? extends LegalEntityRegion> beanType() {
+      return LegalEntityRegion.class;
+    }
+
+    @Override
+    public Map<String, MetaProperty<?>> metaPropertyMap() {
+      return metaPropertyMap$;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * The meta-property for the {@code useName} property.
+     * @return the meta-property, not null
+     */
+    public final MetaProperty<Boolean> useName() {
+      return useName;
+    }
+
+    /**
+     * The meta-property for the {@code useCountry} property.
+     * @return the meta-property, not null
+     */
+    public final MetaProperty<Boolean> useCountry() {
+      return useCountry;
+    }
+
+    /**
+     * The meta-property for the {@code countries} property.
+     * @return the meta-property, not null
+     */
+    public final MetaProperty<Set<Country>> countries() {
+      return countries;
+    }
+
+    /**
+     * The meta-property for the {@code useCurrency} property.
+     * @return the meta-property, not null
+     */
+    public final MetaProperty<Boolean> useCurrency() {
+      return useCurrency;
+    }
+
+    /**
+     * The meta-property for the {@code currencies} property.
+     * @return the meta-property, not null
+     */
+    public final MetaProperty<Set<Currency>> currencies() {
+      return currencies;
+    }
+
+    //-----------------------------------------------------------------------
+    @Override
+    protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
+      switch (propertyName.hashCode()) {
+        case -148203342:  // useName
+          return ((LegalEntityRegion) bean).isUseName();
+        case -663407601:  // useCountry
+          return ((LegalEntityRegion) bean).isUseCountry();
+        case 1352637108:  // countries
+          return ((LegalEntityRegion) bean).getCountries();
+        case 1856611000:  // useCurrency
+          return ((LegalEntityRegion) bean).isUseCurrency();
+        case -1089470353:  // currencies
+          return ((LegalEntityRegion) bean).getCurrencies();
+      }
+      return super.propertyGet(bean, propertyName, quiet);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
+      switch (propertyName.hashCode()) {
+        case -148203342:  // useName
+          ((LegalEntityRegion) bean).setUseName((Boolean) newValue);
+          return;
+        case -663407601:  // useCountry
+          ((LegalEntityRegion) bean).setUseCountry((Boolean) newValue);
+          return;
+        case 1352637108:  // countries
+          ((LegalEntityRegion) bean).setCountries((Set<Country>) newValue);
+          return;
+        case 1856611000:  // useCurrency
+          ((LegalEntityRegion) bean).setUseCurrency((Boolean) newValue);
+          return;
+        case -1089470353:  // currencies
+          ((LegalEntityRegion) bean).setCurrencies((Set<Currency>) newValue);
+          return;
+      }
+      super.propertySet(bean, propertyName, newValue, quiet);
+    }
+
+    @Override
+    protected void validate(Bean bean) {
+      JodaBeanUtils.notNull(((LegalEntityRegion) bean).countries, "countries");
+      JodaBeanUtils.notNull(((LegalEntityRegion) bean).currencies, "currencies");
+    }
+
+  }
+
+  ///CLOVER:ON
+  //-------------------------- AUTOGENERATED END --------------------------
+}
