@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.provider.calculator.inflation;
 
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.INDEX_LINKED_FLOAT;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.INDEX_LINKED_FLOAT;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondCapitalIndexedTransaction;

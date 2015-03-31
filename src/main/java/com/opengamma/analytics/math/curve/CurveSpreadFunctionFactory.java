@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.curve;
 
 import org.joda.convert.FromString;
 
-import com.opengamma.financial.convention.AbstractNamedInstanceFactory;
+import com.opengamma.analytics.convention.AbstractNamedInstanceFactory;
 
 /**
  *

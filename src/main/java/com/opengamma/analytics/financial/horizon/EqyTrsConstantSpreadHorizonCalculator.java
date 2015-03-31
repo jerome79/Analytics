@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.horizon;
 
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwap;
 import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwapDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -17,7 +18,6 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
-import com.opengamma.financial.convention.calendar.Calendar;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 

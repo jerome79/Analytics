@@ -9,13 +9,13 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.financial.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.frequency.PeriodFrequency;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 

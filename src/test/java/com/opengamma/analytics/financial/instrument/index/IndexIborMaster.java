@@ -9,8 +9,8 @@ import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opengamma.financial.convention.businessday.BusinessDayConventions;
-import com.opengamma.financial.convention.daycount.DayCounts;
+import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

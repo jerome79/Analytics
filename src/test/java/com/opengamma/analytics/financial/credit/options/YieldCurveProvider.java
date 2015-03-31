@@ -5,16 +5,16 @@
  */
 package com.opengamma.analytics.financial.credit.options;
 
-import static com.opengamma.financial.convention.businessday.BusinessDayDateUtils.addWorkDays;
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.addWorkDays;
 
 import java.time.LocalDate;
 import java.time.Period;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDABaseTest;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantYieldCurve;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantYieldCurveBuild;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.TYOCalendar;
-import com.opengamma.financial.convention.daycount.DayCount;
 
 /**
  * This holds yield curves use in tests

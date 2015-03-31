@@ -19,6 +19,11 @@ import org.testng.annotations.Test;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -45,11 +50,6 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadDefini
 import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadSimplifiedDefinition;
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.financial.convention.StubType;
-import com.opengamma.financial.convention.businessday.BusinessDayConventions;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.calendar.MondayToFridayCalendar;
-import com.opengamma.financial.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

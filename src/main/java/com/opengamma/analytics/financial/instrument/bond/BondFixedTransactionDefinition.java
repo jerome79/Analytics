@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.instrument.bond;
 
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.daycount.AccruedInterestCalculator;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.payment.PaymentFixedDefinition;
@@ -15,7 +16,6 @@ import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedS
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedTransaction;
 import com.opengamma.analytics.financial.interestrate.bond.provider.BondSecurityDiscountingMethod;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.financial.convention.daycount.AccruedInterestCalculator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

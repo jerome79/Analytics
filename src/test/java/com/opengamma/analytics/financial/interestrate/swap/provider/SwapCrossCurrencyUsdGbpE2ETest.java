@@ -13,6 +13,8 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
@@ -50,8 +52,6 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.rolldate.RollConvention;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.Pair;
 

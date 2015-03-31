@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompounded;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompoundedMaster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -20,8 +22,6 @@ import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.calendar.MondayToFridayCalendar;
 
 /**
  * Sets of market data used in tests.

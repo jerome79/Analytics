@@ -7,11 +7,11 @@ package com.opengamma.analytics.financial.equity.variance;
 
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.varianceswap.VarianceSwapDefinition;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.financial.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.financial.convention.calendar.Calendar;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;

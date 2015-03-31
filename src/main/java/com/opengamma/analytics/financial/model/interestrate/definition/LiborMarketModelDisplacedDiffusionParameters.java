@@ -8,12 +8,12 @@ package com.opengamma.analytics.financial.model.interestrate.definition;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.financial.convention.daycount.DayCount;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

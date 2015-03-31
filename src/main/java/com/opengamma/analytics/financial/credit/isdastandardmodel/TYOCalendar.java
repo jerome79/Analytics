@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.opengamma.financial.convention.calendar.ExceptionCalendar;
+import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
 
 /**
  * The TYO holiday calendar should be used in all JPY fee calculations calculated after 11:59 PM, Tokyo local time on

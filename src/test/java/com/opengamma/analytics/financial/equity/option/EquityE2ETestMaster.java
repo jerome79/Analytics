@@ -11,6 +11,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.equity.EquityOptionBlackPresentValueCalculator;
 import com.opengamma.analytics.financial.equity.EquityOptionBlackScholesRhoCalculator;
@@ -38,7 +39,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.financial.convention.daycount.DayCounts;
 
 /**
  * 

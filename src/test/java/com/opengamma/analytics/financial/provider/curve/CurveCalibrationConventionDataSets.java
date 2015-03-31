@@ -8,6 +8,13 @@ package com.opengamma.analytics.financial.provider.curve;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
+import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
+import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
+import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurve;
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurveInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
@@ -45,13 +52,6 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.financial.convention.StubType;
-import com.opengamma.financial.convention.businessday.BusinessDayConventions;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.calendar.MondayToFridayCalendar;
-import com.opengamma.financial.convention.rolldate.QuarterlyIMMRollDateAdjuster;
-import com.opengamma.financial.convention.rolldate.RollDateAdjuster;
-import com.opengamma.financial.convention.rolldate.RollDateAdjusterUtils;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

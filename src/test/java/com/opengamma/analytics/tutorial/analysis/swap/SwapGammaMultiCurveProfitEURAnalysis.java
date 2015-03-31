@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
 import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -38,7 +39,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.tutorial.datasets.AnalysisMarketDataEURJun13Sets;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.financial.convention.calendar.ExceptionCalendar;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.tuple.Pair;

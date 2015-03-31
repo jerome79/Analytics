@@ -14,10 +14,10 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.frequency.Frequency;
+import com.opengamma.analytics.convention.frequency.PeriodFrequency;
+import com.opengamma.analytics.convention.frequency.SimpleFrequencyFactory;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.financial.convention.frequency.Frequency;
-import com.opengamma.financial.convention.frequency.PeriodFrequency;
-import com.opengamma.financial.convention.frequency.SimpleFrequencyFactory;
 
 
 /**

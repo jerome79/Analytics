@@ -9,8 +9,8 @@ import java.time.Period;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 

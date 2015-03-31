@@ -5,8 +5,8 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.calculator;
 
-import com.opengamma.financial.convention.yield.SimpleYieldConvention;
-import com.opengamma.financial.convention.yield.YieldConvention;
+import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
+import com.opengamma.analytics.convention.yield.YieldConvention;
 
 /**
  *

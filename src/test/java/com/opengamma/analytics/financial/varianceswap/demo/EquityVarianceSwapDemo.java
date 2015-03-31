@@ -6,7 +6,7 @@
  */
 package com.opengamma.analytics.financial.varianceswap.demo;
 
-import static com.opengamma.financial.convention.businessday.BusinessDayDateUtils.getWorkingDaysInclusive;
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.getWorkingDaysInclusive;
 import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.LocalDate;
@@ -19,6 +19,8 @@ import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.equity.StaticReplicationDataBundle;
 import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwap;
@@ -48,8 +50,6 @@ import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
-import com.opengamma.financial.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.financial.convention.calendar.Calendar;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;

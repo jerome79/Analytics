@@ -10,14 +10,14 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.daycount.ActualActualICMA;
+import com.opengamma.analytics.convention.daycount.ActualActualICMANormal;
+import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.frequency.Frequency;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedAccruedCompoundingDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.financial.convention.businessday.BusinessDayConvention;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.daycount.ActualActualICMA;
-import com.opengamma.financial.convention.daycount.ActualActualICMANormal;
-import com.opengamma.financial.convention.daycount.DayCount;
-import com.opengamma.financial.convention.frequency.Frequency;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 

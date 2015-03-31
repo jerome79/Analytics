@@ -12,13 +12,13 @@ import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 
+import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
+import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BillSecurity;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
-import com.opengamma.financial.convention.yield.SimpleYieldConvention;
-import com.opengamma.financial.convention.yield.YieldConvention;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 

@@ -8,13 +8,13 @@ package com.opengamma.analytics.financial.instrument.annuity;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedCompoundingDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.financial.convention.StubType;
-import com.opengamma.financial.convention.calendar.Calendar;
 
 /**
  * Generates an annuity of fixed rate coupons.

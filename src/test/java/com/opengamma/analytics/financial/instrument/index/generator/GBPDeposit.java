@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.instrument.index.generator;
 
+import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
-import com.opengamma.financial.convention.businessday.BusinessDayConventions;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

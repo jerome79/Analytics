@@ -8,7 +8,7 @@ package com.opengamma.analytics.financial.schedule;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import com.opengamma.financial.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.Calendar;
 
 /**
  * Working days calendar implementation that has no holidays.

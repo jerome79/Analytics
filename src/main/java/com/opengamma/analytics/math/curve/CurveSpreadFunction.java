@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.curve;
 
 import org.joda.convert.FromStringFactory;
 
+import com.opengamma.analytics.convention.NamedInstance;
 import com.opengamma.analytics.math.function.Function;
-import com.opengamma.financial.convention.NamedInstance;
 
 /**
  * Given an array of curves, returns a function {@link Function} that will apply a spread operation to

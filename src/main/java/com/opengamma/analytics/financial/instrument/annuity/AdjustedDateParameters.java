@@ -5,8 +5,8 @@
  */
 package com.opengamma.analytics.financial.instrument.annuity;
 
-import com.opengamma.financial.convention.businessday.BusinessDayConvention;
-import com.opengamma.financial.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.calendar.Calendar;
 
 /**
  * Parameters required to adjust dates.

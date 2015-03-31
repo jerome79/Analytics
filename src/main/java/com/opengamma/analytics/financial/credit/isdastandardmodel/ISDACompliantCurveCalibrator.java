@@ -8,12 +8,12 @@ package com.opengamma.analytics.financial.credit.isdastandardmodel;
 import java.time.LocalDate;
 import java.time.Period;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
-import com.opengamma.financial.convention.daycount.DayCount;
-import com.opengamma.financial.convention.daycount.DayCounts;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

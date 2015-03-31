@@ -10,9 +10,9 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.Validate;
 
-import com.opengamma.financial.convention.frequency.Frequency;
-import com.opengamma.financial.convention.frequency.PeriodFrequency;
-import com.opengamma.financial.convention.frequency.SimpleFrequency;
+import com.opengamma.analytics.convention.frequency.Frequency;
+import com.opengamma.analytics.convention.frequency.PeriodFrequency;
+import com.opengamma.analytics.convention.frequency.SimpleFrequency;
 
 /**
  * Factory to create schedules.

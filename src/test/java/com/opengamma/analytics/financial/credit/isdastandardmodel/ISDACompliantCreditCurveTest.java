@@ -16,9 +16,9 @@ import org.joda.beans.BeanBuilder;
 import org.joda.beans.Property;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantDateCreditCurve.Meta;
-import com.opengamma.financial.convention.daycount.DayCount;
-import com.opengamma.financial.convention.daycount.DayCounts;
 
 
 /**

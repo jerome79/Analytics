@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.financial.credit.options;
 
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.addWorkDays;
 import static com.opengamma.analytics.financial.credit.options.CDSIndexPrvider.CDX_NA_HY_20140213_PRICES;
 import static com.opengamma.analytics.financial.credit.options.CDSIndexPrvider.CDX_NA_HY_20140213_RECOVERY_RATES;
 import static com.opengamma.analytics.financial.credit.options.CDSIndexPrvider.CDX_NA_HY_21_COUPON;
@@ -13,7 +14,6 @@ import static com.opengamma.analytics.financial.credit.options.CDSIndexPrvider.C
 import static com.opengamma.analytics.financial.credit.options.CDSIndexPrvider.INDEX_TENORS;
 import static com.opengamma.analytics.financial.credit.options.CDSIndexPrvider.getCDX_NA_HY_20140213_CreditCurves;
 import static com.opengamma.analytics.financial.credit.options.YieldCurveProvider.ISDA_USD_20140213;
-import static com.opengamma.financial.convention.businessday.BusinessDayDateUtils.addWorkDays;
 import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.LocalDate;

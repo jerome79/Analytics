@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
@@ -38,7 +39,6 @@ import com.opengamma.analytics.financial.interestrate.swap.method.SwapFixedCoupo
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.util.CompareUtils;
-import com.opengamma.financial.convention.daycount.DayCount;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**

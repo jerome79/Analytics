@@ -3,7 +3,7 @@ package com.opengamma.analytics.financial.datasets;
 
 import java.time.LocalDate;
 
-import com.opengamma.financial.convention.calendar.MondayToFridayCalendar;
+import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 
 public class CalendarUSD extends MondayToFridayCalendar {
 

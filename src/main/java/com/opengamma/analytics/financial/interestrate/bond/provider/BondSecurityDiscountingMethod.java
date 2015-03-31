@@ -5,19 +5,21 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.provider;
 
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.AUSTRALIA_EX_DIVIDEND;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.FRANCE_COMPOUND_METHOD;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.GERMAN_BOND;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.ITALY_TREASURY_BONDS;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.MEXICAN_BONOS;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.UK_BUMP_DMO_METHOD;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.US_STREET;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.AUSTRALIA_EX_DIVIDEND;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.FRANCE_COMPOUND_METHOD;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.GERMAN_BOND;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.ITALY_TREASURY_BONDS;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.MEXICAN_BONOS;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.UK_BUMP_DMO_METHOD;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.US_STREET;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
+import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondSecurity;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -37,8 +39,6 @@ import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
 import com.opengamma.analytics.util.amount.StringAmount;
-import com.opengamma.financial.convention.yield.SimpleYieldConvention;
-import com.opengamma.financial.convention.yield.YieldConvention;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;

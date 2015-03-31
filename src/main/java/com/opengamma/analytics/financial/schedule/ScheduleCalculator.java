@@ -15,22 +15,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.FollowingBusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.PrecedingBusinessDayConvention;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.frequency.Frequency;
+import com.opengamma.analytics.convention.frequency.PeriodFrequency;
+import com.opengamma.analytics.convention.frequency.SimpleFrequency;
+import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
+import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TenorUtils;
-import com.opengamma.financial.convention.StubType;
-import com.opengamma.financial.convention.businessday.BusinessDayConvention;
-import com.opengamma.financial.convention.businessday.FollowingBusinessDayConvention;
-import com.opengamma.financial.convention.businessday.PrecedingBusinessDayConvention;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.daycount.DayCount;
-import com.opengamma.financial.convention.frequency.Frequency;
-import com.opengamma.financial.convention.frequency.PeriodFrequency;
-import com.opengamma.financial.convention.frequency.SimpleFrequency;
-import com.opengamma.financial.convention.rolldate.EndOfMonthRollDateAdjuster;
-import com.opengamma.financial.convention.rolldate.RollDateAdjuster;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

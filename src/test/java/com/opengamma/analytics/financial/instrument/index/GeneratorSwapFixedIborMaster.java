@@ -9,9 +9,9 @@ import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.calendar.CalendarNoHoliday;
-import com.opengamma.financial.convention.daycount.DayCounts;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 
 /**
  * A list of swap generators that can be used in the tests.

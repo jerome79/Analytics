@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.util.time.ComparableTenor.BusinessDayTenor;
-import com.opengamma.financial.convention.calendar.Calendar;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.collect.ArgChecker;
 

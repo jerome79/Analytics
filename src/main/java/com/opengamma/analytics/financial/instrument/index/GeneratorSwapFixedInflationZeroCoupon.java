@@ -7,10 +7,10 @@ package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedInflationZeroCouponDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.financial.convention.businessday.BusinessDayConvention;
-import com.opengamma.financial.convention.calendar.Calendar;
 import com.opengamma.strata.collect.ArgChecker;
 /**
  * Class with the description of swap inflation zero coupon characteristics.

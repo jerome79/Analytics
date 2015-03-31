@@ -16,27 +16,27 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.businessday.FollowingBusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.ModifiedFollowingBusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.PrecedingBusinessDayConvention;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
+import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.analytics.convention.daycount.ThirtyEThreeSixty;
+import com.opengamma.analytics.convention.frequency.Frequency;
+import com.opengamma.analytics.convention.frequency.PeriodFrequency;
+import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
+import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.index.generator.EURDeposit;
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.financial.convention.StubType;
-import com.opengamma.financial.convention.businessday.BusinessDayConvention;
-import com.opengamma.financial.convention.businessday.BusinessDayConventions;
-import com.opengamma.financial.convention.businessday.FollowingBusinessDayConvention;
-import com.opengamma.financial.convention.businessday.ModifiedFollowingBusinessDayConvention;
-import com.opengamma.financial.convention.businessday.PrecedingBusinessDayConvention;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.calendar.MondayToFridayCalendar;
-import com.opengamma.financial.convention.daycount.DayCount;
-import com.opengamma.financial.convention.daycount.DayCounts;
-import com.opengamma.financial.convention.daycount.ThirtyEThreeSixty;
-import com.opengamma.financial.convention.frequency.Frequency;
-import com.opengamma.financial.convention.frequency.PeriodFrequency;
-import com.opengamma.financial.convention.rolldate.EndOfMonthRollDateAdjuster;
-import com.opengamma.financial.convention.rolldate.RollDateAdjuster;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

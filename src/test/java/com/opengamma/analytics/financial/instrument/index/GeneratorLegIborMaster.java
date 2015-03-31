@@ -9,9 +9,9 @@ import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opengamma.financial.convention.StubType;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.calendar.CalendarNoHoliday;
+import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

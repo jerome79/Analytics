@@ -13,6 +13,9 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
+import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveDiscountFactorInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
@@ -51,9 +54,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.rolldate.QuarterlyIMMRollDateAdjuster;
-import com.opengamma.financial.convention.rolldate.RollDateAdjusterUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.collect.tuple.Pair;

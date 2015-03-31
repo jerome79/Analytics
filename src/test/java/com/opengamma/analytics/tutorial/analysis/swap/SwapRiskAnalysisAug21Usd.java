@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.model.interestrate.curve.DiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
@@ -17,7 +18,6 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.tutorial.datasets.UsdDatasetAug21;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.financial.convention.daycount.DayCounts;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**

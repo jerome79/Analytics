@@ -5,18 +5,18 @@
  */
 package com.opengamma.analytics.financial.instrument.varianceswap;
 
-import static com.opengamma.financial.convention.businessday.BusinessDayDateUtils.getDaysBetween;
-import static com.opengamma.financial.convention.businessday.BusinessDayDateUtils.getWorkingDaysInclusive;
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.getDaysBetween;
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.getWorkingDaysInclusive;
 
 import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.financial.convention.calendar.Calendar;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;

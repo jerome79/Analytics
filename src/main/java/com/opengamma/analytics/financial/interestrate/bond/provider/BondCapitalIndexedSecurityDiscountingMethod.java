@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.provider;
 
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.INDEX_LINKED_FLOAT;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.UK_IL_BOND;
-import static com.opengamma.financial.convention.yield.SimpleYieldConvention.US_IL_REAL;
-
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.INDEX_LINKED_FLOAT;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.UK_IL_BOND;
+import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.US_IL_REAL;
 import org.apache.commons.lang.Validate;
 
+import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationGearing;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondCapitalIndexedSecurity;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponInterpolationGearing;
@@ -31,7 +31,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
-import com.opengamma.financial.convention.yield.YieldConvention;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;

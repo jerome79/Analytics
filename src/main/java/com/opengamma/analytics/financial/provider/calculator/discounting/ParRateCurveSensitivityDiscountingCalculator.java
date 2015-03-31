@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.financial.provider.calculator.discounting;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIbor;
 import com.opengamma.analytics.financial.interestrate.payments.provider.CouponIborDiscountingMethod;
@@ -13,7 +14,6 @@ import com.opengamma.analytics.financial.interestrate.swap.provider.SwapFixedCou
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
-import com.opengamma.financial.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
 
 /**

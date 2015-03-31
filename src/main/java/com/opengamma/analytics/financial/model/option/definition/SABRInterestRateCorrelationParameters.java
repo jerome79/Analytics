@@ -7,9 +7,9 @@ package com.opengamma.analytics.financial.model.option.definition;
 
 import org.apache.commons.lang.ObjectUtils;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
-import com.opengamma.financial.convention.daycount.DayCount;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

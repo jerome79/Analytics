@@ -5,8 +5,8 @@
  */
 package com.opengamma.analytics.financial.instrument.annuity;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
-import com.opengamma.financial.convention.calendar.Calendar;
 
 /**
  * A wrapper class for a AnnuityDefinition containing CouponDefinition.

@@ -5,9 +5,9 @@
  */
 package com.opengamma.analytics.financial.credit.isdastandardmodel.demo;
 
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.addWorkDays;
 import static com.opengamma.analytics.financial.credit.isdastandardmodel.IMMDateLogic.getNextIMMDate;
 import static com.opengamma.analytics.financial.credit.isdastandardmodel.IMMDateLogic.getPrevIMMDate;
-import static com.opengamma.financial.convention.businessday.BusinessDayDateUtils.addWorkDays;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.AnalyticCDSPricer;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.AnalyticSpreadSensitivityCalculator;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.CDSAnalytic;
@@ -37,7 +38,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.QuotedSpread;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.StubType;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.SuperFastCreditCurveBuilder;
 import com.opengamma.analytics.financial.credit.options.YieldCurveProvider;
-import com.opengamma.financial.convention.daycount.DayCount;
 
 
 /**

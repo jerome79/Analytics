@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
+import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
-import com.opengamma.financial.convention.yield.YieldConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

@@ -7,9 +7,9 @@ package com.opengamma.analytics.financial.volatilityswap;
 
 import org.apache.commons.lang.ObjectUtils;
 
+import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
-import com.opengamma.financial.convention.frequency.PeriodFrequency;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 

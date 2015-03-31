@@ -8,7 +8,7 @@ package com.opengamma.analytics.financial.datasets;
 
 import java.time.LocalDate;
 
-import com.opengamma.financial.convention.calendar.ExceptionCalendar;
+import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
 
 /**
  * Calendar with the dates of the ECB meeting decisions (settlement dates for the change of rate).

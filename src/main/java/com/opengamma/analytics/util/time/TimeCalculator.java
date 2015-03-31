@@ -11,10 +11,10 @@ import java.time.ZonedDateTime;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountFactory;
 import com.opengamma.analytics.env.AnalyticsEnvironment;
-import com.opengamma.financial.convention.calendar.Calendar;
-import com.opengamma.financial.convention.daycount.DayCount;
-import com.opengamma.financial.convention.daycount.DayCountFactory;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
