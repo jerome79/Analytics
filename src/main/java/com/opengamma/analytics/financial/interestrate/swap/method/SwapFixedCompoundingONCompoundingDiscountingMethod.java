@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.interestrate.payments.method.CouponONCo
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
@@ -190,7 +190,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
    * @param discountingCurve The discount curve.
    * @return The physical annuity.
    */
-  public double presentValueBasisPoint(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount, final Calendar calendar,
+  public double presentValueBasisPoint(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount, final HolidayCalendar calendar,
       final YieldAndDiscountCurve discountingCurve) {
     ArgChecker.notNull(fixedCouponSwap, "swap");
     ArgChecker.notNull(dayCount, "day count");
@@ -216,7 +216,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
    * @param curves The yield curve bundle (containing the appropriate discounting curve).
    * @return The physical annuity.
    */
-  public double presentValueBasisPoint(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount, final Calendar calendar,
+  public double presentValueBasisPoint(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount, final HolidayCalendar calendar,
       final YieldCurveBundle curves) {
     final Annuity<CouponFixedAccruedCompounding> annuityFixed = fixedCouponSwap.getFirstLeg();
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(annuityFixed.getNthPayment(0).getFundingCurveName());
@@ -265,7 +265,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
    * @return The sensitivity.
    */
   public List<DoublesPair> presentValueBasisPointCurveSensitivity(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount,
-      final Calendar calendar, final YieldAndDiscountCurve discountingCurve) {
+      final HolidayCalendar calendar, final YieldAndDiscountCurve discountingCurve) {
     final Annuity<CouponFixedAccruedCompounding> annuityFixed = fixedCouponSwap.getFirstLeg();
     double time;
     final List<DoublesPair> list = new ArrayList<>();
@@ -310,7 +310,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
    * @return The sensitivity.
    */
   public InterestRateCurveSensitivity presentValueBasisPointCurveSensitivity(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount,
-      final Calendar calendar, final YieldCurveBundle curves) {
+      final HolidayCalendar calendar, final YieldCurveBundle curves) {
     final Map<String, List<DoublesPair>> result = new HashMap<>();
     final Annuity<CouponFixedAccruedCompounding> annuityFixed = fixedCouponSwap.getFirstLeg();
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(annuityFixed.getNthPayment(0).getFundingCurveName());
@@ -366,7 +366,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
    * @return The coupon equivalent.
    */
   public double couponEquivalent(final Swap<CouponFixedAccruedCompounding, CouponONCompounded> fixedCouponSwap, final DayCount dayCount,
-      final Calendar calendar, final YieldCurveBundle curves) {
+      final HolidayCalendar calendar, final YieldCurveBundle curves) {
     final double pvbp = presentValueBasisPoint(fixedCouponSwap, dayCount, calendar, curves);
     return couponEquivalent(fixedCouponSwap, pvbp, curves);
   }

@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborSpreadDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -60,6 +59,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -74,7 +74,7 @@ public class SwapCalculatorTest {
   private static final IborIndex USDLIBOR3M = INDEX_LIST[2];
   private static final IborIndex USDLIBOR6M = INDEX_LIST[3];
   private static final Currency USD = USDLIBOR3M.getCurrency();
-  private static final Calendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
 
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_MASTER = GeneratorSwapFixedIborMaster.getInstance();
 

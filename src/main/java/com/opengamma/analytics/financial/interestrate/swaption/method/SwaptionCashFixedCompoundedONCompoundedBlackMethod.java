@@ -78,7 +78,7 @@ public final class SwaptionCashFixedCompoundedONCompoundedBlackMethod implements
     //    final Annuity<? extends Payment> annuityFixed = swaption.getUnderlyingSwap().getFirstLeg();
     //    final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = curveBlack.getBlackParameters().getGeneratorSwap();
     //    final GeneratorSwapFixedCompoundedONCompounded fixedCompoundedON = (GeneratorSwapFixedCompoundedONCompounded) generatorSwap;
-    //    final Calendar calendar = fixedCompoundedON.getOvernightCalendar();
+    //    final HolidayCalendar calendar = fixedCompoundedON.getOvernightCalendar();
     //    final double tenor = swaption.getMaturityTime();
     //    final double forward = swaption.getUnderlyingSwap().accept(PRC, curveBlack);
     //    //    final double forward = METHOD_SWAP.presentValueBasisPoint(swaption.getUnderlyingSwap(), fixedCompoundedON.getFixedLegDayCount(), calendar, curveBlack);
@@ -115,7 +115,7 @@ public final class SwaptionCashFixedCompoundedONCompoundedBlackMethod implements
     //    final double tenor = swaption.getMaturityTime();
     //    final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = curveBlack.getBlackParameters().getGeneratorSwap();
     //    final GeneratorSwapFixedCompoundedONCompounded fixedCompoundedON = (GeneratorSwapFixedCompoundedONCompounded) generatorSwap;
-    //    final Calendar calendar = fixedCompoundedON.getOvernightCalendar();
+    //    final HolidayCalendar calendar = fixedCompoundedON.getOvernightCalendar();
     //    final DayCount dayCount = fixedCompoundedON.getFixedLegDayCount();
     //    final double forward = METHOD_SWAP.presentValueBasisPoint(swaption.getUnderlyingSwap(), dayCount, calendar, curveBlack);
     //    final Swap<CouponFixedAccruedCompounding, CouponONCompounded> swap = swaption.getUnderlyingSwap();
@@ -161,7 +161,7 @@ public final class SwaptionCashFixedCompoundedONCompoundedBlackMethod implements
     //    final Annuity<? extends Payment> annuityFixed = swaption.getUnderlyingSwap().getFirstLeg();
     //    final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = curveBlack.getBlackParameters().getGeneratorSwap();
     //    final GeneratorSwapFixedCompoundedONCompounded fixedCompoundedON = (GeneratorSwapFixedCompoundedONCompounded) generatorSwap;
-    //    final Calendar calendar = fixedCompoundedON.getOvernightCalendar();
+    //    final HolidayCalendar calendar = fixedCompoundedON.getOvernightCalendar();
     //    final double forward = METHOD_SWAP.presentValueBasisPoint(swaption.getUnderlyingSwap(), fixedCompoundedON.getFixedLegDayCount(), calendar, curveBlack);
     //    final double pvbp = METHOD_SWAP.getAnnuityCash(swaption.getUnderlyingSwap(), forward);
     //    final double discountFactorSettle = curveBlack.getCurve(annuityFixed.getNthPayment(0).getFundingCurveName()).getDiscountFactor(swaption.getSettlementTime());

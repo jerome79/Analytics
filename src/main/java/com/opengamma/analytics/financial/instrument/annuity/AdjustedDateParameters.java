@@ -6,7 +6,7 @@
 package com.opengamma.analytics.financial.instrument.annuity;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Parameters required to adjust dates.
@@ -16,7 +16,7 @@ public class AdjustedDateParameters {
   /**
    * The calendar used to adjust dates.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   
   /**
    * The business day convention used to adjust dates.
@@ -24,7 +24,7 @@ public class AdjustedDateParameters {
   private final BusinessDayConvention _businessDayConvention;
   
   public AdjustedDateParameters(
-      Calendar calendar,
+      HolidayCalendar calendar,
       BusinessDayConvention businessDayConvention) {
     _calendar = calendar;
     _businessDayConvention = businessDayConvention;
@@ -34,7 +34,7 @@ public class AdjustedDateParameters {
    * Returns the calendar used to adjust dates.
    * @return the calendar used to adjust dates.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
   

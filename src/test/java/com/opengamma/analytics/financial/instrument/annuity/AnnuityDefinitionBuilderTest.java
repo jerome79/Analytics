@@ -16,8 +16,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.ActualActualICMA;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadSimpli
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -52,7 +52,7 @@ public class AnnuityDefinitionBuilderTest {
   private static final IborIndex USDLIBOR3M = IBOR_MASTER.getIndex("USDLIBOR3M");
   private static final IborIndex USDLIBOR6M = IBOR_MASTER.getIndex("USDLIBOR6M");
   private static final IndexON FED_FUND = IndexONMaster.getInstance().getIndex("FED FUND");
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final DayCount ACT_365 = DayCounts.ACT_365;
   private static final ActualActualICMA ACT_ACT_ICMA = (ActualActualICMA) DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention PRECEDING = BusinessDayConventions.PRECEDING;

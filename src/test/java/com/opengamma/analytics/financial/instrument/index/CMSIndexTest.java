@@ -14,11 +14,11 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -29,7 +29,7 @@ public class CMSIndexTest {
   //Libor3m
   private static final Period IBOR_TENOR = Period.ofMonths(3);
   private static final int SETTLEMENT_DAYS = 2;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT_IBOR = DayCounts.ACT_360;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final boolean IS_EOM = true;

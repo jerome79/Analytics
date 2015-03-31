@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.NewtonRaphsonSingleRootFinder;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -25,7 +25,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ISDACompliantYieldCurveBuild {
   private static final DayCount ACT_365 = DayCounts.ACT_365;
-  private static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
 
   private static final NewtonRaphsonSingleRootFinder ROOTFINDER = new NewtonRaphsonSingleRootFinder(); // new BrentSingleRootFinder(); // TODO get gradient and use Newton
   private static final BracketRoot BRACKETER = new BracketRoot();
@@ -127,10 +127,10 @@ public class ISDACompliantYieldCurveBuild {
    * @param swapInterval The payment interval for the swaps
    * @param curveDCC The day-count-convention used for the curve 
    * @param convention Specification for the handling of  non-business days
-   * @param calendar Calendar defining what is a non-business day
+   * @param calendar HolidayCalendar defining what is a non-business day
    */
   public ISDACompliantYieldCurveBuild(final LocalDate cdsTradeDate, final LocalDate spotDate, final ISDAInstrumentTypes[] instrumentTypes, final Period[] tenors, final DayCount moneyMarketDCC,
-      final DayCount swapDCC, final Period swapInterval, final DayCount curveDCC, final BusinessDayConvention convention, final Calendar calendar) {
+      final DayCount swapDCC, final Period swapInterval, final DayCount curveDCC, final BusinessDayConvention convention, final HolidayCalendar calendar) {
     ArgChecker.notNull(spotDate, "spotDate");
     ArgChecker.noNulls(instrumentTypes, "instrumentTypes");
     ArgChecker.noNulls(tenors, "tenors");
@@ -295,7 +295,7 @@ public class ISDACompliantYieldCurveBuild {
     private final double[] _yearFraction;
 
     public BasicFixedLeg(final LocalDate spotDate, final LocalDate mat, final Period swapInterval, final DayCount swapDCC, final DayCount curveDCC, final BusinessDayConvention convention,
-        final Calendar calendar) {
+        final HolidayCalendar calendar) {
       ArgChecker.isFalse(swapInterval.getDays() > 0, "swap interval must be in months or years");
 
       final List<LocalDate> list = new ArrayList<>();

@@ -13,8 +13,6 @@ import java.time.ZonedDateTime;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborAverageIndexDefinition;
@@ -31,6 +29,8 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
   /**
@@ -39,7 +39,7 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
   @Test
   public class CouponIborAveragingDiscountingMethodTest {
 
-    private static final Calendar EUR_CALENDAR = new MondayToFridayCalendar("TARGET");
+    private static final HolidayCalendar EUR_CALENDAR = HolidayCalendars.SAT_SUN;
     private static final IborIndex[] IBOR_INDICES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
     private static final IndexIborMaster MASTER_IBOR_INDEX = IndexIborMaster.getInstance();
     

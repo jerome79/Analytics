@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
@@ -47,6 +46,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 public class StandardDataSetsMulticurveUSDGBP {
@@ -57,8 +57,8 @@ public class StandardDataSetsMulticurveUSDGBP {
  * Potential curve config name: USD_DSCON-OISFFS_L3M-FRAIRS_L1M-FRABSxL3M_L6M-FRABSL3Mx__GBP_DSC-FXxUSD-XCCYxL3MUSDL3M_L3M-FRAIRS
  */
 
-  private static final Calendar NYC = new CalendarUSD("NYC");
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
   private static final double FX_GBPUSD = 1.65785;
   private static final FxMatrix FX_MATRIX_SPOT = FxMatrix.builder().addRate(GBP, USD, FX_GBPUSD).build();
 

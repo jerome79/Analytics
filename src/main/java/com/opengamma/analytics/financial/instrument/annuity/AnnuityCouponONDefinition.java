@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapIborON;
@@ -22,6 +21,7 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -40,7 +40,7 @@ public class AnnuityCouponONDefinition extends AnnuityCouponDefinition<CouponOND
    * @param index The index, not null
    * @param calendar The holiday calendar
    */
-  public AnnuityCouponONDefinition(final CouponONDefinition[] payments, final IndexON index, final Calendar calendar) {
+  public AnnuityCouponONDefinition(final CouponONDefinition[] payments, final IndexON index, final HolidayCalendar calendar) {
     super(payments, calendar);
     ArgChecker.notNull(index, "index");
     _index = index;
@@ -135,7 +135,7 @@ public class AnnuityCouponONDefinition extends AnnuityCouponDefinition<CouponOND
    * @return The annuity.
    */
   public static AnnuityCouponONDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final boolean isPayer,
-      final IndexON indexON, final int paymentLag, final Calendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM) {
+      final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(endFixingPeriodDate, "End fixing period date");
     ArgChecker.notNull(indexON, "overnight index");

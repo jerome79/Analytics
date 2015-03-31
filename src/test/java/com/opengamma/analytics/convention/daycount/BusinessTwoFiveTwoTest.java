@@ -13,11 +13,9 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.util.time.DateUtils;
-
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test.
@@ -32,8 +30,8 @@ public class BusinessTwoFiveTwoTest {
   private static final LocalDate D6 = LocalDate.of(2010, 7, 1);
   private static final double COUPON = 0.01;
   private static final int PAYMENTS = 4;
-  private static final Calendar WEEKEND_CALENDAR = new MondayToFridayCalendar("Weekend");
-  private static final Calendar HOLIDAY_CALENDAR = new MyCalendar("Holiday");
+  private static final HolidayCalendar WEEKEND_CALENDAR = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar HOLIDAY_CALENDAR = new MyCalendar("Holiday");
   private static final BusinessTwoFiveTwo DC = new BusinessTwoFiveTwo();
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -138,25 +136,30 @@ public class BusinessTwoFiveTwoTest {
     }
   }
 
-  private static class MyCalendar extends ExceptionCalendar {
-    private static final long serialVersionUID = 1L;
+  private static class MyCalendar implements HolidayCalendar {
     private static final LocalDate[] HOLIDAYS = new LocalDate[] {LocalDate.of(2012, 7, 19), LocalDate.of(2012, 7, 26) };
+    private final String name;
 
     protected MyCalendar(final String name) {
-      super(name);
+      this.name = name;
     }
 
     @Override
-    protected boolean isNormallyWorkingDay(final LocalDate date) {
+    public boolean isHoliday(LocalDate date) {
       if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-        return false;
+        return true;
       }
       for (final LocalDate holiday : HOLIDAYS) {
         if (date.equals(holiday)) {
-          return false;
+          return true;
         }
       }
-      return true;
+      return false;
+    }
+
+    @Override
+    public String getName() {
+      return name;
     }
 
   }

@@ -14,7 +14,6 @@ import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
@@ -26,6 +25,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -60,7 +60,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
   /**
    * The holiday calendar associated with the ibor fixing.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor of a FRA from contract details and the Ibor index. The payment currency is the index currency.
@@ -78,7 +78,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    */
   public ForwardRateAgreementDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate,
       final ZonedDateTime accrualEndDate, final double accrualFactor, final double notional, final ZonedDateTime fixingDate, final IborIndex index, final double rate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, accrualFactor, notional, fixingDate);
     ArgChecker.notNull(index, "index");
     ArgChecker.isTrue(currency.equals(index.getCurrency()), "index currency different from payment currency");
@@ -110,7 +110,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
   public ForwardRateAgreementDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate,
       final ZonedDateTime accrualEndDate, final double accrualFactor, final double notional, final ZonedDateTime fixingDate,
       final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final IborIndex index, final double rate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, accrualFactor, notional, fixingDate);
     ArgChecker.notNull(index, "index");
     ArgChecker.isTrue(currency.equals(index.getCurrency()), "index currency different from payment currency");
@@ -132,7 +132,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    * @return The FRA.
    */
   public static ForwardRateAgreementDefinition from(final CouponDefinition coupon, final ZonedDateTime fixingDate, final IborIndex index, final double rate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(coupon, "coupon");
     ArgChecker.notNull(fixingDate, "fixing date");
     ArgChecker.notNull(index, "index");
@@ -151,7 +151,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    * @return The FRA.
    */
   public static ForwardRateAgreementDefinition fromTrade(final ZonedDateTime tradeDate, final Period startPeriod, final double notional, final IborIndex index,
-      final double rate, final Calendar calendar) {
+      final double rate, final HolidayCalendar calendar) {
     ArgChecker.notNull(tradeDate, "trade date");
     ArgChecker.notNull(startPeriod, "start period");
     ArgChecker.notNull(index, "index");
@@ -177,7 +177,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    * @return The FRA.
    */
   public static ForwardRateAgreementDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double notional,
-      final IborIndex index, final double rate, final Calendar calendar) {
+      final IborIndex index, final double rate, final HolidayCalendar calendar) {
     ArgChecker.notNull(accrualStartDate, "accrual start date");
     ArgChecker.notNull(accrualEndDate, "accrual end date");
     ArgChecker.notNull(index, "index");
@@ -200,7 +200,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    * @return The FRA.
    */
   public static ForwardRateAgreementDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double notional,
-      final IborIndex index, final double rate, final Calendar fixingCalendar, final Calendar paymentCalendar) {
+      final IborIndex index, final double rate, final HolidayCalendar fixingCalendar, final HolidayCalendar paymentCalendar) {
     ArgChecker.notNull(accrualStartDate, "accrual start date");
     ArgChecker.notNull(accrualEndDate, "accrual end date");
     ArgChecker.notNull(index, "index");
@@ -226,7 +226,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    */
   public static ForwardRateAgreementDefinition from(final ZonedDateTime accrualStartDate, 
       final ZonedDateTime accrualEndDate, final double notional, final ZonedDateTime fixingDate, final IborIndex index, 
-      final double rate, final Calendar fixingCalendar, final Calendar paymentCalendar) {
+      final double rate, final HolidayCalendar fixingCalendar, final HolidayCalendar paymentCalendar) {
     ArgChecker.notNull(accrualStartDate, "accrual start date");
     ArgChecker.notNull(accrualEndDate, "accrual end date");
     ArgChecker.notNull(fixingDate, "fixing date");
@@ -311,7 +311,7 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
     ArgChecker.notNull(date, "date");
     ArgChecker.isTrue(!date.isAfter(getPaymentDate()), "date is after payment date");
     final ZonedDateTime zonedDate = date.toLocalDate().atStartOfDay(ZoneOffset.UTC);
-    double paymentTime = TimeCalculator.getTimeBetween(zonedDate, getPaymentDate()); // Calendar????
+    double paymentTime = TimeCalculator.getTimeBetween(zonedDate, getPaymentDate()); // HolidayCalendar????
     if (date.isAfter(getFixingDate()) || (date.equals(getFixingDate()))) {
       Double fixedRate = indexFixingTimeSeries.getValue(getFixingDate());
       //TODO remove me when times are sorted out in the swap definitions or we work out how to deal with this another way

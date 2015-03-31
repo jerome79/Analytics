@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCapFloorInflationYearOnYearMonthlyDefinition;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
@@ -37,6 +35,8 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -46,7 +46,7 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 public class CapFloorYearOnYearCalibrationObjectiveTest {
 
   //Cap/floor description
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final boolean IS_EOM = true;
   private static final Currency CUR = Currency.EUR;

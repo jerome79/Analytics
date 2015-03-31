@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.datasets.CalendarECBSettlements;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -20,7 +21,7 @@ import com.opengamma.analytics.financial.datasets.CalendarECBSettlements;
 @Test
 public class CalendarBusinessDateUtilsTest {
 
-  private static final Calendar ECB = new CalendarECBSettlements();
+  private static final HolidayCalendar ECB = new CalendarECBSettlements();
 
   @Test
   public void nextGoodBusinessDate() {

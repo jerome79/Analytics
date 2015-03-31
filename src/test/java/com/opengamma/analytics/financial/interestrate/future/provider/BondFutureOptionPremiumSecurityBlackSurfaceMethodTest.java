@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -52,7 +52,7 @@ public class BondFutureOptionPremiumSecurityBlackSurfaceMethodTest {
 
   private static final InterpolatedDoublesSurface BLACK_PARAMETERS = BlackDataSets.createBlackSurfaceExpiryTenor();
 
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final int SETTLEMENT_DAYS = 1;
   private static final int NB_BOND = 7;
   private static final double[] CONVERSION_FACTOR = new double[] {.8317, .8565, .8493, .8516, .8540, .8417, .8292};

@@ -17,7 +17,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -29,6 +28,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -76,7 +76,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
    */
   public CouponONArithmeticAverageSpreadDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentYearFraction, final double notional, final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final double spread,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentYearFraction, notional);
     ArgChecker.notNull(index, "CouponOISDefinition: index");
     ArgChecker.notNull(fixingPeriodStartDate, "CouponOISDefinition: fixingPeriodStartDate");
@@ -116,7 +116,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageSpreadDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final Period tenor, final double notional, final int paymentLag,
-      final BusinessDayConvention businessDayConvention, final boolean isEOM, final double spread, final Calendar calendar) {
+      final BusinessDayConvention businessDayConvention, final boolean isEOM, final double spread, final HolidayCalendar calendar) {
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, tenor, businessDayConvention, calendar, isEOM);
     return from(index, fixingPeriodStartDate, fixingPeriodEndDate, notional, paymentLag, spread, calendar);
   }
@@ -134,7 +134,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageSpreadDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
-      final int paymentLag, final double spread, final Calendar calendar) {
+      final int paymentLag, final double spread, final HolidayCalendar calendar) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
     final double paymentYearFraction = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
     return new CouponONArithmeticAverageSpreadDefinition(index.getCurrency(), paymentDate, fixingPeriodStartDate, fixingPeriodEndDate, paymentYearFraction, notional, index, fixingPeriodStartDate,

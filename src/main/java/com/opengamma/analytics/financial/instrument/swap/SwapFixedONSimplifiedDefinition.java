@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponONSimplifiedDefinition;
@@ -22,6 +21,7 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Class describing a fixed for OIS swap. Both legs are in the same currency.
@@ -113,7 +113,7 @@ public class SwapFixedONSimplifiedDefinition extends SwapDefinition {
    */
   public static SwapFixedONSimplifiedDefinition from(final ZonedDateTime settlementDate, final Period tenorAnnuity, final Period tenorCoupon, final double notional, final IndexON index,
       final double fixedRate, final boolean isPayer, final int settlementDays, final BusinessDayConvention businessDayConvention, final DayCount dayCount, final boolean isEOM,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     final GeneratorSwapFixedON generator = new GeneratorSwapFixedON("OIS Generator", index, tenorCoupon, dayCount, businessDayConvention, isEOM, settlementDays,
         calendar);
     final AnnuityCouponONSimplifiedDefinition oisLeg = AnnuityCouponONSimplifiedDefinition.from(settlementDate, tenorAnnuity, notional, generator, !isPayer);
@@ -141,7 +141,7 @@ public class SwapFixedONSimplifiedDefinition extends SwapDefinition {
    */
   public static SwapFixedONSimplifiedDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period frequency, final double notional, final IndexON index,
       final double fixedRate, final boolean isPayer, final int settlementDays, final BusinessDayConvention businessDayConvention, final DayCount dayCount, final boolean isEOM,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     final GeneratorSwapFixedON generator = new GeneratorSwapFixedON("OIS Generator", index, frequency, dayCount, businessDayConvention, isEOM, settlementDays, calendar);
     final AnnuityCouponONSimplifiedDefinition oisLeg = AnnuityCouponONSimplifiedDefinition.from(settlementDate, maturityDate, notional, generator, !isPayer);
     final double sign = isPayer ? -1.0 : 1.0;
@@ -150,7 +150,7 @@ public class SwapFixedONSimplifiedDefinition extends SwapDefinition {
   }
 
   private static SwapFixedONSimplifiedDefinition from(final AnnuityCouponONSimplifiedDefinition oisLeg, final double notionalSigned, final double fixedRate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     final CouponFixedDefinition[] cpnFixed = new CouponFixedDefinition[oisLeg.getNumberOfPayments()];
     for (int loopcpn = 0; loopcpn < oisLeg.getNumberOfPayments(); loopcpn++) {
       cpnFixed[loopcpn] = new CouponFixedDefinition(oisLeg.getCurrency(), oisLeg.getNthPayment(loopcpn).getPaymentDate(), oisLeg.getNthPayment(loopcpn).getAccrualStartDate(), oisLeg.getNthPayment(

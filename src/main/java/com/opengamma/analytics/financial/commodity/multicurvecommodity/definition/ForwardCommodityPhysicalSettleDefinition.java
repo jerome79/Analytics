@@ -7,9 +7,9 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -37,7 +37,7 @@ public class ForwardCommodityPhysicalSettleDefinition extends CouponCommodityPhy
    * @param lastDeliveryDate The last delivery date, not null for physical contract
    */
   public ForwardCommodityPhysicalSettleDefinition(final double rate, final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional,
-      final ZonedDateTime settlementDate, final Calendar calendar, final ZonedDateTime noticeFirstDate, final ZonedDateTime noticeLastDate, final ZonedDateTime firstDeliveryDate,
+      final ZonedDateTime settlementDate, final HolidayCalendar calendar, final ZonedDateTime noticeFirstDate, final ZonedDateTime noticeLastDate, final ZonedDateTime firstDeliveryDate,
       final ZonedDateTime lastDeliveryDate) {
     super(paymentYearFraction, underlying, unitName, notional, settlementDate, calendar, noticeFirstDate, noticeLastDate, firstDeliveryDate, lastDeliveryDate);
     _rate = rate;

@@ -8,12 +8,12 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -86,7 +86,7 @@ public abstract class CommodityFutureSecurityDefinition<T extends InstrumentDeri
   /**
    * The holiday calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor with all details.
@@ -105,7 +105,7 @@ public abstract class CommodityFutureSecurityDefinition<T extends InstrumentDeri
    */
   public CommodityFutureSecurityDefinition(final ZonedDateTime lastTradingDate, final CommodityUnderlying underlying, final String unitName, final double unitAmount,
       final ZonedDateTime noticeFirstDate, final ZonedDateTime noticeLastDate, final ZonedDateTime firstDeliveryDate, final ZonedDateTime lastDeliveryDate,
-      final SettlementType settlementType, final ZonedDateTime settlementDate, final String name, final Calendar calendar) {
+      final SettlementType settlementType, final ZonedDateTime settlementDate, final String name, final HolidayCalendar calendar) {
     ArgChecker.notNull(lastTradingDate, "Last trading date");
     ArgChecker.notNull(underlying, "underlying");
     ArgChecker.notNegativeOrZero(unitAmount, "unit amount");
@@ -226,7 +226,7 @@ public abstract class CommodityFutureSecurityDefinition<T extends InstrumentDeri
    * Gets the holiday calendar.
    * @return The holiday calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

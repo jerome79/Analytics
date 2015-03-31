@@ -5,9 +5,9 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -25,7 +25,7 @@ public class CouponCommodityCashSettle extends CouponCommodity {
    * @param calendar The holiday calendar, not null
    */
   public CouponCommodityCashSettle(final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional, final double settlementTime,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(paymentYearFraction, underlying, unitName, notional, settlementTime, calendar);
 
   }

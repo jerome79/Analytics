@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedONMaster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -45,6 +44,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Methods related to different ON Arithmetic Average coupons (standard, spread, simplified).
@@ -56,7 +56,7 @@ public class CouponONArithmeticAverageDiscountingMethodTest {
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IndexON FEDFUND = MulticurveProviderDiscountDataSets.getIndexesON()[0];
   private static final Currency USD = FEDFUND.getCurrency();
-  private static final Calendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
 
   private static final GeneratorSwapFixedON GENERATOR_SWAP_EONIA = 
       GeneratorSwapFixedONMaster.getInstance().getGenerator("USD1YFEDFUND", NYC);

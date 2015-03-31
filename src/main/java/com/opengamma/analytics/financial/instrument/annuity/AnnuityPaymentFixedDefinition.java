@@ -9,10 +9,10 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.payment.PaymentFixedDefinition;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * A wrapper class for a AnnuityDefinition containing PaymentFixedDefinition.
@@ -24,7 +24,7 @@ public class AnnuityPaymentFixedDefinition extends AnnuityDefinition<PaymentFixe
    * @param payments The fixed coupons.
    * @param calendar The calendar
    */
-  public AnnuityPaymentFixedDefinition(final PaymentFixedDefinition[] payments, final Calendar calendar) {
+  public AnnuityPaymentFixedDefinition(final PaymentFixedDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 

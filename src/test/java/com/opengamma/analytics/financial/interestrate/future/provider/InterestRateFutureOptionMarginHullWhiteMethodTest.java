@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
@@ -45,6 +44,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -57,7 +57,7 @@ public class InterestRateFutureOptionMarginHullWhiteMethodTest {
   private static final IborIndex[] INDEX_LIST = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = INDEX_LIST[0];
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final Calendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final HullWhiteOneFactorPiecewiseConstantParameters HW_PARAMETERS = HullWhiteDataSets.createHullWhiteParameters();
   private static final HullWhiteOneFactorProviderDiscount HW_MULTICURVES = new HullWhiteOneFactorProviderDiscount(MULTICURVES, HW_PARAMETERS, EUR);

@@ -15,7 +15,6 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.ShiftType;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborSpreadDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -35,6 +34,7 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -53,7 +53,7 @@ public class PV01CurveParametersCalculatorTest {
   /** The 6m USD Libor index */
   private static final IborIndex USDLIBOR6M = INDEX_LIST[3];
   /** NYC calendar */
-  private static final Calendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
   /** Generates fixed / ibor swaps */
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   /** Generates standard USD swaps */

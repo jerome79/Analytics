@@ -22,8 +22,6 @@ import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
 import com.opengamma.analytics.convention.businessday.FollowingBusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.ModifiedFollowingBusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.PrecedingBusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.daycount.ThirtyEThreeSixty;
@@ -38,6 +36,8 @@ import com.opengamma.analytics.financial.instrument.index.generator.EURDeposit;
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test.
@@ -46,13 +46,13 @@ import com.opengamma.strata.basics.currency.Currency;
 @Test
 public class ScheduleCalculatorTest {
 
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final GeneratorDeposit GENERATOR_DEPOSIT = new EURDeposit(CALENDAR);
   private static final IborIndex INDEX_EURIBOR6M = IndexIborMaster.getInstance().getIndex("EURIBOR6M");
 
-  private static final Calendar ALL = new AllCalendar();
-  private static final Calendar WEEKEND = new WeekendCalendar();
-  private static final Calendar FIRST = new FirstOfMonthCalendar();
+  private static final HolidayCalendar ALL = HolidayCalendars.NO_HOLIDAYS;
+  private static final HolidayCalendar WEEKEND = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar FIRST = new FirstOfMonthCalendar();
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2010, 1, 1);
 
   private static final Period PAYMENT_TENOR = Period.ofMonths(6);
@@ -780,12 +780,12 @@ public class ScheduleCalculatorTest {
       }
 
       @Override
-      public double getDayCountFraction(LocalDate firstDate, LocalDate secondDate, Calendar calendar) {
+      public double getDayCountFraction(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar) {
         return 0;
       }
 
       @Override
-      public double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, Calendar calendar) {
+      public double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar) {
         return 0;
       }
 
@@ -819,18 +819,19 @@ public class ScheduleCalculatorTest {
     }
   }
 
-  private static class FirstOfMonthCalendar implements Calendar {
+  //-------------------------------------------------------------------------
+  private static class FirstOfMonthCalendar implements HolidayCalendar {
 
     @Override
-    public boolean isWorkingDay(final LocalDate date) {
+    public boolean isHoliday(LocalDate date) {
       final DayOfWeek day = date.getDayOfWeek();
       if (day.equals(DayOfWeek.SATURDAY) || day.equals(DayOfWeek.SUNDAY)) {
-        return false;
+        return true;
       }
       if (date.getDayOfMonth() == 1) {
-        return false;
+        return true;
       }
-      return true;
+      return false;
     }
 
     @Override
@@ -839,33 +840,4 @@ public class ScheduleCalculatorTest {
     }
   }
 
-  private static class WeekendCalendar implements Calendar {
-
-    @Override
-    public boolean isWorkingDay(final LocalDate date) {
-      final DayOfWeek day = date.getDayOfWeek();
-      if (day.equals(DayOfWeek.SATURDAY) || day.equals(DayOfWeek.SUNDAY)) {
-        return false;
-      }
-      return true;
-    }
-
-    @Override
-    public String getName() {
-      return "";
-    }
-  }
-
-  private static class AllCalendar implements Calendar {
-
-    @Override
-    public boolean isWorkingDay(final LocalDate date) {
-      return true;
-    }
-
-    @Override
-    public String getName() {
-      return "";
-    }
-  }
 }

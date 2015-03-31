@@ -15,10 +15,10 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -28,7 +28,7 @@ import com.opengamma.analytics.convention.daycount.DayCounts;
 public class InterestRateSensitivityTest {
 
   private static final ISDACompliantCreditCurveBuilder BUILDER = new FastCreditCurveBuilder();
-  private static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount ACT_365 = DayCounts.ACT_365;
   private static final DayCount ACT360 = DayCounts.ACT_360;
 

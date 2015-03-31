@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -28,6 +27,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multipl
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 
@@ -37,7 +37,7 @@ import com.opengamma.strata.collect.ArgChecker;
 @Test
 public class CrossGammaSingleCurveCalculatorTest {
 
-  private static final Calendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   /** Instrument description */
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_SWAP_MASTER.getGenerator("USD6MLIBOR3M", NYC);

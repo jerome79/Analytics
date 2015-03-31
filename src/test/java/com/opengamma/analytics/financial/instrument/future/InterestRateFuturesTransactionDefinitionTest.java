@@ -13,8 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureSecurity;
@@ -22,6 +20,8 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.Interest
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 
@@ -31,7 +31,7 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 @Test
 public class InterestRateFuturesTransactionDefinitionTest {
 
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final IborIndex IBOR_INDEX = IndexIborMaster.getInstance().getIndex("EURIBOR3M");
 
   // Future

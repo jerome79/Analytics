@@ -15,8 +15,6 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -37,6 +35,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test related to the pricing method in forward/discounting approach for coupon ibor average with flat compounding.
@@ -46,7 +46,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethodT
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex[] IBOR_INDEXES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
 
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT_INDEX = IBOR_INDEXES[0].getDayCount();
   private static final Currency CUR1 = Currency.EUR;
   private static final Currency CUR2 = Currency.USD;

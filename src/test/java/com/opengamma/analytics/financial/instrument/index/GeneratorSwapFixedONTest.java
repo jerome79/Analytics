@@ -13,9 +13,9 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -24,7 +24,7 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 @Test
 public class GeneratorSwapFixedONTest {
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final IndexON INDEX_FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
   private static final String USD_NAME = "USD1YFEDFUND";
   private static final Period USD_PERIOD = Period.ofMonths(12);

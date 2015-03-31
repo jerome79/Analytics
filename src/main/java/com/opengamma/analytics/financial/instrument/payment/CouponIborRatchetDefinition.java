@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.instrument.payment;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborRatchet;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -92,7 +92,7 @@ public class CouponIborRatchetDefinition extends CouponFloatingDefinition {
    */
   public CouponIborRatchetDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double accrualFactor,
       final double notional, final ZonedDateTime fixingDate, final IborIndex index, final double[] mainCoefficients, final double[] floorCoefficients, final double[] capCoefficients,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, accrualFactor, notional, fixingDate);
     ArgChecker.notNull(index, "index");
     ArgChecker.isTrue(currency.equals(index.getCurrency()), "index currency different from payment currency");

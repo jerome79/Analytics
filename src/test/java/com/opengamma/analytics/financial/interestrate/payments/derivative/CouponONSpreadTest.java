@@ -15,8 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadSimplifiedDefinition;
@@ -24,6 +22,8 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 
@@ -39,7 +39,7 @@ public class CouponONSpreadTest {
 
   private static final IndexON EONIA = IndexONMaster.getInstance().getIndex("EONIA");
   private static final IndexON FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
-  private static final Calendar EUR_CALENDAR = new MondayToFridayCalendar("EUR");
+  private static final HolidayCalendar EUR_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final Currency EUR = EONIA.getCurrency();
 
   // Coupon EONIA 3m

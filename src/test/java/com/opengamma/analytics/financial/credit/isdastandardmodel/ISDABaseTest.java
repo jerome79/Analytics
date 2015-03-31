@@ -7,11 +7,10 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
 
@@ -36,8 +35,8 @@ public class ISDABaseTest {
   protected static final double ONE_HUNDRED = 100.;
   protected static final double TEN_THOUSAND = 10000.;
 
-  protected static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
-  protected static final Calendar NO_HOLIDAY_CALENDAR = new NoHolidayCalendar();
+  protected static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
+  protected static final HolidayCalendar NO_HOLIDAY_CALENDAR = HolidayCalendars.NO_HOLIDAYS;
   protected static final DayCount ACT365F = DayCounts.ACT_365;
   protected static final DayCount ACT360 = DayCounts.ACT_360;
   protected static final DayCount D30360 = DayCounts.THIRTY_U_360;
@@ -60,7 +59,7 @@ public class ISDABaseTest {
   }
 
   protected static ISDACompliantYieldCurveBuild makeYieldCurveBuilder(final LocalDate today, final LocalDate spotDate, final String[] maturities, final String[] type, final DayCount moneyMarketDCC,
-      final DayCount swapDCC, final Period swapInterval, final Calendar calendar) {
+      final DayCount swapDCC, final Period swapInterval, final HolidayCalendar calendar) {
     final DayCount curveDCC = ACT365F;
     final int nInstruments = maturities.length;
     ArgChecker.isTrue(nInstruments == type.length, "type length {} does not match maturities length {}", type.length, nInstruments);
@@ -98,7 +97,7 @@ public class ISDABaseTest {
   }
 
   protected static ISDACompliantYieldCurve makeYieldCurve(final LocalDate today, final LocalDate spotDate, final String[] maturities, final String[] type, final double[] rates,
-      final DayCount moneyMarketDCC, final DayCount swapDCC, final Period swapInterval, final Calendar calendar) {
+      final DayCount moneyMarketDCC, final DayCount swapDCC, final Period swapInterval, final HolidayCalendar calendar) {
 
     final ISDACompliantYieldCurveBuild builder = makeYieldCurveBuilder(today, spotDate, maturities, type, moneyMarketDCC, swapDCC, swapInterval, calendar);
     return builder.build(rates);

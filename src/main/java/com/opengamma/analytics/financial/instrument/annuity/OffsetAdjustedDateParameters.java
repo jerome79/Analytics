@@ -6,7 +6,7 @@
 package com.opengamma.analytics.financial.instrument.annuity;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Parameters required to adjust dates with an offset.
@@ -26,7 +26,7 @@ public class OffsetAdjustedDateParameters extends AdjustedDateParameters {
   public OffsetAdjustedDateParameters(
       int offset,
       OffsetType offsetType,
-      Calendar calendar,
+      HolidayCalendar calendar,
       BusinessDayConvention businessDayConvention) {
     super(calendar, businessDayConvention);
     _offset = offset;

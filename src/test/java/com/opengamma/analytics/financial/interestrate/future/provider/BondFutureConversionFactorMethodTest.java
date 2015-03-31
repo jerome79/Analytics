@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -23,6 +21,8 @@ import com.opengamma.analytics.convention.yield.YieldConventionFactory;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -36,7 +36,7 @@ public class BondFutureConversionFactorMethodTest {
   // ===== LIFFE Gilt =====
   private static final Currency G_CUR = Currency.GBP;
   private static final Period G_PAYMENT_TENOR = Period.ofMonths(6);
-  private static final Calendar G_CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar G_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount G_DAY_COUNT = DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention G_BUSINESS_DAY = BusinessDayConventions.FOLLOWING;
   private static final boolean G_IS_EOM = false;
@@ -79,7 +79,7 @@ public class BondFutureConversionFactorMethodTest {
   // ===== EURONEXT Buxl =====
   private static final Currency EUR = Currency.EUR;
   private static final Period PAYMENT_TENOR_GER = Period.ofMonths(12);
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT_GER = DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention BUSINESS_DAY_GER = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM_GER = false;

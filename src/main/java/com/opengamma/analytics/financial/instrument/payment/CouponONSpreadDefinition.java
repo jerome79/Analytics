@@ -16,7 +16,6 @@ import java.util.OptionalDouble;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -28,6 +27,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -70,7 +70,7 @@ public class CouponONSpreadDefinition extends CouponDefinition
    */
   public CouponONSpreadDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, 
       final ZonedDateTime accrualEndDate, final double paymentYearFraction, final double notional, final IndexON index, 
-      final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final Calendar calendar, 
+      final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final HolidayCalendar calendar, 
       final double spread) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentYearFraction, notional);
     ArgChecker.notNull(index, "CouponOISDefinition: index");
@@ -113,7 +113,7 @@ public class CouponONSpreadDefinition extends CouponDefinition
    */
   public static CouponONSpreadDefinition from(final IndexON index, final ZonedDateTime settlementDate, final Period tenor,
       final double notional, final int settlementDays, final BusinessDayConvention businessDayConvention, 
-      final boolean isEOM, final Calendar calendar, final double spread) {
+      final boolean isEOM, final HolidayCalendar calendar, final double spread) {
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(settlementDate, tenor, 
         businessDayConvention, calendar, isEOM);
     return from(index, settlementDate, fixingPeriodEndDate, notional, settlementDays, calendar, spread);
@@ -134,7 +134,7 @@ public class CouponONSpreadDefinition extends CouponDefinition
    * @return The OIS coupon.
    */
   public static CouponONSpreadDefinition from(final IndexON index, final ZonedDateTime settlementDate, 
-      final ZonedDateTime fixingPeriodEndDate, final double notional, final int settlementDays, final Calendar calendar, 
+      final ZonedDateTime fixingPeriodEndDate, final double notional, final int settlementDays, final HolidayCalendar calendar, 
       final double spread) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, 
         -1 + index.getPublicationLag() + settlementDays, calendar);

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.swaption.method;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorInstrument;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.B
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -67,7 +67,7 @@ public final class SwaptionPhysicalFixedIborSpreadBlackMethod implements Pricing
   public CurrencyAmount presentValue(final SwaptionPhysicalFixedIbor swaption, final YieldCurveWithBlackSwaptionBundle curveBlack) {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(curveBlack, "Curves with Black volatility");
-    Calendar calendar;
+    HolidayCalendar calendar;
     DayCount dayCountModification;
     final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = curveBlack.getBlackParameters().getGeneratorSwap();
     if (generatorSwap instanceof GeneratorSwapFixedIbor) {

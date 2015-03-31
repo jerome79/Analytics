@@ -9,7 +9,6 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponInflationYearOnYearInterpolationDefinition;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedInflationYearOnYear;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -74,12 +74,12 @@ public class SwapFixedInflationYearOnYearDefinition extends SwapDefinition {
    * @return The year on year inflation swap.
    */
   public static SwapFixedInflationYearOnYearDefinition fromMonthly(final IndexPrice priceIndex, final ZonedDateTime settlementDate, final Period paymentPeriod, final int tenor,
-      final double fixedRate, final double notional, final boolean isPayer, final BusinessDayConvention businessDayConvention, final Calendar calendar, final boolean endOfMonth,
+      final double fixedRate, final double notional, final boolean isPayer, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar, final boolean endOfMonth,
       final DayCount fixedLegDayCount, final int conventionalMonthLag, final int monthLag, final boolean payNotional) {
     ArgChecker.notNull(priceIndex, "Price index");
     ArgChecker.notNull(settlementDate, "Settlement date");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     final AnnuityCouponFixedDefinition fixedLeg = AnnuityCouponFixedDefinition.from(priceIndex.getCurrency(), settlementDate, Period.ofYears(tenor), paymentPeriod, calendar,
         fixedLegDayCount, businessDayConvention, endOfMonth, notional, fixedRate, isPayer);
     final AnnuityCouponInflationYearOnYearMonthlyDefinition inflationLeg = AnnuityCouponInflationYearOnYearMonthlyDefinition.from(priceIndex, settlementDate, notional, Period.ofYears(tenor),
@@ -129,12 +129,12 @@ public class SwapFixedInflationYearOnYearDefinition extends SwapDefinition {
    * @return The year on year inflation swap.
    */
   public static SwapFixedInflationYearOnYearDefinition fromInterpolation(final IndexPrice priceIndex, final ZonedDateTime settlementDate, final Period paymentPeriod, final Period tenor,
-      final double fixedRate, final double notional, final boolean isPayer, final BusinessDayConvention businessDayConvention, final Calendar calendar, final boolean endOfMonth,
+      final double fixedRate, final double notional, final boolean isPayer, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar, final boolean endOfMonth,
       final DayCount fixedLegDayCount, final int conventionalMonthLag, final int monthLag, final boolean payNotional) {
     ArgChecker.notNull(priceIndex, "Price index");
     ArgChecker.notNull(settlementDate, "Settlement date");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     final AnnuityCouponFixedDefinition fixedLeg = AnnuityCouponFixedDefinition.from(priceIndex.getCurrency(), settlementDate, tenor, paymentPeriod, calendar,
         fixedLegDayCount, businessDayConvention, endOfMonth, notional, fixedRate, isPayer);
     final AnnuityCouponInflationYearOnYearInterpolationDefinition inflationLeg = AnnuityCouponInflationYearOnYearInterpolationDefinition.from(priceIndex, settlementDate, notional,

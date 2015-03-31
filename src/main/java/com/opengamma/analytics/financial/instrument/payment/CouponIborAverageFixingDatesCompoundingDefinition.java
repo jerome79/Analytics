@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -21,6 +20,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -62,7 +62,7 @@ public class CouponIborAverageFixingDatesCompoundingDefinition extends CouponDef
   public CouponIborAverageFixingDatesCompoundingDefinition(final Currency currency, final ZonedDateTime paymentDate,
       final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double paymentAccrualFactor,
       final double notional, final double[] paymentAccrualFactors, final IborIndex index, final ZonedDateTime[][] fixingDates,
-      final double[][] weights, final Calendar iborCalendar) {
+      final double[][] weights, final HolidayCalendar iborCalendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional);
     final int nPeriods = fixingDates.length;
     final int[] nDates = new int[nPeriods]; // Number of fixing dates per sub-period, can be different for each sub-period.
@@ -154,7 +154,7 @@ public class CouponIborAverageFixingDatesCompoundingDefinition extends CouponDef
   public static CouponIborAverageFixingDatesCompoundingDefinition from(final Currency currency, final ZonedDateTime paymentDate,
       final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double paymentAccrualFactor,
       final double notional, final double[] paymentAccrualFactors, final IborIndex index, final ZonedDateTime[][] fixingDates,
-      final double[][] weights, final Calendar iborCalendar) {
+      final double[][] weights, final HolidayCalendar iborCalendar) {
     return new CouponIborAverageFixingDatesCompoundingDefinition(currency, paymentDate, accrualStartDate, accrualEndDate,
         paymentAccrualFactor, notional, paymentAccrualFactors, index, fixingDates, weights, iborCalendar);
   }

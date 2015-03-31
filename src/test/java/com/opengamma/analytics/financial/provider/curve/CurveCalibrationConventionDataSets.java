@@ -10,8 +10,6 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
@@ -53,6 +51,8 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Generators and indexes used in curve calibration tests.
@@ -133,7 +133,7 @@ public class CurveCalibrationConventionDataSets {
       GeneratorSwapFixedInflationMaster.getInstance();
 
   /** EUR **/
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final Currency EUR = Currency.EUR;
   private static final GeneratorSwapFixedON GENERATOR_OIS_EUR = 
       GeneratorSwapFixedONMaster.getInstance().getGenerator("EUR1YEONIA", TARGET);
@@ -232,7 +232,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   /** JPY **/
-  private static final Calendar TYO = new MondayToFridayCalendar("TYO");
+  private static final HolidayCalendar TYO = HolidayCalendars.SAT_SUN;
   private static final Currency JPY = Currency.JPY;
   private static final GeneratorSwapFixedON GENERATOR_OIS_JPY = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("JPY1YTONAR", TYO);
@@ -295,7 +295,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   /** GBP **/
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
   private static final Currency GBP = Currency.GBP;
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("GBP1YSONIA", LON);
@@ -359,7 +359,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   /** USD **/
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final Currency USD = Currency.USD;
   private static final GeneratorSwapFixedON GENERATOR_OIS_USD = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("USD1YFEDFUND", NYC);

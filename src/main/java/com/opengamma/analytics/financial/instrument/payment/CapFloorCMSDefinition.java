@@ -9,7 +9,6 @@ package com.opengamma.analytics.financial.instrument.payment;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
@@ -21,6 +20,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 
@@ -105,7 +105,7 @@ public class CapFloorCMSDefinition extends CouponFloatingDefinition implements C
    * @return The CMS cap/floor.
    */
   public static CapFloorCMSDefinition from(final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double accrualFactor,
-      final double notional, final IndexSwap cmsIndex, final double strike, final boolean isCap, final Calendar calendar) {
+      final double notional, final IndexSwap cmsIndex, final double strike, final boolean isCap, final HolidayCalendar calendar) {
     final ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(accrualStartDate, -cmsIndex.getIborIndex().getSpotLag(), calendar);
     // Implementation comment: the underlying swap is used for forward. The notional, rate and payer flag are irrelevant.
     final SwapFixedIborDefinition underlyingSwap = SwapFixedIborDefinition.from(accrualStartDate, cmsIndex, 1.0, 1.0, true, calendar);

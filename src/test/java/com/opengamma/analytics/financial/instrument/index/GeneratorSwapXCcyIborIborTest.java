@@ -14,13 +14,13 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.swap.SwapDefinition;
 import com.opengamma.analytics.financial.instrument.swap.SwapXCcyIborIborDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test related to cross-currency Ibor/Ibor swap generators.
@@ -28,8 +28,8 @@ import com.opengamma.strata.basics.currency.FxMatrix;
 @Test
 public class GeneratorSwapXCcyIborIborTest {
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final IndexIborMaster IBOR_MASTER = IndexIborMaster.getInstance();
   private static final GeneratorLegIborMaster MASTER_LEG_IBOR = GeneratorLegIborMaster.getInstance();
   private static final IborIndex USDLIBOR3M = IBOR_MASTER.getIndex("USDLIBOR3M");

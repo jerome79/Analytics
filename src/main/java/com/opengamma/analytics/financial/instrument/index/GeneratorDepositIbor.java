@@ -10,9 +10,9 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.cash.DepositIborDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -27,7 +27,7 @@ public class GeneratorDepositIbor extends GeneratorInstrument<GeneratorAttribute
   /**
    * The holiday calendar associated with this index.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor.
@@ -35,7 +35,7 @@ public class GeneratorDepositIbor extends GeneratorInstrument<GeneratorAttribute
    * @param index The index.
    * @param calendar The holiday calendar for the ibor leg.
    */
-  public GeneratorDepositIbor(final String name, final IborIndex index, final Calendar calendar) {
+  public GeneratorDepositIbor(final String name, final IborIndex index, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(index, "index");
     ArgChecker.notNull(calendar, "calendar");

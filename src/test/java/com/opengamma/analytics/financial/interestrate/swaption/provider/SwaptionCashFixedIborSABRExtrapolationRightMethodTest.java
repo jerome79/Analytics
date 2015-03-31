@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -42,6 +41,7 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -54,7 +54,7 @@ public class SwaptionCashFixedIborSABRExtrapolationRightMethodTest {
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex EURIBOR6M = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd()[1];
   private static final Currency EUR = EURIBOR6M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final SABRInterestRateParameters SABR_PARAMETER = SABRDataSets.createSABR1();
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR6M = GeneratorSwapFixedIborMaster.getInstance().getGenerator("EUR1YEURIBOR6M", CALENDAR);

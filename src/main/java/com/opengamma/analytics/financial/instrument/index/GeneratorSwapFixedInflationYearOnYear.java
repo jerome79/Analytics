@@ -11,10 +11,10 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedInflationYearOnYearDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -42,7 +42,7 @@ public class GeneratorSwapFixedInflationYearOnYear extends GeneratorInstrument<G
   /**
    * The calendar used to compute the payment date.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The flag indicating if the end-of-month rule is used.
    */
@@ -79,7 +79,7 @@ public class GeneratorSwapFixedInflationYearOnYear extends GeneratorInstrument<G
    * @param isLinear The flag indicating if price index is interpolated linearly (TRUE) or piecewise constant (FALSE).
    */
   public GeneratorSwapFixedInflationYearOnYear(final String name, final Period fixedLegPeriod, final DayCount fixedLegDayCount, final IndexPrice indexPrice,
-      final BusinessDayConvention businessDayConvention, final Calendar calendar, final boolean endOfMonth,
+      final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar, final boolean endOfMonth,
       final int monthLag, final int spotLag, final boolean payNotional, final boolean isLinear) {
     super(name);
     ArgChecker.notNull(fixedLegPeriod, "fixed leg period");
@@ -135,7 +135,7 @@ public class GeneratorSwapFixedInflationYearOnYear extends GeneratorInstrument<G
    * Gets the _calendar field.
    * @return the _calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

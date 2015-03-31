@@ -9,13 +9,13 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCountFactory;
 import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -49,7 +49,7 @@ public class FXVolatilitySwapDefinition extends VolatilitySwapDefinition {
    */
   public FXVolatilitySwapDefinition(final Currency currency, final Currency baseCurrency, final Currency counterCurrency, final double volStrike,
       final double volNotional, final ZonedDateTime observationStartDate, final ZonedDateTime observationEndDate, final ZonedDateTime effectiveDate,
-      final ZonedDateTime maturityDate, final PeriodFrequency observationFrequency, final double annualizationFactor, final Calendar calendar) {
+      final ZonedDateTime maturityDate, final PeriodFrequency observationFrequency, final double annualizationFactor, final HolidayCalendar calendar) {
     super(currency, volStrike, volNotional, observationStartDate, observationEndDate, effectiveDate, maturityDate, observationFrequency, annualizationFactor, calendar);
     ArgChecker.notNull(baseCurrency, "baseCurrency");
     ArgChecker.notNull(counterCurrency, "counterCurrency");

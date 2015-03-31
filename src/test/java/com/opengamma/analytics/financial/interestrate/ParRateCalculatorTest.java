@@ -80,7 +80,7 @@ public class ParRateCalculatorTest {
 
   //  @Test
   //  public void testFutures() {
-  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, new MondayToFridayCalendar("A"), DayCounts.ACT_360,
+  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, HolidayCalendars.SAT_SUN, DayCounts.ACT_360,
   //        BusinessDayConventions.FOLLOWING, true);
   //    final double lastTradingTime = 1.453;
   //    final double fixingPeriodStartTime = lastTradingTime;

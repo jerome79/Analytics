@@ -11,13 +11,13 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponON;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -84,7 +84,7 @@ public class CouponONSimplifiedDefinition extends CouponDefinition {
    * @return The OIS coupon.
    */
   public static CouponONSimplifiedDefinition from(final IndexON index, final ZonedDateTime settlementDate, final Period tenor, final double notional,
-      final int settlementDays, final BusinessDayConvention businessDayConvention, final boolean isEOM, final Calendar calendar) {
+      final int settlementDays, final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar calendar) {
     final ZonedDateTime endFixingPeriodDate = ScheduleCalculator.getAdjustedDate(settlementDate, tenor, businessDayConvention, calendar, isEOM);
     return CouponONSimplifiedDefinition.from(index, settlementDate, endFixingPeriodDate, notional, settlementDays, calendar);
   }
@@ -101,7 +101,7 @@ public class CouponONSimplifiedDefinition extends CouponDefinition {
    * @return The OIS coupon.
    */
   public static CouponONSimplifiedDefinition from(final IndexON index, final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate,
-      final double notional, final int settlementDays, final Calendar calendar) {
+      final double notional, final int settlementDays, final HolidayCalendar calendar) {
     ZonedDateTime lastFixingDate = ScheduleCalculator.getAdjustedDate(endFixingPeriodDate, -1, calendar); // Overnight
     lastFixingDate = ScheduleCalculator.getAdjustedDate(lastFixingDate, index.getPublicationLag(), calendar); // Lag
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(lastFixingDate, settlementDays, calendar);

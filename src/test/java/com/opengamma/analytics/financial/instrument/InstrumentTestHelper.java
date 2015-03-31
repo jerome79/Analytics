@@ -16,7 +16,6 @@ import java.util.List;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.AbstractDayCount;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
@@ -35,16 +34,17 @@ import com.opengamma.analytics.financial.instrument.payment.PaymentFixedDefiniti
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborSpreadDefinition;
 import com.opengamma.analytics.financial.instrument.swap.SwapIborIborDefinition;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
 /**
  * 
  */
 public class InstrumentTestHelper {
-  public static final Calendar NO_HOLIDAY = new NoHolidayCalendar();
+  public static final HolidayCalendar NO_HOLIDAY = HolidayCalendars.NO_HOLIDAYS;
   public static final DayCount SEMI_ANNUAL_DAY_COUNT = new SemiAnnualDayCount();
   public static final DayCount QUARTERLY_DAY_COUNT = new QuarterlyDayCount();
   public static final BusinessDayConvention NONE = BusinessDayConventions.NONE;

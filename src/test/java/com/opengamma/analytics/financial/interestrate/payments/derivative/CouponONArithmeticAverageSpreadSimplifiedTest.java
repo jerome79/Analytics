@@ -14,8 +14,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -24,6 +22,8 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONArithmeticAv
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 
@@ -35,7 +35,7 @@ public class CouponONArithmeticAverageSpreadSimplifiedTest {
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2013, 4, 16);
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final IndexON FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex("USDLIBOR3M");
 

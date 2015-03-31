@@ -86,7 +86,7 @@ public class ParRateParallelSensitivityCalculatorTest {
 
   //  @Test
   //  public void testFutures() {
-  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, new MondayToFridayCalendar("A"), DayCounts.ACT_365,
+  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, HolidayCalendars.SAT_SUN, DayCounts.ACT_365,
   //        BusinessDayConventions.FOLLOWING, true);
   //    final double lastTradingTime = 1.473;
   //    final double fixingPeriodStartTime = 1.467;

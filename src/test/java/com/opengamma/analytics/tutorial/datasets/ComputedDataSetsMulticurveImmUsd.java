@@ -11,7 +11,6 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
@@ -60,6 +59,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -74,7 +74,7 @@ public class ComputedDataSetsMulticurveImmUsd {
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final Currency USD = Currency.USD;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
@@ -224,8 +224,8 @@ public class ComputedDataSetsMulticurveImmUsd {
    * Returns the array of calendars used in the curve data set. 
    * @return The array: NYC 
    */
-  public static Calendar[] calendarArray() {
-    return new Calendar[] {NYC };
+  public static HolidayCalendar[] calendarArray() {
+    return new HolidayCalendar[] {NYC };
   }
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();

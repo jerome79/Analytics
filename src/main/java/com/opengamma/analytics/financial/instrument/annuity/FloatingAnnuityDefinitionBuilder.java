@@ -12,7 +12,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.ActualActualISDA;
 import com.opengamma.analytics.convention.rolldate.GeneralRollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -34,6 +33,7 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -154,8 +154,8 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
    * 
    * @return the fixing calendar.
    */
-  private Calendar getFixingCalendar() {
-    Calendar fixingCalendar = null;
+  private HolidayCalendar getFixingCalendar() {
+    HolidayCalendar fixingCalendar = null;
     if (_adjustedFixingDateParameters != null) {
       fixingCalendar = _adjustedFixingDateParameters.getCalendar();
     } else if (getAccrualPeriodAdjustmentParameters() != null) {
@@ -196,7 +196,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
      * This assumes that the dates are adjusted, which may not always be true. Use the payment date adjustment calendar
      * if not null, otherwise use accrual date adjustment calendar.
      */
-    Calendar calendar = null;
+    HolidayCalendar calendar = null;
     if (getPaymentDateAdjustmentParameters() != null) {
       calendar = getPaymentDateAdjustmentParameters().getCalendar();
     } else if (getAccrualPeriodAdjustmentParameters() != null) {

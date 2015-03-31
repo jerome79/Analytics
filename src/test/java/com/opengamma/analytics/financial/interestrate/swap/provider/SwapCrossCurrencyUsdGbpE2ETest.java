@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
@@ -53,6 +52,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -65,8 +65,8 @@ public class SwapCrossCurrencyUsdGbpE2ETest {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 1, 22);
 
-  private static final Calendar LON = new CalendarGBP("LON");
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final IndexIborMaster MASTER_IBOR = IndexIborMaster.getInstance();
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
@@ -77,7 +77,7 @@ public class SwapCrossCurrencyUsdGbpE2ETest {
   private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR_NYC = 
       new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention());
   private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR_LONNYC = 
-      new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention()); // Calendar should be LON+NYC
+      new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention()); // HolidayCalendar should be LON+NYC
   private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR_LON_2 =
       new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, LON, USD6MLIBOR3M.getBusinessDayConvention());
   private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR_LON_0 =

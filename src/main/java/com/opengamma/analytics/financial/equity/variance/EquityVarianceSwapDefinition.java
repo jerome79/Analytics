@@ -8,11 +8,11 @@ package com.opengamma.analytics.financial.equity.variance;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.varianceswap.VarianceSwapDefinition;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -36,7 +36,7 @@ public class EquityVarianceSwapDefinition extends VarianceSwapDefinition {
    * @param volNotional Trade pays the difference between realized and strike variance multiplied by 0.5 * volNotional / volStrike
    * @param correctForDividends Whether to correct for dividends when pricing
    */
-  public EquityVarianceSwapDefinition(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency, final Calendar calendar,
+  public EquityVarianceSwapDefinition(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency, final HolidayCalendar calendar,
       final double annualizationFactor, final double volStrike, final double volNotional, final boolean correctForDividends) {
     super(obsStartDate, obsEndDate, settlementDate, currency, calendar, annualizationFactor, volStrike, volNotional);
     _correctForDividends = correctForDividends;
@@ -56,7 +56,7 @@ public class EquityVarianceSwapDefinition extends VarianceSwapDefinition {
    * @return The contract definition
    */
   public static EquityVarianceSwapDefinition fromVegaParams(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency,
-      final Calendar calendar, final double annualizationFactor, final double volStrike, final double volNotional, final boolean correctForDividends) {
+      final HolidayCalendar calendar, final double annualizationFactor, final double volStrike, final double volNotional, final boolean correctForDividends) {
     return new EquityVarianceSwapDefinition(obsStartDate, obsEndDate, settlementDate, currency, calendar, annualizationFactor, volStrike, volNotional, correctForDividends);
   }
 
@@ -74,7 +74,7 @@ public class EquityVarianceSwapDefinition extends VarianceSwapDefinition {
    * @return The contract definition
    */
   public static EquityVarianceSwapDefinition fromVarianceParams(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency,
-      final Calendar calendar, final double annualizationFactor, final double varStrike, final double varNotional, final boolean correctForDividends) {
+      final HolidayCalendar calendar, final double annualizationFactor, final double varStrike, final double varNotional, final boolean correctForDividends) {
     ArgChecker.notNegative(varStrike, "variance strike");
     final double volStrike = Math.sqrt(varStrike);
     final double volNotional = 2 * varNotional * volStrike;
@@ -116,7 +116,7 @@ public class EquityVarianceSwapDefinition extends VarianceSwapDefinition {
         underlyingTimeSeries.subSeries(getObsStartDate().toLocalDate(), valueDate.toLocalDate());
 
     final double[] observations = realizedTS.values().toArray();
-    final double[] observationWeights = {}; // TODO Case 2011-06-29 Calendar Add functionality for non-trivial weighting of observations
+    final double[] observationWeights = {}; // TODO Case 2011-06-29 HolidayCalendar Add functionality for non-trivial weighting of observations
     ZonedDateTime finalObsDate = getObsEndDate().isAfter(valueDate) ? valueDate : getObsEndDate();
     int nGoodBusinessDays = finalObsDate.isAfter(getObsStartDate()) ? BusinessDayDateUtils.getWorkingDaysInclusive(getObsStartDate(), finalObsDate, getCalendar()) : 0;
     final int nObsDisrupted = nGoodBusinessDays - observations.length;

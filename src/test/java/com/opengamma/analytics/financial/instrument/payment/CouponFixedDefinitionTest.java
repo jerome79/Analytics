@@ -15,8 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
@@ -26,6 +24,8 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -42,7 +42,7 @@ public class CouponFixedDefinitionTest {
   private static final double NOTIONAL = 1000000; //1m
   private static final double RATE = 0.04;
   private static final ZonedDateTime FAKE_DATE = DateUtils.getUTCDate(0, 1, 1);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BD_CONVENTION = BusinessDayConventions.FOLLOWING;
   private static final IborIndex INDEX = new IborIndex(CUR, Period.ofMonths(6), 0, DAY_COUNT, BD_CONVENTION, false ,"Ibor");
   private static final CouponFloatingDefinition COUPON = new CouponIborDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FAKE_DATE, INDEX, CALENDAR);

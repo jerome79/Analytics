@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationYearOnYearInterpolationDefinition;
@@ -42,6 +41,7 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -56,7 +56,7 @@ public class InflationMarketModelConvexityAdjustmentCouponTest {
   private static final IndexPrice[] PRICE_INDEXES = MARKET.getPriceIndexes().toArray(new IndexPrice[MARKET.getPriceIndexes().size()]);
   private static final IndexPrice PRICE_INDEX_EUR = PRICE_INDEXES[0];
   private static final IborIndex EURIBOR6M = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd()[1];
-  private static final Calendar CALENDAR_EUR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR_EUR = MulticurveProviderDiscountDataSets.getEURCalendar();
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final Period COUPON_TENOR = Period.ofYears(10);
   private static final double NOTIONAL = 10000;

@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.util.time.ComparableTenor.BusinessDayTenor;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -72,7 +72,7 @@ public class TenorUtils {
    * @param spotDays The number of days for spot, greater than or equal to zero
    * @return The date adjusted by a tenor
    */
-  public static ZonedDateTime adjustDateByTenor(final ZonedDateTime date, final ComparableTenor tenor, final Calendar calendar, final int spotDays) {
+  public static ZonedDateTime adjustDateByTenor(final ZonedDateTime date, final ComparableTenor tenor, final HolidayCalendar calendar, final int spotDays) {
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(tenor, "tenor");
     ArgChecker.notNull(calendar, "calendar");
@@ -97,12 +97,12 @@ public class TenorUtils {
       int count = 0;
       while (count < offset) {
         result = result.plusDays(1);
-        if (calendar.isWorkingDay(result.toLocalDate())) {
+        if (calendar.isBusinessDay(result.toLocalDate())) {
           count++;
         }
       }
       result = result.plusDays(1);
-      while (!calendar.isWorkingDay(result.toLocalDate())) {
+      while (!calendar.isBusinessDay(result.toLocalDate())) {
         result = result.plusDays(1);
       }
       return result;
@@ -119,7 +119,7 @@ public class TenorUtils {
    * @param spotDays The number of days for spot, greater than or equal to zero
    * @return The date adjusted by a tenor
    */
-  public static LocalDateTime adjustDateByTenor(final LocalDateTime date, final ComparableTenor tenor, final Calendar calendar, final int spotDays) {
+  public static LocalDateTime adjustDateByTenor(final LocalDateTime date, final ComparableTenor tenor, final HolidayCalendar calendar, final int spotDays) {
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(tenor, "tenor");
     ArgChecker.notNull(calendar, "calendar");
@@ -144,12 +144,12 @@ public class TenorUtils {
       int count = 0;
       while (count < offset) {
         result = result.plusDays(1);
-        if (calendar.isWorkingDay(result.toLocalDate())) {
+        if (calendar.isBusinessDay(result.toLocalDate())) {
           count++;
         }
       }
       result = result.plusDays(1);
-      while (!calendar.isWorkingDay(result.toLocalDate())) {
+      while (!calendar.isBusinessDay(result.toLocalDate())) {
         result = result.plusDays(1);
       }
       return result;
@@ -166,7 +166,7 @@ public class TenorUtils {
    * @param spotDays The number of days for spot, greater than or equal to zero
    * @return The date adjusted by a tenor
    */
-  public static LocalDate adjustDateByTenor(final LocalDate date, final ComparableTenor tenor, final Calendar calendar, final int spotDays) {
+  public static LocalDate adjustDateByTenor(final LocalDate date, final ComparableTenor tenor, final HolidayCalendar calendar, final int spotDays) {
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(tenor, "tenor");
     ArgChecker.notNull(calendar, "calendar");
@@ -191,12 +191,12 @@ public class TenorUtils {
       int count = 0;
       while (count < offset) {
         result = result.plusDays(1);
-        if (calendar.isWorkingDay(result)) {
+        if (calendar.isBusinessDay(result)) {
           count++;
         }
       }
       result = result.plusDays(1);
-      while (!calendar.isWorkingDay(result)) {
+      while (!calendar.isBusinessDay(result)) {
         result = result.plusDays(1);
       }
       return result;

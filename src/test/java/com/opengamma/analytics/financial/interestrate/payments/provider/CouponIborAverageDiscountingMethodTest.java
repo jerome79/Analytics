@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -27,6 +26,7 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Test.
@@ -39,7 +39,7 @@ public class CouponIborAverageDiscountingMethodTest {
   private static final IborIndex EURIBOR3M = IBOR_INDEXES[0];
   private static final IborIndex EURIBOR6M = IBOR_INDEXES[1];
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365;
   private static final double NOTIONAL = 1000000; //1m

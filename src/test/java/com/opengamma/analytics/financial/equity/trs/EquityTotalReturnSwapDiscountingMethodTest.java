@@ -18,7 +18,6 @@ import org.testng.annotations.Test;
 
 import com.google.common.collect.Sets;
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.equity.Equity;
@@ -58,6 +57,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.location.Country;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
@@ -92,7 +92,7 @@ public class EquityTotalReturnSwapDiscountingMethodTest {
   private static final ZonedDateTimeDoubleTimeSeries FIXING_TS_GBPSONIA = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(FIXING_DATES_GBPSONIA, FIXING_RATES_GBPSONIA);
 
   private static final Currency GBP = Currency.GBP;
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
 
   // Equity
   private static final double NB_SHARES = 1000000;
@@ -129,7 +129,7 @@ public class EquityTotalReturnSwapDiscountingMethodTest {
       NOTIONAL_TRS_GBP, GBP, DIVIDEND_RATIO);
   // Funding: multiple USD Libor coupons
   private static final double NOTIONAL_TRS_USD = 199000000;
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final double SPREAD = 0.0010;
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex("USDLIBOR3M");
   private static final Currency USD = USDLIBOR3M.getCurrency();

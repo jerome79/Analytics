@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.FederalFundsFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.interestrate.future.derivative.FederalFundsFutureSecurity;
@@ -20,6 +19,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -30,7 +30,7 @@ public class FederalFundsFutureSecurityDiscountingMethodTest {
 
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IndexON INDEX_FEDFUND = MulticurveProviderDiscountDataSets.getIndexesON()[0];
-  private static final Calendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar NYC = MulticurveProviderDiscountDataSets.getUSDCalendar();
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2012, 1, 30);
 

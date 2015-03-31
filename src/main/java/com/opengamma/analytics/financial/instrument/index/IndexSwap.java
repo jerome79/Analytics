@@ -9,9 +9,9 @@ import java.time.Period;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -40,7 +40,7 @@ public class IndexSwap {
    * @param tenor The swap tenor.
    * @param calendar The holiday calendar for the ibor index.
    */
-  public IndexSwap(final Period fixedLegPeriod, final DayCount fixedLegDayCount, final IborIndex iborIndex, final Period tenor, final Calendar calendar) {
+  public IndexSwap(final Period fixedLegPeriod, final DayCount fixedLegDayCount, final IborIndex iborIndex, final Period tenor, final HolidayCalendar calendar) {
     ArgChecker.notNull(tenor, "Swap tenor");
     _swapGenerator = new GeneratorSwapFixedIbor("Swap Generator", fixedLegPeriod, fixedLegDayCount, iborIndex, calendar);
     _tenor = tenor;

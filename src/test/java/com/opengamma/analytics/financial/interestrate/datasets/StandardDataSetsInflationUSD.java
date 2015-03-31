@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurve;
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurveInterpolatedAnchor;
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurveMultiplyFixedCurve;
@@ -57,6 +56,7 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -74,7 +74,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class StandardDataSetsInflationUSD {
 
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
   private static final MulticurveProviderDiscount KNOWN_DATA_MULTICURVE = new MulticurveProviderDiscount(FX_MATRIX);
   

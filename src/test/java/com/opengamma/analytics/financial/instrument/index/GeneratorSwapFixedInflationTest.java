@@ -17,8 +17,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationZeroCouponInterpolationDefinition;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationZeroCouponMonthlyDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedCompoundingDefinition;
@@ -28,6 +26,8 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -40,7 +40,7 @@ public class GeneratorSwapFixedInflationTest {
   private static final IndexPrice PRICE_INDEX_EUR = PRICE_INDEXES[0];
   private static final IndexPrice PRICE_INDEX_GPB = PRICE_INDEXES[1];
   private static final Currency CUR = PRICE_INDEX_EUR.getCurrency();
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final boolean EOM = true;
   private static final ZonedDateTime TODAY = DateUtils.getUTCDate(2008, 8, 14);
@@ -133,7 +133,7 @@ public class GeneratorSwapFixedInflationTest {
         IS_LINEAR);
     assertFalse(GENERATOR_SWAP_INFLATION_LINEAR.equals(generatorModified));
 
-    final Calendar modifiesCalendar = new MondayToFridayCalendar("B");
+    final HolidayCalendar modifiesCalendar = HolidayCalendars.NO_HOLIDAYS;
     generatorModified = new GeneratorSwapFixedInflationZeroCoupon("generator", PRICE_INDEX_EUR, BUSINESS_DAY, modifiesCalendar, EOM, MONTH_LAG, SPOT_LAG,
         IS_LINEAR);
     assertFalse(GENERATOR_SWAP_INFLATION_LINEAR.equals(generatorModified));

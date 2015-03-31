@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -33,6 +32,7 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -45,7 +45,7 @@ public class InterestRateFutureTransactionDiscountingMethodTest {
   private static final IborIndex[] IBOR_INDEXES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = IBOR_INDEXES[0];
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   // Future
   private static final ZonedDateTime SPOT_LAST_TRADING_DATE = DateUtils.getUTCDate(2012, 9, 19);

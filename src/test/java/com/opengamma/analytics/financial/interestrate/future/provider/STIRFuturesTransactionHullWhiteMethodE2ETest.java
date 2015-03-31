@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
@@ -47,6 +46,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -59,7 +59,7 @@ public class STIRFuturesTransactionHullWhiteMethodE2ETest {
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 9, 2);
   private static final IborIndex[] INDEX_IBOR_LIST = StandardDataSetsMulticurveEUR.indexIborArrayEUROisE3();
   private static final IborIndex EUREURIBOR3M = INDEX_IBOR_LIST[0];
-  private static final Calendar CALENDAR = StandardDataSetsMulticurveEUR.calendarArray()[0];
+  private static final HolidayCalendar CALENDAR = StandardDataSetsMulticurveEUR.calendarArray()[0];
   private static final Currency EUR = EUREURIBOR3M.getCurrency();
   private static final double[] MQ_OIS_CAL = StandardDataSetsMulticurveFuturesEUR.oisMarketData();
   private static final double[] MQ_3M_CAL = StandardDataSetsMulticurveFuturesEUR.futIrs3MMarketData();

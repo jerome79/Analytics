@@ -19,8 +19,6 @@ import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.equity.StaticReplicationDataBundle;
 import com.opengamma.analytics.financial.equity.variance.pricing.RealizedVariance;
 import com.opengamma.analytics.financial.equity.variance.pricing.VarianceSwapStaticReplication;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -63,7 +63,7 @@ public class VarianceSwapPresentValueTest {
   private static final ZonedDateTime s_ObsEndTime = ZonedDateTime.of(2015, 7, 30, 12, 0, 0, 0, UTC); // Thursday
   private static final ZonedDateTime s_SettlementTime = ZonedDateTime.of(2015, 8, 3, 12, 0, 0, 0, UTC);// Monday
   private static final Currency s_Ccy = Currency.EUR;
-  private static final Calendar s_Calendar = new CalendarTarget("Eur");
+  private static final HolidayCalendar s_Calendar = HolidayCalendars.EUTA;
   private static final double s_AnnualizationFactor = 252.0;
   private static final double s_VolStrike = 0.3;
   private static final double s_VolNotional = 1e6;

@@ -9,12 +9,12 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedCompoundingDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Generates an annuity of fixed rate coupons.
@@ -43,7 +43,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
     if (isExchangeFinalNotional()) {
       exchangeNotionalCoupons++;
     }
-    Calendar accrualCalendar = null;
+    HolidayCalendar accrualCalendar = null;
     if (getAccrualPeriodAdjustmentParameters() != null) {
       accrualCalendar = getAccrualPeriodAdjustmentParameters().getCalendar();
     }
@@ -64,7 +64,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
      * This assumes that the dates are adjusted, which may not always be true. Use the payment date adjustment calendar
      * if not null, otherwise use accrual date adjustment calendar.
      */
-    Calendar calendar;
+    HolidayCalendar calendar;
     if (getPaymentDateAdjustmentParameters() != null) {
       calendar = getPaymentDateAdjustmentParameters().getCalendar();
     } else if (getAccrualPeriodAdjustmentParameters() != null) {
@@ -75,7 +75,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
     return new AnnuityDefinition<>(coupons, calendar);
   }
 
-  private PaymentDefinition[] generateFixedCouponFlows(int exchangeNotionalCoupons, Calendar accrualCalendar) {
+  private PaymentDefinition[] generateFixedCouponFlows(int exchangeNotionalCoupons, HolidayCalendar accrualCalendar) {
     CouponDefinition[] coupons;
     ZonedDateTime[] accrualEndDates = getAccrualEndDates();
     ZonedDateTime startDate = getStartDate();
@@ -110,7 +110,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
     return coupons;
   }
 
-  private CouponDefinition[] generateZeroCouponFlows(int exchangeNotionalCoupons, Calendar accrualCalendar, boolean noCompounding) {
+  private CouponDefinition[] generateZeroCouponFlows(int exchangeNotionalCoupons, HolidayCalendar accrualCalendar, boolean noCompounding) {
     CouponDefinition[] coupons;
 
     if (Math.abs(_rate) < 1e-16) {

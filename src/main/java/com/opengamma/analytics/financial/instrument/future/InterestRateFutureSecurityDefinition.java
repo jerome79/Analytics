@@ -10,7 +10,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.ExpiredException;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.Interest
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -58,7 +58,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
    *  @deprecated Deprecated since 2.2.0.M17
    */
   @Deprecated
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor.
@@ -72,7 +72,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
    * @param calendar The holiday calendar, not null
    */
   public InterestRateFutureSecurityDefinition(final ZonedDateTime lastTradingDate, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final IborIndex iborIndex,
-      final double notional, final double paymentAccrualFactor, final String name, final Calendar calendar) {
+      final double notional, final double paymentAccrualFactor, final String name, final HolidayCalendar calendar) {
     super(lastTradingDate);
     ArgChecker.notNull(lastTradingDate, "Last trading date");
     ArgChecker.notNull(fixingPeriodStartDate, "Fixing period start date");
@@ -102,7 +102,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
    * @param calendar The holiday calendar for the index.
    */
   public InterestRateFutureSecurityDefinition(final ZonedDateTime lastTradingDate, final IborIndex iborIndex, final double notional, final double paymentAccrualFactor,
-      final String name, final Calendar calendar) {
+      final String name, final HolidayCalendar calendar) {
     super(lastTradingDate);
     ArgChecker.notNull(lastTradingDate, "Last trading date");
     ArgChecker.notNull(iborIndex, "Ibor index");
@@ -129,7 +129,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
    * @return The interest rate futures.
    */
   public static InterestRateFutureSecurityDefinition fromFixingPeriodStartDate(final ZonedDateTime fixingPeriodStartDate, final IborIndex iborIndex, final double notional,
-      final double paymentAccrualFactor, final String name, final Calendar calendar) {
+      final double paymentAccrualFactor, final String name, final HolidayCalendar calendar) {
     ArgChecker.notNull(fixingPeriodStartDate, "Fixing period start date");
     ArgChecker.notNull(iborIndex, "Ibor index");
     final ZonedDateTime lastTradingDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, -iborIndex.getSpotLag(), calendar);
@@ -222,7 +222,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
    * @deprecated Deprecated since 2.2.0.M17
    */
   @Deprecated
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

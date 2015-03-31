@@ -9,11 +9,11 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.payment.CouponONCompoundedDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -31,7 +31,7 @@ public class AnnuityCouponONCompoundedDefinition extends AnnuityDefinition<Coupo
    * @param index The underlying overnight index.
    * @param calendar The holiday calendar
    */
-  public AnnuityCouponONCompoundedDefinition(final CouponONCompoundedDefinition[] payments, final IndexON index, final Calendar calendar) {
+  public AnnuityCouponONCompoundedDefinition(final CouponONCompoundedDefinition[] payments, final IndexON index, final HolidayCalendar calendar) {
     super(payments, calendar);
     _index = index;
   }
@@ -90,7 +90,7 @@ public class AnnuityCouponONCompoundedDefinition extends AnnuityDefinition<Coupo
    * @return The annuity.
    */
   public static AnnuityCouponONCompoundedDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional,
-      final boolean isPayer, final IndexON indexON, final int paymentLag, final Calendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod,
+      final boolean isPayer, final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod,
       final boolean isEOM) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(endFixingPeriodDate, "End fixing period date");
@@ -118,7 +118,7 @@ public class AnnuityCouponONCompoundedDefinition extends AnnuityDefinition<Coupo
    * @return The annuity.
    */
   public static AnnuityCouponONCompoundedDefinition from(final ZonedDateTime settlementDate, final Period tenorAnnuity, final double notional, final boolean isPayer,
-      final IndexON indexON, final int paymentLag, final Calendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM) {
+      final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(tenorAnnuity, "tenor annuity");
     ArgChecker.notNull(indexON, "overnight index");
@@ -142,7 +142,7 @@ public class AnnuityCouponONCompoundedDefinition extends AnnuityDefinition<Coupo
    * @return An overnight annuity
    */
   private static AnnuityCouponONCompoundedDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime[] endFixingPeriodDates, final double notional,
-      final boolean isPayer, final IndexON indexON, final int paymentLag, final Calendar indexCalendar) {
+      final boolean isPayer, final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar) {
     final double sign = isPayer ? -1.0 : 1.0;
     final double notionalSigned = sign * notional;
     final CouponONCompoundedDefinition[] coupons = new CouponONCompoundedDefinition[endFixingPeriodDates.length];

@@ -13,13 +13,13 @@ import java.util.List;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.payment.CouponONArithmeticAverageSpreadDefinition;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -33,7 +33,7 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinition extends AnnuityCou
    * @param payments The coupons.
    * @param calendar The holiday calendar
    */
-  public AnnuityCouponArithmeticAverageONSpreadDefinition(final CouponONArithmeticAverageSpreadDefinition[] payments, final Calendar calendar) {
+  public AnnuityCouponArithmeticAverageONSpreadDefinition(final CouponONArithmeticAverageSpreadDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -55,7 +55,7 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinition extends AnnuityCou
    */
   public static AnnuityCouponArithmeticAverageONSpreadDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final double spread,
       final boolean isPayer, final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM,
-      final Calendar indexCalendar) {
+      final HolidayCalendar indexCalendar) {
     return from(settlementDate, endFixingPeriodDate, notional, spread, isPayer, paymentPeriod, indexON, paymentLag, businessDayConvention, isEOM, indexCalendar, StubType.SHORT_START);
   }
 
@@ -78,7 +78,7 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinition extends AnnuityCou
    */
   public static AnnuityCouponArithmeticAverageONSpreadDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final double spread,
       final boolean isPayer, final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM,
-      final Calendar indexCalendar, final StubType stub) {
+      final HolidayCalendar indexCalendar, final StubType stub) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(endFixingPeriodDate, "End fixing period date");
     ArgChecker.notNull(indexON, "overnight index");

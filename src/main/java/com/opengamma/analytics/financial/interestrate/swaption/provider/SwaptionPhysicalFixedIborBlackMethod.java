@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.interestrate.swaption.provider;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorInstrument;
@@ -30,6 +29,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multicu
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
@@ -76,7 +76,7 @@ public final class SwaptionPhysicalFixedIborBlackMethod {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(blackMulticurves, "Black volatility for swaption and multicurve");
     final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = blackMulticurves.getBlackParameters().getGeneratorSwap();
-    Calendar calendar;
+    HolidayCalendar calendar;
     DayCount dayCountModification;
     if (generatorSwap instanceof GeneratorSwapFixedIbor) {
       final GeneratorSwapFixedIbor fixedIborGenerator = (GeneratorSwapFixedIbor) generatorSwap;
@@ -133,7 +133,7 @@ public final class SwaptionPhysicalFixedIborBlackMethod {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(blackMulticurves, "Black volatility for swaption and multicurve");
     final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = blackMulticurves.getBlackParameters().getGeneratorSwap();
-    Calendar calendar;
+    HolidayCalendar calendar;
     DayCount dayCountModification;
     if (generatorSwap instanceof GeneratorSwapFixedIbor) {
       final GeneratorSwapFixedIbor fixedIborGenerator = (GeneratorSwapFixedIbor) generatorSwap;
@@ -184,7 +184,7 @@ public final class SwaptionPhysicalFixedIborBlackMethod {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(blackMulticurves, "Black volatility for swaption and multicurve");
     final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = blackMulticurves.getBlackParameters().getGeneratorSwap();
-    Calendar calendar;
+    HolidayCalendar calendar;
     DayCount dayCountModification;
     if (generatorSwap instanceof GeneratorSwapFixedIbor) {
       final GeneratorSwapFixedIbor fixedIborGenerator = (GeneratorSwapFixedIbor) generatorSwap;
@@ -240,7 +240,7 @@ public final class SwaptionPhysicalFixedIborBlackMethod {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(blackMulticurves, "Black volatility for swaption and multicurve");
     final GeneratorInstrument<GeneratorAttributeIR> generatorSwap = blackMulticurves.getBlackParameters().getGeneratorSwap();
-    Calendar calendar;
+    HolidayCalendar calendar;
     DayCount dayCountModification;
     if (generatorSwap instanceof GeneratorSwapFixedIbor) {
       final GeneratorSwapFixedIbor fixedIborGenerator = (GeneratorSwapFixedIbor) generatorSwap;

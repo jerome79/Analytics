@@ -10,16 +10,15 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -30,7 +29,7 @@ public class BondFuturesDataSets {
   // Bond futures: Bobl June 14
   private static final Currency EUR = Currency.EUR;
   private static final Period PAYMENT_TENOR_EUR = Period.ofYears(1);
-  private static final Calendar TARGET = new CalendarTarget("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
   private static final DayCount DAY_COUNT_EUR = DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention BUSINESS_DAY_EUR = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM_EUR = false;
@@ -70,7 +69,7 @@ public class BondFuturesDataSets {
   // 5-Year U.S. Treasury Note Futures: FVU1
   private static final Currency USD = Currency.USD;
   private static final Period PAYMENT_TENOR_USD = Period.ofMonths(6);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT = DayCounts.ACT_ACT_ISDA;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM = false;

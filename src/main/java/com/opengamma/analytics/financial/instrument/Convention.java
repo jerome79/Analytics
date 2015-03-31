@@ -9,8 +9,8 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * 
@@ -19,10 +19,10 @@ public class Convention {
   private final int _settlementDays;
   private final DayCount _dayCount;
   private final BusinessDayConvention _businessDayConvention;
-  private final Calendar _workingDayCalendar;
+  private final HolidayCalendar _workingDayCalendar;
   private final String _name;
 
-  public Convention(final int settlementDays, final DayCount dayCount, final BusinessDayConvention businessDayConvention, final Calendar workingDayCalendar, final String name) {
+  public Convention(final int settlementDays, final DayCount dayCount, final BusinessDayConvention businessDayConvention, final HolidayCalendar workingDayCalendar, final String name) {
     Validate.isTrue(settlementDays >= 0);
     Validate.notNull(dayCount);
     Validate.notNull(businessDayConvention);
@@ -47,7 +47,7 @@ public class Convention {
     return _businessDayConvention;
   }
 
-  public Calendar getWorkingDayCalendar() {
+  public HolidayCalendar getWorkingDayCalendar() {
     return _workingDayCalendar;
   }
 

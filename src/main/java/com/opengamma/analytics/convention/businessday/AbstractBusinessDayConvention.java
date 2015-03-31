@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Abstract implementation of a convention for handling business days.
@@ -20,7 +20,7 @@ public abstract class AbstractBusinessDayConvention implements BusinessDayConven
   private static final long serialVersionUID = 1L;
 
   @Override
-  public ZonedDateTime adjustDate(final Calendar workingDayCalendar, final ZonedDateTime dateTime) {
+  public ZonedDateTime adjustDate(final HolidayCalendar workingDayCalendar, final ZonedDateTime dateTime) {
     LocalDate adjusted = adjustDate(workingDayCalendar, dateTime.toLocalDate());
     return adjusted.atTime(dateTime.toLocalTime()).atZone(dateTime.getZone());
   }

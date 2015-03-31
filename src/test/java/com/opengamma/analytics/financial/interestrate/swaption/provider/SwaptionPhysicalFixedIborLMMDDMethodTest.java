@@ -15,7 +15,6 @@ import cern.colt.Arrays;
 import cern.jet.random.engine.MersenneTwister;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
@@ -72,6 +71,7 @@ import com.opengamma.analytics.math.random.NormalRandomNumberGenerator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -83,7 +83,7 @@ public class SwaptionPhysicalFixedIborLMMDDMethodTest {
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex EURIBOR6M = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd()[1];
   private static final Currency EUR = EURIBOR6M.getCurrency();
-  private static final Calendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR6M = GeneratorSwapFixedIborMaster.getInstance().getGenerator("EUR1YEURIBOR6M", TARGET);
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M = GeneratorSwapFixedIborMaster.getInstance().getGenerator("EUR1YEURIBOR3M", TARGET);

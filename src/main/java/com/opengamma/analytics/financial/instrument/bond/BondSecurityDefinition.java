@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.instrument.bond;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -45,7 +45,7 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
   /**
    * The calendar used to compute the standard settlement date.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The bond issuer name.
    */
@@ -70,7 +70,7 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
    * @param issuer The issuer name.
    */
   public BondSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final String issuer) {
+      final HolidayCalendar calendar, final String issuer) {
     this(nominal, coupon, exCouponDays, settlementDays, calendar, new LegalEntity(null, issuer, null, null, null), "");
   }
 
@@ -84,7 +84,7 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
    * @param issuer The issuer name.
    */
   public BondSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final LegalEntity issuer) {
+      final HolidayCalendar calendar, final LegalEntity issuer) {
     this(nominal, coupon, exCouponDays, settlementDays, calendar, issuer, "");
   }
 
@@ -99,7 +99,7 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
    * @param repoType The repo type name.
    */
   public BondSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final String issuer, final String repoType) {
+      final HolidayCalendar calendar, final String issuer, final String repoType) {
     this(nominal, coupon, exCouponDays, settlementDays, calendar, new LegalEntity(null, issuer, null, null, null), repoType);
   }
 
@@ -114,7 +114,7 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
    * @param repoType The repo type name.
    */
   public BondSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final LegalEntity issuer, final String repoType) {
+      final HolidayCalendar calendar, final LegalEntity issuer, final String repoType) {
     ArgChecker.notNull(nominal, "Nominal");
     ArgChecker.notNull(coupon, "Coupons");
     ArgChecker.isTrue(nominal.getCurrency().equals(coupon.getCurrency()), "Currency of nominal {} and coupons {} should be the same", nominal.getCurrency(),
@@ -202,7 +202,7 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
    * Gets the calendar used to compute the standard settlement date.
    * @return The calendar.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

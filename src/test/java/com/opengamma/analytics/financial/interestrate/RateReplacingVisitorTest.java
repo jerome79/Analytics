@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -30,6 +28,8 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.Interest
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureTransaction;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -47,7 +47,7 @@ public class RateReplacingVisitorTest {
     final ZonedDateTime maturityDate = DateUtils.getUTCDate(2020, 1, 1);
     final ZonedDateTime firstAccrualDate = DateUtils.getUTCDate(2010, 1, 1);
     final Period paymentPeriod = Period.ofMonths(6);
-    final Calendar calendar = new MondayToFridayCalendar("A");
+    final HolidayCalendar calendar = HolidayCalendars.SAT_SUN;
     final DayCount dayCount = DayCounts.ACT_360;
     final BusinessDayConvention businessDay = BusinessDayConventions.FOLLOWING;
     final YieldConvention yieldConvention = SimpleYieldConvention.TRUE;

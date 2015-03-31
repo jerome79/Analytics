@@ -21,8 +21,6 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -51,6 +49,8 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadSimpli
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Unit test for {@link CouponTenorVisitor}.
@@ -84,7 +84,7 @@ public class CouponTenorVisitorTest {
                                                           DayCounts.ACT_360,
                                                           1);
   
-  private static final Calendar TEST_CALENDAR = new MondayToFridayCalendar("");
+  private static final HolidayCalendar TEST_CALENDAR = HolidayCalendars.SAT_SUN;
   
   private static final CouponIborDefinition USD_LIBOR_3M_COUPON =
       CouponIborDefinition.from(1, START_DATE, USD_LIBOR_3M, TEST_CALENDAR);

@@ -16,7 +16,6 @@ import java.util.Map.Entry;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -46,6 +45,7 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -64,7 +64,7 @@ public class SwaptionPhysicalFixedIborSABRMethodE2ETest {
   private static final CurveBuildingBlockBundle BLOCK = MULTICURVE_PAIR.getSecond();
   private static final IborIndex[] INDEX_IBOR_LIST = StandardDataSetsMulticurveUSD.indexIborArrayUSDOisL1L3L6();
   private static final IborIndex USDLIBOR3M = INDEX_IBOR_LIST[1];
-  private static final Calendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final Currency USD = USDLIBOR3M.getCurrency();
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_SWAP_FIXED_IBOR_MASTER.getGenerator("USD6MLIBOR3M", NYC);

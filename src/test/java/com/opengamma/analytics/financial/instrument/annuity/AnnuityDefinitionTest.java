@@ -16,8 +16,6 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
@@ -29,11 +27,12 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFloating;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -41,7 +40,7 @@ import com.opengamma.strata.basics.currency.Currency;
  */
 @Test
 public class AnnuityDefinitionTest {
-  private static final Calendar CALENDAR = new NoHolidayCalendar();
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.NO_HOLIDAYS;
   private static final PaymentFixedDefinition[] FIXED_PAYMENTS;
   private static final PaymentDefinition[] FIXED_FLOAT_PAYMENTS;
   private static final Currency CCY = Currency.AUD;
@@ -63,7 +62,7 @@ public class AnnuityDefinitionTest {
     for (int i = 0; i < n; i++) {
       FIXED_PAYMENTS[i] = new PaymentFixedDefinition(CCY, date, 1000);
       FIXED_FLOAT_PAYMENTS[i] = (i < 8 ? new CouponFixedDefinition(CCY, date, date.minusMonths(1), date, ACCRUAL_FACTOR, 1000, 0.05) : CouponIborDefinition.from(date, date.minusMonths(1), date,
-          ACCRUAL_FACTOR, FLOAT_NOTIONAL, date.minusMonths(1), index, new MondayToFridayCalendar("A")));
+          ACCRUAL_FACTOR, FLOAT_NOTIONAL, date.minusMonths(1), index, HolidayCalendars.SAT_SUN));
       if (i == 8) {
         FIXING_DATE = date.minusMonths(1);
       }

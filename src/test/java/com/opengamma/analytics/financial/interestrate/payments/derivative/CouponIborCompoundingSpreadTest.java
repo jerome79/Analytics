@@ -14,14 +14,14 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 
@@ -31,7 +31,7 @@ import com.opengamma.strata.basics.currency.Currency;
 @Test
 public class CouponIborCompoundingSpreadTest {
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final IndexIborMaster MASTER_IBOR = IndexIborMaster.getInstance();
   private static final IborIndex USDLIBOR1M = MASTER_IBOR.getIndex("USDLIBOR1M");
 

@@ -8,11 +8,11 @@ package com.opengamma.analytics.financial.instrument.annuity;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
 import com.opengamma.analytics.financial.instrument.payment.CapFloorCMSDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -25,7 +25,7 @@ public class AnnuityCapFloorCMSDefinition extends AnnuityDefinition<CapFloorCMSD
    * @param payments The CMS coupons.
    * @param calendar The holiday calendar
    */
-  public AnnuityCapFloorCMSDefinition(final CapFloorCMSDefinition[] payments, final Calendar calendar) {
+  public AnnuityCapFloorCMSDefinition(final CapFloorCMSDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -45,7 +45,7 @@ public class AnnuityCapFloorCMSDefinition extends AnnuityDefinition<CapFloorCMSD
    * @return The CMS coupon leg.
    */
   public static AnnuityCapFloorCMSDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IndexSwap index, final Period paymentPeriod,
-      final DayCount dayCount, final boolean isPayer, final double strike, final boolean isCap, final Calendar calendar) {
+      final DayCount dayCount, final boolean isPayer, final double strike, final boolean isCap, final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(index, "index");

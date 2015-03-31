@@ -9,7 +9,6 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
@@ -27,6 +26,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -66,7 +66,7 @@ public class SwapFixedIborDefinition extends SwapDefinition {
    * @return The vanilla swap.
    */
   public static SwapFixedIborDefinition from(final ZonedDateTime settlementDate, final IndexSwap cmsIndex, final double notional, final double fixedRate, final boolean isPayer,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(cmsIndex, "CMS index");
     ArgChecker.notNull(calendar, "calendar");
@@ -131,7 +131,7 @@ public class SwapFixedIborDefinition extends SwapDefinition {
    * @return The vanilla swap.
    */
   public static SwapFixedIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final GeneratorSwapFixedIbor generator, final double notionalFixed,
-      final double notionalIbor, final double fixedRate, final boolean isPayer, final Calendar calendar) {
+      final double notionalIbor, final double fixedRate, final boolean isPayer, final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "Settlement date");
     ArgChecker.notNull(maturityDate, "Maturity date");
     ArgChecker.notNull(generator, "Swap generator");
@@ -164,7 +164,7 @@ public class SwapFixedIborDefinition extends SwapDefinition {
   public static SwapFixedIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period fixedLegPeriod, final DayCount fixedLegDayCount,
       final BusinessDayConvention fixedLegBusinessDayConvention, final boolean fixedLegEOM, final double fixedLegNotional, final double fixedLegRate, final Period iborLegPeriod,
       final DayCount iborLegDayCount, final BusinessDayConvention iborLegBusinessDayConvention, final boolean iborLegEOM, final double iborLegNotional,
-      final IborIndex iborIndex, final boolean isPayer, final Calendar calendar) {
+      final IborIndex iborIndex, final boolean isPayer, final HolidayCalendar calendar) {
     ArgChecker.notNull(iborIndex, "Ibor index");
     final AnnuityCouponFixedDefinition fixedLeg = AnnuityCouponFixedDefinition.from(iborIndex.getCurrency(), settlementDate, maturityDate, fixedLegPeriod, calendar, fixedLegDayCount,
         fixedLegBusinessDayConvention, fixedLegEOM, fixedLegNotional, fixedLegRate, isPayer);

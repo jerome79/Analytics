@@ -7,25 +7,31 @@ package com.opengamma.analytics.convention.businessday;
 
 import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.getDaysBetween;
 import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.getWorkingDaysInclusive;
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 import static org.testng.AssertJUnit.assertEquals;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
+import com.google.common.collect.ImmutableList;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.date.ImmutableHolidayCalendar;
 
 
 @Test
 public class BusinessDayDateUtilTest {
   private static final ZoneId UTC = ZoneId.of("UTC");
-  private static final Calendar WEEKEND_CALENDAR = new MondayToFridayCalendar("Weekend");
-  private static final Calendar HOLIDAY_CALENDAR = new MyCalendar("Holiday");
+  private static final HolidayCalendar WEEKEND_CALENDAR = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar HOLIDAY_CALENDAR = ImmutableHolidayCalendar.of(
+      "Holiday",
+      ImmutableList.of(LocalDate.of(2014, 7, 30), LocalDate.of(2013, 12, 20)),
+      SATURDAY,
+      SUNDAY);
 
   @Test
   public void dayBetweenTest() {
@@ -73,29 +79,6 @@ public class BusinessDayDateUtilTest {
     ZonedDateTime d1 = ZonedDateTime.of(2014, 7, 21, 12, 0, 0, 0, UTC); // Monday
     ZonedDateTime d2 = ZonedDateTime.of(2014, 7, 26, 12, 0, 0, 0, UTC); // Saturday
     getDaysBetween(d2, d1, WEEKEND_CALENDAR);
-  }
-
-  private static class MyCalendar extends ExceptionCalendar {
-    private static final long serialVersionUID = 1L;
-    private static final LocalDate[] HOLIDAYS = new LocalDate[] {LocalDate.of(2014, 7, 30), LocalDate.of(2013, 12, 20) };
-
-    protected MyCalendar(final String name) {
-      super(name);
-    }
-
-    @Override
-    protected boolean isNormallyWorkingDay(final LocalDate date) {
-      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-        return false;
-      }
-      for (final LocalDate holiday : HOLIDAYS) {
-        if (date.equals(holiday)) {
-          return false;
-        }
-      }
-      return true;
-    }
-
   }
 
 }

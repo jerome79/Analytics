@@ -9,10 +9,10 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationYearOnYearMonthlyDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -25,7 +25,7 @@ public class AnnuityCouponInflationYearOnYearMonthlyDefinition extends AnnuityCo
    * @param payments The InflationYearOnYearMonthly coupons.
    * @param calendar The calendar
    */
-  public AnnuityCouponInflationYearOnYearMonthlyDefinition(final CouponInflationYearOnYearMonthlyDefinition[] payments, final Calendar calendar) {
+  public AnnuityCouponInflationYearOnYearMonthlyDefinition(final CouponInflationYearOnYearMonthlyDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -45,7 +45,7 @@ public class AnnuityCouponInflationYearOnYearMonthlyDefinition extends AnnuityCo
    * @return The Year on year coupon leg.
    */
   public static AnnuityCouponInflationYearOnYearMonthlyDefinition from(final IndexPrice priceIndex, final ZonedDateTime settlementDate,
-      final double notional, final Period totalPeriod, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final Calendar calendar,
+      final double notional, final Period totalPeriod, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar,
       final boolean endOfMonth, final int conventionalMonthLag, final int monthLag, final boolean payNotional) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.isTrue(notional > 0, "notional <= 0");

@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.interestrate.bond.provider;
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.INDEX_LINKED_FLOAT;
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.UK_IL_BOND;
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.US_IL_REAL;
+
 import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.convention.yield.YieldConvention;

@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.instrument.fra.ForwardRateAgreementDefinition;
@@ -55,6 +53,8 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -76,7 +76,7 @@ public class StandardDataSetsMulticurveEUR {
   private static final double TOLERANCE_ROOT = 1.0E-10;
   private static final int STEP_MAX = 100;
 
-  private static final Calendar TARGET = new CalendarTarget("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
   private static final double NOTIONAL = 1.0;
@@ -272,8 +272,8 @@ public class StandardDataSetsMulticurveEUR {
    * Returns the array of calendars used in the curve data set. 
    * @return The array: TARGET
    */
-  public static Calendar[] calendarArray() {
-    return new Calendar[] {TARGET };
+  public static HolidayCalendar[] calendarArray() {
+    return new HolidayCalendar[] {TARGET };
   }
 
   @SuppressWarnings("unchecked")

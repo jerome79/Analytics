@@ -9,7 +9,6 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
@@ -29,6 +28,7 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedC
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -71,7 +71,7 @@ public class SwapFixedIborSpreadDefinition extends SwapDefinition {
    * @return The swap.
    */
   public static SwapFixedIborSpreadDefinition from(final ZonedDateTime settlementDate, final Period tenor, final GeneratorSwapFixedIbor generator, final double notional,
-      final double fixedRate, final double spread, final boolean isPayer, final Calendar calendar) {
+      final double fixedRate, final double spread, final boolean isPayer, final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "Settlement date");
     ArgChecker.notNull(tenor, "Tenor");
     ArgChecker.notNull(generator, "Swap generator");
@@ -109,7 +109,7 @@ public class SwapFixedIborSpreadDefinition extends SwapDefinition {
       final DayCount fixedLegDayCount, final BusinessDayConvention fixedLegBusinessDayConvention, final boolean fixedLegEOM, final double fixedLegNotional,
       final double fixedLegRate, final Period iborLegPeriod, final DayCount iborLegDayCount, final BusinessDayConvention iborLegBusinessDayConvention,
       final boolean iborLegEOM, final double iborLegNotional, final IborIndex iborIndex, final double iborLegSpread, final boolean isPayer,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(iborIndex, "Ibor index");
     final AnnuityCouponFixedDefinition fixedLeg = AnnuityCouponFixedDefinition.from(iborIndex.getCurrency(), settlementDate, maturityDate, fixedLegPeriod,
         calendar, fixedLegDayCount, fixedLegBusinessDayConvention, fixedLegEOM, fixedLegNotional, fixedLegRate, isPayer);

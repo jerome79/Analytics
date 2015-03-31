@@ -12,12 +12,12 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -47,7 +47,7 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
   /** The variance annualization factor */
   private final double _annualizationFactor;
   /** The holiday calendar */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor based upon vega (volatility) parameterisation - strike and notional.
@@ -61,7 +61,7 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
    * @param volStrike Fair value of volatility, the square root of variance, struck at trade date
    * @param volNotional Trade pays the difference between realized and strike variance multiplied by 0.5 * volNotional / volStrike
    */
-  public VarianceSwapDefinition(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency, final Calendar calendar,
+  public VarianceSwapDefinition(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency, final HolidayCalendar calendar,
       final double annualizationFactor, final double volStrike, final double volNotional) {
     ArgChecker.notNull(obsStartDate, "obsStartDate");
     ArgChecker.notNull(obsEndDate, "obsEndDate");
@@ -97,7 +97,7 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
    * @return The contract definition
    */
   public static VarianceSwapDefinition fromVegaParams(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency,
-      final Calendar calendar, final double annualizationFactor, final double volStrike, final double volNotional) {
+      final HolidayCalendar calendar, final double annualizationFactor, final double volStrike, final double volNotional) {
     return new VarianceSwapDefinition(obsStartDate, obsEndDate, settlementDate, currency, calendar, annualizationFactor, volStrike, volNotional);
   }
 
@@ -115,7 +115,7 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
    * @return The contract definition
    */
   public static VarianceSwapDefinition fromVarianceParams(final ZonedDateTime obsStartDate, final ZonedDateTime obsEndDate, final ZonedDateTime settlementDate, final Currency currency,
-      final Calendar calendar, final double annualizationFactor, final double varStrike, final double varNotional) {
+      final HolidayCalendar calendar, final double annualizationFactor, final double varStrike, final double varNotional) {
     ArgChecker.notNegative(varStrike, "variance strike");
     final double volStrike = Math.sqrt(varStrike);
     final double volNotional = 2 * varNotional * volStrike;
@@ -151,7 +151,7 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
         underlyingTimeSeries.subSeries(_obsStartDate.toLocalDate(), date.toLocalDate());
 
     final double[] observations = realizedTS.values().toArray();
-    final double[] observationWeights = {}; // TODO Case 2011-06-29 Calendar Add functionality for non-trivial weighting of observations
+    final double[] observationWeights = {}; // TODO Case 2011-06-29 HolidayCalendar Add functionality for non-trivial weighting of observations
     //if we view this option on some date between the observation start and end dates, then the observation on that particular
     //date will not have been made (observations are closing levels) 
     final int nObservations = date.isAfter(_obsEndDate) ? _nObsExpected : (date.isBefore(_obsStartDate) ? 0 : getDaysBetween(_obsStartDate, date, _calendar));
@@ -239,7 +239,7 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
    * Gets the calendar.
    * @return the calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

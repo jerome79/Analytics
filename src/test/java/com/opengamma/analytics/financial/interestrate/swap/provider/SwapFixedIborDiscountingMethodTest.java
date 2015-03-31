@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -33,6 +32,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Tests discounting methods/calculator for swap with non-standard features.
@@ -46,7 +46,7 @@ public class SwapFixedIborDiscountingMethodTest {
   private static final IborIndex EURIBOR3M = INDEX_LIST[0];
   private static final IborIndex EURIBOR6M = INDEX_LIST[1];
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final ZonedDateTime START_DATE = DateUtils.getUTCDate(2013, 9, 9);
   private static final ZonedDateTime END_DATE_3 = ScheduleCalculator.getAdjustedDate(START_DATE, EURIBOR3M.getTenor(), EURIBOR3M, CALENDAR);

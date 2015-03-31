@@ -13,12 +13,12 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedONMaster;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -30,7 +30,7 @@ public class SwapFixedOISDefinitionTest {
   private static final ZonedDateTime TRADE_DATE = DateUtils.getUTCDate(2011, 9, 7);
 
   // EONIA tests
-  private static final Calendar EUR_CALENDAR = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar EUR_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final GeneratorSwapFixedON EONIA_GENERATOR = GeneratorSwapFixedONMaster.getInstance().getGenerator("EUR1YEONIA", EUR_CALENDAR);
 
   private static final double NOTIONAL = 100000000;
@@ -88,7 +88,7 @@ public class SwapFixedOISDefinitionTest {
   }
 
   // EONIA tests
-  private static final Calendar AUD_CALENDAR = new MondayToFridayCalendar("SYDNEY");
+  private static final HolidayCalendar AUD_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final GeneratorSwapFixedON RBAON_GENERATOR = GeneratorSwapFixedONMaster.getInstance().getGenerator("AUD1YRBAON", AUD_CALENDAR);
 
   private static final double AUD_NOTIONAL = 100000000;

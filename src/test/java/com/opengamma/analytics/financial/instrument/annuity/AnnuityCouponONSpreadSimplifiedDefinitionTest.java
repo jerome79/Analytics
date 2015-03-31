@@ -18,8 +18,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
@@ -28,6 +26,8 @@ import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -38,7 +38,7 @@ public class AnnuityCouponONSpreadSimplifiedDefinitionTest {
 
   private static final IndexON EONIA = IndexONMaster.getInstance().getIndex("EONIA");
   private static final Period PAYMENT_PERIOD = Period.ofMonths(6);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("Weekend");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT = DayCounts.ACT_360;
   private static final boolean IS_EOM = true;
   private static final ZonedDateTime SETTLEMENT_DATE = DateUtils.getUTCDate(2012, 2, 1);

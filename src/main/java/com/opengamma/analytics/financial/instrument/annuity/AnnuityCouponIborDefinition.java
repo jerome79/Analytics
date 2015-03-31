@@ -14,7 +14,6 @@ import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -36,7 +36,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
   /**
    * The holiday calendar for the ibor index
    * */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from a list of Ibor-like coupons.
@@ -44,7 +44,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @param iborIndex The underlying ibor index
    * @param calendar The holiday calendar for the ibor index.
    */
-  public AnnuityCouponIborDefinition(final CouponIborDefinition[] payments, final IborIndex iborIndex, final Calendar calendar) {
+  public AnnuityCouponIborDefinition(final CouponIborDefinition[] payments, final IborIndex iborIndex, final HolidayCalendar calendar) {
     super(payments, calendar);
     ArgChecker.notNull(iborIndex, "ibor index");
     ArgChecker.notNull(calendar, "calendar");
@@ -63,7 +63,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final Period tenor, final double notional, final IborIndex index, final boolean isPayer,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(index, "index");
     ArgChecker.notNull(tenor, "tenor");
@@ -83,7 +83,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IborIndex index, final boolean isPayer,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(index, "index");
     return from(settlementDate, maturityDate, notional, index, isPayer, index.getBusinessDayConvention(), index.isEndOfMonth(), calendar);
   }
@@ -101,7 +101,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IborIndex index, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar) {
     ArgChecker.notNull(index, "index");
     return from(settlementDate, maturityDate, index.getTenor(), notional, index, isPayer, businessDayConvention, endOfMonth, index.getDayCount(), calendar);
   }
@@ -121,7 +121,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod, final double notional, final IborIndex index,
-      final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final Calendar calendar) {
+      final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final HolidayCalendar calendar) {
     return from(settlementDate, maturityDate, paymentPeriod, notional, index, isPayer, businessDayConvention, endOfMonth, dayCount, calendar, StubType.SHORT_START);
   }
 
@@ -141,7 +141,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod, final double notional, final IborIndex index,
-      final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final Calendar calendar, final StubType stub) {
+      final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final HolidayCalendar calendar, final StubType stub) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -177,7 +177,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition fromAccrualUnadjusted(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IborIndex index,
-      final boolean isPayer, final Calendar calendar) {
+      final boolean isPayer, final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(index, "index");
@@ -241,7 +241,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * Gets the holiday calendar for the ibor index.
    * @return The calendar
    */
-  public Calendar getIborCalendar() {
+  public HolidayCalendar getIborCalendar() {
     return _calendar;
   }
 

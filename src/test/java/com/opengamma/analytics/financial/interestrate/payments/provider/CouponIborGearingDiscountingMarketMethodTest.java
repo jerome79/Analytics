@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -31,6 +30,7 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Tests related to the pricing and sensitivities of Ibor coupon with gearing factor and spread in the discounting method.
@@ -41,7 +41,7 @@ public class CouponIborGearingDiscountingMarketMethodTest {
   private static final MulticurveProviderDiscount PROVIDER = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex[] IBOR_INDEXES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = IBOR_INDEXES[0];
-  private static final Calendar CALENDAR_EUR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR_EUR = MulticurveProviderDiscountDataSets.getEURCalendar();
   private static final Currency EUR = EURIBOR3M.getCurrency();
   private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365;
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 5, 23);

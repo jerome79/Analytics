@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodityCashSettle;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -15,6 +14,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -38,7 +38,7 @@ public class CouponCommodityCashSettleDefinition extends CouponCommodityDefiniti
    * @param fixingDate the fixing date
    */
   public CouponCommodityCashSettleDefinition(final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional, final ZonedDateTime settlementDate,
-      final Calendar calendar, final ZonedDateTime fixingDate) {
+      final HolidayCalendar calendar, final ZonedDateTime fixingDate) {
     super(paymentYearFraction, underlying, unitName, notional, settlementDate, calendar);
     ArgChecker.notNull(fixingDate, "fixing date");
     ArgChecker.isTrue(settlementDate.isAfter(fixingDate), "settlement date must be after the fixing date");
@@ -55,7 +55,7 @@ public class CouponCommodityCashSettleDefinition extends CouponCommodityDefiniti
    * @param fixingDate the fixing date
    */
   public CouponCommodityCashSettleDefinition(final CommodityUnderlying underlying, final double notional, final ZonedDateTime settlementDate,
-      final Calendar calendar, final ZonedDateTime fixingDate) {
+      final HolidayCalendar calendar, final ZonedDateTime fixingDate) {
     super(1.0, underlying, underlying.getName(), notional, settlementDate, calendar);
     ArgChecker.notNull(fixingDate, "fixing date");
     ArgChecker.isTrue(settlementDate.isAfter(fixingDate), "settlement date must be after the fixing date");

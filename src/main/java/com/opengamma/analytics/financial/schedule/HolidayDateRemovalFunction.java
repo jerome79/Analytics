@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -26,12 +26,12 @@ public final class HolidayDateRemovalFunction {
   private HolidayDateRemovalFunction() {
   }
 
-  public LocalDate[] getStrippedSchedule(final LocalDate[] dates, final Calendar holidays) {
+  public LocalDate[] getStrippedSchedule(final LocalDate[] dates, final HolidayCalendar holidays) {
     ArgChecker.notNull(dates, "date");
     ArgChecker.notNull(holidays, "holidays");
     final List<LocalDate> stripped = new ArrayList<>();
     for (final LocalDate date : dates) {
-      if (holidays.isWorkingDay(date)) {
+      if (holidays.isBusinessDay(date)) {
         stripped.add(date);
       }
     }

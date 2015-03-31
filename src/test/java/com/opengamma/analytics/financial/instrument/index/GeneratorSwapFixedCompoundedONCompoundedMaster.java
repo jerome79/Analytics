@@ -10,10 +10,10 @@ import java.util.Map;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * A list of generators for swaps Fixed/ON available for tests.
@@ -43,7 +43,7 @@ public class GeneratorSwapFixedCompoundedONCompoundedMaster {
    */
   private GeneratorSwapFixedCompoundedONCompoundedMaster() {
     final IndexONMaster indexONMaster = IndexONMaster.getInstance();
-    final Calendar baseCalendar = new CalendarNoHoliday("No Holidays");
+    final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     final DayCount bus252 = DayCounts.BUSINESS_252;
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;
     _generatorSwap = new HashMap<>();
@@ -52,7 +52,7 @@ public class GeneratorSwapFixedCompoundedONCompoundedMaster {
 
   }
 
-  public GeneratorSwapFixedCompoundedONCompounded getGenerator(final String name, final Calendar cal) {
+  public GeneratorSwapFixedCompoundedONCompounded getGenerator(final String name, final HolidayCalendar cal) {
     final GeneratorSwapFixedCompoundedONCompounded generatorNoCalendar = _generatorSwap.get(name);
     if (generatorNoCalendar == null) {
       throw new RuntimeException("Could not get Swap Fixed/ON Compounded generator for " + name);

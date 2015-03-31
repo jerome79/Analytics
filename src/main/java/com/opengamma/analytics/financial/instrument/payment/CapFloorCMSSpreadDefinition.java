@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -59,12 +59,12 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
   /**
    * The calendar associated with the first leg.
    */
-  private final Calendar _calendar1;
+  private final HolidayCalendar _calendar1;
   /**
    * The calendar associated with the second leg.
    */
   @SuppressWarnings("unused")
-  private final Calendar _calendar2;
+  private final HolidayCalendar _calendar2;
 
   /**
    * Cap/floor CMS spread constructor from all the details.
@@ -86,7 +86,7 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
    */
   public CapFloorCMSSpreadDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double accrualFactor,
       final double notional, final ZonedDateTime fixingDate, final SwapFixedIborDefinition underlyingSwap1, final IndexSwap cmsIndex1, final SwapFixedIborDefinition underlyingSwap2,
-      final IndexSwap cmsIndex2, final double strike, final boolean isCap, final Calendar calendar1, final Calendar calendar2) {
+      final IndexSwap cmsIndex2, final double strike, final boolean isCap, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, accrualFactor, notional, fixingDate);
     ArgChecker.notNull(underlyingSwap1, "underlying swap");
     ArgChecker.notNull(cmsIndex1, "CMS index");
@@ -120,7 +120,7 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
    * @return The CMS spread cap/floor.
    */
   public static CapFloorCMSSpreadDefinition from(final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double accrualFactor,
-      final double notional, final IndexSwap cmsIndex1, final IndexSwap cmsIndex2, final double strike, final boolean isCap, final Calendar calendar1, final Calendar calendar2) {
+      final double notional, final IndexSwap cmsIndex1, final IndexSwap cmsIndex2, final double strike, final boolean isCap, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date.");
     ArgChecker.notNull(cmsIndex1, "CMS index");
     ArgChecker.notNull(cmsIndex2, "CMS index");

@@ -9,10 +9,10 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.inflation.CapFloorInflationYearOnYearInterpolationDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -26,7 +26,7 @@ public class AnnuityCapFloorInflationYearOnYearInterpolationDefinition extends A
    * @param calendar The calendar
    */
   public AnnuityCapFloorInflationYearOnYearInterpolationDefinition(final CapFloorInflationYearOnYearInterpolationDefinition[] payments,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -52,7 +52,7 @@ public class AnnuityCapFloorInflationYearOnYearInterpolationDefinition extends A
    * @return The Year on year coupon leg.
    */
   public static AnnuityCapFloorInflationYearOnYearInterpolationDefinition from(final IndexPrice priceIndex, final ZonedDateTime settlementDate,
-      final double notional, final Period totalTenor, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final Calendar calendar,
+      final double notional, final Period totalTenor, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar,
       final boolean endOfMonth, final int conventionalMonthLag, final int monthLag, final boolean payNotional, final double weightStart, final double weightEnd,
       final ZonedDateTime lastKnownFixingDate, final double strike, final boolean isCap) {
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -88,7 +88,7 @@ public class AnnuityCapFloorInflationYearOnYearInterpolationDefinition extends A
    * @return The Year on year coupon leg.
    */
   public static AnnuityCapFloorInflationYearOnYearInterpolationDefinition from(final IndexPrice priceIndex, final ZonedDateTime settlementDate,
-      final double notional, final Period totalTenor, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final Calendar calendar,
+      final double notional, final Period totalTenor, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar,
       final boolean endOfMonth, final int conventionalMonthLag, final int monthLag, final ZonedDateTime lastKnownFixingDate, final double strike,
       final boolean isCap) {
     ArgChecker.notNull(settlementDate, "settlement date");

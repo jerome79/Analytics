@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapIborON;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -21,6 +20,7 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -33,7 +33,7 @@ public class AnnuityCouponONSpreadDefinition extends AnnuityCouponDefinition<Cou
    * @param payments The coupons.
    * @param calendar The holiday calendar
    */
-  public AnnuityCouponONSpreadDefinition(final CouponONSpreadDefinition[] payments, final Calendar calendar) {
+  public AnnuityCouponONSpreadDefinition(final CouponONSpreadDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -113,7 +113,7 @@ public class AnnuityCouponONSpreadDefinition extends AnnuityCouponDefinition<Cou
    * @return The annuity.
    */
   public static AnnuityCouponONSpreadDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final boolean isPayer,
-      final IndexON indexON, final int paymentLag, final Calendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM,
+      final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM,
       final double spread) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(endFixingPeriodDate, "End fixing period date");

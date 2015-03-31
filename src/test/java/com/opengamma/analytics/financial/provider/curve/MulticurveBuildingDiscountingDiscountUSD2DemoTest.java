@@ -18,8 +18,6 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
@@ -42,6 +40,8 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -54,7 +54,7 @@ public class MulticurveBuildingDiscountingDiscountUSD2DemoTest {
   private static final ZonedDateTime CALIBRATION_DATE = DateUtils.getUTCDate(2011, 9, 28);
 
   /** Index and curve names */
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
   private static final IndexON FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex("USDLIBOR3M");

@@ -11,10 +11,10 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedONDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -61,7 +61,7 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
   /**
    * The holiday calendar associated with the overnight index.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from all details. The stub is short and date constructed from the end.
@@ -75,7 +75,7 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
    * @param calendar The calendar associated with the overnight index.
    */
   public GeneratorSwapFixedON(final String name, final IndexON index, final Period legsPeriod, final DayCount fixedLegDayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final Calendar calendar) {
+      final boolean endOfMonth, final int spotLag, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(legsPeriod, "Period");
     ArgChecker.notNull(fixedLegDayCount, "Fixed leg day count");
@@ -107,7 +107,7 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
    * @param calendar The calendar associated with the overnight index.
    */
   public GeneratorSwapFixedON(final String name, final IndexON index, final Period legsPeriod, final DayCount fixedLegDayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final int paymentLag, final Calendar calendar) {
+      final boolean endOfMonth, final int spotLag, final int paymentLag, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(legsPeriod, "Period");
     ArgChecker.notNull(fixedLegDayCount, "Fixed leg day count");
@@ -202,7 +202,7 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
    * Gets the calendar associated to the OIS index.
    * @return The calendar.
    */
-  public Calendar getOvernightCalendar() {
+  public HolidayCalendar getOvernightCalendar() {
     return _calendar;
   }
 

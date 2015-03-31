@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodity;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodityPhysicalSettle;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
@@ -15,6 +14,7 @@ import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -61,7 +61,7 @@ public class CouponCommodityPhysicalSettleDefinition extends CouponCommodityDefi
    * @param lastDeliveryDate The last delivery date, not null for physical contract
    */
   public CouponCommodityPhysicalSettleDefinition(final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional,
-      final ZonedDateTime settlementDate, final Calendar calendar, final ZonedDateTime noticeFirstDate, final ZonedDateTime noticeLastDate, final ZonedDateTime firstDeliveryDate,
+      final ZonedDateTime settlementDate, final HolidayCalendar calendar, final ZonedDateTime noticeFirstDate, final ZonedDateTime noticeLastDate, final ZonedDateTime firstDeliveryDate,
       final ZonedDateTime lastDeliveryDate) {
     super(paymentYearFraction, underlying, unitName, notional, settlementDate, calendar);
     _noticeFirstDate = noticeFirstDate;

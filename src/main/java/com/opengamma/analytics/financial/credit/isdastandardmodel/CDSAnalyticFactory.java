@@ -12,10 +12,10 @@ import java.time.Period;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -31,7 +31,7 @@ public class CDSAnalyticFactory {
   private static final StubType DEFAULT_STUB_TYPE = StubType.FRONTSHORT;
   private static final boolean PROT_START = true;
   private static final double DEFAULT_RR = 0.4;
-  private static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention FOLLOWING = BusinessDayConventions.FOLLOWING;
   /** Curve daycount generally fixed to Act/365 in ISDA */
   private static final DayCount ACT_365 = DayCounts.ACT_365;
@@ -46,7 +46,7 @@ public class CDSAnalyticFactory {
   private final boolean _protectStart;
   private final double _recoveryRate;
   private final BusinessDayConvention _businessdayAdjustmentConvention;
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   private final DayCount _accrualDayCount;
   private final DayCount _curveDayCount;
 
@@ -60,7 +60,7 @@ public class CDSAnalyticFactory {
    * Protection from start of day: true<br>
    * Recovery rate: 40%<br>
    * Business-day Adjustment: Following<br>
-   * Calendar: weekend only<br>
+   * HolidayCalendar: weekend only<br>
    * Accrual day count: ACT/360<br>
    * Curve day count: ACT/365 (fixed)<p>
    * These defaults can be overridden using the with methods 
@@ -89,7 +89,7 @@ public class CDSAnalyticFactory {
    * Stub type: front-short<br>
    * Protection from start of day: true<br>
    * Business-day Adjustment: Following<br>
-   * Calendar: weekend only<br>
+   * HolidayCalendar: weekend only<br>
    * Accrual day count: ACT/360<br>
    * Curve day count: ACT/365 (fixed)
    * @param recoveryRate The recovery rate
@@ -118,7 +118,7 @@ public class CDSAnalyticFactory {
    * Protection from start of day: true<br>
    * Recovery rate: 40%<br>
    * Business-day Adjustment: Following<br>
-   * Calendar: weekend only<br>
+   * HolidayCalendar: weekend only<br>
    * Accrual day count: ACT/360<br>
    * Curve day count: ACT/365 (fixed) 
    * @param couponInterval The coupon interval
@@ -147,7 +147,7 @@ public class CDSAnalyticFactory {
    * Stub type: front-short<br>
    * Protection from start of day: true<br>
    * Business-day Adjustment: Following<br>
-   * Calendar: weekend only<br>
+   * HolidayCalendar: weekend only<br>
    * Accrual day count: ACT/360<br>
    * Curve day count: ACT/365 (fixed) 
    * @param recoveryRate The recovery rate
@@ -190,7 +190,7 @@ public class CDSAnalyticFactory {
   }
 
   protected CDSAnalyticFactory(final int stepIn, final int cashSettle, final boolean payAccOnDefault, final Period couponInterval, final StubType stubType, final boolean protectStart,
-      final double recoveryRate, final BusinessDayConvention businessdayAdjustmentConvention, final Calendar calendar, final DayCount accrualDayCount, final DayCount curveDayCount) {
+      final double recoveryRate, final BusinessDayConvention businessdayAdjustmentConvention, final HolidayCalendar calendar, final DayCount accrualDayCount, final DayCount curveDayCount) {
     _stepIn = stepIn;
     _cashSettle = cashSettle;
     _payAccOnDefault = payAccOnDefault;
@@ -293,10 +293,10 @@ public class CDSAnalyticFactory {
 
   /**
    * Set the calendar. Default is weekend-only 
-   * @param calendar Calendar defining what is a non-business day
+   * @param calendar HolidayCalendar defining what is a non-business day
    * @return A new factory with calendar set
    */
-  public CDSAnalyticFactory with(final Calendar calendar) {
+  public CDSAnalyticFactory with(final HolidayCalendar calendar) {
     return new CDSAnalyticFactory(_stepIn, _cashSettle, _payAccOnDefault, _couponInterval, _stubType, _protectStart, _recoveryRate, _businessdayAdjustmentConvention, calendar, _accrualDayCount,
         _curveDayCount);
   }

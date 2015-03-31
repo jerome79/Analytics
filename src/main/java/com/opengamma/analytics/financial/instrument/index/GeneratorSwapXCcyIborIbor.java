@@ -10,9 +10,9 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.swap.SwapXCcyIborIborDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -43,11 +43,11 @@ public class GeneratorSwapXCcyIborIbor extends GeneratorInstrument<GeneratorAttr
   /**
    * The holiday calendar for the first leg.
    */
-  private final Calendar _calendar1;
+  private final HolidayCalendar _calendar1;
   /**
    * The holiday calendar for the second leg.
    */
-  private final Calendar _calendar2;
+  private final HolidayCalendar _calendar2;
 
   // REVIEW: Do we need stub type?
   // TODO: Add a merged calendar? [PLAT-1747]
@@ -60,7 +60,7 @@ public class GeneratorSwapXCcyIborIbor extends GeneratorInstrument<GeneratorAttr
    * @param calendar1 The holiday calendar for the first leg.
    * @param calendar2 The holiday calendar for the second leg.
    */
-  public GeneratorSwapXCcyIborIbor(final String name, final IborIndex iborIndex1, final IborIndex iborIndex2, final Calendar calendar1, final Calendar calendar2) {
+  public GeneratorSwapXCcyIborIbor(final String name, final IborIndex iborIndex1, final IborIndex iborIndex2, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     super(name);
     ArgChecker.notNull(iborIndex1, "ibor index");
     ArgChecker.notNull(iborIndex2, "ibor index");
@@ -87,7 +87,7 @@ public class GeneratorSwapXCcyIborIbor extends GeneratorInstrument<GeneratorAttr
    * @param calendar2 The holiday calendar for the second leg.
    */
   public GeneratorSwapXCcyIborIbor(final String name, final IborIndex iborIndex1, final IborIndex iborIndex2, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final Calendar calendar1, final Calendar calendar2) {
+      final boolean endOfMonth, final int spotLag, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     super(name);
     ArgChecker.notNull(iborIndex1, "ibor index");
     ArgChecker.notNull(iborIndex2, "ibor index");
@@ -146,7 +146,7 @@ public class GeneratorSwapXCcyIborIbor extends GeneratorInstrument<GeneratorAttr
    * Gets the holiday calendar for the first leg.
    * @return The holiday calendar
    */
-  public Calendar getCalendar1() {
+  public HolidayCalendar getCalendar1() {
     return _calendar1;
   }
 
@@ -154,7 +154,7 @@ public class GeneratorSwapXCcyIborIbor extends GeneratorInstrument<GeneratorAttr
    * Gets the holiday calendar for the second leg.
    * @return The holiday calendar
    */
-  public Calendar getCalendar2() {
+  public HolidayCalendar getCalendar2() {
     return _calendar2;
   }
 

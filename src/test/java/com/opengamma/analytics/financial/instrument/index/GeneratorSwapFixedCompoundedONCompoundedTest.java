@@ -6,13 +6,14 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import static org.testng.AssertJUnit.assertEquals;
+
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -21,7 +22,7 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 @Test
 public class GeneratorSwapFixedCompoundedONCompoundedTest {
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final IndexON INDEX_CDI = IndexONMaster.getInstance().getIndex("CDI");
   private static final String BRL_NAME = "BRLCDI";
   private static final DayCount BRL_DAYCOUNT_FIXED = INDEX_CDI.getDayCount();

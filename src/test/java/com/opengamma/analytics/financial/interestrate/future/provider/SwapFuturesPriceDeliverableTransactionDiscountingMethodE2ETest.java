@@ -15,8 +15,6 @@ import java.util.LinkedHashMap;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -58,6 +56,8 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -66,9 +66,9 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class SwapFuturesPriceDeliverableTransactionDiscountingMethodE2ETest {
   private static final IndexIborMaster INDEX_MASTER = IndexIborMaster.getInstance();
-  private static final Calendar CALENDAR_EUR = new MondayToFridayCalendar("EUR");
-  private static final Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
-  private static final Calendar CALENDAR_USD = new MondayToFridayCalendar("USD");
+  private static final HolidayCalendar CALENDAR_EUR = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar CALENDAR_USD = HolidayCalendars.SAT_SUN;
   private static final Currency EUR = Currency.EUR;
   private static final Currency GBP = Currency.GBP;
   private static final Currency USD = Currency.USD;

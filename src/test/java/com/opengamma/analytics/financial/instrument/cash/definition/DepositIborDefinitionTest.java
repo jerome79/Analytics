@@ -11,9 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.cash.DepositIborDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -22,6 +19,8 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 
@@ -31,9 +30,9 @@ import com.opengamma.strata.basics.currency.Currency;
 @Test
 public class DepositIborDefinitionTest {
 
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final IborIndex INDEX = IndexIborMaster.getInstance().getIndex("EURIBOR6M");
-  private static final Calendar NO_HOLIDAYS = new CalendarNoHoliday("No Holidays");
+  private static final HolidayCalendar NO_HOLIDAYS = HolidayCalendars.NO_HOLIDAYS;
   private static final Currency EUR = INDEX.getCurrency();
 
   private static final ZonedDateTime TRADE_DATE = DateUtils.getUTCDate(2011, 12, 12);

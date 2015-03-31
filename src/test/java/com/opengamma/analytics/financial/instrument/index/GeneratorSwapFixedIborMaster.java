@@ -9,9 +9,9 @@ import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * A list of swap generators that can be used in the tests.
@@ -113,7 +113,7 @@ public final class GeneratorSwapFixedIborMaster {
    */
   private GeneratorSwapFixedIborMaster() {
     _iborIndexMaster = IndexIborMaster.getInstance();
-    final Calendar baseCalendar = new CalendarNoHoliday("No Holidays");
+    final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     _generatorSwap = new HashMap<>();
     _generatorSwap.put(USD6MLIBOR1M,
                        new GeneratorSwapFixedIbor(USD6MLIBOR1M,
@@ -201,7 +201,7 @@ public final class GeneratorSwapFixedIborMaster {
                                                   baseCalendar));
   }
 
-  public GeneratorSwapFixedIbor getGenerator(final String name, final Calendar cal) {
+  public GeneratorSwapFixedIbor getGenerator(final String name, final HolidayCalendar cal) {
     final GeneratorSwapFixedIbor generatorNoCalendar = _generatorSwap.get(name);
     if (generatorNoCalendar == null) {
       throw new RuntimeException("Could not get Ibor index for " + name);

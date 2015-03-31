@@ -12,8 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
@@ -38,6 +36,8 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -54,7 +54,7 @@ public class STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodTest {
   private static final double NOTIONAL = 1000000.0; // 1m
   private static final double FUTURE_FACTOR = 0.25;
   private static final String NAME = "ERZ4";
-  private static final Calendar TARGET = new CalendarTarget("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
   private static final InterestRateFutureSecurityDefinition ERZ4_DEFINITION =
       new InterestRateFutureSecurityDefinition(LAST_TRADE_DATE, EURIBOR3M, NOTIONAL, FUTURE_FACTOR, NAME, TARGET);
   private static final ZonedDateTime EXPIRY_DATE = DateUtils.getUTCDate(2014, 11, 17);

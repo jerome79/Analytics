@@ -9,7 +9,6 @@ package com.opengamma.analytics.financial.instrument.bond;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -30,6 +29,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 
@@ -63,7 +63,7 @@ public class BondIborSecurityDefinition extends BondSecurityDefinition<PaymentFi
    * @param dayCount The coupon day count convention.
    * @param issuer The issuer name.
    */
-  public BondIborSecurityDefinition(final AnnuityPaymentFixedDefinition nominal, final AnnuityCouponIborDefinition coupon, final int exCouponDays, final int settlementDays, final Calendar calendar,
+  public BondIborSecurityDefinition(final AnnuityPaymentFixedDefinition nominal, final AnnuityCouponIborDefinition coupon, final int exCouponDays, final int settlementDays, final HolidayCalendar calendar,
       final DayCount dayCount, final String issuer) {
     this(nominal, coupon, exCouponDays, settlementDays, calendar, dayCount, new LegalEntity(null, issuer, null, null, null));
   }
@@ -78,7 +78,7 @@ public class BondIborSecurityDefinition extends BondSecurityDefinition<PaymentFi
    * @param dayCount The coupon day count convention, not null
    * @param issuer The issuer name.
    */
-  public BondIborSecurityDefinition(final AnnuityPaymentFixedDefinition nominal, final AnnuityCouponIborDefinition coupon, final int exCouponDays, final int settlementDays, final Calendar calendar,
+  public BondIborSecurityDefinition(final AnnuityPaymentFixedDefinition nominal, final AnnuityCouponIborDefinition coupon, final int exCouponDays, final int settlementDays, final HolidayCalendar calendar,
       final DayCount dayCount, final LegalEntity issuer) {
     super(nominal, coupon, exCouponDays, settlementDays, calendar, issuer);
     ArgChecker.notNull(dayCount, "day count");
@@ -99,7 +99,7 @@ public class BondIborSecurityDefinition extends BondSecurityDefinition<PaymentFi
    * @return The fixed coupon bond.
    */
   public static BondIborSecurityDefinition from(final ZonedDateTime maturityDate, final ZonedDateTime firstAccrualDate, final IborIndex index, final int settlementDays, final DayCount dayCount,
-      final BusinessDayConvention businessDay, final boolean isEOM, final String issuer, final Calendar calendar) {
+      final BusinessDayConvention businessDay, final boolean isEOM, final String issuer, final HolidayCalendar calendar) {
     return from(maturityDate, firstAccrualDate, index, settlementDays, dayCount, businessDay, isEOM, new LegalEntity(null, issuer, null, null, null), calendar);
   }
 
@@ -117,7 +117,7 @@ public class BondIborSecurityDefinition extends BondSecurityDefinition<PaymentFi
    * @return The fixed coupon bond.
    */
   public static BondIborSecurityDefinition from(final ZonedDateTime maturityDate, final ZonedDateTime firstAccrualDate, final IborIndex index, final int settlementDays, final DayCount dayCount,
-      final BusinessDayConvention businessDay, final boolean isEOM, final LegalEntity issuer, final Calendar calendar) {
+      final BusinessDayConvention businessDay, final boolean isEOM, final LegalEntity issuer, final HolidayCalendar calendar) {
     ArgChecker.notNull(maturityDate, "Maturity date");
     ArgChecker.notNull(firstAccrualDate, "First accrual date");
     ArgChecker.notNull(index, "Ibor index");

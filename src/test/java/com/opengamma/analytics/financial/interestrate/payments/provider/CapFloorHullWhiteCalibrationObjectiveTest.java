@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCapFloorIborDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
@@ -30,6 +29,7 @@ import com.opengamma.analytics.financial.provider.method.SuccessiveRootFinderHul
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Tests related to the calibration engine for Hull-White one factor calibration to cap/floor.
@@ -40,7 +40,7 @@ public class CapFloorHullWhiteCalibrationObjectiveTest {
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd()[0];
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   // Cap/floor description
   private static final ZonedDateTime SETTLEMENT_DATE = DateUtils.getUTCDate(2011, 9, 9);

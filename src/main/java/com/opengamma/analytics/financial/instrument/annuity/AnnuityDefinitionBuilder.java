@@ -12,7 +12,6 @@ import java.util.List;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.ActualActualICMA;
 import com.opengamma.analytics.convention.daycount.ActualActualICMANormal;
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -33,6 +32,7 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONArithmeticAv
 import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadSimplifiedDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -66,7 +66,7 @@ public class AnnuityDefinitionBuilder {
    * @return The fixed annuity.
    */
   public static AnnuityCouponFixedDefinition couponFixed(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
-      final Period paymentPeriod, final Calendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional,
+      final Period paymentPeriod, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional,
       final double fixedRate, final boolean isPayer, final StubType stub, final int paymentLag) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -106,7 +106,7 @@ public class AnnuityDefinitionBuilder {
    * @param isMaturity is this the last coupon (needed for 30E/360 ISDA)
    * @return the accrual factor
    */
-  public static double getDayCountFraction(Period paymentPeriod, Calendar calendar, DayCount dayCount, StubType startStub, StubType endStub, ZonedDateTime from, ZonedDateTime to, boolean isFirstCoupon, boolean isMaturity) {
+  public static double getDayCountFraction(Period paymentPeriod, HolidayCalendar calendar, DayCount dayCount, StubType startStub, StubType endStub, ZonedDateTime from, ZonedDateTime to, boolean isFirstCoupon, boolean isMaturity) {
     // only pass in stub if at first or last period.
     StubType stub = null;
     if (isFirstCoupon) {
@@ -153,7 +153,7 @@ public class AnnuityDefinitionBuilder {
    * @return The fixed annuity.
    */
   public static AnnuityCouponFixedDefinition couponFixed(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
-      final Period paymentPeriod, final Calendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional,
+      final Period paymentPeriod, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional,
       final double fixedRate, final boolean isPayer, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -196,7 +196,7 @@ public class AnnuityDefinitionBuilder {
    * @return The fixed annuity.
    */
   public static AnnuityCouponFixedDefinition couponFixed(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
-      final Period paymentPeriod, final Calendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final NotionalProvider notional,
+      final Period paymentPeriod, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final NotionalProvider notional,
       final double fixedRate, final boolean isPayer, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -243,7 +243,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponFixedDefinition> couponFixedRollDate(final Currency currency, final ZonedDateTime startDate, final int startNumberRollDate,
       final int endNumberRollDate, final RollDateAdjuster adjuster, final Period paymentPeriod, final double notional, final double rate, final boolean isPayer,
-      final DayCount dayCount, final Calendar calendar, final StubType stub, final int paymentLag) {
+      final DayCount dayCount, final HolidayCalendar calendar, final StubType stub, final int paymentLag) {
     final long rollMonths = adjuster.getMonthsToAdjust();
     final long paymentMonths = paymentPeriod.toTotalMonths();
     final int rollJump = Math.max(1, (int) (paymentMonths / rollMonths)); // The roll jumps is rounded (toward 0) and is at least 1.
@@ -280,7 +280,7 @@ public class AnnuityDefinitionBuilder {
    * @return The fixed annuity.
    */
   public static AnnuityCouponFixedDefinition couponFixedWithNotional(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
-      final Period paymentPeriod, final Calendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional,
+      final Period paymentPeriod, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional,
       final double fixedRate, final boolean isPayer, final StubType stub, final int paymentLag, final boolean notionalStart, final boolean notionalEnd) {
     final AnnuityDefinition<CouponFixedDefinition> annuityNoNotional = couponFixed(currency, settlementDate, maturityDate, paymentPeriod, calendar, dayCount, businessDay,
         isEOM, notional, fixedRate, isPayer, stub, paymentLag);
@@ -322,7 +322,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityCouponIborDefinition couponIbor(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final double notional, final IborIndex index, final boolean isPayer, final DayCount dayCount, final BusinessDayConvention businessDayConvention, final boolean endOfMonth,
-      final Calendar calendar, final StubType stub, final int paymentLag) {
+      final HolidayCalendar calendar, final StubType stub, final int paymentLag) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -365,7 +365,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityCouponIborDefinition couponIbor(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final double notional, final IborIndex index, final boolean isPayer, final DayCount dayCount, final BusinessDayConvention businessDayConvention, final boolean endOfMonth,
-      final Calendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
+      final HolidayCalendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -408,7 +408,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityCouponIborDefinition couponIbor(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final NotionalProvider notional, final IborIndex index, final boolean isPayer, final DayCount dayCount, final BusinessDayConvention businessDayConvention, final boolean endOfMonth,
-      final Calendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
+      final HolidayCalendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -447,7 +447,7 @@ public class AnnuityDefinitionBuilder {
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition couponIborRollDate(final ZonedDateTime startDate, final int startNumberRollDate, final int endNumberRollDate,
-      final RollDateAdjuster adjuster, final IborIndex index, final double notional, final boolean isPayer, final DayCount dayCount, final Calendar calendar) {
+      final RollDateAdjuster adjuster, final IborIndex index, final double notional, final boolean isPayer, final DayCount dayCount, final HolidayCalendar calendar) {
     final List<ZonedDateTime> legDates = new ArrayList<>();
     ZonedDateTime currentDate = RollDateAdjusterUtils.nthDate(startDate, adjuster, startNumberRollDate);
     legDates.add(ScheduleCalculator.getAdjustedDate(currentDate, 0, calendar));
@@ -487,7 +487,7 @@ public class AnnuityDefinitionBuilder {
    * @return The Ibor annuity.
    */
   public static AnnuityDefinition<CouponIborDefinition> couponIborRollDateIndexAdjusted(final ZonedDateTime startDate, final int startNumberRollDate, final int endNumberRollDate,
-      final RollDateAdjuster adjuster, final IborIndex index, final double notional, final boolean isPayer, final DayCount dayCount, final Calendar calendar, final StubType stub) {
+      final RollDateAdjuster adjuster, final IborIndex index, final double notional, final boolean isPayer, final DayCount dayCount, final HolidayCalendar calendar, final StubType stub) {
     final long rollMonths = adjuster.getMonthsToAdjust();
     final long paymentMonths = index.getTenor().toTotalMonths();
     final int rollJump = Math.max(1, (int) (paymentMonths / rollMonths)); // The roll jumps is rounded (toward 0) and is at least 1.
@@ -526,7 +526,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponDefinition> couponIborWithNotional(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional,
       final IborIndex index, final DayCount dayCountAnnuity, final BusinessDayConvention bdcAnnuity, final boolean eomAnnuity,
-      final Period paymentPeriod, final boolean isPayer, final Calendar calendar, final StubType stub, final int paymentLag,
+      final Period paymentPeriod, final boolean isPayer, final HolidayCalendar calendar, final StubType stub, final int paymentLag,
       final boolean notionalStart, final boolean notionalEnd) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
@@ -570,7 +570,7 @@ public class AnnuityDefinitionBuilder {
    * @return The annuity.
    */
   public static AnnuityDefinition<CouponDefinition> couponIborWithNotional(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional,
-      final IborIndex index, final boolean isPayer, final Calendar calendar, final StubType stub, final int paymentLag,
+      final IborIndex index, final boolean isPayer, final HolidayCalendar calendar, final StubType stub, final int paymentLag,
       final boolean notionalStart, final boolean notionalEnd) {
     return couponIborWithNotional(settlementDate, maturityDate, notional, index, index.getDayCount(), index.getBusinessDayConvention(),
         index.isEndOfMonth(), index.getTenor(), isPayer, calendar, stub, paymentLag, notionalStart, notionalEnd);
@@ -595,7 +595,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborSpreadDefinition> couponIborSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final double notional, final double spread, final IborIndex index, final boolean isPayer, final DayCount dayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final Calendar calendar, final StubType stub, final int paymentLag) {
+      final boolean endOfMonth, final HolidayCalendar calendar, final StubType stub, final int paymentLag) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -639,7 +639,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborSpreadDefinition> couponIborSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final double notional, final double spread, final IborIndex index, final boolean isPayer, final DayCount dayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final Calendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
+      final boolean endOfMonth, final HolidayCalendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -683,7 +683,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborSpreadDefinition> couponIborSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final NotionalProvider notional, final double spread, final IborIndex index, final boolean isPayer, final DayCount dayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final Calendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
+      final boolean endOfMonth, final HolidayCalendar calendar, final StubType stub, final int paymentLag, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -720,7 +720,7 @@ public class AnnuityDefinitionBuilder {
    * @return The Ibor annuity.
    */
   public static AnnuityDefinition<CouponIborSpreadDefinition> couponIborSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional,
-      final IborIndex index, final double spread, final boolean isPayer, final Calendar calendar) {
+      final IborIndex index, final double spread, final boolean isPayer, final HolidayCalendar calendar) {
     ArgChecker.notNull(index, "index");
     return couponIborSpread(settlementDate, maturityDate, index.getTenor(), notional, spread, index, isPayer, index.getDayCount(), index.getBusinessDayConvention(),
         index.isEndOfMonth(), calendar, StubType.SHORT_START, 0);
@@ -738,7 +738,7 @@ public class AnnuityDefinitionBuilder {
    * @return The Ibor annuity.
    */
   public static AnnuityDefinition<CouponIborSpreadDefinition> couponIborSpread(final ZonedDateTime settlementDate, final Period tenor, final double notional, final IborIndex index,
-      final double spread, final boolean isPayer, final Calendar calendar) {
+      final double spread, final boolean isPayer, final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "settlement date");
     final ZonedDateTime maturityDate = settlementDate.plus(tenor);
     return couponIborSpread(settlementDate, maturityDate, notional, index, spread, isPayer, calendar);
@@ -765,7 +765,7 @@ public class AnnuityDefinitionBuilder {
    * @return The Ibor annuity.
    */
   public static AnnuityDefinition<CouponIborSpreadDefinition> couponIborSpreadRollDateIndexAdjusted(final ZonedDateTime startDate, final int startNumberRollDate, final int endNumberRollDate,
-      final RollDateAdjuster adjuster, final IborIndex index, final double notional, final double spread, final boolean isPayer, final DayCount dayCount, final Calendar calendar,
+      final RollDateAdjuster adjuster, final IborIndex index, final double notional, final double spread, final boolean isPayer, final DayCount dayCount, final HolidayCalendar calendar,
       final StubType stub) {
     ArgChecker.isTrue(startNumberRollDate > 0, "number of start roll dates negative");
     ArgChecker.isTrue(endNumberRollDate > 0, "number of end roll dates negative");
@@ -808,7 +808,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponDefinition> couponIborSpreadWithNotional(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional,
       final double spread, final IborIndex index, final DayCount dayCountAnnuity, final BusinessDayConvention bdcAnnuity, final boolean eomAnnuity,
-      final Period paymentPeriod, final boolean isPayer, final Calendar calendar, final StubType stub, final int paymentLag,
+      final Period paymentPeriod, final boolean isPayer, final HolidayCalendar calendar, final StubType stub, final int paymentLag,
       final boolean notionalStart, final boolean notionalEnd) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
@@ -853,7 +853,7 @@ public class AnnuityDefinitionBuilder {
    * @return The annuity.
    */
   public static AnnuityDefinition<CouponDefinition> couponIborSpreadWithNotional(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional,
-      final double spread, final IborIndex index, final boolean isPayer, final Calendar calendar, final StubType stub, final int paymentLag,
+      final double spread, final IborIndex index, final boolean isPayer, final HolidayCalendar calendar, final StubType stub, final int paymentLag,
       final boolean notionalStart, final boolean notionalEnd) {
     return couponIborSpreadWithNotional(settlementDate, maturityDate, notional, spread, index, index.getDayCount(),
         index.getBusinessDayConvention(), index.isEndOfMonth(), index.getTenor(), isPayer, calendar, stub, paymentLag, notionalStart, notionalEnd);
@@ -876,7 +876,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingDefinition> couponIborCompounding(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final double notional, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -912,7 +912,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingDefinition> couponIborCompounding(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final double notional, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -948,7 +948,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingDefinition> couponIborCompounding(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final NotionalProvider notional, final IborIndex index, final StubType stubCompound, final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth,
-      final Calendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
+      final HolidayCalendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -989,7 +989,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingSpreadDefinition> couponIborCompoundingSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
       final double notional, final double spread, final IborIndex index, final StubType stubCompound, final boolean isPayer, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final Calendar calendar, final StubType stubLeg) {
+      final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1026,7 +1026,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingSpreadDefinition> couponIborCompoundingSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final double notional, final double spread, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1064,7 +1064,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingSpreadDefinition> couponIborCompoundingSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final NotionalProvider notional, final double spread, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1105,7 +1105,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingFlatSpreadDefinition> couponIborCompoundingFlatSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final double notional, final double spread, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1142,7 +1142,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingFlatSpreadDefinition> couponIborCompoundingFlatSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final double notional, final double spread, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1180,7 +1180,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponIborCompoundingFlatSpreadDefinition> couponIborCompoundingFlatSpread(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
       final Period paymentPeriod, final NotionalProvider notional, final double spread, final IborIndex index, final StubType stubCompound, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg, final RollDateAdjuster adjuster) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1225,7 +1225,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponONSpreadSimplifiedDefinition> couponONSimpleCompoundedSpreadSimplified(final ZonedDateTime settlementDate,
       final ZonedDateTime maturityDate, final Period paymentPeriod, final double notional, final double spread, final IndexON index, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg, final int paymentLag) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg, final int paymentLag) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1266,7 +1266,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponONSpreadSimplifiedDefinition> couponONSimpleCompoundedSpreadSimplifiedRollDate(final ZonedDateTime startDate,
       final int startNumberRollDate, final int endNumberRollDate, final RollDateAdjuster adjuster, final Period paymentPeriod, final double notional,
-      final double spread, final IndexON index, final boolean isPayer, final Calendar calendar, final StubType stub, final int paymentLag) {
+      final double spread, final IndexON index, final boolean isPayer, final HolidayCalendar calendar, final StubType stub, final int paymentLag) {
     ArgChecker.notNull(startDate, "settlement date");
     ArgChecker.notNull(adjuster, "roll date adjuster");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1307,7 +1307,7 @@ public class AnnuityDefinitionBuilder {
    */
   public static AnnuityDefinition<CouponONArithmeticAverageSpreadSimplifiedDefinition> couponONArithmeticAverageSpreadSimplified(final ZonedDateTime settlementDate,
       final ZonedDateTime maturityDate, final Period paymentPeriod, final double notional, final double spread, final IndexON index, final boolean isPayer,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final StubType stubLeg) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final StubType stubLeg) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -1340,7 +1340,7 @@ public class AnnuityDefinitionBuilder {
    * @param nbRoll The total number of rolls, i.e. n will create n+1 dates separated each by rollJump adjuster dates.
    * @return The list of dates.
    */
-  private static List<ZonedDateTime> rollDateSchedule(final ZonedDateTime referenceDate, final int startNumberRollDate, final RollDateAdjuster adjuster, final Calendar calendar,
+  private static List<ZonedDateTime> rollDateSchedule(final ZonedDateTime referenceDate, final int startNumberRollDate, final RollDateAdjuster adjuster, final HolidayCalendar calendar,
       final StubType stub, final int rollJump, final int nbRoll) {
     final List<ZonedDateTime> legDates = new ArrayList<>();
     ZonedDateTime currentDate = RollDateAdjusterUtils.nthDate(referenceDate, adjuster, startNumberRollDate);

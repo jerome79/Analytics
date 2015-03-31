@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.PresentValueSABRSensitivityDataBundle;
@@ -37,6 +36,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -49,7 +49,7 @@ public class InterestRateFutureOptionMarginTransactionSABRMethodTest {
   private static final IborIndex[] IBOR_INDEXES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = IBOR_INDEXES[0];
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final Calendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final SABRInterestRateParameters SABR_PARAMETERS = SABRDataSets.createSABR1();
   private static final SABRSTIRFuturesProviderDiscount SABR_MULTICURVES = new SABRSTIRFuturesProviderDiscount(MULTICURVES, SABR_PARAMETERS, EURIBOR3M);

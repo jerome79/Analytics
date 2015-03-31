@@ -16,7 +16,7 @@ public enum OffsetType {
   BUSINESS,
   
   /**
-   * Calendar day offset.
+   * HolidayCalendar day offset.
    */
   CALENDAR
 }

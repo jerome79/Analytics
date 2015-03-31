@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.BondFutu
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -90,7 +90,7 @@ public class BondFutureDefinition implements InstrumentDefinitionWithData<BondFu
     _deliveryBasket = deliveryBasket;
     _conversionFactor = conversionFactor;
     _settlementDays = _deliveryBasket[0].getSettlementDays();
-    final Calendar calendar = _deliveryBasket[0].getCalendar();
+    final HolidayCalendar calendar = _deliveryBasket[0].getCalendar();
     _deliveryFirstDate = ScheduleCalculator.getAdjustedDate(_noticeFirstDate, _settlementDays, calendar);
     _deliveryLastDate = ScheduleCalculator.getAdjustedDate(_noticeLastDate, _settlementDays, calendar);
   }

@@ -12,8 +12,8 @@ import java.time.LocalDate;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -22,7 +22,7 @@ import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 @Test
 public class HolidayDateRemovalFunctionTest {
   private static final HolidayDateRemovalFunction F = HolidayDateRemovalFunction.getInstance();
-  private static final Calendar WEEKEND_CALENDAR = new MondayToFridayCalendar("Weekend");
+  private static final HolidayCalendar WEEKEND_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final Schedule DAILY = new DailyScheduleCalculator();
   private static final LocalDate START = LocalDate.of(2009, 1, 1);
   private static final LocalDate END = LocalDate.of(2010, 1, 1);

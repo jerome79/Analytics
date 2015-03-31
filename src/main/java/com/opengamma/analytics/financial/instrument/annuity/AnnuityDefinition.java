@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -42,14 +42,14 @@ public class AnnuityDefinition<P extends PaymentDefinition> implements Instrumen
   /**
    * The calendar, not null
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from an array of payments.
    * @param payments The payments, not null. All of them should have the same currency.
    * @param calendar The holiday calendar, not null
    */
-  public AnnuityDefinition(final P[] payments, final Calendar calendar) {
+  public AnnuityDefinition(final P[] payments, final HolidayCalendar calendar) {
     ArgChecker.noNulls(payments, "payments");
     ArgChecker.isTrue(payments.length > 0, "Have no payments in annuity");
     ArgChecker.notNull(calendar, "calendar");
@@ -111,7 +111,7 @@ public class AnnuityDefinition<P extends PaymentDefinition> implements Instrumen
    * Gets the holiday calendar.
    * @return The holiday calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

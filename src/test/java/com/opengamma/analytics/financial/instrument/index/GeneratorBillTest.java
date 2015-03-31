@@ -11,8 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -22,6 +20,8 @@ import com.opengamma.analytics.financial.instrument.bond.BillTransactionDefiniti
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -31,7 +31,7 @@ import com.opengamma.strata.basics.currency.Currency;
 public class GeneratorBillTest {
 
   private final static Currency EUR = Currency.EUR;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
 
   private static final DayCount ACT360 = DayCounts.ACT_360;
   private static final int SETTLEMENT_DAYS = 2;

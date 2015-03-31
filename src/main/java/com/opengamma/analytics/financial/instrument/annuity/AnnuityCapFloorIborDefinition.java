@@ -8,11 +8,11 @@ package com.opengamma.analytics.financial.instrument.annuity;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CapFloorIborDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -25,7 +25,7 @@ public class AnnuityCapFloorIborDefinition extends AnnuityDefinition<CapFloorIbo
    * @param payments The CMS coupons.
    * @param calendar The holiday calendar.
    */
-  public AnnuityCapFloorIborDefinition(final CapFloorIborDefinition[] payments, final Calendar calendar) {
+  public AnnuityCapFloorIborDefinition(final CapFloorIborDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -42,7 +42,7 @@ public class AnnuityCapFloorIborDefinition extends AnnuityDefinition<CapFloorIbo
    * @return The Ibor annuity.
    */
   public static AnnuityCapFloorIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IborIndex index, final boolean isPayer,
-      final double strike, final boolean isCap, final Calendar calendar) {
+      final double strike, final boolean isCap, final HolidayCalendar calendar) {
     ArgChecker.notNull(index, "index");
     return from(settlementDate, maturityDate, notional, index, index.getDayCount(), index.getTenor(), isPayer, strike, isCap, calendar);
   }
@@ -61,7 +61,7 @@ public class AnnuityCapFloorIborDefinition extends AnnuityDefinition<CapFloorIbo
    * @return The Ibor annuity.
    */
   public static AnnuityCapFloorIborDefinition fromWithNoInitialCaplet(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IborIndex index,
-      final boolean isPayer, final double strike, final boolean isCap, final Calendar calendar) {
+      final boolean isPayer, final double strike, final boolean isCap, final HolidayCalendar calendar) {
     final AnnuityCapFloorIborDefinition fullAnnuity = from(settlementDate, maturityDate, notional, index, isPayer, strike, isCap, calendar);
     final CapFloorIborDefinition[] cap = new CapFloorIborDefinition[fullAnnuity.getNumberOfPayments() - 1];
     for (int loopcap = 1; loopcap < fullAnnuity.getNumberOfPayments(); loopcap++) {
@@ -85,7 +85,7 @@ public class AnnuityCapFloorIborDefinition extends AnnuityDefinition<CapFloorIbo
    * @return The Ibor annuity.
    */
   public static AnnuityCapFloorIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final double notional, final IborIndex index, final DayCount dayCount,
-      final Period paymentPeriod, final boolean isPayer, final double strike, final boolean isCap, final Calendar calendar) {
+      final Period paymentPeriod, final boolean isPayer, final double strike, final boolean isCap, final HolidayCalendar calendar) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(index, "index");

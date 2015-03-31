@@ -10,9 +10,9 @@ import java.util.Map;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * 
@@ -48,8 +48,8 @@ public final class GeneratorSwapFixedInflationMaster {
 //    final DoubleTimeSeries<ZonedDateTime> ukPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.ukRpiFrom2010();
 
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;
-    final Calendar baseCalendar = new CalendarNoHoliday("No Holidays");
-    final Calendar londonBaseCalendar = new CalendarGBP("LONDON");
+    final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
+    final HolidayCalendar londonBaseCalendar = new CalendarGBP("LONDON");
     final boolean endOfMonth = true;
     final int monthLag = 3;
     final int spotLag = 2;

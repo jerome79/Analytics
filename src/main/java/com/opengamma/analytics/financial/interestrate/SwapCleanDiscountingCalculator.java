@@ -9,7 +9,6 @@ package com.opengamma.analytics.financial.interestrate;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
@@ -29,6 +28,7 @@ import com.opengamma.analytics.financial.provider.calculator.discounting.Present
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -51,7 +51,7 @@ public class SwapCleanDiscountingCalculator {
    * @return The par rate
    */
   public Double parRate(SwapFixedIborDefinition swapDefinition, DayCount fixedLegDayCount,
-      DayCount iborLegDayCount, Calendar calendar, ZonedDateTime valuationDate,
+      DayCount iborLegDayCount, HolidayCalendar calendar, ZonedDateTime valuationDate,
       ZonedDateTimeDoubleTimeSeries indexTimeSeries, MulticurveProviderDiscount multicurves) {
     ArgChecker.notNull(swapDefinition, "swapDefinition");
     ArgChecker.notNull(fixedLegDayCount, "fixedLegDayCount");
@@ -91,7 +91,7 @@ public class SwapCleanDiscountingCalculator {
    * @return The accrued interest
    */
   public MultiCurrencyAmount accruedInterest(SwapFixedIborDefinition swapDefinition, DayCount fixedLegDayCount,
-      DayCount iborLegDayCount, Calendar calendar, ZonedDateTime valuationDate,
+      DayCount iborLegDayCount, HolidayCalendar calendar, ZonedDateTime valuationDate,
       ZonedDateTimeDoubleTimeSeries indexTimeSeries, MulticurveProviderDiscount multicurves) {
     ArgChecker.notNull(swapDefinition, "swapDefinition");
     ArgChecker.notNull(fixedLegDayCount, "fixedLegDayCount");
@@ -112,7 +112,7 @@ public class SwapCleanDiscountingCalculator {
     return MultiCurrencyAmount.of(swapDefinition.getCurrency(), iborLegAccruedInterest + fixedLegAccruedInterest);
   }
 
-  private double getAccrued(DayCount dayCount, Calendar calendar, ZonedDateTime valuationDate,
+  private double getAccrued(DayCount dayCount, HolidayCalendar calendar, ZonedDateTime valuationDate,
       AnnuityDefinition<? extends CouponDefinition> annuity, ZonedDateTimeDoubleTimeSeries indexTimeSeries) {
     LocalDate date = valuationDate.toLocalDate();
     double res = 0.0;
@@ -139,7 +139,7 @@ public class SwapCleanDiscountingCalculator {
     return res;
   }
 
-  private double getAccrued(DayCount dayCount, Calendar calendar, ZonedDateTime valuationDate, CouponDefinition coupon) {
+  private double getAccrued(DayCount dayCount, HolidayCalendar calendar, ZonedDateTime valuationDate, CouponDefinition coupon) {
     double accruedYearFraction = dayCount.getDayCountFraction(coupon.getAccrualStartDate(), valuationDate, calendar);
     return accruedYearFraction * coupon.getNotional();
   }

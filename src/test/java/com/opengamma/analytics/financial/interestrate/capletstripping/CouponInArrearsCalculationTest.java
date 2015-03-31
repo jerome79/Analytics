@@ -15,7 +15,6 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -59,6 +58,7 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -85,7 +85,7 @@ public class CouponInArrearsCalculationTest {
 
   private static final IborIndex USDLIBOR3M = MASTER_IBOR_INDEX.getIndex(IndexIborMaster.USDLIBOR3M);
   private static final Currency USD = USDLIBOR3M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getUSDCalendar();
 
   // Dates
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2013, 6, 7);
@@ -162,7 +162,7 @@ public class CouponInArrearsCalculationTest {
   /*
    * Swap examples
    */
-  private static final Calendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = GeneratorSwapFixedIborMaster
       .getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR1M = GENERATOR_SWAP_FIXED_IBOR_MASTER.getGenerator(

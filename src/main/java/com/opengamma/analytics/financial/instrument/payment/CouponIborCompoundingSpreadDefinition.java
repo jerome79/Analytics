@@ -17,7 +17,6 @@ import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -31,6 +30,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -269,7 +269,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
    */
   public static CouponIborCompoundingSpreadDefinition from(final ZonedDateTime paymentDate, final double notional, final IborIndex index,
       final ZonedDateTime[] accrualStartDates, final ZonedDateTime[] accrualEndDates, final double[] paymentAccrualFactors, final double spread,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     final int nbSubPeriod = accrualEndDates.length;
     final ZonedDateTime accrualStartDate = accrualStartDates[0];
     final ZonedDateTime accrualEndDate = accrualEndDates[nbSubPeriod - 1];
@@ -315,7 +315,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
    * @return The compounded coupon.
    */
   public static CouponIborCompoundingSpreadDefinition from(final double notional, final ZonedDateTime accrualStartDate, final Period tenor, final IborIndex index,
-      final double spread, final Calendar calendar) {
+      final double spread, final HolidayCalendar calendar) {
     final ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(accrualStartDate, tenor, true, false, index, calendar);
     final int nbSubPeriod = accrualEndDates.length;
     final ZonedDateTime[] accrualStartDates = new ZonedDateTime[nbSubPeriod];
@@ -344,11 +344,11 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
    * @return The compounded coupon.
    */
   public static CouponIborCompoundingSpreadDefinition from(final double notional, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final IborIndex index,
-      final double spread, final StubType stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar) {
+      final double spread, final StubType stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date");
     ArgChecker.notNull(accrualEndDate, "Accrual end date");
     ArgChecker.notNull(index, "Index");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     final boolean isStubShort = stub.equals(StubType.SHORT_END) || stub.equals(StubType.SHORT_START);
     final boolean isStubStart = stub.equals(StubType.LONG_START) || stub.equals(StubType.SHORT_START); // Implementation note: dates computed from the end.
     final ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(accrualStartDate, accrualEndDate, index.getTenor(), isStubShort, isStubStart,
@@ -365,12 +365,12 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
   }
 
   public static CouponIborCompoundingSpreadDefinition from(final double notional, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final IborIndex index,
-                                                           final double spread, final StubType stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final Calendar calendar, final
+                                                           final double spread, final StubType stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, final
                                                            RollDateAdjuster adjuster) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date");
     ArgChecker.notNull(accrualEndDate, "Accrual end date");
     ArgChecker.notNull(index, "Index");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     final boolean isStubShort = stub.equals(StubType.SHORT_END) || stub.equals(StubType.SHORT_START);
     final boolean isStubStart = stub.equals(StubType.LONG_START) || stub.equals(StubType.SHORT_START); // Implementation note: dates computed from the end.
     final ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(accrualStartDate, accrualEndDate, index.getTenor(), isStubShort, isStubStart,
@@ -390,11 +390,11 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
       double notional,
       ZonedDateTime accrualStartDate, ZonedDateTime accrualEndDate,
       IborIndex index, double spread, StubType stubType,
-      Calendar accrualCalendar,
+      HolidayCalendar accrualCalendar,
       BusinessDayConvention accrualBusinessDayConvention,
-      Calendar fixingCalendar,
+      HolidayCalendar fixingCalendar,
       BusinessDayConvention fixingBusinessDayConvention,
-      Calendar resetCalendar,
+      HolidayCalendar resetCalendar,
       DateRelativeTo resetRelativeTo,
       DateRelativeTo paymentRelativeTo,
       RollDateAdjuster rollDateAdjuster) {

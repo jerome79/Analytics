@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.instrument.swap;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborSpreadDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponONDefinition;
@@ -20,6 +19,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -50,7 +50,7 @@ public class SwapIborONDefinition extends SwapDefinition {
    * @return The swap.
    */
   public static SwapIborONDefinition from(final ZonedDateTime settlementDate, final Period tenorSwap, final GeneratorSwapIborON generator, final double notional, final double spread,
-      final boolean isPayer, final Calendar iborCalendar) {
+      final boolean isPayer, final HolidayCalendar iborCalendar) {
     final AnnuityCouponONDefinition oisLeg = AnnuityCouponONDefinition.from(settlementDate, tenorSwap, notional, generator, !isPayer);
     final double sign = isPayer ? -1.0 : 1.0;
     final double notionalSigned = sign * notional;
@@ -69,7 +69,7 @@ public class SwapIborONDefinition extends SwapDefinition {
    * @return The swap.
    */
   public static SwapIborONDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final GeneratorSwapIborON generator, final double spread,
-      final boolean isPayer, final Calendar calendar) {
+      final boolean isPayer, final HolidayCalendar calendar) {
     final AnnuityCouponONDefinition oisLeg = AnnuityCouponONDefinition.from(settlementDate, endFixingPeriodDate, notional, generator, !isPayer);
     final double sign = isPayer ? -1.0 : 1.0;
     final double notionalSigned = sign * notional;
@@ -113,7 +113,7 @@ public class SwapIborONDefinition extends SwapDefinition {
   }
 
   private static SwapIborONDefinition from(final AnnuityCouponONDefinition oisLeg, final double notionalSigned, final IborIndex indexIbor, final double spread,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     final CouponIborSpreadDefinition[] cpnIbor = new CouponIborSpreadDefinition[oisLeg.getNumberOfPayments()];
     for (int loopcpn = 0; loopcpn < oisLeg.getNumberOfPayments(); loopcpn++) {
       final ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(oisLeg.getNthPayment(loopcpn).getAccrualStartDate(), -indexIbor.getSpotLag(), calendar);
@@ -124,7 +124,7 @@ public class SwapIborONDefinition extends SwapDefinition {
   }
 
   private static SwapIborONDefinition from(final AnnuityCouponONDefinition oisLeg, final NotionalProvider notional, final IborIndex indexIbor, final double spread,
-                                           final Calendar calendar, boolean isPayer) {
+                                           final HolidayCalendar calendar, boolean isPayer) {
     final double sign = isPayer ? -1 : 1;
     final CouponIborSpreadDefinition[] cpnIbor = new CouponIborSpreadDefinition[oisLeg.getNumberOfPayments()];
     for (int loopcpn = 0; loopcpn < oisLeg.getNumberOfPayments(); loopcpn++) {

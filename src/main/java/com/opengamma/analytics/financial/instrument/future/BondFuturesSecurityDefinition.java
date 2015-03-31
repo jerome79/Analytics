@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.BondFutu
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -56,7 +56,7 @@ public class BondFuturesSecurityDefinition extends FuturesSecurityDefinition<Bon
   /**
    * The holiday calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from the trading and notice dates and the basket.
@@ -180,7 +180,7 @@ public class BondFuturesSecurityDefinition extends FuturesSecurityDefinition<Bon
    * Gets the holiday calendar.
    * @return The holiday calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

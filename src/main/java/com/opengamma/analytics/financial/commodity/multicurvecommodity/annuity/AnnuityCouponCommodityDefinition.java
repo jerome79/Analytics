@@ -5,9 +5,9 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.annuity;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.definition.CouponCommodityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * A wrapper class for a AnnuityDefinition containing CouponCommodityDefinition.
@@ -19,7 +19,7 @@ public class AnnuityCouponCommodityDefinition<P extends CouponCommodityDefinitio
    * @param coupons The coupons.
    * @param calendar The holiday calendar, not null
    */
-  public AnnuityCouponCommodityDefinition(final P[] coupons, final Calendar calendar) {
+  public AnnuityCouponCommodityDefinition(final P[] coupons, final HolidayCalendar calendar) {
     super(coupons, calendar);
   }
 

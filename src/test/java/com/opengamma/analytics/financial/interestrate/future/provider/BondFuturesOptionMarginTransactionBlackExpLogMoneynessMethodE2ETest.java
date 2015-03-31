@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -58,6 +57,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.location.Country;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -67,7 +67,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 @Test
 public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest {
   private static final BondAndSTIRFuturesE2EExamplesData DATA = new BondAndSTIRFuturesE2EExamplesData();
-  private static final Calendar EUR_CALENDAR = DATA.getEURCalendar();
+  private static final HolidayCalendar EUR_CALENDAR = DATA.getEURCalendar();
   private static final Currency EUR = Currency.EUR;
   private static final ZonedDateTime VALUATION_DATE = ZonedDateTime.of(2014, 2, 17, 9, 0, 0, 0, ZoneId.of("Z"));
 

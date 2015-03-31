@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompounded;
@@ -27,6 +26,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculatorBUS252;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -60,7 +60,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
   /**
    * The calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from all the coupon details.
@@ -77,7 +77,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
    */
   public CouponONCompoundedDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentYearFraction, final double notional, final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentYearFraction, notional);
     ArgChecker.notNull(index, "CouponOISDefinition: index");
     ArgChecker.notNull(fixingPeriodStartDate, "CouponOISDefinition: fixingPeriodStartDate");
@@ -119,7 +119,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
    * @return The OIS coupon.
    */
   public static CouponONCompoundedDefinition from(final IndexON index, final ZonedDateTime settlementDate, final Period tenor, final double notional, final int settlementDays,
-      final BusinessDayConvention businessDayConvention, final boolean isEOM, final Calendar calendar) {
+      final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar calendar) {
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(settlementDate, tenor, businessDayConvention, calendar, isEOM);
     return from(index, settlementDate, fixingPeriodEndDate, notional, settlementDays, calendar);
   }
@@ -136,7 +136,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
    * @return The OIS coupon.
    */
   public static CouponONCompoundedDefinition from(final IndexON index, final ZonedDateTime settlementDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
-      final int settlementDays, final Calendar calendar) {
+      final int settlementDays, final HolidayCalendar calendar) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + settlementDays, calendar);
     final double paymentYearFraction = index.getDayCount().getDayCountFraction(settlementDate, fixingPeriodEndDate, calendar);
     return new CouponONCompoundedDefinition(index.getCurrency(), paymentDate, settlementDate, fixingPeriodEndDate, paymentYearFraction, notional, index, settlementDate,
@@ -189,7 +189,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
    * Gets the calendar.
    * @return The calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

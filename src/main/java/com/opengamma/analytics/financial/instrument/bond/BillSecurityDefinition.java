@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -45,7 +45,7 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
   /**
    * The calendar used to compute the standard settlement date.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The yield (to maturity) computation convention.
    */
@@ -71,7 +71,7 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
    * @param issuer The bill issuer name.
    */
   public BillSecurityDefinition(final Currency currency, final ZonedDateTime endDate, final double notional,
-                                final int settlementDays, final Calendar calendar, final YieldConvention yieldConvention,
+                                final int settlementDays, final HolidayCalendar calendar, final YieldConvention yieldConvention,
                                 final DayCount dayCount, final String issuer) {
     this(currency, endDate, notional, settlementDays, calendar, yieldConvention, dayCount,
          new LegalEntity(null, issuer, null, null, null));
@@ -89,11 +89,11 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
    * @param issuer The bill issuer.
    */
   public BillSecurityDefinition(final Currency currency, final ZonedDateTime endDate, final double notional,
-                                final int settlementDays, final Calendar calendar, final YieldConvention yieldConvention,
+                                final int settlementDays, final HolidayCalendar calendar, final YieldConvention yieldConvention,
                                 final DayCount dayCount, final LegalEntity issuer) {
     ArgChecker.notNull(currency, "Currency");
     ArgChecker.notNull(endDate, "End date");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     ArgChecker.notNull(yieldConvention, "Yield convention");
     ArgChecker.notNull(dayCount, "Day count");
     ArgChecker.notNull(issuer, "Issuer");
@@ -144,7 +144,7 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
    * Gets the calendar used to compute the standard settlement date.
    * @return The calendar.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

@@ -9,10 +9,8 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -36,13 +34,15 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 @Test
 public class LastTimeIndexCalculatorTest {
 
   /** Generators */
-  private static final Calendar TOK = new CalendarTarget("TARGET");
+  private static final HolidayCalendar TOK = HolidayCalendars.EUTA;
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor JPY6MLIBOR3M = GENERATOR_SWAP_MASTER.getGenerator(GeneratorSwapFixedIborMaster.JPY6MLIBOR3M, TOK);
   private static final GeneratorSwapFixedIbor JPY6MLIBOR6M = GENERATOR_SWAP_MASTER.getGenerator(GeneratorSwapFixedIborMaster.JPY6MLIBOR6M, TOK);

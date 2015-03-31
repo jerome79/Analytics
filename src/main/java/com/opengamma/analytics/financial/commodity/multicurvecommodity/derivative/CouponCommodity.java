@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -44,7 +44,7 @@ public abstract class CouponCommodity extends Payment {
   /**
    * The holiday calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor with all details.
@@ -56,7 +56,7 @@ public abstract class CouponCommodity extends Payment {
    * @param calendar The holiday calendar, not null
    */
   public CouponCommodity(final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional,
-      final double settlementTime, final Calendar calendar) {
+      final double settlementTime, final HolidayCalendar calendar) {
     super(underlying.getCurrency(), settlementTime);
     ArgChecker.isTrue(paymentYearFraction >= 0, "payment year fraction must be positive");
     ArgChecker.isTrue(settlementTime >= 0, "settlement time must be positive");
@@ -118,7 +118,7 @@ public abstract class CouponCommodity extends Payment {
   /**
    * @return the _calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

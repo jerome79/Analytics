@@ -14,13 +14,12 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.AnalyticsTestBase;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
 import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -39,7 +38,7 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
   /** The currency */
   private static final Currency CCY = Currency.EUR;
   /** The calendar */
-  private static final Calendar WEEKENDS = new MondayToFridayCalendar("WEEKEND");
+  private static final HolidayCalendar WEEKENDS = HolidayCalendars.SAT_SUN;
   /** The number of observations per year */
   private static final double OBS_PER_YEAR = 250;
   /** The volatility strike */
@@ -57,7 +56,7 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
     super(VolatilitySwapDefinition.class,
         new Object[] {CCY, VOL_STRIKE, VOL_NOTIONAL, T_PLUS_2D, T_PLUS_5Y, NOW, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, WEEKENDS },
         new Class[] {Currency.class, double.class, double.class,
-          ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, PeriodFrequency.class, double.class, Calendar.class },
+          ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, PeriodFrequency.class, double.class, HolidayCalendar.class },
         new boolean[] {true, false, false, true, true, true, true, true, false, true });
   }
 
@@ -116,7 +115,7 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
         T_PLUS_2D, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR + 1, WEEKENDS);
     assertFalse(other.equals(DEFINITION));
     other = new VolatilitySwapDefinition(CCY, VOL_STRIKE, VOL_NOTIONAL, T_PLUS_2D, T_PLUS_5Y,
-        T_PLUS_2D, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, new NoHolidayCalendar());
+        T_PLUS_2D, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, HolidayCalendars.NO_HOLIDAYS);
     assertFalse(other.equals(DEFINITION));
   }
 
@@ -143,7 +142,7 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
   @Test
   public void testSeasoned() {
     final VolatilitySwapDefinition definition = new VolatilitySwapDefinition(CCY, VOL_STRIKE, VOL_NOTIONAL, T_PLUS_2D, T_PLUS_5Y,
-        T_PLUS_2D, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, new NoHolidayCalendar());
+        T_PLUS_2D, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, HolidayCalendars.NO_HOLIDAYS);
     final VolatilitySwap volatilitySwap = definition.toDerivative(NOW.plusYears(1));
     assertEquals(OBS_PER_YEAR, volatilitySwap.getAnnualizationFactor());
     assertEquals(CCY, volatilitySwap.getCurrency());

@@ -17,8 +17,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -65,6 +63,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -91,7 +91,7 @@ public class BondSecurityDiscountingMethodTest {
   /** The legal entity */
   private static final LegalEntity ISSUER = new LegalEntity(null, ISSUER_NAME, CREDIT_RATINGS, null, Region.of("United States", Country.US, Currency.USD));
   private static final Currency CUR = Currency.USD;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final Period PAYMENT_TENOR_FIXED = Period.ofMonths(6);
   private static final int COUPON_PER_YEAR = 2;
   private static final DayCount DAY_COUNT_FIXED = DayCounts.ACT_ACT_ICMA;
@@ -609,7 +609,7 @@ public class BondSecurityDiscountingMethodTest {
   private static final Currency GBP = Currency.GBP;
   private static final Period PAYMENT_TENOR_UK = Period.ofMonths(6);
   private static final int COUPON_PER_YEAR_G = 2;
-  private static final Calendar CALENDAR_UK = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR_UK = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT_UK = DayCounts.ACT_ACT_ICMA; // To check
   private static final BusinessDayConvention BUSINESS_DAY_UK = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM_UK = false;

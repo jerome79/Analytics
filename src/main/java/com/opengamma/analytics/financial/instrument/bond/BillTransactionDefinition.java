@@ -9,12 +9,12 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.interestrate.bond.calculator.PriceFromYieldCalculator;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BillSecurity;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BillTransaction;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -66,7 +66,7 @@ public class BillTransactionDefinition implements InstrumentDefinition<BillTrans
    * @return The bill transaction.
    */
   public static BillTransactionDefinition fromYield(final BillSecurityDefinition underlying, final double quantity, final ZonedDateTime settlementDate, final double yield,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(underlying, "Underlying");
     ArgChecker.notNull(settlementDate, "Settlement date");
     final double accrualFactor = underlying.getDayCount().getDayCountFraction(settlementDate, underlying.getEndDate(), calendar);

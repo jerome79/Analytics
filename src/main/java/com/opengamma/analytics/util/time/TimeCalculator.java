@@ -11,10 +11,10 @@ import java.time.ZonedDateTime;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCountFactory;
 import com.opengamma.analytics.env.AnalyticsEnvironment;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -60,7 +60,7 @@ public final class TimeCalculator {
    * @param calendar the calendar
    * @return The time.
    */
-  public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2, final DayCount dayCount, final Calendar calendar) {
+  public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2, final DayCount dayCount, final HolidayCalendar calendar) {
     ArgChecker.notNull(date1, "date1");
     ArgChecker.notNull(date1, "date2");
     ArgChecker.notNull(dayCount, "day count");

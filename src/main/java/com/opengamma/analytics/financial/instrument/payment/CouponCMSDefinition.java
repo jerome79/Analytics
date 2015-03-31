@@ -10,7 +10,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
@@ -22,6 +21,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -89,7 +89,7 @@ public class CouponCMSDefinition extends CouponFloatingDefinition {
    * @return The CMS coupon.
    */
   public static CouponCMSDefinition from(final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double accrualFactor, final double notional,
-      final IndexSwap cmsIndex, final Calendar iborCalendar) {
+      final IndexSwap cmsIndex, final HolidayCalendar iborCalendar) {
     final ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(accrualStartDate, -cmsIndex.getIborIndex().getSpotLag(), iborCalendar);
     // Implementation comment: the underlying swap is used for forward. The notional, rate and payer flag are irrelevant.
     final SwapFixedIborDefinition underlyingSwap = SwapFixedIborDefinition.from(accrualStartDate, cmsIndex, 1.0, 1.0, true, iborCalendar);
@@ -117,7 +117,7 @@ public class CouponCMSDefinition extends CouponFloatingDefinition {
    * @param iborCalendar The holiday calendar for the ibor index.
    * @return The constructed CMS coupon.
    */
-  public static CouponCMSDefinition from(final CouponFloatingDefinition coupon, final IndexSwap cmsIndex, final Calendar iborCalendar) {
+  public static CouponCMSDefinition from(final CouponFloatingDefinition coupon, final IndexSwap cmsIndex, final HolidayCalendar iborCalendar) {
     ArgChecker.notNull(coupon, "floating coupon");
     ArgChecker.notNull(cmsIndex, "CMS index");
     final ZonedDateTime settlementDate = ScheduleCalculator.getAdjustedDate(coupon.getFixingDate(), cmsIndex.getIborIndex().getSpotLag(), iborCalendar);

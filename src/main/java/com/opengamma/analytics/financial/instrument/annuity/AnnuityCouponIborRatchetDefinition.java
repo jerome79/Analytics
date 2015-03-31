@@ -10,7 +10,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
@@ -22,6 +21,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -39,7 +39,7 @@ public class AnnuityCouponIborRatchetDefinition extends AnnuityCouponDefinition<
    * @param payments The Ibor coupons.
    * @param calendar The calendar
    */
-  public AnnuityCouponIborRatchetDefinition(final CouponDefinition[] payments, final Calendar calendar) {
+  public AnnuityCouponIborRatchetDefinition(final CouponDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
     ArgChecker.isTrue((payments[0] instanceof CouponFixedDefinition) || (payments[0] instanceof CouponIborGearingDefinition),
         "First coupon should be CouponFixedDefinition or a CouponIborGearingDefinition");
@@ -67,7 +67,7 @@ public class AnnuityCouponIborRatchetDefinition extends AnnuityCouponDefinition<
    */
   public static AnnuityCouponIborRatchetDefinition withFirstCouponFixed(final ZonedDateTime settlementDate, final Period annuityTenor, final double notional, final IborIndex index,
       final boolean isPayer, final double firstCouponFixedRate, final double[] mainCoefficients, final double[] floorCoefficients, final double[] capCoefficients,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, annuityTenor, index.getTenor(), index.getBusinessDayConvention(), calendar,
         index.isEndOfMonth());
     final CouponDefinition[] coupons = new CouponDefinition[paymentDates.length];
@@ -98,7 +98,7 @@ public class AnnuityCouponIborRatchetDefinition extends AnnuityCouponDefinition<
    * @return The annuity.
    */
   public static AnnuityCouponIborRatchetDefinition withFirstCouponIborGearing(final ZonedDateTime settlementDate, final Period annuityTenor, final double notional, final IborIndex index,
-      final boolean isPayer, final double[] mainCoefficients, final double[] floorCoefficients, final double[] capCoefficients, final Calendar calendar) {
+      final boolean isPayer, final double[] mainCoefficients, final double[] floorCoefficients, final double[] capCoefficients, final HolidayCalendar calendar) {
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, annuityTenor, index.getTenor(), index.getBusinessDayConvention(), calendar,
         index.isEndOfMonth());
     final CouponDefinition[] coupons = new CouponDefinition[paymentDates.length];

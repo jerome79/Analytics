@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.horizon;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.BondFuturesTransactionDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Issue
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterIssuerProviderInterface;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -50,13 +50,13 @@ public final class BondFutureConstantSpreadHorizonCalculator extends HorizonCalc
 
   @Override
   public MultiCurrencyAmount getTheta(final BondFuturesTransactionDefinition definition, final ZonedDateTime date, final IssuerProviderInterface data,
-      final int daysForward, final Calendar calendar) {
+      final int daysForward, final HolidayCalendar calendar) {
     throw new UnsupportedOperationException("Must supply a last margin price");
   }
 
   @Override
   public MultiCurrencyAmount getTheta(final BondFuturesTransactionDefinition definition, final ZonedDateTime date, final IssuerProviderInterface data,
-      final int daysForward, final Calendar calendar, final Double lastMarginPrice) {
+      final int daysForward, final HolidayCalendar calendar, final Double lastMarginPrice) {
     ArgChecker.notNull(definition, "definition");
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(data, "data");

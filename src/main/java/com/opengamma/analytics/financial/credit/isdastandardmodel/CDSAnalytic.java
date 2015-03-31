@@ -12,10 +12,10 @@ import java.util.Arrays;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -24,7 +24,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * @see CDSAnalyticFactory
  */
 public class CDSAnalytic {
-  private static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention FOLLOWING = BusinessDayConventions.FOLLOWING;
   /** Curve daycount generally fixed to Act/365 in ISDA */
   private static final DayCount ACT_365 = DayCounts.ACT_365;
@@ -91,12 +91,12 @@ public class CDSAnalytic {
    * @param protectStart  If protectStart = true, then protections starts at the beginning of the day, otherwise it is at the end.
    * @param recoveryRate The recovery rate
    * @param businessdayAdjustmentConvention How are adjustments for non-business days made
-   * @param calendar Calendar defining what is a non-business day
+   * @param calendar HolidayCalendar defining what is a non-business day
    * @param accrualDayCount Day count used for accrual
    */
   public CDSAnalytic(final LocalDate tradeDate, final LocalDate stepinDate, final LocalDate valueDate, final LocalDate accStartDate, final LocalDate endDate, final boolean payAccOnDefault,
       final Period paymentInterval, final StubType stubType, final boolean protectStart, final double recoveryRate, final BusinessDayConvention businessdayAdjustmentConvention,
-      final Calendar calendar, final DayCount accrualDayCount) {
+      final HolidayCalendar calendar, final DayCount accrualDayCount) {
     this(tradeDate, stepinDate, valueDate, accStartDate, endDate, payAccOnDefault, paymentInterval, stubType, protectStart, recoveryRate, businessdayAdjustmentConvention, calendar, accrualDayCount,
         ACT_365);
   }
@@ -119,13 +119,13 @@ public class CDSAnalytic {
    * @param isProtectStart  If protectStart = true, then protections starts at the beginning of the day, otherwise it is at the end.
    * @param recoveryRate The recovery rate
    * @param businessdayAdjustmentConvention How are adjustments for non-business days made
-   * @param calendar Calendar defining what is a non-business day
+   * @param calendar HolidayCalendar defining what is a non-business day
    * @param accrualDayCount Day count used for accrual
    * @param curveDayCount Day count used on curve (NOTE ISDA uses ACT/365 (fixed) and it is not recommended to change this)
    */
   public CDSAnalytic(final LocalDate tradeDate, final LocalDate stepinDate, final LocalDate valueDate, final LocalDate accStartDate, final LocalDate endDate, final boolean payAccOnDefault,
       final Period paymentInterval, final StubType stubType, final boolean isProtectStart, final double recoveryRate, final BusinessDayConvention businessdayAdjustmentConvention,
-      final Calendar calendar, final DayCount accrualDayCount, final DayCount curveDayCount) {
+      final HolidayCalendar calendar, final DayCount accrualDayCount, final DayCount curveDayCount) {
     ArgChecker.notNull(tradeDate, "tradeDate");
     ArgChecker.notNull(stepinDate, "stepinDate");
     ArgChecker.notNull(valueDate, "valueDate");

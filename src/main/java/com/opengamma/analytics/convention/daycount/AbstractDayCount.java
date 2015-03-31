@@ -8,7 +8,7 @@ package com.opengamma.analytics.convention.daycount;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -41,7 +41,7 @@ public abstract class AbstractDayCount implements DayCount {
    * @return the day count fraction
    */
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final Calendar calendar) {
+  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
     return getDayCountFraction(firstDate, secondDate);
   }
 
@@ -74,7 +74,7 @@ public abstract class AbstractDayCount implements DayCount {
    * @return the day count fraction
    */
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final Calendar calendar) {
+  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
     return getDayCountFraction(firstDate.toLocalDate(), secondDate.toLocalDate());

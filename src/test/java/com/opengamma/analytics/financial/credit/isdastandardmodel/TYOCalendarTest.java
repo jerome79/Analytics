@@ -25,10 +25,10 @@ public class TYOCalendarTest {
   public void test() {
     final TYOCalendar tyo = new TYOCalendar("TYO");
 
-    assertFalse("" + LocalDate.of(2009, MARCH, 20).getDayOfWeek(), tyo.isWorkingDay(LocalDate.of(2009, MARCH, 20)));
-    assertFalse(tyo.isWorkingDay(LocalDate.of(2009, MARCH, 21)));
-    assertTrue(tyo.isWorkingDay(LocalDate.of(2009, MARCH, 23)));
-    assertFalse(tyo.isWorkingDay(LocalDate.of(2032, SEPTEMBER, 20)));
+    assertFalse("" + LocalDate.of(2009, MARCH, 20).getDayOfWeek(), tyo.isBusinessDay(LocalDate.of(2009, MARCH, 20)));
+    assertFalse(tyo.isBusinessDay(LocalDate.of(2009, MARCH, 21)));
+    assertTrue(tyo.isBusinessDay(LocalDate.of(2009, MARCH, 23)));
+    assertFalse(tyo.isBusinessDay(LocalDate.of(2032, SEPTEMBER, 20)));
   }
 
 }

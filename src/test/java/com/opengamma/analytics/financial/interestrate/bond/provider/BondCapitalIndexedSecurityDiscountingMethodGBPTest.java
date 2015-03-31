@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -46,6 +44,8 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -81,7 +81,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodGBPTest {
 
   // Index-Lined Gilt 2% Index-linked Treasury Stock 2035 - GB0031790826
   // UK Old convention (8m delay, semi-annual)
-  private static final Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
+  private static final HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY_GBP = BusinessDayConventions.FOLLOWING;
   private static final DayCount DAY_COUNT_GILT_1 = DayCounts.ACT_ACT_ISDA;
   private static final boolean IS_EOM_GILT_1 = false;

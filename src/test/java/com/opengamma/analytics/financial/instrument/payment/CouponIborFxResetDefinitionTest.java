@@ -16,8 +16,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -32,6 +30,8 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -43,7 +43,7 @@ public class CouponIborFxResetDefinitionTest {
 
   private static final Period TENOR = Period.ofMonths(3);
   private static final int SETTLEMENT_DAYS = 2;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT_INDEX = DayCounts.ACT_360;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final boolean IS_EOM = true;
@@ -599,7 +599,7 @@ public class CouponIborFxResetDefinitionTest {
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
         expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD + 0.01,
-        new MondayToFridayCalendar("B"), CUR_REF,
+        HolidayCalendars.SAT_SUN, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     IborIndex index = new IborIndex(CUR, TENOR, SETTLEMENT_DAYS, DAY_COUNT_INDEX, BUSINESS_DAY,
         false, "Deprecated");

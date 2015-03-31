@@ -9,11 +9,11 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -28,7 +28,7 @@ public class GeneratorDepositON extends GeneratorInstrument<GeneratorAttributeIR
   /**
    * The calendar associated to the index. Not null.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The day count convention associated to the generator. Not null.
    */
@@ -41,10 +41,10 @@ public class GeneratorDepositON extends GeneratorInstrument<GeneratorAttributeIR
    * @param calendar The calendar associated to the index. Not null.
    * @param dayCount The day count convention associated to the index.
    */
-  public GeneratorDepositON(final String name, final Currency currency, final Calendar calendar, final DayCount dayCount) {
+  public GeneratorDepositON(final String name, final Currency currency, final HolidayCalendar calendar, final DayCount dayCount) {
     super(name);
     ArgChecker.notNull(currency, "Currency");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     ArgChecker.notNull(dayCount, "Day count");
     _currency = currency;
     _calendar = calendar;
@@ -63,7 +63,7 @@ public class GeneratorDepositON extends GeneratorInstrument<GeneratorAttributeIR
    * Gets the calendar associated to the index.
    * @return The calendar.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

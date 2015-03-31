@@ -13,8 +13,6 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 @Test
@@ -47,11 +47,11 @@ public class SwapCrossCurrencyUsdEurE2ETest {
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 1, 22);
   private static final Currency EUR = Currency.EUR;
   private static final Currency USD = Currency.USD;
-  private static final Calendar LON = new MondayToFridayCalendar("LON");
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar LON = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR_LONNYC = 
-      new AdjustedDateParameters(NYC, BusinessDayConventions.MODIFIED_FOLLOWING); // Calendar should be LON+NYC
+      new AdjustedDateParameters(NYC, BusinessDayConventions.MODIFIED_FOLLOWING); // HolidayCalendar should be LON+NYC
   private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR_TAR_2 =
       new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, TARGET, BusinessDayConventions.FOLLOWING);
   private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR_LON_2 =

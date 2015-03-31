@@ -8,7 +8,7 @@ package com.opengamma.analytics.convention.businessday;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -33,7 +33,7 @@ public class BusinessDayDateUtils {
    * @param holidayCalendar Defines what is a non-working day
    * @return a working day
    */
-  public static LocalDate addWorkDays(final LocalDate startDate, final int workingDaysToAdd, final Calendar holidayCalendar) {
+  public static LocalDate addWorkDays(final LocalDate startDate, final int workingDaysToAdd, final HolidayCalendar holidayCalendar) {
     ArgChecker.notNull(startDate, "null startDate");
     ArgChecker.notNull(holidayCalendar, "null holidayCalendar");
 
@@ -41,7 +41,7 @@ public class BusinessDayDateUtils {
     LocalDate temp = startDate;
     while (daysLeft > 0) {
       temp = temp.plusDays(1);
-      if (holidayCalendar.isWorkingDay(temp)) {
+      if (holidayCalendar.isBusinessDay(temp)) {
         daysLeft--;
       }
     }
@@ -52,10 +52,10 @@ public class BusinessDayDateUtils {
    * Get the number of business days between two dates
    * @param firstDate The first date
    * @param secondDate the second date
-   * @param calendar Calendar defining what is a working day
+   * @param calendar HolidayCalendar defining what is a working day
    * @return The number of business (working) days between two dates
    */
-  public static int getDaysBetween(LocalDate firstDate, LocalDate secondDate, Calendar calendar) {
+  public static int getDaysBetween(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
     if (secondDate.isBefore(firstDate)) {
@@ -66,7 +66,7 @@ public class BusinessDayDateUtils {
     int count = 0;
     LocalDate date = firstDate;
     while (date.isBefore(secondDate)) {
-      if (calendar.isWorkingDay(date)) {
+      if (calendar.isBusinessDay(date)) {
         count++;
       }
       date = date.plusDays(1);
@@ -78,10 +78,10 @@ public class BusinessDayDateUtils {
    * Get the number of business days between two dates. <b>Note:<b> these {@link ZonedDateTime} dates are converted to {@link LocalDate}, so any time-of-day and time zone information is lost
    * @param firstDate The first date
    * @param secondDate the second date
-   * @param calendar Calendar defining what is a working day
+   * @param calendar HolidayCalendar defining what is a working day
    * @return The number of business (working) days between two dates
    */
-  public static int getDaysBetween(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final Calendar calendar) {
+  public static int getDaysBetween(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
     return getDaysBetween(firstDate.toLocalDate(), secondDate.toLocalDate(), calendar);
@@ -93,12 +93,12 @@ public class BusinessDayDateUtils {
    * For example, the number of days between 8/8/2014 (Monday) and 12/8/2014 (Friday) a weekend only calendar is 5 (since Friday is a working day)
    * @param firstDate The first date
    * @param secondDate the second date
-   * @param calendar Calendar defining what is a working day
+   * @param calendar HolidayCalendar defining what is a working day
    * @return The number of business (working) days between two dates, inclusive of the final date
    */
-  public static int getWorkingDaysInclusive(LocalDate firstDate, LocalDate secondDate, Calendar calendar) {
+  public static int getWorkingDaysInclusive(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar) {
     int res = getDaysBetween(firstDate, secondDate, calendar);
-    if (calendar.isWorkingDay(secondDate)) {
+    if (calendar.isBusinessDay(secondDate)) {
       res++;
     }
     return res;
@@ -111,10 +111,10 @@ public class BusinessDayDateUtils {
    * For example, the number of days between 8/8/2014 (Monday) and 12/8/2014 (Friday) a weekend only calendar is 5 (since Friday is a working day)
    * @param firstDate The first date
    * @param secondDate the second date
-   * @param calendar Calendar defining what is a working day
+   * @param calendar HolidayCalendar defining what is a working day
    * @return The number of business (working) days between two dates, inclusive of the final date
    */
-  public static int getWorkingDaysInclusive(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final Calendar calendar) {
+  public static int getWorkingDaysInclusive(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
     return getWorkingDaysInclusive(firstDate.toLocalDate(), secondDate.toLocalDate(), calendar);

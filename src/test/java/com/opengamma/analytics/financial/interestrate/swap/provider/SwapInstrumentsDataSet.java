@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -58,6 +57,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -68,7 +68,7 @@ public class SwapInstrumentsDataSet {
   private SwapInstrumentsDataSet() { /* private constructor */ }
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 1, 22);
-  private static final Calendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final IndexIborMaster MASTER_IBOR = IndexIborMaster.getInstance();
   private static final IborIndex USDLIBOR1M = MASTER_IBOR.getIndex("USDLIBOR1M");
   private static final IborIndex USDLIBOR3M = MASTER_IBOR.getIndex("USDLIBOR3M");

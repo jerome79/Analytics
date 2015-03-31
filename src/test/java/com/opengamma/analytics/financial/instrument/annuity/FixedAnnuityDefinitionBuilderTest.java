@@ -18,7 +18,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -50,6 +49,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -58,7 +58,7 @@ import com.opengamma.strata.basics.currency.Currency;
 public class FixedAnnuityDefinitionBuilderTest {
 
   /** USD conventions */
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();

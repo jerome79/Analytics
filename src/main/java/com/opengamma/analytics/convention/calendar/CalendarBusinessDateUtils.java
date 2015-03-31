@@ -8,10 +8,11 @@ package com.opengamma.analytics.convention.calendar;
 
 import java.time.LocalDate;
 
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * Utilities related to Calendar. In particular to compute the next or n-th (non-)good business date from a starting point.
+ * Utilities related to HolidayCalendar. In particular to compute the next or n-th (non-)good business date from a starting point.
  */
 public class CalendarBusinessDateUtils {
 
@@ -21,9 +22,9 @@ public class CalendarBusinessDateUtils {
    * @param calendar The calendar.
    * @return The next good business date.
    */
-  public static LocalDate nextGoodBusinessDate(final LocalDate startingDate, final Calendar calendar) {
+  public static LocalDate nextGoodBusinessDate(final LocalDate startingDate, final HolidayCalendar calendar) {
     LocalDate currentDate = startingDate;
-    while (!calendar.isWorkingDay(currentDate)) {
+    while (!calendar.isBusinessDay(currentDate)) {
       currentDate = currentDate.plusDays(1);
     }
     return currentDate;
@@ -36,9 +37,9 @@ public class CalendarBusinessDateUtils {
    * @param calendar The calendar.
    * @return The next non-good business date.
    */
-  public static LocalDate nextNonGoodBusinessDate(final LocalDate startingDate, final Calendar calendar) {
+  public static LocalDate nextNonGoodBusinessDate(final LocalDate startingDate, final HolidayCalendar calendar) {
     LocalDate currentDate = startingDate;
-    while (calendar.isWorkingDay(currentDate)) {
+    while (calendar.isBusinessDay(currentDate)) {
       currentDate = currentDate.plusDays(1);
     }
     return currentDate;
@@ -52,7 +53,7 @@ public class CalendarBusinessDateUtils {
    * @param numberDate The number of times the date should be rolled.
    * @return The n-th good business date.
    */
-  public static LocalDate nthGoodBusinessDate(final LocalDate startingDate, final Calendar calendar, final int numberDate) {
+  public static LocalDate nthGoodBusinessDate(final LocalDate startingDate, final HolidayCalendar calendar, final int numberDate) {
     ArgChecker.isTrue(numberDate >= 1, "At least one roll date");
     LocalDate nthDate = nextGoodBusinessDate(startingDate, calendar);
     for (int loopNumber = 1; loopNumber < numberDate; loopNumber++) {
@@ -69,7 +70,7 @@ public class CalendarBusinessDateUtils {
    * @param numberDate The number of times the date should be rolled.
    * @return The n-th non-good business date.
    */
-  public static LocalDate nthNonGoodBusinessDate(final LocalDate startingDate, final Calendar calendar, final int numberDate) {
+  public static LocalDate nthNonGoodBusinessDate(final LocalDate startingDate, final HolidayCalendar calendar, final int numberDate) {
     ArgChecker.isTrue(numberDate >= 1, "At least one roll date");
     LocalDate nthDate = nextNonGoodBusinessDate(startingDate, calendar);
     for (int loopNumber = 1; loopNumber < numberDate; loopNumber++) {

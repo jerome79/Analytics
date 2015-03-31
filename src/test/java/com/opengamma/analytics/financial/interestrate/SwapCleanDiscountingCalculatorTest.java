@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
@@ -42,6 +41,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -51,7 +51,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 public class SwapCleanDiscountingCalculatorTest {
   private static final ZonedDateTime[] VALUATION_DATE_SET = new ZonedDateTime[] {DateUtils.getUTCDate(2014, 1, 22),
       DateUtils.getUTCDate(2014, 4, 22) };
-  private static final Calendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = GeneratorSwapFixedIborMaster
       .getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_SWAP_FIXED_IBOR_MASTER.getGenerator(
@@ -104,13 +104,13 @@ public class SwapCleanDiscountingCalculatorTest {
     ZonedDateTime valuationDate = VALUATION_DATE_SET[0]; // 2014, 1, 22
 
     MulticurveProviderDiscount multicurve = MULTICURVE_SET[0]; // MULTICURVE_OIS
-    // Calendar and DayCount should be taken from GeneratorSwapFixedIbor
+    // HolidayCalendar and DayCount should be taken from GeneratorSwapFixedIbor
     double parRate = CPRC.parRate(SWAP_FIXED_3M_PAY_DEFINITION, USD6MLIBOR3M.getFixedLegDayCount(), USD6MLIBOR3M
         .getIborIndex().getDayCount(), USD6MLIBOR3M.getCalendar(), valuationDate, TS_USDLIBOR3M, multicurve);
     assertRelative("consistencyTest", 0.021442847215148938, parRate, TOL);
 
     multicurve = MULTICURVE_SET[1]; // MULTICURVE_FFS
-    // Calendar and DayCount should be taken from GeneratorSwapFixedIbor
+    // HolidayCalendar and DayCount should be taken from GeneratorSwapFixedIbor
     parRate = CPRC.parRate(SWAP_FIXED_3M_PAY_DEFINITION, USD6MLIBOR3M.getFixedLegDayCount(), USD6MLIBOR3M
         .getIborIndex().getDayCount(), USD6MLIBOR3M.getCalendar(), valuationDate, TS_USDLIBOR3M, multicurve);
     assertRelative("consistencyTest", 0.0208613981377012, parRate, TOL);
@@ -136,7 +136,7 @@ public class SwapCleanDiscountingCalculatorTest {
               .getSecondLeg();
           IborIndex index = floatingLeg.getIborIndex();
           DayCount dayCountFloating = index.getDayCount();
-          Calendar calendarFloating = swapDefinition.getFirstLeg().getCalendar();
+          HolidayCalendar calendarFloating = swapDefinition.getFirstLeg().getCalendar();
           CouponIborDefinition[] paymentsFloating = floatingLeg.getPayments();
           final List<CouponIborDefinition> listFloating = new ArrayList<>();
           for (final CouponIborDefinition payment : paymentsFloating) {
@@ -158,7 +158,7 @@ public class SwapCleanDiscountingCalculatorTest {
           double cleanFloatingPV = dirtyFloatingPV - accruedInterestFloating;
           AnnuityCouponFixedDefinition fixedLeg = (AnnuityCouponFixedDefinition) swapDefinition.getFirstLeg();
           DayCount dayCountFixed = USD6MLIBOR3M.getFixedLegDayCount();
-          Calendar calendarFixed = USD6MLIBOR3M.getCalendar();
+          HolidayCalendar calendarFixed = USD6MLIBOR3M.getCalendar();
           CouponFixedDefinition[] paymentsFixed = fixedLeg.getPayments();
           final List<CouponFixedDefinition> listFixed = new ArrayList<>();
           for (final CouponFixedDefinition payment : paymentsFixed) {
@@ -224,7 +224,7 @@ public class SwapCleanDiscountingCalculatorTest {
         DateUtils.getUTCDate(2013, 12, 12), DateUtils.getUTCDate(2014, 3, 13), DateUtils.getUTCDate(2014, 6, 12) };
     int nPaymentsIbor = paymentDatesIbor.length;
     IborIndex index = USD6MLIBOR3M.getIborIndex(); // USDLIBOR3M
-    Calendar calendar = USD6MLIBOR3M.getCalendar();
+    HolidayCalendar calendar = USD6MLIBOR3M.getCalendar();
     DayCount dcIbor = index.getDayCount();
     CouponIborDefinition[] ibor = new CouponIborDefinition[nPaymentsIbor];
     for (int i = 0; i < nPaymentsIbor; ++i) {
@@ -297,7 +297,7 @@ public class SwapCleanDiscountingCalculatorTest {
       SwapFixedCoupon<Coupon> fixedCouponSwap = swapDefinition.toDerivative(valuationDate,
           TS_ARRAY_USDLIBOR3M);
       MulticurveProviderDiscount multicurve = MULTICURVE_SET[1];
-      Calendar calendar = USD6MLIBOR3M.getCalendar();
+      HolidayCalendar calendar = USD6MLIBOR3M.getCalendar();
       DayCount dcIbor = USD6MLIBOR3M.getIborIndex().getDayCount();
       DayCount dcFixed = USD6MLIBOR3M.getFixedLegDayCount();
 
@@ -329,7 +329,7 @@ public class SwapCleanDiscountingCalculatorTest {
       SwapFixedCoupon<Coupon> fixedCouponSwap = swapDefinition.toDerivative(valuationDate,
           TS_ARRAY_USDLIBOR3M);
       MulticurveProviderDiscount multicurve = MULTICURVE_SET[1];
-      Calendar calendar = USD6MLIBOR3M.getCalendar();
+      HolidayCalendar calendar = USD6MLIBOR3M.getCalendar();
       DayCount dcIbor = USD6MLIBOR3M.getIborIndex().getDayCount();
       DayCount dcFixed = USD6MLIBOR3M.getFixedLegDayCount();
 
@@ -367,7 +367,7 @@ public class SwapCleanDiscountingCalculatorTest {
         DateUtils.getUTCDate(2013, 9, 26), DateUtils.getUTCDate(2013, 12, 26), DateUtils.getUTCDate(2014, 3, 26) };
     int nPaymentsIbor = paymentDatesIbor.length;
     IborIndex index = USD6MLIBOR3M.getIborIndex(); // USDLIBOR3M
-    Calendar calendar = USD6MLIBOR3M.getCalendar(); // modified s.t.30U/360 is used for both legs
+    HolidayCalendar calendar = USD6MLIBOR3M.getCalendar(); // modified s.t.30U/360 is used for both legs
     DayCount dcIbor = USD6MLIBOR3M.getFixedLegDayCount();
     CouponIborDefinition[] ibor = new CouponIborDefinition[nPaymentsIbor];
     for (int i = 0; i < nPaymentsIbor; ++i) {

@@ -10,11 +10,11 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.definition.CouponCommodityPhysicalSettleDefinition;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -27,7 +27,7 @@ public class AnnuityCouponCommodityPhysicalSettleDefinition extends AnnuityCoupo
    * @param payments The coupons.
    * @param calendar The holiday calendar
    */
-  public AnnuityCouponCommodityPhysicalSettleDefinition(final CouponCommodityPhysicalSettleDefinition[] payments, final Calendar calendar) {
+  public AnnuityCouponCommodityPhysicalSettleDefinition(final CouponCommodityPhysicalSettleDefinition[] payments, final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 

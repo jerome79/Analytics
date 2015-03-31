@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.horizon;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwap;
 import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwapDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -54,7 +54,7 @@ public final class EqyTrsConstantSpreadHorizonCalculator extends HorizonCalculat
 
   @Override
   public MultiCurrencyAmount getTheta(final EquityTotalReturnSwapDefinition definition, final ZonedDateTime date, final MulticurveProviderInterface data,
-      final int daysForward, final Calendar calendar, final ZonedDateTimeDoubleTimeSeries fixingSeries) {
+      final int daysForward, final HolidayCalendar calendar, final ZonedDateTimeDoubleTimeSeries fixingSeries) {
     ArgChecker.notNull(definition, "definition");
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(data, "data");
@@ -71,7 +71,7 @@ public final class EqyTrsConstantSpreadHorizonCalculator extends HorizonCalculat
 
   @Override
   public MultiCurrencyAmount getTheta(final EquityTotalReturnSwapDefinition definition, final ZonedDateTime date, final MulticurveProviderInterface data,
-      final int daysForward, final Calendar calendar) {
+      final int daysForward, final HolidayCalendar calendar) {
     return getTheta(definition, date, data, daysForward, calendar, ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC());
   }
 

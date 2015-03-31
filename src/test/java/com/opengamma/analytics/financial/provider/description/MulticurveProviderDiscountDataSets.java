@@ -17,8 +17,6 @@ import java.util.Map;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -47,6 +45,8 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -57,10 +57,10 @@ public class MulticurveProviderDiscountDataSets {
   private static final Interpolator1D LINEAR_FLAT = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
 
-  private static final Calendar CALENDAR_USD = new MondayToFridayCalendar("USD");
-  private static final Calendar CALENDAR_EUR = new MondayToFridayCalendar("EUR");
-  private static final Calendar CALENDAR_CAD = new MondayToFridayCalendar("CAD");
-  private static final Calendar CALENDAR_AUD = new MondayToFridayCalendar("AUD");
+  private static final HolidayCalendar CALENDAR_USD = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar CALENDAR_EUR = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar CALENDAR_CAD = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar CALENDAR_AUD = HolidayCalendars.SAT_SUN;
 
   private static final FxMatrix FX_MATRIX =
       FxMatrix.builder()
@@ -651,19 +651,19 @@ public class MulticurveProviderDiscountDataSets {
     return new String[] {(String) ISSUER_US_GOVT.getFirst(), (String) ISSUER_UK_GOVT.getFirst(), ISSUER_NAME, (String) ISSUER_AUD_GOVT.getFirst() };
   }
 
-  public static Calendar getCADCalendar() {
+  public static HolidayCalendar getCADCalendar() {
     return CALENDAR_CAD;
   }
 
-  public static Calendar getEURCalendar() {
+  public static HolidayCalendar getEURCalendar() {
     return CALENDAR_EUR;
   }
 
-  public static Calendar getUSDCalendar() {
+  public static HolidayCalendar getUSDCalendar() {
     return CALENDAR_USD;
   }
 
-  public static Calendar getAUDCalendar() {
+  public static HolidayCalendar getAUDCalendar() {
     return CALENDAR_AUD;
   }
 }

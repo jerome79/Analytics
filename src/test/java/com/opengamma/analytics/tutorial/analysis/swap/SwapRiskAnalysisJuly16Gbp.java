@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
@@ -47,6 +46,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -58,7 +58,7 @@ public class SwapRiskAnalysisJuly16Gbp {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
 
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
   private static final GeneratorSwapFixedONMaster GENERATOR_OIS_MASTER = GeneratorSwapFixedONMaster.getInstance();
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GENERATOR_OIS_MASTER.getGenerator("GBP1YSONIA", LON);
   private static final IndexON GBPSONIA = GENERATOR_OIS_GBP.getIndex();

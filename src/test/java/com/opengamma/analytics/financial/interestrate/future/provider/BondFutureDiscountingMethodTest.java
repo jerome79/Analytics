@@ -15,8 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -35,6 +33,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 
@@ -50,7 +50,7 @@ public class BondFutureDiscountingMethodTest {
   // 5-Year U.S. Treasury Note Futures: FVU1
   private static final Currency USD = Currency.USD;
   private static final Period PAYMENT_TENOR = Period.ofMonths(6);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final String US_GOVT = ISSUER_NAMES[0];
   private static final DayCount DAY_COUNT = DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.FOLLOWING;

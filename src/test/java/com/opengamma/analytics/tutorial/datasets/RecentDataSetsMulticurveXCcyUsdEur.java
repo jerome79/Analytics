@@ -16,10 +16,8 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
@@ -56,6 +54,8 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -70,8 +70,8 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
-  private static final Calendar TARGET = new CalendarTarget("TARGET");
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final double FX_EURUSD = 1.35;
   private static final FxMatrix FX_MATRIX = FxMatrix.builder().addRate(EUR, USD, FX_EURUSD).build();
   private static final MulticurveProviderDiscount KNOWN_DATA = new MulticurveProviderDiscount(FX_MATRIX);

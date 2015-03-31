@@ -9,10 +9,10 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationYearOnYearInterpolationDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -26,7 +26,7 @@ public class AnnuityCouponInflationYearOnYearInterpolationDefinition extends Ann
    * @param calendar The calendar
    */
   public AnnuityCouponInflationYearOnYearInterpolationDefinition(final CouponInflationYearOnYearInterpolationDefinition[] payments,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(payments, calendar);
   }
 
@@ -48,7 +48,7 @@ public class AnnuityCouponInflationYearOnYearInterpolationDefinition extends Ann
    * @return The Year on year coupon leg.
    */
   public static AnnuityCouponInflationYearOnYearInterpolationDefinition from(final IndexPrice priceIndex, final ZonedDateTime settlementDate,
-      final double notional, final Period totalPeriod, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final Calendar calendar,
+      final double notional, final Period totalPeriod, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar,
       final boolean endOfMonth, final int conventionalMonthLag, final boolean payNotional, final double weightStart, final double weightEnd) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.isTrue(notional > 0, "notional <= 0");
@@ -80,7 +80,7 @@ public class AnnuityCouponInflationYearOnYearInterpolationDefinition extends Ann
    * @return The Year on year coupon leg.
    */
   public static AnnuityCouponInflationYearOnYearInterpolationDefinition from(final IndexPrice priceIndex, final ZonedDateTime settlementDate,
-      final double notional, final Period totalPeriod, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final Calendar calendar,
+      final double notional, final Period totalPeriod, final Period paymentPeriod, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar,
       final boolean endOfMonth, final int conventionalMonthLag, final int monthLag, final boolean payNotional) {
     ArgChecker.notNull(settlementDate, "settlement date");
 

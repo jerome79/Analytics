@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.fra.ForwardRateAgreementDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -39,6 +38,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -61,7 +61,7 @@ public class ForwardRateAgreementDiscountingMethodE2ETest {
   private static final MulticurveProviderDiscount MULTICURVE_FFS = MULTICURVE_FF_PAIR.getFirst();
   private static final IborIndex[] INDEX_IBOR_LIST = StandardDataSetsMulticurveUSD.indexIborArrayUSDOisL3();
   private static final IborIndex USDLIBOR3M = INDEX_IBOR_LIST[0];
-  private static final Calendar CALENDAR = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar CALENDAR = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final Currency USD = USDLIBOR3M.getCurrency();
   /** Calculators and methods*/
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();

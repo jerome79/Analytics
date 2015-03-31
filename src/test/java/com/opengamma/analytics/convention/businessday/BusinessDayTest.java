@@ -14,8 +14,8 @@ import java.time.temporal.TemporalAdjusters;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarFactory;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test BusinessDayConvention.
@@ -23,7 +23,7 @@ import com.opengamma.analytics.convention.calendar.CalendarFactory;
 @Test
 public class BusinessDayTest {
 
-  private final Calendar _calendar_UK = CalendarFactory.of("UK Bank Holidays");
+  private final HolidayCalendar _calendar_UK = HolidayCalendars.GBLO;
 
   private void assertDate(final TemporalAdjuster adjuster, final LocalDate testDate, final LocalDate expectedDate) {
     assertEquals(expectedDate, testDate.with(adjuster));

@@ -17,8 +17,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -35,6 +33,8 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -50,7 +50,7 @@ public class CouponONCompoundedDefinitionTest {
   //EUR Eonia
   private static final String EUR_OIS_NAME = "EUR EONIA";
   private static final Currency EUR_CUR = Currency.EUR;
-  private static final Calendar EUR_CALENDAR = new MondayToFridayCalendar("EUR");
+  private static final HolidayCalendar EUR_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final int EUR_PUBLICATION_LAG = 0;
   private static final DayCount EUR_DAY_COUNT = DayCounts.BUSINESS_252;
   private static final IndexON EUR_OIS = new IndexON(EUR_OIS_NAME, EUR_CUR, EUR_DAY_COUNT, EUR_PUBLICATION_LAG);

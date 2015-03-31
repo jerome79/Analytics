@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.instrument.swap;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompounded;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedAccruedCompoundingDefinition;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -34,7 +34,7 @@ public class SwapFixedCompoundedONCompoundedDefinition extends SwapDefinition {
    * @param calendar The holiday calendar
    */
   public SwapFixedCompoundedONCompoundedDefinition(final CouponFixedAccruedCompoundingDefinition fixedCoupon, final CouponONCompoundedDefinition onCoupon,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(new AnnuityDefinition<>(new CouponFixedAccruedCompoundingDefinition[] {fixedCoupon }, calendar),
         new AnnuityDefinition<>(new CouponONCompoundedDefinition[] {onCoupon }, calendar));
   }
@@ -75,7 +75,7 @@ public class SwapFixedCompoundedONCompoundedDefinition extends SwapDefinition {
     return from(onCompoundedCoupon, notionalSigned, fixedRate, generator.getOvernightCalendar());
   }
 
-  private static SwapFixedCompoundedONCompoundedDefinition from(final CouponONCompoundedDefinition onCoupon, final double notionalSigned, final double fixedRate, final Calendar calendar) {
+  private static SwapFixedCompoundedONCompoundedDefinition from(final CouponONCompoundedDefinition onCoupon, final double notionalSigned, final double fixedRate, final HolidayCalendar calendar) {
     final CouponFixedAccruedCompoundingDefinition cpnFixed = new CouponFixedAccruedCompoundingDefinition(onCoupon.getCurrency(), onCoupon.getPaymentDate(), onCoupon.getAccrualStartDate(), onCoupon
         .getAccrualEndDate(), onCoupon.getPaymentYearFraction(), notionalSigned, fixedRate, calendar);
     return new SwapFixedCompoundedONCompoundedDefinition(cpnFixed, onCoupon, calendar);

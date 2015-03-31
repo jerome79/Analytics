@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import cern.jet.random.engine.MersenneTwister;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCapFloorIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
@@ -47,6 +46,7 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Tests the Hull-White one factor method for Annuity on Ibor Ratchet.
@@ -56,7 +56,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
 
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd()[0];
-  private static final Calendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
   private static final Currency CUR = EURIBOR3M.getCurrency();
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 9, 5);

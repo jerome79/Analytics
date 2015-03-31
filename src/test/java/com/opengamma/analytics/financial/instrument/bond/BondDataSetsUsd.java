@@ -14,7 +14,6 @@ import java.util.Set;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -27,6 +26,7 @@ import com.opengamma.analytics.financial.instrument.inflation.CouponInflationZer
 import com.opengamma.analytics.financial.legalentity.CreditRating;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Examples of bond and bills to be used in tests. Examples in GBP.
@@ -39,7 +39,7 @@ public class BondDataSetsUsd {
     RATING.add(CreditRating.of("AA", "OG_RATING", true));
   }
   private static final LegalEntity US_GOVT_LEGAL_ENTITY = new LegalEntity("USGOVT", US_GOVT_NAME, RATING, null, null);
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final IndexPriceMaster MASTER_PRICE_INDEX = IndexPriceMaster.getInstance();
   private static final IndexPrice USCPI = MASTER_PRICE_INDEX.getIndex("USCPI");
 

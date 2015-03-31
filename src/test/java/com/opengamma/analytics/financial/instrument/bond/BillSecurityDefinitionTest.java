@@ -13,8 +13,6 @@ import java.util.Collections;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -28,6 +26,8 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 
 
@@ -40,7 +40,7 @@ public class BillSecurityDefinitionTest {
   /** The currency */
   private final static Currency EUR = Currency.EUR;
   /** A holiday calendar */
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   /** The day count */
   private static final DayCount ACT360 = DayCounts.ACT_360;
   /** The number of settlement days */
@@ -206,7 +206,9 @@ public class BillSecurityDefinitionTest {
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));
     modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS + 1, CALENDAR, YIELD_CONVENTION, ACT360, ISSUER_BEL_NAME);
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));
-    modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, new MondayToFridayCalendar("OTHER"), YIELD_CONVENTION, ACT360, ISSUER_BEL_NAME);
+    modified = new BillSecurityDefinition(
+        EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, HolidayCalendars.NO_HOLIDAYS,
+        YIELD_CONVENTION, ACT360, ISSUER_BEL_NAME);
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));
     modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, CALENDAR, YieldConventionFactory.INSTANCE.getYieldConvention("DISCOUNT"), ACT360, ISSUER_BEL_NAME);
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));

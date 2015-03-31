@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
@@ -24,6 +23,7 @@ import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDatePa
 import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -48,7 +48,7 @@ public class GeneratorLegONCompounded extends GeneratorLegONAbstract {
    */
   public GeneratorLegONCompounded(String name, Currency ccy, IndexON indexON, Period paymentPeriod, int spotOffset,
       int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubType stubType, 
-      boolean isExchangeNotional, Calendar indexCalendar, Calendar paymentCalendar) {
+      boolean isExchangeNotional, HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
     super(name, ccy, indexON, paymentPeriod, spotOffset, paymentOffset, businessDayConvention, endOfMonth, stubType, 
         isExchangeNotional, indexCalendar, paymentCalendar);
   }

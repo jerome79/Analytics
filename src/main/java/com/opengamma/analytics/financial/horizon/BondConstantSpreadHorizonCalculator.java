@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.horizon;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.bond.BondTransactionDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Issue
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterIssuerProviderInterface;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -50,7 +50,7 @@ public final class BondConstantSpreadHorizonCalculator extends HorizonCalculator
 
   @Override
   public MultiCurrencyAmount getTheta(final BondTransactionDefinition<?, ?> definition, final ZonedDateTime date, final IssuerProviderInterface data,
-      final int daysForward, final Calendar calendar) {
+      final int daysForward, final HolidayCalendar calendar) {
     ArgChecker.notNull(definition, "definition");
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(data, "data");

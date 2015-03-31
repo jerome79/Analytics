@@ -11,11 +11,11 @@ import java.util.Map;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * A list of generators for swaps Fixed/ON available for tests.
@@ -45,8 +45,8 @@ public final class GeneratorSwapFixedONMaster {
    */
   private GeneratorSwapFixedONMaster() {
     final IndexONMaster indexONMaster = IndexONMaster.getInstance();
-    final Calendar baseCalendar = new CalendarNoHoliday("No Holidays");
-    final Calendar londonBaseCalendar = new CalendarGBP("LONDON");
+    final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
+    final HolidayCalendar londonBaseCalendar = new CalendarGBP("LONDON");
     final DayCount act360 = DayCounts.ACT_360;
     final DayCount act365 = DayCounts.ACT_365;
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;
@@ -59,7 +59,7 @@ public final class GeneratorSwapFixedONMaster {
     _generatorSwap.put("JPY1YTONAR", new GeneratorSwapFixedON("JPY1YTONAR", indexONMaster.getIndex("TONAR"), Period.ofMonths(12), act365, modFol, true, 2, 1, baseCalendar));
   }
 
-  public GeneratorSwapFixedON getGenerator(final String name, final Calendar cal) {
+  public GeneratorSwapFixedON getGenerator(final String name, final HolidayCalendar cal) {
     final GeneratorSwapFixedON generatorNoCalendar = _generatorSwap.get(name);
     if (generatorNoCalendar == null) {
       throw new RuntimeException("Could not get Swap Fixed/ON generator for " + name);

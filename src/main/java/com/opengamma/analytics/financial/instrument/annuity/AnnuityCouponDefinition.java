@@ -5,8 +5,8 @@
  */
 package com.opengamma.analytics.financial.instrument.annuity;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * A wrapper class for a AnnuityDefinition containing CouponDefinition.
@@ -19,7 +19,7 @@ public class AnnuityCouponDefinition<P extends CouponDefinition> extends Annuity
    * @param coupons The coupons.
    * @param calendar The holiday calendar, not null
    */
-  public AnnuityCouponDefinition(final P[] coupons, final Calendar calendar) {
+  public AnnuityCouponDefinition(final P[] coupons, final HolidayCalendar calendar) {
     super(coupons, calendar);
   }
 

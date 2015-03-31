@@ -10,7 +10,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
@@ -64,6 +63,7 @@ import com.opengamma.analytics.tutorial.datasets.RecentDataSetsMulticurveStandar
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -106,7 +106,7 @@ public class SwaptionUsdAnalysis {
   private static final SwaptionSurfaceSensitivityNodeCalculator SSSNC =
       new SwaptionSurfaceSensitivityNodeCalculator();
 
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();

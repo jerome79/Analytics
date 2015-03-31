@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -192,11 +192,11 @@ public class ISDAPremiumLegSchedule {
    * @param protectionStart If true, protection starts are the beginning rather than end of day (protection still ends at end of day).
    */
   public ISDAPremiumLegSchedule(final LocalDate startDate, final LocalDate endDate, final Period step, final StubType stubType, final BusinessDayConvention businessdayAdjustmentConvention,
-      final Calendar calandar, final boolean protectionStart) {
+      final HolidayCalendar calandar, final boolean protectionStart) {
     this(getUnadjustedDates(startDate, endDate, step, stubType), businessdayAdjustmentConvention, calandar, protectionStart);
   }
 
-  public ISDAPremiumLegSchedule(final LocalDate[] unadjustedDates, final BusinessDayConvention businessdayAdjustmentConvention, final Calendar calendar, final boolean protectionStart) {
+  public ISDAPremiumLegSchedule(final LocalDate[] unadjustedDates, final BusinessDayConvention businessdayAdjustmentConvention, final HolidayCalendar calendar, final boolean protectionStart) {
     _nPayments = unadjustedDates.length - 1;
     _nominalPaymentDates = new LocalDate[_nPayments];
     _paymentDates = new LocalDate[_nPayments];
@@ -282,10 +282,10 @@ public class ISDAPremiumLegSchedule {
     return new LocalDate[] {_accStartDates[index], _accEndDates[index], _paymentDates[index] };
   }
 
-  private LocalDate businessDayAdjustDate(final LocalDate date, final Calendar calendar, final BusinessDayConvention convention) {
+  private LocalDate businessDayAdjustDate(final LocalDate date, final HolidayCalendar calendar, final BusinessDayConvention convention) {
 
     ArgChecker.notNull(date, "date");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     ArgChecker.notNull(convention, "Business day adjustment");
 
     return convention.adjustDate(calendar, date);

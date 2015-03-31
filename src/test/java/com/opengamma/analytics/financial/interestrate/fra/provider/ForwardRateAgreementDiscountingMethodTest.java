@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.fra.ForwardRateAgreementDefinition;
@@ -37,6 +36,7 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -48,7 +48,7 @@ public class ForwardRateAgreementDiscountingMethodTest {
   private static final MulticurveProviderDiscount MULTICURVE = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex[] INDEX_LIST = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
   private static final IborIndex USDLIBOR3M = INDEX_LIST[2];
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getUSDCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getUSDCalendar();
   private static final Currency CUR = USDLIBOR3M.getCurrency();
   // Dates : The dates are not standard but selected for insure correct testing.
   private static final ZonedDateTime FIXING_DATE = DateUtils.getUTCDate(2011, 1, 3);

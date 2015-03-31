@@ -9,7 +9,6 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedInflationZeroCoupon;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.instrument.inflation.CouponInflationZer
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedCompoundingDefinition;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -33,7 +33,7 @@ public class SwapFixedInflationZeroCouponDefinition extends SwapDefinition {
    * @param calendar The holiday calendar
    */
   public SwapFixedInflationZeroCouponDefinition(final CouponFixedCompoundingDefinition fixedCpn, final CouponInflationDefinition inflationCpn,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(new AnnuityDefinition<PaymentDefinition>(new CouponFixedCompoundingDefinition[] {fixedCpn }, calendar),
         new AnnuityDefinition<PaymentDefinition>(new CouponInflationDefinition[] {inflationCpn }, calendar));
   }
@@ -54,12 +54,12 @@ public class SwapFixedInflationZeroCouponDefinition extends SwapDefinition {
    * @return The zero coupon inflation swap.
    */
   public static SwapFixedInflationZeroCouponDefinition fromInterpolation(final IndexPrice index, final ZonedDateTime settlementDate, final int tenor, final double fixedRate,
-      final double notional, final boolean isPayer, final BusinessDayConvention businessDayConvention, final Calendar calendar, final boolean endOfMonth, final int conventionalMonthLag,
+      final double notional, final boolean isPayer, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar, final boolean endOfMonth, final int conventionalMonthLag,
       final int monthLag) {
     ArgChecker.notNull(index, "Price index");
     ArgChecker.notNull(settlementDate, "Settlement date");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(settlementDate, Period.ofYears(tenor), businessDayConvention, calendar, endOfMonth);
     final CouponFixedCompoundingDefinition fixedCpn = CouponFixedCompoundingDefinition.from(index.getCurrency(), settlementDate, paymentDate, (isPayer ? -1.0 : 1.0) * notional, tenor,
         fixedRate);
@@ -109,11 +109,11 @@ public class SwapFixedInflationZeroCouponDefinition extends SwapDefinition {
    * @return The zero coupon inflation swap.
    */
   public static SwapFixedInflationZeroCouponDefinition fromMonthly(final IndexPrice index, final ZonedDateTime settlementDate, final int tenor, final double fixedRate, final double notional,
-      final boolean isPayer, final BusinessDayConvention businessDayConvention, final Calendar calendar, final boolean endOfMonth, final int conventionalMonthLag, final int monthLag) {
+      final boolean isPayer, final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar, final boolean endOfMonth, final int conventionalMonthLag, final int monthLag) {
     ArgChecker.notNull(index, "Price index");
     ArgChecker.notNull(settlementDate, "Settlement date");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(settlementDate, Period.ofYears(tenor), businessDayConvention, calendar, endOfMonth);
     final CouponFixedCompoundingDefinition fixedCpn = CouponFixedCompoundingDefinition.from(index.getCurrency(), settlementDate, paymentDate, (isPayer ? -1.0 : 1.0) * notional, tenor,
         fixedRate);

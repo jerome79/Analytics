@@ -8,7 +8,7 @@ package com.opengamma.analytics.convention.businessday;
 
 import java.time.LocalDate;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * The modified following business day convention.
@@ -26,7 +26,7 @@ public class ModifiedFollowingBusinessDayConvention extends AbstractBusinessDayC
   private static final BusinessDayConvention PRECEDING = new PrecedingBusinessDayConvention();
 
   @Override
-  public LocalDate adjustDate(final Calendar workingDays, final LocalDate date) {
+  public LocalDate adjustDate(final HolidayCalendar workingDays, final LocalDate date) {
     final LocalDate followingDate = FOLLOWING.adjustDate(workingDays, date);
     if (followingDate.getMonth() == date.getMonth()) {
       return followingDate;

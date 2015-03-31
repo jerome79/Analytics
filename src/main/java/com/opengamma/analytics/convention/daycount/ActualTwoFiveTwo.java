@@ -9,7 +9,7 @@ package com.opengamma.analytics.convention.daycount;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * The Business/252 day count. The number of good business days between two days is counted and then divided by 252.
@@ -31,12 +31,12 @@ public class ActualTwoFiveTwo extends StatelessDayCount {
   }
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final Calendar calendar) {
+  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
     return DC.getDayCountFraction(firstDate, secondDate, calendar);
   }
 
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final Calendar calendar) {
+  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     return DC.getDayCountFraction(firstDate, secondDate, calendar);
   }
 

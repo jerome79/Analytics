@@ -10,11 +10,11 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -29,7 +29,7 @@ public class GeneratorDeposit extends GeneratorInstrument<GeneratorAttributeIR> 
   /**
    * The calendar associated to the index. Not null.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The index spot lag in days between trade and settlement date (usually 2 or 0).
    */
@@ -57,11 +57,11 @@ public class GeneratorDeposit extends GeneratorInstrument<GeneratorAttributeIR> 
    * @param businessDayConvention The business day convention associated to the index.
    * @param endOfMonth Flag indicating if the end-of-month rule is used.
    */
-  public GeneratorDeposit(final String name, final Currency currency, final Calendar calendar, final int spotLag, final DayCount dayCount,
+  public GeneratorDeposit(final String name, final Currency currency, final HolidayCalendar calendar, final int spotLag, final DayCount dayCount,
       final BusinessDayConvention businessDayConvention, final boolean endOfMonth) {
     super(name);
     ArgChecker.notNull(currency, "Currency");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     ArgChecker.notNull(dayCount, "Day count");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
     _currency = currency;
@@ -84,7 +84,7 @@ public class GeneratorDeposit extends GeneratorInstrument<GeneratorAttributeIR> 
    * Gets the calendar associated to the index.
    * @return The calendar.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

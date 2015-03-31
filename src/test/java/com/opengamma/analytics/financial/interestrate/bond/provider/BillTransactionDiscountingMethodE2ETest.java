@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -40,6 +39,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -54,7 +54,7 @@ public class BillTransactionDiscountingMethodE2ETest {
   private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR = StandardDataSetsMulticurveUSD.getCurvesUSDOisL3();
   private static final MulticurveProviderDiscount MULTICURVE = MULTICURVE_PAIR.getFirst();
   private static final CurveBuildingBlockBundle BLOCK = MULTICURVE_PAIR.getSecond();
-  private static final Calendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final Currency USD = Currency.USD;
 
   // Issuer provider with Issuer "" priced from the OIS curve.

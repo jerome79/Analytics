@@ -9,7 +9,6 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -50,7 +50,7 @@ public class SwapXCcyIborIborDefinition extends SwapDefinition {
    * @return The swap.
    */
   public static SwapXCcyIborIborDefinition from(final ZonedDateTime settlementDate, final Period tenor, final GeneratorSwapXCcyIborIbor generator, final double notional1, final double notional2,
-      final double spread, final boolean isPayer, final Calendar calendar1, final Calendar calendar2) {
+      final double spread, final boolean isPayer, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(tenor, "Tenor");
     ArgChecker.notNull(generator, "Swap generator");

@@ -10,11 +10,11 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.payment.CouponONSimplifiedDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -32,7 +32,7 @@ public class AnnuityCouponONSimplifiedDefinition extends AnnuityDefinition<Coupo
    * @param index The underlying overnight index.
    * @param calendar The calendar.
    */
-  public AnnuityCouponONSimplifiedDefinition(final CouponONSimplifiedDefinition[] payments, final IndexON index, final Calendar calendar) {
+  public AnnuityCouponONSimplifiedDefinition(final CouponONSimplifiedDefinition[] payments, final IndexON index, final HolidayCalendar calendar) {
     super(payments, calendar);
     _index = index;
   }
@@ -90,7 +90,7 @@ public class AnnuityCouponONSimplifiedDefinition extends AnnuityDefinition<Coupo
    * @return The annuity.
    */
   public static AnnuityCouponONSimplifiedDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final boolean isPayer,
-      final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final Calendar indexCalendar) {
+      final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar indexCalendar) {
     return from(settlementDate, endFixingPeriodDate, notional, isPayer, paymentPeriod, indexON, paymentLag, businessDayConvention, isEOM, indexCalendar, StubType.SHORT_START);
   }
 
@@ -110,7 +110,7 @@ public class AnnuityCouponONSimplifiedDefinition extends AnnuityDefinition<Coupo
    * @return The annuity.
    */
   public static AnnuityCouponONSimplifiedDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final boolean isPayer,
-      final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final Calendar indexCalendar,
+      final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar indexCalendar,
       final StubType stub) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(endFixingPeriodDate, "End fixing period date");
@@ -140,7 +140,7 @@ public class AnnuityCouponONSimplifiedDefinition extends AnnuityDefinition<Coupo
    * @return The annuity.
    */
   public static AnnuityCouponONSimplifiedDefinition from(final ZonedDateTime settlementDate, final Period tenorAnnuity, final double notional, final boolean isPayer,
-      final IndexON indexON, final int paymentLag, final Calendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM) {
+      final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar, final BusinessDayConvention businessDayConvention, final Period paymentPeriod, final boolean isEOM) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(tenorAnnuity, "tenor annuity");
     ArgChecker.notNull(indexON, "overnight index");
@@ -186,7 +186,7 @@ public class AnnuityCouponONSimplifiedDefinition extends AnnuityDefinition<Coupo
    * @return An overnight annuity
    */
   private static AnnuityCouponONSimplifiedDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime[] endFixingPeriodDates, final double notional, final boolean isPayer,
-      final IndexON indexON, final int paymentLag, final Calendar indexCalendar) {
+      final IndexON indexON, final int paymentLag, final HolidayCalendar indexCalendar) {
     final double sign = isPayer ? -1.0 : 1.0;
     final double notionalSigned = sign * notional;
     final CouponONSimplifiedDefinition[] coupons = new CouponONSimplifiedDefinition[endFixingPeriodDates.length];

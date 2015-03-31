@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -63,7 +63,7 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
   /**
    * The holiday calendar for the ibor index.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /** 
    * The reference currency. 
    */
@@ -97,7 +97,7 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
   public CouponIborFxResetDefinition(final Currency currency, final ZonedDateTime paymentDate,
       final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double paymentAccrualFactor,
       final double notional, final ZonedDateTime iborIndexFixingDate, final IborIndex index, final double spread,
-      final Calendar calendar, final Currency referenceCurrency, final ZonedDateTime fxFixingDate,
+      final HolidayCalendar calendar, final Currency referenceCurrency, final ZonedDateTime fxFixingDate,
       final ZonedDateTime fxDeliveryDate) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional);
     ArgChecker.notNull(iborIndexFixingDate, "ibor index fixing date");
@@ -146,7 +146,7 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
       final ZonedDateTime iborIndexFixingPeriodStartDate,
       final ZonedDateTime iborIndexFixingPeriodEndDate, final double iborIndexFixingPeriodAccrualFactor,
       final IborIndex index,
-      final double spread, final Calendar calendar, final Currency referenceCurrency, final ZonedDateTime fxFixingDate,
+      final double spread, final HolidayCalendar calendar, final Currency referenceCurrency, final ZonedDateTime fxFixingDate,
       final ZonedDateTime fxDeliveryDate) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional);
     ArgChecker.notNull(iborIndexFixingDate, "ibor index fixing date");
@@ -221,7 +221,7 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
    * Gets the holiday calendar for the ibor index.
    * @return The holiday calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

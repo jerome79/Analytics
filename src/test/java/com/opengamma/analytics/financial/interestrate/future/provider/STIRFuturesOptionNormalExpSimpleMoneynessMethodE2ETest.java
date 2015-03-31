@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
@@ -51,6 +50,7 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -89,7 +89,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
       new NormalSTIRFuturesExpSimpleMoneynessProviderDiscount(MULTICURVES, VOL_SURFACE_SIMPLEMONEY, EURIBOR3M, false);
 
   /* Option */
-  private static final Calendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar TARGET = MulticurveProviderDiscountDataSets.getEURCalendar();
   private static final ZonedDateTime SPOT_LAST_TRADING_DATE = DateUtils.getUTCDate(2012, 9, 19);
   private static final ZonedDateTime LAST_TRADING_DATE = ScheduleCalculator.getAdjustedDate(SPOT_LAST_TRADING_DATE,
       -EURIBOR3M.getSpotLag(), TARGET);

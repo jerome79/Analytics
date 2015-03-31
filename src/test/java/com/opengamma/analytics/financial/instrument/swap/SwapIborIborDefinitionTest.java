@@ -13,8 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborSpreadDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapIborIbor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -26,6 +24,8 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -34,7 +34,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 @Test
 public class SwapIborIborDefinitionTest {
 
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final IndexIborMaster INDEX_MASTER = IndexIborMaster.getInstance();
   private static final IborIndex USDLIBOR3M = INDEX_MASTER.getIndex("USDLIBOR3M");
   private static final IborIndex USDLIBOR6M = INDEX_MASTER.getIndex("USDLIBOR6M");

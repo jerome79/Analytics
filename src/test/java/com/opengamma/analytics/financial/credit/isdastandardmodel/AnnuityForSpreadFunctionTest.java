@@ -15,9 +15,9 @@ import java.time.Period;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class AnnuityForSpreadFunctionTest {
       0.03092, 0.0316, 0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
 
   private static final Period TENOR = Period.ofYears(10);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
 
   private static final ISDACompliantYieldCurve YIELD_CURVE;
 

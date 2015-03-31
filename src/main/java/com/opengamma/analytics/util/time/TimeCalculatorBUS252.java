@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -44,7 +44,7 @@ public final class TimeCalculatorBUS252 {
    * @param calendar the calendar.
    * @return The time.
    */
-  public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2, final DayCount dayCount, final Calendar calendar) {
+  public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2, final DayCount dayCount, final HolidayCalendar calendar) {
     ArgChecker.notNull(date1, "date1");
     ArgChecker.notNull(date1, "date2");
     ArgChecker.notNull(dayCount, "day count");
@@ -90,7 +90,7 @@ public final class TimeCalculatorBUS252 {
    * @param calendar the calendar.
    * @return The time.
    */
-  public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2, final Calendar calendar) {
+  public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2, final HolidayCalendar calendar) {
     return getTimeBetween(date1, date2, MODEL_DAYCOUNT, calendar);
   }
 
@@ -101,7 +101,7 @@ public final class TimeCalculatorBUS252 {
    * @param calendar the calendar.
    * @return The times.
    */
-  public static double[] getTimeBetween(final ZonedDateTime[] date1, final ZonedDateTime[] date2, final Calendar calendar) {
+  public static double[] getTimeBetween(final ZonedDateTime[] date1, final ZonedDateTime[] date2, final HolidayCalendar calendar) {
     ArgChecker.notNull(date1, "First date");
     ArgChecker.notNull(date2, "Second date");
     ArgChecker.notNull(calendar, "calendar");
@@ -121,7 +121,7 @@ public final class TimeCalculatorBUS252 {
    * @param calendar the calendar.
    * @return The times.
    */
-  public static double[] getTimeBetween(final ZonedDateTime date1, final ZonedDateTime[] date2, final Calendar calendar) {
+  public static double[] getTimeBetween(final ZonedDateTime date1, final ZonedDateTime[] date2, final HolidayCalendar calendar) {
     ArgChecker.notNull(date1, "First date");
     ArgChecker.notNull(date2, "Second date");
     final int nbDates = date2.length;
@@ -132,13 +132,13 @@ public final class TimeCalculatorBUS252 {
     return result;
   }
 
-  public static double getTimeBetween(final LocalDate date1, final LocalDate date2, final Calendar calendar) {
+  public static double getTimeBetween(final LocalDate date1, final LocalDate date2, final HolidayCalendar calendar) {
     ArgChecker.notNull(date1, "date1");
     ArgChecker.notNull(date2, "date2");
     return getTimeBetween(date1.atStartOfDay(ZoneOffset.UTC), date2.atStartOfDay(ZoneOffset.UTC), calendar);
   }
 
-  public static double getTimeBetween(final ZonedDateTime zdt1, final LocalDate date2, final Calendar calendar) {
+  public static double getTimeBetween(final ZonedDateTime zdt1, final LocalDate date2, final HolidayCalendar calendar) {
     ArgChecker.notNull(zdt1, "date1");
     ArgChecker.notNull(date2, "date2");
     final ZonedDateTime zdt2 = date2.atStartOfDay(ZoneOffset.UTC);
@@ -146,7 +146,7 @@ public final class TimeCalculatorBUS252 {
     return getTimeBetween(rebasedZdt1, zdt2, calendar);
   }
 
-  public static double getTimeBetween(final LocalDate date1, final ZonedDateTime zdt2, final Calendar calendar) {
+  public static double getTimeBetween(final LocalDate date1, final ZonedDateTime zdt2, final HolidayCalendar calendar) {
     ArgChecker.notNull(date1, "date1");
     ArgChecker.notNull(zdt2, "date2");
     final ZonedDateTime zdt1 = date1.atStartOfDay(ZoneOffset.UTC);

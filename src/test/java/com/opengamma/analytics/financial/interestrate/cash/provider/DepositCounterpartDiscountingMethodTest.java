@@ -12,8 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.cash.DepositCounterpartDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.generator.EURDeposit;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -47,7 +47,7 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 @Test
 public class DepositCounterpartDiscountingMethodTest {
 
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final GeneratorDeposit GENERATOR = new EURDeposit(TARGET);
   private static final Currency EUR = GENERATOR.getCurrency();
 

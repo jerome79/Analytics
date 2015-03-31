@@ -6,15 +6,16 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import static org.testng.AssertJUnit.assertEquals;
+
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.provider.description.MulticurveProviderDiscountDataSets;
 import com.opengamma.analytics.financial.provider.description.NormalDataSets;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -29,7 +30,7 @@ public class NormalSwaptionExpiryTenorProviderTest {
   private static final InterpolatedDoublesSurface NORMAL_SURFACE =
       NormalDataSets.normalSurfaceSwaptionExpiryTenor();
   /** Conventions. */
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = 
       GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = 

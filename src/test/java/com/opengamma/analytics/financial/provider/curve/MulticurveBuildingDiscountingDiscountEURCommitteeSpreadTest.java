@@ -20,8 +20,6 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYield;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYieldExisiting;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYieldFixed;
@@ -63,6 +61,8 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -85,7 +85,7 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeSpreadTest {
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
   private static final double NOTIONAL = 1.0;

@@ -8,10 +8,10 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -46,7 +46,7 @@ public abstract class CouponCommodityDefinition extends PaymentDefinition {
   /**
    * The holiday calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor with all details.
@@ -58,7 +58,7 @@ public abstract class CouponCommodityDefinition extends PaymentDefinition {
    * @param calendar The holiday calendar, not null
    */
   public CouponCommodityDefinition(final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional,
-      final ZonedDateTime settlementDate, final Calendar calendar) {
+      final ZonedDateTime settlementDate, final HolidayCalendar calendar) {
     super(underlying.getCurrency(), settlementDate);
     ArgChecker.notNegativeOrZero(paymentYearFraction, "payment year fraction");
     ArgChecker.notNull(underlying, "underlying");
@@ -122,7 +122,7 @@ public abstract class CouponCommodityDefinition extends PaymentDefinition {
    * Gets the holiday calendar.
    * @return The holiday calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

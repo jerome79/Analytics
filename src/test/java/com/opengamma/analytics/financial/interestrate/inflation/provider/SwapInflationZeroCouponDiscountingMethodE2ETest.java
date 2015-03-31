@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedInflationMaster;
@@ -33,6 +32,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -43,7 +43,7 @@ public class SwapInflationZeroCouponDiscountingMethodE2ETest {
 
   private static final IndexPrice[] INDEX_IBOR_LIST = StandardDataSetsInflationGBP.indexONArray();
   private static final IndexPrice GBP_RPI_PRICE_INDEX = INDEX_IBOR_LIST[0];
-  private static final Calendar CALENDAR = StandardDataSetsMulticurveUSD.calendarArray()[0];
+  private static final HolidayCalendar CALENDAR = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final Currency CUR = GBP_RPI_PRICE_INDEX.getCurrency();
 
   private static final PresentValueDiscountingInflationCalculator PVDIC = PresentValueDiscountingInflationCalculator.getInstance();

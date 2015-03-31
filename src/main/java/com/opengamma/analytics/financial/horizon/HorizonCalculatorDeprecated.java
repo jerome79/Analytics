@@ -8,10 +8,10 @@ package com.opengamma.analytics.financial.horizon;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Calculates the difference in present value between one day and the next, giving a theta-like result.
@@ -36,7 +36,7 @@ public interface HorizonCalculatorDeprecated<U extends InstrumentDefinition<?>, 
    * @return The theta
    */
   MultiCurrencyAmount getTheta(U definition, ZonedDateTime date, String[] yieldCurveNames, V data,
-      int daysForward, Calendar calendar);
+      int daysForward, HolidayCalendar calendar);
 
   /**
    * Calculates the theta for an instrument.
@@ -50,5 +50,5 @@ public interface HorizonCalculatorDeprecated<U extends InstrumentDefinition<?>, 
    * @return The theta
    */
   MultiCurrencyAmount getTheta(U definition, ZonedDateTime date, String[] yieldCurveNames, V data,
-      int daysForward, Calendar calendar, W additionalData);
+      int daysForward, HolidayCalendar calendar, W additionalData);
 }

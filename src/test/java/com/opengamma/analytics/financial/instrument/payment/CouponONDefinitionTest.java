@@ -17,8 +17,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
@@ -37,6 +35,8 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -52,7 +52,7 @@ public class CouponONDefinitionTest {
   //EUR Eonia
   private static final String EUR_OIS_NAME = "EUR EONIA";
   private static final Currency EUR_CUR = Currency.EUR;
-  private static final Calendar EUR_CALENDAR = new MondayToFridayCalendar("EUR");
+  private static final HolidayCalendar EUR_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final int EUR_PUBLICATION_LAG = 0;
   private static final DayCount EUR_DAY_COUNT = DayCounts.ACT_360;
   private static final IndexON EUR_OIS = new IndexON(EUR_OIS_NAME, EUR_CUR, EUR_DAY_COUNT, EUR_PUBLICATION_LAG);
@@ -348,7 +348,7 @@ public class CouponONDefinitionTest {
     EONIA_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
   }
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final GeneratorSwapFixedON USD_GENERATOR = GeneratorSwapFixedONMaster.getInstance().getGenerator("USD1YFEDFUND", NYC);
   private static final IndexON USD_FEDFUND = USD_GENERATOR.getIndex();
 

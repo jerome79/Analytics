@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.interestrate.PeriodicInterestRate;
 import com.opengamma.analytics.financial.interestrate.cash.derivative.DepositZero;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -57,7 +57,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
   /**
    * The holiday calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The day count.
    */
@@ -75,7 +75,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
    * @param dayCount The day count.
    */
   public DepositZeroDefinition(final Currency currency, final ZonedDateTime startDate, final ZonedDateTime endDate, final double notional, final double paymentAccrualFactor,
-      final InterestRate rate, final Calendar calendar, final DayCount dayCount) {
+      final InterestRate rate, final HolidayCalendar calendar, final DayCount dayCount) {
     ArgChecker.notNull(currency, "Currency");
     ArgChecker.notNull(startDate, "Start date");
     ArgChecker.notNull(endDate, "End date");
@@ -105,7 +105,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
    * @return The deposit.
    */
   public static DepositZeroDefinition from(final Currency currency, final ZonedDateTime startDate, final ZonedDateTime endDate, final DayCount daycount, final InterestRate rate,
-      final Calendar calendar, final DayCount dayCount) {
+      final HolidayCalendar calendar, final DayCount dayCount) {
     ArgChecker.notNull(daycount, "day count");
     return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.getDayCountFraction(startDate, endDate, calendar), rate, calendar, dayCount);
   }
@@ -121,7 +121,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
    * @return The deposit.
    */
   public static DepositZeroDefinition withAdjustedRate(final Currency currency, final ZonedDateTime startDate, final ZonedDateTime endDate, final DayCount daycount, final InterestRate rate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     ArgChecker.notNull(daycount, "day count");
     double adjustedRate;
     if (currency.equals(Currency.BRL)) {

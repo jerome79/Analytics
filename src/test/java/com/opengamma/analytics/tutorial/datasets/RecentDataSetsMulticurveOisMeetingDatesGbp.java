@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
@@ -55,6 +54,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -70,7 +70,7 @@ public class RecentDataSetsMulticurveOisMeetingDatesGbp {
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
   private static final double NOTIONAL = 1.0;
@@ -197,8 +197,8 @@ public class RecentDataSetsMulticurveOisMeetingDatesGbp {
    * Returns the array of calendars used in the curve data set. 
    * @return The array: NYC 
    */
-  public static Calendar[] calendarArray() {
-    return new Calendar[] {LON };
+  public static HolidayCalendar[] calendarArray() {
+    return new HolidayCalendar[] {LON };
   }
 
   /**

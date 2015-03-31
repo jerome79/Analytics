@@ -15,8 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
@@ -24,6 +22,8 @@ import com.opengamma.analytics.financial.instrument.index.generator.USDDeposit;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -34,7 +34,7 @@ public class GeneratorDepositTest {
   // USD deposits
   private static final String NAME = "USD Deposit";
   private static final int SETTLEMENT_DAYS = 2;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT = DayCounts.ACT_360;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final boolean IS_EOM = true;
@@ -92,7 +92,7 @@ public class GeneratorDepositTest {
     GeneratorDeposit other;
     other = new GeneratorDeposit(NAME, Currency.EUR, CALENDAR, SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY, IS_EOM);
     assertFalse("Generator Deposit: equal-hash", GENERATOR_DEPOSIT_USD.equals(other));
-    other = new GeneratorDeposit(NAME, CUR, new MondayToFridayCalendar("B"), SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY, IS_EOM);
+    other = new GeneratorDeposit(NAME, CUR, HolidayCalendars.NO_HOLIDAYS, SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY, IS_EOM);
     assertFalse("Generator Deposit: equal-hash", GENERATOR_DEPOSIT_USD.equals(other));
     other = new GeneratorDeposit(NAME, CUR, CALENDAR, 1, DAY_COUNT, BUSINESS_DAY, IS_EOM);
     assertFalse("Generator Deposit: equal-hash", GENERATOR_DEPOSIT_USD.equals(other));

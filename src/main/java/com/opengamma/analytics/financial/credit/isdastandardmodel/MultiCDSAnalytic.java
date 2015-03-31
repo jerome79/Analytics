@@ -11,8 +11,8 @@ import java.time.temporal.JulianFields;
 import java.util.Arrays;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -61,13 +61,13 @@ public class MultiCDSAnalytic {
    * @param protectStart If protectStart = true, then protections starts at the beginning of the day, otherwise it is at the end.
    * @param recoveryRate The recovery rate
    * @param businessdayAdjustmentConvention How are adjustments for non-business days made
-   * @param calendar Calendar defining what is a non-business day
+   * @param calendar HolidayCalendar defining what is a non-business day
    * @param accrualDayCount Day count used for accrual
    * @param curveDayCount Day count used on curve (NOTE ISDA uses ACT/365 and it is not recommended to change this)
    */
   public MultiCDSAnalytic(final LocalDate tradeDate, final LocalDate stepinDate, final LocalDate cashSettlementDate, final LocalDate accStartDate, final LocalDate maturityReferanceDate,
       final int[] maturityIndexes, final boolean payAccOnDefault, final Tenor paymentInterval, final StubType stubType, final boolean protectStart, final double recoveryRate,
-      final BusinessDayConvention businessdayAdjustmentConvention, final Calendar calendar, final DayCount accrualDayCount, final DayCount curveDayCount) {
+      final BusinessDayConvention businessdayAdjustmentConvention, final HolidayCalendar calendar, final DayCount accrualDayCount, final DayCount curveDayCount) {
     ArgChecker.notNull(tradeDate, "tradeDate");
     ArgChecker.notNull(stepinDate, "stepinDate");
     ArgChecker.notNull(cashSettlementDate, "cashSettlementDate");

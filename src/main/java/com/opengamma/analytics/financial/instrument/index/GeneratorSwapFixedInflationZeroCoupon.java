@@ -8,9 +8,9 @@ package com.opengamma.analytics.financial.instrument.index;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedInflationZeroCouponDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 /**
  * Class with the description of swap inflation zero coupon characteristics.
@@ -28,7 +28,7 @@ public class GeneratorSwapFixedInflationZeroCoupon extends GeneratorInstrument<G
   /**
    * The calendar used to compute the payment date.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The flag indicating if the end-of-month rule is used.
    */
@@ -58,7 +58,7 @@ public class GeneratorSwapFixedInflationZeroCoupon extends GeneratorInstrument<G
    * @param isLinear True if the price index is interpolated linearly.
    */
   public GeneratorSwapFixedInflationZeroCoupon(final String name, final IndexPrice indexPrice, final BusinessDayConvention businessDayConvention,
-      final Calendar calendar, final boolean endOfMonth, final int monthLag, final int spotLag, final boolean isLinear) {
+      final HolidayCalendar calendar, final boolean endOfMonth, final int monthLag, final int spotLag, final boolean isLinear) {
     super(name);
     ArgChecker.notNull(indexPrice, "index price");
     ArgChecker.notNull(calendar, "calendar");
@@ -93,7 +93,7 @@ public class GeneratorSwapFixedInflationZeroCoupon extends GeneratorInstrument<G
    * Gets the _calendar field.
    * @return the _calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

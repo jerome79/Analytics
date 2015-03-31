@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 /**
  * Abstract commodity future security.
@@ -78,7 +78,7 @@ public abstract class CommodityFutureSecurity implements InstrumentDerivative {
   /**
    * The holiday calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor with all details.
@@ -97,7 +97,7 @@ public abstract class CommodityFutureSecurity implements InstrumentDerivative {
    */
   public CommodityFutureSecurity(final double lastTradingTime, final CommodityUnderlying underlying, final String unitName, final double unitAmount,
       final double noticeFirstTime, final double noticeLastTime, final double firstDeliveryTime, final double lastDeliveryTime,
-      final SettlementType settlementType, final double settlementTime, final String name, final Calendar calendar) {
+      final SettlementType settlementType, final double settlementTime, final String name, final HolidayCalendar calendar) {
     ArgChecker.isTrue(lastTradingTime >= 0, "last trading time must be positive");
     ArgChecker.isTrue(settlementTime >= 0, "settlement time must be positive");
     ArgChecker.notNull(underlying, "underlying");
@@ -207,7 +207,7 @@ public abstract class CommodityFutureSecurity implements InstrumentDerivative {
   /**
    * @return the _calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

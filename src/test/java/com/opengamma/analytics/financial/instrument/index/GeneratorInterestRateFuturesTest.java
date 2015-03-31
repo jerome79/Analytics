@@ -11,12 +11,12 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureTransactionDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -25,7 +25,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 @Test
 public class GeneratorInterestRateFuturesTest {
 
-  private static final Calendar NYC = new MondayToFridayCalendar("NYC");
+  private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final IndexIborMaster IBOR_MASTER = IndexIborMaster.getInstance();
   private static final IborIndex USDLIBOR3M = IBOR_MASTER.getIndex("USDLIBOR3M");
   private static final ZonedDateTime FIXING_PERIOD_START_DATE = DateUtils.getUTCDate(2012, 12, 19);

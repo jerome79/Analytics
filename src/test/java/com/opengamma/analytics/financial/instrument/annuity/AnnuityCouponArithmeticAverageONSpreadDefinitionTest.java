@@ -11,13 +11,13 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.financial.instrument.payment.CouponONArithmeticAverageSpreadDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -35,7 +35,7 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinitionTest {
   private static final int PAY_LAG = 2;
 
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.FOLLOWING;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("Weekend");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
 
   private static final double TOLERANCE_NOTIONAL = 1E-2;
   private static final double TOLERANCE_RATE = 1.0E-10;

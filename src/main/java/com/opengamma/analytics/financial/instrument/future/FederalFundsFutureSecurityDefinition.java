@@ -16,7 +16,6 @@ import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -24,6 +23,7 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.FederalF
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -113,7 +113,7 @@ public class FederalFundsFutureSecurityDefinition extends FuturesSecurityDefinit
    * @return The future.
    */
   public static FederalFundsFutureSecurityDefinition from(final ZonedDateTime monthDate, final IndexON index, final double notional, final double paymentAccrualFactor,
-      final String name, final Calendar calendar) {
+      final String name, final HolidayCalendar calendar) {
     ArgChecker.notNull(monthDate, "Reference date");
     ArgChecker.notNull(index, "Index overnight");
     final ZonedDateTime periodFirstDate = BUSINESS_DAY_FOLLOWING.adjustDate(calendar, monthDate.withDayOfMonth(1));
@@ -141,7 +141,7 @@ public class FederalFundsFutureSecurityDefinition extends FuturesSecurityDefinit
    * @param calendar The holiday calendar for the overnight rate.
    * @return The future.
    */
-  public static FederalFundsFutureSecurityDefinition fromFedFund(final ZonedDateTime monthDate, final IndexON index, final Calendar calendar) {
+  public static FederalFundsFutureSecurityDefinition fromFedFund(final ZonedDateTime monthDate, final IndexON index, final HolidayCalendar calendar) {
     final double notionalFedFund = 5000000;
     final double accrualFedFund = 1.0 / 12.0;
     return from(monthDate, index, notionalFedFund, accrualFedFund, "FF" + monthDate.format(DateTimeFormatter.ofPattern("MMMyy")), calendar);

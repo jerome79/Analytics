@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
@@ -46,6 +45,7 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -56,7 +56,7 @@ public class CouponIborFxResetDiscountingMethodTest {
       MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final IborIndex[] IBOR_INDEXES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveEurUsd();
   private static final IborIndex EURIBOR3M = IBOR_INDEXES[0];
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
   private static final Currency CUR_REF = Currency.EUR;
   private static final Currency CUR_PAY = Currency.USD;
@@ -171,7 +171,7 @@ public class CouponIborFxResetDiscountingMethodTest {
    * Swap with FX reset. EUR P3M v USD FX reset P3M
    */
 
-  private static final Calendar CAL = new CalendarUSD("CAL");
+  private static final HolidayCalendar CAL = new CalendarUSD("CAL");
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M =
       GENERATOR_IRS_MASTER.getGenerator(GeneratorSwapFixedIborMaster.EUR1YEURIBOR3M, CAL);

@@ -15,10 +15,10 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -35,7 +35,7 @@ public class CDSCouponTest {
   public void yearFractionTest() {
     final DayCount curveDcc = DayCounts.ACT_365;
     final DayCount accrDcc = DayCounts.ACT_360;
-    final Calendar calender = new MondayToFridayCalendar("Weekend_Only");
+    final HolidayCalendar calender = HolidayCalendars.SAT_SUN;
     final BusinessDayConvention following = BusinessDayConventions.FOLLOWING;
 
     final LocalDate tradeDate = LocalDate.of(2011, 4, 22);

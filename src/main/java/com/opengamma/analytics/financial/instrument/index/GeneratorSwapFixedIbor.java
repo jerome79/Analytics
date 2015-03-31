@@ -11,11 +11,11 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -50,7 +50,7 @@ public class GeneratorSwapFixedIbor extends GeneratorInstrument<GeneratorAttribu
   /**
    * The holiday calendar associated with the floating ibor index.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * In case the the periods do not fit exactly between start and end date, is the remaining interval shorter (true) or longer (false) than the requested period.
    */
@@ -69,7 +69,7 @@ public class GeneratorSwapFixedIbor extends GeneratorInstrument<GeneratorAttribu
    * @param iborIndex The Ibor index of the floating leg.
    * @param calendar The holiday calendar for the ibor leg.
    */
-  public GeneratorSwapFixedIbor(final String name, final Period fixedLegPeriod, final DayCount fixedLegDayCount, final IborIndex iborIndex, final Calendar calendar) {
+  public GeneratorSwapFixedIbor(final String name, final Period fixedLegPeriod, final DayCount fixedLegDayCount, final IborIndex iborIndex, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(fixedLegPeriod, "fixed leg period");
     ArgChecker.notNull(fixedLegDayCount, "fixed leg day count");
@@ -99,7 +99,7 @@ public class GeneratorSwapFixedIbor extends GeneratorInstrument<GeneratorAttribu
    * @param calendar The holiday calendar for the ibor leg.
    */
   public GeneratorSwapFixedIbor(final String name, final Period fixedLegPeriod, final DayCount fixedLegDayCount, final IborIndex iborIndex,
-      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final int spotLag, final Calendar calendar) {
+      final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final int spotLag, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(fixedLegPeriod, "fixed leg period");
     ArgChecker.notNull(fixedLegDayCount, "fixed leg day count");
@@ -152,7 +152,7 @@ public class GeneratorSwapFixedIbor extends GeneratorInstrument<GeneratorAttribu
    * Gets the generator calendar.
    * @return The calendar.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

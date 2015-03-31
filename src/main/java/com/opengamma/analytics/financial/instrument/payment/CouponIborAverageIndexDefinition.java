@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -91,7 +91,7 @@ public class CouponIborAverageIndexDefinition extends CouponFloatingDefinition {
    */
   public CouponIborAverageIndexDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentAccrualFactor, final double notional, final ZonedDateTime fixingDate, final IborIndex index1, final IborIndex index2, final double weight1,
-      final double weight2, final Calendar iborCalendar1, final Calendar iborCalendar2) {
+      final double weight2, final HolidayCalendar iborCalendar1, final HolidayCalendar iborCalendar2) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional, fixingDate);
     ArgChecker.notNull(index1, "index1");
     ArgChecker.notNull(index2, "index2");
@@ -172,7 +172,7 @@ public class CouponIborAverageIndexDefinition extends CouponFloatingDefinition {
    */
   public static CouponIborAverageIndexDefinition from(final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentAccrualFactor, final double notional, final ZonedDateTime fixingDate, final IborIndex index1, final IborIndex index2, final double weight1,
-      final double weight2, final Calendar iborCalendar1, final Calendar iborCalendar2) {
+      final double weight2, final HolidayCalendar iborCalendar1, final HolidayCalendar iborCalendar2) {
     ArgChecker.notNull(index1, "index1");
     ArgChecker.notNull(index2, "index2");
     ArgChecker.isTrue(index1.getCurrency().equals(index2.getCurrency()), "index1 currency different from index2 currency");
@@ -193,7 +193,7 @@ public class CouponIborAverageIndexDefinition extends CouponFloatingDefinition {
    * @return The Ibor coupon.
    */
   public static CouponIborAverageIndexDefinition from(final CouponDefinition coupon, final ZonedDateTime fixingDate, final IborIndex index1, final IborIndex index2,
-      final double weight1, final double weight2, final Calendar iborCalendar1, final Calendar iborCalendar2) {
+      final double weight1, final double weight2, final HolidayCalendar iborCalendar1, final HolidayCalendar iborCalendar2) {
     ArgChecker.notNull(coupon, "coupon");
     ArgChecker.notNull(fixingDate, "fixing date");
     ArgChecker.notNull(index1, "index1");

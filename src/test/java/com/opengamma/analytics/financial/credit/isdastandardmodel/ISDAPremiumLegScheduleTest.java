@@ -19,10 +19,10 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
 
@@ -34,7 +34,7 @@ public class ISDAPremiumLegScheduleTest {
 
   private static final DayCount ACT360 = DayCounts.ACT_360;
   private static final BusinessDayConvention FOLLOWING = BusinessDayConventions.FOLLOWING;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("TestCalendar");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
 
   // TODO all the null input tests. startDate after endDate etc
 

@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -53,6 +51,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -89,7 +89,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
       new ParameterSensitivityInflationParameterCalculator<>(PVCSDC);
 
   // Treasury Indexed Bonds CAIN 3% Index-linked Treasury Stock 2025 - AU0000XCLWP8
-  private static final Calendar CALENDAR_AUD = new MondayToFridayCalendar("AUD");
+  private static final HolidayCalendar CALENDAR_AUD = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY_AUD = BusinessDayConventions.FOLLOWING;
   private static final DayCount DAY_COUNT_CAIN = DayCounts.ACT_ACT_ISDA;
   private static final boolean IS_EOM_CAIN = false;
@@ -171,7 +171,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
   }
 
   // Index-Lined Gilt 2% Index-linked Treasury Stock 2035 - GB0031790826
-  private static final Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
+  private static final HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY_GBP = BusinessDayConventions.FOLLOWING;
   private static final DayCount DAY_COUNT_GILT_1 = DayCounts.ACT_ACT_ISDA;
   private static final boolean IS_EOM_GILT_1 = false;
@@ -223,7 +223,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
   }
 
   // 2% 10-YEAR TREASURY INFLATION-PROTECTED SECURITIES (TIPS) Due January 15, 2016 - US912828ET33
-  private static final Calendar CALENDAR_USD = new MondayToFridayCalendar("USD");
+  private static final HolidayCalendar CALENDAR_USD = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY_USD = BusinessDayConventions.FOLLOWING;
   private static final DayCount DAY_COUNT_TIPS_1 = DayCounts.ACT_ACT_ICMA;
   private static final boolean IS_EOM_TIPS_1 = false;

@@ -13,9 +13,6 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -42,6 +39,8 @@ import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.tutorial.datasets.AnalysisMarketDataEURJun13Sets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -50,8 +49,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class SwapGammaSingleCurveProfitAnalysis {
 
-  private static final ExceptionCalendar TARGET = new CalendarTarget("TARGET");
-  private static final ExceptionCalendar LON = new MondayToFridayCalendar("LON");
+  private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
+  private static final HolidayCalendar LON = HolidayCalendars.SAT_SUN;
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2013, 6, 13);
   private static final ZonedDateTime SPOT_DATE = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, 2, TARGET);

@@ -13,11 +13,11 @@ import java.time.Period;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.math.MathException;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -30,13 +30,13 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
   @SuppressWarnings("unused")
   private static final int DEFAULT_CASH_SETTLEMENT_DAYS = 3;
   private static final BusinessDayConvention FOLLOWING = BusinessDayConventions.FOLLOWING;
-  private static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
 
   private static final DayCount ACT_365 = DayCounts.ACT_365;
   private static final DayCount ACT_360 = DayCounts.ACT_360;
 
   private final BusinessDayConvention _businessdayAdjustmentConvention;
-  private final Calendar _calandar;
+  private final HolidayCalendar _calandar;
   private final DayCount _accuralDayCount;
   private final DayCount _curveDayCount;
 

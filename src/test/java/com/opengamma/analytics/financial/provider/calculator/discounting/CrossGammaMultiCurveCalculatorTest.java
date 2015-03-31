@@ -15,8 +15,6 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.forex.datasets.StandardDataSetsEURUSDForex;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.tutorial.datasets.AnalysisMarketDataJPYSets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -48,7 +48,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 @Test
 public class CrossGammaMultiCurveCalculatorTest {
 
-  private static final Calendar TYO = new MondayToFridayCalendar("TYO");
+  private static final HolidayCalendar TYO = HolidayCalendars.SAT_SUN;
   private static final ZonedDateTime CALIBRATION_DATE = DateUtils.getUTCDate(2014, 8, 2);
 
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();

@@ -16,8 +16,6 @@ import org.testng.collections.Sets;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -119,6 +117,8 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.id.StandardId;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -130,7 +130,7 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 public class TestInstrumentDefinitionsAndDerivatives {
   public static final Currency CUR = Currency.USD;
   public static final BusinessDayConvention BD = BusinessDayConventions.FOLLOWING;
-  public static final Calendar C = new MondayToFridayCalendar("F");
+  public static final HolidayCalendar C = HolidayCalendars.SAT_SUN;
   public static final ZonedDateTime SETTLE_DATE = DateUtils.getUTCDate(2011, 1, 1);
   public static final Period TENOR = Period.ofYears(2);
   public static final Period FIXED_PERIOD = Period.ofMonths(6);

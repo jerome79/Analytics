@@ -10,7 +10,7 @@ import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtil
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -32,13 +32,13 @@ public class BusinessTwoFiveTwo extends StatelessDayCount {
   }
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final Calendar calendar) {
+  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
     // Arguments are checked in BusinessDays
     return getDaysBetween(firstDate, secondDate, calendar) / TWO_FIVE_TWO;
   }
 
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final Calendar calendar) {
+  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
     return getDayCountFraction(firstDate.toLocalDate(), secondDate.toLocalDate(), calendar);

@@ -18,8 +18,6 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -27,6 +25,8 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.Interest
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantParameters;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -99,7 +99,7 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
    * Test the future convexity adjustment factor v a hard-coded value.
    */
   public void futureConvexityFactor() {
-    final Calendar calendar = new MondayToFridayCalendar("A");
+    final HolidayCalendar calendar = HolidayCalendars.SAT_SUN;
     final ZonedDateTime SPOT_LAST_TRADING_DATE = DateUtils.getUTCDate(2012, 9, 19);
     final ZonedDateTime LAST_TRADING_DATE = ScheduleCalculator.getAdjustedDate(SPOT_LAST_TRADING_DATE, -EURIBOR3M.getSpotLag(), calendar);
     final double noitonal = 1000000.0; // 1m

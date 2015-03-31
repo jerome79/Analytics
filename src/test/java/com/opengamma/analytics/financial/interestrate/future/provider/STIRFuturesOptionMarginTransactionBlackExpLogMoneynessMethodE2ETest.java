@@ -12,8 +12,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.financial.datasets.CalendarTarget;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
@@ -37,6 +35,8 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -49,7 +49,7 @@ public class STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
   /** Data */
   private static final IborIndex[] INDEX_IBOR_LIST = StandardDataSetsMulticurveEUR.indexIborArrayEUROisE3();
   private static final IborIndex EUREURIBOR3M = INDEX_IBOR_LIST[0];
-  private static final Calendar CALENDAR = StandardDataSetsMulticurveEUR.calendarArray()[0];
+  private static final HolidayCalendar CALENDAR = StandardDataSetsMulticurveEUR.calendarArray()[0];
   private static final Currency EUR = EUREURIBOR3M.getCurrency();
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2014, 2, 18);
   private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR = 
@@ -66,7 +66,7 @@ public class STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
   private static final double NOTIONAL = 1000000.0; // 1m
   private static final double FUTURE_FACTOR = 0.25;
   private static final String NAME = "ERZ4";
-  private static final Calendar TARGET = new CalendarTarget("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
   private static final InterestRateFutureSecurityDefinition ERZ4_DEFINITION =
       new InterestRateFutureSecurityDefinition(LAST_TRADE_DATE, EUREURIBOR3M, NOTIONAL, FUTURE_FACTOR, NAME, TARGET);
   private static final ZonedDateTime EXPIRY_DATE = DateUtils.getUTCDate(2014, 11, 17);

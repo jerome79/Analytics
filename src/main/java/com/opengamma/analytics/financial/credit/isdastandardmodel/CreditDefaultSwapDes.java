@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -23,7 +23,7 @@ public class CreditDefaultSwapDes {
   private final DayCount _accrualDayCount;
 
   public CreditDefaultSwapDes(final LocalDate accStartDate, final LocalDate protectionStartDate, final LocalDate protectionEndDate, final boolean payAccOnDefault, final Period paymentInterval,
-      final StubType stubType, final boolean isProtectStart, final BusinessDayConvention businessdayAdjustmentConvention, final Calendar calendar, final DayCount accrualDayCount) {
+      final StubType stubType, final boolean isProtectStart, final BusinessDayConvention businessdayAdjustmentConvention, final HolidayCalendar calendar, final DayCount accrualDayCount) {
     ArgChecker.notNull(accStartDate, "accStartDate");
     ArgChecker.notNull(protectionStartDate, "protectionStartDate");
     ArgChecker.notNull(protectionEndDate, "protectionEndDate");

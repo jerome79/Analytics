@@ -14,9 +14,6 @@ import java.util.LinkedHashSet;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.CalendarNoHoliday;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
@@ -52,6 +49,8 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -405,7 +404,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
    */
   @Test
   public void FRATest() {
-    Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
+    HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
     //    FRA 1x4 2x5 3x6 4x7 5x8
     ZonedDateTime[] fixingDates = new ZonedDateTime[] {DateUtils.getUTCDate(2010, 11, 3), DateUtils.getUTCDate(2010, 12, 3), DateUtils.getUTCDate(2011, 1, 3), DateUtils.getUTCDate(2011, 2, 3),
         DateUtils.getUTCDate(2011, 3, 3) };
@@ -467,7 +466,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
    */
   @Test
   public void SwapTest() {
-    Calendar cldr = new MondayToFridayCalendar("EUR");
+    HolidayCalendar cldr = HolidayCalendars.SAT_SUN;
     IborIndex index = INDEX_9;
     ZonedDateTime referenceDate = DateUtils.getUTCDate(2012, 11, 5);
     boolean isEom = true;
@@ -527,11 +526,11 @@ public class RebucketPortfolioHedgeMarketDataTest {
    */
   @Test
   public void OISTest() {
-    Calendar baseCalendar = new CalendarNoHoliday("No Holidays");
+    HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     GeneratorSwapFixedON swapEonia = new GeneratorSwapFixedON("EUR1YEONIA", INDEX_8, Period.ofMonths(12), INDEX_8.getDayCount(), BusinessDayConventions.MODIFIED_FOLLOWING, true, 2,
         2, baseCalendar);
     IndexON eonia = INDEX_8;
-    Calendar cal = new MondayToFridayCalendar("EUR");
+    HolidayCalendar cal = HolidayCalendars.SAT_SUN;
     double notinal = 100000000; // 100m
     ZonedDateTime referenceDate = DateUtils.getUTCDate(2010, 12, 27);
 
@@ -582,8 +581,8 @@ public class RebucketPortfolioHedgeMarketDataTest {
   @Test
   public void MixedTest() {
     double notinal = 1000000; //1m
-    Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
-    Calendar CALENDAR_EUR = new MondayToFridayCalendar("EUR");
+    HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
+    HolidayCalendar CALENDAR_EUR = HolidayCalendars.SAT_SUN;
     LinkedHashSet<Pair<String, Integer>> order = new LinkedHashSet<>();
     //curves for EUR, GBP, ON curves are not used
     order.add(Pair.of(GBP_DSC_NAME, TIME_10.length));

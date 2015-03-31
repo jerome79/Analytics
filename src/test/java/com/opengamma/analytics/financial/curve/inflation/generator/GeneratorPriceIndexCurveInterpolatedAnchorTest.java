@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.fra.ForwardRateAgreementDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -25,6 +24,7 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -44,7 +44,7 @@ public class GeneratorPriceIndexCurveInterpolatedAnchorTest {
           ANCHOR_NODE, ANCHOR_VALUE);
   
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex(IndexIborMaster.USDLIBOR3M);
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final ZonedDateTime DATE_0 = DateUtils.getUTCDate(2013, 9, 30);
   private static final ZonedDateTime DATE_1 = DateUtils.getUTCDate(2013, 12, 31);
   private static final ZonedDateTime DATE_2 = DateUtils.getUTCDate(2014, 3, 31);

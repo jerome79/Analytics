@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.annuity.provider.AnnuityDiscountingMethod;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedC
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
@@ -142,7 +142,7 @@ public class SwapFixedCouponDiscountingMethod {
    * @param multicurves The multi-curves provider.
    * @return The physical annuity.
    */
-  public double presentValueBasisPoint(final SwapFixedCoupon<? extends Payment> fixedCouponSwap, final DayCount dayCount, final Calendar calendar,
+  public double presentValueBasisPoint(final SwapFixedCoupon<? extends Payment> fixedCouponSwap, final DayCount dayCount, final HolidayCalendar calendar,
       final MulticurveProviderInterface multicurves) {
     ArgChecker.notNull(fixedCouponSwap, "swap");
     ArgChecker.notNull(dayCount, "day count");
@@ -189,7 +189,7 @@ public class SwapFixedCouponDiscountingMethod {
    * @return The sensitivity.
    */
   public MulticurveSensitivity presentValueBasisPointCurveSensitivity(final SwapFixedCoupon<? extends Payment> fixedCouponSwap, final DayCount dayCount,
-      final Calendar calendar, final MulticurveProviderInterface multicurves) {
+      final HolidayCalendar calendar, final MulticurveProviderInterface multicurves) {
     final AnnuityCouponFixed annuityFixed = fixedCouponSwap.getFixedLeg();
     final Currency ccy = annuityFixed.getCurrency();
     double time;
@@ -216,7 +216,7 @@ public class SwapFixedCouponDiscountingMethod {
    * @return The sensitivity.
    */
   public MulticurveSensitivity presentValueBasisPointSecondOrderCurveSensitivity(final SwapFixedCoupon<? extends Payment> fixedCouponSwap, final DayCount dayCount,
-      final Calendar calendar, final MulticurveProviderInterface multicurves) {
+      final HolidayCalendar calendar, final MulticurveProviderInterface multicurves) {
     final AnnuityCouponFixed annuityFixed = fixedCouponSwap.getFixedLeg();
     final Currency ccy = annuityFixed.getCurrency();
     double time;
@@ -316,7 +316,7 @@ public class SwapFixedCouponDiscountingMethod {
    * @param multicurves The multi-curves provider.
    * @return The coupon equivalent.
    */
-  public double couponEquivalent(final SwapFixedCoupon<? extends Payment> fixedCouponSwap, final DayCount dayCount, final Calendar calendar,
+  public double couponEquivalent(final SwapFixedCoupon<? extends Payment> fixedCouponSwap, final DayCount dayCount, final HolidayCalendar calendar,
       final MulticurveProviderInterface multicurves) {
     final double pvbp = presentValueBasisPoint(fixedCouponSwap, dayCount, calendar, multicurves);
     return couponEquivalent(fixedCouponSwap, pvbp, multicurves);

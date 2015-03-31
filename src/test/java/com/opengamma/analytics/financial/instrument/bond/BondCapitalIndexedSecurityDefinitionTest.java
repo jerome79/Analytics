@@ -17,8 +17,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
@@ -45,6 +43,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 
 
@@ -60,7 +60,7 @@ public class BondCapitalIndexedSecurityDefinitionTest {
   /** The index */
   private static final IndexPrice PRICE_INDEX_UKRPI = new IndexPrice(NAME_INDEX_UK, Currency.GBP);
   /** The holiday calendar */
-  private static final Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
+  private static final HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
   /** The business day convention */
   private static final BusinessDayConvention BUSINESS_DAY_GBP = BusinessDayConventions.FOLLOWING;
   /** The day count */
@@ -240,7 +240,7 @@ public class BondCapitalIndexedSecurityDefinitionTest {
   /** The index price */
   private static final IndexPrice PRICE_INDEX_USCPI = new IndexPrice(NAME_INDEX_US, Currency.EUR);
   /** The holiday calendar */
-  private static final Calendar CALENDAR_USD = new MondayToFridayCalendar("USD");
+  private static final HolidayCalendar CALENDAR_USD = HolidayCalendars.SAT_SUN;
   /** The business day convention */
   private static final BusinessDayConvention BUSINESS_DAY_USD = BusinessDayConventions.FOLLOWING;
   /** The day count */

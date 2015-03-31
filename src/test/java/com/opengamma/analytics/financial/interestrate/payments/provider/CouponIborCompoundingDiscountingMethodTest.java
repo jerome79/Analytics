@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborCompoundingDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborCompounding;
@@ -31,6 +30,7 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -43,7 +43,7 @@ public class CouponIborCompoundingDiscountingMethodTest {
   private static final IborIndex[] IBOR_INDEXES = MulticurveProviderDiscountDataSets.getIndexesIborMulticurveCad();
   private static final IborIndex CADCDOR3M = IBOR_INDEXES[0];
   private static final Currency CAD = CADCDOR3M.getCurrency();
-  private static final Calendar CALENDAR = MulticurveProviderDiscountDataSets.getCADCalendar();
+  private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getCADCalendar();
 
   private static final Period M6 = Period.ofMonths(6);
   private static final double NOTIONAL = 123000000;

@@ -15,8 +15,6 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -50,6 +48,8 @@ import com.opengamma.analytics.tutorial.datasets.AnalysisMarketDataJPYSets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -57,7 +57,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class SwapGammaMultiCurveProfitJPYAnalysis {
 
-  private static final ExceptionCalendar TYO = new MondayToFridayCalendar("TYO");
+  private static final HolidayCalendar TYO = HolidayCalendars.SAT_SUN;
 
   private static final ZonedDateTime CALIBRATION_DATE = DateUtils.getUTCDate(2014, 8, 2);
   private static final ZonedDateTime SPOT_DATE = ScheduleCalculator.getAdjustedDate(CALIBRATION_DATE, 2, TYO);

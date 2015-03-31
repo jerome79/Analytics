@@ -19,8 +19,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
@@ -33,6 +31,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -44,8 +44,8 @@ public class ForwardRateAgreementDefinitionTest {
   // Index
   private static final Period TENOR = Period.ofMonths(3);
   private static final int SETTLEMENT_DAYS = 2;
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
-  private static final Calendar PAY_CALENDAR = new CalendarGBP("B");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
+  private static final HolidayCalendar PAY_CALENDAR = new CalendarGBP("B");
   private static final DayCount DAY_COUNT_INDEX = DayCounts.ACT_360;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final boolean IS_EOM = true;
@@ -224,8 +224,8 @@ public class ForwardRateAgreementDefinitionTest {
     // Set payment date to Good Friday, also following Monday is Easter Monday - should adjust to following Tuesday
     ForwardRateAgreementDefinition def = ForwardRateAgreementDefinition.from(DateUtils.getUTCDate(2014, 4, 18),
         DateUtils.getUTCDate(2014, 10, 18), NOTIONAL, INDEX, FRA_RATE, CALENDAR, PAY_CALENDAR);
-    assertTrue(CALENDAR.isWorkingDay(DateUtils.getUTCDate(2014, 4, 18).toLocalDate()));
-    assertTrue(PAY_CALENDAR.isWorkingDay(def.getPaymentDate().toLocalDate()));
+    assertTrue(CALENDAR.isBusinessDay(DateUtils.getUTCDate(2014, 4, 18).toLocalDate()));
+    assertTrue(PAY_CALENDAR.isBusinessDay(def.getPaymentDate().toLocalDate()));
     assertEquals(DateUtils.getUTCDate(2014, 4, 22), def.getPaymentDate());
   }
 }

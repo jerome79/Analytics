@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AbstractAnnuityDefinitionBuilder.CouponStub;
@@ -21,6 +20,7 @@ import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -45,7 +45,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
   /** Whether the notional exchanged (at start and at end). */
   private final boolean _isExchangeNotional;
   /** The calendar used for the payments. */
-  private final Calendar _paymentCalendar;
+  private final HolidayCalendar _paymentCalendar;
   
   /**
    * Constructor.
@@ -63,7 +63,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
    */
   public GeneratorLegFixed(String name, Currency ccy, int spotOffset, Period paymentPeriod, DayCount dayCount, 
       BusinessDayConvention businessDayConvention, int paymentOffset, boolean endOfMonth, StubType stubType, 
-      boolean isExchangeNotional, Calendar paymentCalendar) {
+      boolean isExchangeNotional, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(paymentPeriod, "payment period");
     ArgChecker.notNull(dayCount, "day count");
@@ -149,7 +149,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
    * Returns the payment calendar.
    * @return The calendar.
    */
-  public Calendar getPaymentCalendar() {
+  public HolidayCalendar getPaymentCalendar() {
     return _paymentCalendar;
   }
 

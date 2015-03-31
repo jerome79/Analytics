@@ -8,11 +8,11 @@ package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixedAccruedCompounding;
 import com.opengamma.analytics.util.time.TimeCalculatorBUS252;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -42,7 +42,7 @@ public class CouponFixedAccruedCompoundingDefinition extends CouponDefinition {
   /**
    * The calendar.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from all details
@@ -56,7 +56,7 @@ public class CouponFixedAccruedCompoundingDefinition extends CouponDefinition {
    * @param calendar the calendar
    */
   public CouponFixedAccruedCompoundingDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
-      final double paymentYearFraction, final double notional, final double rate, final Calendar calendar) {
+      final double paymentYearFraction, final double notional, final double rate, final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentYearFraction, notional);
     _rate = rate;
     _amount = notional * Math.pow(1 + rate, paymentYearFraction);
@@ -69,7 +69,7 @@ public class CouponFixedAccruedCompoundingDefinition extends CouponDefinition {
    * @param rate Fixed rate.
    * @param calendar the calendar
    */
-  public CouponFixedAccruedCompoundingDefinition(final CouponDefinition coupon, final double rate, final Calendar calendar) {
+  public CouponFixedAccruedCompoundingDefinition(final CouponDefinition coupon, final double rate, final HolidayCalendar calendar) {
     super(coupon.getCurrency(), coupon.getPaymentDate(), coupon.getAccrualStartDate(), coupon.getAccrualEndDate(), coupon.getPaymentYearFraction(), coupon.getNotional());
     _rate = rate;
     _amount = coupon.getNotional() * Math.pow(1 + rate, coupon.getPaymentYearFraction());
@@ -89,7 +89,7 @@ public class CouponFixedAccruedCompoundingDefinition extends CouponDefinition {
    * @return The fixed coupon definition
    */
   public static CouponFixedAccruedCompoundingDefinition from(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate,
-      final ZonedDateTime accrualEndDate, final double paymentYearFraction, final double notional, final double rate, final Calendar calendar) {
+      final ZonedDateTime accrualEndDate, final double paymentYearFraction, final double notional, final double rate, final HolidayCalendar calendar) {
     return new CouponFixedAccruedCompoundingDefinition(currency, paymentDate, accrualStartDate, accrualEndDate, paymentYearFraction, notional, rate, calendar);
   }
 
@@ -113,7 +113,7 @@ public class CouponFixedAccruedCompoundingDefinition extends CouponDefinition {
    * Gets the calendar.
    * @return The calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

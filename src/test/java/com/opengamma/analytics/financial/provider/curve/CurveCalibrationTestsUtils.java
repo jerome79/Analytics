@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.common.collect.LinkedListMultimap;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurve;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -64,6 +63,7 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -94,7 +94,7 @@ public class CurveCalibrationTestsUtils {
   }
 
   public static void exportIborForwardIborCurve(
-      ZonedDateTime calibrationDate, MulticurveProviderInterface multicurve, IborIndex index, Calendar cal,
+      ZonedDateTime calibrationDate, MulticurveProviderInterface multicurve, IborIndex index, HolidayCalendar cal,
       File file, int startIndex, int nbDate, int jump) {
     ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(calibrationDate, index.getSpotLag() + startIndex * jump, cal);
     final double[] rateDsc = new double[nbDate];
@@ -116,7 +116,7 @@ public class CurveCalibrationTestsUtils {
   }
 
   public static void exportONForwardONCurve(
-      ZonedDateTime calibrationDate, MulticurveProviderInterface multicurve, IndexON index, Calendar cal,
+      ZonedDateTime calibrationDate, MulticurveProviderInterface multicurve, IndexON index, HolidayCalendar cal,
       File file, int nbDate, int jump) {
     ZonedDateTime startDate = calibrationDate;
     final double[] rateDsc = new double[nbDate];
@@ -138,7 +138,7 @@ public class CurveCalibrationTestsUtils {
   }
 
   public static void exportONForwardIborCurve(
-      ZonedDateTime calibrationDate, MulticurveProviderInterface multicurve, IborIndex index, Calendar cal,
+      ZonedDateTime calibrationDate, MulticurveProviderInterface multicurve, IborIndex index, HolidayCalendar cal,
       File file, int nbDate, int jump) {
     ZonedDateTime startDate = calibrationDate;
     final double[] rateDsc = new double[nbDate];
@@ -160,7 +160,7 @@ public class CurveCalibrationTestsUtils {
   }
 
   public static void exportZCRatesONCurve(
-      ZonedDateTime calibrationDate, MulticurveProviderDiscount multicurve, IndexON index, Calendar cal,
+      ZonedDateTime calibrationDate, MulticurveProviderDiscount multicurve, IndexON index, HolidayCalendar cal,
       File file, int nbDate, int jump) {
     ZonedDateTime startDate = calibrationDate;
     final double[] rateZC = new double[nbDate];
@@ -179,7 +179,7 @@ public class CurveCalibrationTestsUtils {
   }
 
   public static void exportZCRatesIborCurve(
-      ZonedDateTime calibrationDate, MulticurveProviderDiscount multicurve, IborIndex index, Calendar cal,
+      ZonedDateTime calibrationDate, MulticurveProviderDiscount multicurve, IborIndex index, HolidayCalendar cal,
       File file, int nbDate, int jump) {
     ZonedDateTime startDate = calibrationDate;
     final double[] rateZC = new double[nbDate];

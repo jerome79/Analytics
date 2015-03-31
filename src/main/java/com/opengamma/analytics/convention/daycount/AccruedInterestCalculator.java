@@ -14,7 +14,7 @@ import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.convention.StubCalculator;
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Utility to calculate the accrued interest.
@@ -41,7 +41,7 @@ public final class AccruedInterestCalculator {
    * @return the accrued interest
    */
   public static double getAccruedInterest(final DayCount dayCount, final ZonedDateTime settlementDate, final ZonedDateTime[] nominalDates, final double coupon, final int paymentsPerYear,
-      final boolean isEndOfMonthConvention, final int exDividendDays, final Calendar calendar) {
+      final boolean isEndOfMonthConvention, final int exDividendDays, final HolidayCalendar calendar) {
     Validate.notNull(dayCount, "day-count");
     Validate.notNull(settlementDate, "date");
     Validate.noNullElements(nominalDates, "nominalDates");
@@ -59,7 +59,7 @@ public final class AccruedInterestCalculator {
     final double accruedInterest = getAccruedInterest(dayCount, index, length, nominalDates[index], settlementDate, nominalDates[index + 1], coupon, paymentsPerYear, isEndOfMonthConvention);
     ZonedDateTime exDividendDate = nominalDates[index + 1];
     for (int j = 0; j < exDividendDays; j++) {
-      while (!calendar.isWorkingDay(exDividendDate.toLocalDate())) {
+      while (!calendar.isBusinessDay(exDividendDate.toLocalDate())) {
         exDividendDate = exDividendDate.minusDays(1);
       }
       exDividendDate = exDividendDate.minusDays(1);
@@ -85,7 +85,7 @@ public final class AccruedInterestCalculator {
    * @return the accrued interest
    */
   public static double getAccruedInterest(final DayCount dayCount, final ZonedDateTime settlementDate, final ZonedDateTime[] nominalDates, final double coupon, final double paymentsPerYear,
-      final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final Calendar calendar) {
+      final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final HolidayCalendar calendar) {
     Validate.notNull(dayCount, "day-count");
     Validate.notNull(settlementDate, "date");
     Validate.noNullElements(nominalDates, "nominalDates");
@@ -97,7 +97,7 @@ public final class AccruedInterestCalculator {
     final double accruedInterest = getAccruedInterest(dayCount, index, length, nominalDates[index], settlementDate, nominalDates[index + 1], coupon, paymentsPerYear, isEndOfMonthConvention);
     ZonedDateTime exDividendDate = nominalDates[index + 1];
     for (int i = 0; i < exDividendDays; i++) {
-      while (!calendar.isWorkingDay(exDividendDate.toLocalDate())) {
+      while (!calendar.isBusinessDay(exDividendDate.toLocalDate())) {
         exDividendDate = exDividendDate.minusDays(1);
       }
       exDividendDate = exDividendDate.minusDays(1);
@@ -123,7 +123,7 @@ public final class AccruedInterestCalculator {
    */
   //TODO one where you can pass in array of coupons
   public static double getAccruedInterest(final DayCount dayCount, final LocalDate settlementDate, final LocalDate[] nominalDates, final double coupon, final double paymentsPerYear,
-      final boolean isEndOfMonthConvention, final int exDividendDays, final Calendar calendar) {
+      final boolean isEndOfMonthConvention, final int exDividendDays, final HolidayCalendar calendar) {
     Validate.notNull(dayCount, "day-count");
     Validate.notNull(settlementDate, "date");
     Validate.noNullElements(nominalDates, "nominalDates");
@@ -148,7 +148,7 @@ public final class AccruedInterestCalculator {
     final double accruedInterest = getAccruedInterest(dayCount, index, length, previousCouponDate, date, nextCouponDate, coupon, paymentsPerYear, isEndOfMonthConvention);
     LocalDate exDividendDate = nominalDates[index + 1];
     for (int j = 0; j < exDividendDays; j++) {
-      while (!calendar.isWorkingDay(exDividendDate)) {
+      while (!calendar.isBusinessDay(exDividendDate)) {
         exDividendDate = exDividendDate.minusDays(1);
       }
       exDividendDate = exDividendDate.minusDays(1);
@@ -174,7 +174,7 @@ public final class AccruedInterestCalculator {
    * @return the accrued interest
    */
   public static double getAccruedInterest(final DayCount dayCount, final LocalDate settlementDate, final LocalDate[] nominalDates, final double coupon, final double paymentsPerYear,
-      final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final Calendar calendar) {
+      final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final HolidayCalendar calendar) {
     Validate.notNull(dayCount, "day-count");
     Validate.notNull(settlementDate, "date");
     Validate.noNullElements(nominalDates, "nominalDates");
@@ -194,7 +194,7 @@ public final class AccruedInterestCalculator {
     }
     LocalDate exDividendDate = nominalDates[index + 1];
     for (int i = 0; i < exDividendDays; i++) {
-      while (!calendar.isWorkingDay(exDividendDate)) {
+      while (!calendar.isBusinessDay(exDividendDate)) {
         exDividendDate = exDividendDate.minusDays(1);
       }
       exDividendDate = exDividendDate.minusDays(1);
@@ -221,7 +221,7 @@ public final class AccruedInterestCalculator {
    * @return the accrued interest
    */
   public static double getAccruedInterest(final DayCount dayCount, final LocalDate settlementDate, final LocalDate[] nominalDates, final LocalDate[] settlementDates, final double coupon,
-      final double paymentsPerYear, final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final Calendar calendar) {
+      final double paymentsPerYear, final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final HolidayCalendar calendar) {
     Validate.notNull(dayCount, "day-count");
     Validate.notNull(settlementDate, "date");
     Validate.notNull(calendar, "calendar");
@@ -245,7 +245,7 @@ public final class AccruedInterestCalculator {
     }
     LocalDate exDividendDate = nominalDates[index + 1];
     for (int i = 0; i < exDividendDays; i++) {
-      while (!calendar.isWorkingDay(exDividendDate)) {
+      while (!calendar.isBusinessDay(exDividendDate)) {
         exDividendDate = exDividendDate.minusDays(1);
       }
       exDividendDate = exDividendDate.minusDays(1);

@@ -15,10 +15,8 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.ExceptionCalendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test.
@@ -26,11 +24,11 @@ import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
 @Test
 public class TenorUtilsTest {
   /** Empty holiday calendar */
-  private static final Calendar NO_HOLIDAYS = new NoHolidayCalendar();
+  private static final HolidayCalendar NO_HOLIDAYS = HolidayCalendars.NO_HOLIDAYS;
   /** Holiday calendar containing only weekends */
-  private static final Calendar WEEKEND_CALENDAR = new MondayToFridayCalendar("Weekend");
+  private static final HolidayCalendar WEEKEND_CALENDAR = HolidayCalendars.SAT_SUN;
   /** Holiday calendar containing weekends and 1/1/2014 */
-  private static final Calendar CALENDAR = new MyCalendar();
+  private static final HolidayCalendar CALENDAR = new MyCalendar();
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testAdjustZonedDateTime1() {
@@ -154,32 +152,31 @@ public class TenorUtilsTest {
   }
 
   /**
-   * Calendar with weekends and 1-1-2013, 1-1-2014 as holidays
+   * HolidayCalendar with weekends and 1-1-2013, 1-1-2014 as holidays
    */
-  private static class MyCalendar extends ExceptionCalendar {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+  private static class MyCalendar implements HolidayCalendar {
 
     /**
      * Default constructor
      */
     protected MyCalendar() {
-      super("");
+      super();
     }
 
     @Override
-    protected boolean isNormallyWorkingDay(final LocalDate date) {
+    public boolean isHoliday(LocalDate date) {
       if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-        return false;
+        return true;
       }
       if (date.equals(LocalDate.of(2014, 1, 1))) {
-        return false;
+        return true;
       }
-      return true;
+      return false;
     }
 
+    @Override
+    public String getName() {
+      return "";
+    }
   }
 }

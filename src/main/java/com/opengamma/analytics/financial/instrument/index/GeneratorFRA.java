@@ -10,9 +10,9 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.fra.ForwardRateAgreementDefinition;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -27,7 +27,7 @@ public class GeneratorFRA extends GeneratorInstrument<GeneratorAttributeIR> {
   /**
    * The holiday calendar associated with the ibor index.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from the details. The business day conventions, end-of-month and spot lag are from the Ibor index.
@@ -35,7 +35,7 @@ public class GeneratorFRA extends GeneratorInstrument<GeneratorAttributeIR> {
    * @param iborIndex The Ibor index of the floating leg.
    * @param calendar The holiday calendar for the ibor leg.
    */
-  public GeneratorFRA(final String name, final IborIndex iborIndex, final Calendar calendar) {
+  public GeneratorFRA(final String name, final IborIndex iborIndex, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(iborIndex, "ibor index");
     ArgChecker.notNull(calendar, "calendar");
@@ -63,7 +63,7 @@ public class GeneratorFRA extends GeneratorInstrument<GeneratorAttributeIR> {
    * Gets the generator calendar.
    * @return The calendar.
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

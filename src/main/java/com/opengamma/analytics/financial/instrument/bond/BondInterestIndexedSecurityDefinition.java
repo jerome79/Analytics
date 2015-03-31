@@ -10,7 +10,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.AccruedInterestCalculator;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -37,6 +36,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -91,7 +91,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    * @param issuer The bond issuer name.
    */
   public BondInterestIndexedSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final String issuer) {
+      final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final String issuer) {
     this(nominal, coupon, exCouponDays, settlementDays, calendar, dayCount, yieldConvention, isEOM, monthLag, new LegalEntity(null, issuer, null, null, null));
   }
 
@@ -109,7 +109,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    * @param issuer The bond issuer name.
    */
   public BondInterestIndexedSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final LegalEntity issuer) {
+      final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final LegalEntity issuer) {
     super(nominal, coupon, exCouponDays, settlementDays, calendar, issuer, "");
     for (int loopcpn = 0; loopcpn < coupon.getNumberOfPayments(); loopcpn++) {
       ArgChecker.isTrue(coupon.getNthPayment(loopcpn) instanceof CouponInflationWithMargin, "Not inflation coupons");
@@ -137,7 +137,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    * @param repoType The repo type name.
    */
   public BondInterestIndexedSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final String issuer, final String repoType) {
+      final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final String issuer, final String repoType) {
     this(nominal, coupon, exCouponDays, settlementDays, calendar, dayCount, yieldConvention, isEOM, monthLag, new LegalEntity(null, issuer, null, null, null));
   }
 
@@ -156,7 +156,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    * @param repoType The repo type name.
    */
   public BondInterestIndexedSecurityDefinition(final AnnuityDefinition<N> nominal, final AnnuityDefinition<C> coupon, final int exCouponDays, final int settlementDays,
-      final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final LegalEntity issuer, final String repoType) {
+      final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final int monthLag, final LegalEntity issuer, final String repoType) {
     super(nominal, coupon, exCouponDays, settlementDays, calendar, issuer, repoType);
     for (int loopcpn = 0; loopcpn < coupon.getNumberOfPayments(); loopcpn++) {
       ArgChecker.isTrue(coupon.getNthPayment(loopcpn) instanceof CouponInflationWithMargin, "Not inflation coupons");
@@ -190,7 +190,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    */
   public static BondInterestIndexedSecurityDefinition<PaymentFixedDefinition, CouponInflationYearOnYearMonthlyWithMarginDefinition> fromMonthly(final IndexPrice priceIndex, final int monthLag,
       final ZonedDateTime startDate, final ZonedDateTime maturityDate, final Period couponPeriod, final double notional, final double realRate, final BusinessDayConvention businessDay,
-      final int settlementDays, final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final String issuer) {
+      final int settlementDays, final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final String issuer) {
     return fromMonthly(priceIndex, monthLag, startDate, maturityDate, couponPeriod, notional, realRate, businessDay, settlementDays, calendar, dayCount, yieldConvention, isEOM,
         new LegalEntity(null, issuer, null, null, null));
   }
@@ -215,7 +215,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    */
   public static BondInterestIndexedSecurityDefinition<PaymentFixedDefinition, CouponInflationYearOnYearMonthlyWithMarginDefinition> fromMonthly(final IndexPrice priceIndex, final int monthLag,
       final ZonedDateTime startDate, final ZonedDateTime maturityDate, final Period couponPeriod, final double notional, final double realRate, final BusinessDayConvention businessDay,
-      final int settlementDays, final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final LegalEntity issuer) {
+      final int settlementDays, final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM, final LegalEntity issuer) {
     // Nominal construction
     final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(priceIndex.getCurrency(), businessDay.adjustDate(calendar, maturityDate),
         notional) };
@@ -259,7 +259,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    */
   public static BondInterestIndexedSecurityDefinition<PaymentFixedDefinition, CouponInflationYearOnYearMonthlyWithMarginDefinition> fromMonthly(final IndexPrice priceIndex, final int monthLag,
       final ZonedDateTime startDate, final ZonedDateTime firstCouponDate, final ZonedDateTime maturityDate, final Period couponPeriod, final double notional, final double realRate,
-      final BusinessDayConvention businessDay, final int settlementDays, final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
+      final BusinessDayConvention businessDay, final int settlementDays, final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
       final String issuer) {
     return fromMonthly(priceIndex, monthLag, startDate, firstCouponDate, maturityDate, couponPeriod, notional, realRate,
         businessDay, settlementDays, calendar, dayCount, yieldConvention, isEOM, new LegalEntity(null, issuer, null, null, null));
@@ -287,7 +287,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    */
   public static BondInterestIndexedSecurityDefinition<PaymentFixedDefinition, CouponInflationYearOnYearMonthlyWithMarginDefinition> fromMonthly(final IndexPrice priceIndex, final int monthLag,
       final ZonedDateTime startDate, final ZonedDateTime firstCouponDate, final ZonedDateTime maturityDate, final Period couponPeriod, final double notional, final double realRate,
-      final BusinessDayConvention businessDay, final int settlementDays, final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
+      final BusinessDayConvention businessDay, final int settlementDays, final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
       final LegalEntity issuer) {
     // Nominal construction
     final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(priceIndex.getCurrency(), businessDay.adjustDate(calendar, maturityDate),
@@ -334,7 +334,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    */
   public static BondInterestIndexedSecurityDefinition<PaymentFixedDefinition, CouponInflationYearOnYearInterpolationWithMarginDefinition> fromInterpolation(final IndexPrice priceIndex,
       final int monthLag, final ZonedDateTime startDate, final double indexStartValue, final ZonedDateTime maturityDate, final Period couponPeriod, final double notional, final double realRate,
-      final BusinessDayConvention businessDay, final int settlementDays, final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
+      final BusinessDayConvention businessDay, final int settlementDays, final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
       final String issuer) {
     return fromInterpolation(priceIndex, monthLag, startDate, indexStartValue, maturityDate, couponPeriod, notional, realRate,
         businessDay, settlementDays, calendar, dayCount, yieldConvention, isEOM, new LegalEntity(null, issuer, null, null, null));
@@ -362,7 +362,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
    */
   public static BondInterestIndexedSecurityDefinition<PaymentFixedDefinition, CouponInflationYearOnYearInterpolationWithMarginDefinition> fromInterpolation(final IndexPrice priceIndex,
       final int monthLag, final ZonedDateTime startDate, final double indexStartValue, final ZonedDateTime maturityDate, final Period couponPeriod, final double notional, final double realRate,
-      final BusinessDayConvention businessDay, final int settlementDays, final Calendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
+      final BusinessDayConvention businessDay, final int settlementDays, final HolidayCalendar calendar, final DayCount dayCount, final YieldConvention yieldConvention, final boolean isEOM,
       final LegalEntity issuer) {
     // Nominal construction
     final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(priceIndex.getCurrency(), businessDay.adjustDate(calendar, maturityDate),

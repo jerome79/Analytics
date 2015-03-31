@@ -10,9 +10,9 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.swap.SwapIborONDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -55,11 +55,11 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
   /**
    * The holiday calendar associated with the ibor index.
    */
-  private final Calendar _iborCalendar;
+  private final HolidayCalendar _iborCalendar;
   /**
    * The holiday calendar associated with the overnight index.
    */
-  private final Calendar _overnightCalendar;
+  private final HolidayCalendar _overnightCalendar;
 
   /**
    * Constructor from all details. The stub is short and date constructed from the end.
@@ -73,7 +73,7 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
    * @param overnightCalendar The holiday calendar for the overnight index.
    */
   public GeneratorSwapIborON(final String name, final IborIndex indexIbor, final IndexON indexON, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final Calendar iborCalendar, final Calendar overnightCalendar) {
+      final boolean endOfMonth, final int spotLag, final HolidayCalendar iborCalendar, final HolidayCalendar overnightCalendar) {
     super(name);
     ArgChecker.notNull(indexIbor, "Index Ibor");
     ArgChecker.notNull(indexON, "Index ON");
@@ -105,7 +105,7 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
    * @param overnightCalendar The holiday calendar for the overnight index.
    */
   public GeneratorSwapIborON(final String name, final IborIndex indexIbor, final IndexON indexON, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final int paymentLag, final Calendar iborCalendar, final Calendar overnightCalendar) {
+      final boolean endOfMonth, final int spotLag, final int paymentLag, final HolidayCalendar iborCalendar, final HolidayCalendar overnightCalendar) {
     super(name);
     ArgChecker.notNull(indexIbor, "Index Ibor");
     ArgChecker.notNull(indexON, "Index ON");
@@ -192,7 +192,7 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
    * Gets the calendar associated to the Ibor index.
    * @return The calendar.
    */
-  public Calendar getIborCalendar() {
+  public HolidayCalendar getIborCalendar() {
     return _iborCalendar;
   }
 
@@ -200,7 +200,7 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
    * Gets the calendar associated to the overnight index.
    * @return The calendar.
    */
-  public Calendar getOvernightCalendar() {
+  public HolidayCalendar getOvernightCalendar() {
     return _overnightCalendar;
   }
 

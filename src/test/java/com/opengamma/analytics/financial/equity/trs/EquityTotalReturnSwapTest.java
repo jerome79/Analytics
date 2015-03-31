@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.Sets;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwap;
@@ -28,6 +27,7 @@ import com.opengamma.analytics.financial.legalentity.Sector;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.location.Country;
 
 
@@ -43,7 +43,7 @@ public class EquityTotalReturnSwapTest {
   private static final double TERMINATION_TIME_1_1 = TimeCalculator.getTimeBetween(REFERENCE_DATE_1, TERMINATION_DATE_1);
 
   private static final Currency GBP = Currency.GBP;
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
   private static final double NOTIONAL_TRS = 123456000;
   // Equity
   private static final double NB_SHARES = 1000000;

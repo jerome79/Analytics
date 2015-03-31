@@ -18,7 +18,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -39,12 +38,13 @@ import com.opengamma.analytics.financial.provider.calculator.issuer.PresentValue
 import com.opengamma.analytics.financial.provider.description.interestrate.IssuerProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.interestrate.IssuerProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterIssuerProviderInterface;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -58,7 +58,7 @@ public class BondFutureConstantSpreadHorizonCalculatorTest {
   /** Coupon frequency */
   private static final Period PAYMENT_TENOR = Period.ofMonths(6);
   /** Holiday calendar */
-  private static final Calendar CALENDAR = new NoHolidayCalendar();
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.NO_HOLIDAYS;
   /** Issuer name */
   private static final String US_GOVT = "US";
   /** Day-count */

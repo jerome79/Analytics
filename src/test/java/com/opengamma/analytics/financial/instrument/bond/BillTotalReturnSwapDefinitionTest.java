@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
@@ -30,6 +29,7 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -61,7 +61,7 @@ public class BillTotalReturnSwapDefinitionTest {
   private static final BillTotalReturnSwapDefinition TRS_REC_FIXED_PAY_DEFINITION =
       new BillTotalReturnSwapDefinition(EFFECTIVE_DATE, TERMINATION_DATE, FUNDING_LEG_FIXED_PAY_DEFINITION, BELDEC14_DEFINITION, NOTIONAL_BILL);
   // Funding: multiple USD Libor coupons
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final double SPREAD = 0.0010;
   private static final IborIndex USDLIBOR1M = IndexIborMaster.getInstance().getIndex("USDLIBOR1M");
   private static final AnnuityDefinition<CouponDefinition> FUNDING_LEG_IBOR_PAY_DEFINITION = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(EFFECTIVE_DATE,

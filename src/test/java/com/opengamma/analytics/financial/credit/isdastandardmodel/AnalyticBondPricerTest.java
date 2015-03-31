@@ -14,10 +14,10 @@ import java.time.Period;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.credit.options.YieldCurveProvider;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * 
@@ -90,7 +90,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     final Period couponPeriod = Period.ofMonths(6);
     final StubType stub = StubType.FRONTSHORT;
     final BusinessDayConvention bd = FOLLOWING;
-    final Calendar cal = DEFAULT_CALENDAR;
+    final HolidayCalendar cal = DEFAULT_CALENDAR;
     final CDSAnalyticFactory factory = new CDSAnalyticFactory(0.0).with(couponPeriod).withPayAccOnDefault(false);
 
     final LocalDate startDate = LocalDate.of(2013, 9, 20);
@@ -138,7 +138,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     final Period couponPrd = Period.ofMonths(6);
     final StubType stubTp = StubType.FRONTSHORT;
     final BusinessDayConvention bdConv = MOD_FOLLOWING;
-    final Calendar cal = DEFAULT_CALENDAR;
+    final HolidayCalendar cal = DEFAULT_CALENDAR;
     boolean ProtStart = false;
     double rr = 0.;
     final PriceType priceTp = PriceType.DIRTY;
@@ -189,7 +189,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     final Period couponPrd = Period.ofMonths(6);
     final StubType stubTp = StubType.FRONTSHORT;
     final BusinessDayConvention bdConv = MOD_FOLLOWING;
-    final Calendar cal = DEFAULT_CALENDAR;
+    final HolidayCalendar cal = DEFAULT_CALENDAR;
     final boolean ProtStart = true;
     final ISDAPremiumLegSchedule schedule = new ISDAPremiumLegSchedule(startDate, endDate, couponPrd, stubTp, bdConv, cal, ProtStart);
     final BondAnalytic bond = new BondAnalytic(tradeDate, coupon, schedule, rr, ACT360);
@@ -244,7 +244,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     final Period couponPrd = Period.ofMonths(6);
     final StubType stubTp = StubType.FRONTSHORT;
     final BusinessDayConvention bdConv = MOD_FOLLOWING;
-    final Calendar cal = DEFAULT_CALENDAR;
+    final HolidayCalendar cal = DEFAULT_CALENDAR;
     final boolean ProtStart = true;
     final ISDAPremiumLegSchedule schedule = new ISDAPremiumLegSchedule(startDate, endDate, couponPrd, stubTp, bdConv, cal, ProtStart);
     final BondAnalytic bond = new BondAnalytic(tradeDate, coupon, schedule, rr, ACT360);

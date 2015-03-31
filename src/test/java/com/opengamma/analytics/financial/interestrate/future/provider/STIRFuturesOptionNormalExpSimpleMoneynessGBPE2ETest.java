@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureOptionMarginTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
@@ -55,6 +54,7 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -105,7 +105,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
   private static final ZonedDateTime LAST_TRADING_DATE_M = DateUtils.getUTCDate(2015, 6, 17, 0, 0);
   private static final double NOTIONAL = 5000.0;
   private static final String FUTURE_NAME = "20140300";
-  private static final Calendar CALENDAR = DATA.getGBPCalendar();
+  private static final HolidayCalendar CALENDAR = DATA.getGBPCalendar();
   private static final double PAYMENT_ACCRUAL_FACTOR = 0.25;
   static {
     RATE_FUTURE_Q = new InterestRateFutureSecurityDefinition(LAST_TRADING_DATE_Q, GBPLIBOR3M, NOTIONAL,

@@ -11,13 +11,13 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponONArithmeticAverageSpreadSimplified;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -77,7 +77,7 @@ public class CouponONArithmeticAverageSpreadSimplifiedDefinition extends CouponD
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageSpreadSimplifiedDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final Period tenor, final double notional,
-      final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final double spread, final Calendar calendar) {
+      final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final double spread, final HolidayCalendar calendar) {
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, tenor, businessDayConvention, calendar, isEOM);
     return from(index, fixingPeriodStartDate, fixingPeriodEndDate, notional, paymentLag, spread, calendar);
   }
@@ -95,7 +95,7 @@ public class CouponONArithmeticAverageSpreadSimplifiedDefinition extends CouponD
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageSpreadSimplifiedDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate,
-      final double notional, final int paymentLag, final double spread, final Calendar calendar) {
+      final double notional, final int paymentLag, final double spread, final HolidayCalendar calendar) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
     final double paymentYearFraction = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
     return new CouponONArithmeticAverageSpreadSimplifiedDefinition(index.getCurrency(), paymentDate, fixingPeriodStartDate, fixingPeriodEndDate, paymentYearFraction, notional, index, spread);

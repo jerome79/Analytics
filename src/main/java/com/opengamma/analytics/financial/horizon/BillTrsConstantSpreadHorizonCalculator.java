@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.horizon;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.bond.BillTotalReturnSwapDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BillTotalReturnSwap;
@@ -22,6 +21,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 
@@ -56,7 +56,7 @@ public final class BillTrsConstantSpreadHorizonCalculator extends HorizonCalcula
 
   @Override
   public MultiCurrencyAmount getTheta(BillTotalReturnSwapDefinition definition, ZonedDateTime date,
-                                         IssuerProviderInterface data, int daysForward, Calendar calendar, 
+                                         IssuerProviderInterface data, int daysForward, HolidayCalendar calendar, 
                                          ZonedDateTimeDoubleTimeSeries fixingSeries) {
     ArgChecker.notNull(definition, "definition");
     ArgChecker.notNull(date, "date");
@@ -87,7 +87,7 @@ public final class BillTrsConstantSpreadHorizonCalculator extends HorizonCalcula
   @Override
   public MultiCurrencyAmount getTheta(BillTotalReturnSwapDefinition definition, ZonedDateTime date,
                                          IssuerProviderInterface data, int daysForward, 
-                                         Calendar calendar) {
+                                         HolidayCalendar calendar) {
     return getTheta(definition, date, data, daysForward, calendar, ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC());
   }
 

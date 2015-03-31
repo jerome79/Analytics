@@ -19,7 +19,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * Calendar aware version of an EquityIndexOption
+ * HolidayCalendar aware version of an EquityIndexOption
  * The definition is responsible for constructing the 'Derivative' for pricing visitors.
  */
 public class EquityIndexOptionDefinition implements InstrumentDefinition<EquityIndexOption> {

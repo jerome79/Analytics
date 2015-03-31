@@ -7,9 +7,9 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -34,7 +34,7 @@ public class ForwardCommodityCashSettleDefinition extends CouponCommodityCashSet
    * @param fixingDate the fixing date
    */
   public ForwardCommodityCashSettleDefinition(final double rate, final double paymentYearFraction, final CommodityUnderlying underlying, final String unitName, final double notional,
-      final ZonedDateTime settlementDate, final Calendar calendar, final ZonedDateTime fixingDate) {
+      final ZonedDateTime settlementDate, final HolidayCalendar calendar, final ZonedDateTime fixingDate) {
     super(paymentYearFraction, underlying, unitName, notional, settlementDate, calendar, fixingDate);
     _rate = rate;
   }

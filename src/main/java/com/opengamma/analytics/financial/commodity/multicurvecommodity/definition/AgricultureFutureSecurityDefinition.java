@@ -8,12 +8,12 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.definiti
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.AgricultureFutureSecurity;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.util.time.TimeCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -39,7 +39,7 @@ public class AgricultureFutureSecurityDefinition extends CommodityFutureSecurity
   public AgricultureFutureSecurityDefinition(final ZonedDateTime lastTradingDate, final CommodityUnderlying underlying, final String unitName, final double unitAmount,
       final ZonedDateTime noticeFirstDate,
       final ZonedDateTime noticeLastDate, final ZonedDateTime firstDeliveryDate, final ZonedDateTime lastDeliveryDate, final SettlementType settlementType, final ZonedDateTime settlementDate,
-      final String name, final Calendar calendar) {
+      final String name, final HolidayCalendar calendar) {
     super(lastTradingDate, underlying, unitName, unitAmount, noticeFirstDate, noticeLastDate, firstDeliveryDate, lastDeliveryDate, settlementType, settlementDate, name, calendar);
   }
 

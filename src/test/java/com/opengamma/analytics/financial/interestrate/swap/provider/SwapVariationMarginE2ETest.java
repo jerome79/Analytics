@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -48,6 +47,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -70,7 +70,7 @@ public class SwapVariationMarginE2ETest {
   /**
    * USD multi-curves
    */
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final ZonedDateTime TRADE_DATE_US2 = DateUtils.getUTCDate(2014, 7, 3); // Thur
   private static final ZonedDateTime TRADE_DATE_US3 = DateUtils.getUTCDate(2014, 7, 7); // Mon (Fri is US holiday)
   private static final IndexON FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
@@ -397,7 +397,7 @@ public class SwapVariationMarginE2ETest {
   /**
    * GBP multi-curves
    */
-  private static final Calendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = new CalendarGBP("LON");
   private static final IndexON SONIA = IndexONMaster.getInstance().getIndex("SONIA");
   private static final IborIndex GBPLIBOR3M = IndexIborMaster.getInstance().getIndex("GBPLIBOR3M");
   private static final Currency GBP = GBPLIBOR3M.getCurrency();

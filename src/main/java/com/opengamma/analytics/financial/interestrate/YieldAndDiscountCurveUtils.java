@@ -8,13 +8,13 @@ package com.opengamma.analytics.financial.interestrate;
 
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -28,10 +28,10 @@ public class YieldAndDiscountCurveUtils {
    * @param curveDate The curve date.
    * @param fixingDate The forward rate fixing date.
    * @param index The Ibor index.
-   * @param cal Calendar used to compute the fixing period of the index.
+   * @param cal HolidayCalendar used to compute the fixing period of the index.
    * @return The forward.
    */
-  public static double forwardRateFromCurve(final YieldAndDiscountCurve curve, final ZonedDateTime curveDate, final ZonedDateTime fixingDate, final IborIndex index, final Calendar cal) {
+  public static double forwardRateFromCurve(final YieldAndDiscountCurve curve, final ZonedDateTime curveDate, final ZonedDateTime fixingDate, final IborIndex index, final HolidayCalendar cal) {
     ArgChecker.notNull(curve, "curve");
     ArgChecker.notNull(curveDate, "curveDate");
     ArgChecker.notNull(fixingDate, "fixingDate");
@@ -54,11 +54,11 @@ public class YieldAndDiscountCurveUtils {
    * @param curveDate The curve date.
    * @param fixingDate The forward rate fixing date.
    * @param index The Ibor index.
-   * @param cal Calendar used to compute the fixing period of the index.
+   * @param cal HolidayCalendar used to compute the fixing period of the index.
    * @return The forward.
    */
   public static double forwardRateFromProvider(final MulticurveProviderInterface multicurve, final ZonedDateTime curveDate, final ZonedDateTime fixingDate,
-      final IborIndex index, final Calendar cal) {
+      final IborIndex index, final HolidayCalendar cal) {
     ArgChecker.notNull(multicurve, "multicurve provider");
     ArgChecker.notNull(curveDate, "curveDate");
     ArgChecker.notNull(fixingDate, "fixingDate");

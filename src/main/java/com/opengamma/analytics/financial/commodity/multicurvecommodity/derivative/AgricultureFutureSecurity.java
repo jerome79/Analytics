@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -18,7 +18,7 @@ public class AgricultureFutureSecurity extends CommodityFutureSecurity {
 
   public AgricultureFutureSecurity(final double lastTradingTime, final CommodityUnderlying underlying, final String unitName, final double unitAmount, final double noticeFirstTime,
       final double noticeLastTime, final double firstDeliveryTime,
-      final double lastDeliveryTime, final SettlementType settlementType, final double settlementTime, final String name, final Calendar calendar) {
+      final double lastDeliveryTime, final SettlementType settlementType, final double settlementTime, final String name, final HolidayCalendar calendar) {
     super(lastTradingTime, underlying, unitName, unitAmount, noticeFirstTime, noticeLastTime, firstDeliveryTime, lastDeliveryTime, settlementType, settlementTime, name, calendar);
   }
 

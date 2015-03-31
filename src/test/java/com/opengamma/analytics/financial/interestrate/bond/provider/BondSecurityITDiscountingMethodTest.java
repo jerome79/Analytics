@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -25,6 +23,8 @@ import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedS
 import com.opengamma.analytics.financial.provider.description.IssuerProviderDiscountDataSets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -38,7 +38,7 @@ public class BondSecurityITDiscountingMethodTest {
   // BTPS 1-Sep-2002
   private static final String ISSUER_IT_NAME = ISSUER_NAMES[4];
   private static final Period PAYMENT_TENOR_IT = Period.ofMonths(6);
-  private static final Calendar CALENDAR_IT = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR_IT = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT_IT = DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention BUSINESS_DAY_IT = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM_IT = false;

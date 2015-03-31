@@ -15,8 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -39,6 +37,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -49,7 +49,7 @@ public class BondinterestIndexedSecurityDefinitionTest {
   //Index-Linked Gilt 2% Index-linked Treasury Stock 2035 - GB0031790826
   private static final String NAME_INDEX_UK = "UK RPI";
   private static final IndexPrice PRICE_INDEX_UKRPI = new IndexPrice(NAME_INDEX_UK, Currency.GBP);
-  private static final Calendar CALENDAR_GBP = new MondayToFridayCalendar("GBP");
+  private static final HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY_GBP = BusinessDayConventions.FOLLOWING;
   private static final DayCount DAY_COUNT_1 = DayCounts.ACT_ACT_ISDA;
   private static final boolean IS_EOM_1 = false;

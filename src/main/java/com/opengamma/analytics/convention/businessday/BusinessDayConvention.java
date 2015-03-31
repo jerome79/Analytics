@@ -12,7 +12,7 @@ import org.joda.convert.FromStringFactory;
 import org.joda.convert.ToString;
 
 import com.opengamma.analytics.convention.NamedInstance;
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Convention for handling business days.
@@ -30,7 +30,7 @@ public interface BusinessDayConvention extends NamedInstance {
    * @param date  the date to adjust, not null
    * @return the adjusted date, not null
    */
-  LocalDate adjustDate(Calendar workingDayCalendar, LocalDate date);
+  LocalDate adjustDate(HolidayCalendar workingDayCalendar, LocalDate date);
 
   /**
    * Adjusts the specified date-time using the working day calendar.
@@ -39,7 +39,7 @@ public interface BusinessDayConvention extends NamedInstance {
    * @param dateTime  the date-time to adjust, not null
    * @return the adjusted date-time, not null
    */
-  ZonedDateTime adjustDate(final Calendar workingDayCalendar, final ZonedDateTime dateTime);
+  ZonedDateTime adjustDate(final HolidayCalendar workingDayCalendar, final ZonedDateTime dateTime);
 
   /**
    * Gets the name of the convention.

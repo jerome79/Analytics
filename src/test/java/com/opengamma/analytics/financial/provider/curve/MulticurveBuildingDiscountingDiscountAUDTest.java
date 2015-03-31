@@ -21,8 +21,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -68,6 +66,8 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -83,7 +83,7 @@ public class MulticurveBuildingDiscountingDiscountAUDTest {
   private static final double TOLERANCE_ROOT = 1.0E-10;
   private static final int STEP_MAX = 100;
 
-  private static final Calendar SYD = new MondayToFridayCalendar("SYD");
+  private static final HolidayCalendar SYD = HolidayCalendars.SAT_SUN;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
   private static final double NOTIONAL = 1.0;

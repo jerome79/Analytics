@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveDiscountFactorInterpolated;
@@ -56,6 +55,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -77,7 +77,7 @@ public class UsdDatasetJuly16 {
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
   private static final double NOTIONAL = 1.0;
@@ -415,8 +415,8 @@ public class UsdDatasetJuly16 {
    * Returns the array of calendars used in the curve data set. 
    * @return The array: NYC 
    */
-  public static Calendar[] calendarArray() {
-    return new Calendar[] {NYC };
+  public static HolidayCalendar[] calendarArray() {
+    return new HolidayCalendar[] {NYC };
   }
 
   /**

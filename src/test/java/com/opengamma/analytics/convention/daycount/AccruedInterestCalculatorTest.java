@@ -12,9 +12,9 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Test AccruedInterestCalculator.
@@ -30,7 +30,7 @@ public class AccruedInterestCalculatorTest {
   private static final ZonedDateTime DATE2 = DateUtils.getUTCDate(2006, 1, 6);
   private static final ZonedDateTime[] SCHEDULE2 = new ZonedDateTime[] {DateUtils.getUTCDate(2005, 8, 15), DateUtils.getUTCDate(2006, 2, 15), DateUtils.getUTCDate(2006, 8, 15),
       DateUtils.getUTCDate(2007, 2, 14)};
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("A");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final double EPS = 1e-12;
 
   @Test(expectedExceptions = IllegalArgumentException.class)

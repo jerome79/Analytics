@@ -13,7 +13,6 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
@@ -25,6 +24,7 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
 /**
@@ -36,7 +36,7 @@ public class EquityIndexOptionE2ETest extends EquityE2ETestMaster {
   private static final ZoneId ZID = ZoneId.of("EST", ZoneId.SHORT_IDS);;
   private static final ZonedDateTime TRADE_DATE = ZonedDateTime.of(2014, 10, 23, 13, 46, 0, 0, ZID);
   private static final Currency USD = Currency.USD;
-  private static final Calendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
   private static final double NOTIONAL = 50;
 
   // forward curve interpolator

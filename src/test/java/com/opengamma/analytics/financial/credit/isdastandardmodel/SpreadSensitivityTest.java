@@ -15,10 +15,10 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.model.BumpType;
 import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -31,7 +31,7 @@ public class SpreadSensitivityTest {
   private static final ISDACompliantCreditCurveBuilder BUILDER = new FastCreditCurveBuilder();
   private static final AnalyticCDSPricer PRICER = new AnalyticCDSPricer();
   private static final FiniteDifferenceSpreadSensitivityCalculator CDV01_CAL = new FiniteDifferenceSpreadSensitivityCalculator();
-  private static final Calendar DEFAULT_CALENDAR = new MondayToFridayCalendar("Weekend_Only");
+  private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
 
   // common data
   private static final LocalDate TODAY = LocalDate.of(2013, 4, 21);

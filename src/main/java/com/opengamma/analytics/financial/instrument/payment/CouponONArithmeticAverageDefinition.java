@@ -16,7 +16,6 @@ import java.util.OptionalDouble;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -28,6 +27,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -71,7 +71,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    */
   public CouponONArithmeticAverageDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentAccrualFactor, final double notional, final IndexON index, final ZonedDateTime[] fixingPeriodStartDates, final ZonedDateTime[] fixingPeriodEndDates,
-      final double[] paymentAccrualFactors, final Calendar calendar) {
+      final double[] paymentAccrualFactors, final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional);
     ArgChecker.notNull(index, "CouponArithmeticAverageONDefinition: index");
     ArgChecker.notNull(fixingPeriodStartDates, "CouponArithmeticAverageONDefinition: fixingPeriodStartDates");
@@ -101,7 +101,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    */
   public CouponONArithmeticAverageDefinition(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentAccrualFactor, final double notional, final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate,
-      final Calendar calendar) {
+      final HolidayCalendar calendar) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional);
     ArgChecker.notNull(index, "CouponArithmeticAverageONDefinition: index");
     ArgChecker.notNull(fixingPeriodStartDate, "CouponArithmeticAverageONDefinition: fixingPeriodStartDate");
@@ -144,7 +144,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    */
   public static CouponONArithmeticAverageDefinition withRateCutOff(final Currency currency, final ZonedDateTime paymentDate, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate,
       final double paymentAccrualFactor, final double notional, final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate,
-      final Calendar calendar, final int rateCutoff) {
+      final HolidayCalendar calendar, final int rateCutoff) {
     ArgChecker.notNull(index, "CouponArithmeticAverageONDefinition: index");
     ArgChecker.notNull(fixingPeriodStartDate, "CouponArithmeticAverageONDefinition: fixingPeriodStartDate");
     ArgChecker.notNull(fixingPeriodEndDate, "CouponArithmeticAverageONDefinition: fixingPeriodEndDate");
@@ -195,7 +195,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final Period tenor, final double notional, final int paymentLag,
-      final BusinessDayConvention businessDayConvention, final boolean isEOM, final Calendar calendar) {
+      final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar calendar) {
     ArgChecker.notNull(index, "Index");
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, tenor, businessDayConvention, calendar, isEOM);
     return from(index, fixingPeriodStartDate, fixingPeriodEndDate, notional, paymentLag, calendar);
@@ -213,7 +213,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
-      final int paymentLag, final Calendar calendar) {
+      final int paymentLag, final HolidayCalendar calendar) {
     ArgChecker.notNull(fixingPeriodEndDate, "Fixing Period End Date");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
     final double paymentAccrualFactor = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
@@ -236,7 +236,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageDefinition withRateCutOff(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final Period tenor, final double notional, final int paymentLag,
-      final BusinessDayConvention businessDayConvention, final boolean isEOM, final Calendar calendar, final int rateCutOff) {
+      final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar calendar, final int rateCutOff) {
     ArgChecker.notNull(index, "Index");
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, tenor, businessDayConvention, calendar, isEOM);
     return withRateCutOff(index, fixingPeriodStartDate, fixingPeriodEndDate, notional, paymentLag, calendar, rateCutOff);
@@ -256,7 +256,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
    * @return The OIS coupon.
    */
   public static CouponONArithmeticAverageDefinition withRateCutOff(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
-      final int paymentLag, final Calendar calendar, final int rateCutOff) {
+      final int paymentLag, final HolidayCalendar calendar, final int rateCutOff) {
     ArgChecker.notNull(fixingPeriodEndDate, "Fixing Period End Date");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
     final double paymentAccrualFactor = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);

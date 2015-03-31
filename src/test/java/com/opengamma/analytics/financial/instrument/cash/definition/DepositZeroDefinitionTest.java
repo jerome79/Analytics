@@ -13,8 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.cash.DepositZeroDefinition;
@@ -27,6 +25,8 @@ import com.opengamma.analytics.financial.interestrate.cash.derivative.DepositZer
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -35,7 +35,7 @@ import com.opengamma.strata.basics.currency.Currency;
 @Test
 public class DepositZeroDefinitionTest {
 
-  private static final Calendar TARGET = new MondayToFridayCalendar("TARGET");
+  private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final GeneratorDeposit GENERATOR = new EURDeposit(TARGET);
   private static final Currency EUR = GENERATOR.getCurrency();
 
@@ -49,7 +49,7 @@ public class DepositZeroDefinitionTest {
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
   private static final DayCount DAY_COUNT = DayCounts.ACT_365;
   private static final double DEPOSIT_AF = DAY_COUNT.getDayCountFraction(SPOT_DATE, END_DATE);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("Weekend");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DepositZeroDefinition DEPOSIT_DEFINITION = new DepositZeroDefinition(EUR, SPOT_DATE, END_DATE, NOTIONAL, DEPOSIT_AF, RATE, CALENDAR, DAY_COUNT);
   private static final String CURVE_NAME = "Curve";
 

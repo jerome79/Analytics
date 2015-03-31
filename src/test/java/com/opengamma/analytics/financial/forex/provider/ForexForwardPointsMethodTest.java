@@ -12,8 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
-import com.opengamma.analytics.convention.calendar.MondayToFridayCalendar;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -37,6 +35,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -50,7 +50,7 @@ public class ForexForwardPointsMethodTest {
   private static final Currency CUR_1 = Currency.EUR;
   private static final Currency CUR_2 = Currency.USD;
   private static final Pair<Currency, Currency> PAIR = Pair.of(CUR_1, CUR_2);
-  private static final Calendar CALENDAR = new MondayToFridayCalendar("CAL");
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2013, 6, 26);
   private static final double NOMINAL_1 = 100000000;
   private static final double FX_RATE = 1.4177;

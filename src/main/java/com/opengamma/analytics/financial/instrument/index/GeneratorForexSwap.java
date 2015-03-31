@@ -10,10 +10,10 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.forex.definition.ForexSwapDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -32,7 +32,7 @@ public class GeneratorForexSwap extends GeneratorInstrument<GeneratorAttributeFX
   /**
    * The joint calendar of both currencies. Not null.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
   /**
    * The index spot lag in days between trade and spot date (usually 2).
    */
@@ -56,12 +56,12 @@ public class GeneratorForexSwap extends GeneratorInstrument<GeneratorAttributeFX
    * @param businessDayConvention The business day convention.
    * @param endOfMonth The flag indicating if the end-of-month rule is used.
    */
-  public GeneratorForexSwap(final String name, final Currency currency1, final Currency currency2, final Calendar calendar, final int spotLag,
+  public GeneratorForexSwap(final String name, final Currency currency1, final Currency currency2, final HolidayCalendar calendar, final int spotLag,
       final BusinessDayConvention businessDayConvention, final boolean endOfMonth) {
     super(name);
     ArgChecker.notNull(currency1, "Currency 1");
     ArgChecker.notNull(currency2, "Currency 2");
-    ArgChecker.notNull(calendar, "Calendar");
+    ArgChecker.notNull(calendar, "HolidayCalendar");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
     _currency1 = currency1;
     _currency2 = currency2;
@@ -91,7 +91,7 @@ public class GeneratorForexSwap extends GeneratorInstrument<GeneratorAttributeFX
    * Gets the _calendar field.
    * @return the _calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

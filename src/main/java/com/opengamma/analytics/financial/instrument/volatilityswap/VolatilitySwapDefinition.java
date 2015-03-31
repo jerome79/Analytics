@@ -10,13 +10,13 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -44,7 +44,7 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
   /** The annualization factor */
   private final double _annualizationFactor;
   /** The holiday calendar */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * @param currency The currency, not null
@@ -60,7 +60,7 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
    */
   public VolatilitySwapDefinition(final Currency currency, final double volStrike, final double volNotional, final ZonedDateTime observationStartDate,
       final ZonedDateTime observationEndDate, final ZonedDateTime effectiveDate, final ZonedDateTime maturityDate,
-      final PeriodFrequency observationFrequency, final double annualizationFactor, final Calendar calendar) {
+      final PeriodFrequency observationFrequency, final double annualizationFactor, final HolidayCalendar calendar) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNegative(volStrike, "volStrike");
     ArgChecker.notNull(observationStartDate, "observationStartDate");
@@ -169,7 +169,7 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
    * Gets the calendar.
    * @return the calendar
    */
-  public Calendar getCalendar() {
+  public HolidayCalendar getCalendar() {
     return _calendar;
   }
 

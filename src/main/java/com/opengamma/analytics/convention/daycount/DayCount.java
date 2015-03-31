@@ -12,7 +12,7 @@ import org.joda.convert.FromStringFactory;
 import org.joda.convert.ToString;
 
 import com.opengamma.analytics.convention.NamedInstance;
-import com.opengamma.analytics.convention.calendar.Calendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
  * Interface of a Day count convention
@@ -43,7 +43,7 @@ public interface DayCount extends NamedInstance {
    * @param calendar  a calendar
    * @return the day count fraction
    */
-  double getDayCountFraction(LocalDate firstDate, LocalDate secondDate, Calendar calendar);
+  double getDayCountFraction(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar);
 
   /**
    * Gets the day count between the specified dates.
@@ -68,7 +68,7 @@ public interface DayCount extends NamedInstance {
    * @param calendar  a calendar
    * @return the day count fraction
    */
-  double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, Calendar calendar);
+  double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar);
 
   /**
    * Calculates the accrued interest for the coupon according to the convention.

@@ -9,10 +9,10 @@ package com.opengamma.analytics.financial.instrument.index;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedCompoundedONCompoundedDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -48,7 +48,7 @@ public class GeneratorSwapFixedCompoundedONCompounded extends GeneratorInstrumen
   /**
    * The holiday calendar associated with the overnight index.
    */
-  private final Calendar _calendar;
+  private final HolidayCalendar _calendar;
 
   /**
    * Constructor from all details. The stub is short and date constructed from the end.
@@ -61,7 +61,7 @@ public class GeneratorSwapFixedCompoundedONCompounded extends GeneratorInstrumen
    * @param calendar The calendar associated with the overnight index.
    */
   public GeneratorSwapFixedCompoundedONCompounded(final String name, final IndexON index, final DayCount fixedLegDayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final Calendar calendar) {
+      final boolean endOfMonth, final int spotLag, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(fixedLegDayCount, "Fixed leg day count");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
@@ -87,7 +87,7 @@ public class GeneratorSwapFixedCompoundedONCompounded extends GeneratorInstrumen
    * @param calendar The calendar associated with the overnight index.
    */
   public GeneratorSwapFixedCompoundedONCompounded(final String name, final IndexON index, final DayCount fixedLegDayCount, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final int paymentLag, final Calendar calendar) {
+      final boolean endOfMonth, final int spotLag, final int paymentLag, final HolidayCalendar calendar) {
     super(name);
     ArgChecker.notNull(fixedLegDayCount, "Fixed leg day count");
     ArgChecker.notNull(businessDayConvention, "Business day convention");
@@ -219,7 +219,7 @@ public class GeneratorSwapFixedCompoundedONCompounded extends GeneratorInstrumen
    * Gets the calendar associated to the OIS index.
    * @return The calendar.
    */
-  public Calendar getOvernightCalendar() {
+  public HolidayCalendar getOvernightCalendar() {
     return _calendar;
   }
 

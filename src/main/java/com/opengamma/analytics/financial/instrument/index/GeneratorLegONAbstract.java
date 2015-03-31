@@ -9,8 +9,8 @@ import java.time.Period;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -35,9 +35,9 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
   /** Whether the notional exchanged (at start and at end). */
   private final boolean _isExchangeNotional;
   /** The calendar associated with the overnight index. */
-  private final Calendar _indexCalendar;
+  private final HolidayCalendar _indexCalendar;
   /** The calendar used for the payments. */
-  private final Calendar _paymentCalendar;
+  private final HolidayCalendar _paymentCalendar;
 
   /**
    * Constructor from all the details.
@@ -56,7 +56,7 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
    */
   public GeneratorLegONAbstract(String name, Currency ccy, IndexON indexON, Period paymentPeriod, int spotOffset, int paymentOffset,
       BusinessDayConvention businessDayConvention, boolean endOfMonth, StubType stubType, boolean isExchangeNotional,
-      Calendar indexCalendar, Calendar paymentCalendar) {
+      HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(indexON, "Index ON");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -144,7 +144,7 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
    * Gets the indexCalendar.
    * @return the indexCalendar
    */
-  public Calendar getIndexCalendar() {
+  public HolidayCalendar getIndexCalendar() {
     return _indexCalendar;
   }
 
@@ -152,7 +152,7 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
    * Gets the paymentCalendar.
    * @return the paymentCalendar
    */
-  public Calendar getPaymentCalendar() {
+  public HolidayCalendar getPaymentCalendar() {
     return _paymentCalendar;
   }
 

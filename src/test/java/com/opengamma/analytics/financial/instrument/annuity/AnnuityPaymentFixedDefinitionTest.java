@@ -11,13 +11,13 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.payment.PaymentFixedDefinition;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
-import com.opengamma.analytics.financial.schedule.NoHolidayCalendar;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 
 /**
@@ -25,7 +25,7 @@ import com.opengamma.strata.basics.currency.Currency;
  */
 @Test
 public class AnnuityPaymentFixedDefinitionTest {
-  private static final Calendar CALENDAR = new NoHolidayCalendar();
+  private static final HolidayCalendar CALENDAR = HolidayCalendars.NO_HOLIDAYS;
   private static final Currency CUR = Currency.EUR;
   private static final ZonedDateTime[] PAYMENT_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 7, 13), DateUtils.getUTCDate(2011, 10, 13), DateUtils.getUTCDate(2012, 1, 13)};
   private static final double[] PAYMENT_AMOUNT = new double[] {100.0, 150.0, 1.0};

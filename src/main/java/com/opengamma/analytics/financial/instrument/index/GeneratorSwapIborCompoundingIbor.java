@@ -12,13 +12,13 @@ import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.calendar.Calendar;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborCompoundingFlatSpreadDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.swap.SwapDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
+import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -53,11 +53,11 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
   /**
    * The holiday calendar for the first ibor leg.
    */
-  private final Calendar _calendar1;
+  private final HolidayCalendar _calendar1;
   /**
    * The holiday calendar for the second ibor leg.
    */
-  private final Calendar _calendar2;
+  private final HolidayCalendar _calendar2;
 
   // REVIEW: Do we need stubShort and stubFirst flags?
 
@@ -70,7 +70,7 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
    * @param calendar1 The holiday calendar for the first ibor leg.
    * @param calendar2 The holiday calendar for the second ibor leg.
    */
-  public GeneratorSwapIborCompoundingIbor(final String name, final IborIndex iborIndex1, Period compoundingPeriod1, final IborIndex iborIndex2, final Calendar calendar1, final Calendar calendar2) {
+  public GeneratorSwapIborCompoundingIbor(final String name, final IborIndex iborIndex1, Period compoundingPeriod1, final IborIndex iborIndex2, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     super(name);
     ArgChecker.notNull(iborIndex1, "ibor index 1");
     ArgChecker.notNull(compoundingPeriod1, "compounding period 1");
@@ -101,7 +101,7 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
    * @param calendar2 The holiday calendar for the second ibor leg.
    */
   public GeneratorSwapIborCompoundingIbor(final String name, final IborIndex iborIndex1, Period compoundingPeriod1, final IborIndex iborIndex2, final BusinessDayConvention businessDayConvention,
-      final boolean endOfMonth, final int spotLag, final Calendar calendar1, final Calendar calendar2) {
+      final boolean endOfMonth, final int spotLag, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
     super(name);
     ArgChecker.notNull(iborIndex1, "ibor index 1");
     ArgChecker.notNull(compoundingPeriod1, "compounding period 1");
@@ -171,7 +171,7 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
    * Gets the holiday calendar for the first leg.
    * @return The holiday calendar
    */
-  public Calendar getCalendar1() {
+  public HolidayCalendar getCalendar1() {
     return _calendar1;
   }
 
@@ -179,7 +179,7 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
    * Gets the holiday calendar for the second leg.
    * @return The holiday calendar
    */
-  public Calendar getCalendar2() {
+  public HolidayCalendar getCalendar2() {
     return _calendar2;
   }
 
