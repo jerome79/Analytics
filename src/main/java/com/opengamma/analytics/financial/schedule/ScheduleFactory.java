@@ -10,29 +10,19 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.Validate;
 
-import com.opengamma.analytics.convention.frequency.Frequency;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
-import com.opengamma.analytics.convention.frequency.SimpleFrequency;
+import com.opengamma.strata.basics.schedule.Frequency;
 
 /**
  * Factory to create schedules.
  */
 public class ScheduleFactory {
 
-  public static LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate, final Frequency frequency, final boolean endOfMonth, final boolean fromEnd,
+  public static LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate, final com.opengamma.strata.basics.schedule.Frequency frequency, final boolean endOfMonth, final boolean fromEnd,
       final boolean generateRecursive) {
     Validate.notNull(startDate, "start date");
     Validate.notNull(endDate, "end date");
     Validate.notNull(frequency, "frequency");
-    SimpleFrequency simple;
-    if (frequency instanceof SimpleFrequency) {
-      simple = (SimpleFrequency) frequency;
-    } else if (frequency instanceof PeriodFrequency) {
-      simple = ((PeriodFrequency) frequency).toSimpleFrequency();
-    } else {
-      throw new IllegalArgumentException("Can only handle SimpleFrequency and PeriodFrequency");
-    }
-    final int periodsPerYear = (int) simple.getPeriodsPerYear();
+    int periodsPerYear = frequency.eventsPerYear();
     return getSchedule(startDate, endDate, periodsPerYear, endOfMonth, fromEnd, generateRecursive);
   }
 
@@ -95,7 +85,7 @@ public class ScheduleFactory {
         throw new IllegalArgumentException("Cannot get EOM series for weekly frequency");
       }
       result = ScheduleCalculatorFactory.WEEKLY_CALCULATOR.getSchedule(startDate, endDate, fromEnd, generateRecursive);
-    } else if (periodsPerYear == 365 || periodsPerYear == 366) {
+    } else if (periodsPerYear == 364 || periodsPerYear == 365 || periodsPerYear == 366) {
       if (endOfMonth) {
         throw new IllegalArgumentException("Cannot get EOM series for daily frequency");
       }
@@ -110,15 +100,7 @@ public class ScheduleFactory {
     Validate.notNull(startDate, "start date");
     Validate.notNull(endDate, "end date");
     Validate.notNull(frequency, "frequency");
-    SimpleFrequency simple;
-    if (frequency instanceof SimpleFrequency) {
-      simple = (SimpleFrequency) frequency;
-    } else if (frequency instanceof PeriodFrequency) {
-      simple = ((PeriodFrequency) frequency).toSimpleFrequency();
-    } else {
-      throw new IllegalArgumentException("Can only handle SimpleFrequency and PeriodFrequency");
-    }
-    final int periodsPerYear = (int) simple.getPeriodsPerYear();
+    int periodsPerYear = frequency.eventsPerYear();
     return getSchedule(startDate, endDate, periodsPerYear, endOfMonth, fromEnd, generateRecursive);
   }
 
@@ -181,7 +163,7 @@ public class ScheduleFactory {
         throw new IllegalArgumentException("Cannot get EOM series for weekly frequency");
       }
       result = ScheduleCalculatorFactory.WEEKLY_CALCULATOR.getSchedule(startDate, endDate, fromEnd, generateRecursive);
-    } else if (periodsPerYear == 365 || periodsPerYear == 366) {
+    } else if (periodsPerYear == 364 || periodsPerYear == 365 || periodsPerYear == 366) {
       if (endOfMonth) {
         throw new IllegalArgumentException("Cannot get EOM series for daily frequency");
       }

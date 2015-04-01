@@ -7,10 +7,10 @@ package com.opengamma.analytics.financial.volatilityswap;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -23,7 +23,7 @@ public class VolatilitySwap implements InstrumentDerivative {
   /** Time to the end of volatility observations */
   private final double _timeToObservationEnd;
   /** The observation frequency */
-  private final PeriodFrequency _observationFrequency;
+  private final Frequency _observationFrequency;
   /** Time to maturity */
   private final double _timeToMaturity;
   /** The volatility strike */
@@ -45,8 +45,16 @@ public class VolatilitySwap implements InstrumentDerivative {
    * @param currency Currency of cash maturity
    * @param annualizationFactor Number of business days per year
    */
-  public VolatilitySwap(final double timeToObservationStart, final double timeToObservationEnd, final PeriodFrequency observationFrequency,
-      final double timeToMaturity, final double volStrike, final double volNotional, final Currency currency, final double annualizationFactor) {
+  public VolatilitySwap(
+      double timeToObservationStart,
+      double timeToObservationEnd,
+      Frequency observationFrequency,
+      double timeToMaturity,
+      double volStrike,
+      double volNotional,
+      Currency currency,
+      double annualizationFactor) {
+
     ArgChecker.notNull(observationFrequency, "observationFrequency");
     ArgChecker.notNull(currency, "currency");
     _timeToObservationStart = timeToObservationStart;
@@ -95,7 +103,7 @@ public class VolatilitySwap implements InstrumentDerivative {
    * Gets the observation frequency.
    * @return The observation frequency
    */
-  public PeriodFrequency getObservationFrequency() {
+  public Frequency getObservationFrequency() {
     return _observationFrequency;
   }
 

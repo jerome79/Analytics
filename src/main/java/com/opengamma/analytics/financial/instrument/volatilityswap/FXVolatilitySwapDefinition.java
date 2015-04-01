@@ -10,12 +10,12 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.daycount.DayCountFactory;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -47,9 +47,20 @@ public class FXVolatilitySwapDefinition extends VolatilitySwapDefinition {
    * @param annualizationFactor The annualization factor, greater than zero
    * @param calendar The holiday calendar, not null
    */
-  public FXVolatilitySwapDefinition(final Currency currency, final Currency baseCurrency, final Currency counterCurrency, final double volStrike,
-      final double volNotional, final ZonedDateTime observationStartDate, final ZonedDateTime observationEndDate, final ZonedDateTime effectiveDate,
-      final ZonedDateTime maturityDate, final PeriodFrequency observationFrequency, final double annualizationFactor, final HolidayCalendar calendar) {
+  public FXVolatilitySwapDefinition(
+      Currency currency,
+      Currency baseCurrency,
+      Currency counterCurrency,
+      double volStrike,
+      double volNotional,
+      ZonedDateTime observationStartDate,
+      ZonedDateTime observationEndDate,
+      ZonedDateTime effectiveDate,
+      ZonedDateTime maturityDate,
+      Frequency observationFrequency,
+      double annualizationFactor,
+      HolidayCalendar calendar) {
+
     super(currency, volStrike, volNotional, observationStartDate, observationEndDate, effectiveDate, maturityDate, observationFrequency, annualizationFactor, calendar);
     ArgChecker.notNull(baseCurrency, "baseCurrency");
     ArgChecker.notNull(counterCurrency, "counterCurrency");

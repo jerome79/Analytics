@@ -10,13 +10,13 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -38,7 +38,7 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
   /** The maturity date */
   private final ZonedDateTime _maturityDate;
   /** The observation frequency */
-  private final PeriodFrequency _observationFrequency;
+  private final Frequency _observationFrequency;
   /** The number of observations expected given the observation dates and the holiday calendar */
   private final int _nObservations;
   /** The annualization factor */
@@ -58,9 +58,18 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
    * @param annualizationFactor The annualization factor, greater than zero
    * @param calendar The holiday calendar, not null
    */
-  public VolatilitySwapDefinition(final Currency currency, final double volStrike, final double volNotional, final ZonedDateTime observationStartDate,
-      final ZonedDateTime observationEndDate, final ZonedDateTime effectiveDate, final ZonedDateTime maturityDate,
-      final PeriodFrequency observationFrequency, final double annualizationFactor, final HolidayCalendar calendar) {
+  public VolatilitySwapDefinition(
+      Currency currency,
+      double volStrike,
+      double volNotional,
+      ZonedDateTime observationStartDate,
+      ZonedDateTime observationEndDate,
+      ZonedDateTime effectiveDate,
+      ZonedDateTime maturityDate,
+      Frequency observationFrequency,
+      double annualizationFactor,
+      HolidayCalendar calendar) {
+
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNegative(volStrike, "volStrike");
     ArgChecker.notNull(observationStartDate, "observationStartDate");
@@ -70,7 +79,8 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
     ArgChecker.notNull(observationFrequency, "observationFrequency");
     ArgChecker.notNegativeOrZero(annualizationFactor, "annualizationFactor");
     ArgChecker.notNull(calendar, "calendar");
-    ArgChecker.isTrue(observationFrequency.equals(PeriodFrequency.DAILY), "Only DAILY observation frequencies are currently supported. obsFreq {} ",
+    ArgChecker.isTrue(observationFrequency.equals(Frequency.P1D),
+        "Only DAILY observation frequencies are currently supported. obsFreq {} ",
         observationFrequency.toString());
     _currency = currency;
     _volStrike = volStrike;
@@ -145,7 +155,7 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
    * Gets the observation frequency.
    * @return the observation frequency
    */
-  public PeriodFrequency getObservationFrequency() {
+  public Frequency getObservationFrequency() {
     return _observationFrequency;
   }
 

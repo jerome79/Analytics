@@ -17,12 +17,12 @@ import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
 import com.opengamma.analytics.AnalyticsTestBase;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -39,7 +39,7 @@ public class VarianceSwapDefinitionTest extends AnalyticsTestBase {
   /** The maturity date */
   private static final ZonedDateTime PLUS_5Y = NOW.plusYears(5);
   /** The observation frequency */
-  private static final PeriodFrequency OBSERVATION_FREQUENCY = PeriodFrequency.DAILY;
+  private static final Frequency OBSERVATION_FREQUENCY = Frequency.P1D;
   /** The currency */
   private static final Currency CCY = Currency.EUR;
   /** The calendar */

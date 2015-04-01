@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborDefinition;
@@ -34,6 +33,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.Frequency;
 
 
 /**
@@ -43,7 +43,7 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
 public class AnnuityCouponIborDefinitionTest {
   //Libor3m
   private static final Period INDEX_TENOR = Period.ofMonths(3);
-  private static final PeriodFrequency INDEX_FREQUENCY = PeriodFrequency.QUARTERLY;
+  private static final Frequency INDEX_FREQUENCY = Frequency.P3M;
   private static final int SETTLEMENT_DAYS = 2;
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT = DayCounts.ACT_360;

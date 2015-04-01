@@ -15,7 +15,6 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -26,6 +25,7 @@ import com.opengamma.analytics.financial.provider.description.volatilityswap.Car
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -66,11 +66,14 @@ public class CarrLeeFXVolatilitySwapCalculatorTest {
     final MulticurveProviderDiscount curves = new MulticurveProviderDiscount(discountingCurves, new LinkedHashMap<>(),
         new LinkedHashMap<>(), fxMatrix);
     final CarrLeeFXData data = new CarrLeeFXData(Pair.of(base, counter), smile, curves, realizedVar);
-    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1,
+        base, base, counter, 252);
     assertEquals(6.861525317073218, swap.accept(cal, data).getFairValue(), 1e-10);
 
-    final FXVolatilitySwap swap1 = new FXVolatilitySwap(0., timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
-    final FXVolatilitySwap swap2 = new FXVolatilitySwap(1.e-4, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap1 = new FXVolatilitySwap(0., timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1, base, base,
+        counter, 252);
+    final FXVolatilitySwap swap2 = new FXVolatilitySwap(1.e-4, timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1, base, base,
+        counter, 252);
     assertEquals(swap1.accept(cal, data).getFairValue(), swap2.accept(cal, data).getFairValue(), 1.e-6);
   }
 
@@ -108,11 +111,14 @@ public class CarrLeeFXVolatilitySwapCalculatorTest {
     final MulticurveProviderDiscount curves = new MulticurveProviderDiscount(discountingCurves, new LinkedHashMap<IborIndex, YieldAndDiscountCurve>(),
         new LinkedHashMap<IndexON, YieldAndDiscountCurve>(), fxMatrix);
     final CarrLeeFXData data = new CarrLeeFXData(Pair.of(base, counter), smile, curves, realizedVar);
-    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1,
+        base, base, counter, 252);
     assertEquals(6., swap.accept(cal, data).getFairValue(), eps);
 
-    final FXVolatilitySwap swap1 = new FXVolatilitySwap(0., timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
-    final FXVolatilitySwap swap2 = new FXVolatilitySwap(1.e-4, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap1 = new FXVolatilitySwap(0., timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1, base, base,
+        counter, 252);
+    final FXVolatilitySwap swap2 = new FXVolatilitySwap(1.e-4, timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1, base, base,
+        counter, 252);
     assertEquals(swap1.accept(cal, data).getFairValue(), swap2.accept(cal, data).getFairValue(), 1.e-6);
 
     final double[] strikeRange = new double[] {spot * 0.8, spot * 1.2 };
@@ -173,7 +179,8 @@ public class CarrLeeFXVolatilitySwapCalculatorTest {
     }
 
     try {
-      final FXVolatilitySwap swapNegativeTime = new FXVolatilitySwap(0., timeToExpiry, PeriodFrequency.DAILY, -timeToExpiry, spot, 1, base, base, counter, 252);
+      final FXVolatilitySwap swapNegativeTime = new FXVolatilitySwap(0., timeToExpiry, Frequency.P1D, -timeToExpiry, spot, 1,
+          base, base, counter, 252);
       swapNegativeTime.accept(cal, data);
       throw new RuntimeException();
     } catch (final Exception e) {

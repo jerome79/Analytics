@@ -19,8 +19,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.daycount.ThirtyEThreeSixty;
-import com.opengamma.analytics.convention.frequency.Frequency;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
@@ -34,6 +32,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
@@ -428,7 +427,7 @@ public class ScheduleCalculatorTest {
    */
   public void adjustedDateSchedule2() {
     final Period m6 = Period.ofMonths(6);
-    final Frequency semi = PeriodFrequency.SEMI_ANNUAL;
+    final Frequency semi = Frequency.P6M;
     final Period y5 = Period.ofYears(5);
     final ZonedDateTime midMonth = DateUtils.getUTCDate(2012, 1, 19);
     final ZonedDateTime[] midMonthUnadjusted = ScheduleCalculator.getUnadjustedDateSchedule(midMonth, midMonth.plus(y5), m6, false, false);
@@ -570,27 +569,30 @@ public class ScheduleCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullEffectiveDate1() {
-    ScheduleCalculator.getUnadjustedDateSchedule(null, DateUtils.getUTCDate(2010, 6, 1), PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(null, DateUtils.getUTCDate(2010, 6, 1), Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullEffectiveDate2() {
-    ScheduleCalculator.getUnadjustedDateSchedule(null, DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1), PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(null, DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1),
+        Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullAccrualDate() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), null, DateUtils.getUTCDate(2010, 7, 1), PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), null, DateUtils.getUTCDate(2010, 7, 1),
+        Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullMaturityDate1() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), null, PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), null, Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullMaturityDate2() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1), null, PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1), null,
+        Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -600,34 +602,26 @@ public class ScheduleCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFrequency2() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1), DateUtils.getUTCDate(2010, 8, 1), (PeriodFrequency) null);
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1),
+        DateUtils.getUTCDate(2010, 8, 1), (Frequency) null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testBadMaturityDate1() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2009, 6, 1), PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2009, 6, 1),
+        Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testBadMaturityDate2() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1), DateUtils.getUTCDate(2009, 6, 1), PeriodFrequency.ANNUAL);
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1),
+        DateUtils.getUTCDate(2009, 6, 1), Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testBadMaturityDate3() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2008, 6, 1), DateUtils.getUTCDate(2010, 7, 1), DateUtils.getUTCDate(2009, 6, 1), PeriodFrequency.ANNUAL);
-  }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testWrongFrequencyType() {
-    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2010, 6, 1), DateUtils.getUTCDate(2010, 7, 1), DateUtils.getUTCDate(2010, 8, 1), new Frequency() {
-
-      @Override
-      public String getName() {
-        return null;
-      }
-
-    });
+    ScheduleCalculator.getUnadjustedDateSchedule(DateUtils.getUTCDate(2008, 6, 1), DateUtils.getUTCDate(2010, 7, 1),
+        DateUtils.getUTCDate(2009, 6, 1), Frequency.P12M);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -676,21 +670,29 @@ public class ScheduleCalculatorTest {
     final ZonedDateTime effective = DateUtils.getUTCDate(2010, 6, 1);
     final ZonedDateTime accrual = DateUtils.getUTCDate(2010, 9, 1);
     final ZonedDateTime maturity = DateUtils.getUTCDate(2015, 6, 1);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, PeriodFrequency.ANNUAL), 5, DateUtils.getUTCDate(2011, 6, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, PeriodFrequency.ANNUAL), 5, DateUtils.getUTCDate(2011, 6, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, PeriodFrequency.SEMI_ANNUAL), 10, DateUtils.getUTCDate(2010, 12, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, PeriodFrequency.SEMI_ANNUAL), 10, DateUtils.getUTCDate(2010, 12, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, PeriodFrequency.QUARTERLY), 20, DateUtils.getUTCDate(2010, 9, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, PeriodFrequency.QUARTERLY), 20, DateUtils.getUTCDate(2010, 9, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, PeriodFrequency.MONTHLY), 60, DateUtils.getUTCDate(2010, 7, 1), maturity);
-    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, PeriodFrequency.MONTHLY), 60, DateUtils.getUTCDate(2010, 7, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, Frequency.P12M), 5,
+        DateUtils.getUTCDate(2011, 6, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, Frequency.P12M), 5,
+        DateUtils.getUTCDate(2011, 6, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, Frequency.P6M), 10,
+        DateUtils.getUTCDate(2010, 12, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, Frequency.P6M), 10,
+        DateUtils.getUTCDate(2010, 12, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, Frequency.P3M), 20,
+        DateUtils.getUTCDate(2010, 9, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, Frequency.P3M), 20,
+        DateUtils.getUTCDate(2010, 9, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, Frequency.P1M), 60,
+        DateUtils.getUTCDate(2010, 7, 1), maturity);
+    assertUnadjustedDates(ScheduleCalculator.getUnadjustedDateSchedule(effective, accrual, maturity, Frequency.P1M), 60,
+        DateUtils.getUTCDate(2010, 7, 1), maturity);
   }
 
   @Test
   public void testAdjustedDates() {
     final ZonedDateTime effective = DateUtils.getUTCDate(2010, 1, 1);
     final ZonedDateTime maturity = DateUtils.getUTCDate(2011, 1, 1);
-    final ZonedDateTime[] unadjusted = ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, PeriodFrequency.MONTHLY);
+    final ZonedDateTime[] unadjusted = ScheduleCalculator.getUnadjustedDateSchedule(effective, maturity, Frequency.P1M);
     assertDateArray(ScheduleCalculator.getAdjustedDateSchedule(unadjusted, BusinessDayConventions.MODIFIED_FOLLOWING, ALL),
         unadjusted);
     assertDateArray(ScheduleCalculator.getAdjustedDateSchedule(unadjusted, BusinessDayConventions.FOLLOWING, ALL), unadjusted);

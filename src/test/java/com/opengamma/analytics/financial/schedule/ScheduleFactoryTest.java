@@ -14,10 +14,8 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.frequency.Frequency;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
-import com.opengamma.analytics.convention.frequency.SimpleFrequencyFactory;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.schedule.Frequency;
 
 
 /**
@@ -29,7 +27,7 @@ public class ScheduleFactoryTest {
   private static final LocalDate END1 = LocalDate.of(2002, 1, 31);
   private static final ZonedDateTime START2 = DateUtils.getUTCDate(2000, 1, 31);
   private static final ZonedDateTime END2 = DateUtils.getUTCDate(2002, 1, 31);
-  private static final Frequency QUARTERLY = SimpleFrequencyFactory.INSTANCE.getFrequency(4);
+  private static final Frequency QUARTERLY = Frequency.P3M;
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullStartDate1() {
@@ -44,18 +42,6 @@ public class ScheduleFactoryTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFrequency1() {
     ScheduleFactory.getSchedule(START1, END1, null, true, false, false);
-  }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testBadFrequency1() {
-    final Frequency frequency = new Frequency() {
-
-      @Override
-      public String getName() {
-        return null;
-      }
-    };
-    ScheduleFactory.getSchedule(START1, END1, frequency, true, false, false);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -89,18 +75,6 @@ public class ScheduleFactoryTest {
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testBadFrequency2() {
-    final Frequency frequency = new Frequency() {
-
-      @Override
-      public String getName() {
-        return null;
-      }
-    };
-    ScheduleFactory.getSchedule(START2, END2, frequency, true, false, false);
-  }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
   public void testBadPeriodsPerYear2() {
     ScheduleFactory.getSchedule(START2, END2, 5, true, false, false);
   }
@@ -119,36 +93,36 @@ public class ScheduleFactoryTest {
   public void testDaily() {
     final LocalDate[] schedule1 = ScheduleFactory.getSchedule(START1, END1, 365, false, true, false);
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 366, false, true, false));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, true, false));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.DAILY, false, true, false));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, true, false));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, true, false));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 365, false, true, true));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 366, false, true, true));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, true, true));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.DAILY, false, true, true));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, true, true));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, true, true));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 365, false, false, false));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 366, false, false, false));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, false, false));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.DAILY, false, true, false));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, false, false));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, true, false));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 365, false, false, true));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 366, false, false, true));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, false, true));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.DAILY, false, true, true));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, false, true));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1D, false, true, true));
     final ZonedDateTime[] schedule2 = ScheduleFactory.getSchedule(START2, END2, 365, false, true, false);
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 366, false, true, false));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, true, false));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, PeriodFrequency.DAILY, false, true, false));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, true, false));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, true, false));
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 365, false, true, true));
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 366, false, true, true));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, true, true));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, PeriodFrequency.DAILY, false, true, true));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, true, true));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, true, true));
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 365, false, false, false));
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 366, false, false, false));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, false, false));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, PeriodFrequency.DAILY, false, true, false));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, false, false));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, true, false));
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 365, false, false, true));
     assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, 366, false, false, true));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, SimpleFrequencyFactory.INSTANCE.getFrequency("Daily"), false, false, true));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, PeriodFrequency.DAILY, false, true, true));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, false, true));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START2, END2, Frequency.P1D, false, true, true));
     assertEquals(schedule1.length, schedule2.length);
     for (int i = 0; i < schedule1.length; i++) {
       assertEquals(schedule1[i], schedule2[i].toLocalDate());
@@ -158,23 +132,23 @@ public class ScheduleFactoryTest {
   @Test
   public void testWeeklyBackward() {
     final LocalDate[] schedule1 = ScheduleFactory.getSchedule(START1, END1, 52, false, true, false);
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Weekly"), false, true, false));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.WEEKLY, false, true, false));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1W, false, true, false));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1W, false, true, false));
     assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, 52, false, true, true));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Weekly"), false, true, true));
-    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.WEEKLY, false, true, true));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1W, false, true, true));
+    assertArrayEquals(schedule1, ScheduleFactory.getSchedule(START1, END1, Frequency.P1W, false, true, true));
     final LocalDate[] schedule2 = ScheduleFactory.getSchedule(START1, END1, 52, false, false, false);
     assertFalse(schedule1.equals(schedule2));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START1, END1, SimpleFrequencyFactory.INSTANCE.getFrequency("Weekly"), false, false, false));
-    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START1, END1, PeriodFrequency.WEEKLY, false, false, false));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START1, END1, Frequency.P1W, false, false, false));
+    assertArrayEquals(schedule2, ScheduleFactory.getSchedule(START1, END1, Frequency.P1W, false, false, false));
     final ZonedDateTime[] schedule3 = ScheduleFactory.getSchedule(START2, END2, 52, false, true, false);
-    assertArrayEquals(schedule3, ScheduleFactory.getSchedule(START2, END2, SimpleFrequencyFactory.INSTANCE.getFrequency("Weekly"), false, true, false));
-    assertArrayEquals(schedule3, ScheduleFactory.getSchedule(START2, END2, PeriodFrequency.WEEKLY, false, true, false));
+    assertArrayEquals(schedule3, ScheduleFactory.getSchedule(START2, END2, Frequency.P1W, false, true, false));
+    assertArrayEquals(schedule3, ScheduleFactory.getSchedule(START2, END2, Frequency.P1W, false, true, false));
     final ZonedDateTime[] schedule4 = ScheduleFactory.getSchedule(START2, END2, 52, false, false, false);
     assertFalse(schedule3.equals(schedule4));
     assertArrayEquals(schedule4, ScheduleFactory.getSchedule(START2, END2, 52, false, false, false));
-    assertArrayEquals(schedule4, ScheduleFactory.getSchedule(START2, END2, SimpleFrequencyFactory.INSTANCE.getFrequency("Weekly"), false, false, false));
-    assertArrayEquals(schedule4, ScheduleFactory.getSchedule(START2, END2, PeriodFrequency.WEEKLY, false, false, false));
+    assertArrayEquals(schedule4, ScheduleFactory.getSchedule(START2, END2, Frequency.P1W, false, false, false));
+    assertArrayEquals(schedule4, ScheduleFactory.getSchedule(START2, END2, Frequency.P1W, false, false, false));
     assertEquals(schedule1.length, schedule2.length);
     for (int i = 0; i < schedule1.length; i++) {
       assertEquals(schedule1[i], schedule3[i].toLocalDate());

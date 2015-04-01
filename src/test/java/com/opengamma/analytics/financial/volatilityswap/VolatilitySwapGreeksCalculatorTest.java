@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.model.volatility.BlackScholesFormulaRepository;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.provider.description.volatilityswap.Car
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -66,7 +66,8 @@ public class VolatilitySwapGreeksCalculatorTest {
     final MulticurveProviderDiscount curves = new MulticurveProviderDiscount(discountingCurves, new LinkedHashMap<>(),
         new LinkedHashMap<>(), fxMatrix);
     final CarrLeeFXData data = new CarrLeeFXData(Pair.of(base, counter), smile, curves, realizedVar);
-    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, Frequency.P1D,
+        timeToExpiry, spot, 1, base, base, counter, 252);
     final VolatilitySwapCalculatorResultWithStrikes result = (VolatilitySwapCalculatorResultWithStrikes) swap.accept(cal, data);
 
     final double[] greeks = calGreeks.getFXVolatilitySwapGreeks(result, swap, data);
@@ -103,8 +104,10 @@ public class VolatilitySwapGreeksCalculatorTest {
     assertEquals(expGreeks[2], greeks[2], Math.abs(greeks[2]) * 1.e-13);
     assertEquals(expGreeks[3], greeks[3], Math.abs(greeks[3]) * 1.e-13);
 
-    final FXVolatilitySwap swapNew = new FXVolatilitySwap(0., timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
-    final FXVolatilitySwap swapSmall = new FXVolatilitySwap(1.e-5, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swapNew = new FXVolatilitySwap(0., timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1, base, base,
+        counter, 252);
+    final FXVolatilitySwap swapSmall = new FXVolatilitySwap(1.e-5, timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1, base,
+        base, counter, 252);
     final VolatilitySwapCalculatorResultWithStrikes resultNew = (VolatilitySwapCalculatorResultWithStrikes) swapNew.accept(cal, data);
     final VolatilitySwapCalculatorResultWithStrikes resultSmall = (VolatilitySwapCalculatorResultWithStrikes) swapSmall.accept(cal, data);
     final double[] greeksNew = calGreeks.getFXVolatilitySwapGreeks(resultNew, swapNew, data);
@@ -152,7 +155,8 @@ public class VolatilitySwapGreeksCalculatorTest {
 
     final CarrLeeFXData data = new CarrLeeFXData(Pair.of(base, counter), smile, curves, realizedVar);
 
-    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, Frequency.P1D,
+        timeToExpiry, spot, 1, base, base, counter, 252);
 
     final VolatilitySwapCalculatorResultWithStrikes result = (VolatilitySwapCalculatorResultWithStrikes) swap.accept(cal, data);
 

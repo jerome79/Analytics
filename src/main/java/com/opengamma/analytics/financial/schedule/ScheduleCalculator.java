@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
-import com.opengamma.analytics.convention.frequency.Frequency;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
-import com.opengamma.analytics.convention.frequency.SimpleFrequency;
 import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
@@ -31,6 +28,7 @@ import com.opengamma.analytics.util.time.TenorUtils;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -358,9 +356,9 @@ public final class ScheduleCalculator {
    * @param calendar The holiday calendar.
    * @return The end dates.
    */
-  public static ZonedDateTime[] getAdjustedDate(final ZonedDateTime[] startDates, final IborIndex index, final HolidayCalendar calendar) {
-    final int nbDates = startDates.length;
-    final ZonedDateTime[] result = new ZonedDateTime[nbDates];
+  public static ZonedDateTime[] getAdjustedDate(ZonedDateTime[] startDates, IborIndex index, HolidayCalendar calendar) {
+    int nbDates = startDates.length;
+    ZonedDateTime[] result = new ZonedDateTime[nbDates];
     for (int loopdate = 0; loopdate < nbDates; loopdate++) {
       result[loopdate] = getAdjustedDate(startDates[loopdate], index, calendar);
     }
@@ -679,7 +677,7 @@ public final class ScheduleCalculator {
       boolean eomRule) {
 
     ArgChecker.notNull(scheduleFrequency, "Schedule frequency");
-    Period schedulePeriod = periodFromFrequency(scheduleFrequency);
+    Period schedulePeriod = scheduleFrequency.getPeriod();
     return getAdjustedDateSchedule(startDate, endDate, schedulePeriod, stubShort, fromEnd, convention, calendar, eomRule);
   }
 
@@ -745,23 +743,6 @@ public final class ScheduleCalculator {
         index.isEndOfMonth());
   }
 
-  /**
-   * Convert a Frequency to a Period when possible.
-   * @param frequency The frequency.
-   * @return The converted period.
-   */
-  private static Period periodFromFrequency(final Frequency frequency) {
-    PeriodFrequency periodFrequency;
-    if (frequency instanceof PeriodFrequency) {
-      periodFrequency = (PeriodFrequency) frequency;
-    } else if (frequency instanceof SimpleFrequency) {
-      periodFrequency = ((SimpleFrequency) frequency).toPeriodFrequency();
-    } else {
-      throw new IllegalArgumentException("For the moment can only deal with PeriodFrequency and SimpleFrequency");
-    }
-    return periodFrequency.getPeriod();
-  }
-
   // TODO: review the methods below.
 
   // -------------------------------------------------------------------------
@@ -814,15 +795,7 @@ public final class ScheduleCalculator {
     }
 
     // TODO what if there's no valid date between accrual date and maturity date?
-    PeriodFrequency periodFrequency;
-    if (frequency instanceof PeriodFrequency) {
-      periodFrequency = (PeriodFrequency) frequency;
-    } else if (frequency instanceof SimpleFrequency) {
-      periodFrequency = ((SimpleFrequency) frequency).toPeriodFrequency();
-    } else {
-      throw new IllegalArgumentException("For the moment can only deal with PeriodFrequency and SimpleFrequency");
-    }
-    Period period = periodFrequency.getPeriod();
+    Period period = frequency.getPeriod();
     List<ZonedDateTime> dates = new ArrayList<>();
     ZonedDateTime date = effectiveDate; // TODO this is only correct if effective date = accrual date
     date = date.plus(period);
@@ -888,15 +861,7 @@ public final class ScheduleCalculator {
       throw new IllegalArgumentException("Effective date was after maturity");
     }
 
-    PeriodFrequency periodFrequency;
-    if (frequency instanceof PeriodFrequency) {
-      periodFrequency = (PeriodFrequency) frequency;
-    } else if (frequency instanceof SimpleFrequency) {
-      periodFrequency = ((SimpleFrequency) frequency).toPeriodFrequency();
-    } else {
-      throw new IllegalArgumentException("For the moment can only deal with PeriodFrequency and SimpleFrequency");
-    }
-    Period period = periodFrequency.getPeriod();
+    Period period = frequency.getPeriod();
     List<ZonedDateTime> dates = new ArrayList<>();
     ZonedDateTime date = maturityDate;
 
@@ -1061,15 +1026,7 @@ public final class ScheduleCalculator {
       HolidayCalendar calendar,
       boolean isEOM) {
 
-    PeriodFrequency periodFrequency;
-    if (frequency instanceof PeriodFrequency) {
-      periodFrequency = (PeriodFrequency) frequency;
-    } else if (frequency instanceof SimpleFrequency) {
-      periodFrequency = ((SimpleFrequency) frequency).toPeriodFrequency();
-    } else {
-      throw new IllegalArgumentException("For the moment can only deal with PeriodFrequency and SimpleFrequency");
-    }
-    Period period = periodFrequency.getPeriod();
+    Period period = frequency.getPeriod();
     return getAdjustedDateSchedule(startDate, endDate, period, businessDayConvention, calendar, isEOM, true);
   }
 
@@ -1219,15 +1176,7 @@ public final class ScheduleCalculator {
     ArgChecker.notNull(calendar, "calendar");
     ArgChecker.notNull(frequency, "frequency");
 
-    PeriodFrequency periodFrequency;
-    if (frequency instanceof PeriodFrequency) {
-      periodFrequency = (PeriodFrequency) frequency;
-    } else if (frequency instanceof SimpleFrequency) {
-      periodFrequency = ((SimpleFrequency) frequency).toPeriodFrequency();
-    } else {
-      throw new IllegalArgumentException("For the moment can only deal with PeriodFrequency and SimpleFrequency");
-    }
-    Period period = periodFrequency.getPeriod();
+    Period period = frequency.getPeriod();
     int n = dates.length;
     ZonedDateTime[] results = new ZonedDateTime[n];
     results[0] = effectiveDate.plus(period);

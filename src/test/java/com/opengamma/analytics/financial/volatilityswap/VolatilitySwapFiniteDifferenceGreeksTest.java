@@ -16,7 +16,6 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.model.volatility.surface.SmileDeltaTermStructureParametersStrikeInterpolation;
@@ -28,6 +27,7 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -79,7 +79,8 @@ public class VolatilitySwapFiniteDifferenceGreeksTest {
     final MulticurveProviderDiscount curves = new MulticurveProviderDiscount(discountingCurves, new LinkedHashMap<>(),
         new LinkedHashMap<>(), fxMatrix);
     final CarrLeeFXData data = new CarrLeeFXData(Pair.of(base, counter), smile, curves);
-    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, Frequency.P1D,
+        timeToExpiry, spot, 1, base, base, counter, 252);
 
     final double[] greeks = cal.getFXVolatilitySwapGreeks(swap, data);
     final double[] greeksRange = calRange.getFXVolatilitySwapGreeks(swap, data);
@@ -117,7 +118,8 @@ public class VolatilitySwapFiniteDifferenceGreeksTest {
     final double volBumpedFVRange = swap.accept(baseCalRange, volBumpedData).getFairValue();
 
     final double bumpedTimeToExpiry = timeToExpiry - 1.0 / 252.0;
-    final FXVolatilitySwap timeBumpedSwap = new FXVolatilitySwap(-timeFromInception, bumpedTimeToExpiry, PeriodFrequency.DAILY, bumpedTimeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap timeBumpedSwap = new FXVolatilitySwap(-timeFromInception, bumpedTimeToExpiry, Frequency.P1D,
+        bumpedTimeToExpiry, spot, 1, base, base, counter, 252);
     final double timeBumpedFV = timeBumpedSwap.accept(baseCal, data).getFairValue();
     final double timeBumpedFVRange = timeBumpedSwap.accept(baseCalRange, data).getFairValue();
 
@@ -190,7 +192,8 @@ public class VolatilitySwapFiniteDifferenceGreeksTest {
     final MulticurveProviderDiscount curves = new MulticurveProviderDiscount(discountingCurves, new LinkedHashMap<>(),
         new LinkedHashMap<>(), fxMatrix);
     final CarrLeeFXData data = new CarrLeeFXData(Pair.of(base, counter), smile, curves, rv);
-    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, PeriodFrequency.DAILY, timeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap swap = new FXVolatilitySwap(-timeFromInception, timeToExpiry, Frequency.P1D, timeToExpiry, spot, 1,
+        base, base, counter, 252);
 
     final double[] greeks = cal.getFXVolatilitySwapGreeks(swap, data);
     final double[] greeksRange = calRange.getFXVolatilitySwapGreeks(swap, data);
@@ -228,7 +231,8 @@ public class VolatilitySwapFiniteDifferenceGreeksTest {
     final double volBumpedFVRange = swap.accept(baseCalRange, volBumpedData).getFairValue();
 
     final double bumpedTimeToExpiry = timeToExpiry - 1.0 / 252.0;
-    final FXVolatilitySwap timeBumpedSwap = new FXVolatilitySwap(-timeFromInception - 1.0 / 252.0, bumpedTimeToExpiry, PeriodFrequency.DAILY, bumpedTimeToExpiry, spot, 1, base, base, counter, 252);
+    final FXVolatilitySwap timeBumpedSwap = new FXVolatilitySwap(-timeFromInception - 1.0 / 252.0, bumpedTimeToExpiry,
+        Frequency.P1D, bumpedTimeToExpiry, spot, 1, base, base, counter, 252);
     final double timeBumpedFV = timeBumpedSwap.accept(baseCal, data).getFairValue();
     final double timeBumpedFVRange = timeBumpedSwap.accept(baseCalRange, data).getFairValue();
 

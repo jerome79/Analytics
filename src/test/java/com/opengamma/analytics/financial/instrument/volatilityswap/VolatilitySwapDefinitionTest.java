@@ -14,12 +14,12 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.AnalyticsTestBase;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.Frequency;
 
 
 /**
@@ -34,7 +34,7 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
   /** The maturity date */
   private static final ZonedDateTime T_PLUS_5Y = NOW.plusYears(5);
   /** The observation frequency */
-  private static final PeriodFrequency OBSERVATION_FREQUENCY = PeriodFrequency.DAILY;
+  private static final Frequency OBSERVATION_FREQUENCY = Frequency.P1D;
   /** The currency */
   private static final Currency CCY = Currency.EUR;
   /** The calendar */
@@ -56,7 +56,8 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
     super(VolatilitySwapDefinition.class,
         new Object[] {CCY, VOL_STRIKE, VOL_NOTIONAL, T_PLUS_2D, T_PLUS_5Y, NOW, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, WEEKENDS },
         new Class[] {Currency.class, double.class, double.class,
-          ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, PeriodFrequency.class, double.class, HolidayCalendar.class },
+            ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, Frequency.class, double.class,
+            HolidayCalendar.class},
         new boolean[] {true, false, false, true, true, true, true, true, false, true });
   }
 
@@ -159,7 +160,7 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWeeklyObservations() {
-    final PeriodFrequency freqWeek = PeriodFrequency.WEEKLY;
+    final Frequency freqWeek = Frequency.P1W;
     new VolatilitySwapDefinition(CCY, VOL_STRIKE, VOL_NOTIONAL, T_PLUS_2D, T_PLUS_5Y, T_PLUS_2D, T_PLUS_5Y, freqWeek, OBS_PER_YEAR, WEEKENDS);
   }
 }

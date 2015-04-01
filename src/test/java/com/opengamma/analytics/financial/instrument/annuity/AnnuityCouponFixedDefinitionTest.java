@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -26,6 +25,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.Frequency;
 
 
 /**
@@ -35,7 +35,7 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
 public class AnnuityCouponFixedDefinitionTest {
   //Semi-annual 2Y
   private static final Currency CUR = Currency.EUR;
-  private static final PeriodFrequency PAYMENT_FREQUENCY = PeriodFrequency.SEMI_ANNUAL;
+  private static final Frequency PAYMENT_FREQUENCY = Frequency.P6M;
   private static final Period PAYMENT_TENOR = Period.ofMonths(6);
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DayCount DAY_COUNT = DayCounts.THIRTY_U_360;
@@ -209,7 +209,9 @@ public class AnnuityCouponFixedDefinitionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testStaticConstructionNullPaymentFrequency() {
-    AnnuityCouponFixedDefinition.from(CUR, SETTLEMENT_DATE, MATURITY_DATE, (PeriodFrequency) null, CALENDAR, DAY_COUNT, BUSINESS_DAY, IS_EOM, NOTIONAL, RATE, IS_PAYER);
+    AnnuityCouponFixedDefinition.from(
+        CUR, SETTLEMENT_DATE, MATURITY_DATE, (Frequency) null, CALENDAR,
+        DAY_COUNT, BUSINESS_DAY, IS_EOM, NOTIONAL, RATE, IS_PAYER);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

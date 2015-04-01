@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -28,6 +27,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.Frequency;
 
 
 /**
@@ -45,7 +45,7 @@ public class SwapFixedIborDefinitionTest {
   private static final double NOTIONAL = 1000000;
   private static final ZonedDateTime MATURITY_DATE = ScheduleCalculator.getAdjustedDate(SETTLEMENT_DATE, ANNUITY_TENOR, BUSINESS_DAY, CALENDAR, IS_EOM);
   //Fixed leg: Semi-annual bond
-  private static final PeriodFrequency FIXED_PAYMENT_FREQUENCY = PeriodFrequency.SEMI_ANNUAL;
+  private static final Frequency FIXED_PAYMENT_FREQUENCY = Frequency.P6M;
   private static final DayCount FIXED_DAY_COUNT = DayCounts.THIRTY_U_360;
   private static final double RATE = 0.0325;
   private static final boolean FIXED_IS_PAYER = true;
@@ -53,7 +53,7 @@ public class SwapFixedIborDefinitionTest {
   private static final ZonedDateTime[] FIXED_PAYMENT_DATES = ScheduleCalculator.getAdjustedDateSchedule(FIXED_PAYMENT_DATES_UNADJUSTED, BUSINESS_DAY, CALENDAR);
   //Ibor leg: quarterly money
   private static final Period INDEX_TENOR = Period.ofMonths(3);
-  private static final PeriodFrequency INDEX_FREQUENCY = PeriodFrequency.QUARTERLY;
+  private static final Frequency INDEX_FREQUENCY = Frequency.P3M;
   private static final int SETTLEMENT_DAYS = 2;
   private static final DayCount DAY_COUNT = DayCounts.ACT_360;
   private static final Currency CUR = Currency.EUR;

@@ -7,9 +7,9 @@ package com.opengamma.analytics.financial.volatilityswap;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.frequency.PeriodFrequency;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -39,9 +39,18 @@ public class FXVolatilitySwap extends VolatilitySwap {
    * @param counterCurrency The counter currency, not null
    * @param annualizationFactor Number of business days per year
    */
-  public FXVolatilitySwap(final double timeToObservationStart, final double timeToObservationEnd, final PeriodFrequency observationFrequency,
-      final double timeToSettlement, final double volStrike, final double volNotional, final Currency currency, final Currency baseCurrency,
-      final Currency counterCurrency, final double annualizationFactor) {
+  public FXVolatilitySwap(
+      double timeToObservationStart,
+      double timeToObservationEnd,
+      Frequency observationFrequency,
+      double timeToSettlement,
+      double volStrike,
+      double volNotional,
+      Currency currency,
+      Currency baseCurrency,
+      Currency counterCurrency,
+      double annualizationFactor) {
+
     super(timeToObservationStart, timeToObservationEnd, observationFrequency, timeToSettlement, volStrike, volNotional, currency, annualizationFactor);
     ArgChecker.notNull(baseCurrency, "baseCurrency");
     ArgChecker.notNull(counterCurrency, "counterCurrency");
