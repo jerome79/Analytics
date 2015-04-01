@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
@@ -56,6 +55,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
@@ -92,7 +92,7 @@ public class GbpDatasetJuly16 {
   private static final AdjustedDateParameters ADJUSTED_DATE_ON = 
       new AdjustedDateParameters(LON, GENERATOR_OIS_GBP.getBusinessDayConvention());
   private static final OffsetAdjustedDateParameters OFFSET_FIXING = 
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, BusinessDayConventions.FOLLOWING);
 
   private static final String CURVE_NAME_DSC_GBP = "GBP-DSCON-OIS";
 

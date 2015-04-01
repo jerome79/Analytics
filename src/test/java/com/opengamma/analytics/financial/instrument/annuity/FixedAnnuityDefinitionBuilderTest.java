@@ -17,7 +17,6 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -49,6 +48,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
@@ -242,8 +242,8 @@ public class FixedAnnuityDefinitionBuilderTest {
     testStub("FixedAnnuityDefinitionBuilder - Stub - short start", LEG_STUB2, true, 3,
         START_DATE_STUB2, END_DATE_STUB2.minus(P1Y));
     testStub("FixedAnnuityDefinitionBuilder - Stub - short end", LEG_STUB3, false, 3,
-        ADJUSTED_DATE_USDLIBOR.getBusinessDayConvention().adjustDate(ADJUSTED_DATE_USDLIBOR.getCalendar(),
-            START_DATE_STUB3.plus(P1Y)), END_DATE_STUB3);
+        ADJUSTED_DATE_USDLIBOR.getBusinessDayConvention().adjust(START_DATE_STUB3.plus(P1Y),
+            ADJUSTED_DATE_USDLIBOR.getCalendar()), END_DATE_STUB3);
     testStub("FixedAnnuityDefinitionBuilder - Stub - long end", LEG_STUB4, false, 3,
         START_DATE_STUB4.plus(P1Y), END_DATE_STUB4);
   }

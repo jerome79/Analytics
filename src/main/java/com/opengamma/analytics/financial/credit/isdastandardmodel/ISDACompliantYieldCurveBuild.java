@@ -10,12 +10,12 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.NewtonRaphsonSingleRootFinder;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
@@ -151,7 +151,7 @@ public class ISDACompliantYieldCurveBuild {
       } else {
         ArgChecker.isTrue(matDates[i].isAfter(matDates[i - 1]), "tenors are not assending");
       }
-      adjMatDates[i] = convention.adjustDate(calendar, matDates[i]);
+      adjMatDates[i] = convention.adjust(matDates[i], calendar);
     }
 
     _t = new double[n];
@@ -317,7 +317,7 @@ public class ISDACompliantYieldCurveBuild {
       int j = _nPayments - 1;
       for (int i = 0; i < _nPayments; i++, j--) {
         final LocalDate current = list.get(j);
-        final LocalDate adjCurr = convention.adjustDate(calendar, current);
+        final LocalDate adjCurr = convention.adjust(current, calendar);
         _yearFraction[i] = swapDCC.getDayCountFraction(prev, adjCurr);
         _swapPaymentTimes[i] = curveDCC.getDayCountFraction(spotDate, adjCurr); // Payment times always good business days
         prev = adjCurr;

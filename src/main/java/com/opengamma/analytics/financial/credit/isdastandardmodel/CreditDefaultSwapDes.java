@@ -8,8 +8,8 @@ package com.opengamma.analytics.financial.credit.isdastandardmodel;
 import java.time.LocalDate;
 import java.time.Period;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 

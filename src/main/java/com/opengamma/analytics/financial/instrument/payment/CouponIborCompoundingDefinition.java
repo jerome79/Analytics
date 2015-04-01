@@ -14,7 +14,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -28,6 +28,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -384,9 +385,11 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
     final int nbSubPeriod = accrualEndDates.length;
     final ZonedDateTime[] accrualStartDates = new ZonedDateTime[nbSubPeriod];
     if (adjuster instanceof EndOfMonthRollDateAdjuster) {
-      accrualStartDates[0] = businessDayConvention.adjustDate(calendar, accrualStartDate.with(adjuster));
+      accrualStartDates[0] =
+          BusinessDayDateUtils.applyConvention(businessDayConvention, accrualStartDate.with(adjuster), calendar);
     } else {
-      accrualStartDates[0] = businessDayConvention.adjustDate(calendar, accrualStartDate);
+      accrualStartDates[0] =
+          BusinessDayDateUtils.applyConvention(businessDayConvention, accrualStartDate, calendar);
     }
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, nbSubPeriod - 1);
     final double[] paymentAccrualFactors = new double[nbSubPeriod];

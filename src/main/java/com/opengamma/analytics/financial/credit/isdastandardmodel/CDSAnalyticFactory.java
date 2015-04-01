@@ -10,10 +10,10 @@ import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtil
 import java.time.LocalDate;
 import java.time.Period;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.date.Tenor;
@@ -338,7 +338,7 @@ public class CDSAnalyticFactory {
   public CDSAnalytic makeCDX(final LocalDate tradeDate, final Period tenor) {
     ArgChecker.notNull(tradeDate, "tradeDate");
     ArgChecker.notNull(tenor, "tenor");
-    final LocalDate effectiveDate = _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar);
     final LocalDate roll = IMMDateLogic.getNextIndexRollDate(tradeDate);
     final LocalDate maturity = roll.plus(tenor).minusMonths(3);
     return makeCDS(tradeDate, effectiveDate, maturity);
@@ -358,7 +358,7 @@ public class CDSAnalyticFactory {
   public CDSAnalytic[] makeCDX(final LocalDate tradeDate, final Period[] tenors) {
     ArgChecker.notNull(tradeDate, "tradeDate");
     ArgChecker.noNulls(tenors, "tenors");
-    final LocalDate effectiveDate = _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar);
     final LocalDate mid = IMMDateLogic.getNextIndexRollDate(tradeDate).minusMonths(3);
     final LocalDate[] maturities = IMMDateLogic.getIMMDateSet(mid, tenors);
     return makeCDS(tradeDate, effectiveDate, maturities);
@@ -388,7 +388,7 @@ public class CDSAnalyticFactory {
   public CDSAnalytic makeIMMCDS(final LocalDate tradeDate, final Period tenor, final boolean makeEffBusDay) {
     ArgChecker.notNull(tradeDate, "tradeDate");
     ArgChecker.notNull(tenor, "tenor");
-    final LocalDate effectiveDate = makeEffBusDay ? _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate)) : IMMDateLogic.getPrevIMMDate(tradeDate);
+    final LocalDate effectiveDate = makeEffBusDay ? _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar) : IMMDateLogic.getPrevIMMDate(tradeDate);
     final LocalDate nextIMM = IMMDateLogic.getNextIMMDate(tradeDate);
     final LocalDate maturity = nextIMM.plus(tenor);
     return makeCDS(tradeDate, effectiveDate, maturity);
@@ -416,7 +416,7 @@ public class CDSAnalyticFactory {
    * @return An array of CDS analytic descriptions 
    */
   public CDSAnalytic[] makeIMMCDS(final LocalDate tradeDate, final Period[] tenors, final boolean makeEffBusDay) {
-    final LocalDate effectiveDate = makeEffBusDay ? _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate)) : IMMDateLogic.getPrevIMMDate(tradeDate);
+    final LocalDate effectiveDate = makeEffBusDay ? _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar) : IMMDateLogic.getPrevIMMDate(tradeDate);
     return makeIMMCDS(tradeDate, effectiveDate, tenors);
   }
 
@@ -523,7 +523,7 @@ public class CDSAnalyticFactory {
     ArgChecker.isFalse(forwardStartDate.isBefore(tradeDate), "forwardStartDate of {} is before trade date of {}", forwardStartDate, tradeDate);
     final LocalDate stepinDate = forwardStartDate.plusDays(_stepIn);
     final LocalDate valueDate = addWorkDays(forwardStartDate, _cashSettle, _calendar);
-    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(forwardStartDate));
+    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(forwardStartDate), _calendar);
     return makeCDS(tradeDate, stepinDate, valueDate, accStartDate, maturity);
   }
 
@@ -594,7 +594,7 @@ public class CDSAnalyticFactory {
     for (int i = 0; i <= termMatIndex; i++) {
       maturityIndexes[i] = i;
     }
-    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate));
+    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar);
     return makeMultiCDS(tradeDate, accStartDate, maturityReferanceDate, maturityIndexes);
   }
 
@@ -643,7 +643,7 @@ public class CDSAnalyticFactory {
    * @return A set of CDS represented as a MultiCDSAnalytic
    */
   public MultiCDSAnalytic makeMultiIMMCDS(final LocalDate tradeDate, final Period[] tenors) {
-    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate));
+    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar);
     return makeMultiIMMCDS(tradeDate, accStartDate, tenors);
   }
 
@@ -722,7 +722,7 @@ public class CDSAnalyticFactory {
    * @return  A set of CDS represented as a MultiCDSAnalytic
    */
   public MultiCDSAnalytic makeMultiIMMCDS(final LocalDate tradeDate, final int[] matIndices) {
-    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjustDate(_calendar, IMMDateLogic.getPrevIMMDate(tradeDate));
+    final LocalDate accStartDate = _businessdayAdjustmentConvention.adjust(IMMDateLogic.getPrevIMMDate(tradeDate), _calendar);
     return makeMultiIMMCDS(tradeDate, accStartDate, matIndices);
   }
 

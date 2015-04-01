@@ -15,13 +15,14 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
@@ -41,16 +42,19 @@ public class FederalFundsFutureSecurityTest {
   private static final BusinessDayConvention BUSINESS_DAY_FOLLOWING = BusinessDayConventions.FOLLOWING;
   private static final ZonedDateTime MARCH_1 = DateUtils.getUTCDate(2012, 3, 1);
   private static final ZonedDateTime APRIL_1 = DateUtils.getUTCDate(2012, 4, 1);
-  private static final ZonedDateTime LAST_TRADING_DATE = BUSINESS_DAY_PRECEDING.adjustDate(NYC, APRIL_1);
-  private static final ZonedDateTime PERIOD_FIRST_DATE = BUSINESS_DAY_FOLLOWING.adjustDate(NYC, MARCH_1);
-  private static final ZonedDateTime PERIOD_LAST_DATE = BUSINESS_DAY_FOLLOWING.adjustDate(NYC, APRIL_1.minusDays(1));
+  private static final ZonedDateTime LAST_TRADING_DATE =
+      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_PRECEDING, APRIL_1, NYC);
+  private static final ZonedDateTime PERIOD_FIRST_DATE =
+      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_FOLLOWING, MARCH_1, NYC);
+  private static final ZonedDateTime PERIOD_LAST_DATE =
+      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_FOLLOWING, APRIL_1.minusDays(1), NYC);
   private static final List<ZonedDateTime> FIXING_LIST = new ArrayList<>();
   private static final ZonedDateTime[] FIXING_DATE;
   static {
     ZonedDateTime date = PERIOD_FIRST_DATE;
     while (!date.isAfter(PERIOD_LAST_DATE)) {
       FIXING_LIST.add(date);
-      date = BUSINESS_DAY_FOLLOWING.adjustDate(NYC, date.plusDays(1));
+      date = BusinessDayDateUtils.applyConvention(BUSINESS_DAY_FOLLOWING, date.plusDays(1), NYC);
     }
     FIXING_DATE = FIXING_LIST.toArray(new ZonedDateTime[FIXING_LIST.size()]);
   }

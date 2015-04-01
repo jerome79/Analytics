@@ -48,7 +48,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
   @Test
   public void singleCDSTest() {
     final LocalDate tradeDate = LocalDate.of(2013, Month.AUGUST, 30);
-    final LocalDate effectiveDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate stepinDate = tradeDate.plusDays(1);
     final LocalDate valueDate = addWorkDays(tradeDate, 3, DEFAULT_CALENDAR);
     final LocalDate nextIMM = getNextIMMDate(tradeDate);
@@ -79,7 +79,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
   @Test
   public void multiCDSTest() {
     final LocalDate tradeDate = LocalDate.of(2013, Month.AUGUST, 30);
-    final LocalDate effectiveDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate stepinDate = tradeDate.plusDays(1);
     final LocalDate valueDate = addWorkDays(tradeDate, 3, DEFAULT_CALENDAR);
     final LocalDate nextIMM = getNextIMMDate(tradeDate);
@@ -136,7 +136,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
     final int nValDates = 41;
     final LocalDate tradeDate = LocalDate.of(2011, 6, 13);
     final LocalDate nextIMM = getNextIMMDate(tradeDate);
-    final LocalDate accStartDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate accStartDate = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate[] maturityDates = getIMMDateSet(nextIMM, nValDates); //maturity dates don't change (it is the same CDSs on each day of the scenario) 
 
     final double[] coupons = new double[nValDates];
@@ -185,7 +185,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
 
     final int nVals = 41;
 
-    final LocalDate accStart = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate accStart = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate nextIMM = isIMMDate(tradeDate) ? tradeDate : getNextIMMDate(tradeDate);
     final LocalDate[] maturities = getIMMDateSet(nextIMM, nVals);
     final CDSAnalytic[] cdsArray = FACTORY.makeCDS(tradeDate, accStart, maturities);
@@ -224,7 +224,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
     final double premium = 250. * 1.e-4;
 
     final LocalDate tradeDate = LocalDate.of(2013, Month.AUGUST, 30);
-    final LocalDate effectiveDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate stepinDate = tradeDate.plusDays(1);
     final LocalDate valueDate = addWorkDays(tradeDate, 3, DEFAULT_CALENDAR);
     final LocalDate nextIMM = getNextIMMDate(tradeDate);
@@ -290,7 +290,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
     final AnalyticCDSPricer sPricerFix = new AnalyticCDSPricer(form2);
 
     final LocalDate tradeDate = LocalDate.of(2013, Month.JANUARY, 31);
-    final LocalDate effectiveDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate stepinDate = tradeDate.plusDays(1);
     final LocalDate valueDate = addWorkDays(tradeDate, 3, DEFAULT_CALENDAR);
     final LocalDate nextIMM = getNextIMMDate(tradeDate);
@@ -341,7 +341,7 @@ public class MultiAnalyticPricerTest extends ISDABaseTest {
     final int hotspot = 1000;
 
     final LocalDate tradeDate = LocalDate.of(2013, Month.AUGUST, 30);
-    final LocalDate effectiveDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(tradeDate));
+    final LocalDate effectiveDate = FOLLOWING.adjust(getPrevIMMDate(tradeDate), DEFAULT_CALENDAR);
     final LocalDate stepinDate = tradeDate.plusDays(1);
     final LocalDate valueDate = addWorkDays(tradeDate, 3, DEFAULT_CALENDAR);
     final LocalDate nextIMM = getNextIMMDate(tradeDate);

@@ -13,8 +13,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -37,6 +36,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
@@ -87,7 +88,8 @@ public class BondinterestIndexedSecurityDefinitionTest {
    */
   public void constructorBondsWithFirstCouponDate() {
     // Nominal construction
-    final PaymentFixedDefinition nominalPayment = new PaymentFixedDefinition(PRICE_INDEX_UKRPI.getCurrency(), BUSINESS_DAY_GBP.adjustDate(CALENDAR_GBP, MATURITY_DATE_1), NOTIONAL_1);
+    final PaymentFixedDefinition nominalPayment = new PaymentFixedDefinition(PRICE_INDEX_UKRPI.getCurrency(),
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GBP, MATURITY_DATE_1, CALENDAR_GBP), NOTIONAL_1);
     final AnnuityDefinition<PaymentFixedDefinition> nominalAnnuity = new AnnuityDefinition<>(new PaymentFixedDefinition[] {nominalPayment }, CALENDAR_GBP);
     // Coupon construction
     final ZonedDateTime[] paymentDatesUnadjusted = ScheduleCalculator.getUnadjustedDateSchedule(FIRST_COUPON_DATE_1, MATURITY_DATE_1, COUPON_PERIOD_1,
@@ -118,7 +120,8 @@ public class BondinterestIndexedSecurityDefinitionTest {
    */
   public void constructorBondsWithoutFirstCouponDate() {
     // Nominal construction
-    final PaymentFixedDefinition nominalPayment = new PaymentFixedDefinition(PRICE_INDEX_UKRPI.getCurrency(), BUSINESS_DAY_GBP.adjustDate(CALENDAR_GBP, MATURITY_DATE_1), NOTIONAL_1);
+    final PaymentFixedDefinition nominalPayment = new PaymentFixedDefinition(PRICE_INDEX_UKRPI.getCurrency(),
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GBP, MATURITY_DATE_1, CALENDAR_GBP), NOTIONAL_1);
     final AnnuityDefinition<PaymentFixedDefinition> nominalAnnuity = new AnnuityDefinition<>(new PaymentFixedDefinition[] {nominalPayment }, CALENDAR_GBP);
     // Coupon construction
     final ZonedDateTime[] paymentDatesUnadjusted = ScheduleCalculator.getUnadjustedDateSchedule(START_DATE_1, MATURITY_DATE_1, COUPON_PERIOD_1,

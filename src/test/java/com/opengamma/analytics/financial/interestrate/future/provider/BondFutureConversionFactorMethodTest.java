@@ -12,8 +12,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -21,6 +20,8 @@ import com.opengamma.analytics.convention.yield.YieldConventionFactory;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
@@ -102,8 +103,9 @@ public class BondFutureConversionFactorMethodTest {
   }
 
   private static final ZonedDateTime[] FIRST_DELIVERY_DATE_UNADJUSTED_BUXL = new ZonedDateTime[] {DateUtils.getUTCDate(2012, 3, 10), DateUtils.getUTCDate(2012, 6, 10)};
-  private static final ZonedDateTime[] FIRST_DELIVERY_DATE_BUXL = new ZonedDateTime[] {BUSINESS_DAY_GER.adjustDate(TARGET, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[0]),
-      BUSINESS_DAY_GER.adjustDate(TARGET, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[1])};
+  private static final ZonedDateTime[] FIRST_DELIVERY_DATE_BUXL = new ZonedDateTime[] {
+      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GER, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[0], TARGET),
+      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GER, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[1], TARGET)};
 
   @Test
   public void conversionFactorEuronext() {

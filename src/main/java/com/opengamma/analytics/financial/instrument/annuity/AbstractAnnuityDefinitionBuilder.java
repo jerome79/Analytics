@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
@@ -215,8 +216,10 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
       if (provider.getDates() == null) {
         ArrayList<ZonedDateTime> list = new ArrayList<>();
         if (isExchangeInitialNotional()) {
-          ZonedDateTime startDate = getStartDateAdjustmentParameters().getBusinessDayConvention().adjustDate(
-              getStartDateAdjustmentParameters().getCalendar(), getStartDate());
+          ZonedDateTime startDate = BusinessDayDateUtils.applyConvention(
+              getStartDateAdjustmentParameters().getBusinessDayConvention(),
+              getStartDate(),
+              getStartDateAdjustmentParameters().getCalendar());
           list.add(startDate);
         }
         int nDates = dates.length;
@@ -224,8 +227,10 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
           list.add(dates[i]);
         }
         if (isExchangeFinalNotional()) {
-          ZonedDateTime endDate = getEndDateAdjustmentParameters().getBusinessDayConvention().adjustDate(
-              getEndDateAdjustmentParameters().getCalendar(), getEndDate());
+          ZonedDateTime endDate = BusinessDayDateUtils.applyConvention(
+              getEndDateAdjustmentParameters().getBusinessDayConvention(),
+              getEndDate(),
+              getEndDateAdjustmentParameters().getCalendar());
           list.add(endDate);
         }
         _notional = provider.withZonedDateTime(list);
@@ -540,7 +545,10 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     if (!_exchangeInitialNotional) {
       return null;
     }
-    ZonedDateTime startDate = getStartDateAdjustmentParameters().getBusinessDayConvention().adjustDate(getStartDateAdjustmentParameters().getCalendar(), getStartDate());
+    ZonedDateTime startDate = BusinessDayDateUtils.applyConvention(
+        getStartDateAdjustmentParameters().getBusinessDayConvention(),
+        getStartDate(),
+        getStartDateAdjustmentParameters().getCalendar());
     
     return new CouponFixedDefinition(
         _currency,
@@ -553,7 +561,10 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   }
   
   protected CouponFixedDefinition getExchangeFinalNotionalCoupon() {
-    ZonedDateTime endDate = getEndDateAdjustmentParameters().getBusinessDayConvention().adjustDate(getEndDateAdjustmentParameters().getCalendar(), getEndDate());
+    ZonedDateTime endDate = BusinessDayDateUtils.applyConvention(
+        getEndDateAdjustmentParameters().getBusinessDayConvention(),
+        getEndDate(),
+        getEndDateAdjustmentParameters().getCalendar());
     
     return new CouponFixedDefinition(_currency,
         endDate, // payment

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -30,6 +30,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -404,7 +405,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     double paymentAccrualFactor = index.getDayCount().getDayCountFraction(accrualStartDate, paymentDate, accrualCalendar);
     
     // TODO this should not be calculating adjusted payment date from unadjusted accrual dates
-    paymentDate = accrualBusinessDayConvention.adjustDate(accrualCalendar, paymentDate);
+    paymentDate = BusinessDayDateUtils.applyConvention(accrualBusinessDayConvention, paymentDate, accrualCalendar);
     
     ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(
           accrualStartDate,

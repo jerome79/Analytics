@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -288,7 +288,7 @@ public class ISDAPremiumLegSchedule {
     ArgChecker.notNull(calendar, "HolidayCalendar");
     ArgChecker.notNull(convention, "Business day adjustment");
 
-    return convention.adjustDate(calendar, date);
+    return convention.adjust(date, calendar);
   }
 
 }

@@ -9,6 +9,7 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedCompoundingDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
@@ -136,8 +137,10 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
         stubType = StubType.NONE;
       }
 
-      final ZonedDateTime adjustedEndDate = getAccrualPeriodAdjustmentParameters().getBusinessDayConvention().adjustDate(
-          getAccrualPeriodAdjustmentParameters().getCalendar(), getEndDate());
+      final ZonedDateTime adjustedEndDate = BusinessDayDateUtils.applyConvention(
+          getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+          getEndDate(),
+          getAccrualPeriodAdjustmentParameters().getCalendar());
       ZonedDateTime paymentDate = getPaymentDates(new ZonedDateTime[] {adjustedEndDate })[0];
 
       if (noCompounding) {

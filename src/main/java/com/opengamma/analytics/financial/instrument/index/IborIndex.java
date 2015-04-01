@@ -9,9 +9,9 @@ import java.time.Period;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

@@ -14,8 +14,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
 import com.opengamma.analytics.convention.daycount.AbstractDayCount;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
@@ -36,6 +34,8 @@ import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborSpreadDefi
 import com.opengamma.analytics.financial.instrument.swap.SwapIborIborDefinition;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
@@ -47,7 +47,7 @@ public class InstrumentTestHelper {
   public static final HolidayCalendar NO_HOLIDAY = HolidayCalendars.NO_HOLIDAYS;
   public static final DayCount SEMI_ANNUAL_DAY_COUNT = new SemiAnnualDayCount();
   public static final DayCount QUARTERLY_DAY_COUNT = new QuarterlyDayCount();
-  public static final BusinessDayConvention NONE = BusinessDayConventions.NONE;
+  public static final BusinessDayConvention NONE = BusinessDayConventions.NO_ADJUST;
   public static final Currency FIXED_INCOME_CURRENCY = Currency.EUR;
   public static final IborIndex USD_IBOR_INDEX1 = new IborIndex(FIXED_INCOME_CURRENCY, Period.ofMonths(6), 0, SEMI_ANNUAL_DAY_COUNT, NONE, false,
       "f");

@@ -58,7 +58,7 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
 
   @Test
   public void test() {
-    final LocalDate accStart = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(TRADE_DATE));
+    final LocalDate accStart = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR);
     final CDSAnalytic cds = CDS_FACTORY.makeCDS(TRADE_DATE, accStart, MATURITY);
     final double cdsCoupon = 0.01;
 
@@ -105,7 +105,7 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void constHazardRateTest() {
     final ISDACompliantCreditCurve flatCC = new ISDACompliantCreditCurve(5.0, 0.02);
-    final LocalDate accStart = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(TRADE_DATE));
+    final LocalDate accStart = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR);
     final CDSAnalytic cds = CDS_FACTORY.makeCDS(TRADE_DATE, accStart, MATURITY);
     final double cdsCoupon = 0.01;
 
@@ -118,7 +118,7 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
 
   @Test
   public void lessCDStest() {
-    final LocalDate accStart = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(TRADE_DATE));
+    final LocalDate accStart = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR);
     final CDSAnalytic cds = CDS_FACTORY.makeCDS(TRADE_DATE, accStart, MATURITY);
     final double cdsCoupon = 0.01;
 

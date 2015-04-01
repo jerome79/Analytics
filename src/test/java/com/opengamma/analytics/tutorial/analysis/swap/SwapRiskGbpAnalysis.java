@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
@@ -57,6 +56,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -81,9 +81,10 @@ public class SwapRiskGbpAnalysis {
       new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, LON, GBP6MLIBOR6M.getBusinessDayConvention());
   private static final AdjustedDateParameters ADJUSTED_DATE_SONIA = new AdjustedDateParameters(LON, GENERATOR_OIS_GBP.getBusinessDayConvention());
   private static final OffsetAdjustedDateParameters OFFSET_PAY_SONIA =
-      new OffsetAdjustedDateParameters(GENERATOR_OIS_GBP.getPaymentLag(), OffsetType.BUSINESS, LON, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(GENERATOR_OIS_GBP.getPaymentLag(), OffsetType.BUSINESS, LON,
+          BusinessDayConventions.FOLLOWING);
   private static final OffsetAdjustedDateParameters OFFSET_FIX_SONIA =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, BusinessDayConventions.FOLLOWING);
 
   /** GBP Fixed v SONIA */
   private static final LocalDate EFFECTIVE_DATE_1 = LocalDate.of(2014, 11, 6);

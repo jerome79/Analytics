@@ -14,10 +14,10 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.ImmutableList;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.date.ImmutableHolidayCalendar;
@@ -78,7 +78,7 @@ public class ConventionTest {
     assertFalse(CONVENTION.equals(other));
     other = new Convention(SETTLEMENT_DAYS, DayCounts.ACT_365, BUSINESS_DAY, CALENDAR, NAME);
     assertFalse(CONVENTION.equals(other));
-    other = new Convention(SETTLEMENT_DAYS, DAY_COUNT, BusinessDayConventions.NONE, CALENDAR, NAME);
+    other = new Convention(SETTLEMENT_DAYS, DAY_COUNT, BusinessDayConventions.NO_ADJUST, CALENDAR, NAME);
     assertFalse(CONVENTION.equals(other));
     other = new Convention(SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY,
         ImmutableHolidayCalendar.of("NoWorkingDays", ImmutableList.of(), Arrays.asList(DayOfWeek.values())), NAME);

@@ -11,8 +11,6 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
@@ -23,6 +21,8 @@ import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDatePa
 import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -70,9 +70,9 @@ public class GeneratorLegONCompounded extends GeneratorLegONAbstract {
     };
     AdjustedDateParameters adjustedDateIndex = new AdjustedDateParameters(getIndexCalendar(), getBusinessDayConvention());
     OffsetAdjustedDateParameters offsetFixing = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, getIndexCalendar(),
-        BusinessDayConventionFactory.of("Following"));
+        BusinessDayConventions.FOLLOWING);
     OffsetAdjustedDateParameters offsetPayment = new OffsetAdjustedDateParameters(getPaymentOffset(), OffsetType.BUSINESS, 
-        getPaymentCalendar(), BusinessDayConventionFactory.of("Following"));
+        getPaymentCalendar(), BusinessDayConventions.FOLLOWING);
     AnnuityDefinition<?> leg = new FloatingAnnuityDefinitionBuilder().
         payer(false).notional(notionalProvider).startDate(startDate.toLocalDate()).endDate(endDate.toLocalDate()).
         index(getIndexON()).accrualPeriodFrequency(getPaymentPeriod()).

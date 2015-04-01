@@ -134,7 +134,7 @@ public class CDSAnalyticsDemo extends ISDABaseTest {
     //standard CDS settings 
     final LocalDate stepinDate = TRADE_DATE.plusDays(1); // 1-Jul-2014
     final LocalDate cashSettleDate = addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR); // 3-Jul-2014
-    final LocalDate accStartDate = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(TRADE_DATE)); // 20-Jun-2014
+    final LocalDate accStartDate = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR); // 20-Jun-2014
     final LocalDate endDate = getNextIMMDate(TRADE_DATE).plus(cdsTerm); // 20-Sep-2019
 
     final boolean payAccOnDefault = true;

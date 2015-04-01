@@ -8,6 +8,7 @@ package com.opengamma.analytics.convention.businessday;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -26,6 +27,25 @@ public class BusinessDayDateUtils {
   }
 
   // -------------------------------------------------------------------------
+  /**
+   * Adjusts a {@code ZonedDateTime} based on the 
+   * 
+   * @param convention  the business day conention
+   * @param zdt  the date and time to adjust
+   * @param calendar  the calendar of holidays
+   * @return the adjusted date-time
+   */
+  public static ZonedDateTime applyConvention(
+      BusinessDayConvention convention,
+      ZonedDateTime zdt,
+      HolidayCalendar calendar) {
+
+    ArgChecker.notNull(convention, "convention");
+    ArgChecker.notNull(zdt, "dateTime");
+    ArgChecker.notNull(calendar, "holidayCalendar");
+    return zdt.with(convention.adjust(zdt.toLocalDate(), calendar));
+  }
+
   /**
    * Add a certain number of working days (defined by the holidayCalendar) to a date
    * @param startDate The start date

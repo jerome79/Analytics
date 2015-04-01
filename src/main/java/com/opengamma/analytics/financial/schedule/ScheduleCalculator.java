@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.financial.schedule;
 
+import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.applyConvention;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
@@ -16,9 +18,6 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.FollowingBusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.PrecedingBusinessDayConvention;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.frequency.Frequency;
 import com.opengamma.analytics.convention.frequency.PeriodFrequency;
@@ -30,6 +29,8 @@ import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TenorUtils;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -170,7 +171,7 @@ public final class ScheduleCalculator {
     ArgChecker.notNull(calendar, "calendar");
     ArgChecker.notNull(tenor, "tenor");
     final ZonedDateTime endDate = startDate.plus(tenor); // Unadjusted date.
-    return convention.adjustDate(calendar, endDate); // Adjusted by Business day convention
+    return applyConvention(convention, endDate, calendar); // Adjusted by Business day convention
   }
 
   /**
@@ -194,10 +195,10 @@ public final class ScheduleCalculator {
     // Adjusted to month-end: when start date is last business day of the month, the end date is the last business day of the month.
     final boolean isStartDateEOM = (startDate.getMonth() != getAdjustedDate(startDate, 1, calendar).getMonth());
     if ((tenor.getDays() == 0) & (endOfMonthRule) & (isStartDateEOM)) {
-      final BusinessDayConvention preceding = new PrecedingBusinessDayConvention();
-      return preceding.adjustDate(calendar, endDate.with(TemporalAdjusters.lastDayOfMonth()));
+      final BusinessDayConvention preceding = BusinessDayConventions.PRECEDING;
+      return applyConvention(preceding, endDate.with(TemporalAdjusters.lastDayOfMonth()), calendar);
     }
-    return convention.adjustDate(calendar, endDate); // Adjusted by Business day convention
+    return applyConvention(convention, endDate, calendar); // Adjusted by Business day convention
   }
 
   /**
@@ -227,8 +228,8 @@ public final class ScheduleCalculator {
     if (rollDateAdjuster instanceof EndOfMonthRollDateAdjuster) {
       final boolean isStartDateEOM = (startDate.getMonth() != getAdjustedDate(startDate, 1, calendar).getMonth());
       if ((period.getDays() == 0) && isStartDateEOM) {
-        final BusinessDayConvention preceding = new PrecedingBusinessDayConvention();
-        return preceding.adjustDate(calendar, endDate.with(TemporalAdjusters.lastDayOfMonth()));
+        final BusinessDayConvention preceding = BusinessDayConventions.PRECEDING;
+        return applyConvention(preceding, endDate.with(TemporalAdjusters.lastDayOfMonth()), calendar);
       }
     } else if (rollDateAdjuster != null) {
       /*
@@ -240,7 +241,7 @@ public final class ScheduleCalculator {
         endDate = rolledEndDate;
       }
     }
-    return convention.adjustDate(calendar, endDate); // Adjusted by Business day convention
+    return applyConvention(convention, endDate, calendar); // Adjusted by Business day convention
   }
 
   /**
@@ -267,10 +268,10 @@ public final class ScheduleCalculator {
     // Adjusted to month-end: when start date is last business day of the month, the end date is the last business day of the month.
     final boolean isStartDateEOM = (startDate.getMonth() != getAdjustedDate(startDate, 1, calendar).getMonth());
     if ((tenor.getPeriod().getDays() == 0) & (endOfMonthRule) & (isStartDateEOM)) {
-      final BusinessDayConvention preceding = new PrecedingBusinessDayConvention();
-      return preceding.adjustDate(calendar, endDate.with(TemporalAdjusters.lastDayOfMonth()));
+      final BusinessDayConvention preceding = BusinessDayConventions.PRECEDING;
+      return applyConvention(preceding, endDate.with(TemporalAdjusters.lastDayOfMonth()), calendar);
     }
-    return convention.adjustDate(calendar, endDate); // Adjusted by Business day convention
+    return applyConvention(convention, endDate, calendar); // Adjusted by Business day convention
   }
 
   /**
@@ -427,14 +428,14 @@ public final class ScheduleCalculator {
       final boolean eomApply) {
     final ZonedDateTime[] result = new ZonedDateTime[dates.length];
     if (eomApply) {
-      final BusinessDayConvention precedingDBC = new PrecedingBusinessDayConvention(); //To ensure that the date stays in the current month.
+      final BusinessDayConvention precedingDBC = BusinessDayConventions.PRECEDING; //To ensure that the date stays in the current month.
       for (int loopdate = 0; loopdate < dates.length; loopdate++) {
-        result[loopdate] = precedingDBC.adjustDate(calendar, dates[loopdate].with(TemporalAdjusters.lastDayOfMonth()));
+        result[loopdate] = applyConvention(precedingDBC, dates[loopdate].with(TemporalAdjusters.lastDayOfMonth()), calendar);
       }
       return result;
     }
     for (int loopdate = 0; loopdate < dates.length; loopdate++) {
-      result[loopdate] = convention.adjustDate(calendar, dates[loopdate]);
+      result[loopdate] = applyConvention(convention, dates[loopdate], calendar);
     }
     return result;
   }
@@ -443,19 +444,19 @@ public final class ScheduleCalculator {
       final boolean eomApply, final RollDateAdjuster adjuster) {
     final ZonedDateTime[] result = new ZonedDateTime[dates.length];
     if (eomApply) {
-      final BusinessDayConvention precedingDBC = new PrecedingBusinessDayConvention(); //To ensure that the date stays in the current month.
+      final BusinessDayConvention precedingDBC = BusinessDayConventions.PRECEDING; //To ensure that the date stays in the current month.
       for (int loopdate = 0; loopdate < dates.length; loopdate++) {
-        result[loopdate] = precedingDBC.adjustDate(calendar, dates[loopdate].with(TemporalAdjusters.lastDayOfMonth()));
+        result[loopdate] = applyConvention(precedingDBC, dates[loopdate].with(TemporalAdjusters.lastDayOfMonth()), calendar);
       }
       return result;
     }
     if (adjuster != null && !(adjuster instanceof EndOfMonthRollDateAdjuster)) {
       for (int loopdate = 0; loopdate < dates.length; loopdate++) {
-        result[loopdate] = convention.adjustDate(calendar, dates[loopdate].with(adjuster));
+        result[loopdate] = applyConvention(convention, dates[loopdate].with(adjuster), calendar);
       }
     } else {
       for (int loopdate = 0; loopdate < dates.length; loopdate++) {
-        result[loopdate] = convention.adjustDate(calendar, dates[loopdate]);
+        result[loopdate] = applyConvention(convention, dates[loopdate], calendar);
       }
     }
     // TODO workaround for PLAT-5695
@@ -546,7 +547,7 @@ public final class ScheduleCalculator {
         ZonedDateTime[] adj = getAdjustedDateSchedule(unadjustedDateSchedule, convention, calendar, eomApply, adjuster);
         // ensure date is not rolled beyond end date
         if (adj.length > 0 && adj[adj.length - 1].isAfter(endDate)) {
-          adj[adj.length - 1] = convention.adjustDate(calendar, endDate);
+          adj[adj.length - 1] = applyConvention(convention, endDate, calendar);
         }
         return adj;
       }
@@ -801,7 +802,7 @@ public final class ScheduleCalculator {
     final int n = dates.length;
     final ZonedDateTime[] result = new ZonedDateTime[n];
     for (int i = 0; i < n; i++) {
-      ZonedDateTime date = convention.adjustDate(calendar, dates[i]);
+      ZonedDateTime date = applyConvention(convention, dates[i], calendar);
       if (settlementDays > 0) {
         for (int loopday = 0; loopday < settlementDays; loopday++) {
           date = date.plusDays(1);
@@ -827,7 +828,7 @@ public final class ScheduleCalculator {
     ArgChecker.notNull(convention, "convention");
     ArgChecker.notNull(calendar, "calendar");
 
-    ZonedDateTime date = convention.adjustDate(calendar, originalDate);
+    ZonedDateTime date = applyConvention(convention, originalDate, calendar);
     if (offset > 0) {
       for (int loopday = 0; loopday < offset; loopday++) {
         date = date.plusDays(1);
@@ -863,25 +864,25 @@ public final class ScheduleCalculator {
       final BusinessDayConvention businessDayConvention, final HolidayCalendar calendar, final boolean isEOM, final boolean stubShort) {
     boolean eomApply = false;
     if (isEOM) {
-      final BusinessDayConvention following = new FollowingBusinessDayConvention();
-      eomApply = (following.adjustDate(calendar, startDate.plusDays(1)).getMonth() != startDate.getMonth());
+      final BusinessDayConvention following = BusinessDayConventions.FOLLOWING;
+      eomApply = (following.adjust(startDate.toLocalDate().plusDays(1), calendar).getMonth() != startDate.getMonth());
     }
     // When the end-of-month rule applies and the start date is on month-end, the dates are the last business day of the month.
     BusinessDayConvention actualBDC;
     final List<ZonedDateTime> adjustedDates = new ArrayList<>();
     ZonedDateTime date = startDate;
     if (eomApply) {
-      actualBDC = new PrecedingBusinessDayConvention(); //To ensure that the date stays in the current month.
+      actualBDC = BusinessDayConventions.PRECEDING; //To ensure that the date stays in the current month.
       date = date.plus(period).with(TemporalAdjusters.lastDayOfMonth());
       while (date.isBefore(endDate)) { // date is strictly before endDate
-        adjustedDates.add(actualBDC.adjustDate(calendar, date));
+        adjustedDates.add(applyConvention(actualBDC, date, calendar));
         date = date.plus(period).with(TemporalAdjusters.lastDayOfMonth());
       }
     } else {
       actualBDC = businessDayConvention;
       date = date.plus(period);
       while (date.isBefore(endDate)) { // date is strictly before endDate
-        adjustedDates.add(businessDayConvention.adjustDate(calendar, date));
+        adjustedDates.add(applyConvention(businessDayConvention, date, calendar));
         date = date.plus(period);
       }
     }
@@ -889,7 +890,7 @@ public final class ScheduleCalculator {
     if (!stubShort && adjustedDates.size() >= 1) {
       adjustedDates.remove(adjustedDates.size() - 1);
     }
-    adjustedDates.add(actualBDC.adjustDate(calendar, endDate)); // the end date
+    adjustedDates.add(applyConvention(actualBDC, endDate, calendar)); // the end date
     return adjustedDates.toArray(EMPTY_ARRAY);
   }
 
@@ -968,9 +969,9 @@ public final class ScheduleCalculator {
     final int n = dates.length;
     final ZonedDateTime[] result = new ZonedDateTime[n];
     for (int i = 0; i < n; i++) {
-      ZonedDateTime date = businessDayConvention.adjustDate(calendar, dates[i].plusDays(1));
+      ZonedDateTime date = applyConvention(businessDayConvention, dates[i].plusDays(1), calendar);
       for (int j = 0; j < settlementDays; j++) {
-        date = businessDayConvention.adjustDate(calendar, date.plusDays(1));
+        date = applyConvention(businessDayConvention, date.plusDays(1), calendar);
       }
       result[i] = date;
     }
@@ -984,9 +985,9 @@ public final class ScheduleCalculator {
     final int n = dates.length;
     final LocalDate[] result = new LocalDate[n];
     for (int i = 0; i < n; i++) {
-      LocalDate date = businessDayConvention.adjustDate(calendar, dates[i].plusDays(1));
+      LocalDate date = businessDayConvention.adjust(dates[i].plusDays(1), calendar);
       for (int j = 0; j < settlementDays; j++) {
-        date = businessDayConvention.adjustDate(calendar, date.plusDays(1));
+        date = businessDayConvention.adjust(date.plusDays(1), calendar);
       }
       result[i] = date;
     }
@@ -1004,7 +1005,7 @@ public final class ScheduleCalculator {
     final ZonedDateTime[] result = new ZonedDateTime[n];
     result[0] = effectiveDate;
     for (int i = 1; i < n; i++) {
-      result[i] = convention.adjustDate(calendar, dates[i - 1].minusDays(settlementDays));
+      result[i] = applyConvention(convention, dates[i - 1].minusDays(settlementDays), calendar);
     }
     return result;
   }
@@ -1030,7 +1031,7 @@ public final class ScheduleCalculator {
     final ZonedDateTime[] results = new ZonedDateTime[n];
     results[0] = effectiveDate.plus(period);
     for (int i = 1; i < n; i++) {
-      results[i] = convention.adjustDate(calendar, dates[i - 1].plus(period)); // TODO need to further shift these dates by a convention
+      results[i] = applyConvention(convention, dates[i - 1].plus(period), calendar); // TODO need to further shift these dates by a convention
     }
 
     return results;

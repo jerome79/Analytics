@@ -14,8 +14,7 @@ import java.util.List;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
-import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -23,6 +22,8 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.FederalF
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
@@ -116,14 +117,17 @@ public class FederalFundsFutureSecurityDefinition extends FuturesSecurityDefinit
       final String name, final HolidayCalendar calendar) {
     ArgChecker.notNull(monthDate, "Reference date");
     ArgChecker.notNull(index, "Index overnight");
-    final ZonedDateTime periodFirstDate = BUSINESS_DAY_FOLLOWING.adjustDate(calendar, monthDate.withDayOfMonth(1));
-    final ZonedDateTime periodLastDate = BUSINESS_DAY_FOLLOWING.adjustDate(calendar, monthDate.withDayOfMonth(1).plusMonths(1));
-    final ZonedDateTime last = BUSINESS_DAY_PRECEDING.adjustDate(calendar, periodLastDate.minusDays(1));
+    final ZonedDateTime periodFirstDate =
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY_FOLLOWING, monthDate.withDayOfMonth(1), calendar);
+    final ZonedDateTime periodLastDate =
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY_FOLLOWING, monthDate.withDayOfMonth(1).plusMonths(1), calendar);
+    final ZonedDateTime last =
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY_PRECEDING, periodLastDate.minusDays(1), calendar);
     final List<ZonedDateTime> fixingList = new ArrayList<>();
     ZonedDateTime date = periodFirstDate;
     while (!date.isAfter(periodLastDate)) {
       fixingList.add(date);
-      date = BUSINESS_DAY_FOLLOWING.adjustDate(calendar, date.plusDays(1));
+      date = BusinessDayDateUtils.applyConvention(BUSINESS_DAY_FOLLOWING, date.plusDays(1), calendar);
     }
     final ZonedDateTime[] fixingDate = fixingList.toArray(new ZonedDateTime[fixingList.size()]);
     final double[] fixingAccrualFactor = new double[fixingDate.length - 1];

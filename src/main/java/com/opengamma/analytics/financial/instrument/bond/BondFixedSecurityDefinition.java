@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.convention.StubType;
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.AccruedInterestCalculator;
 import com.opengamma.analytics.convention.daycount.ActualActualICMA;
 import com.opengamma.analytics.convention.daycount.ActualActualICMANormal;
@@ -31,6 +31,7 @@ import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -214,8 +215,9 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
       coupon = AnnuityCouponFixedDefinition.fromAccrualUnadjusted(currency, firstAccrualDate, maturityDate, paymentPeriod, true, true, calendar, dayCount, businessDay,
           isEOM, DEFAULT_NOTIONAL, rate, false);
     }
-    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(currency, businessDay.adjustDate(calendar, maturityDate),
-        DEFAULT_NOTIONAL) };
+    ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
+    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
+        new PaymentFixedDefinition(currency, adjusted, DEFAULT_NOTIONAL)};
     final AnnuityPaymentFixedDefinition nominal = new AnnuityPaymentFixedDefinition(nominalPayment, calendar);
     return new BondFixedSecurityDefinition(nominal, coupon, DEFAULT_EX_COUPON_DAYS, settlementDays, calendar, dayCount, yieldConvention, couponPerYear, isEOM, issuer);
   }
@@ -290,12 +292,14 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
     final CouponFixedDefinition[] couponAfterFirst = AnnuityCouponFixedDefinition.fromAccrualUnadjusted(currency, firstCouponDate, maturityDate, paymentPeriod, couponPerYear, true, true, calendar,
         dayCount, businessDay, isEOM, DEFAULT_NOTIONAL, rate, false).getPayments();
     final CouponFixedDefinition[] allCoupons = new CouponFixedDefinition[couponAfterFirst.length + 1];
-    allCoupons[0] = new CouponFixedDefinition(currency, businessDay.adjustDate(calendar, firstCouponDate), firstAccrualDate, firstCouponDate, firstCouponAccrual, DEFAULT_NOTIONAL,
+    ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, firstCouponDate, calendar);
+    allCoupons[0] = new CouponFixedDefinition(currency, adjusted, firstAccrualDate, firstCouponDate, firstCouponAccrual, DEFAULT_NOTIONAL,
         rate);
     System.arraycopy(couponAfterFirst, 0, allCoupons, 1, couponAfterFirst.length);
     final AnnuityCouponFixedDefinition coupons = new AnnuityCouponFixedDefinition(allCoupons, calendar);
-    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(currency, businessDay.adjustDate(calendar, maturityDate),
-        DEFAULT_NOTIONAL) };
+    ZonedDateTime adjusted2 = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
+    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
+        new PaymentFixedDefinition(currency, adjusted2, DEFAULT_NOTIONAL)};
     final AnnuityPaymentFixedDefinition nominal = new AnnuityPaymentFixedDefinition(nominalPayment, calendar);
     return new BondFixedSecurityDefinition(nominal, coupons, DEFAULT_EX_COUPON_DAYS, settlementDays, calendar, dayCount, yieldConvention, couponPerYear, isEOM, issuer);
   }
@@ -346,12 +350,14 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
     final CouponFixedDefinition[] couponAfterFirst = AnnuityCouponFixedDefinition.fromAccrualUnadjusted(currency, firstCouponDate, maturityDate, paymentPeriod, couponPerYear, true, true, calendar,
         dayCount, businessDay, isEOM, DEFAULT_NOTIONAL, rate, false).getPayments();
     final CouponFixedDefinition[] allCoupons = new CouponFixedDefinition[couponAfterFirst.length + 1];
-    allCoupons[0] = new CouponFixedDefinition(currency, businessDay.adjustDate(calendar, firstCouponDate), firstAccrualDate, firstCouponDate, firstCouponAccrual, DEFAULT_NOTIONAL,
+    ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, firstCouponDate, calendar);
+    allCoupons[0] = new CouponFixedDefinition(currency, adjusted, firstAccrualDate, firstCouponDate, firstCouponAccrual, DEFAULT_NOTIONAL,
         rate);
     System.arraycopy(couponAfterFirst, 0, allCoupons, 1, couponAfterFirst.length);
     final AnnuityCouponFixedDefinition coupons = new AnnuityCouponFixedDefinition(allCoupons, calendar);
-    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(currency, businessDay.adjustDate(calendar, maturityDate),
-        DEFAULT_NOTIONAL) };
+    ZonedDateTime adjusted2 = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
+    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
+        new PaymentFixedDefinition(currency, adjusted2, DEFAULT_NOTIONAL)};
     final AnnuityPaymentFixedDefinition nominal = new AnnuityPaymentFixedDefinition(nominalPayment, calendar);
     return new BondFixedSecurityDefinition(nominal, coupons, exCouponDays, settlementDays, calendar, dayCount, yieldConvention, couponPerYear, isEOM, issuer);
   }
@@ -402,12 +408,14 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
     final CouponFixedDefinition[] couponAfterFirst = AnnuityCouponFixedDefinition.fromAccrualUnadjusted(currency, firstCouponDate, maturityDate, paymentPeriod, couponPerYear, true, true, calendar,
         dayCount, businessDay, isEOM, notional, rate, false).getPayments();
     final CouponFixedDefinition[] allCoupons = new CouponFixedDefinition[couponAfterFirst.length + 1];
-    allCoupons[0] = new CouponFixedDefinition(currency, businessDay.adjustDate(calendar, firstCouponDate), firstAccrualDate, firstCouponDate, firstCouponAccrual, DEFAULT_NOTIONAL,
-        rate);
+    ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, firstCouponDate, calendar);
+    allCoupons[0] = new CouponFixedDefinition(currency, adjusted, firstAccrualDate, firstCouponDate, firstCouponAccrual,
+        DEFAULT_NOTIONAL, rate);
     System.arraycopy(couponAfterFirst, 0, allCoupons, 1, couponAfterFirst.length);
     final AnnuityCouponFixedDefinition coupons = new AnnuityCouponFixedDefinition(allCoupons, calendar);
-    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(currency, businessDay.adjustDate(calendar, maturityDate),
-        notional) };
+    ZonedDateTime adjusted2 = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
+    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
+        new PaymentFixedDefinition(currency, adjusted2, notional)};
     final AnnuityPaymentFixedDefinition nominal = new AnnuityPaymentFixedDefinition(nominalPayment, calendar);
     return new BondFixedSecurityDefinition(nominal, coupons, exCouponDays, settlementDays, calendar, dayCount, yieldConvention, couponPerYear, isEOM, issuer);
   }
@@ -485,8 +493,9 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
       coupon = AnnuityCouponFixedDefinition.fromAccrualUnadjusted(currency, firstAccrualDate, maturityDate, paymentPeriod, true, true, calendar, dayCount, businessDay,
           isEOM, notional, rate, false);
     }
-    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {new PaymentFixedDefinition(currency, businessDay.adjustDate(calendar, maturityDate),
-        notional) };
+    ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
+    final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
+        new PaymentFixedDefinition(currency, adjusted, notional)};
     final AnnuityPaymentFixedDefinition nominal = new AnnuityPaymentFixedDefinition(nominalPayment, calendar);
     return new BondFixedSecurityDefinition(nominal, coupon, exCouponDays, settlementDays, calendar, dayCount, yieldConvention, couponPerYear, isEOM, issuer, repoType);
   }

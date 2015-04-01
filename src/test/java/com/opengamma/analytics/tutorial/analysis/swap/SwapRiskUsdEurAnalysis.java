@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConventionFactory;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
@@ -53,6 +52,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -94,13 +94,14 @@ public class SwapRiskUsdEurAnalysis {
   private static final AdjustedDateParameters ADJUSTED_DATE_EONIA = 
       new AdjustedDateParameters(TARGET, GENERATOR_OIS_EUR.getBusinessDayConvention());
   private static final OffsetAdjustedDateParameters OFFSET_PAY_FEDFUND =
-      new OffsetAdjustedDateParameters(GENERATOR_OIS_USD.getPaymentLag(), OffsetType.BUSINESS, NYC, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(GENERATOR_OIS_USD.getPaymentLag(), OffsetType.BUSINESS, NYC,
+          BusinessDayConventions.FOLLOWING);
   private static final OffsetAdjustedDateParameters OFFSET_FIX_FEDFUND =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, NYC, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, NYC, BusinessDayConventions.FOLLOWING);
   private static final OffsetAdjustedDateParameters OFFSET_PAY_EONIA =
-      new OffsetAdjustedDateParameters(2, OffsetType.BUSINESS, TARGET, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(2, OffsetType.BUSINESS, TARGET, BusinessDayConventions.FOLLOWING);
   private static final OffsetAdjustedDateParameters OFFSET_FIX_EONIA =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, TARGET, BusinessDayConventionFactory.of("Following"));
+      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, TARGET, BusinessDayConventions.FOLLOWING);
 
   private static final double NOTIONAL_1 = 1000000; // 1m
   private static final NotionalProvider NOTIONAL_PROV_1 = new NotionalProvider() {

@@ -59,7 +59,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   private static final LocalDate TRADE_DATE = LocalDate.of(2011, Month.JUNE, 13);
   private static final LocalDate STEPIN = TRADE_DATE.plusDays(1);
   private static final LocalDate CASH_SETTLE_DATE = addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR); // AKA valuation date
-  private static final LocalDate STARTDATE = FOLLOWING.adjustDate(DEFAULT_CALENDAR, getPrevIMMDate(TRADE_DATE)); // LocalDate.of(2011, Month.MARCH, 21);
+  private static final LocalDate STARTDATE = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR); // LocalDate.of(2011, Month.MARCH, 21);
 
   private static final Period[] TENORS = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(3), Period.ofYears(5), Period.ofYears(7), Period.ofYears(10) };
   // private static final LocalDate NEXT_IMM = getNextIMMDate(EFFECTIVE_DATE);

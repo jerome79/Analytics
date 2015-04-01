@@ -12,6 +12,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.StubType;
+import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.ActualActualISDA;
 import com.opengamma.analytics.convention.rolldate.GeneralRollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -355,7 +356,10 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     ZonedDateTime unadjustedAccrualStartDate = getStartDate();
     ZonedDateTime unadjustedAccrualEndDate = getEndDate();
     ZonedDateTime accrualStartDate = unadjustedAccrualStartDate;
-    ZonedDateTime accrualEndDate = _adjustedResetDateParameters.getBusinessDayConvention().adjustDate(_adjustedFixingDateParameters.getCalendar(), unadjustedAccrualEndDate);
+    ZonedDateTime accrualEndDate = BusinessDayDateUtils.applyConvention(
+        _adjustedResetDateParameters.getBusinessDayConvention(),
+        unadjustedAccrualEndDate,
+        _adjustedFixingDateParameters.getCalendar());
     
     ZonedDateTime paymentDate;
     if (DateRelativeTo.START == getPaymentDateRelativeTo()) {
@@ -469,13 +473,17 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     // Note do not roll first coupon's start date!
     if (!isFirstCoupon) {
         adjustedAccrualStartDate = adjustedAccrualStartDate.with(getRollDateAdjuster());
-        adjustedAccrualStartDate = getAccrualPeriodAdjustmentParameters().getBusinessDayConvention().adjustDate(
-          getAccrualPeriodAdjustmentParameters().getCalendar(), adjustedAccrualStartDate);
+      adjustedAccrualStartDate = BusinessDayDateUtils.applyConvention(
+          getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+          adjustedAccrualStartDate,
+          getAccrualPeriodAdjustmentParameters().getCalendar());
     }
     
     ZonedDateTime adjustedAccrualEndDate = unadjustedAccrualEndDate.with(getRollDateAdjuster());
-    adjustedAccrualEndDate = getAccrualPeriodAdjustmentParameters().getBusinessDayConvention().adjustDate(
-        getAccrualPeriodAdjustmentParameters().getCalendar(), adjustedAccrualEndDate);
+    adjustedAccrualEndDate = BusinessDayDateUtils.applyConvention(
+        getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+        adjustedAccrualEndDate,
+        getAccrualPeriodAdjustmentParameters().getCalendar());
 
     StubType stubType = couponStub != null ? couponStub.getStubType() : StubType.NONE;
     double accrualYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(
@@ -509,8 +517,10 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       ZonedDateTime[] compoundingFixingStartDates = compoundingAccrualStartDates;
       if (isFirstCoupon) {
         // Ensure that the forward period dates are adjusted for first compound period
-        compoundingFixingStartDates[0] = _adjustedResetDateParameters.getBusinessDayConvention().adjustDate(
-            _adjustedFixingDateParameters.getCalendar(), compoundingFixingStartDates[0]);
+        compoundingFixingStartDates[0] = BusinessDayDateUtils.applyConvention(
+            _adjustedResetDateParameters.getBusinessDayConvention(),
+            compoundingFixingStartDates[0],
+            _adjustedFixingDateParameters.getCalendar());
       }
       ZonedDateTime[] compoundingFixingEndDates = ScheduleCalculator.getAdjustedDateSchedule(
           compoundingFixingStartDates,
@@ -633,11 +643,16 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
             initialRate);
       } else {
         // See TODO below about reset BDC used instead of fixing BDC
-        ZonedDateTime fixingPeriodStartDate = _adjustedResetDateParameters.getBusinessDayConvention().adjustDate(_adjustedFixingDateParameters.getCalendar(), adjustedAccrualStartDate);
+        ZonedDateTime fixingPeriodStartDate = BusinessDayDateUtils.applyConvention(
+            _adjustedResetDateParameters.getBusinessDayConvention(),
+            adjustedAccrualStartDate,
+            _adjustedFixingDateParameters.getCalendar());
         if (isFirstCoupon) {
           // Ensure that the forward period dates are adjusted for first coupon
-          fixingPeriodStartDate = _adjustedResetDateParameters.getBusinessDayConvention().adjustDate(
-              _adjustedResetDateParameters.getCalendar(), fixingPeriodStartDate);
+          fixingPeriodStartDate = BusinessDayDateUtils.applyConvention(
+              _adjustedResetDateParameters.getBusinessDayConvention(),
+              fixingPeriodStartDate,
+              _adjustedResetDateParameters.getCalendar());
         }
         ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(
             fixingPeriodStartDate,
@@ -735,12 +750,16 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     if (!isFirstCoupon) {
       adjustedAccrualStartDate = adjustedAccrualStartDate.with(getRollDateAdjuster());
     }
-    adjustedAccrualStartDate = getAccrualPeriodAdjustmentParameters().getBusinessDayConvention().adjustDate(
-        getAccrualPeriodAdjustmentParameters().getCalendar(), adjustedAccrualStartDate);
+    adjustedAccrualStartDate = BusinessDayDateUtils.applyConvention(
+        getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+        adjustedAccrualStartDate,
+        getAccrualPeriodAdjustmentParameters().getCalendar());
     
     ZonedDateTime adjustedAccrualEndDate = unadjustedAccrualEndDate.with(getRollDateAdjuster());
-    adjustedAccrualEndDate = getAccrualPeriodAdjustmentParameters().getBusinessDayConvention().adjustDate(
-        getAccrualPeriodAdjustmentParameters().getCalendar(), adjustedAccrualEndDate);
+    adjustedAccrualEndDate = BusinessDayDateUtils.applyConvention(
+        getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+        adjustedAccrualEndDate,
+        getAccrualPeriodAdjustmentParameters().getCalendar());
 
     StubType stubType = couponStub != null ? couponStub.getStubType() : StubType.NONE;
     double accrualYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(

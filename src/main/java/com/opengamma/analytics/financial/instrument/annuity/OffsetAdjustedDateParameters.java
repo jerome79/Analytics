@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.instrument.annuity;
 
-import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
+import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
