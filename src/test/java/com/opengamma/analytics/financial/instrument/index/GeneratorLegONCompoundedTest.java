@@ -30,7 +30,7 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 @Test
 public class GeneratorLegONCompoundedTest {
 
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final IndexON FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
   private static final Currency USD = Currency.USD;
   

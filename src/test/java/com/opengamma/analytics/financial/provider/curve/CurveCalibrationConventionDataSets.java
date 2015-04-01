@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPric
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurveInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
-import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
@@ -295,7 +294,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   /** GBP **/
-  private static final HolidayCalendar LON = new CalendarGBP("LON");
+  private static final HolidayCalendar LON = HolidayCalendars.GBLO;
   private static final Currency GBP = Currency.GBP;
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("GBP1YSONIA", LON);
@@ -359,7 +358,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   /** USD **/
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final Currency USD = Currency.USD;
   private static final GeneratorSwapFixedON GENERATOR_OIS_USD = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("USD1YFEDFUND", NYC);

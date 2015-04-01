@@ -71,7 +71,7 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
   private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final double FX_EURUSD = 1.35;
   private static final FxMatrix FX_MATRIX = FxMatrix.builder().addRate(EUR, USD, FX_EURUSD).build();
   private static final MulticurveProviderDiscount KNOWN_DATA = new MulticurveProviderDiscount(FX_MATRIX);

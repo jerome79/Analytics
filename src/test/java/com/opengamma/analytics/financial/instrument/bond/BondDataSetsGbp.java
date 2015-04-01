@@ -14,11 +14,11 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
-import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.provider.description.IssuerProviderDiscountDataSets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * Examples of bond and bills to be used in tests. Examples in GBP.
@@ -29,7 +29,7 @@ public class BondDataSetsGbp {
   private static final String REPO_TYPE = "General collateral";
   private static final Currency GBP = Currency.GBP;
   private static final double DEFAULT_NOTIONAL = 1.0d;
-  private static final HolidayCalendar CALENDAR_GILT = new CalendarGBP("LON");
+  private static final HolidayCalendar CALENDAR_GILT = HolidayCalendars.GBLO;
 
   private static final Period PAYMENT_TENOR_GILT = Period.ofMonths(6);
   private static final DayCount DAY_COUNT_GILT = DayCounts.ACT_ACT_ICMA;

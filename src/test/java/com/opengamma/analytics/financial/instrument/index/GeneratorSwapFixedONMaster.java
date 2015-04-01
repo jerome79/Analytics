@@ -13,7 +13,6 @@ import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
-import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
@@ -46,7 +45,7 @@ public final class GeneratorSwapFixedONMaster {
   private GeneratorSwapFixedONMaster() {
     final IndexONMaster indexONMaster = IndexONMaster.getInstance();
     final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
-    final HolidayCalendar londonBaseCalendar = new CalendarGBP("LONDON");
+    final HolidayCalendar londonBaseCalendar = HolidayCalendars.GBLO;
     final DayCount act360 = DayCounts.ACT_360;
     final DayCount act365 = DayCounts.ACT_365;
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;

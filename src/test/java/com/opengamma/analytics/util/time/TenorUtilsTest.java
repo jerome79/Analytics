@@ -5,9 +5,10 @@
  */
 package com.opengamma.analytics.util.time;
 
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 import static org.testng.AssertJUnit.assertEquals;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -15,8 +16,10 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.google.common.collect.ImmutableList;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.date.ImmutableHolidayCalendar;
 
 /**
  * Test.
@@ -27,8 +30,9 @@ public class TenorUtilsTest {
   private static final HolidayCalendar NO_HOLIDAYS = HolidayCalendars.NO_HOLIDAYS;
   /** Holiday calendar containing only weekends */
   private static final HolidayCalendar WEEKEND_CALENDAR = HolidayCalendars.SAT_SUN;
-  /** Holiday calendar containing weekends and 1/1/2014 */
-  private static final HolidayCalendar CALENDAR = new MyCalendar();
+  /** Holiday calendar containing weekends and 2014-01-01 */
+  private static final HolidayCalendar CALENDAR = ImmutableHolidayCalendar.of(
+      "Holiday", ImmutableList.of(LocalDate.of(2014, 1, 1)), SATURDAY, SUNDAY);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testAdjustZonedDateTime1() {
@@ -151,32 +155,4 @@ public class TenorUtilsTest {
     assertEquals("Tenor: plus", y3, TenorUtils.plus(y3, p0D));
   }
 
-  /**
-   * HolidayCalendar with weekends and 1-1-2013, 1-1-2014 as holidays
-   */
-  private static class MyCalendar implements HolidayCalendar {
-
-    /**
-     * Default constructor
-     */
-    protected MyCalendar() {
-      super();
-    }
-
-    @Override
-    public boolean isHoliday(LocalDate date) {
-      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-        return true;
-      }
-      if (date.equals(LocalDate.of(2014, 1, 1))) {
-        return true;
-      }
-      return false;
-    }
-
-    @Override
-    public String getName() {
-      return "";
-    }
-  }
 }

@@ -33,7 +33,7 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 @Test
 public class GeneratorLegFixedTest {
 
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final Currency USD = Currency.USD;
   
   private static final String NAME = "LEG_USD6M";

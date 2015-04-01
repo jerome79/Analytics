@@ -30,7 +30,7 @@ public class NormalSwaptionExpiryTenorProviderTest {
   private static final InterpolatedDoublesSurface NORMAL_SURFACE =
       NormalDataSets.normalSurfaceSwaptionExpiryTenor();
   /** Conventions. */
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = 
       GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = 

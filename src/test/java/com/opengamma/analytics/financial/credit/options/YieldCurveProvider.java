@@ -14,7 +14,8 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDABaseTest;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantYieldCurve;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantYieldCurveBuild;
-import com.opengamma.analytics.financial.credit.isdastandardmodel.TYOCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 
 /**
  * This holds yield curves use in tests
@@ -43,7 +44,7 @@ public class YieldCurveProvider extends ISDABaseTest {
   final static Period GBP_SWAP_INTERVAL = Period.ofMonths(6);
 
   //JPY Conventions
-  final static TYOCalendar TYO_CAL = new TYOCalendar("TYO");
+  final static HolidayCalendar TYO_CAL = HolidayCalendars.JPTO;
   final static String[] JPY_PILLARS = new String[] {"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "12Y", "15Y", "20Y", "30Y" };
   final static String[] JPY_INSTR = new String[] {"M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
   final static DayCount JPY_MM_DCC = ACT360;

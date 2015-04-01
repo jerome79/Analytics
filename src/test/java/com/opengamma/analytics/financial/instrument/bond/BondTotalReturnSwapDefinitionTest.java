@@ -59,7 +59,7 @@ public class BondTotalReturnSwapDefinitionTest {
   private static final BondTotalReturnSwapDefinition TRS_REC_FIXED_PAY_DEFINITION =
       new BondTotalReturnSwapDefinition(EFFECTIVE_DATE_1, TERMINATION_DATE_1, FUNDING_LEG_FIXED_PAY_DEFINITION, UKT14_DEFINITION, NOTIONAL_BND);
   // Funding: multiple USD Libor coupons
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final double SPREAD = 0.0010;
   private static final ZonedDateTime TERMINATION_DATE_2 = DateUtils.getUTCDate(2012, 8, 9);
   private static final IborIndex USDLIBOR1M = IndexIborMaster.getInstance().getIndex("USDLIBOR1M");

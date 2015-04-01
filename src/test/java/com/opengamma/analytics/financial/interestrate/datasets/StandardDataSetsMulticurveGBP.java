@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
-import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
@@ -34,6 +33,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -48,7 +48,7 @@ public class StandardDataSetsMulticurveGBP {
     REFERENCE_DATE[1] = DateUtils.getUTCDate(2014, 4, 11);
   }
 
-  private static final HolidayCalendar LONDON = new CalendarGBP("LONDON");
+  private static final HolidayCalendar LONDON = HolidayCalendars.GBLO;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 
   private static final double NOTIONAL = 1.0;

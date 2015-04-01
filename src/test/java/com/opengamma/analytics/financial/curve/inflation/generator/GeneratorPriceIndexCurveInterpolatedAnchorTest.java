@@ -44,7 +44,7 @@ public class GeneratorPriceIndexCurveInterpolatedAnchorTest {
           ANCHOR_NODE, ANCHOR_VALUE);
   
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex(IndexIborMaster.USDLIBOR3M);
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final ZonedDateTime DATE_0 = DateUtils.getUTCDate(2013, 9, 30);
   private static final ZonedDateTime DATE_1 = DateUtils.getUTCDate(2013, 12, 31);
   private static final ZonedDateTime DATE_2 = DateUtils.getUTCDate(2014, 3, 31);

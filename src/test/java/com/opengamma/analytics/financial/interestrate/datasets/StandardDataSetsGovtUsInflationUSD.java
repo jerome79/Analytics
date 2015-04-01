@@ -80,7 +80,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class StandardDataSetsGovtUsInflationUSD {
 
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
   
   private static final double NOTIONAL = 1.0;

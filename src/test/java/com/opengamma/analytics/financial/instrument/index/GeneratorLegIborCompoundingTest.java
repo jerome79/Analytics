@@ -32,7 +32,7 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 @Test
 public class GeneratorLegIborCompoundingTest {
 
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final IborIndex USDLIBOR1M = IndexIborMaster.getInstance().getIndex("USDLIBOR1M");
   private static final Currency USD = Currency.USD;
   

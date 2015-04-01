@@ -61,7 +61,7 @@ public class BillTotalReturnSwapDefinitionTest {
   private static final BillTotalReturnSwapDefinition TRS_REC_FIXED_PAY_DEFINITION =
       new BillTotalReturnSwapDefinition(EFFECTIVE_DATE, TERMINATION_DATE, FUNDING_LEG_FIXED_PAY_DEFINITION, BELDEC14_DEFINITION, NOTIONAL_BILL);
   // Funding: multiple USD Libor coupons
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final double SPREAD = 0.0010;
   private static final IborIndex USDLIBOR1M = IndexIborMaster.getInstance().getIndex("USDLIBOR1M");
   private static final AnnuityDefinition<CouponDefinition> FUNDING_LEG_IBOR_PAY_DEFINITION = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(EFFECTIVE_DATE,

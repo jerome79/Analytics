@@ -171,7 +171,7 @@ public class CouponIborFxResetDiscountingMethodTest {
    * Swap with FX reset. EUR P3M v USD FX reset P3M
    */
 
-  private static final HolidayCalendar CAL = new CalendarUSD("CAL");
+  private static final HolidayCalendar CAL = CalendarUSD.NYC;
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M =
       GENERATOR_IRS_MASTER.getGenerator(GeneratorSwapFixedIborMaster.EUR1YEURIBOR3M, CAL);

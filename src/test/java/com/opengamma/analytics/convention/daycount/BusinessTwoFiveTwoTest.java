@@ -5,17 +5,20 @@
  */
 package com.opengamma.analytics.convention.daycount;
 
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 import static org.testng.Assert.assertEquals;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.google.common.collect.ImmutableList;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.date.ImmutableHolidayCalendar;
 
 /**
  * Test.
@@ -31,7 +34,8 @@ public class BusinessTwoFiveTwoTest {
   private static final double COUPON = 0.01;
   private static final int PAYMENTS = 4;
   private static final HolidayCalendar WEEKEND_CALENDAR = HolidayCalendars.SAT_SUN;
-  private static final HolidayCalendar HOLIDAY_CALENDAR = new MyCalendar("Holiday");
+  private static final HolidayCalendar HOLIDAY_CALENDAR = ImmutableHolidayCalendar.of(
+      "Holiday", ImmutableList.of(LocalDate.of(2012, 7, 19), LocalDate.of(2012, 7, 26)), SATURDAY, SUNDAY);
   private static final BusinessTwoFiveTwo DC = new BusinessTwoFiveTwo();
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -136,31 +140,4 @@ public class BusinessTwoFiveTwoTest {
     }
   }
 
-  private static class MyCalendar implements HolidayCalendar {
-    private static final LocalDate[] HOLIDAYS = new LocalDate[] {LocalDate.of(2012, 7, 19), LocalDate.of(2012, 7, 26) };
-    private final String name;
-
-    protected MyCalendar(final String name) {
-      this.name = name;
-    }
-
-    @Override
-    public boolean isHoliday(LocalDate date) {
-      if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-        return true;
-      }
-      for (final LocalDate holiday : HOLIDAYS) {
-        if (date.equals(holiday)) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    @Override
-    public String getName() {
-      return name;
-    }
-
-  }
 }

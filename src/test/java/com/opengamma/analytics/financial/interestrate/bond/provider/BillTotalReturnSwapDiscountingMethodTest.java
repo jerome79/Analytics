@@ -102,7 +102,7 @@ public class BillTotalReturnSwapDiscountingMethodTest {
   private static final BillTotalReturnSwap TRS_REC_FIXED_PAY_1 =
       new BillTotalReturnSwap(EFFECTIVE_TIME_1, TERMINATION_TIME_1, FUNDING_LEG_FIXED_PAY_1, BELDEC14_1, NOTIONAL_BILL);
   // Funding: multiple USD Libor coupons
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final double SPREAD = 0.0010;
   private static final IborIndex USDLIBOR1M = IndexIborMaster.getInstance().getIndex("USDLIBOR1M");
   private static final Currency USD = USDLIBOR1M.getCurrency();

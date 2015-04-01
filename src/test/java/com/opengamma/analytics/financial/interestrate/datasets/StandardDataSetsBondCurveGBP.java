@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
-import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.bond.BillSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.bond.BondDataSetsGbp;
@@ -44,6 +43,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -58,7 +58,7 @@ public class StandardDataSetsBondCurveGBP {
     REFERENCE_DATE[0] = DateUtils.getUTCDate(2014, 7, 11);
   }
 
-  private static final HolidayCalendar LON = new CalendarGBP("Lon");
+  private static final HolidayCalendar LON = HolidayCalendars.GBLO;
   private static final Currency GBP = Currency.GBP;
   private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
 

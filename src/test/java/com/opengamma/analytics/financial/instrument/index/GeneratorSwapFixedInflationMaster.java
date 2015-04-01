@@ -10,7 +10,6 @@ import java.util.Map;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayConvention;
 import com.opengamma.analytics.convention.businessday.BusinessDayConventions;
-import com.opengamma.analytics.financial.datasets.CalendarGBP;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
@@ -49,7 +48,7 @@ public final class GeneratorSwapFixedInflationMaster {
 
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;
     final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
-    final HolidayCalendar londonBaseCalendar = new CalendarGBP("LONDON");
+    final HolidayCalendar londonBaseCalendar = HolidayCalendars.GBLO;
     final boolean endOfMonth = true;
     final int monthLag = 3;
     final int spotLag = 2;

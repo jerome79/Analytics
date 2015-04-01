@@ -103,7 +103,7 @@ public class BondTotalReturnSwapDiscountingMethodTest {
   private static final Annuity<? extends Payment> FUNDING_LEG_FIXED_PAY_1 = FUNDING_LEG_FIXED_PAY_DEFINITION.toDerivative(REFERENCE_DATE_1);
   private static final BondTotalReturnSwap TRS_REC_FIXED_PAY_1 = new BondTotalReturnSwap(EFFECTIVE_TIME_1_1, TERMINATION_TIME_1_1, FUNDING_LEG_FIXED_PAY_1, UKT14_1_1, NOTIONAL_BND);
   // Funding: multiple USD Libor coupons
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final double SPREAD = 0.0010;
   private static final IborIndex USDLIBOR1M = IndexIborMaster.getInstance().getIndex("USDLIBOR1M");
   private static final Currency USD = USDLIBOR1M.getCurrency();

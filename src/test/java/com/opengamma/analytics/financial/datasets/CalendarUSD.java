@@ -17,6 +17,12 @@ import com.opengamma.strata.basics.date.ImmutableHolidayCalendar;
 
 public class CalendarUSD implements HolidayCalendar {
 
+  /**
+   * Calendar with fixed known dates for testing.
+   * This is not the same as HolidayCalendars.USNY.
+   */
+  public static final HolidayCalendar NYC = new CalendarUSD("NYC");
+
   private final ImmutableHolidayCalendar underlying;
 
   /**

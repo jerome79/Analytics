@@ -39,7 +39,7 @@ public class BondDataSetsUsd {
     RATING.add(CreditRating.of("AA", "OG_RATING", true));
   }
   private static final LegalEntity US_GOVT_LEGAL_ENTITY = new LegalEntity("USGOVT", US_GOVT_NAME, RATING, null, null);
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final IndexPriceMaster MASTER_PRICE_INDEX = IndexPriceMaster.getInstance();
   private static final IndexPrice USCPI = MASTER_PRICE_INDEX.getIndex("USCPI");
 

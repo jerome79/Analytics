@@ -35,7 +35,7 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
  */
 public class CouponIborCompoundingSimpleSpreadDefinitionTest {
 
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final IndexIborMaster MASTER_IBOR = IndexIborMaster.getInstance();
   private static final IborIndex USDLIBOR1M = MASTER_IBOR.getIndex("USDLIBOR1M");
   private static final BusinessDayConvention PREC = BusinessDayConventions.PRECEDING;

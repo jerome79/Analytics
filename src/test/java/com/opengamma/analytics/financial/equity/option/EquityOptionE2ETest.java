@@ -33,7 +33,7 @@ public class EquityOptionE2ETest extends EquityE2ETestMaster {
   private static final ZoneId ZID = ZoneId.of("EST", ZoneId.SHORT_IDS);
   private static final ZonedDateTime TRADE_DATE = ZonedDateTime.of(2014, 3, 26, 13, 46, 0, 0, ZID);
   private static final Currency USD = Currency.USD;
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final double NOTIONAL = 325;
 
   // market data

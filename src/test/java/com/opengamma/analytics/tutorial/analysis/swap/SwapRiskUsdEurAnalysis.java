@@ -65,7 +65,7 @@ public class SwapRiskUsdEurAnalysis {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
 
-  private static final HolidayCalendar NYC = new CalendarUSD("NYC");
+  private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
   private static final IndexIborMaster IBOR_MASTER = IndexIborMaster.getInstance();
   private static final GeneratorSwapFixedONMaster GENERATOR_OIS_MASTER = GeneratorSwapFixedONMaster.getInstance();
