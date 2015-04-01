@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
@@ -25,6 +24,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -41,7 +41,7 @@ public class GeneratorLegFixedTest {
   private static final int OFFSET_PAYMENT = 0;
   private static final Period P6M = Period.ofMonths(6);
   private static final DayCount DAY_COUNT = DayCounts.THIRTY_U_360;
-  private static final StubType STUB_SHORT_START = StubType.SHORT_START;
+  private static final StubConvention STUB_SHORT_START = StubConvention.SHORT_INITIAL;
   private static final BusinessDayConvention BDC = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final GeneratorLegFixed GENERATOR = new GeneratorLegFixed(NAME, USD, OFFSET_SPOT, P6M, DAY_COUNT,
       BDC, OFFSET_PAYMENT, true, STUB_SHORT_START, false, NYC);
@@ -49,31 +49,31 @@ public class GeneratorLegFixedTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullName() {
     new GeneratorLegFixed(null, USD, OFFSET_SPOT, P6M, DayCounts.THIRTY_U_360, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubType.SHORT_START, false, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubConvention.SHORT_INITIAL, false, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCurrency() {
     new GeneratorLegFixed(NAME, null, OFFSET_SPOT, P6M, DayCounts.THIRTY_U_360, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubType.SHORT_START, false, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubConvention.SHORT_INITIAL, false, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullTenor() {
     new GeneratorLegFixed(NAME, USD, OFFSET_SPOT, null, DayCounts.THIRTY_U_360, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubType.SHORT_START, false, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubConvention.SHORT_INITIAL, false, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullDayCount() {
     new GeneratorLegFixed(NAME, USD, OFFSET_SPOT, P6M, null,  
-        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubType.SHORT_START, false, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubConvention.SHORT_INITIAL, false, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullBusinessDay() {
     new GeneratorLegFixed(NAME, USD, OFFSET_SPOT, P6M, DayCounts.THIRTY_U_360, 
-        null, OFFSET_PAYMENT, true, StubType.SHORT_START, false, NYC);
+        null, OFFSET_PAYMENT, true, StubConvention.SHORT_INITIAL, false, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -85,7 +85,7 @@ public class GeneratorLegFixedTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCalendarPayment() {
     new GeneratorLegFixed(NAME, USD, OFFSET_SPOT, P6M, DayCounts.THIRTY_U_360, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubType.SHORT_START, false, null);
+        BusinessDayConventions.MODIFIED_FOLLOWING, OFFSET_PAYMENT, true, StubConvention.SHORT_INITIAL, false, null);
   }
   
   @Test

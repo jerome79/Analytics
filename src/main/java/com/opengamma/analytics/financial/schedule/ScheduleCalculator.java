@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.frequency.Frequency;
 import com.opengamma.analytics.convention.frequency.PeriodFrequency;
@@ -32,6 +31,7 @@ import com.opengamma.analytics.util.time.TenorUtils;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -336,13 +336,13 @@ public final class ScheduleCalculator {
    * @param stub The stub type.
    * @return The date schedule (not including the start date).
    */
-  public static ZonedDateTime[] getUnadjustedDateSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Period tenorPeriod, final StubType stub) {
+  public static ZonedDateTime[] getUnadjustedDateSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Period tenorPeriod, final StubConvention stub) {
     ArgChecker.notNull(startDate, "Start date");
     ArgChecker.notNull(endDate, "End date");
     ArgChecker.notNull(tenorPeriod, "Period tenor");
     ArgChecker.isTrue(startDate.isBefore(endDate), "Start date should be strictly before end date");
-    final boolean stubShort = stub.equals(StubType.SHORT_END) || stub.equals(StubType.SHORT_START) || stub.equals(StubType.NONE) || stub.equals(StubType.BOTH);
-    final boolean fromEnd = isGenerateFromEnd(stub); //  || stub.equals(StubType.NONE); // Implementation note: dates computed from the end.
+    final boolean stubShort = stub.equals(StubConvention.SHORT_FINAL) || stub.equals(StubConvention.SHORT_INITIAL) || stub.equals(StubConvention.NONE) || stub.equals(StubConvention.BOTH);
+    final boolean fromEnd = isGenerateFromEnd(stub); //  || stub.equals(StubConvention.NONE); // Implementation note: dates computed from the end.
     final List<ZonedDateTime> dates = new ArrayList<>();
     int nbPeriod = 0;
     if (!fromEnd) { // Add the periods from the start date
@@ -501,14 +501,14 @@ public final class ScheduleCalculator {
    * @param eomRule Flag indicating if the end-of-month rule should be applied.
    * @return The adjusted dates schedule.
    */
-  public static ZonedDateTime[] getAdjustedDateSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Period schedulePeriod, final StubType stub,
+  public static ZonedDateTime[] getAdjustedDateSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Period schedulePeriod, final StubConvention stub,
       final BusinessDayConvention convention, final HolidayCalendar calendar, final boolean eomRule) {
     final ZonedDateTime[] unadjustedDateSchedule = getUnadjustedDateSchedule(startDate, endDate, schedulePeriod, stub);
     final boolean eomApply = (eomRule && eomApplies(isGenerateFromEnd(stub), startDate, endDate, calendar));
     return getAdjustedDateSchedule(unadjustedDateSchedule, convention, calendar, eomApply);
   }
 
-  public static ZonedDateTime[] getAdjustedDateSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Period schedulePeriod, final StubType stub,
+  public static ZonedDateTime[] getAdjustedDateSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Period schedulePeriod, final StubConvention stub,
       final BusinessDayConvention convention, final HolidayCalendar calendar, final boolean eomRule, final RollDateAdjuster adjuster) {
     final ZonedDateTime[] unadjustedDateSchedule = getUnadjustedDateSchedule(startDate, endDate, schedulePeriod, stub);
     final boolean eomApply = (eomRule && eomApplies(isGenerateFromEnd(stub), startDate, endDate, calendar));
@@ -531,7 +531,7 @@ public final class ScheduleCalculator {
       ZonedDateTime startDate,
       ZonedDateTime endDate,
       Period schedulePeriod,
-      StubType stub,
+      StubConvention stub,
       BusinessDayConvention convention,
       HolidayCalendar calendar,
       RollDateAdjuster adjuster) {
@@ -1114,8 +1114,8 @@ public final class ScheduleCalculator {
    * @param stub  the stub type
    * @return true if generating from the end
    */
-  private static boolean isGenerateFromEnd(final StubType stub) {
-    return StubType.LONG_START.equals(stub) || StubType.SHORT_START.equals(stub);
+  private static boolean isGenerateFromEnd(final StubConvention stub) {
+    return stub.isCalculateBackwards();
   }
 
   /**

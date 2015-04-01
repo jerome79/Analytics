@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -58,6 +57,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -116,7 +116,7 @@ public class SwapInstrumentsDataSet {
   private static final DayCount DC_30U_360 = DayCounts.THIRTY_U_360;
   private static final BusinessDayConvention BDC_MODFOL = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final BusinessDayConvention BDC_FOL = BusinessDayConventions.FOLLOWING;
-  private static final StubType STUB_SHORT_START = StubType.SHORT_START;
+  private static final StubConvention STUB_SHORT_START = StubConvention.SHORT_INITIAL;
   private static final AdjustedDateParameters ADJUSTED_DATE_USDLIBOR = 
       new AdjustedDateParameters(NYC, BDC_MODFOL);
   private static final OffsetAdjustedDateParameters OFFSET_FIXING_USDLIBOR = 
@@ -372,7 +372,7 @@ public class SwapInstrumentsDataSet {
   private static final ZonedDateTime SPOT_DATE_STUB5 = DateUtils.getUTCDate(2014, 3, 12);
   private static final ZonedDateTime END_DATE_STUB5 = DateUtils.getUTCDate(2021, 9, 11);
   private static final double FIXED_RATE_3M_STUB5 = 0.0150;  
-  private static final CouponStub CPN_FIXED_STUB5 = new CouponStub(StubType.LONG_START);
+  private static final CouponStub CPN_FIXED_STUB5 = new CouponStub(StubConvention.LONG_INITIAL);
   private static final PaymentDefinition[] PAYMENT_FIXED_STUB5 = new FixedAnnuityDefinitionBuilder().
       payer(false).currency(USD6MLIBOR3M.getCurrency()).notional(NOTIONAL_PROVIDER).startDate(SPOT_DATE_STUB5.toLocalDate()).
       endDate(END_DATE_STUB5.toLocalDate()).dayCount(USD6MLIBOR3M.getFixedLegDayCount()).
@@ -385,7 +385,7 @@ public class SwapInstrumentsDataSet {
       CPN_FIXED_STUB5_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_FIXED_STUB5[loopcpn];
     }
   }
-  private static final CouponStub CPN_IBOR_STUB5 = new CouponStub(StubType.LONG_START, USDLIBOR6M, USDLIBOR6M);
+  private static final CouponStub CPN_IBOR_STUB5 = new CouponStub(StubConvention.LONG_INITIAL, USDLIBOR6M, USDLIBOR6M);
   private static final AnnuityCouponFixedDefinition LEG_FIXED_STUB5 = 
       new AnnuityCouponFixedDefinition(CPN_FIXED_STUB5_DEFINITION, NYC);
   private static final AnnuityDefinition<? extends CouponDefinition> LEG_IBOR_STUB5 =
@@ -405,7 +405,7 @@ public class SwapInstrumentsDataSet {
 private static final ZonedDateTime SPOT_DATE_STUB6 = DateUtils.getUTCDate(2014, 3, 12);
 private static final ZonedDateTime END_DATE_STUB6 = DateUtils.getUTCDate(2021, 11, 12);
 private static final double FIXED_RATE_3M_STUB6 = 0.0150;  
-private static final CouponStub CPN_FIXED_STUB6 = new CouponStub(StubType.SHORT_END);
+private static final CouponStub CPN_FIXED_STUB6 = new CouponStub(StubConvention.SHORT_FINAL);
 private static final PaymentDefinition[] PAYMENT_FIXED_STUB6 = new FixedAnnuityDefinitionBuilder().
     payer(false).currency(USD6MLIBOR3M.getCurrency()).notional(NOTIONAL_PROVIDER).startDate(SPOT_DATE_STUB6.toLocalDate()).
     endDate(END_DATE_STUB6.toLocalDate()).dayCount(USD6MLIBOR3M.getFixedLegDayCount()).
@@ -418,7 +418,7 @@ static {
     CPN_FIXED_STUB6_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_FIXED_STUB6[loopcpn];
   }
 }
-private static final CouponStub CPN_IBOR_STUB6 = new CouponStub(StubType.SHORT_END, USDLIBOR1M, USDLIBOR3M);
+private static final CouponStub CPN_IBOR_STUB6 = new CouponStub(StubConvention.SHORT_FINAL, USDLIBOR1M, USDLIBOR3M);
 private static final AnnuityCouponFixedDefinition LEG_FIXED_STUB6 = 
     new AnnuityCouponFixedDefinition(CPN_FIXED_STUB6_DEFINITION, NYC);
 private static final AnnuityDefinition<? extends CouponDefinition> LEG_IBOR_STUB6 =
@@ -471,7 +471,7 @@ public static final Swap<? extends Payment, ? extends Payment> IRS_STUB6 =
   static {
     //    ZonedDateTime startDate = SPOT_DATE_AM.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC);
     //    ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(startDate,
-    //        END_DATE_AM.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC), P3M, StubType.NONE,
+    //        END_DATE_AM.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC), P3M, StubConvention.NONE,
     //        ADJUSTED_DATE_USDLIBOR.getBusinessDayConvention(), ADJUSTED_DATE_USDLIBOR.getCalendar(), null);
     //    ZonedDateTime[] accrualStartDates = ScheduleCalculator.getStartDates(startDate, accrualEndDates);
     //    int nDates = accrualStartDates.length;

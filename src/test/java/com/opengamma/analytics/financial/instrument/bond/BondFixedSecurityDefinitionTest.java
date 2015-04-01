@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.ActualActualICMA;
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -36,6 +35,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -330,7 +330,7 @@ public class BondFixedSecurityDefinitionTest {
   public void longFirstCouponDE() {
     final double accrualFirstComputed = BOND_DE_SECURITY_DEFINITION.getCoupons().getNthPayment(0).getPaymentYearFraction();
     assertTrue("Bond Fixed Security - long first coupon ActActICMA", accrualFirstComputed > 1);
-    final double accrualFirstExpected = DAY_COUNT_ACTACTICMA.getAccruedInterest(BOND_START_DE, BOND_FIRSTCPN_DE, BOND_FIRSTCPN_DE, 1.0, COUPON_PER_YEAR_DE, StubType.LONG_START);
+    final double accrualFirstExpected = DAY_COUNT_ACTACTICMA.getAccruedInterest(BOND_START_DE, BOND_FIRSTCPN_DE, BOND_FIRSTCPN_DE, 1.0, COUPON_PER_YEAR_DE, StubConvention.LONG_INITIAL);
     assertEquals("Bond Fixed Security - long first coupon ActActICMA", accrualFirstExpected, accrualFirstComputed, TOLERANCE_PRICE);
   }
 

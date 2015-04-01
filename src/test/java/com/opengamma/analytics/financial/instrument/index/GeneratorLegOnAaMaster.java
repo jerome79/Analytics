@@ -9,11 +9,11 @@ import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * A list of swap generators that can be used in the tests.
@@ -47,7 +47,7 @@ public final class GeneratorLegOnAaMaster {
     _generatorLeg = new HashMap<>();
     IndexON fedFund = indexONMaster.getIndex("FED FUND");
     _generatorLeg.put("USDFEDFUNDAA3M", new GeneratorLegONArithmeticAverage("USDFEDFUNDAA3M", Currency.USD, fedFund, 
-        Period.ofMonths(3), 2, 0, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false,
+        Period.ofMonths(3), 2, 0, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false,
         baseCalendar, baseCalendar));
   }
 

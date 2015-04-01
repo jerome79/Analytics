@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
@@ -47,6 +46,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -108,7 +108,7 @@ public class BillTotalReturnSwapDiscountingMethodTest {
   private static final Currency USD = USDLIBOR1M.getCurrency();
   private static final AnnuityDefinition<CouponDefinition> FUNDING_LEG_IBOR_PAY_DEFINITION = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(EFFECTIVE_DATE,
       TERMINATION_DATE, NOTIONAL_TRS, SPREAD, USDLIBOR1M, USDLIBOR1M.getDayCount(), USDLIBOR1M.getBusinessDayConvention(), true, USDLIBOR1M.getTenor(),
-      USDLIBOR1M.isEndOfMonth(), NYC, StubType.SHORT_START, 0, false, true);
+      USDLIBOR1M.isEndOfMonth(), NYC, StubConvention.SHORT_INITIAL, 0, false, true);
   private static final Annuity<? extends Payment> FUNDING_LEG_IBOR_PAY_1 = FUNDING_LEG_IBOR_PAY_DEFINITION.toDerivative(REFERENCE_DATE_1, FIXING_TS);
   private static final BillTotalReturnSwapDefinition TRS_REC_IBOR_PAY_DEFINITION = new BillTotalReturnSwapDefinition(EFFECTIVE_DATE, TERMINATION_DATE,
       FUNDING_LEG_IBOR_PAY_DEFINITION, BELDEC14_DEFINITION, NOTIONAL_BILL);

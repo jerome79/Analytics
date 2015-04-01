@@ -16,7 +16,6 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
@@ -50,6 +49,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -135,14 +135,14 @@ public class FixedAnnuityDefinitionBuilderTest {
      */
     ZonedDateTime startDateBare = EFFECTIVE_DATE_1.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC);
     ZonedDateTime[] accrualEndDatesBare = ScheduleCalculator.getAdjustedDateSchedule(startDateBare,
-        MATURITY_DATE_1.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC), period, StubType.NONE,
+        MATURITY_DATE_1.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC), period, StubConvention.NONE,
         ADJUSTED_DATE_LIBOR.getBusinessDayConvention(), ADJUSTED_DATE_LIBOR.getCalendar(), null);
     ZonedDateTime[] accrualStartDatesBare = ScheduleCalculator.getStartDates(startDateBare, accrualEndDatesBare);
     int nCoupons = accrualEndDatesBare.length;
     CouponDefinition[] coupons = new CouponFixedDefinition[nCoupons];
     for (int i = 0; i < nCoupons; ++i) {
       double yearFraction = AnnuityDefinitionBuilder.getDayCountFraction(period, ADJUSTED_DATE_LIBOR.getCalendar(),
-          USD6MLIBOR3M.getFixedLegDayCount(), StubType.NONE, StubType.NONE,
+          USD6MLIBOR3M.getFixedLegDayCount(), StubConvention.NONE, StubConvention.NONE,
           accrualStartDatesBare[i], accrualEndDatesBare[i], i == 0, i == accrualEndDates.length - 1);
       coupons[i] = new CouponFixedDefinition(USD, accrualEndDatesBare[i], accrualStartDatesBare[i],
           accrualEndDatesBare[i], yearFraction, notionals[i], FIXED_RATE_1);
@@ -197,7 +197,7 @@ public class FixedAnnuityDefinitionBuilderTest {
   /* Long start */
   private static final LocalDate START_DATE_STUB1 = LocalDate.of(2014, 3, 12);
   private static final LocalDate END_DATE_STUB1 = LocalDate.of(2015, 9, 10);
-  private static final CouponStub CPN_STUB1 = new CouponStub(StubType.LONG_START);
+  private static final CouponStub CPN_STUB1 = new CouponStub(StubConvention.LONG_INITIAL);
   private static final AnnuityDefinition<CouponFixedDefinition> LEG_STUB1 =
       (AnnuityDefinition<CouponFixedDefinition>) new FixedAnnuityDefinitionBuilder().payer(true)
           .notional(NOTIONAL_PROV_1).startDate(START_DATE_STUB1).endDate(END_DATE_STUB1).
@@ -207,7 +207,7 @@ public class FixedAnnuityDefinitionBuilderTest {
   /* Short start */
   private static final LocalDate START_DATE_STUB2 = LocalDate.of(2014, 3, 12);
   private static final LocalDate END_DATE_STUB2 = LocalDate.of(2015, 5, 12);
-  private static final CouponStub CPN_STUB2 = new CouponStub(StubType.SHORT_START);
+  private static final CouponStub CPN_STUB2 = new CouponStub(StubConvention.SHORT_INITIAL);
   private static final AnnuityDefinition<CouponFixedDefinition> LEG_STUB2 = (AnnuityDefinition<CouponFixedDefinition>)
       new FixedAnnuityDefinitionBuilder().payer(true).notional(NOTIONAL_PROV_1).startDate(START_DATE_STUB2)
           .endDate(END_DATE_STUB2).accrualPeriodFrequency(P6M)
@@ -216,7 +216,7 @@ public class FixedAnnuityDefinitionBuilderTest {
   /* Short end */
   private static final LocalDate START_DATE_STUB3 = LocalDate.of(2014, 3, 14);
   private static final LocalDate END_DATE_STUB3 = LocalDate.of(2015, 4, 22);
-  private static final CouponStub CPN_STUB3 = new CouponStub(StubType.SHORT_END);
+  private static final CouponStub CPN_STUB3 = new CouponStub(StubConvention.SHORT_FINAL);
   private static final AnnuityDefinition<CouponFixedDefinition> LEG_STUB3 = (AnnuityDefinition<CouponFixedDefinition>)
       new FixedAnnuityDefinitionBuilder().payer(true).notional(NOTIONAL_PROV_1).startDate(START_DATE_STUB3)
           .endDate(END_DATE_STUB3).accrualPeriodFrequency(P6M)
@@ -225,7 +225,7 @@ public class FixedAnnuityDefinitionBuilderTest {
   /* Long end */
   private static final LocalDate START_DATE_STUB4 = LocalDate.of(2013, 9, 12);
   private static final LocalDate END_DATE_STUB4 = LocalDate.of(2015, 5, 12);
-  private static final CouponStub CPN_STUB4 = new CouponStub(StubType.LONG_END);
+  private static final CouponStub CPN_STUB4 = new CouponStub(StubConvention.LONG_FINAL);
   private static final AnnuityDefinition<CouponFixedDefinition> LEG_STUB4 = (AnnuityDefinition<CouponFixedDefinition>)
       new FixedAnnuityDefinitionBuilder().payer(true).notional(NOTIONAL_PROV_1).startDate(START_DATE_STUB4)
           .endDate(END_DATE_STUB4).accrualPeriodFrequency(P6M)
@@ -266,7 +266,7 @@ public class FixedAnnuityDefinitionBuilderTest {
     MulticurveProviderDiscount mCurvesOIS = StandardDataSetsMulticurveUSD.getCurvesUSDOisL1L3L6().getFirst();
     PresentValueDiscountingCalculator pvCalculator = PresentValueDiscountingCalculator.getInstance();
     DayCount dc = DayCounts.THIRTY_U_360;
-    StubType stubType = StubType.SHORT_START;
+    StubConvention stubType = StubConvention.SHORT_INITIAL;
     BusinessDayConvention bbc = USDLIBOR3M.getBusinessDayConvention();
     int offset = 2;
     ZonedDateTime valDate = DateUtils.getUTCDate(2014, 1, 22);
@@ -316,34 +316,34 @@ public class FixedAnnuityDefinitionBuilderTest {
   }
 
   /**
-   * Plugging SHORT_END into startStub
+   * Plugging SHORT_FINAL into startStub
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void shortEndForStartTest() {
-    new FixedAnnuityDefinitionBuilder().startStub(new CouponStub(StubType.SHORT_END));
+    new FixedAnnuityDefinitionBuilder().startStub(new CouponStub(StubConvention.SHORT_FINAL));
   }
 
   /**
-   * Plugging LONG_END into startStub
+   * Plugging LONG_FINAL into startStub
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void longEndForStartTest() {
-    new FixedAnnuityDefinitionBuilder().startStub(new CouponStub(StubType.LONG_END));
+    new FixedAnnuityDefinitionBuilder().startStub(new CouponStub(StubConvention.LONG_FINAL));
   }
 
   /**
-   * Plugging SHORT_START into endStub
+   * Plugging SHORT_INITIAL into endStub
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void shortStartForEndTest() {
-    new FixedAnnuityDefinitionBuilder().endStub(new CouponStub(StubType.SHORT_START));
+    new FixedAnnuityDefinitionBuilder().endStub(new CouponStub(StubConvention.SHORT_INITIAL));
   }
 
   /**
-   * Plugging LONG_START into endStub
+   * Plugging LONG_INITIAL into endStub
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void longStartForEndTest() {
-    new FixedAnnuityDefinitionBuilder().endStub(new CouponStub(StubType.LONG_START));
+    new FixedAnnuityDefinitionBuilder().endStub(new CouponStub(StubConvention.LONG_INITIAL));
   }
 }

@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
@@ -23,6 +22,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -43,7 +43,7 @@ public class GeneratorLegIbor extends GeneratorLeg {
   /** The flag indicating if the end-of-month rule is used. */
   private final boolean _endOfMonth;
   /** The stub type. */
-  private final StubType _stubType;
+  private final StubConvention _stubType;
   /** Whether the notional exchanged (at start and at end). */
   private final boolean _isExchangeNotional;
   /** The calendar associated with the overnight index. */
@@ -67,7 +67,7 @@ public class GeneratorLegIbor extends GeneratorLeg {
    * @param paymentCalendar The calendar used to adjust the payments.
    */
   public GeneratorLegIbor(String name, Currency ccy, IborIndex indexIbor, Period paymentPeriod, int spotOffset, 
-      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubType stubType, 
+      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType, 
       boolean isExchangeNotional, HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(indexIbor, "Index Ibor");
@@ -136,7 +136,7 @@ public class GeneratorLegIbor extends GeneratorLeg {
    * Returns the stub type.
    * @return The stub type.
    */
-  public StubType getStubType() {
+  public StubConvention getStubType() {
     return _stubType;
   }
 

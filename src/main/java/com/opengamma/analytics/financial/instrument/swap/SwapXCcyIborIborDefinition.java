@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.instrument.swap;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -79,9 +79,9 @@ public class SwapXCcyIborIborDefinition extends SwapDefinition {
     ArgChecker.notNull(generator, "Swap generator");
     // TODO: create a mechanism for the simultaneous payments on both legs, i.e. joint calendar
     final AnnuityDefinition<CouponDefinition> firstLegNotional = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(settlementDate, maturityDate,
-        notional1, spread1, generator.getIborIndex1(), isPayer, generator.getCalendar1(), StubType.SHORT_START, 0, true, true);
+        notional1, spread1, generator.getIborIndex1(), isPayer, generator.getCalendar1(), StubConvention.SHORT_INITIAL, 0, true, true);
     final AnnuityDefinition<CouponDefinition> secondLegNotional = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(settlementDate, maturityDate,
-        notional2, spread2, generator.getIborIndex2(), !isPayer, generator.getCalendar2(), StubType.SHORT_START, 0, true, true);
+        notional2, spread2, generator.getIborIndex2(), !isPayer, generator.getCalendar2(), StubConvention.SHORT_INITIAL, 0, true, true);
     return new SwapXCcyIborIborDefinition(firstLegNotional, secondLegNotional);
   }
 

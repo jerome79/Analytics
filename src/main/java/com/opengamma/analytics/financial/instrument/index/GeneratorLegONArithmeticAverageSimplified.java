@@ -9,13 +9,13 @@ package com.opengamma.analytics.financial.instrument.index;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -41,7 +41,7 @@ public class GeneratorLegONArithmeticAverageSimplified extends GeneratorLegONAbs
    * @param paymentCalendar The calendar used for the payments.
    */
   public GeneratorLegONArithmeticAverageSimplified(String name, Currency ccy, IndexON indexON, Period paymentPeriod, int spotOffset,
-      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubType stubType, 
+      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType, 
       boolean isExchangeNotional, HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
     super(name, ccy, indexON, paymentPeriod, spotOffset, paymentOffset, businessDayConvention, endOfMonth, stubType, 
         isExchangeNotional, indexCalendar, paymentCalendar);

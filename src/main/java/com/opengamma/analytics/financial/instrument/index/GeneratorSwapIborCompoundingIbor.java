@@ -10,7 +10,6 @@ import java.time.ZonedDateTime;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborCompoundingFlatSpreadDefinition;
@@ -19,6 +18,7 @@ import com.opengamma.analytics.financial.instrument.swap.SwapDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -191,9 +191,9 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(), _iborIndex1, _calendar1);
     final ZonedDateTime maturityDate = startDate.plus(attribute.getEndPeriod());
     final AnnuityDefinition<CouponIborCompoundingFlatSpreadDefinition> leg1 = AnnuityDefinitionBuilder.couponIborCompoundingFlatSpread(startDate, maturityDate,
-        _compoundingPeriod1, notional, spread, _iborIndex1, StubType.SHORT_START, true, _businessDayConvention, _endOfMonth, _calendar1, StubType.SHORT_START);
+        _compoundingPeriod1, notional, spread, _iborIndex1, StubConvention.SHORT_INITIAL, true, _businessDayConvention, _endOfMonth, _calendar1, StubConvention.SHORT_INITIAL);
     final AnnuityDefinition<CouponIborDefinition> leg2 = AnnuityDefinitionBuilder.couponIbor(startDate, maturityDate, _iborIndex2.getTenor(), notional, _iborIndex2, false,
-        _iborIndex2.getDayCount(), _businessDayConvention, _endOfMonth, _calendar2, StubType.SHORT_START, 0);
+        _iborIndex2.getDayCount(), _businessDayConvention, _endOfMonth, _calendar2, StubConvention.SHORT_INITIAL, 0);
     return new SwapDefinition(leg1, leg2);
   }
 

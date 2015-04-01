@@ -13,8 +13,8 @@ import java.util.Arrays;
 import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.convention.StubCalculator;
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * Utility to calculate the accrued interest.
@@ -262,11 +262,11 @@ public final class AccruedInterestCalculator {
       if (isEndOfMonthConvention) {
         throw new IllegalArgumentException("Inconsistent definition; asked for accrual with EOM convention but are not using Actual/Actual ICMA");
       }
-      final StubType stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
+      final StubConvention stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
       return ((ActualActualICMANormal) dayCount).getAccruedInterest(previousCouponDate, date, nextCouponDate, coupon, paymentsPerYear, stubType);
 
     } else if (dayCount instanceof ActualActualICMA) {
-      final StubType stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
+      final StubConvention stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
       return ((ActualActualICMA) dayCount).getAccruedInterest(previousCouponDate, date, nextCouponDate, coupon, paymentsPerYear, stubType);
 
     } else if (dayCount instanceof ThirtyUThreeSixty) {
@@ -281,11 +281,11 @@ public final class AccruedInterestCalculator {
       if (isEndOfMonthConvention) {
         throw new IllegalArgumentException("Inconsistent definition; asked for accrual with EOM convention but are not using Actual/Actual ICMA");
       }
-      final StubType stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
+      final StubConvention stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
       return ((ActualActualICMANormal) dayCount).getAccruedInterest(previousCouponDate, date, nextCouponDate, coupon, paymentsPerYear, stubType);
 
     } else if (dayCount instanceof ActualActualICMA) {
-      final StubType stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
+      final StubConvention stubType = getStubType(index, length, previousCouponDate, nextCouponDate, paymentsPerYear, isEndOfMonthConvention);
       return ((ActualActualICMA) dayCount).getAccruedInterest(previousCouponDate, date, nextCouponDate, coupon, paymentsPerYear, stubType);
 
     } else if (dayCount instanceof ThirtyUThreeSixty) {
@@ -294,9 +294,9 @@ public final class AccruedInterestCalculator {
     return dayCount.getAccruedInterest(previousCouponDate, date, nextCouponDate, coupon, paymentsPerYear);
   }
 
-  private static StubType getStubType(final int index, final int length, final ZonedDateTime previousCouponDate, final ZonedDateTime nextCouponDate, final double paymentsPerYear,
+  private static StubConvention getStubType(final int index, final int length, final ZonedDateTime previousCouponDate, final ZonedDateTime nextCouponDate, final double paymentsPerYear,
       final boolean isEndOfMonthConvention) {
-    StubType stubType;
+    StubConvention stubType;
     if (index == 0) {
       LocalDate[] schedule = new LocalDate[] {previousCouponDate.toLocalDate(), nextCouponDate.toLocalDate()};
       stubType = StubCalculator.getStartStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
@@ -306,14 +306,14 @@ public final class AccruedInterestCalculator {
       stubType = StubCalculator.getEndStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
 
     } else {
-      stubType = StubType.NONE;
+      stubType = StubConvention.NONE;
     }
     return stubType;
   }
 
-  private static StubType getStubType(final int index, final int length, final LocalDate previousCouponDate, final LocalDate nextCouponDate, final double paymentsPerYear,
+  private static StubConvention getStubType(final int index, final int length, final LocalDate previousCouponDate, final LocalDate nextCouponDate, final double paymentsPerYear,
       final boolean isEndOfMonthConvention) {
-    StubType stubType;
+    StubConvention stubType;
     if (index == 0) {
       LocalDate[] schedule = new LocalDate[] {previousCouponDate, nextCouponDate};
       stubType = StubCalculator.getStartStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
@@ -323,7 +323,7 @@ public final class AccruedInterestCalculator {
       stubType = StubCalculator.getEndStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
 
     } else {
-      stubType = StubType.NONE;
+      stubType = StubConvention.NONE;
     }
     return stubType;
   }

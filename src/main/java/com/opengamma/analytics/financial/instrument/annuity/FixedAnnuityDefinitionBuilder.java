@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.instrument.annuity;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedCompoundingDefinition;
@@ -16,6 +15,7 @@ import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinitio
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * Generates an annuity of fixed rate coupons.
@@ -102,8 +102,8 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
           accrualStartDates[c],
           accrualEndDates[c],
           AnnuityDefinitionBuilder.getDayCountFraction(getAccrualPeriodFrequency(), accrualCalendar, getDayCount(),
-              getStartStub() != null ? getStartStub().getStubType() : StubType.NONE,
-              getEndStub() != null ? getEndStub().getStubType() : StubType.NONE,
+              getStartStub() != null ? getStartStub().getStubType() : StubConvention.NONE,
+              getEndStub() != null ? getEndStub().getStubType() : StubConvention.NONE,
               accrualStartDates[c], accrualEndDates[c], c == 0, c == accrualEndDates.length - 1),
           (isPayer() ? -1 : 1) * getNotional().getAmount(accrualStartDates[c].toLocalDate()),
           _rate);
@@ -126,7 +126,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
     } else {
       coupons = new CouponDefinition[exchangeNotionalCoupons + 1];
       // TODO missing support for start and end stub types
-      StubType stubType = null;
+      StubConvention stubType = null;
       if (getStartStub() != null) {
         stubType = getStartStub().getStubType();
       } else if (getEndStub() != null) {
@@ -134,7 +134,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
       }
 
       if (stubType == null) {
-        stubType = StubType.NONE;
+        stubType = StubConvention.NONE;
       }
 
       final ZonedDateTime adjustedEndDate = BusinessDayDateUtils.applyConvention(
@@ -150,8 +150,8 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
             getStartDate(),
             getEndDate(),
             AnnuityDefinitionBuilder.getDayCountFraction(getAccrualPeriodFrequency(), accrualCalendar, getDayCount(),
-                getStartStub() != null ? getStartStub().getStubType() : StubType.NONE,
-                getEndStub() != null ? getEndStub().getStubType() : StubType.NONE,
+                getStartStub() != null ? getStartStub().getStubType() : StubConvention.NONE,
+                getEndStub() != null ? getEndStub().getStubType() : StubConvention.NONE,
                 getStartDate(), getEndDate(), true, true),
             (isPayer() ? -1 : 1) * getNotional().getAmount(getStartDate().toLocalDate()),
             _rate);

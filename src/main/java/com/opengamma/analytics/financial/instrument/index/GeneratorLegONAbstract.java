@@ -7,10 +7,10 @@ package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -31,7 +31,7 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
   /** The flag indicating if the end-of-month rule is used. */
   private final boolean _endOfMonth;
   /** The stub type. */
-  private final StubType _stubType;
+  private final StubConvention _stubType;
   /** Whether the notional exchanged (at start and at end). */
   private final boolean _isExchangeNotional;
   /** The calendar associated with the overnight index. */
@@ -55,7 +55,7 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
    * @param paymentCalendar The calendar used for the payments.
    */
   public GeneratorLegONAbstract(String name, Currency ccy, IndexON indexON, Period paymentPeriod, int spotOffset, int paymentOffset,
-      BusinessDayConvention businessDayConvention, boolean endOfMonth, StubType stubType, boolean isExchangeNotional,
+      BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType, boolean isExchangeNotional,
       HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(indexON, "Index ON");
@@ -128,7 +128,7 @@ public abstract class GeneratorLegONAbstract extends GeneratorLeg {
    * Gets the stubType.
    * @return the stubType
    */
-  public StubType getStubType() {
+  public StubConvention getStubType() {
     return _stubType;
   }
 

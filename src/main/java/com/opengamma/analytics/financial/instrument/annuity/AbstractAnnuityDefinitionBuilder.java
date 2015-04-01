@@ -13,7 +13,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -35,41 +35,41 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
    * Description of the coupon stub.
    */
   public static class CouponStub {
-    private StubType _stubType;
+    private StubConvention _stubType;
     private double _stubRate = Double.NaN;
     private LocalDate _effectiveDate;
     private IborIndex _firstIborIndex;
     private IborIndex _secondIborIndex;    
     
-    public CouponStub(StubType stubType) {
+    public CouponStub(StubConvention stubType) {
       _stubType = stubType;
     }
     
-    public CouponStub(StubType stubType, LocalDate effectiveDate) {
+    public CouponStub(StubConvention stubType, LocalDate effectiveDate) {
       _stubType = stubType;
       _effectiveDate = effectiveDate;
     }
     
-    public CouponStub(StubType stubType, LocalDate effectiveDate, double stubRate) {
+    public CouponStub(StubConvention stubType, LocalDate effectiveDate, double stubRate) {
       _stubType = stubType;
       _effectiveDate = effectiveDate;
       _stubRate = stubRate;
     }
     
-    public CouponStub(StubType stubType, IborIndex firstStubIndex, IborIndex secondStubIndex) {
+    public CouponStub(StubConvention stubType, IborIndex firstStubIndex, IborIndex secondStubIndex) {
       _stubType = stubType;
       _firstIborIndex = firstStubIndex;
       _secondIborIndex = secondStubIndex;
     }
     
-    public CouponStub(StubType stubType, LocalDate effectiveDate, IborIndex firstStubIndex, IborIndex secondStubIndex) {
+    public CouponStub(StubConvention stubType, LocalDate effectiveDate, IborIndex firstStubIndex, IborIndex secondStubIndex) {
       _stubType = stubType;
       _effectiveDate = effectiveDate;
       _firstIborIndex = firstStubIndex;
       _secondIborIndex = secondStubIndex;
     }
     
-    public StubType getStubType() {
+    public StubConvention getStubType() {
       return _stubType;
     }
     
@@ -132,12 +132,12 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   /**
    * The stub type at the start of the series of coupons. This is an optional field and will default to a short start stub.
    */
-  private CouponStub _startStub = new CouponStub(StubType.SHORT_START);
+  private CouponStub _startStub = new CouponStub(StubConvention.SHORT_INITIAL);
   
   /**
    * The stub type at the end of the series of coupons. This is an optional field, and will default to none if unset.
    */
-  private CouponStub _endStub = new CouponStub(StubType.NONE);
+  private CouponStub _endStub = new CouponStub(StubConvention.NONE);
   
   /**
    * The roll date adjuster used to adjust the accrual dates. This is an optional field.
@@ -350,7 +350,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   }
 
   /**
-   * Sets the stub type at the start of the series of coupons. This is optional and will default to StubType.NONE if unset.
+   * Sets the stub type at the start of the series of coupons. This is optional and will default to StubConvention.NONE if unset.
    * @param startStub the stub type at the end of the series of coupons.
    * @return itself
    */
@@ -359,11 +359,11 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     if (startStub == null) {
       _startStub = null;
     } else {
-      ArgChecker.isFalse(startStub.getStubType() == StubType.SHORT_END ||
-              startStub.getStubType() == StubType.LONG_END, "startStub should be start stub type, but {}",
+      ArgChecker.isFalse(startStub.getStubType() == StubConvention.SHORT_FINAL ||
+              startStub.getStubType() == StubConvention.LONG_FINAL, "startStub should be start stub type, but {}",
           startStub.getStubType());
       _startStub = startStub;
-      if (startStub.getStubType() != StubType.BOTH && startStub.getStubType() != StubType.NONE) {
+      if (startStub.getStubType() != StubConvention.BOTH && startStub.getStubType() != StubConvention.NONE) {
         _endStub = null; // reset end stub.
       }
     }
@@ -371,7 +371,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   }
   
   /**
-   * Sets the stub type at the end of the series of coupons. This is optional and will default to StubType.NONE if unset.
+   * Sets the stub type at the end of the series of coupons. This is optional and will default to StubConvention.NONE if unset.
    * @param endStub the stub type at the end of the series of coupons.
    * @return itself
    */
@@ -380,11 +380,11 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     if (endStub == null) {
       _endStub = null;
     } else {
-      ArgChecker.isFalse(endStub.getStubType() == StubType.SHORT_START ||
-          endStub.getStubType() == StubType.LONG_START, "endStub should be end stub type, but {}",
+      ArgChecker.isFalse(endStub.getStubType() == StubConvention.SHORT_INITIAL ||
+          endStub.getStubType() == StubConvention.LONG_INITIAL, "endStub should be end stub type, but {}",
           endStub.getStubType());
       _endStub = endStub;
-      if (endStub.getStubType() != StubType.BOTH && endStub.getStubType() != StubType.NONE) {
+      if (endStub.getStubType() != StubConvention.BOTH && endStub.getStubType() != StubConvention.NONE) {
         _startStub = null; // reset start stub.
       }
     }
@@ -479,15 +479,15 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   }
   
   protected ZonedDateTime[] getAccrualEndDates(boolean adjusted) {
-    StubType stubType = null;
-    if (_startStub != null && _startStub.getStubType() != StubType.NONE) {
+    StubConvention stubType = null;
+    if (_startStub != null && _startStub.getStubType() != StubConvention.NONE) {
       stubType = _startStub.getStubType();
     } else if (_endStub != null) {
       stubType = _endStub.getStubType();
     }
     
     if (stubType == null) {
-      stubType = StubType.NONE;
+      stubType = StubConvention.NONE;
     }
     
     ZonedDateTime actualStartDate = getStartDate();
@@ -495,7 +495,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     
     ZonedDateTime startDate;
     ZonedDateTime endDate;
-    if (StubType.BOTH == stubType) {
+    if (StubConvention.BOTH == stubType) {
       startDate = ZonedDateTime.of(_startStub.getEffectiveDate(), LocalTime.of(0, 0), ZoneId.of("UTC"));
       endDate = ZonedDateTime.of(_endStub.getEffectiveDate(), LocalTime.of(0, 0), ZoneId.of("UTC"));
     } else {
@@ -519,7 +519,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
           startDate, endDate, _accrualPeriodFrequency, stubType);
     }
     
-    if (StubType.BOTH == stubType) {
+    if (StubConvention.BOTH == stubType) {
       ZonedDateTime[] bothStubAccrualEndDates = new ZonedDateTime[accrualEndDates.length + 2];
       System.arraycopy(accrualEndDates, 0, bothStubAccrualEndDates, 1, accrualEndDates.length);
       bothStubAccrualEndDates[0] = startDate;

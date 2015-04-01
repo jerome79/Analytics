@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -28,6 +27,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -47,7 +47,7 @@ public class CouponIborCompoundingSimpleSpreadDefinitionTest {
   private static final double SPREAD = 0.0010; // 10 bps
 
   private static final CouponIborCompoundingSimpleSpreadDefinition CPN_FROM_INDEX_DEFINITION =
-      CouponIborCompoundingSimpleSpreadDefinition.from(NOTIONAL, START_DATE, END_DATE, USDLIBOR1M, SPREAD, StubType.SHORT_START, PREC, false, NYC);
+      CouponIborCompoundingSimpleSpreadDefinition.from(NOTIONAL, START_DATE, END_DATE, USDLIBOR1M, SPREAD, StubConvention.SHORT_INITIAL, PREC, false, NYC);
 
   private static final ZonedDateTime[] ACCRUAL_END_DATES = ScheduleCalculator.getAdjustedDateSchedule(START_DATE, TENOR_3M, USDLIBOR1M.getTenor(), true, true, PREC, NYC, false);
   private static final int NB_SUB_PERIOD = ACCRUAL_END_DATES.length;
@@ -114,7 +114,7 @@ public class CouponIborCompoundingSimpleSpreadDefinitionTest {
   public void fromShortStub() {
     final ZonedDateTime startDate = DateUtils.getUTCDate(2012, 8, 7);
     final ZonedDateTime endDate = DateUtils.getUTCDate(2012, 11, 23);
-    final CouponIborCompoundingFlatSpreadDefinition cpn = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, startDate, endDate, USDLIBOR1M, SPREAD, StubType.SHORT_START, PREC, true, NYC);
+    final CouponIborCompoundingFlatSpreadDefinition cpn = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, startDate, endDate, USDLIBOR1M, SPREAD, StubConvention.SHORT_INITIAL, PREC, true, NYC);
     assertEquals("CouponIborCompoundingFlatSpreadDefinition: from", startDate, cpn.getAccrualStartDate());
     assertEquals("CouponIborCompoundingFlatSpreadDefinition: from", cpn.getAccrualStartDate(), cpn.getSubperiodsAccrualStartDates()[0]);
     int nbSubPeriod = cpn.getSubperiodsAccrualStartDates().length;

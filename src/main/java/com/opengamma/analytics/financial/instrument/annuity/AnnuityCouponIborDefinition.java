@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -122,7 +122,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod, final double notional, final IborIndex index,
       final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final HolidayCalendar calendar) {
-    return from(settlementDate, maturityDate, paymentPeriod, notional, index, isPayer, businessDayConvention, endOfMonth, dayCount, calendar, StubType.SHORT_START);
+    return from(settlementDate, maturityDate, paymentPeriod, notional, index, isPayer, businessDayConvention, endOfMonth, dayCount, calendar, StubConvention.SHORT_INITIAL);
   }
 
   /**
@@ -141,7 +141,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
    * @return The Ibor annuity.
    */
   public static AnnuityCouponIborDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod, final double notional, final IborIndex index,
-      final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final HolidayCalendar calendar, final StubType stub) {
+      final boolean isPayer, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final DayCount dayCount, final HolidayCalendar calendar, final StubConvention stub) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(maturityDate, "maturity date");
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -149,8 +149,8 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
     ArgChecker.notNull(businessDayConvention, "Business day convention");
     ArgChecker.notNull(dayCount, "Day count convention");
     ArgChecker.isTrue(notional > 0, "notional <= 0");
-    final boolean isStubShort = stub.equals(StubType.SHORT_END) || stub.equals(StubType.SHORT_START);
-    final boolean isStubStart = stub.equals(StubType.LONG_START) || stub.equals(StubType.SHORT_START); // Implementation note: dates computed from the end.
+    final boolean isStubShort = stub.equals(StubConvention.SHORT_FINAL) || stub.equals(StubConvention.SHORT_INITIAL);
+    final boolean isStubStart = stub.equals(StubConvention.LONG_INITIAL) || stub.equals(StubConvention.SHORT_INITIAL); // Implementation note: dates computed from the end.
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, maturityDate, paymentPeriod, isStubShort,
         isStubStart, businessDayConvention, calendar, endOfMonth);
     final double sign = isPayer ? -1.0 : 1.0;

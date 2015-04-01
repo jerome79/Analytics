@@ -11,8 +11,8 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -43,7 +43,7 @@ public class DayCountAccruedInterestTest {
     final int paymentsPerYear = 2;
     assertEquals(ACT_ACT_ISDA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (61. / 365 + 121. / 366), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (182. / 366), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubType.NONE), coupon * (182. / 364), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubConvention.NONE), coupon * (182. / 364), EPS);
     assertEquals(ONE_ONE.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon / paymentsPerYear, EPS);
     assertEquals(FLAT.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), 0, EPS);
   }
@@ -59,8 +59,8 @@ public class DayCountAccruedInterestTest {
     assertEquals(ACT_ACT_ISDA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear), coupon * (184. / 365 + 182. / 366), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (150. / 365), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear), coupon * (366. / 366), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubType.SHORT_START), coupon * (150. / 365), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear, StubType.SHORT_START), coupon * (366. / 366), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubConvention.SHORT_INITIAL), coupon * (150. / 365), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear, StubConvention.SHORT_INITIAL), coupon * (366. / 366), EPS);
   }
 
   @Test
@@ -76,10 +76,10 @@ public class DayCountAccruedInterestTest {
     assertEquals(ACT_ACT_ISDA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear), coupon * (170. / 365 + 14. / 366), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (334. / 365), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear), coupon * (184. / 365), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubType.LONG_START), coupon * (181. / 362 + 153. / 368), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear, StubType.LONG_START), coupon * (184. / 368), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d4, d2, coupon, paymentsPerYear, StubType.LONG_START), coupon * (31.0 / 184.0) / 2.0, EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d5, d2, coupon, paymentsPerYear, StubType.LONG_START), coupon * (153.0 / 184.0 + 31.0 / 181.0) / 2.0, EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubConvention.LONG_INITIAL), coupon * (181. / 362 + 153. / 368), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear, StubConvention.LONG_INITIAL), coupon * (184. / 368), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d4, d2, coupon, paymentsPerYear, StubConvention.LONG_INITIAL), coupon * (31.0 / 184.0) / 2.0, EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d5, d2, coupon, paymentsPerYear, StubConvention.LONG_INITIAL), coupon * (153.0 / 184.0 + 31.0 / 181.0) / 2.0, EPS);
   }
 
   @Test
@@ -93,8 +93,8 @@ public class DayCountAccruedInterestTest {
     assertEquals(ACT_ACT_ISDA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear), coupon * (152. / 366), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (184. / 365), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear), coupon * (152. / 366), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubType.SHORT_END), coupon * (184. / 368), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear, StubType.SHORT_END), coupon * (152. / 364), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubConvention.SHORT_FINAL), coupon * (184. / 368), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d2, d3, d3, coupon, paymentsPerYear, StubConvention.SHORT_FINAL), coupon * (152. / 364), EPS);
   }
 
   @Test
@@ -105,7 +105,7 @@ public class DayCountAccruedInterestTest {
     final int paymentsPerYear = 4;
     assertEquals(ACT_ACT_ISDA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (32. / 365 + 120. / 366), EPS);
     assertEquals(ACT_ACT_AFB.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear), coupon * (152. / 366), EPS);
-    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubType.LONG_END), coupon * (91. / 364 + 61. / 368), EPS);
+    assertEquals(ACT_ACT_ICMA.getAccruedInterest(d1, d2, d2, coupon, paymentsPerYear, StubConvention.LONG_FINAL), coupon * (91. / 364 + 61. / 368), EPS);
   }
 
   @Test

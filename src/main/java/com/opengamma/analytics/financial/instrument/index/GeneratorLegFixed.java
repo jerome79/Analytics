@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AbstractAnnuityDefinitionBuilder.CouponStub;
@@ -21,6 +20,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -41,7 +41,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
   /** The flag indicating if the end-of-month rule is used. */
   private final boolean _endOfMonth;
   /** The stub type. */
-  private final StubType _stubType;
+  private final StubConvention _stubType;
   /** Whether the notional exchanged (at start and at end). */
   private final boolean _isExchangeNotional;
   /** The calendar used for the payments. */
@@ -62,7 +62,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
    * @param paymentCalendar The calendar used to adjust the payments.
    */
   public GeneratorLegFixed(String name, Currency ccy, int spotOffset, Period paymentPeriod, DayCount dayCount, 
-      BusinessDayConvention businessDayConvention, int paymentOffset, boolean endOfMonth, StubType stubType, 
+      BusinessDayConvention businessDayConvention, int paymentOffset, boolean endOfMonth, StubConvention stubType, 
       boolean isExchangeNotional, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -133,7 +133,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
    * Returns the stub type.
    * @return The stub type.
    */
-  public StubType getStubType() {
+  public StubConvention getStubType() {
     return _stubType;
   }
 

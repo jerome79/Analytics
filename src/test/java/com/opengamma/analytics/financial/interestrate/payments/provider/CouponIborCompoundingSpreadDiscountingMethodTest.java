@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborCompoundingSpreadDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborCompoundingSpread;
@@ -32,6 +31,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * Tests related to the pricing and sensitivities of Ibor compounded coupon in the discounting method.
@@ -51,7 +51,7 @@ public class CouponIborCompoundingSpreadDiscountingMethodTest {
   private static final ZonedDateTime START_DATE = DateUtils.getUTCDate(2012, 8, 24);
   private static final ZonedDateTime END_DATE = START_DATE.plus(M6);
   private static final CouponIborCompoundingSpreadDefinition CPN_DEFINITION = CouponIborCompoundingSpreadDefinition.from(NOTIONAL, START_DATE, END_DATE, CADCDOR3M, SPREAD,
-      StubType.SHORT_START, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
+      StubConvention.SHORT_INITIAL, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
 
   private static final CouponIborCompoundingSpreadDiscountingMethod METHOD_COMPOUNDED = CouponIborCompoundingSpreadDiscountingMethod.getInstance();
 

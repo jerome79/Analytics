@@ -17,7 +17,6 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.Sets;
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.equity.EquityDefinition;
@@ -59,6 +58,7 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -134,7 +134,7 @@ public class EquityTotalReturnSwapDiscountingMethodTest {
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex("USDLIBOR3M");
   private static final Currency USD = USDLIBOR3M.getCurrency();
   private static final AnnuityDefinition<CouponIborSpreadDefinition> FUNDING_LEG_IBOR_PAY_DEFINITION = AnnuityDefinitionBuilder.couponIborSpread(EFFECTIVE_DATE_2,
-      TERMINATION_DATE_2, USDLIBOR3M.getTenor(), NOTIONAL_TRS_USD, SPREAD, USDLIBOR3M, true, USDLIBOR3M.getDayCount(), USDLIBOR3M.getBusinessDayConvention(), true, NYC, StubType.SHORT_START, 0);
+      TERMINATION_DATE_2, USDLIBOR3M.getTenor(), NOTIONAL_TRS_USD, SPREAD, USDLIBOR3M, true, USDLIBOR3M.getDayCount(), USDLIBOR3M.getBusinessDayConvention(), true, NYC, StubConvention.SHORT_INITIAL, 0);
   private static final Annuity<? extends Payment> FUNDING_LEG_IBOR_PAY_1 = FUNDING_LEG_IBOR_PAY_DEFINITION.toDerivative(REFERENCE_DATE_1, FIXING_TS_USDLIBOR);
   private static final Annuity<? extends Payment> FUNDING_LEG_IBOR_PAY_2 = FUNDING_LEG_IBOR_PAY_DEFINITION.toDerivative(REFERENCE_DATE_3, FIXING_TS_USDLIBOR);
   private static final EquityTotalReturnSwapDefinition TRS_REC_IBOR_PAY_DEFINITION = new EquityTotalReturnSwapDefinition(EFFECTIVE_DATE_2, TERMINATION_DATE_2,

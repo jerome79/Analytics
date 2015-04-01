@@ -19,7 +19,6 @@ import org.testng.annotations.Test;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -51,6 +50,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * Unit test for {@link CouponTenorVisitor}.
@@ -130,7 +130,7 @@ public class CouponTenorVisitorTest {
                                                                                                       END_DATE,
                                                                                                       USD_LIBOR_3M,
                                                                                                       0.01,
-                                                                                                      StubType.NONE,
+                                                                                                      StubConvention.NONE,
                                                                                                       BusinessDayConventions.MODIFIED_FOLLOWING,
                                                                                                       true,
                                                                                                       TEST_CALENDAR);
@@ -311,7 +311,7 @@ public class CouponTenorVisitorTest {
                                                    END_DATE, // accrualEndDate
                                                    USD_LIBOR_3M,
                                                    0.01, // spread
-                                                   StubType.NONE,
+                                                   StubConvention.NONE,
                                                    BusinessDayConventions.MODIFIED_FOLLOWING,
                                                    true,
                                                    TEST_CALENDAR);

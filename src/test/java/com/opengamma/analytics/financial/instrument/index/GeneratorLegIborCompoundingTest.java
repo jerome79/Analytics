@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
@@ -24,6 +23,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -44,42 +44,42 @@ public class GeneratorLegIborCompoundingTest {
   private static final CompoundingMethod CMP_STRAIGHT = CompoundingMethod.STRAIGHT;
   private static final GeneratorLegIborCompounding GENERATOR = new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M,
       P3M, CMP_FLAT, OFFSET_SPOT, OFFSET_PAYMENT, BusinessDayConventions.MODIFIED_FOLLOWING, true, 
-      StubType.SHORT_START, false, NYC, NYC);
+      StubConvention.SHORT_INITIAL, false, NYC, NYC);
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullName() {
     new GeneratorLegIborCompounding(null, USD, USDLIBOR1M, P3M, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCurrency() {
     new GeneratorLegIborCompounding(NAME, null, USDLIBOR1M, P3M, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullIndex() {
     new GeneratorLegIborCompounding(NAME, USD, null, P3M, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullTenor() {
     new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M, null, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCompoundingMethod() {
     new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M, P3M, null, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullBusinessDay() {
     new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M, P3M, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        null, true, StubType.SHORT_START, false, NYC, NYC);
+        null, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -91,13 +91,13 @@ public class GeneratorLegIborCompoundingTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCalendarIndex() {
     new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M, P3M, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, null, NYC);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, null, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCalendarPayment() {
     new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M, P3M, CompoundingMethod.FLAT, OFFSET_SPOT, OFFSET_PAYMENT, 
-        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, null);
+        BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, null);
   }
   
   @Test
@@ -112,7 +112,7 @@ public class GeneratorLegIborCompoundingTest {
     assertEquals("GeneratorLegIborCompounding: getter", OFFSET_PAYMENT, GENERATOR.getPaymentOffset());
     assertEquals("GeneratorLegIborCompounding: getter", BusinessDayConventions.MODIFIED_FOLLOWING, GENERATOR.getBusinessDayConvention());
     assertEquals("GeneratorLegIborCompounding: getter", true, GENERATOR.isEndOfMonth());
-    assertEquals("GeneratorLegIborCompounding: getter", StubType.SHORT_START, GENERATOR.getStubType());
+    assertEquals("GeneratorLegIborCompounding: getter", StubConvention.SHORT_INITIAL, GENERATOR.getStubType());
     assertEquals("GeneratorLegIborCompounding: getter", false, GENERATOR.isExchangeNotional());
     assertEquals("GeneratorLegIborCompounding: getter", NYC, GENERATOR.getIndexCalendar());
     assertEquals("GeneratorLegIborCompounding: getter", NYC, GENERATOR.getPaymentCalendar());
@@ -174,7 +174,7 @@ public class GeneratorLegIborCompoundingTest {
     ZonedDateTime valuationDate = DateUtils.getUTCDate(2014, 1, 22);
     GeneratorLegIborCompounding generator = new GeneratorLegIborCompounding(NAME, USD, USDLIBOR1M, 
         P3M, CMP_STRAIGHT, OFFSET_SPOT, OFFSET_PAYMENT, BusinessDayConventions.MODIFIED_FOLLOWING, true, 
-        StubType.SHORT_START, false, NYC, NYC);
+        StubConvention.SHORT_INITIAL, false, NYC, NYC);
     AnnuityDefinition<?> instrumentDefinition = generator.generateInstrument(valuationDate, spread, notional, attribute);
     assertEquals("GeneratorLegONCompounded: generate -  number of coupons", 
         instrumentDefinition.getNumberOfPayments(), legTenorYear * 4); // Quarterly payments

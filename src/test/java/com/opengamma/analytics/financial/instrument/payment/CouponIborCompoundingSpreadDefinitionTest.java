@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -28,6 +27,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -110,7 +110,7 @@ public class CouponIborCompoundingSpreadDefinitionTest {
   public void fromShortStub() {
     final ZonedDateTime startDate = DateUtils.getUTCDate(2012, 8, 7);
     final ZonedDateTime endDate = DateUtils.getUTCDate(2012, 11, 23);
-    final CouponIborCompoundingSpreadDefinition cpn = CouponIborCompoundingSpreadDefinition.from(NOTIONAL, startDate, endDate, USDLIBOR1M, SPREAD, StubType.SHORT_START, PREC, true, NYC);
+    final CouponIborCompoundingSpreadDefinition cpn = CouponIborCompoundingSpreadDefinition.from(NOTIONAL, startDate, endDate, USDLIBOR1M, SPREAD, StubConvention.SHORT_INITIAL, PREC, true, NYC);
     assertEquals("CouponIborCompoundedSpreadDefinition: from", startDate, cpn.getAccrualStartDate());
     assertEquals("CouponIborCompoundedSpreadDefinition: from", cpn.getAccrualStartDate(), cpn.getAccrualStartDates()[0]);
     int nbSubPeriod = cpn.getAccrualStartDates().length;

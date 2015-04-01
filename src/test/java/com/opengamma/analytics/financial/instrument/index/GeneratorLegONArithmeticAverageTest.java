@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponONArithmeticAverageSpreadDefinition;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -40,34 +40,34 @@ public class GeneratorLegONArithmeticAverageTest {
   private static final int OFFSET_PAYMENT = 0;
   private static final GeneratorLegONArithmeticAverage GENERATOR = new GeneratorLegONArithmeticAverage(NAME, USD,
       FEDFUND, Period.ofMonths(12), OFFSET_SPOT, OFFSET_PAYMENT, BusinessDayConventions.MODIFIED_FOLLOWING, true,
-      StubType.SHORT_START, false, NYC, NYC);
+      StubConvention.SHORT_INITIAL, false, NYC, NYC);
   private static final GeneratorLegONArithmeticAverageSimplified GENERATOR_SIMPLE =
       new GeneratorLegONArithmeticAverageSimplified(NAME, USD, FEDFUND,
       Period.ofMonths(12), OFFSET_SPOT, OFFSET_PAYMENT, BusinessDayConventions.MODIFIED_FOLLOWING, true, 
-      StubType.SHORT_START, false, NYC, NYC);
+      StubConvention.SHORT_INITIAL, false, NYC, NYC);
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullName() {
     new GeneratorLegONArithmeticAverage(null, USD, FEDFUND, 
-        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullIndex() {
     new GeneratorLegONArithmeticAverage("LEG_USD1YFEDFUND", USD, null, 
-        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullTenor() {
     new GeneratorLegONArithmeticAverage("LEG_USD1YFEDFUND", USD, FEDFUND, 
-        null, 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+        null, 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullBusinessDay() {
     new GeneratorLegONArithmeticAverage("LEG_USD1YFEDFUND", USD, FEDFUND, 
-        Period.ofMonths(12), 2, 2, null, true, StubType.SHORT_START, false, NYC, NYC);
+        Period.ofMonths(12), 2, 2, null, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -79,13 +79,13 @@ public class GeneratorLegONArithmeticAverageTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCalendarIndex() {
     new GeneratorLegONArithmeticAverage("LEG_USD1YFEDFUND", USD, FEDFUND, 
-        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, null, NYC);
+        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, null, NYC);
   }
   
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCalendarPayment() {
     new GeneratorLegONArithmeticAverage("LEG_USD1YFEDFUND", USD, FEDFUND, 
-        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, null);
+        Period.ofMonths(12), 2, 2, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, null);
   }
   
   @Test
@@ -98,7 +98,7 @@ public class GeneratorLegONArithmeticAverageTest {
     assertEquals("GeneratorLegONArithmeticAverage: getter", 
         BusinessDayConventions.MODIFIED_FOLLOWING, GENERATOR.getBusinessDayConvention());
     assertEquals("GeneratorLegONArithmeticAverage: getter", true, GENERATOR.isEndOfMonth());
-    assertEquals("GeneratorLegONArithmeticAverage: getter", StubType.SHORT_START, GENERATOR.getStubType());
+    assertEquals("GeneratorLegONArithmeticAverage: getter", StubConvention.SHORT_INITIAL, GENERATOR.getStubType());
     assertEquals("GeneratorLegONArithmeticAverage: getter", false, GENERATOR.isExchangeNotional());
     assertEquals("GeneratorLegONArithmeticAverage: getter", NYC, GENERATOR.getIndexCalendar());
     assertEquals("GeneratorLegONArithmeticAverage: getter", NYC, GENERATOR.getPaymentCalendar());

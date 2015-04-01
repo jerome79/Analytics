@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.provider.curve;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
@@ -52,6 +51,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * Generators and indexes used in curve calibration tests.
@@ -372,7 +372,7 @@ public class CurveCalibrationConventionDataSets {
   private static final GeneratorFRA GENERATOR_FRA_3M_USD = new GeneratorFRA("GENERATOR USD FRA 3M", USDLIBOR3M, NYC);
   private static final GeneratorLegONArithmeticAverageSimplified USDFEDFUNDAA3M = 
       new GeneratorLegONArithmeticAverageSimplified("USDFEDFUNDAA3M", USD, INDEX_FEDFUND_USD, Period.ofMonths(3), 2, 0,
-          BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, false, NYC, NYC);
+          BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
   private static final GeneratorSwapSingleCurrency GENERATOR_FFAA_USDLIBOR3M = 
       new GeneratorSwapSingleCurrency("USDFEDFUNDAA3MLIBOR3M",
           USDFEDFUNDAA3M, GeneratorLegIborMaster.getInstance().getGenerator("USDLIBOR3M", NYC));

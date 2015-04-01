@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
@@ -56,6 +55,7 @@ import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -100,10 +100,10 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
       new GeneratorDepositIbor("GENERATOR_EURIBOR6M", EURIBOR6M, TARGET);
   private static final GeneratorLegONCompounded EUREONIACMP1Y = 
       new GeneratorLegONCompounded("EUREONIACMP1Y", EUR, INDEX_ON_EUR, Period.ofMonths(12), 2, 2,
-          BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, true, TARGET, TARGET);
+          BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, true, TARGET, TARGET);
   private static final GeneratorLegONCompounded USDFEDFUNDCMP1Y = 
       new GeneratorLegONCompounded("USDFEDFUNDCMP1Y", USD, INDEX_ON_USD, Period.ofMonths(12), 2, 2,
-          BusinessDayConventions.MODIFIED_FOLLOWING, true, StubType.SHORT_START, true, NYC, NYC);
+          BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, true, NYC, NYC);
   private static final GeneratorSwapXCcyIborIbor EURIBOR3MUSDLIBOR3M = 
       new GeneratorSwapXCcyIborIbor("EURIBOR3MUSDLIBOR3M", EURIBOR3M, USDLIBOR3M, TARGET, NYC); // Spread on EUR leg
   private static final GeneratorSwapCrossCurrency EUREONIACMP1YUSDFEDFUNDCMP1Y =

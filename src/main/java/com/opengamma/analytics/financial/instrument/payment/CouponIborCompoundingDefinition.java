@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 import org.apache.commons.lang.ObjectUtils;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
@@ -30,6 +29,7 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -319,7 +319,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
    * @return The compounded coupon.
    */
   public static CouponIborCompoundingDefinition from(final double notional, final ZonedDateTime accrualStartDate, final Period tenor, final IborIndex index,
-      final HolidayCalendar calendar, final StubType stub) {
+      final HolidayCalendar calendar, final StubConvention stub) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date");
     ArgChecker.notNull(tenor, "Tenor");
     final ZonedDateTime accrualEndDate = accrualStartDate.plus(tenor);
@@ -341,7 +341,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
    * @return The compounded coupon.
    */
   public static CouponIborCompoundingDefinition from(final double notional, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final IborIndex index,
-      final StubType stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar) {
+      final StubConvention stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date");
     ArgChecker.notNull(accrualEndDate, "Accrual end date");
     ArgChecker.notNull(index, "Index");
@@ -375,7 +375,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
    * @return The compounded coupon.
    */
   public static CouponIborCompoundingDefinition from(final double notional, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final IborIndex index,
-      final StubType stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, RollDateAdjuster adjuster) {
+      final StubConvention stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, RollDateAdjuster adjuster) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date");
     ArgChecker.notNull(accrualEndDate, "Accrual end date");
     ArgChecker.notNull(index, "Index");

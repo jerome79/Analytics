@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -25,6 +24,7 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -46,7 +46,7 @@ public class SwapMultilegTest {
   private static final ZonedDateTime SETTLEMENT_DATE = DateUtils.getUTCDate(2013, 10, 16);
   private static final double NOTIONAL = 1000000; // 1m
   private static final double SPREAD = 0.0010; // 10 bps
-  private static final StubType STUB = StubType.SHORT_START;
+  private static final StubConvention STUB = StubConvention.SHORT_INITIAL;
 
   // Swap represeting a EUR basis swap: 1 spread leg and 2 Euribor leg.
   private static final boolean IS_PAYER_SPREAD = true;

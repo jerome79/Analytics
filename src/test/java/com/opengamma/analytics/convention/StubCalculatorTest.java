@@ -14,6 +14,7 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -134,40 +135,40 @@ public class StubCalculatorTest {
 
   @Test
   public void testStartType() {
-    assertEquals(StubCalculator.getStartStubType(NO_STUB2, 4), StubType.NONE);
-    assertEquals(StubCalculator.getStartStubType(SHORT_START_STUB2, 4), StubType.SHORT_START);
-    assertEquals(StubCalculator.getStartStubType(LONG_START_STUB2, 4), StubType.LONG_START);
-    assertEquals(StubCalculator.getStartStubType(SHORT_END_STUB2, 4), StubType.NONE);
-    assertEquals(StubCalculator.getStartStubType(LONG_END_STUB2, 4), StubType.NONE);
-    assertEquals(StubCalculator.getStartStubType(NO_STUB4, 4), StubType.SHORT_START);
-    assertEquals(StubCalculator.getStartStubType(SHORT_START_STUB4, 4), StubType.SHORT_START);
-    assertEquals(StubCalculator.getStartStubType(LONG_START_STUB4, 4), StubType.LONG_START);
-    assertEquals(StubCalculator.getStartStubType(SHORT_END_STUB4, 4), StubType.SHORT_START);
-    assertEquals(StubCalculator.getStartStubType(LONG_END_STUB4, 4), StubType.SHORT_START);
-    assertEquals(StubCalculator.getStartStubType(NO_STUB4, 4, true), StubType.NONE);
-    assertEquals(StubCalculator.getStartStubType(SHORT_START_STUB4, 4, true), StubType.SHORT_START);
-    assertEquals(StubCalculator.getStartStubType(LONG_START_STUB4, 4, true), StubType.LONG_START);
-    assertEquals(StubCalculator.getStartStubType(SHORT_END_STUB4, 4, true), StubType.NONE);
-    assertEquals(StubCalculator.getStartStubType(LONG_END_STUB4, 4, true), StubType.NONE);
+    assertEquals(StubCalculator.getStartStubType(NO_STUB2, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getStartStubType(SHORT_START_STUB2, 4), StubConvention.SHORT_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(LONG_START_STUB2, 4), StubConvention.LONG_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(SHORT_END_STUB2, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getStartStubType(LONG_END_STUB2, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getStartStubType(NO_STUB4, 4), StubConvention.SHORT_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(SHORT_START_STUB4, 4), StubConvention.SHORT_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(LONG_START_STUB4, 4), StubConvention.LONG_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(SHORT_END_STUB4, 4), StubConvention.SHORT_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(LONG_END_STUB4, 4), StubConvention.SHORT_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(NO_STUB4, 4, true), StubConvention.NONE);
+    assertEquals(StubCalculator.getStartStubType(SHORT_START_STUB4, 4, true), StubConvention.SHORT_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(LONG_START_STUB4, 4, true), StubConvention.LONG_INITIAL);
+    assertEquals(StubCalculator.getStartStubType(SHORT_END_STUB4, 4, true), StubConvention.NONE);
+    assertEquals(StubCalculator.getStartStubType(LONG_END_STUB4, 4, true), StubConvention.NONE);
   }
 
   @Test
   public void testEndType() {
-    assertEquals(StubCalculator.getEndStubType(NO_STUB2, 4), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(SHORT_START_STUB2, 4), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(LONG_START_STUB2, 4), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(SHORT_END_STUB2, 4), StubType.SHORT_END);
-    assertEquals(StubCalculator.getEndStubType(LONG_END_STUB2, 4), StubType.LONG_END);
-    assertEquals(StubCalculator.getEndStubType(NO_STUB4, 4), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(SHORT_START_STUB4, 4), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(LONG_START_STUB4, 4), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(SHORT_END_STUB4, 4), StubType.SHORT_END);
-    assertEquals(StubCalculator.getEndStubType(LONG_END_STUB4, 4), StubType.LONG_END);
-    assertEquals(StubCalculator.getEndStubType(NO_STUB4, 4, true), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(SHORT_START_STUB4, 4, true), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(LONG_START_STUB4, 4, true), StubType.NONE);
-    assertEquals(StubCalculator.getEndStubType(SHORT_END_STUB4, 4, true), StubType.SHORT_END);
-    assertEquals(StubCalculator.getEndStubType(LONG_END_STUB4, 4, true), StubType.LONG_END);
+    assertEquals(StubCalculator.getEndStubType(NO_STUB2, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(SHORT_START_STUB2, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(LONG_START_STUB2, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(SHORT_END_STUB2, 4), StubConvention.SHORT_FINAL);
+    assertEquals(StubCalculator.getEndStubType(LONG_END_STUB2, 4), StubConvention.LONG_FINAL);
+    assertEquals(StubCalculator.getEndStubType(NO_STUB4, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(SHORT_START_STUB4, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(LONG_START_STUB4, 4), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(SHORT_END_STUB4, 4), StubConvention.SHORT_FINAL);
+    assertEquals(StubCalculator.getEndStubType(LONG_END_STUB4, 4), StubConvention.LONG_FINAL);
+    assertEquals(StubCalculator.getEndStubType(NO_STUB4, 4, true), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(SHORT_START_STUB4, 4, true), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(LONG_START_STUB4, 4, true), StubConvention.NONE);
+    assertEquals(StubCalculator.getEndStubType(SHORT_END_STUB4, 4, true), StubConvention.SHORT_FINAL);
+    assertEquals(StubCalculator.getEndStubType(LONG_END_STUB4, 4, true), StubConvention.LONG_FINAL);
 
   }
 }

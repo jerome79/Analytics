@@ -8,7 +8,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.financial.instrument.payment.CouponONArithmeticAverageSpreadDefinition;
@@ -18,6 +17,7 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -44,7 +44,7 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinitionTest {
   public void from() {
     final ZonedDateTime maturity = EFFECTIVE_DATE.plus(LEG_TENOR);
     final AnnuityDefinition<CouponONArithmeticAverageSpreadDefinition> leg = AnnuityCouponArithmeticAverageONSpreadDefinition.from(EFFECTIVE_DATE, maturity, NOTIONAL, SPREAD,
-        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubType.SHORT_START);
+        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubConvention.SHORT_INITIAL);
     final int nbCoupon = leg.getNumberOfPayments();
     assertEquals("AnnuityCouponArithmeticAverageONSpreadDefinition", nbCoupon, 40); // nb coupons: 10Y quarterly
     for (int loopc = 0; loopc < nbCoupon; loopc++) {
@@ -60,7 +60,7 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinitionTest {
   public void fromStub() {
     final ZonedDateTime maturity = EFFECTIVE_DATE.plus(LEG_TENOR).plusMonths(1);
     final AnnuityDefinition<CouponONArithmeticAverageSpreadDefinition> legShortStart = AnnuityCouponArithmeticAverageONSpreadDefinition.from(EFFECTIVE_DATE, maturity, NOTIONAL, SPREAD,
-        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubType.SHORT_START);
+        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubConvention.SHORT_INITIAL);
     final AnnuityDefinition<CouponONArithmeticAverageSpreadDefinition> legShortStart2 = AnnuityCouponArithmeticAverageONSpreadDefinition.from(EFFECTIVE_DATE, maturity, NOTIONAL, SPREAD,
         true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR);
     assertEquals("AnnuityCouponArithmeticAverageONSpreadDefinition: Default", legShortStart, legShortStart2);
@@ -70,21 +70,21 @@ public class AnnuityCouponArithmeticAverageONSpreadDefinitionTest {
         legShortStart.getNthPayment(0).getAccrualStartDate().getMonth().plus(1) == legShortStart.getNthPayment(0).getAccrualEndDate().getMonth());
 
     final AnnuityDefinition<CouponONArithmeticAverageSpreadDefinition> legShortEnd = AnnuityCouponArithmeticAverageONSpreadDefinition.from(EFFECTIVE_DATE, maturity, NOTIONAL, SPREAD,
-        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubType.SHORT_END);
+        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubConvention.SHORT_FINAL);
     final int nbCouponShortEnd = legShortEnd.getNumberOfPayments();
     assertEquals("AnnuityCouponArithmeticAverageONSpreadDefinition", 41, nbCouponShortEnd); // nb coupons: 10Y+1M quarterly
     assertTrue("AnnuityCouponArithmeticAverageONSpreadDefinition: Short end",
         legShortEnd.getNthPayment(nbCouponShortEnd - 1).getAccrualStartDate().getMonth().plus(1) == legShortEnd.getNthPayment(nbCouponShortEnd - 1).getAccrualEndDate().getMonth());
 
     final AnnuityDefinition<CouponONArithmeticAverageSpreadDefinition> legLongStart = AnnuityCouponArithmeticAverageONSpreadDefinition.from(EFFECTIVE_DATE, maturity, NOTIONAL, SPREAD,
-        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubType.LONG_START);
+        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubConvention.LONG_INITIAL);
     final int nbCouponLongStart = legLongStart.getNumberOfPayments();
     assertEquals("AnnuityCouponArithmeticAverageONSpreadDefinition", 40, nbCouponLongStart); // nb coupons: 10Y+1M quarterly
     assertTrue("AnnuityCouponArithmeticAverageONSpreadDefinition: Short start",
         legLongStart.getNthPayment(0).getAccrualStartDate().getMonth().plus(4) == legLongStart.getNthPayment(0).getAccrualEndDate().getMonth());
 
     final AnnuityDefinition<CouponONArithmeticAverageSpreadDefinition> legLongEnd = AnnuityCouponArithmeticAverageONSpreadDefinition.from(EFFECTIVE_DATE, maturity, NOTIONAL, SPREAD,
-        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubType.LONG_END);
+        true, PAY_TENOR, FEDFUND, PAY_LAG, BUSINESS_DAY, true, CALENDAR, StubConvention.LONG_FINAL);
     final int nbCouponLongEnd = legLongEnd.getNumberOfPayments();
     assertEquals("AnnuityCouponArithmeticAverageONSpreadDefinition", 40, nbCouponLongEnd); // nb coupons: 10Y+1M quarterly
     assertTrue("AnnuityCouponArithmeticAverageONSpreadDefinition: Short end",

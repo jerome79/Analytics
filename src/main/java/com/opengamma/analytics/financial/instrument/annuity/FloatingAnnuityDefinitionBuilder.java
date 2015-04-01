@@ -11,7 +11,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.ActualActualISDA;
 import com.opengamma.analytics.convention.rolldate.GeneralRollDateAdjuster;
@@ -35,6 +34,7 @@ import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadDefini
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -257,11 +257,11 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       // Check if we need to handle an interpolated stub
       boolean isStubStart = c == 0 &&
           getStartStub() != null &&
-          (StubType.SHORT_START == getStartStub().getStubType() || StubType.LONG_START == getStartStub().getStubType() || StubType.BOTH == getStartStub()
+          (StubConvention.SHORT_INITIAL == getStartStub().getStubType() || StubConvention.LONG_INITIAL == getStartStub().getStubType() || StubConvention.BOTH == getStartStub()
               .getStubType());
       boolean isStubEnd = c == adjustedAccrualEndDates.length - 1 &&
           getEndStub() != null &&
-          (StubType.SHORT_END == getEndStub().getStubType() || StubType.LONG_END == getEndStub().getStubType() || StubType.BOTH == getEndStub()
+          (StubConvention.SHORT_FINAL == getEndStub().getStubType() || StubConvention.LONG_FINAL == getEndStub().getStubType() || StubConvention.BOTH == getEndStub()
               .getStubType());
 
       
@@ -371,10 +371,10 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     double notional = (isPayer() ? -1 : 1) * getNotional().getAmount(accrualStartDate.toLocalDate());
     
     boolean isStubStart = getStartStub() != null &&
-        (StubType.SHORT_START == getStartStub().getStubType() || StubType.LONG_START == getStartStub().getStubType() || StubType.BOTH == getStartStub()
+        (StubConvention.SHORT_INITIAL == getStartStub().getStubType() || StubConvention.LONG_INITIAL == getStartStub().getStubType() || StubConvention.BOTH == getStartStub()
             .getStubType());
     boolean isStubEnd = getEndStub() != null &&
-            (StubType.SHORT_END == getEndStub().getStubType() || StubType.LONG_END == getEndStub().getStubType() || StubType.BOTH == getEndStub()
+            (StubConvention.SHORT_FINAL == getEndStub().getStubType() || StubConvention.LONG_FINAL == getEndStub().getStubType() || StubConvention.BOTH == getEndStub()
                 .getStubType());
     
     if (_index instanceof IborIndex) {
@@ -485,7 +485,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         adjustedAccrualEndDate,
         getAccrualPeriodAdjustmentParameters().getCalendar());
 
-    StubType stubType = couponStub != null ? couponStub.getStubType() : StubType.NONE;
+    StubConvention stubType = couponStub != null ? couponStub.getStubType() : StubConvention.NONE;
     double accrualYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(
         Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(),
         getAccrualPeriodAdjustmentParameters().getCalendar(), getDayCount(), stubType, stubType,
@@ -499,7 +499,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
           unadjustedAccrualStartDate, // Pass in the unadjusted date - it will come out adjusted
           unadjustedAccrualEndDate, // Pass in the adjusted date - it will come out adjusted
           index.getTenor(),
-          StubType.SHORT_START, // short start for sub-periods 
+          StubConvention.SHORT_INITIAL, // short start for sub-periods 
           getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
           getAccrualPeriodAdjustmentParameters().getCalendar(),
           getRollDateAdjuster() instanceof GeneralRollDateAdjuster ? null : getRollDateAdjuster()); // using DoM adjuster is messing up maturity date
@@ -637,7 +637,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
             adjustedAccrualStartDate,
             adjustedAccrualEndDate,
             AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), getAccrualPeriodAdjustmentParameters().getCalendar(), getDayCount(),
-                                                         couponStub != null ? couponStub.getStubType() : StubType.NONE, couponStub != null ? couponStub.getStubType() : StubType.NONE,
+                                                         couponStub != null ? couponStub.getStubType() : StubConvention.NONE, couponStub != null ? couponStub.getStubType() : StubConvention.NONE,
                                                          adjustedAccrualStartDate, adjustedAccrualEndDate, isFirstCoupon, isLastCoupon),
             notional,
             initialRate);
@@ -661,7 +661,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
             _adjustedFixingDateParameters.getCalendar(), // This is using the fixing calendar instead of the reset calendar
             null); // getRollDateAdjuster()); // set to null for forward date roll bug
         double fixingPeriodYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), _adjustedResetDateParameters.getCalendar(), getDayCount(),
-                                                                                       couponStub != null ? couponStub.getStubType() : StubType.NONE, couponStub != null ? couponStub.getStubType() : StubType.NONE,
+                                                                                       couponStub != null ? couponStub.getStubType() : StubConvention.NONE, couponStub != null ? couponStub.getStubType() : StubConvention.NONE,
                                                                                        fixingPeriodStartDate, fixingPeriodEndDate, isFirstCoupon, isLastCoupon);
         ZonedDateTime fixingDate;
         if (DateRelativeTo.START == _resetRelativeTo) {
@@ -761,7 +761,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         adjustedAccrualEndDate,
         getAccrualPeriodAdjustmentParameters().getCalendar());
 
-    StubType stubType = couponStub != null ? couponStub.getStubType() : StubType.NONE;
+    StubConvention stubType = couponStub != null ? couponStub.getStubType() : StubConvention.NONE;
     double accrualYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(
         Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(),
         getAccrualPeriodAdjustmentParameters().getCalendar(), getDayCount(), stubType, stubType,

@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.StubType;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborCompoundingFlatSpreadDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborCompoundingFlatSpread;
@@ -33,6 +32,7 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 
 /**
@@ -53,7 +53,7 @@ public class CouponIborCompoundingFlatSpreadDiscountingMethodTest {
   private static final ZonedDateTime START_DATE = DateUtils.getUTCDate(2012, 8, 24);
   private static final ZonedDateTime END_DATE = START_DATE.plus(M6);
   private static final CouponIborCompoundingFlatSpreadDefinition CPN_DEFINITION = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, START_DATE, END_DATE, CADCDOR3M, SPREAD,
-      StubType.SHORT_START, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
+      StubConvention.SHORT_INITIAL, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
 
   private static final CouponIborCompoundingFlatSpreadDiscountingMethod METHOD_COMPOUNDED = CouponIborCompoundingFlatSpreadDiscountingMethod.getInstance();
 
@@ -150,9 +150,9 @@ public class CouponIborCompoundingFlatSpreadDiscountingMethodTest {
    */
   public void presentValueMarketQuoteSensitivity() {
     final CouponIborCompoundingFlatSpreadDefinition cpnShiftedPDefinition = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, START_DATE, END_DATE, CADCDOR3M, SPREAD + SHIFT,
-        StubType.SHORT_START, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
+        StubConvention.SHORT_INITIAL, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
     final CouponIborCompoundingFlatSpreadDefinition cpnShiftedMDefinition = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, START_DATE, END_DATE, CADCDOR3M, SPREAD - SHIFT,
-        StubType.SHORT_START, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
+        StubConvention.SHORT_INITIAL, CADCDOR3M.getBusinessDayConvention(), CADCDOR3M.isEndOfMonth(), CALENDAR);
     final CouponIborCompoundingFlatSpread cpnShiftedP = cpnShiftedPDefinition.toDerivative(REFERENCE_DATE_BEFORE);
     final CouponIborCompoundingFlatSpread cpnShiftedM = cpnShiftedMDefinition.toDerivative(REFERENCE_DATE_BEFORE);
     final MultiCurrencyAmount pvP = cpnShiftedP.accept(PVDC, MULTICURVES);

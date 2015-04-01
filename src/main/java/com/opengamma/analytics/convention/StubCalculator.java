@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 import org.apache.commons.lang.Validate;
 
+import com.opengamma.strata.basics.schedule.StubConvention;
 
 /**
  * Utility to calculate the stub type.
@@ -34,7 +35,7 @@ public final class StubCalculator {
    * @param paymentsPerYear  the number of payments per year, one, two, three, four, six or twelve
    * @return the stub type, not null
    */
-  public static StubType getStartStubType(final LocalDate[] schedule, final int paymentsPerYear) {
+  public static StubConvention getStartStubType(final LocalDate[] schedule, final int paymentsPerYear) {
     return getStartStubType(schedule, paymentsPerYear, false);
   }
 
@@ -49,7 +50,7 @@ public final class StubCalculator {
    * @param isEndOfMonthConvention  whether to use end of month rules
    * @return the stub type, not null
    */
-  public static StubType getStartStubType(final LocalDate[] schedule, final double paymentsPerYear, final boolean isEndOfMonthConvention) {
+  public static StubConvention getStartStubType(final LocalDate[] schedule, final double paymentsPerYear, final boolean isEndOfMonthConvention) {
     Validate.notNull(schedule, "schedule");
     Validate.noNullElements(schedule, "schedule");
     Validate.isTrue(paymentsPerYear > 0);
@@ -66,12 +67,12 @@ public final class StubCalculator {
       date = second.minusMonths(months);
     }
     if (date.equals(first)) {
-      return StubType.NONE;
+      return StubConvention.NONE;
     }
     if (date.isBefore(first)) {
-      return StubType.SHORT_START;
+      return StubConvention.SHORT_INITIAL;
     }
-    return StubType.LONG_START;
+    return StubConvention.LONG_INITIAL;
   }
 
   //-------------------------------------------------------------------------
@@ -85,7 +86,7 @@ public final class StubCalculator {
    * @param paymentsPerYear  the number of payments per year, one, two, three, four, six or twelve
    * @return the stub type, not null
    */
-  public static StubType getEndStubType(final LocalDate[] schedule, final int paymentsPerYear) {
+  public static StubConvention getEndStubType(final LocalDate[] schedule, final int paymentsPerYear) {
     return getEndStubType(schedule, paymentsPerYear, false);
   }
 
@@ -100,7 +101,7 @@ public final class StubCalculator {
    * @param isEndOfMonthConvention  whether to use end of month rules
    * @return the stub type, not null
    */
-  public static StubType getEndStubType(final LocalDate[] schedule, final double paymentsPerYear, final boolean isEndOfMonthConvention) {
+  public static StubConvention getEndStubType(final LocalDate[] schedule, final double paymentsPerYear, final boolean isEndOfMonthConvention) {
     Validate.notNull(schedule, "schedule");
     Validate.noNullElements(schedule, "schedule");
     Validate.isTrue(paymentsPerYear > 0);
@@ -118,12 +119,12 @@ public final class StubCalculator {
       date = first.plusMonths(months);
     }
     if (date.equals(second)) {
-      return StubType.NONE;
+      return StubConvention.NONE;
     }
     if (date.isAfter(second)) {
-      return StubType.SHORT_END;
+      return StubConvention.SHORT_FINAL;
     }
-    return StubType.LONG_END;
+    return StubConvention.LONG_FINAL;
   }
 
 }
