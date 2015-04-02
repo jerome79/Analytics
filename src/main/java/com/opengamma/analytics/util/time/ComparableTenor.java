@@ -6,6 +6,7 @@
 package com.opengamma.analytics.util.time;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.MONTHS;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeParseException;
 import org.joda.convert.FromString;
 import org.joda.convert.ToString;
 
+import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -25,12 +27,6 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
   /** Serialization version. */
   private static final long serialVersionUID = -6312355131513714559L;
 
-  /**
-   * An overnight tenor.
-   * @deprecated use ComparableTenor.ON
-   */
-  @Deprecated
-  public static final ComparableTenor OVERNIGHT = new ComparableTenor(Period.ofDays(1));
   /**
    * A tenor of one day.
    */
@@ -230,12 +226,23 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
 
   //-------------------------------------------------------------------------
   /**
+   * Obtains a {@code ComparableTenor} from a {@code Tenor}.
+   *
+   * @param tenor  the tenor to convert to a comparable tenor, not null
+   * @return the tenor, not null
+   */
+  public static ComparableTenor of(Tenor tenor) {
+    ArgChecker.notNull(tenor, "tenor");
+    return new ComparableTenor(tenor.getPeriod());
+  }
+
+  /**
    * Obtains a {@code ComparableTenor} from a {@code Period}.
    *
    * @param period  the period to convert to a tenor, not null
    * @return the tenor, not null
    */
-  public static ComparableTenor of(final Period period) {
+  public static ComparableTenor of(Period period) {
     ArgChecker.notNull(period, "period");
     return new ComparableTenor(period);
   }
@@ -246,9 +253,63 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
    * @param businessDayTenor  the tenor to convert, not null
    * @return the tenor, not null
    */
-  public static ComparableTenor of(final BusinessDayTenor businessDayTenor) {
+  public static ComparableTenor of(BusinessDayTenor businessDayTenor) {
     ArgChecker.notNull(businessDayTenor, "businessDayComparableTenor");
     return new ComparableTenor(businessDayTenor);
+  }
+
+  /**
+   * Returns a tenor backed by a period of days.
+   * @param days The number of days
+   * @return The tenor
+   */
+  public static ComparableTenor ofDays(int days) {
+    return new ComparableTenor(Period.ofDays(days));
+  }
+
+  /**
+   * Returns a tenor backed by a period of weeks.
+   * @param weeks The number of weeks
+   * @return The tenor
+   */
+  public static ComparableTenor ofWeeks(int weeks) {
+    return new ComparableTenor(Period.ofDays(weeks * 7));
+  }
+
+  /**
+   * Returns a tenor backed by a period of months.
+   * @param months The number of months
+   * @return The tenor
+   */
+  public static ComparableTenor ofMonths(int months) {
+    return new ComparableTenor(Period.ofMonths(months)); // TODO: what do we do here
+  }
+
+  /**
+   * Returns a tenor backed by a period of years.
+   * @param years The number of years
+   * @return The tenor
+   */
+  public static ComparableTenor ofYears(int years) {
+    return new ComparableTenor(Period.ofYears(years)); // TODO: what do we do here
+  }
+
+  /**
+   * Returns a tenor of business days.
+   * @param businessDayTenor The business day
+   * @return The tenor
+   */
+  public static ComparableTenor ofBusinessDay(BusinessDayTenor businessDayTenor) {
+    return new ComparableTenor(businessDayTenor);
+  }
+
+  /**
+   * Returns a tenor of business days.
+   * @param businessDayComparableTenor The business days name
+   * @return The tenor
+   */
+  public static ComparableTenor ofBusinessDay(String businessDayComparableTenor) {
+    return new ComparableTenor(BusinessDayTenor.valueOf(businessDayComparableTenor));
   }
 
   /**
@@ -261,10 +322,10 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
    */
   @FromString
   @SuppressWarnings("deprecation")
-  public static ComparableTenor parse(final String tenorStr) {
+  public static ComparableTenor parse(String tenorStr) {
     ArgChecker.notNull(tenorStr, "tenorStr");
     try {
-      return new ComparableTenor(DateUtils.toPeriod(tenorStr));
+      return new ComparableTenor(Period.parse(tenorStr));
     } catch (DateTimeParseException e) {
       return new ComparableTenor(BusinessDayTenor.valueOf(tenorStr));
     }
@@ -274,11 +335,9 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
   /**
    * Creates a tenor.
    * @param period  the period to represent
-   * @deprecated Use the static factory method {@code ComparableTenor.of(Period)}.
    */
-  @Deprecated
-  public ComparableTenor(final Period period) {
-    ArgChecker.notNull(period, "period"); //change of behaviour
+  private ComparableTenor(Period period) {
+    ArgChecker.notNull(period, "period");
     _period = period;
     _businessDayTenor = null;
   }
@@ -287,7 +346,7 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
    * Creates a tenor without a period. This is used for overnight,
    * spot next and tomorrow next tenors.
    */
-  private ComparableTenor(final BusinessDayTenor businessDayTenor) {
+  private ComparableTenor(BusinessDayTenor businessDayTenor) {
     ArgChecker.notNull(businessDayTenor, "business day tenor");
     _period = null;
     _businessDayTenor = businessDayTenor;
@@ -325,60 +384,6 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
     return _period == null;
   }
   
-  /**
-   * Returns a tenor backed by a period of days.
-   * @param days The number of days
-   * @return The tenor
-   */
-  public static final ComparableTenor ofDays(final int days) {
-    return new ComparableTenor(Period.ofDays(days));
-  }
-
-  /**
-   * Returns a tenor backed by a period of weeks.
-   * @param weeks The number of weeks
-   * @return The tenor
-   */
-  public static final ComparableTenor ofWeeks(final int weeks) {
-    return new ComparableTenor(Period.ofDays(weeks * 7));
-  }
-
-  /**
-   * Returns a tenor backed by a period of months.
-   * @param months The number of months
-   * @return The tenor
-   */
-  public static final ComparableTenor ofMonths(final int months) {
-    return new ComparableTenor(Period.ofMonths(months)); // TODO: what do we do here
-  }
-
-  /**
-   * Returns a tenor backed by a period of years.
-   * @param years The number of years
-   * @return The tenor
-   */
-  public static final ComparableTenor ofYears(final int years) {
-    return new ComparableTenor(Period.ofYears(years)); // TODO: what do we do here
-  }
-
-  /**
-   * Returns a tenor of business days.
-   * @param businessDayTenor The business day
-   * @return The tenor
-   */
-  public static final ComparableTenor ofBusinessDay(final BusinessDayTenor businessDayTenor) {
-    return new ComparableTenor(businessDayTenor);
-  }
-  
-  /**
-   * Returns a tenor of business days.
-   * @param businessDayComparableTenor The business days name
-   * @return The tenor
-   */
-  public static final ComparableTenor ofBusinessDay(final String businessDayComparableTenor) {
-    return new ComparableTenor(BusinessDayTenor.valueOf(businessDayComparableTenor));
-  }
-
   //-------------------------------------------------------------------------
   /**
    * Returns a formatted string representing the tenor.
@@ -397,30 +402,43 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
 
   //-------------------------------------------------------------------------
   @Override
-  public int compareTo(final ComparableTenor other) {
-    final Duration thisDur, otherDur;    
+  public int compareTo(ComparableTenor other) {
+    Duration thisDur, otherDur;
     if (_period == null) {
       thisDur = _businessDayTenor.getApproximateDuration();
     } else {
-      thisDur = DateUtils.estimatedDuration(_period);
+      thisDur = estimatedDuration(_period);
     }
     if (other._period == null) {
       otherDur = other._businessDayTenor.getApproximateDuration();
     } else {
-      otherDur = DateUtils.estimatedDuration(other._period);
+      otherDur = estimatedDuration(other._period);
     }
     return thisDur.compareTo(otherDur);
   }
 
+  /**
+   * Gets the estimated duration of the period.
+   * 
+   * @param period the period to estimate the duration of, not null
+   * @return the estimated duration, not null
+   */
+  private static Duration estimatedDuration(Period period) {
+    Duration monthsDuration = MONTHS.getDuration().multipliedBy(period.toTotalMonths());
+    Duration daysDuration = DAYS.getDuration().multipliedBy(period.getDays());
+    return monthsDuration.plus(daysDuration);
+  }
+
+  //-------------------------------------------------------------------------
   @Override
-  public boolean equals(final Object o) {
+  public boolean equals(Object o) {
     if (o == null) {
       return false;
     }
     if (!(o instanceof ComparableTenor)) {
       return false;
     }
-    final ComparableTenor other = (ComparableTenor) o;
+    ComparableTenor other = (ComparableTenor) o;
     if (_period == null) {
       if (other._period == null) {
         return _businessDayTenor == other._businessDayTenor;

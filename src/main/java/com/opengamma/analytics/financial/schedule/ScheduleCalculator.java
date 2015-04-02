@@ -22,9 +22,7 @@ import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
-import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.analytics.util.time.TenorUtils;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
@@ -259,42 +257,6 @@ public final class ScheduleCalculator {
       if (!period.isNegative() && rolledEndDate.isAfter(endDate)) {
         endDate = rolledEndDate;
       }
-    }
-    return applyConvention(convention, endDate, calendar); // Adjusted by Business day convention
-  }
-
-  /**
-   * Compute the end date of a period from the start date, the tenor and the conventions.
-   * @param startDate The period start date.
-   * @param tenor The tenor.
-   * @param convention The business day convention.
-   * @param calendar The calendar.
-   * @param endOfMonthRule True if end-of-month rule applies, false if it does not.
-   * The rule applies when the start date is the last business day of the month and the period is a
-   * number of months or years, not days or business days (ON, TN).
-   * When the rule applies, the end date is the last business day of the month.
-   * @return The end date.
-   */
-  public static ZonedDateTime getAdjustedDate(
-      ZonedDateTime startDate,
-      ComparableTenor tenor,
-      BusinessDayConvention convention,
-      HolidayCalendar calendar,
-      boolean endOfMonthRule) {
-
-    ArgChecker.notNull(startDate, "Start date");
-    ArgChecker.notNull(convention, "Convention");
-    ArgChecker.notNull(calendar, "HolidayCalendar");
-    ArgChecker.notNull(tenor, "Tenor");
-    ZonedDateTime endDate = TenorUtils.adjustDateByTenor(startDate, tenor, calendar, 0);
-    if (tenor.isBusinessDayTenor()) { // This handles tenor of the type ON, TN
-      return endDate;
-    }
-    // Adjusted to month-end: when start date is last business day of the month, the end date is the last business day of the month.
-    boolean isStartDateEOM = (startDate.getMonth() != getAdjustedDate(startDate, 1, calendar).getMonth());
-    if ((tenor.getPeriod().getDays() == 0) & (endOfMonthRule) & (isStartDateEOM)) {
-      BusinessDayConvention preceding = BusinessDayConventions.PRECEDING;
-      return applyConvention(preceding, endDate.with(TemporalAdjusters.lastDayOfMonth()), calendar);
     }
     return applyConvention(convention, endDate, calendar); // Adjusted by Business day convention
   }

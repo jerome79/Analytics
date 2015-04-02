@@ -9,26 +9,16 @@ import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 import static java.time.temporal.ChronoField.YEAR;
 import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.MONTHS;
 
-import java.time.Clock;
-import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.SignStyle;
 import java.time.temporal.Temporal;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
-import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Utility class for dates.
@@ -36,16 +26,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * This is a thread-safe static utility class.
  */
 public final class DateUtils {
-
-  /**
-   * The original JVM time-zone.
-   */
-  public static final ZoneId ORIGINAL_TIME_ZONE = Clock.systemDefaultZone().getZone();
-  static {
-    // essential that OpenGamm runs in a default time-zone that has no Daylight Savings
-    // UTC is desirable for many other reasons, so use it here
-    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-  }
 
   /**
    * The number of seconds in one day.
@@ -95,24 +75,6 @@ public final class DateUtils {
    * Restricted constructor.
    */
   private DateUtils() {
-  }
-
-  //-------------------------------------------------------------------------
-  /**
-   * Initializes the default time-zone to UTC.
-   * <p>
-   * This method actually does nothing, as the code is in a static initializer.
-   */
-  public static void initTimeZone() {
-  }
-
-  /**
-   * Gets the original time-zone before it was set to UTC.
-   * 
-   * @return the original time-zone, not null
-   */
-  public static TimeZone originalTimeZone() {
-    return TimeZone.getTimeZone(ORIGINAL_TIME_ZONE.getId());
   }
 
   //-------------------------------------------------------------------------
@@ -226,41 +188,6 @@ public final class DateUtils {
     return ZonedDateTime.ofInstant(offsetDate, startDate.getZone());
   }
 
-  /**
-   * Method that allows a fraction of a year to be added to a date. If the yearFraction that is used does not give an integer number of seconds, it is rounded to the nearest nanosecond.
-   * 
-   * @param startDate the start date, not null
-   * @param yearFraction the fraction of a year
-   * @param daysPerYear the number of days in the year for calculation
-   * @return the calculated instant, not null
-   * @throws IllegalArgumentException if the date is null
-   */
-  public static Instant getDateOffsetWithYearFraction(final Instant startDate, final double yearFraction, final double daysPerYear) {
-    if (startDate == null) {
-      throw new IllegalArgumentException("Date was null");
-    }
-    final long nanos = Math.round(1e9 * SECONDS_PER_DAY * daysPerYear * yearFraction);
-    return startDate.plusNanos(nanos);
-  }
-
-  /**
-   * Method that allows a fraction of a year to be added to a date. If the yearFraction that is used does not give an integer number of seconds, it is rounded to the nearest nanosecond.
-   * 
-   * @param startDate the start date, not null
-   * @param yearFraction the fraction of a year
-   * @param daysPerYear the number of days in the year for calculation
-   * @return the calculated date-time, not null
-   * @throws IllegalArgumentException if the date is null
-   */
-  public static ZonedDateTime getDateOffsetWithYearFraction(final ZonedDateTime startDate, final double yearFraction, final double daysPerYear) {
-    if (startDate == null) {
-      throw new IllegalArgumentException("Date was null");
-    }
-    final Instant instant = startDate.toInstant();
-    final Instant offsetDate = getDateOffsetWithYearFraction(instant, yearFraction, daysPerYear);
-    return ZonedDateTime.ofInstant(offsetDate, startDate.getZone());
-  }
-
   //-------------------------------------------------------------------------
   /**
    * Returns a UTC date given year, month, day with the time set to midnight (UTC).
@@ -344,249 +271,6 @@ public final class DateUtils {
       daysBetween--;
     }
     return daysBetween;
-  }
-
-  /**
-   * Prints the date in yyyyMMdd format.
-   * 
-   * @param date the date, not null
-   * @return the date as a string, not null
-   * @throws IllegalArgumentException if the date is null
-   */
-  public static String printYYYYMMDD(Temporal date) {
-    if (date == null) {
-      throw new IllegalArgumentException("date was null");
-    }
-    return YYYYMMDD_LOCAL_DATE.format(date);
-  }
-
-  /**
-   * Prints the date in MM-dd format.
-   * 
-   * @param date the date, not null
-   * @return the date as a string, not null
-   * @throws IllegalArgumentException if the date is null
-   */
-  public static String printMMDD(Temporal date) {
-    if (date == null) {
-      throw new IllegalArgumentException("date was null");
-    }
-    return MM_DD_LOCAL_DATE.format(date);
-  }
-
-  /**
-   * Gets the previous Monday to Friday week-day before now.
-   * 
-   * @return the date, not null
-   */
-  public static LocalDate previousWeekDay() {
-    Clock clock = Clock.systemUTC();
-    return previousWeekDay(LocalDate.now(clock));
-  }
-
-  /**
-   * Gets the next Monday to Friday week-day after now.
-   * 
-   * @return the date, not null
-   */
-  public static LocalDate nextWeekDay() {
-    Clock clock = Clock.systemUTC();
-    return nextWeekDay(LocalDate.now(clock));
-  }
-
-  /**
-   * Gets the next Monday to Friday week-day after now.
-   * 
-   * @param startDate the date to start from
-   * @return the date, not null
-   */
-  public static LocalDate nextWeekDay(LocalDate startDate) {
-    if (startDate == null) {
-      throw new IllegalArgumentException("date was null");
-    }
-    LocalDate next = null;
-    DayOfWeek dayOfWeek = startDate.getDayOfWeek();
-    switch (dayOfWeek) {
-      case FRIDAY:
-        next = startDate.plusDays(3);
-        break;
-      case SATURDAY:
-        next = startDate.plusDays(2);
-        break;
-      case MONDAY:
-      case TUESDAY:
-      case WEDNESDAY:
-      case THURSDAY:
-      case SUNDAY:
-        next = startDate.plusDays(1);
-        break;
-      default:
-        throw new IllegalStateException("Unrecognised day of the week");
-    }
-    return next;
-  }
-
-  /**
-   * Gets the previous Monday to Friday week-day before now.
-   * 
-   * @param startDate the date to start from
-   * @return the date, not null
-   */
-  public static LocalDate previousWeekDay(LocalDate startDate) {
-    if (startDate == null) {
-      throw new IllegalArgumentException("date was null");
-    }
-    LocalDate previous = null;
-    DayOfWeek dayOfWeek = startDate.getDayOfWeek();
-    switch (dayOfWeek) {
-      case MONDAY:
-        previous = startDate.minusDays(3);
-        break;
-      case TUESDAY:
-      case WEDNESDAY:
-      case THURSDAY:
-      case FRIDAY:
-      case SATURDAY:
-        previous = startDate.minusDays(1);
-        break;
-      case SUNDAY:
-        previous = startDate.minusDays(2);
-        break;
-      default:
-        throw new IllegalStateException("Unrecognised day of the week");
-    }
-    return previous;
-  }
-
-  /**
-   * Converts a date in integer YYYYMMDD representation to epoch millis.
-   * 
-   * @param date in integer YYYYMMDD representation
-   * @return the epoch millis
-   */
-  public static long getUTCEpochMilis(int date) {
-    LocalDate localDate = LocalDate.parse(String.valueOf(date), YYYYMMDD_LOCAL_DATE);
-    return localDate.toEpochDay() * 24 * 60 * 60 * 1000;
-  }
-
-  /**
-   * Converts a date in integer YYYYMMDD representation to a UTC date-time.
-   * 
-   * @param date in integer YYYYMMDD representation
-   * @return the date-time, not null
-   */
-  public static ZonedDateTime toZonedDateTimeUTC(int date) {
-    LocalDate localDate = LocalDate.parse(String.valueOf(date), YYYYMMDD_LOCAL_DATE);
-    ZonedDateTime zonedDateTime = getUTCDate(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth());
-    return zonedDateTime;
-  }
-
-  /**
-   * Converts a date in integer YYYYMMDD representation to a date.
-   * 
-   * @param date in integer YYYYMMDD representation
-   * @return the date, not null
-   */
-  public static LocalDate toLocalDate(int date) {
-    return toLocalDate(String.valueOf(date));
-  }
-
-  /**
-   * Converts a date in string YYYYMMDD representation to epoch millis.
-   * 
-   * @param date in YYYYMMDD representation, not null
-   * @return the date
-   */
-  public static LocalDate toLocalDate(String date) {
-    ArgChecker.notNull(date, "date");
-    return LocalDate.parse(date, YYYYMMDD_LOCAL_DATE);
-  }
-
-  /**
-   * Constructs a LocalDate from a <code>java.util.Date</code> using exactly the same field values.
-   * <p>
-   * Each field is queried from the Date and assigned to the LocalDate. This is useful if you have been using the Date as a local date, ignoring the zone.
-   * 
-   * @param date the Date to extract fields from
-   * @return the created LocalDate
-   * @throws IllegalArgumentException if the calendar is null
-   * @throws IllegalArgumentException if the date is invalid for the ISO chronology
-   */
-  @SuppressWarnings("deprecation")
-  public static LocalDate fromDateFields(java.util.Date date) {
-    if (date == null) {
-      throw new IllegalArgumentException("The date must not be null");
-    }
-    return LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
-  }
-
-  /**
-   * Constructs a LocalDate from a Function Requirement / Input
-   * <p>
-   * Example usage: LocalDate nextDividendDate = DateUtils.toLocalDate(inputs.getValue(MarketDataRequirementNames.NEXT_DIVIDEND_DATE));
-   * 
-   * @param date an Object
-   * @return the created LocalDate
-   * @throws IllegalArgumentException if the date is not a recognized type
-   */
-  public static LocalDate toLocalDate(Object date) {
-    if (date instanceof LocalDate) {
-      return (LocalDate) date;
-    }
-
-    throw new IllegalArgumentException(date.toString() + " is not a date");
-  }
-
-  //-------------------------------------------------------------------------
-  /**
-   * Creates a clock with a fixed time-source and UTC time-zone.
-   * 
-   * @param instant the instant to be provided by the clock, not null
-   * @return the clock, not null
-   */
-  public static Clock fixedClockUTC(Instant instant) {
-    return Clock.fixed(instant, ZoneOffset.UTC);
-  }
-
-  //-------------------------------------------------------------------------
-  /**
-   * Gets the estimated duration of the period.
-   * 
-   * @param period the period to estimate the duration of, not null
-   * @return the estimated duration, not null
-   */
-  public static Duration estimatedDuration(Period period) {
-    Duration monthsDuration = MONTHS.getDuration().multipliedBy(period.toTotalMonths());
-    Duration daysDuration = DAYS.getDuration().multipliedBy(period.getDays());
-    return monthsDuration.plus(daysDuration);
-  }
-
-  /**
-   * Converts GregorianCalendar to ZonedDateTime
-   * 
-   * @param calendar the calendar, not null
-   * @return the zoned-date-time, not null
-   */
-  public static ZonedDateTime toZonedDateTime(GregorianCalendar calendar) {
-    ZoneId zone = ZoneId.of(calendar.getTimeZone().getID());
-    Instant instant = Instant.ofEpochMilli(calendar.getTimeInMillis());
-    return ZonedDateTime.ofInstant(instant, zone);
-  }
-
-  /**
-   * Converts a string to a period, allowing the old format of {@code PT0S} for {@code P0D}.
-   * 
-   * @param period the period to parse, not null
-   * @return the parsed period, not null
-   * @deprecated Don't rely on this, fix the source of data where the PT0S values are coming from
-   */
-  @Deprecated
-  public static Period toPeriod(final String period) {
-    if ("PT0S".equals(period)) {
-      return Period.ZERO;
-    } else {
-      return Period.parse(period);
-    }
   }
 
 }
