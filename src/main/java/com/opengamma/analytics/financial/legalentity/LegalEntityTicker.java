@@ -128,7 +128,7 @@ public class LegalEntityTicker implements LegalEntityFilter<LegalEntity>, Bean {
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null);
 
     /**
@@ -149,7 +149,7 @@ public class LegalEntityTicker implements LegalEntityFilter<LegalEntity>, Bean {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------

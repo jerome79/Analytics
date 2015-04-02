@@ -184,12 +184,12 @@ public final class ICBCode implements ImmutableBean, Serializable {
     /**
      * The meta-property for the {@code code} property.
      */
-    private final MetaProperty<String> code = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<String> _code = DirectMetaProperty.ofImmutable(
         this, "code", ICBCode.class, String.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "code");
 
@@ -203,7 +203,7 @@ public final class ICBCode implements ImmutableBean, Serializable {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 3059181:  // code
-          return code;
+          return _code;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -220,7 +220,7 @@ public final class ICBCode implements ImmutableBean, Serializable {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -229,7 +229,7 @@ public final class ICBCode implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<String> code() {
-      return code;
+      return _code;
     }
 
     //-----------------------------------------------------------------------

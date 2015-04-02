@@ -550,7 +550,7 @@ public class NodalDoublesCurve extends ArraysDoublesCurve {
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap());
 
     /**
@@ -571,7 +571,7 @@ public class NodalDoublesCurve extends ArraysDoublesCurve {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------

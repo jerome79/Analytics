@@ -301,22 +301,22 @@ public class ISDACompliantDateCurve
     /**
      * The meta-property for the {@code baseDate} property.
      */
-    private final MetaProperty<LocalDate> baseDate = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<LocalDate> _baseDate = DirectMetaProperty.ofReadWrite(
         this, "baseDate", ISDACompliantDateCurve.class, LocalDate.class);
     /**
      * The meta-property for the {@code dates} property.
      */
-    private final MetaProperty<LocalDate[]> dates = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<LocalDate[]> _dates = DirectMetaProperty.ofReadWrite(
         this, "dates", ISDACompliantDateCurve.class, LocalDate[].class);
     /**
      * The meta-property for the {@code dayCount} property.
      */
-    private final MetaProperty<DayCount> dayCount = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<DayCount> _dayCount = DirectMetaProperty.ofReadWrite(
         this, "dayCount", ISDACompliantDateCurve.class, DayCount.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "baseDate",
         "dates",
@@ -332,11 +332,11 @@ public class ISDACompliantDateCurve
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -1721984481:  // baseDate
-          return baseDate;
+          return _baseDate;
         case 95356549:  // dates
-          return dates;
+          return _dates;
         case 1905311443:  // dayCount
-          return dayCount;
+          return _dayCount;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -353,7 +353,7 @@ public class ISDACompliantDateCurve
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -362,7 +362,7 @@ public class ISDACompliantDateCurve
      * @return the meta-property, not null
      */
     public final MetaProperty<LocalDate> baseDate() {
-      return baseDate;
+      return _baseDate;
     }
 
     /**
@@ -370,7 +370,7 @@ public class ISDACompliantDateCurve
      * @return the meta-property, not null
      */
     public final MetaProperty<LocalDate[]> dates() {
-      return dates;
+      return _dates;
     }
 
     /**
@@ -378,7 +378,7 @@ public class ISDACompliantDateCurve
      * @return the meta-property, not null
      */
     public final MetaProperty<DayCount> dayCount() {
-      return dayCount;
+      return _dayCount;
     }
 
     //-----------------------------------------------------------------------

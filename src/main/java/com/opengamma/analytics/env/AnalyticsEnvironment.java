@@ -237,22 +237,22 @@ public final class AnalyticsEnvironment implements ImmutableBean {
     /**
      * The meta-property for the {@code modelDayCount} property.
      */
-    private final MetaProperty<DayCount> modelDayCount = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<DayCount> _modelDayCount = DirectMetaProperty.ofImmutable(
         this, "modelDayCount", AnalyticsEnvironment.class, DayCount.class);
     /**
      * The meta-property for the {@code fixedAnnuityDefinitionBuilder} property.
      */
-    private final MetaProperty<FixedAnnuityDefinitionBuilder> fixedAnnuityDefinitionBuilder = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<FixedAnnuityDefinitionBuilder> _fixedAnnuityDefinitionBuilder = DirectMetaProperty.ofImmutable(
         this, "fixedAnnuityDefinitionBuilder", AnalyticsEnvironment.class, FixedAnnuityDefinitionBuilder.class);
     /**
      * The meta-property for the {@code floatingAnnuityDefinitionBuilder} property.
      */
-    private final MetaProperty<FloatingAnnuityDefinitionBuilder> floatingAnnuityDefinitionBuilder = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<FloatingAnnuityDefinitionBuilder> _floatingAnnuityDefinitionBuilder = DirectMetaProperty.ofImmutable(
         this, "floatingAnnuityDefinitionBuilder", AnalyticsEnvironment.class, FloatingAnnuityDefinitionBuilder.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "modelDayCount",
         "fixedAnnuityDefinitionBuilder",
@@ -268,11 +268,11 @@ public final class AnalyticsEnvironment implements ImmutableBean {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 1885988124:  // modelDayCount
-          return modelDayCount;
+          return _modelDayCount;
         case -2010322942:  // fixedAnnuityDefinitionBuilder
-          return fixedAnnuityDefinitionBuilder;
+          return _fixedAnnuityDefinitionBuilder;
         case -1269173612:  // floatingAnnuityDefinitionBuilder
-          return floatingAnnuityDefinitionBuilder;
+          return _floatingAnnuityDefinitionBuilder;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -289,7 +289,7 @@ public final class AnalyticsEnvironment implements ImmutableBean {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -298,7 +298,7 @@ public final class AnalyticsEnvironment implements ImmutableBean {
      * @return the meta-property, not null
      */
     public MetaProperty<DayCount> modelDayCount() {
-      return modelDayCount;
+      return _modelDayCount;
     }
 
     /**
@@ -306,7 +306,7 @@ public final class AnalyticsEnvironment implements ImmutableBean {
      * @return the meta-property, not null
      */
     public MetaProperty<FixedAnnuityDefinitionBuilder> fixedAnnuityDefinitionBuilder() {
-      return fixedAnnuityDefinitionBuilder;
+      return _fixedAnnuityDefinitionBuilder;
     }
 
     /**
@@ -314,7 +314,7 @@ public final class AnalyticsEnvironment implements ImmutableBean {
      * @return the meta-property, not null
      */
     public MetaProperty<FloatingAnnuityDefinitionBuilder> floatingAnnuityDefinitionBuilder() {
-      return floatingAnnuityDefinitionBuilder;
+      return _floatingAnnuityDefinitionBuilder;
     }
 
     //-----------------------------------------------------------------------

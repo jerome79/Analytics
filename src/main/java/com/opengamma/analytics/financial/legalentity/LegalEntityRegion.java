@@ -379,34 +379,34 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
     /**
      * The meta-property for the {@code useName} property.
      */
-    private final MetaProperty<Boolean> useName = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useName = DirectMetaProperty.ofReadWrite(
         this, "useName", LegalEntityRegion.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code useCountry} property.
      */
-    private final MetaProperty<Boolean> useCountry = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useCountry = DirectMetaProperty.ofReadWrite(
         this, "useCountry", LegalEntityRegion.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code countries} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<Country>> countries = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<Country>> _countries = DirectMetaProperty.ofReadWrite(
         this, "countries", LegalEntityRegion.class, (Class) Set.class);
     /**
      * The meta-property for the {@code useCurrency} property.
      */
-    private final MetaProperty<Boolean> useCurrency = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useCurrency = DirectMetaProperty.ofReadWrite(
         this, "useCurrency", LegalEntityRegion.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code currencies} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<Currency>> currencies = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<Currency>> _currencies = DirectMetaProperty.ofReadWrite(
         this, "currencies", LegalEntityRegion.class, (Class) Set.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "useName",
         "useCountry",
@@ -424,15 +424,15 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -148203342:  // useName
-          return useName;
+          return _useName;
         case -663407601:  // useCountry
-          return useCountry;
+          return _useCountry;
         case 1352637108:  // countries
-          return countries;
+          return _countries;
         case 1856611000:  // useCurrency
-          return useCurrency;
+          return _useCurrency;
         case -1089470353:  // currencies
-          return currencies;
+          return _currencies;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -449,7 +449,7 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -458,7 +458,7 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useName() {
-      return useName;
+      return _useName;
     }
 
     /**
@@ -466,7 +466,7 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useCountry() {
-      return useCountry;
+      return _useCountry;
     }
 
     /**
@@ -474,7 +474,7 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<Country>> countries() {
-      return countries;
+      return _countries;
     }
 
     /**
@@ -482,7 +482,7 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useCurrency() {
-      return useCurrency;
+      return _useCurrency;
     }
 
     /**
@@ -490,7 +490,7 @@ public class LegalEntityRegion implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<Currency>> currencies() {
-      return currencies;
+      return _currencies;
     }
 
     //-----------------------------------------------------------------------

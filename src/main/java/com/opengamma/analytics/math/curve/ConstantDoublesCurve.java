@@ -217,24 +217,24 @@ public class ConstantDoublesCurve
    * Gets the constant value of the curve.
    * @return the value of the property
    */
-  private double get_y() {
+  private double getY() {
     return _y;
   }
 
   /**
    * Sets the constant value of the curve.
-   * @param _y  the new value of the property
+   * @param y  the new value of the property
    */
-  private void set_y(double _y) {
-    this._y = _y;
+  private void setY(double y) {
+    this._y = y;
   }
 
   /**
-   * Gets the the {@code _y} property.
+   * Gets the the {@code y} property.
    * @return the property, not null
    */
-  public final Property<Double> _y() {
-    return metaBean()._y().createProperty(this);
+  public final Property<Double> y() {
+    return metaBean().y().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -254,16 +254,16 @@ public class ConstantDoublesCurve
     static final Meta INSTANCE = new Meta();
 
     /**
-     * The meta-property for the {@code _y} property.
+     * The meta-property for the {@code y} property.
      */
     private final MetaProperty<Double> _y = DirectMetaProperty.ofReadWrite(
-        this, "_y", ConstantDoublesCurve.class, Double.TYPE);
+        this, "y", ConstantDoublesCurve.class, Double.TYPE);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
-        "_y");
+        "y");
 
     /**
      * Restricted constructor.
@@ -274,7 +274,7 @@ public class ConstantDoublesCurve
     @Override
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
-        case 3066:  // _y
+        case 121:  // y
           return _y;
       }
       return super.metaPropertyGet(propertyName);
@@ -292,15 +292,15 @@ public class ConstantDoublesCurve
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
     /**
-     * The meta-property for the {@code _y} property.
+     * The meta-property for the {@code y} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<Double> _y() {
+    public final MetaProperty<Double> y() {
       return _y;
     }
 
@@ -308,8 +308,8 @@ public class ConstantDoublesCurve
     @Override
     protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 3066:  // _y
-          return ((ConstantDoublesCurve) bean).get_y();
+        case 121:  // y
+          return ((ConstantDoublesCurve) bean).getY();
       }
       return super.propertyGet(bean, propertyName, quiet);
     }
@@ -317,8 +317,8 @@ public class ConstantDoublesCurve
     @Override
     protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 3066:  // _y
-          ((ConstantDoublesCurve) bean).set_y((Double) newValue);
+        case 121:  // y
+          ((ConstantDoublesCurve) bean).setY((Double) newValue);
           return;
       }
       super.propertySet(bean, propertyName, newValue, quiet);

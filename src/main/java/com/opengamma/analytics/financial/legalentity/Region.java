@@ -206,24 +206,24 @@ public final class Region implements ImmutableBean, Serializable {
     /**
      * The meta-property for the {@code name} property.
      */
-    private final MetaProperty<String> name = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<String> _name = DirectMetaProperty.ofImmutable(
         this, "name", Region.class, String.class);
     /**
      * The meta-property for the {@code countries} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<Country>> countries = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<Set<Country>> _countries = DirectMetaProperty.ofImmutable(
         this, "countries", Region.class, (Class) Set.class);
     /**
      * The meta-property for the {@code currencies} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<Currency>> currencies = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<Set<Currency>> _currencies = DirectMetaProperty.ofImmutable(
         this, "currencies", Region.class, (Class) Set.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "name",
         "countries",
@@ -239,11 +239,11 @@ public final class Region implements ImmutableBean, Serializable {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 3373707:  // name
-          return name;
+          return _name;
         case 1352637108:  // countries
-          return countries;
+          return _countries;
         case -1089470353:  // currencies
-          return currencies;
+          return _currencies;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -260,7 +260,7 @@ public final class Region implements ImmutableBean, Serializable {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -269,7 +269,7 @@ public final class Region implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<String> name() {
-      return name;
+      return _name;
     }
 
     /**
@@ -277,7 +277,7 @@ public final class Region implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<Set<Country>> countries() {
-      return countries;
+      return _countries;
     }
 
     /**
@@ -285,7 +285,7 @@ public final class Region implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<Set<Currency>> currencies() {
-      return currencies;
+      return _currencies;
     }
 
     //-----------------------------------------------------------------------

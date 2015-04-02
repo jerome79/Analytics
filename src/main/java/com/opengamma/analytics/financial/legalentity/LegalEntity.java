@@ -357,38 +357,38 @@ public class LegalEntity implements Bean, Serializable {
     /**
      * The meta-property for the {@code ticker} property.
      */
-    private final MetaProperty<String> ticker = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<String> _ticker = DirectMetaProperty.ofReadWrite(
         this, "ticker", LegalEntity.class, String.class);
     /**
      * The meta-property for the {@code shortName} property.
      */
-    private final MetaProperty<String> shortName = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<String> _shortName = DirectMetaProperty.ofReadWrite(
         this, "shortName", LegalEntity.class, String.class);
     /**
      * The meta-property for the {@code creditRatings} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<CreditRating>> creditRatings = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<CreditRating>> _creditRatings = DirectMetaProperty.ofReadWrite(
         this, "creditRatings", LegalEntity.class, (Class) Set.class);
     /**
      * The meta-property for the {@code sector} property.
      */
-    private final MetaProperty<Sector> sector = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Sector> _sector = DirectMetaProperty.ofReadWrite(
         this, "sector", LegalEntity.class, Sector.class);
     /**
      * The meta-property for the {@code region} property.
      */
-    private final MetaProperty<Region> region = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Region> _region = DirectMetaProperty.ofReadWrite(
         this, "region", LegalEntity.class, Region.class);
     /**
      * The meta-property for the {@code hasDefaulted} property.
      */
-    private final MetaProperty<Boolean> hasDefaulted = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _hasDefaulted = DirectMetaProperty.ofReadWrite(
         this, "hasDefaulted", LegalEntity.class, Boolean.TYPE);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "ticker",
         "shortName",
@@ -407,17 +407,17 @@ public class LegalEntity implements Bean, Serializable {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -873960694:  // ticker
-          return ticker;
+          return _ticker;
         case -2028219097:  // shortName
-          return shortName;
+          return _shortName;
         case 1420088637:  // creditRatings
-          return creditRatings;
+          return _creditRatings;
         case -906274970:  // sector
-          return sector;
+          return _sector;
         case -934795532:  // region
-          return region;
+          return _region;
         case 1706701094:  // hasDefaulted
-          return hasDefaulted;
+          return _hasDefaulted;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -434,7 +434,7 @@ public class LegalEntity implements Bean, Serializable {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -443,7 +443,7 @@ public class LegalEntity implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public final MetaProperty<String> ticker() {
-      return ticker;
+      return _ticker;
     }
 
     /**
@@ -451,7 +451,7 @@ public class LegalEntity implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public final MetaProperty<String> shortName() {
-      return shortName;
+      return _shortName;
     }
 
     /**
@@ -459,7 +459,7 @@ public class LegalEntity implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<CreditRating>> creditRatings() {
-      return creditRatings;
+      return _creditRatings;
     }
 
     /**
@@ -467,7 +467,7 @@ public class LegalEntity implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public final MetaProperty<Sector> sector() {
-      return sector;
+      return _sector;
     }
 
     /**
@@ -475,7 +475,7 @@ public class LegalEntity implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public final MetaProperty<Region> region() {
-      return region;
+      return _region;
     }
 
     /**
@@ -483,7 +483,7 @@ public class LegalEntity implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> hasDefaulted() {
-      return hasDefaulted;
+      return _hasDefaulted;
     }
 
     //-----------------------------------------------------------------------

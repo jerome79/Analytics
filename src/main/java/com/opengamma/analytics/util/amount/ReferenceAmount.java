@@ -142,26 +142,26 @@ public class ReferenceAmount<T> extends DirectBean {
    * Gets the data stored as a map. Not null.
    * @return the value of the property, not null
    */
-  public HashMap<T, Double> get_data() {
+  public HashMap<T, Double> getData() {
     return _data;
   }
 
   /**
    * Sets the data stored as a map. Not null.
-   * @param _data  the new value of the property, not null
+   * @param data  the new value of the property, not null
    */
-  public void set_data(HashMap<T, Double> _data) {
-    JodaBeanUtils.notNull(_data, "_data");
+  public void setData(HashMap<T, Double> data) {
+    JodaBeanUtils.notNull(data, "data");
     this._data.clear();
-    this._data.putAll(_data);
+    this._data.putAll(data);
   }
 
   /**
-   * Gets the the {@code _data} property.
+   * Gets the the {@code data} property.
    * @return the property, not null
    */
-  public final Property<HashMap<T, Double>> _data() {
-    return metaBean()._data().createProperty(this);
+  public final Property<HashMap<T, Double>> data() {
+    return metaBean().data().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -177,7 +177,7 @@ public class ReferenceAmount<T> extends DirectBean {
     }
     if (obj != null && obj.getClass() == this.getClass()) {
       ReferenceAmount<?> other = (ReferenceAmount<?>) obj;
-      return JodaBeanUtils.equal(get_data(), other.get_data());
+      return JodaBeanUtils.equal(getData(), other.getData());
     }
     return false;
   }
@@ -185,7 +185,7 @@ public class ReferenceAmount<T> extends DirectBean {
   @Override
   public int hashCode() {
     int hash = getClass().hashCode();
-    hash = hash * 31 + JodaBeanUtils.hashCode(get_data());
+    hash = hash * 31 + JodaBeanUtils.hashCode(getData());
     return hash;
   }
 
@@ -203,7 +203,7 @@ public class ReferenceAmount<T> extends DirectBean {
   }
 
   protected void toString(StringBuilder buf) {
-    buf.append("_data").append('=').append(JodaBeanUtils.toString(get_data())).append(',').append(' ');
+    buf.append("data").append('=').append(JodaBeanUtils.toString(getData())).append(',').append(' ');
   }
 
   //-----------------------------------------------------------------------
@@ -219,17 +219,17 @@ public class ReferenceAmount<T> extends DirectBean {
     static final Meta INSTANCE = new Meta();
 
     /**
-     * The meta-property for the {@code _data} property.
+     * The meta-property for the {@code data} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
     private final MetaProperty<HashMap<T, Double>> _data = DirectMetaProperty.ofReadWrite(
-        this, "_data", ReferenceAmount.class, (Class) HashMap.class);
+        this, "data", ReferenceAmount.class, (Class) HashMap.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
-        "_data");
+        "data");
 
     /**
      * Restricted constructor.
@@ -240,7 +240,7 @@ public class ReferenceAmount<T> extends DirectBean {
     @Override
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
-        case 90810505:  // _data
+        case 3076010:  // data
           return _data;
       }
       return super.metaPropertyGet(propertyName);
@@ -259,15 +259,15 @@ public class ReferenceAmount<T> extends DirectBean {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
     /**
-     * The meta-property for the {@code _data} property.
+     * The meta-property for the {@code data} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<HashMap<T, Double>> _data() {
+    public final MetaProperty<HashMap<T, Double>> data() {
       return _data;
     }
 
@@ -275,8 +275,8 @@ public class ReferenceAmount<T> extends DirectBean {
     @Override
     protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 90810505:  // _data
-          return ((ReferenceAmount<?>) bean).get_data();
+        case 3076010:  // data
+          return ((ReferenceAmount<?>) bean).getData();
       }
       return super.propertyGet(bean, propertyName, quiet);
     }
@@ -285,8 +285,8 @@ public class ReferenceAmount<T> extends DirectBean {
     @Override
     protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 90810505:  // _data
-          ((ReferenceAmount<T>) bean).set_data((HashMap<T, Double>) newValue);
+        case 3076010:  // data
+          ((ReferenceAmount<T>) bean).setData((HashMap<T, Double>) newValue);
           return;
       }
       super.propertySet(bean, propertyName, newValue, quiet);
@@ -294,7 +294,7 @@ public class ReferenceAmount<T> extends DirectBean {
 
     @Override
     protected void validate(Bean bean) {
-      JodaBeanUtils.notNull(((ReferenceAmount<?>) bean)._data, "_data");
+      JodaBeanUtils.notNull(((ReferenceAmount<?>) bean)._data, "data");
     }
 
   }

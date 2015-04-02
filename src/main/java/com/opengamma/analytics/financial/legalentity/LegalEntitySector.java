@@ -333,29 +333,29 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
     /**
      * The meta-property for the {@code useSectorName} property.
      */
-    private final MetaProperty<Boolean> useSectorName = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useSectorName = DirectMetaProperty.ofReadWrite(
         this, "useSectorName", LegalEntitySector.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code useClassificationName} property.
      */
-    private final MetaProperty<Boolean> useClassificationName = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useClassificationName = DirectMetaProperty.ofReadWrite(
         this, "useClassificationName", LegalEntitySector.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code classifications} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<String>> classifications = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<String>> _classifications = DirectMetaProperty.ofReadWrite(
         this, "classifications", LegalEntitySector.class, (Class) Set.class);
     /**
      * The meta-property for the {@code classificationValueTypes} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<? extends Type>> classificationValueTypes = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<? extends Type>> _classificationValueTypes = DirectMetaProperty.ofReadWrite(
         this, "classificationValueTypes", LegalEntitySector.class, (Class) Set.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "useSectorName",
         "useClassificationName",
@@ -372,13 +372,13 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -805976072:  // useSectorName
-          return useSectorName;
+          return _useSectorName;
         case -555840136:  // useClassificationName
-          return useClassificationName;
+          return _useClassificationName;
         case -1032042163:  // classifications
-          return classifications;
+          return _classifications;
         case -412942834:  // classificationValueTypes
-          return classificationValueTypes;
+          return _classificationValueTypes;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -395,7 +395,7 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -404,7 +404,7 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useSectorName() {
-      return useSectorName;
+      return _useSectorName;
     }
 
     /**
@@ -412,7 +412,7 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useClassificationName() {
-      return useClassificationName;
+      return _useClassificationName;
     }
 
     /**
@@ -420,7 +420,7 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<String>> classifications() {
-      return classifications;
+      return _classifications;
     }
 
     /**
@@ -428,7 +428,7 @@ public class LegalEntitySector implements LegalEntityFilter<LegalEntity>, Bean {
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<? extends Type>> classificationValueTypes() {
-      return classificationValueTypes;
+      return _classificationValueTypes;
     }
 
     //-----------------------------------------------------------------------

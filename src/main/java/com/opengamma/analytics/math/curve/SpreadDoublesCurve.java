@@ -289,24 +289,24 @@ public class SpreadDoublesCurve
    * Gets the spread function.
    * @return the value of the property
    */
-  private CurveSpreadFunction get_spreadFunction() {
+  private CurveSpreadFunction getSpreadFunction() {
     return _spreadFunction;
   }
 
   /**
    * Sets the spread function.
-   * @param _spreadFunction  the new value of the property
+   * @param spreadFunction  the new value of the property
    */
-  private void set_spreadFunction(CurveSpreadFunction _spreadFunction) {
-    this._spreadFunction = _spreadFunction;
+  private void setSpreadFunction(CurveSpreadFunction spreadFunction) {
+    this._spreadFunction = spreadFunction;
   }
 
   /**
-   * Gets the the {@code _spreadFunction} property.
+   * Gets the the {@code spreadFunction} property.
    * @return the property, not null
    */
-  public final Property<CurveSpreadFunction> _spreadFunction() {
-    return metaBean()._spreadFunction().createProperty(this);
+  public final Property<CurveSpreadFunction> spreadFunction() {
+    return metaBean().spreadFunction().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -314,24 +314,24 @@ public class SpreadDoublesCurve
    * Gets the evaluated function.
    * @return the value of the property
    */
-  private Function<Double, Double> get_f() {
+  private Function<Double, Double> getF() {
     return _f;
   }
 
   /**
    * Sets the evaluated function.
-   * @param _f  the new value of the property
+   * @param f  the new value of the property
    */
-  private void set_f(Function<Double, Double> _f) {
-    this._f = _f;
+  private void setF(Function<Double, Double> f) {
+    this._f = f;
   }
 
   /**
-   * Gets the the {@code _f} property.
+   * Gets the the {@code f} property.
    * @return the property, not null
    */
-  public final Property<Function<Double, Double>> _f() {
-    return metaBean()._f().createProperty(this);
+  public final Property<Function<Double, Double>> f() {
+    return metaBean().f().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -339,24 +339,24 @@ public class SpreadDoublesCurve
    * Gets the curves.
    * @return the value of the property
    */
-  private DoublesCurve[] get_curves() {
+  private DoublesCurve[] getCurves() {
     return _curves;
   }
 
   /**
    * Sets the curves.
-   * @param _curves  the new value of the property
+   * @param curves  the new value of the property
    */
-  private void set_curves(DoublesCurve[] _curves) {
-    this._curves = _curves;
+  private void setCurves(DoublesCurve[] curves) {
+    this._curves = curves;
   }
 
   /**
-   * Gets the the {@code _curves} property.
+   * Gets the the {@code curves} property.
    * @return the property, not null
    */
-  public final Property<DoublesCurve[]> _curves() {
-    return metaBean()._curves().createProperty(this);
+  public final Property<DoublesCurve[]> curves() {
+    return metaBean().curves().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -381,9 +381,9 @@ public class SpreadDoublesCurve
   @Override
   protected void toString(StringBuilder buf) {
     super.toString(buf);
-    buf.append("_spreadFunction").append('=').append(JodaBeanUtils.toString(get_spreadFunction())).append(',').append(' ');
-    buf.append("_f").append('=').append(JodaBeanUtils.toString(get_f())).append(',').append(' ');
-    buf.append("_curves").append('=').append(JodaBeanUtils.toString(get_curves())).append(',').append(' ');
+    buf.append("spreadFunction").append('=').append(JodaBeanUtils.toString(getSpreadFunction())).append(',').append(' ');
+    buf.append("f").append('=').append(JodaBeanUtils.toString(getF())).append(',').append(' ');
+    buf.append("curves").append('=').append(JodaBeanUtils.toString(getCurves())).append(',').append(' ');
   }
 
   //-----------------------------------------------------------------------
@@ -397,29 +397,29 @@ public class SpreadDoublesCurve
     static final Meta INSTANCE = new Meta();
 
     /**
-     * The meta-property for the {@code _spreadFunction} property.
+     * The meta-property for the {@code spreadFunction} property.
      */
     private final MetaProperty<CurveSpreadFunction> _spreadFunction = DirectMetaProperty.ofReadWrite(
-        this, "_spreadFunction", SpreadDoublesCurve.class, CurveSpreadFunction.class);
+        this, "spreadFunction", SpreadDoublesCurve.class, CurveSpreadFunction.class);
     /**
-     * The meta-property for the {@code _f} property.
+     * The meta-property for the {@code f} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
     private final MetaProperty<Function<Double, Double>> _f = DirectMetaProperty.ofReadWrite(
-        this, "_f", SpreadDoublesCurve.class, (Class) Function.class);
+        this, "f", SpreadDoublesCurve.class, (Class) Function.class);
     /**
-     * The meta-property for the {@code _curves} property.
+     * The meta-property for the {@code curves} property.
      */
     private final MetaProperty<DoublesCurve[]> _curves = DirectMetaProperty.ofReadWrite(
-        this, "_curves", SpreadDoublesCurve.class, DoublesCurve[].class);
+        this, "curves", SpreadDoublesCurve.class, DoublesCurve[].class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
-        "_spreadFunction",
-        "_f",
-        "_curves");
+        "spreadFunction",
+        "f",
+        "curves");
 
     /**
      * Restricted constructor.
@@ -430,11 +430,11 @@ public class SpreadDoublesCurve
     @Override
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
-        case 611325066:  // _spreadFunction
+        case -872176021:  // spreadFunction
           return _spreadFunction;
-        case 3047:  // _f
+        case 102:  // f
           return _f;
-        case 1359354499:  // _curves
+        case -1349116572:  // curves
           return _curves;
       }
       return super.metaPropertyGet(propertyName);
@@ -452,31 +452,31 @@ public class SpreadDoublesCurve
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
     /**
-     * The meta-property for the {@code _spreadFunction} property.
+     * The meta-property for the {@code spreadFunction} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<CurveSpreadFunction> _spreadFunction() {
+    public final MetaProperty<CurveSpreadFunction> spreadFunction() {
       return _spreadFunction;
     }
 
     /**
-     * The meta-property for the {@code _f} property.
+     * The meta-property for the {@code f} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<Function<Double, Double>> _f() {
+    public final MetaProperty<Function<Double, Double>> f() {
       return _f;
     }
 
     /**
-     * The meta-property for the {@code _curves} property.
+     * The meta-property for the {@code curves} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<DoublesCurve[]> _curves() {
+    public final MetaProperty<DoublesCurve[]> curves() {
       return _curves;
     }
 
@@ -484,12 +484,12 @@ public class SpreadDoublesCurve
     @Override
     protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 611325066:  // _spreadFunction
-          return ((SpreadDoublesCurve) bean).get_spreadFunction();
-        case 3047:  // _f
-          return ((SpreadDoublesCurve) bean).get_f();
-        case 1359354499:  // _curves
-          return ((SpreadDoublesCurve) bean).get_curves();
+        case -872176021:  // spreadFunction
+          return ((SpreadDoublesCurve) bean).getSpreadFunction();
+        case 102:  // f
+          return ((SpreadDoublesCurve) bean).getF();
+        case -1349116572:  // curves
+          return ((SpreadDoublesCurve) bean).getCurves();
       }
       return super.propertyGet(bean, propertyName, quiet);
     }
@@ -498,14 +498,14 @@ public class SpreadDoublesCurve
     @Override
     protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 611325066:  // _spreadFunction
-          ((SpreadDoublesCurve) bean).set_spreadFunction((CurveSpreadFunction) newValue);
+        case -872176021:  // spreadFunction
+          ((SpreadDoublesCurve) bean).setSpreadFunction((CurveSpreadFunction) newValue);
           return;
-        case 3047:  // _f
-          ((SpreadDoublesCurve) bean).set_f((Function<Double, Double>) newValue);
+        case 102:  // f
+          ((SpreadDoublesCurve) bean).setF((Function<Double, Double>) newValue);
           return;
-        case 1359354499:  // _curves
-          ((SpreadDoublesCurve) bean).set_curves((DoublesCurve[]) newValue);
+        case -1349116572:  // curves
+          ((SpreadDoublesCurve) bean).setCurves((DoublesCurve[]) newValue);
           return;
       }
       super.propertySet(bean, propertyName, newValue, quiet);

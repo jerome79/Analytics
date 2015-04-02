@@ -240,12 +240,12 @@ public abstract class Curve<T extends Comparable<T>, U>
     /**
      * The meta-property for the {@code name} property.
      */
-    private final MetaProperty<String> name = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<String> _name = DirectMetaProperty.ofReadWrite(
         this, "name", Curve.class, String.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "name");
 
@@ -259,7 +259,7 @@ public abstract class Curve<T extends Comparable<T>, U>
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 3373707:  // name
-          return name;
+          return _name;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -277,7 +277,7 @@ public abstract class Curve<T extends Comparable<T>, U>
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -286,7 +286,7 @@ public abstract class Curve<T extends Comparable<T>, U>
      * @return the meta-property, not null
      */
     public final MetaProperty<String> name() {
-      return name;
+      return _name;
     }
 
     //-----------------------------------------------------------------------

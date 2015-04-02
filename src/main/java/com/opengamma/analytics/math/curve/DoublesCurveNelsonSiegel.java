@@ -203,27 +203,27 @@ public class DoublesCurveNelsonSiegel
    * The parameters are beta0, beta1, beta2 and lambda (in that order).
    * @return the value of the property, not null
    */
-  private double[] get_parameters() {
+  private double[] getParameters() {
     return _parameters;
   }
 
   /**
    * Sets the array with the four parameters used to describe the function.
    * The parameters are beta0, beta1, beta2 and lambda (in that order).
-   * @param _parameters  the new value of the property, not null
+   * @param parameters  the new value of the property, not null
    */
-  private void set_parameters(double[] _parameters) {
-    JodaBeanUtils.notNull(_parameters, "_parameters");
-    this._parameters = _parameters;
+  private void setParameters(double[] parameters) {
+    JodaBeanUtils.notNull(parameters, "parameters");
+    this._parameters = parameters;
   }
 
   /**
-   * Gets the the {@code _parameters} property.
+   * Gets the the {@code parameters} property.
    * The parameters are beta0, beta1, beta2 and lambda (in that order).
    * @return the property, not null
    */
-  public final Property<double[]> _parameters() {
-    return metaBean()._parameters().createProperty(this);
+  public final Property<double[]> parameters() {
+    return metaBean().parameters().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -248,7 +248,7 @@ public class DoublesCurveNelsonSiegel
   @Override
   protected void toString(StringBuilder buf) {
     super.toString(buf);
-    buf.append("_parameters").append('=').append(JodaBeanUtils.toString(get_parameters())).append(',').append(' ');
+    buf.append("parameters").append('=').append(JodaBeanUtils.toString(getParameters())).append(',').append(' ');
   }
 
   //-----------------------------------------------------------------------
@@ -262,16 +262,16 @@ public class DoublesCurveNelsonSiegel
     static final Meta INSTANCE = new Meta();
 
     /**
-     * The meta-property for the {@code _parameters} property.
+     * The meta-property for the {@code parameters} property.
      */
     private final MetaProperty<double[]> _parameters = DirectMetaProperty.ofReadWrite(
-        this, "_parameters", DoublesCurveNelsonSiegel.class, double[].class);
+        this, "parameters", DoublesCurveNelsonSiegel.class, double[].class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
-        "_parameters");
+        "parameters");
 
     /**
      * Restricted constructor.
@@ -282,7 +282,7 @@ public class DoublesCurveNelsonSiegel
     @Override
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
-        case 1547048841:  // _parameters
+        case 458736106:  // parameters
           return _parameters;
       }
       return super.metaPropertyGet(propertyName);
@@ -300,15 +300,15 @@ public class DoublesCurveNelsonSiegel
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
     /**
-     * The meta-property for the {@code _parameters} property.
+     * The meta-property for the {@code parameters} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<double[]> _parameters() {
+    public final MetaProperty<double[]> parameters() {
       return _parameters;
     }
 
@@ -316,8 +316,8 @@ public class DoublesCurveNelsonSiegel
     @Override
     protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 1547048841:  // _parameters
-          return ((DoublesCurveNelsonSiegel) bean).get_parameters();
+        case 458736106:  // parameters
+          return ((DoublesCurveNelsonSiegel) bean).getParameters();
       }
       return super.propertyGet(bean, propertyName, quiet);
     }
@@ -325,8 +325,8 @@ public class DoublesCurveNelsonSiegel
     @Override
     protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 1547048841:  // _parameters
-          ((DoublesCurveNelsonSiegel) bean).set_parameters((double[]) newValue);
+        case 458736106:  // parameters
+          ((DoublesCurveNelsonSiegel) bean).setParameters((double[]) newValue);
           return;
       }
       super.propertySet(bean, propertyName, newValue, quiet);
@@ -334,7 +334,7 @@ public class DoublesCurveNelsonSiegel
 
     @Override
     protected void validate(Bean bean) {
-      JodaBeanUtils.notNull(((DoublesCurveNelsonSiegel) bean)._parameters, "_parameters");
+      JodaBeanUtils.notNull(((DoublesCurveNelsonSiegel) bean)._parameters, "parameters");
       super.validate(bean);
     }
 

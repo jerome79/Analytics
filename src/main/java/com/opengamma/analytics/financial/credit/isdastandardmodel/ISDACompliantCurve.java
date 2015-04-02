@@ -747,17 +747,17 @@ public class ISDACompliantCurve extends DoublesCurve {
     /**
      * The meta-property for the {@code t} property.
      */
-    private final MetaProperty<double[]> t = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<double[]> _t = DirectMetaProperty.ofReadWrite(
         this, "t", ISDACompliantCurve.class, double[].class);
     /**
      * The meta-property for the {@code rt} property.
      */
-    private final MetaProperty<double[]> rt = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<double[]> _rt = DirectMetaProperty.ofReadWrite(
         this, "rt", ISDACompliantCurve.class, double[].class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "t",
         "rt");
@@ -772,9 +772,9 @@ public class ISDACompliantCurve extends DoublesCurve {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 116:  // t
-          return t;
+          return _t;
         case 3650:  // rt
-          return rt;
+          return _rt;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -791,7 +791,7 @@ public class ISDACompliantCurve extends DoublesCurve {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -800,7 +800,7 @@ public class ISDACompliantCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<double[]> t() {
-      return t;
+      return _t;
     }
 
     /**
@@ -808,7 +808,7 @@ public class ISDACompliantCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<double[]> rt() {
-      return rt;
+      return _rt;
     }
 
     //-----------------------------------------------------------------------

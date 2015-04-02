@@ -250,12 +250,12 @@ public final class DoublesCurveInterpolatedAnchor extends InterpolatedDoublesCur
     /**
      * The meta-property for the {@code anchorIndex} property.
      */
-    private final MetaProperty<Integer> anchorIndex = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Integer> _anchorIndex = DirectMetaProperty.ofReadWrite(
         this, "anchorIndex", DoublesCurveInterpolatedAnchor.class, Integer.TYPE);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "anchorIndex");
 
@@ -269,7 +269,7 @@ public final class DoublesCurveInterpolatedAnchor extends InterpolatedDoublesCur
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -1564745955:  // anchorIndex
-          return anchorIndex;
+          return _anchorIndex;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -286,7 +286,7 @@ public final class DoublesCurveInterpolatedAnchor extends InterpolatedDoublesCur
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -295,7 +295,7 @@ public final class DoublesCurveInterpolatedAnchor extends InterpolatedDoublesCur
      * @return the meta-property, not null
      */
     public MetaProperty<Integer> anchorIndex() {
-      return anchorIndex;
+      return _anchorIndex;
     }
 
     //-----------------------------------------------------------------------

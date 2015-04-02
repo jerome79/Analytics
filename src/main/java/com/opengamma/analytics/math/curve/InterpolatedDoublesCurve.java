@@ -678,17 +678,17 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
     /**
      * The meta-property for the {@code dataBundle} property.
      */
-    private final MetaProperty<Interpolator1DDataBundle> dataBundle = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Interpolator1DDataBundle> _dataBundle = DirectMetaProperty.ofReadWrite(
         this, "dataBundle", InterpolatedDoublesCurve.class, Interpolator1DDataBundle.class);
     /**
      * The meta-property for the {@code interpolator} property.
      */
-    private final MetaProperty<Interpolator1D> interpolator = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Interpolator1D> _interpolator = DirectMetaProperty.ofReadWrite(
         this, "interpolator", InterpolatedDoublesCurve.class, Interpolator1D.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "dataBundle",
         "interpolator");
@@ -703,9 +703,9 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 791094476:  // dataBundle
-          return dataBundle;
+          return _dataBundle;
         case 2096253127:  // interpolator
-          return interpolator;
+          return _interpolator;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -722,7 +722,7 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -731,7 +731,7 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<Interpolator1DDataBundle> dataBundle() {
-      return dataBundle;
+      return _dataBundle;
     }
 
     /**
@@ -739,7 +739,7 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<Interpolator1D> interpolator() {
-      return interpolator;
+      return _interpolator;
     }
 
     //-----------------------------------------------------------------------

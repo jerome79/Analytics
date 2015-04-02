@@ -342,29 +342,29 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
     /**
      * The meta-property for the {@code useRating} property.
      */
-    private final MetaProperty<Boolean> useRating = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useRating = DirectMetaProperty.ofReadWrite(
         this, "useRating", LegalEntityCreditRatings.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code perAgencyRatings} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<String>> perAgencyRatings = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<String>> _perAgencyRatings = DirectMetaProperty.ofReadWrite(
         this, "perAgencyRatings", LegalEntityCreditRatings.class, (Class) Set.class);
     /**
      * The meta-property for the {@code useRatingDescription} property.
      */
-    private final MetaProperty<Boolean> useRatingDescription = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Boolean> _useRatingDescription = DirectMetaProperty.ofReadWrite(
         this, "useRatingDescription", LegalEntityCreditRatings.class, Boolean.TYPE);
     /**
      * The meta-property for the {@code perAgencyRatingDescriptions} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<String>> perAgencyRatingDescriptions = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<String>> _perAgencyRatingDescriptions = DirectMetaProperty.ofReadWrite(
         this, "perAgencyRatingDescriptions", LegalEntityCreditRatings.class, (Class) Set.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "useRating",
         "perAgencyRatings",
@@ -381,13 +381,13 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -574758396:  // useRating
-          return useRating;
+          return _useRating;
         case 594236564:  // perAgencyRatings
-          return perAgencyRatings;
+          return _perAgencyRatings;
         case 159817560:  // useRatingDescription
-          return useRatingDescription;
+          return _useRatingDescription;
         case -81474218:  // perAgencyRatingDescriptions
-          return perAgencyRatingDescriptions;
+          return _perAgencyRatingDescriptions;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -404,7 +404,7 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -413,7 +413,7 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useRating() {
-      return useRating;
+      return _useRating;
     }
 
     /**
@@ -421,7 +421,7 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<String>> perAgencyRatings() {
-      return perAgencyRatings;
+      return _perAgencyRatings;
     }
 
     /**
@@ -429,7 +429,7 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
      * @return the meta-property, not null
      */
     public final MetaProperty<Boolean> useRatingDescription() {
-      return useRatingDescription;
+      return _useRatingDescription;
     }
 
     /**
@@ -437,7 +437,7 @@ public class LegalEntityCreditRatings implements LegalEntityFilter<LegalEntity>,
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<String>> perAgencyRatingDescriptions() {
-      return perAgencyRatingDescriptions;
+      return _perAgencyRatingDescriptions;
     }
 
     //-----------------------------------------------------------------------

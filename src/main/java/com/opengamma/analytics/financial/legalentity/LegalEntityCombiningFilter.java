@@ -220,12 +220,12 @@ public class LegalEntityCombiningFilter implements LegalEntityFilter<LegalEntity
      * The meta-property for the {@code filtersToUse} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Set<LegalEntityFilter<LegalEntity>>> filtersToUse = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Set<LegalEntityFilter<LegalEntity>>> _filtersToUse = DirectMetaProperty.ofReadWrite(
         this, "filtersToUse", LegalEntityCombiningFilter.class, (Class) Set.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "filtersToUse");
 
@@ -239,7 +239,7 @@ public class LegalEntityCombiningFilter implements LegalEntityFilter<LegalEntity
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -1274996271:  // filtersToUse
-          return filtersToUse;
+          return _filtersToUse;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -256,7 +256,7 @@ public class LegalEntityCombiningFilter implements LegalEntityFilter<LegalEntity
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -265,7 +265,7 @@ public class LegalEntityCombiningFilter implements LegalEntityFilter<LegalEntity
      * @return the meta-property, not null
      */
     public final MetaProperty<Set<LegalEntityFilter<LegalEntity>>> filtersToUse() {
-      return filtersToUse;
+      return _filtersToUse;
     }
 
     //-----------------------------------------------------------------------

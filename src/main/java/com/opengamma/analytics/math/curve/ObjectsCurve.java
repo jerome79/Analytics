@@ -412,24 +412,24 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
     /**
      * The meta-property for the {@code n} property.
      */
-    private final MetaProperty<Integer> n = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Integer> _n = DirectMetaProperty.ofReadWrite(
         this, "n", ObjectsCurve.class, Integer.TYPE);
     /**
      * The meta-property for the {@code xData} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<T[]> xData = (DirectMetaProperty) DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<T[]> _xData = (DirectMetaProperty) DirectMetaProperty.ofReadWrite(
         this, "xData", ObjectsCurve.class, Object[].class);
     /**
      * The meta-property for the {@code yData} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<U[]> yData = (DirectMetaProperty) DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<U[]> _yData = (DirectMetaProperty) DirectMetaProperty.ofReadWrite(
         this, "yData", ObjectsCurve.class, Object[].class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "n",
         "xData",
@@ -445,11 +445,11 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 110:  // n
-          return n;
+          return _n;
         case 112945218:  // xData
-          return xData;
+          return _xData;
         case 113868739:  // yData
-          return yData;
+          return _yData;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -467,7 +467,7 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -476,7 +476,7 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
      * @return the meta-property, not null
      */
     public final MetaProperty<Integer> n() {
-      return n;
+      return _n;
     }
 
     /**
@@ -484,7 +484,7 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
      * @return the meta-property, not null
      */
     public final MetaProperty<T[]> xData() {
-      return xData;
+      return _xData;
     }
 
     /**
@@ -492,7 +492,7 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
      * @return the meta-property, not null
      */
     public final MetaProperty<U[]> yData() {
-      return yData;
+      return _yData;
     }
 
     //-----------------------------------------------------------------------

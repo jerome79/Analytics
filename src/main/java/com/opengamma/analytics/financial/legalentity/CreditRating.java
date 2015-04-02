@@ -218,27 +218,27 @@ public final class CreditRating implements ImmutableBean, Serializable {
     /**
      * The meta-property for the {@code rating} property.
      */
-    private final MetaProperty<String> rating = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<String> _rating = DirectMetaProperty.ofImmutable(
         this, "rating", CreditRating.class, String.class);
     /**
      * The meta-property for the {@code ratingDescription} property.
      */
-    private final MetaProperty<String> ratingDescription = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<String> _ratingDescription = DirectMetaProperty.ofImmutable(
         this, "ratingDescription", CreditRating.class, String.class);
     /**
      * The meta-property for the {@code agencyName} property.
      */
-    private final MetaProperty<String> agencyName = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<String> _agencyName = DirectMetaProperty.ofImmutable(
         this, "agencyName", CreditRating.class, String.class);
     /**
      * The meta-property for the {@code longTerm} property.
      */
-    private final MetaProperty<Boolean> longTerm = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<Boolean> _longTerm = DirectMetaProperty.ofImmutable(
         this, "longTerm", CreditRating.class, Boolean.TYPE);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "rating",
         "ratingDescription",
@@ -255,13 +255,13 @@ public final class CreditRating implements ImmutableBean, Serializable {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -938102371:  // rating
-          return rating;
+          return _rating;
         case 1353926175:  // ratingDescription
-          return ratingDescription;
+          return _ratingDescription;
         case -1646362576:  // agencyName
-          return agencyName;
+          return _agencyName;
         case -2074418936:  // longTerm
-          return longTerm;
+          return _longTerm;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -278,7 +278,7 @@ public final class CreditRating implements ImmutableBean, Serializable {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -287,7 +287,7 @@ public final class CreditRating implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<String> rating() {
-      return rating;
+      return _rating;
     }
 
     /**
@@ -295,7 +295,7 @@ public final class CreditRating implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<String> ratingDescription() {
-      return ratingDescription;
+      return _ratingDescription;
     }
 
     /**
@@ -303,7 +303,7 @@ public final class CreditRating implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<String> agencyName() {
-      return agencyName;
+      return _agencyName;
     }
 
     /**
@@ -311,7 +311,7 @@ public final class CreditRating implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<Boolean> longTerm() {
-      return longTerm;
+      return _longTerm;
     }
 
     //-----------------------------------------------------------------------

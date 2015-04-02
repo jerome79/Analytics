@@ -159,12 +159,12 @@ public class LegalEntityWithREDCode extends LegalEntity {
     /**
      * The meta-property for the {@code redCode} property.
      */
-    private final MetaProperty<String> redCode = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<String> _redCode = DirectMetaProperty.ofReadWrite(
         this, "redCode", LegalEntityWithREDCode.class, String.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "redCode");
 
@@ -178,7 +178,7 @@ public class LegalEntityWithREDCode extends LegalEntity {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 1082206750:  // redCode
-          return redCode;
+          return _redCode;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -195,7 +195,7 @@ public class LegalEntityWithREDCode extends LegalEntity {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -204,7 +204,7 @@ public class LegalEntityWithREDCode extends LegalEntity {
      * @return the meta-property, not null
      */
     public final MetaProperty<String> redCode() {
-      return redCode;
+      return _redCode;
     }
 
     //-----------------------------------------------------------------------

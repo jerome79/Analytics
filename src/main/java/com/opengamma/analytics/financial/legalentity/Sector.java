@@ -213,17 +213,17 @@ public final class Sector implements Bean, Serializable {
     /**
      * The meta-property for the {@code name} property.
      */
-    private final MetaProperty<String> name = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<String> _name = DirectMetaProperty.ofReadWrite(
         this, "name", Sector.class, String.class);
     /**
      * The meta-property for the {@code classifications} property.
      */
-    private final MetaProperty<FlexiBean> classifications = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<FlexiBean> _classifications = DirectMetaProperty.ofReadWrite(
         this, "classifications", Sector.class, FlexiBean.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "name",
         "classifications");
@@ -238,9 +238,9 @@ public final class Sector implements Bean, Serializable {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 3373707:  // name
-          return name;
+          return _name;
         case -1032042163:  // classifications
-          return classifications;
+          return _classifications;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -257,7 +257,7 @@ public final class Sector implements Bean, Serializable {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -266,7 +266,7 @@ public final class Sector implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<String> name() {
-      return name;
+      return _name;
     }
 
     /**
@@ -274,7 +274,7 @@ public final class Sector implements Bean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<FlexiBean> classifications() {
-      return classifications;
+      return _classifications;
     }
 
     //-----------------------------------------------------------------------

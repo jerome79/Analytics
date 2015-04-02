@@ -361,18 +361,18 @@ public class FunctionalDoublesCurve extends DoublesCurve {
      * The meta-property for the {@code function} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Function1D<Double, Double>> function = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Function1D<Double, Double>> _function = DirectMetaProperty.ofReadWrite(
         this, "function", FunctionalDoublesCurve.class, (Class) Function1D.class);
     /**
      * The meta-property for the {@code derivative} property.
      */
     @SuppressWarnings({"unchecked", "rawtypes" })
-    private final MetaProperty<Function1D<Double, Double>> derivative = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Function1D<Double, Double>> _derivative = DirectMetaProperty.ofReadWrite(
         this, "derivative", FunctionalDoublesCurve.class, (Class) Function1D.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "function",
         "derivative");
@@ -387,9 +387,9 @@ public class FunctionalDoublesCurve extends DoublesCurve {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case 1380938712:  // function
-          return function;
+          return _function;
         case -1353885305:  // derivative
-          return derivative;
+          return _derivative;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -406,7 +406,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -415,7 +415,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<Function1D<Double, Double>> function() {
-      return function;
+      return _function;
     }
 
     /**
@@ -423,7 +423,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<Function1D<Double, Double>> derivative() {
-      return derivative;
+      return _derivative;
     }
 
     //-----------------------------------------------------------------------

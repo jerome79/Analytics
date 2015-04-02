@@ -195,17 +195,17 @@ public final class Expiry implements ImmutableBean, Serializable {
     /**
      * The meta-property for the {@code expiry} property.
      */
-    private final MetaProperty<ZonedDateTime> expiry = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<ZonedDateTime> _expiry = DirectMetaProperty.ofImmutable(
         this, "expiry", Expiry.class, ZonedDateTime.class);
     /**
      * The meta-property for the {@code accuracy} property.
      */
-    private final MetaProperty<ExpiryAccuracy> accuracy = DirectMetaProperty.ofImmutable(
+    private final MetaProperty<ExpiryAccuracy> _accuracy = DirectMetaProperty.ofImmutable(
         this, "accuracy", Expiry.class, ExpiryAccuracy.class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, null,
         "expiry",
         "accuracy");
@@ -220,9 +220,9 @@ public final class Expiry implements ImmutableBean, Serializable {
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
         case -1289159373:  // expiry
-          return expiry;
+          return _expiry;
         case -2131707655:  // accuracy
-          return accuracy;
+          return _accuracy;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -239,7 +239,7 @@ public final class Expiry implements ImmutableBean, Serializable {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
@@ -248,7 +248,7 @@ public final class Expiry implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<ZonedDateTime> expiry() {
-      return expiry;
+      return _expiry;
     }
 
     /**
@@ -256,7 +256,7 @@ public final class Expiry implements ImmutableBean, Serializable {
      * @return the meta-property, not null
      */
     public MetaProperty<ExpiryAccuracy> accuracy() {
-      return accuracy;
+      return _accuracy;
     }
 
     //-----------------------------------------------------------------------

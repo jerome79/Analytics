@@ -503,24 +503,24 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
    * Gets the size of the data points.
    * @return the value of the property
    */
-  private int get_n() {
+  private int getN() {
     return _n;
   }
 
   /**
    * Sets the size of the data points.
-   * @param _n  the new value of the property
+   * @param n  the new value of the property
    */
-  private void set_n(int _n) {
-    this._n = _n;
+  private void setN(int n) {
+    this._n = n;
   }
 
   /**
-   * Gets the the {@code _n} property.
+   * Gets the the {@code n} property.
    * @return the property, not null
    */
-  public final Property<Integer> _n() {
-    return metaBean()._n().createProperty(this);
+  public final Property<Integer> n() {
+    return metaBean().n().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -626,7 +626,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   @Override
   protected void toString(StringBuilder buf) {
     super.toString(buf);
-    buf.append("_n").append('=').append(JodaBeanUtils.toString(get_n())).append(',').append(' ');
+    buf.append("n").append('=').append(JodaBeanUtils.toString(getN())).append(',').append(' ');
     buf.append("xData").append('=').append(JodaBeanUtils.toString(getXData())).append(',').append(' ');
     buf.append("yData").append('=').append(JodaBeanUtils.toString(getYData())).append(',').append(' ');
     buf.append("xDataObject").append('=').append(JodaBeanUtils.toString(getXDataObject())).append(',').append(' ');
@@ -644,36 +644,36 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     static final Meta INSTANCE = new Meta();
 
     /**
-     * The meta-property for the {@code _n} property.
+     * The meta-property for the {@code n} property.
      */
     private final MetaProperty<Integer> _n = DirectMetaProperty.ofReadWrite(
-        this, "_n", ArraysDoublesCurve.class, Integer.TYPE);
+        this, "n", ArraysDoublesCurve.class, Integer.TYPE);
     /**
      * The meta-property for the {@code xData} property.
      */
-    private final MetaProperty<double[]> xData = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<double[]> _xData = DirectMetaProperty.ofReadWrite(
         this, "xData", ArraysDoublesCurve.class, double[].class);
     /**
      * The meta-property for the {@code yData} property.
      */
-    private final MetaProperty<double[]> yData = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<double[]> _yData = DirectMetaProperty.ofReadWrite(
         this, "yData", ArraysDoublesCurve.class, double[].class);
     /**
      * The meta-property for the {@code xDataObject} property.
      */
-    private final MetaProperty<Double[]> xDataObject = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Double[]> _xDataObject = DirectMetaProperty.ofReadWrite(
         this, "xDataObject", ArraysDoublesCurve.class, Double[].class);
     /**
      * The meta-property for the {@code yDataObject} property.
      */
-    private final MetaProperty<Double[]> yDataObject = DirectMetaProperty.ofReadWrite(
+    private final MetaProperty<Double[]> _yDataObject = DirectMetaProperty.ofReadWrite(
         this, "yDataObject", ArraysDoublesCurve.class, Double[].class);
     /**
      * The meta-properties.
      */
-    private final Map<String, MetaProperty<?>> metaPropertyMap$ = new DirectMetaPropertyMap(
+    private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
-        "_n",
+        "n",
         "xData",
         "yData",
         "xDataObject",
@@ -688,16 +688,16 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     @Override
     protected MetaProperty<?> metaPropertyGet(String propertyName) {
       switch (propertyName.hashCode()) {
-        case 3055:  // _n
+        case 110:  // n
           return _n;
         case 112945218:  // xData
-          return xData;
+          return _xData;
         case 113868739:  // yData
-          return yData;
+          return _yData;
         case -2041692639:  // xDataObject
-          return xDataObject;
+          return _xDataObject;
         case 456323298:  // yDataObject
-          return yDataObject;
+          return _yDataObject;
       }
       return super.metaPropertyGet(propertyName);
     }
@@ -714,15 +714,15 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
 
     @Override
     public Map<String, MetaProperty<?>> metaPropertyMap() {
-      return metaPropertyMap$;
+      return _metaPropertyMap$;
     }
 
     //-----------------------------------------------------------------------
     /**
-     * The meta-property for the {@code _n} property.
+     * The meta-property for the {@code n} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<Integer> _n() {
+    public final MetaProperty<Integer> n() {
       return _n;
     }
 
@@ -731,7 +731,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<double[]> xData() {
-      return xData;
+      return _xData;
     }
 
     /**
@@ -739,7 +739,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<double[]> yData() {
-      return yData;
+      return _yData;
     }
 
     /**
@@ -747,7 +747,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<Double[]> xDataObject() {
-      return xDataObject;
+      return _xDataObject;
     }
 
     /**
@@ -755,15 +755,15 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
      * @return the meta-property, not null
      */
     public final MetaProperty<Double[]> yDataObject() {
-      return yDataObject;
+      return _yDataObject;
     }
 
     //-----------------------------------------------------------------------
     @Override
     protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 3055:  // _n
-          return ((ArraysDoublesCurve) bean).get_n();
+        case 110:  // n
+          return ((ArraysDoublesCurve) bean).getN();
         case 112945218:  // xData
           return ((ArraysDoublesCurve) bean).getXData();
         case 113868739:  // yData
@@ -779,8 +779,8 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     @Override
     protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
       switch (propertyName.hashCode()) {
-        case 3055:  // _n
-          ((ArraysDoublesCurve) bean).set_n((Integer) newValue);
+        case 110:  // n
+          ((ArraysDoublesCurve) bean).setN((Integer) newValue);
           return;
         case 112945218:  // xData
           ((ArraysDoublesCurve) bean).setXData((double[]) newValue);
