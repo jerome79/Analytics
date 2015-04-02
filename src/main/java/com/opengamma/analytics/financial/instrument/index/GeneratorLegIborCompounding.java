@@ -12,16 +12,15 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
@@ -198,9 +197,11 @@ public class GeneratorLegIborCompounding extends GeneratorLeg {
         return notional;
       }
     };
-    AdjustedDateParameters adjustedDateIndex = new AdjustedDateParameters(_indexCalendar, _businessDayConvention);
-    OffsetAdjustedDateParameters offsetFixing = new OffsetAdjustedDateParameters(-_indexIbor.getSpotLag(),
-        OffsetType.BUSINESS, _indexCalendar, BusinessDayConventions.FOLLOWING);
+    BusinessDayAdjustment adjustedDateIndex = BusinessDayAdjustment.of(_businessDayConvention, _indexCalendar);
+    DaysAdjustment offsetFixing = DaysAdjustment.ofBusinessDays(
+        -_indexIbor.getSpotLag(),
+        _indexCalendar,
+        BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, _indexCalendar));  // TODO: LIBOR
     AnnuityDefinition<?> leg = new FloatingAnnuityDefinitionBuilder().
         payer(false).notional(notionalProvider).startDate(startDate.toLocalDate()).endDate(endDate.toLocalDate()).
         index(_indexIbor).accrualPeriodFrequency(_paymentPeriod).

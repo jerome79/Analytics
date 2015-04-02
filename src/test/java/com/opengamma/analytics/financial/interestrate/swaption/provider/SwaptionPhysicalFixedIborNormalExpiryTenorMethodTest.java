@@ -16,14 +16,11 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -57,6 +54,8 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
@@ -73,10 +72,10 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();
   private static final Currency USD = USDLIBOR3M.getCurrency();
-  private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR = 
-      new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, NYC, USD6MLIBOR3M.getBusinessDayConvention());
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR = 
+      BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC);
+  private static final DaysAdjustment OFFSET_ADJ_LIBOR =
+      DaysAdjustment.ofBusinessDays(-2, NYC, BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC));
   /** Data */
   private static final MulticurveProviderDiscount MULTICURVE = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
   private static final InterpolatedDoublesSurface NORMAL_SURFACE_SWAPTION_EXP_TENOR = 

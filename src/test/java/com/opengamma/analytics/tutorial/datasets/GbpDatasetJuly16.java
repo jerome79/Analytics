@@ -18,14 +18,11 @@ import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorC
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
@@ -55,7 +52,9 @@ import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleT
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
@@ -89,10 +88,10 @@ public class GbpDatasetJuly16 {
   private static final GeneratorSwapFixedONMaster GENERATOR_OIS_MASTER = GeneratorSwapFixedONMaster.getInstance();
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GENERATOR_OIS_MASTER.getGenerator("GBP1YSONIA", LON);
   private static final IndexON GBPSONIA = GENERATOR_OIS_GBP.getIndex();
-  private static final AdjustedDateParameters ADJUSTED_DATE_ON = 
-      new AdjustedDateParameters(LON, GENERATOR_OIS_GBP.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_FIXING = 
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, BusinessDayConventions.FOLLOWING);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_ON = 
+      BusinessDayAdjustment.of(GENERATOR_OIS_GBP.getBusinessDayConvention(), LON);
+  private static final DaysAdjustment OFFSET_FIXING = 
+      DaysAdjustment.ofBusinessDays(0, LON, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
 
   private static final String CURVE_NAME_DSC_GBP = "GBP-DSCON-OIS";
 

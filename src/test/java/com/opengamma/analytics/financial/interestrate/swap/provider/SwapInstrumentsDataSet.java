@@ -17,14 +17,11 @@ import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.VariableNotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AbstractAnnuityDefinitionBuilder.CouponStub;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorLegFixed;
 import com.opengamma.analytics.financial.instrument.index.GeneratorLegIbor;
@@ -54,8 +51,10 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
@@ -117,10 +116,9 @@ public class SwapInstrumentsDataSet {
   private static final BusinessDayConvention BDC_MODFOL = BusinessDayConventions.MODIFIED_FOLLOWING;
   private static final BusinessDayConvention BDC_FOL = BusinessDayConventions.FOLLOWING;
   private static final StubConvention STUB_SHORT_START = StubConvention.SHORT_INITIAL;
-  private static final AdjustedDateParameters ADJUSTED_DATE_USDLIBOR = 
-      new AdjustedDateParameters(NYC, BDC_MODFOL);
-  private static final OffsetAdjustedDateParameters OFFSET_FIXING_USDLIBOR = 
-      new OffsetAdjustedDateParameters(-OFFSET_SPOT, OffsetType.BUSINESS, NYC, BDC_FOL);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_USDLIBOR = BusinessDayAdjustment.of(BDC_MODFOL, NYC);
+  private static final DaysAdjustment OFFSET_FIXING_USDLIBOR = 
+      DaysAdjustment.ofBusinessDays(-OFFSET_SPOT, NYC, BusinessDayAdjustment.of(BDC_FOL, NYC));
   private static final GeneratorLegIbor LEG_USDLIBOR3M =  GeneratorLegIborMaster.getInstance().getGenerator("USDLIBOR3M", NYC);
   private static final GeneratorLegIbor LEG_USDLIBOR6M =  GeneratorLegIborMaster.getInstance().getGenerator("USDLIBOR6M", NYC);
   private static final GeneratorLegONArithmeticAverage LEG_USDFEDFUNDAA3M = 
@@ -437,12 +435,11 @@ public static final Swap<? extends Payment, ? extends Payment> IRS_STUB6 =
   // Instrument description: Zero Coupon IRS Fixed vs Libor3M
   private static final LocalDate SPOT_DATE_ZC = LocalDate.of(2014, 9, 12);
   private static final LocalDate END_DATE_ZC = LocalDate.of(2021, 9, 12);
-  private static final AdjustedDateParameters ADJUSTED_DATE_USDLIBOR_ZC =
-      new AdjustedDateParameters(NYC, BDC_MODFOL);
-  private static final OffsetAdjustedDateParameters OFFSET_FIXING_USDLIBOR_ZC =
-      new OffsetAdjustedDateParameters(-OFFSET_SPOT, OffsetType.BUSINESS, NYC, BDC_MODFOL);
-  private static final OffsetAdjustedDateParameters OFFSET_PAYMENT_USDLIBOR_ZC =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, NYC, BDC_MODFOL);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_USDLIBOR_ZC = BusinessDayAdjustment.of(BDC_MODFOL, NYC);
+  private static final DaysAdjustment OFFSET_FIXING_USDLIBOR_ZC =
+      DaysAdjustment.ofBusinessDays(-OFFSET_SPOT, NYC, BusinessDayAdjustment.of(BDC_MODFOL, NYC));
+  private static final DaysAdjustment OFFSET_PAYMENT_USDLIBOR_ZC =
+      DaysAdjustment.ofBusinessDays(0, NYC, BusinessDayAdjustment.of(BDC_MODFOL, NYC));
   private static final Period ZERO_PERIOD = Period.ZERO;
   private static final double FIXED_RATE_ZC = 0.0150;
   private static final RollDateAdjuster ROLL_DATE_ADJUSTER_ZC = RollConvention.NONE.getRollDateAdjuster(0);

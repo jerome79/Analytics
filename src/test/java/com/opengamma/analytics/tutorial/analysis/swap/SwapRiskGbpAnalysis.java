@@ -15,14 +15,11 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
@@ -56,7 +53,9 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -76,15 +75,17 @@ public class SwapRiskGbpAnalysis {
   private static final Currency GBP = Currency.GBP;
   private static final GeneratorSwapFixedIbor GBP6MLIBOR6M = GENERATOR_IRS_MASTER.getGenerator("GBP6MLIBOR6M", LON);
   private static final IborIndex GBPLIBOR6M = GBP6MLIBOR6M.getIborIndex();
-  private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR = new AdjustedDateParameters(LON, GBP6MLIBOR6M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, LON, GBP6MLIBOR6M.getBusinessDayConvention());
-  private static final AdjustedDateParameters ADJUSTED_DATE_SONIA = new AdjustedDateParameters(LON, GENERATOR_OIS_GBP.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_PAY_SONIA =
-      new OffsetAdjustedDateParameters(GENERATOR_OIS_GBP.getPaymentLag(), OffsetType.BUSINESS, LON,
-          BusinessDayConventions.FOLLOWING);
-  private static final OffsetAdjustedDateParameters OFFSET_FIX_SONIA =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, BusinessDayConventions.FOLLOWING);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR = 
+      BusinessDayAdjustment.of(GBP6MLIBOR6M.getBusinessDayConvention(), LON);
+  private static final DaysAdjustment OFFSET_ADJ_LIBOR =
+      DaysAdjustment.ofBusinessDays(-2, LON, BusinessDayAdjustment.of(GBP6MLIBOR6M.getBusinessDayConvention(), LON));
+  private static final BusinessDayAdjustment ADJUSTED_DATE_SONIA = 
+      BusinessDayAdjustment.of(GENERATOR_OIS_GBP.getBusinessDayConvention(), LON);
+  private static final DaysAdjustment OFFSET_PAY_SONIA =
+      DaysAdjustment.ofBusinessDays(GENERATOR_OIS_GBP.getPaymentLag(), LON,
+          BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
+  private static final DaysAdjustment OFFSET_FIX_SONIA =
+      DaysAdjustment.ofBusinessDays(0, LON, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
 
   /** GBP Fixed v SONIA */
   private static final LocalDate EFFECTIVE_DATE_1 = LocalDate.of(2014, 11, 6);

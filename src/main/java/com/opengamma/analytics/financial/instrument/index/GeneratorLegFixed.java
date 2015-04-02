@@ -13,11 +13,11 @@ import java.time.ZonedDateTime;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
 import com.opengamma.analytics.financial.instrument.annuity.AbstractAnnuityDefinitionBuilder.CouponStub;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
@@ -168,7 +168,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
         return notional;
       }
     };
-    AdjustedDateParameters adjustedDate = new AdjustedDateParameters(_paymentCalendar, _businessDayConvention);
+    BusinessDayAdjustment adjustedDate = BusinessDayAdjustment.of(_businessDayConvention, _paymentCalendar);
     AnnuityDefinition<?> leg = new FixedAnnuityDefinitionBuilder().payer(false).currency(getCurrency()).
         notional(notionalProvider).startDate(startDate.toLocalDate()).endDate(endDate.toLocalDate()).
         dayCount(_dayCount).accrualPeriodFrequency(_paymentPeriod).rate(marketQuote).

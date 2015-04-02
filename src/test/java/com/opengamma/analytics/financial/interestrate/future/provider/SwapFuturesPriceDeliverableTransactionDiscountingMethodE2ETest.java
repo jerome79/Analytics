@@ -18,15 +18,12 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.DateRelativeTo;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.future.SwapFuturesPriceDeliverableSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.SwapFuturesPriceDeliverableTransactionDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -55,7 +52,9 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -192,14 +191,13 @@ public class SwapFuturesPriceDeliverableTransactionDiscountingMethodE2ETest {
     LocalDate startDate = LocalDate.of(2014, 6, 18);
     LocalDate endDate = LocalDate.of(2019, 6, 18);
     DayCount fixedDc = DayCounts.THIRTY_360;
-    AdjustedDateParameters accrualPeriodParameters = new AdjustedDateParameters(CALENDAR_EUR,
-        INDEX_EUR.getBusinessDayConvention());
-    OffsetAdjustedDateParameters paymentDateParameters = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS,
-        CALENDAR_EUR, INDEX_EUR.getBusinessDayConvention());
-    OffsetAdjustedDateParameters resetDateParameters = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS,
-        CALENDAR_EUR, INDEX_EUR.getBusinessDayConvention());
-    OffsetAdjustedDateParameters fixingDateParameters = new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS,
-        CALENDAR_EUR, BusinessDayConventions.PRECEDING);
+    BusinessDayAdjustment accrualPeriodParameters = BusinessDayAdjustment.of(
+        INDEX_EUR.getBusinessDayConvention(), CALENDAR_EUR);
+    DaysAdjustment paymentDateParameters = DaysAdjustment.ofBusinessDays(
+        0, CALENDAR_EUR, BusinessDayAdjustment.of(INDEX_EUR.getBusinessDayConvention(), CALENDAR_EUR));
+    BusinessDayAdjustment resetDateParameters = BusinessDayAdjustment.of(INDEX_EUR.getBusinessDayConvention(), CALENDAR_EUR);
+    DaysAdjustment fixingDateParameters = DaysAdjustment.ofBusinessDays(
+        -2, CALENDAR_EUR, BusinessDayAdjustment.of(BusinessDayConventions.PRECEDING, CALENDAR_EUR));
     double rate = 0.015;
     AnnuityDefinition<?> fixedLeg = new FixedAnnuityDefinitionBuilder().payer(!payer).currency(EUR)
         .notional(NOTIONAL_PROV).startDate(startDate).endDate(endDate).dayCount(fixedDc)
@@ -229,14 +227,13 @@ public class SwapFuturesPriceDeliverableTransactionDiscountingMethodE2ETest {
     LocalDate startDate = LocalDate.of(2014, 6, 18);
     LocalDate endDate = LocalDate.of(2024, 6, 18);
     DayCount fixedDc = DayCounts.ACT_360;
-    AdjustedDateParameters accrualPeriodParameters = new AdjustedDateParameters(CALENDAR_GBP,
-        INDEX_GBP.getBusinessDayConvention());
-    OffsetAdjustedDateParameters paymentDateParameters = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS,
-        CALENDAR_GBP, INDEX_GBP.getBusinessDayConvention());
-    OffsetAdjustedDateParameters resetDateParameters = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS,
-        CALENDAR_GBP, INDEX_GBP.getBusinessDayConvention());
-    OffsetAdjustedDateParameters fixingDateParameters = new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS,
-        CALENDAR_GBP, BusinessDayConventions.PRECEDING);
+    BusinessDayAdjustment accrualPeriodParameters = BusinessDayAdjustment.of(
+        INDEX_GBP.getBusinessDayConvention(), CALENDAR_GBP);
+    DaysAdjustment paymentDateParameters = DaysAdjustment.ofBusinessDays(
+        0, CALENDAR_GBP, BusinessDayAdjustment.of(INDEX_GBP.getBusinessDayConvention(), CALENDAR_GBP));
+    BusinessDayAdjustment resetDateParameters = BusinessDayAdjustment.of(INDEX_GBP.getBusinessDayConvention(), CALENDAR_GBP);
+    DaysAdjustment fixingDateParameters = DaysAdjustment.ofBusinessDays(
+        -2, CALENDAR_GBP, BusinessDayAdjustment.of(BusinessDayConventions.PRECEDING, CALENDAR_GBP));
     double rate = 0.03;
     AnnuityDefinition<?> fixedLeg = new FixedAnnuityDefinitionBuilder().payer(!payer).currency(GBP).
         notional(NOTIONAL_PROV).startDate(startDate).endDate(endDate).dayCount(fixedDc).
@@ -266,20 +263,19 @@ public class SwapFuturesPriceDeliverableTransactionDiscountingMethodE2ETest {
     LocalDate startDate = LocalDate.of(2014, 6, 18);
     LocalDate endDate = LocalDate.of(2044, 6, 20);
     DayCount fixedDc = DayCounts.THIRTY_U_360;
-    AdjustedDateParameters accrualPeriodParameters = new AdjustedDateParameters(CALENDAR_USD,
-        INDEX_USD.getBusinessDayConvention());
-    OffsetAdjustedDateParameters paymentDateParameters = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS,
-        CALENDAR_USD, INDEX_USD.getBusinessDayConvention());
+    BusinessDayAdjustment accrualPeriodParameters = BusinessDayAdjustment.of(
+        INDEX_USD.getBusinessDayConvention(), CALENDAR_USD);
+    DaysAdjustment paymentDateParameters = DaysAdjustment.ofBusinessDays(
+        0, CALENDAR_USD, BusinessDayAdjustment.of(INDEX_USD.getBusinessDayConvention(), CALENDAR_USD));
     double rate = 0.0375;
     AnnuityDefinition<?> fixedLeg = new FixedAnnuityDefinitionBuilder().payer(!payer).currency(USD)
         .notional(NOTIONAL_PROV).startDate(startDate).endDate(endDate).dayCount(fixedDc)
         .rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).accrualPeriodFrequency(Period.ofMonths(6)).
         accrualPeriodParameters(accrualPeriodParameters).paymentDateRelativeTo(DateRelativeTo.END).
         paymentDateAdjustmentParameters(paymentDateParameters).rate(rate).build();
-    OffsetAdjustedDateParameters resetDateParameters = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS,
-        CALENDAR_USD, INDEX_USD.getBusinessDayConvention());
-    OffsetAdjustedDateParameters fixingDateParameters = new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS,
-        CALENDAR_USD, BusinessDayConventions.PRECEDING);
+    BusinessDayAdjustment resetDateParameters = BusinessDayAdjustment.of(INDEX_USD.getBusinessDayConvention(), CALENDAR_USD);
+    DaysAdjustment fixingDateParameters = DaysAdjustment.ofBusinessDays(
+        -2, CALENDAR_USD, BusinessDayAdjustment.of(BusinessDayConventions.PRECEDING, CALENDAR_USD));
     AnnuityDefinition<? extends PaymentDefinition> iborLeg = new FloatingAnnuityDefinitionBuilder().payer(payer)
         .currency(USD).notional(NOTIONAL_PROV).startDate(startDate).endDate(endDate).dayCount(INDEX_USD.getDayCount()).
         rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).accrualPeriodFrequency(Period.ofMonths(3)).

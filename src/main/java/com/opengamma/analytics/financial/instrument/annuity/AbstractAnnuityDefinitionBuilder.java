@@ -22,6 +22,8 @@ import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -162,17 +164,17 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   /**
    * Parameters used to adjust the accrual period dates. This is an optional field.
    */
-  private AdjustedDateParameters _adjustedAccrualDateParameters;
+  private BusinessDayAdjustment _adjustedAccrualDateParameters;
   
   /**
    * Parameters used to adjust the start date of the annuity. This is an optional field.
    */
-  private AdjustedDateParameters _adjustedStartDateParameters;
+  private BusinessDayAdjustment _adjustedStartDateParameters;
   
   /**
    * Parameters used to adjust the end date of the annuity. This is an optional field.
    */
-  private AdjustedDateParameters _adjustedEndDateParameters;
+  private BusinessDayAdjustment _adjustedEndDateParameters;
   
   /**
    * Flag to indicate the payment date relative to accrual period. This is an optional field, and will default to the 
@@ -183,7 +185,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   /**
    * Parameters used to create payment dates relative to the accrual periods of the annuity. This is an optional field.
    */
-  private OffsetAdjustedDateParameters _adjustedPaymentDateParameters;
+  private DaysAdjustment _adjustedPaymentDateParameters;
   
   /**
    * The compounding.
@@ -217,7 +219,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
         ArrayList<ZonedDateTime> list = new ArrayList<>();
         if (isExchangeInitialNotional()) {
           ZonedDateTime startDate = BusinessDayDateUtils.applyConvention(
-              getStartDateAdjustmentParameters().getBusinessDayConvention(),
+              getStartDateAdjustmentParameters().getConvention(),
               getStartDate(),
               getStartDateAdjustmentParameters().getCalendar());
           list.add(startDate);
@@ -228,7 +230,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
         }
         if (isExchangeFinalNotional()) {
           ZonedDateTime endDate = BusinessDayDateUtils.applyConvention(
-              getEndDateAdjustmentParameters().getBusinessDayConvention(),
+              getEndDateAdjustmentParameters().getConvention(),
               getEndDate(),
               getEndDateAdjustmentParameters().getCalendar());
           list.add(endDate);
@@ -278,15 +280,15 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     return _accrualPeriodFrequency;
   }
   
-  protected AdjustedDateParameters getAccrualPeriodAdjustmentParameters() {
+  protected BusinessDayAdjustment getAccrualPeriodAdjustmentParameters() {
     return _adjustedAccrualDateParameters;
   }
   
-  protected AdjustedDateParameters getStartDateAdjustmentParameters() {
+  protected BusinessDayAdjustment getStartDateAdjustmentParameters() {
     return _adjustedStartDateParameters;
   }
   
-  protected AdjustedDateParameters getEndDateAdjustmentParameters() {
+  protected BusinessDayAdjustment getEndDateAdjustmentParameters() {
     return _adjustedEndDateParameters;
   }
   
@@ -294,7 +296,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     return _paymentDateRelativeTo;
   }
   
-  protected OffsetAdjustedDateParameters getPaymentDateAdjustmentParameters() {
+  protected DaysAdjustment getPaymentDateAdjustmentParameters() {
     return _adjustedPaymentDateParameters;
   }
 
@@ -436,22 +438,22 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
    * @return the parameters used to adjust the accrual periods.
    */
   @SuppressWarnings("unchecked")
-  public T accrualPeriodParameters(AdjustedDateParameters accrualDateAdjustmentParameters) {
+  public T accrualPeriodParameters(BusinessDayAdjustment accrualDateAdjustmentParameters) {
     _adjustedAccrualDateParameters = accrualDateAdjustmentParameters;
     return (T) this;
   }
 
   @SuppressWarnings("unchecked")
-  public T startDateAdjustmentParameters(AdjustedDateParameters startDateAdjustmentParameters) {
+  public T startDateAdjustmentParameters(BusinessDayAdjustment startDateAdjustmentParameters) {
     _adjustedStartDateParameters = startDateAdjustmentParameters;
     return (T) this;
   }
 
   @SuppressWarnings("unchecked")
-  public T endDateAdjustmentParameters(AdjustedDateParameters endDateAdjustmentParameters) {
+  public T endDateAdjustmentParameters(BusinessDayAdjustment endDateAdjustmentParameters) {
     if (_adjustedAccrualDateParameters != null
-        && _adjustedAccrualDateParameters.getBusinessDayConvention() == null
-        && _adjustedEndDateParameters.getBusinessDayConvention() != null) {
+        && _adjustedAccrualDateParameters.getConvention() == null
+        && _adjustedEndDateParameters.getConvention() != null) {
       throw new IllegalArgumentException("End date adjustment business day convention does not match accrual period business day convention");
     }
     _adjustedEndDateParameters = endDateAdjustmentParameters;
@@ -465,7 +467,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   }
 
   @SuppressWarnings("unchecked")
-  public T paymentDateAdjustmentParameters(OffsetAdjustedDateParameters paymentDateAdjustmentParameters) {
+  public T paymentDateAdjustmentParameters(DaysAdjustment paymentDateAdjustmentParameters) {
     _adjustedPaymentDateParameters = paymentDateAdjustmentParameters;
     return (T) this;
   }
@@ -510,7 +512,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
           endDate,
           _accrualPeriodFrequency,
           stubType,
-          _adjustedAccrualDateParameters.getBusinessDayConvention(),
+          _adjustedAccrualDateParameters.getConvention(),
           _adjustedAccrualDateParameters.getCalendar(),
           getRollDateAdjuster());
           //_rollDateAdjuster instanceof GeneralRollDateAdjuster ? null : _rollDateAdjuster);
@@ -533,9 +535,9 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
     if (_adjustedPaymentDateParameters != null) {
       return ScheduleCalculator.getAdjustedDateSchedule(
           accrualDates,
-          _adjustedPaymentDateParameters.getBusinessDayConvention(),
+          _adjustedPaymentDateParameters.getAdjustment().getConvention(),
           _adjustedPaymentDateParameters.getCalendar(),
-          _adjustedPaymentDateParameters.getOffset());
+          _adjustedPaymentDateParameters.getDays());
     } else {
       return accrualDates;
     }
@@ -546,7 +548,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
       return null;
     }
     ZonedDateTime startDate = BusinessDayDateUtils.applyConvention(
-        getStartDateAdjustmentParameters().getBusinessDayConvention(),
+        getStartDateAdjustmentParameters().getConvention(),
         getStartDate(),
         getStartDateAdjustmentParameters().getCalendar());
     
@@ -562,7 +564,7 @@ public abstract class AbstractAnnuityDefinitionBuilder<T extends AbstractAnnuity
   
   protected CouponFixedDefinition getExchangeFinalNotionalCoupon() {
     ZonedDateTime endDate = BusinessDayDateUtils.applyConvention(
-        getEndDateAdjustmentParameters().getBusinessDayConvention(),
+        getEndDateAdjustmentParameters().getConvention(),
         getEndDate(),
         getEndDateAdjustmentParameters().getCalendar());
     

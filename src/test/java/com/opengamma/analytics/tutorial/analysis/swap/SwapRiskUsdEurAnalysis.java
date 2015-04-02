@@ -15,14 +15,11 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
@@ -52,7 +49,9 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -83,25 +82,27 @@ public class SwapRiskUsdEurAnalysis {
   //  private static final GeneratorSwapXCcyIborIbor EURIBOR3MUSDLIBOR3M = new GeneratorSwapXCcyIborIbor("EURIBOR3MUSDLIBOR3M", EURIBOR3M, USDLIBOR3M, TARGET, NYC);
   private static final Currency USD = USDLIBOR3M.getCurrency();
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final AdjustedDateParameters ADJUSTED_DATE_USDLIBOR = new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention());
-  private static final AdjustedDateParameters ADJUSTED_DATE_EUREURIBOR = new AdjustedDateParameters(TARGET, EUR1YEURIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_USDLIBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, NYC, USD6MLIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_EUREURIBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, TARGET, EUR1YEURIBOR3M.getBusinessDayConvention());
-  private static final AdjustedDateParameters ADJUSTED_DATE_FEDFUND = 
-      new AdjustedDateParameters(NYC, GENERATOR_OIS_USD.getBusinessDayConvention());
-  private static final AdjustedDateParameters ADJUSTED_DATE_EONIA = 
-      new AdjustedDateParameters(TARGET, GENERATOR_OIS_EUR.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_PAY_FEDFUND =
-      new OffsetAdjustedDateParameters(GENERATOR_OIS_USD.getPaymentLag(), OffsetType.BUSINESS, NYC,
-          BusinessDayConventions.FOLLOWING);
-  private static final OffsetAdjustedDateParameters OFFSET_FIX_FEDFUND =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, NYC, BusinessDayConventions.FOLLOWING);
-  private static final OffsetAdjustedDateParameters OFFSET_PAY_EONIA =
-      new OffsetAdjustedDateParameters(2, OffsetType.BUSINESS, TARGET, BusinessDayConventions.FOLLOWING);
-  private static final OffsetAdjustedDateParameters OFFSET_FIX_EONIA =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, TARGET, BusinessDayConventions.FOLLOWING);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_USDLIBOR =
+      BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_EUREURIBOR =
+      BusinessDayAdjustment.of(EUR1YEURIBOR3M.getBusinessDayConvention(), TARGET);
+  private static final DaysAdjustment OFFSET_ADJ_USDLIBOR =
+      DaysAdjustment.ofBusinessDays(-2, NYC, BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC));
+  private static final DaysAdjustment OFFSET_ADJ_EUREURIBOR =
+      DaysAdjustment.ofBusinessDays(-2, TARGET, BusinessDayAdjustment.of(EUR1YEURIBOR3M.getBusinessDayConvention(), TARGET));
+  private static final BusinessDayAdjustment ADJUSTED_DATE_FEDFUND = 
+      BusinessDayAdjustment.of(GENERATOR_OIS_USD.getBusinessDayConvention(), NYC);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_EONIA = 
+      BusinessDayAdjustment.of(GENERATOR_OIS_EUR.getBusinessDayConvention(), TARGET);
+  private static final DaysAdjustment OFFSET_PAY_FEDFUND =
+      DaysAdjustment.ofBusinessDays(GENERATOR_OIS_USD.getPaymentLag(), NYC,
+          BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, NYC));
+  private static final DaysAdjustment OFFSET_FIX_FEDFUND =
+      DaysAdjustment.ofBusinessDays(0, NYC, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, NYC));
+  private static final DaysAdjustment OFFSET_PAY_EONIA =
+      DaysAdjustment.ofBusinessDays(2, TARGET, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, TARGET));
+  private static final DaysAdjustment OFFSET_FIX_EONIA =
+      DaysAdjustment.ofBusinessDays(0, TARGET, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, TARGET));
 
   private static final double NOTIONAL_1 = 1000000; // 1m
   private static final NotionalProvider NOTIONAL_PROV_1 = new NotionalProvider() {

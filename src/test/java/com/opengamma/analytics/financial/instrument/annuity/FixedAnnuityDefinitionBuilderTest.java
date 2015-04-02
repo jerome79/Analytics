@@ -47,7 +47,9 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
@@ -63,7 +65,8 @@ public class FixedAnnuityDefinitionBuilderTest {
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();
   private static final Currency USD = USDLIBOR3M.getCurrency();
-  private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR = new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention());
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR =
+      BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC);
   /** Leg details */
   private static final LocalDate EFFECTIVE_DATE_1 = LocalDate.of(2014, 7, 18);
   private static final int TENOR_YEAR_1 = 10;
@@ -136,7 +139,7 @@ public class FixedAnnuityDefinitionBuilderTest {
     ZonedDateTime startDateBare = EFFECTIVE_DATE_1.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC);
     ZonedDateTime[] accrualEndDatesBare = ScheduleCalculator.getAdjustedDateSchedule(startDateBare,
         MATURITY_DATE_1.atTime(LocalTime.MIN).atZone(ZoneOffset.UTC), period, StubConvention.NONE,
-        ADJUSTED_DATE_LIBOR.getBusinessDayConvention(), ADJUSTED_DATE_LIBOR.getCalendar(), null);
+        ADJUSTED_DATE_LIBOR.getConvention(), ADJUSTED_DATE_LIBOR.getCalendar(), null);
     ZonedDateTime[] accrualStartDatesBare = ScheduleCalculator.getStartDates(startDateBare, accrualEndDatesBare);
     int nCoupons = accrualEndDatesBare.length;
     CouponDefinition[] coupons = new CouponFixedDefinition[nCoupons];
@@ -189,8 +192,8 @@ public class FixedAnnuityDefinitionBuilderTest {
 
   private static final IndexIborMaster MASTER_IBOR = IndexIborMaster.getInstance();
   private static final IborIndex USDLIBOR6M = MASTER_IBOR.getIndex("USDLIBOR6M");
-  private static final AdjustedDateParameters ADJUSTED_DATE_USDLIBOR =
-      new AdjustedDateParameters(NYC, USD6MLIBOR3M.getBusinessDayConvention());
+  private static final BusinessDayAdjustment ADJUSTED_DATE_USDLIBOR =
+      BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC);
   private static final Period P3M = Period.ofMonths(3);
   private static final Period P6M = Period.ofMonths(6);
   private static final Period P1Y = Period.ofYears(1);
@@ -242,7 +245,7 @@ public class FixedAnnuityDefinitionBuilderTest {
     testStub("FixedAnnuityDefinitionBuilder - Stub - short start", LEG_STUB2, true, 3,
         START_DATE_STUB2, END_DATE_STUB2.minus(P1Y));
     testStub("FixedAnnuityDefinitionBuilder - Stub - short end", LEG_STUB3, false, 3,
-        ADJUSTED_DATE_USDLIBOR.getBusinessDayConvention().adjust(START_DATE_STUB3.plus(P1Y),
+        ADJUSTED_DATE_USDLIBOR.getConvention().adjust(START_DATE_STUB3.plus(P1Y),
             ADJUSTED_DATE_USDLIBOR.getCalendar()), END_DATE_STUB3);
     testStub("FixedAnnuityDefinitionBuilder - Stub - long end", LEG_STUB4, false, 3,
         START_DATE_STUB4.plus(P1Y), END_DATE_STUB4);
@@ -294,8 +297,8 @@ public class FixedAnnuityDefinitionBuilderTest {
     SwapCouponFixedCouponDefinition swapDfnGnr = new SwapCouponFixedCouponDefinition(fixedLegGnr, liborLegGnr);
     Swap<? extends Payment, ? extends Payment> swapGnr = swapDfnGnr.toDerivative(valDate, ts);
 
-    AdjustedDateParameters adjDatePram = new AdjustedDateParameters(NYC, USDLIBOR3M.getBusinessDayConvention());
-    OffsetAdjustedDateParameters offsetAdjParam = new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, NYC, bbc);
+    BusinessDayAdjustment adjDatePram = BusinessDayAdjustment.of(USDLIBOR3M.getBusinessDayConvention(), NYC);
+    DaysAdjustment offsetAdjParam = DaysAdjustment.ofBusinessDays(-2, NYC, BusinessDayAdjustment.of(bbc, NYC));
     CouponStub stub = new CouponStub(stubType);
     // start date adjustment is absent in the annuity builder
     LocalDate spot = ScheduleCalculator.getAdjustedDate(tradeDate, offset, NYC).toLocalDate();

@@ -12,16 +12,15 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.ArgChecker;
@@ -68,11 +67,15 @@ public class GeneratorLegONCompounded extends GeneratorLegONAbstract {
         return notional;
       }
     };
-    AdjustedDateParameters adjustedDateIndex = new AdjustedDateParameters(getIndexCalendar(), getBusinessDayConvention());
-    OffsetAdjustedDateParameters offsetFixing = new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, getIndexCalendar(),
-        BusinessDayConventions.FOLLOWING);
-    OffsetAdjustedDateParameters offsetPayment = new OffsetAdjustedDateParameters(getPaymentOffset(), OffsetType.BUSINESS, 
-        getPaymentCalendar(), BusinessDayConventions.FOLLOWING);
+    BusinessDayAdjustment adjustedDateIndex = BusinessDayAdjustment.of(getBusinessDayConvention(), getIndexCalendar());
+    DaysAdjustment offsetFixing = DaysAdjustment.ofBusinessDays(
+        0,
+        getIndexCalendar(),
+        BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, getIndexCalendar()));
+    DaysAdjustment offsetPayment = DaysAdjustment.ofBusinessDays(
+        getPaymentOffset(),
+        getPaymentCalendar(),
+        BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, getPaymentCalendar()));
     AnnuityDefinition<?> leg = new FloatingAnnuityDefinitionBuilder().
         payer(false).notional(notionalProvider).startDate(startDate.toLocalDate()).endDate(endDate.toLocalDate()).
         index(getIndexON()).accrualPeriodFrequency(getPaymentPeriod()).

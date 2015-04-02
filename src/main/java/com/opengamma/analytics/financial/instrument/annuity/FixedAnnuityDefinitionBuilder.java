@@ -138,7 +138,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
       }
 
       final ZonedDateTime adjustedEndDate = BusinessDayDateUtils.applyConvention(
-          getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+          getAccrualPeriodAdjustmentParameters().getConvention(),
           getEndDate(),
           getAccrualPeriodAdjustmentParameters().getCalendar());
       ZonedDateTime paymentDate = getPaymentDates(new ZonedDateTime[] {adjustedEndDate })[0];
@@ -163,7 +163,7 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
               getEndDate(),
               Period.ofYears(1), // PLAT-6810
               stubType,
-              getAccrualPeriodAdjustmentParameters().getBusinessDayConvention(),
+              getAccrualPeriodAdjustmentParameters().getConvention(),
               getAccrualPeriodAdjustmentParameters().getCalendar(),
               getRollDateAdjuster());
         } else {

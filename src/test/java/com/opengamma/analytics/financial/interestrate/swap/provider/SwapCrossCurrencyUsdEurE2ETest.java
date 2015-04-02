@@ -14,11 +14,8 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedFxResetDefinition;
@@ -36,7 +33,9 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -50,12 +49,12 @@ public class SwapCrossCurrencyUsdEurE2ETest {
   private static final HolidayCalendar LON = HolidayCalendars.SAT_SUN;
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
-  private static final AdjustedDateParameters ADJUSTED_DATE_LIBOR_LONNYC = 
-      new AdjustedDateParameters(NYC, BusinessDayConventions.MODIFIED_FOLLOWING); // HolidayCalendar should be LON+NYC
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR_TAR_2 =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, TARGET, BusinessDayConventions.FOLLOWING);
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_LIBOR_LON_2 =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, LON, BusinessDayConventions.FOLLOWING);
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR_LONNYC = 
+      BusinessDayAdjustment.of(BusinessDayConventions.MODIFIED_FOLLOWING, NYC); // HolidayCalendar should be LON+NYC
+  private static final DaysAdjustment OFFSET_ADJ_LIBOR_TAR_2 =
+      DaysAdjustment.ofBusinessDays(-2, TARGET, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, TARGET));
+  private static final DaysAdjustment OFFSET_ADJ_LIBOR_LON_2 =
+      DaysAdjustment.ofBusinessDays(-2, LON, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
   
   /** Curve providers */
   private static final FxMatrix FX_MATRIX = FxMatrix.builder().addRate(EUR, USD, 1.20).build();

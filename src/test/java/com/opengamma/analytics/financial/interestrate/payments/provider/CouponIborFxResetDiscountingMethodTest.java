@@ -16,11 +16,8 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -45,6 +42,8 @@ import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
 
@@ -175,10 +174,10 @@ public class CouponIborFxResetDiscountingMethodTest {
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M =
       GENERATOR_IRS_MASTER.getGenerator(GeneratorSwapFixedIborMaster.EUR1YEURIBOR3M, CAL);
-  private static final AdjustedDateParameters ADJUSTED_DATE_IBOR =
-      new AdjustedDateParameters(CAL, EUR1YEURIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_ADJ_IBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, CAL, EUR1YEURIBOR3M.getBusinessDayConvention());
+  private static final BusinessDayAdjustment ADJUSTED_DATE_IBOR =
+      BusinessDayAdjustment.of(EUR1YEURIBOR3M.getBusinessDayConvention(), CAL);
+  private static final DaysAdjustment OFFSET_ADJ_IBOR =
+      DaysAdjustment.ofBusinessDays(-2, CAL, BusinessDayAdjustment.of(EUR1YEURIBOR3M.getBusinessDayConvention(), CAL));
   private static final IborIndex EUREURIBOR3M = EUR1YEURIBOR3M.getIborIndex();
   private static final LocalDate EFFECTIVE_DATE_1 = LocalDate.of(2016, 7, 18);
   private static final LocalDate MATURITY_DATE_1 = LocalDate.of(2017, 7, 18);

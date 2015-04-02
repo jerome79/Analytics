@@ -19,13 +19,10 @@ import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.instrument.NotionalProvider;
-import com.opengamma.analytics.financial.instrument.annuity.AdjustedDateParameters;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.CompoundingMethod;
 import com.opengamma.analytics.financial.instrument.annuity.FixedAnnuityDefinitionBuilder;
 import com.opengamma.analytics.financial.instrument.annuity.FloatingAnnuityDefinitionBuilder;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetAdjustedDateParameters;
-import com.opengamma.analytics.financial.instrument.annuity.OffsetType;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -46,6 +43,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.basics.date.BusinessDayAdjustment;
+import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
@@ -221,12 +220,12 @@ public class SwapVariationMarginE2ETest {
       return NOTIONAL;
     }
   };
-  private static final AdjustedDateParameters ADJUSTED_DATE_USDLIBOR = new AdjustedDateParameters(NYC,
-      USDLIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_FIXING_USDLIBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, NYC, USDLIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_PAYMENT_USDLIBOR =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, NYC, USDLIBOR3M.getBusinessDayConvention());
+  private static final BusinessDayAdjustment ADJUSTED_DATE_USDLIBOR =
+      BusinessDayAdjustment.of(USDLIBOR3M.getBusinessDayConvention(), NYC);
+  private static final DaysAdjustment OFFSET_FIXING_USDLIBOR =
+      DaysAdjustment.ofBusinessDays(-2, NYC, BusinessDayAdjustment.of(USDLIBOR3M.getBusinessDayConvention(), NYC));
+  private static final DaysAdjustment OFFSET_PAYMENT_USDLIBOR =
+      DaysAdjustment.ofBusinessDays(0, NYC, BusinessDayAdjustment.of(USDLIBOR3M.getBusinessDayConvention(), NYC));
   private static final Period P3M = Period.ofMonths(3);
   private static final double FIXED_RATE = 0.015;
   private static final RollDateAdjuster ROLL_DATE_ADJUSTER = RollConvention.NONE.getRollDateAdjuster(0);
@@ -535,12 +534,12 @@ public class SwapVariationMarginE2ETest {
   /**
    * Swap, GBP
    */
-  private static final AdjustedDateParameters ADJUSTED_DATE_GBPLIBOR = new AdjustedDateParameters(LON,
-      GBPLIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_FIXING_GBPLIBOR =
-      new OffsetAdjustedDateParameters(-2, OffsetType.BUSINESS, LON, GBPLIBOR3M.getBusinessDayConvention());
-  private static final OffsetAdjustedDateParameters OFFSET_PAYMENT_GBPLIBOR =
-      new OffsetAdjustedDateParameters(0, OffsetType.BUSINESS, LON, GBPLIBOR3M.getBusinessDayConvention());
+  private static final BusinessDayAdjustment ADJUSTED_DATE_GBPLIBOR =
+      BusinessDayAdjustment.of(GBPLIBOR3M.getBusinessDayConvention(), LON);
+  private static final DaysAdjustment OFFSET_FIXING_GBPLIBOR =
+      DaysAdjustment.ofBusinessDays(-2, LON, BusinessDayAdjustment.of(GBPLIBOR3M.getBusinessDayConvention(), LON));
+  private static final DaysAdjustment OFFSET_PAYMENT_GBPLIBOR =
+      DaysAdjustment.ofBusinessDays(0, LON, BusinessDayAdjustment.of(GBPLIBOR3M.getBusinessDayConvention(), LON));
   // Swap Fixed vs Libor3M, GBP
   private static final LocalDate START_DATE4 = LocalDate.of(2014, 6, 12);
   private static final LocalDate END_DATE4 = LocalDate.of(2021, 6, 12);
