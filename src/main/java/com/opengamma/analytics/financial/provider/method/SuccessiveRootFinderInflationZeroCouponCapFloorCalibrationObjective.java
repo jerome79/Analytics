@@ -58,7 +58,7 @@ public class SuccessiveRootFinderInflationZeroCouponCapFloorCalibrationObjective
    * @param ccy The currency for which the Hull-White parameters are valid.
    */
   public SuccessiveRootFinderInflationZeroCouponCapFloorCalibrationObjective(final InflationZeroCouponCapFloorParameters parameters, final Currency ccy) {
-    super(FxMatrix.EMPTY_FX_MATRIX, ccy);
+    super(FxMatrix.empty(), ccy);
     _inflationCapZeroCouponParameters = parameters;
     _ccyInflationcapZeroCoupon = ccy;
     setMinimumParameter(1.0E-6);

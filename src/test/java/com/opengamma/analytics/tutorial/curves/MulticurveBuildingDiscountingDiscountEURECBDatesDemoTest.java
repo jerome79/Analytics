@@ -71,7 +71,7 @@ public class MulticurveBuildingDiscountingDiscountEURECBDatesDemoTest {
 
   /** Index and curve names */
   private static final HolidayCalendar TARGET = HolidayCalendars.EUTA;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
   private static final IndexON EONIA = IndexONMaster.getInstance().getIndex("EONIA");
   private static final IborIndex EURIBOR6M = IndexIborMaster.getInstance().getIndex("EURIBOR6M");
   private static final String CURVE_NAME_DSC_EUR = "EUR Dsc";

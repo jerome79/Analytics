@@ -54,7 +54,7 @@ public class SuccessiveRootFinderLMMDDCalibrationObjective extends SuccessiveRoo
    * @param ccy The currency for which the LMM parameters are valid (LMM on the discounting curve).
    */
   public SuccessiveRootFinderLMMDDCalibrationObjective(final LiborMarketModelDisplacedDiffusionParameters parameters, final Currency ccy) {
-    super(FxMatrix.EMPTY_FX_MATRIX, ccy);
+    super(FxMatrix.empty(), ccy);
     _lmmParameters = parameters;
     _ccyLMM = ccy;
     setMinimumParameter(1.0E-6);

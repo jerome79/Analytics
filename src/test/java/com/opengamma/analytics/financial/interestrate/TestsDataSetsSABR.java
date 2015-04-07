@@ -339,7 +339,7 @@ public class TestsDataSetsSABR {
     ccyMap.put(discountingCurvename, ccy);
     ccyMap.put(forward3MCurveName, ccy);
     ccyMap.put(forward6MCurveName, ccy);
-    final FxMatrix fx = FxMatrix.EMPTY_FX_MATRIX;
+    final FxMatrix fx = FxMatrix.empty();
     final InterpolatedDoublesCurve dscC = new InterpolatedDoublesCurve(new double[] {0.05, 1.0, 2.0, 5.0, 10.0, 20.0}, new double[] {0.0050, 0.0100, 0.0150, 0.0200, 0.0200, 0.0300},
         CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC, Interpolator1DFactory.LINEAR_EXTRAPOLATOR), true, "Curve dsc");
     final InterpolatedDoublesCurve fwd3C = new InterpolatedDoublesCurve(new double[] {0.05, 1.0, 2.0, 5.0, 10.0, 25.0}, new double[] {0.0070, 0.0120, 0.0165, 0.0215, 0.0210, 0.0310},

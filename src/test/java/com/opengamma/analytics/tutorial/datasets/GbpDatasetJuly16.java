@@ -75,7 +75,7 @@ public class GbpDatasetJuly16 {
 
   private static final HolidayCalendar LON = HolidayCalendars.GBLO;
   private static final Currency GBP = Currency.GBP;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1.0;
   private static final NotionalProvider NOTIONAL_PROV = new NotionalProvider() {

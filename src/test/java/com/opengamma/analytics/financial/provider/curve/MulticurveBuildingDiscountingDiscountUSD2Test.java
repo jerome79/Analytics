@@ -81,7 +81,7 @@ public class MulticurveBuildingDiscountingDiscountUSD2Test {
   private static final int STEP_MAX = 100;
 
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1.0;
 

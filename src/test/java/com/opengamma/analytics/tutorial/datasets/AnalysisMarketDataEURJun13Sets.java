@@ -73,7 +73,7 @@ public class AnalysisMarketDataEURJun13Sets {
 
   private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final Currency EUR = Currency.EUR;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1.0;
 

@@ -57,7 +57,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
   public MultiCurrencyAmount presentValue(final ForexNonDeliverableForward ndf, final YieldCurveBundle curves) {
     final double df2 = curves.getCurve(ndf.getDiscountingCurve2Name()).getDiscountFactor(ndf.getPaymentTime());
     final double df1 = curves.getCurve(ndf.getDiscountingCurve1Name()).getDiscountFactor(ndf.getPaymentTime());
-    final double spot = curves.getFxRates().getRate(ndf.getCurrency2(), ndf.getCurrency1());
+    final double spot = curves.getFxRates().rate(ndf.getCurrency2(), ndf.getCurrency1());
     final double pv2 = ndf.getNotionalCurrency2() * (df2 - ndf.getExchangeRate() / spot * df1);
     return MultiCurrencyAmount.of(ndf.getCurrency2(), pv2);
   }
@@ -102,7 +102,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
   public double forwardForexRate(final ForexNonDeliverableForward ndf, final YieldCurveBundle curves) {
     final double dfDelivery = curves.getCurve(ndf.getDiscountingCurve2Name()).getDiscountFactor(ndf.getPaymentTime());
     final double dfNonDelivery = curves.getCurve(ndf.getDiscountingCurve1Name()).getDiscountFactor(ndf.getPaymentTime());
-    final double spot = curves.getFxRates().getRate(ndf.getCurrency2(), ndf.getCurrency1());
+    final double spot = curves.getFxRates().rate(ndf.getCurrency2(), ndf.getCurrency1());
     return spot * dfDelivery / dfNonDelivery;
   }
 
@@ -117,7 +117,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
     //    YieldCurveWithFXBundle curvesFX = (YieldCurveWithFXBundle) curves;
     final double df2 = curves.getCurve(ndf.getDiscountingCurve2Name()).getDiscountFactor(ndf.getPaymentTime());
     final double df1 = curves.getCurve(ndf.getDiscountingCurve1Name()).getDiscountFactor(ndf.getPaymentTime());
-    final double spot = curves.getFxRates().getRate(ndf.getCurrency2(), ndf.getCurrency1());
+    final double spot = curves.getFxRates().rate(ndf.getCurrency2(), ndf.getCurrency1());
     // Backward sweep
     final double pvBar = 1.0;
     final double df1Bar = -ndf.getNotionalCurrency2() * ndf.getExchangeRate() / spot * pvBar;

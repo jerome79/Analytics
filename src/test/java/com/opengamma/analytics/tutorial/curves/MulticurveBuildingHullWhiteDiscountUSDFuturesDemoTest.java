@@ -73,7 +73,7 @@ public class MulticurveBuildingHullWhiteDiscountUSDFuturesDemoTest {
 
   /** Index and curve names */
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
   private static final IndexON FEDFUND = IndexONMaster.getInstance().getIndex("FED FUND");
   private static final IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex("USDLIBOR3M");
   private static final String CURVE_NAME_DSC_USD = "USD Dsc";

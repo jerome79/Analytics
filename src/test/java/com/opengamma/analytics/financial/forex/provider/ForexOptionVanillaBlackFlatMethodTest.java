@@ -60,7 +60,7 @@ public class ForexOptionVanillaBlackFlatMethodTest {
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountForexDataSets.createMulticurvesForex();
 
   private static final FxMatrix FX_MATRIX = MULTICURVES.getFxRates();
-  private static final double SPOT = FX_MATRIX.getRate(EUR, USD);
+  private static final double SPOT = FX_MATRIX.rate(EUR, USD);
   // General
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;

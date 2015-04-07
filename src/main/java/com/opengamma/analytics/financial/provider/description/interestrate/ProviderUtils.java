@@ -32,7 +32,7 @@ public class ProviderUtils {
     ArgChecker.notNull(providers, "providers");
     ArgChecker.notEmpty(providers, "providers");
     final MulticurveProviderDiscount result = new MulticurveProviderDiscount();
-    FxMatrix matrix = FxMatrix.EMPTY_FX_MATRIX;
+    FxMatrix matrix = FxMatrix.empty();
     int loop = 0;
     for (final MulticurveProviderDiscount provider : providers) {
       for (final Map.Entry<Currency, YieldAndDiscountCurve> entry : provider.getDiscountingCurves().entrySet()) {
@@ -66,7 +66,7 @@ public class ProviderUtils {
     ArgChecker.notNull(providers, "providers");
     ArgChecker.notEmpty(providers, "providers");
     final MulticurveProviderDiscount result = new MulticurveProviderDiscount();
-    FxMatrix matrix = FxMatrix.EMPTY_FX_MATRIX;
+    FxMatrix matrix = FxMatrix.empty();
     int loop = 0;
     for (final MulticurveProviderDiscount provider : providers) {
       for (final Map.Entry<Currency, YieldAndDiscountCurve> entry : provider.getDiscountingCurves().entrySet()) {

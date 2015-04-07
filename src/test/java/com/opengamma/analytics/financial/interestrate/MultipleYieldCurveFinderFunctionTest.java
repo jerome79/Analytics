@@ -40,7 +40,7 @@ public class MultipleYieldCurveFinderFunctionTest {
   private static final LinkedHashMap<String, double[]> NODES = new LinkedHashMap<>();
   private static final LinkedHashMap<String, Interpolator1D> INTERPOLATORS = new LinkedHashMap<>();
   private static final MultipleYieldCurveFinderDataBundle DATA;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   static {
     final int n = 10;

@@ -103,7 +103,7 @@ public class MultipleCurrencyParameterSensitivityTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testConvertNullCurrency() {
-    new MultipleCurrencyParameterSensitivity().converted(FxMatrix.EMPTY_FX_MATRIX, null);
+    new MultipleCurrencyParameterSensitivity().converted(FxMatrix.empty(), null);
   }
 
   @Test
@@ -199,8 +199,8 @@ public class MultipleCurrencyParameterSensitivityTest {
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_1_USD, SENSITIVITY_1_1);
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_1_USD,
                                                          (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_1_2,
-                                                                                       fxMatrix.getRate(EUR, USD)));
-    sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_2_USD, (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_2_1, fxMatrix.getRate(EUR, USD)));
+                                                                                       fxMatrix.rate(EUR, USD)));
+    sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_2_USD, (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_2_1, fxMatrix.rate(EUR, USD)));
     assertTrue("Test convert: ",
                AssertSensitivityObjects.assertEquals("ParameterSensitivity: convert",
                                                    sensitivityUSDExpected,

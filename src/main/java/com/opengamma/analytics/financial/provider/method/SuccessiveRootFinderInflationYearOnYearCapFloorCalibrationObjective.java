@@ -59,7 +59,7 @@ public class SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationObjective
    * @param ccy The currency for which the Hull-White parameters are valid.
    */
   public SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationObjective(final InflationYearOnYearCapFloorParameters parameters, final Currency ccy) {
-    super(FxMatrix.EMPTY_FX_MATRIX, ccy);
+    super(FxMatrix.empty(), ccy);
     _inflationCapYearOnYearParameters = parameters;
     _ccyInflationcapYearOnYear = ccy;
     setMinimumParameter(1.0E-6);

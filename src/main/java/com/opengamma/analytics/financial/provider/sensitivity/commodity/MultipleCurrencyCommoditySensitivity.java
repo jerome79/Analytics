@@ -157,7 +157,7 @@ public class MultipleCurrencyCommoditySensitivity {
   public MultipleCurrencyCommoditySensitivity converted(final Currency ccy, final FxMatrix fx) {
     CommoditySensitivity sensi = new CommoditySensitivity();
     for (final Currency c : _sensitivity.keySet()) {
-      final double rate = fx.getRate(c, ccy);
+      final double rate = fx.rate(c, ccy);
       sensi = sensi.plus(_sensitivity.get(c).multipliedBy(rate));
     }
     return of(ccy, sensi);

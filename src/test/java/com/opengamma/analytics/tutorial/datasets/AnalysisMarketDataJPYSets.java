@@ -57,7 +57,7 @@ public class AnalysisMarketDataJPYSets {
 
   private static final HolidayCalendar TYO = HolidayCalendars.SAT_SUN;
   private static final Currency JPY = Currency.JPY;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1.0;
 

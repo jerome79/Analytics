@@ -75,7 +75,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 public class StandardDataSetsInflationUSD {
 
   private static final HolidayCalendar NYC = CalendarUSD.NYC;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
   private static final MulticurveProviderDiscount KNOWN_DATA_MULTICURVE = new MulticurveProviderDiscount(FX_MATRIX);
   
   private static final double NOTIONAL = 1.0;

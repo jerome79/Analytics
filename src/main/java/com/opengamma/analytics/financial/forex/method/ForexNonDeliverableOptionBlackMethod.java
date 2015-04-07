@@ -77,7 +77,7 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.
     final double dfDelivery = smile.getCurve(optionForex.getUnderlyingNDF().getDiscountingCurve2Name()).getDiscountFactor(paymentTime);
     final double dfNonDelivery = smile.getCurve(optionForex.getUnderlyingNDF().getDiscountingCurve1Name()).getDiscountFactor(paymentTime);
-    final double spot = smile.getFxRates().getRate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfNonDelivery / dfDelivery;
     final double volatility = FXVolatilityUtils.getVolatility(smile, optionForex.getCurrency1(), optionForex.getCurrency2(), expiryTime, strike, forward);
     final BlackFunctionData dataBlack = new BlackFunctionData(forward, dfDelivery, volatility);
@@ -110,7 +110,7 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.
     final double dfDelivery = smile.getCurve(optionForex.getUnderlyingNDF().getDiscountingCurve2Name()).getDiscountFactor(paymentTime);
     final double dfNonDelivery = smile.getCurve(optionForex.getUnderlyingNDF().getDiscountingCurve1Name()).getDiscountFactor(paymentTime);
-    final double spot = smile.getFxRates().getRate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfNonDelivery / dfDelivery;
     final double volatility = FXVolatilityUtils.getVolatility(smile, optionForex.getCurrency1(), optionForex.getCurrency2(), expiryTime, strike, forward);
     final BlackFunctionData dataBlack = new BlackFunctionData(forward, dfDelivery, volatility);
@@ -164,7 +164,7 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
     // Forward sweep
     final double dfDelivery = smile.getCurve(deliveryCurveName).getDiscountFactor(paymentTime);
     final double dfNonDelivery = smile.getCurve(nonDeliveryCurveName).getDiscountFactor(paymentTime);
-    final double spot = smile.getFxRates().getRate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfNonDelivery / dfDelivery;
     final double volatility = FXVolatilityUtils.getVolatility(smile, optionForex.getCurrency1(), optionForex.getCurrency2(), expiryTime, strike, forward);
     final BlackFunctionData dataBlack = new BlackFunctionData(forward, 1.0, volatility);
@@ -222,7 +222,7 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
     // Forward sweep
     final double dfDelivery = smile.getCurve(deliveryCurveName).getDiscountFactor(paymentTime);
     final double dfNonDelivery = smile.getCurve(nonDeliveryCurveName).getDiscountFactor(paymentTime);
-    final double spot = smile.getFxRates().getRate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfNonDelivery / dfDelivery;
     final double volatility = FXVolatilityUtils.getVolatility(smile, optionForex.getCurrency1(), optionForex.getCurrency2(), expiryTime, strike, forward);
     final BlackFunctionData dataBlack = new BlackFunctionData(forward, dfDelivery, volatility);
@@ -255,7 +255,7 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
     final SmileDeltaTermStructureParametersStrikeInterpolation volatilityModel = smile.getVolatilityModel();
     final double dfDelivery = smile.getCurve(deliveryCurveName).getDiscountFactor(paymentTime);
     final double dfNonDelivery = smile.getCurve(nonDeliveryCurveName).getDiscountFactor(paymentTime);
-    final double spot = smile.getFxRates().getRate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfNonDelivery / dfDelivery;
     final VolatilityAndBucketedSensitivities volAndSensitivities = FXVolatilityUtils.getVolatilityAndSensitivities(smile, optionForex.getCurrency1(), optionForex.getCurrency2(),
         expiryTime, strike, forward);

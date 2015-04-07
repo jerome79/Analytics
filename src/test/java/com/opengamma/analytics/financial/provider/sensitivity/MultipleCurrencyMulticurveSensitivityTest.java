@@ -121,7 +121,7 @@ public class MultipleCurrencyMulticurveSensitivityTest {
     final MulticurveSensitivity cs = MulticurveSensitivity.of(SENSI_11, SENSI_FWD_11);
     final MultipleCurrencyMulticurveSensitivity mcs = MultipleCurrencyMulticurveSensitivity.of(ccy1, cs);
     final MultipleCurrencyMulticurveSensitivity mcsConverted = mcs.converted(ccy2, fxMatrix);
-    final MultipleCurrencyMulticurveSensitivity mcsExpected = MultipleCurrencyMulticurveSensitivity.of(ccy2, cs.multipliedBy(fxMatrix.getRate(ccy1, ccy2)));
+    final MultipleCurrencyMulticurveSensitivity mcsExpected = MultipleCurrencyMulticurveSensitivity.of(ccy2, cs.multipliedBy(fxMatrix.rate(ccy1, ccy2)));
     AssertSensitivityObjects.assertEquals("MultipleCurrencyCurveSensitivityMarket: converted", mcsExpected.cleaned(), mcsConverted.cleaned(), TOLERANCE);
   }
 

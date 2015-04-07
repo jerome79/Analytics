@@ -49,7 +49,7 @@ public class SuccessiveRootFinderG2ppCalibrationObjective extends SuccessiveRoot
    * @param ratio The ratio between the first factor volatility and the second factor volatility.
    */
   public SuccessiveRootFinderG2ppCalibrationObjective(final G2ppPiecewiseConstantParameters parameters, final Currency ccy, final double ratio) {
-    super(FxMatrix.EMPTY_FX_MATRIX, ccy);
+    super(FxMatrix.empty(), ccy);
     _g2Parameters = parameters;
     _ratio = ratio;
     _ccyG2 = ccy;

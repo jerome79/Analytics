@@ -44,7 +44,7 @@ public class MultipleYieldCurveFinderDataBundleTest {
   private static final Interpolator1D INTERPOLATOR1 = new LinearInterpolator1D();
   private static final Interpolator1D INTERPOLATOR2 = new LogLinearInterpolator1D();
   private static final MultipleYieldCurveFinderDataBundle DATA;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   static {
     final int n = 10;

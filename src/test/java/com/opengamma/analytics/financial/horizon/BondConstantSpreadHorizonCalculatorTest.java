@@ -106,7 +106,7 @@ public class BondConstantSpreadHorizonCalculatorTest {
     final Map<IndexON, YieldAndDiscountCurve> on = Collections.emptyMap();
     final Pair<Object, LegalEntityFilter<LegalEntity>> issuerKey = Pair.of(US_GOVT, new LegalEntityShortName());
     final Map<Pair<Object, LegalEntityFilter<LegalEntity>>, YieldAndDiscountCurve> issuer = Collections.<Pair<Object, LegalEntityFilter<LegalEntity>>, YieldAndDiscountCurve>singletonMap(issuerKey, flatIssuer);
-    FLAT_ISSUER_MULTICURVES = new IssuerProviderDiscount(discounting, ibor, on, issuer, FxMatrix.EMPTY_FX_MATRIX);
+    FLAT_ISSUER_MULTICURVES = new IssuerProviderDiscount(discounting, ibor, on, issuer, FxMatrix.empty());
   }
 
   /**

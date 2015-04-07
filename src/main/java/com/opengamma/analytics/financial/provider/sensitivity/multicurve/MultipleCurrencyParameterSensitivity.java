@@ -142,7 +142,7 @@ public class MultipleCurrencyParameterSensitivity {
     final MatrixAlgebra algebra = MatrixAlgebraFactory.COMMONS_ALGEBRA;
     for (final Map.Entry<Pair<String, Currency>, DoubleMatrix1D> entry : _sensitivity.entrySet()) {
       final Pair<String, Currency> nameCcy = entry.getKey();
-      final double fxRate = fxMatrix.getRate(nameCcy.getSecond(), ccy);
+      final double fxRate = fxMatrix.rate(nameCcy.getSecond(), ccy);
       final Pair<String, Currency> nameCcyNew = Pair.of(nameCcy.getFirst(), ccy);
       final DoubleMatrix1D sensitivityNew = (DoubleMatrix1D) algebra.scale(entry.getValue(), fxRate);
       result = result.plus(nameCcyNew, sensitivityNew);
@@ -224,7 +224,7 @@ public class MultipleCurrencyParameterSensitivity {
   public double totalSensitivity(final FxMatrix fxMatrix, final Currency ccy) {
     double total = 0.0;
     for (final Entry<Pair<String, Currency>, DoubleMatrix1D> entry : _sensitivity.entrySet()) {
-      final double fx = fxMatrix.getRate(entry.getKey().getSecond(), ccy);
+      final double fx = fxMatrix.rate(entry.getKey().getSecond(), ccy);
       for (int loopi = 0; loopi < entry.getValue().getNumberOfElements(); loopi++) {
         total += entry.getValue().getEntry(loopi) * fx;
       }

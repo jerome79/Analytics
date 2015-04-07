@@ -62,7 +62,7 @@ public class MulticurveProviderForward implements MulticurveProviderInterface {
     _discountingCurves = new HashMap<>();
     _forwardIborCurves = new HashMap<>();
     _forwardONCurves = new LinkedHashMap<>();
-    _fxMatrix = FxMatrix.EMPTY_FX_MATRIX;
+    _fxMatrix = FxMatrix.empty();
     setAllCurves();
   }
 
@@ -492,7 +492,7 @@ public class MulticurveProviderForward implements MulticurveProviderInterface {
 
   @Override
   public double getFxRate(final Currency ccy1, final Currency ccy2) {
-    return _fxMatrix.getRate(ccy1, ccy2);
+    return _fxMatrix.rate(ccy1, ccy2);
   }
 
   /**

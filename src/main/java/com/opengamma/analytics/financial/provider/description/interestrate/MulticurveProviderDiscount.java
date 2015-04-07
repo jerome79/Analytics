@@ -78,7 +78,7 @@ public class MulticurveProviderDiscount implements MulticurveProviderInterface {
     _namesToCurrency = new HashMap<>();
     _namesToIborIndex = new HashMap<>();
     _namesToONIndex = new HashMap<>();
-    _fxMatrix = FxMatrix.EMPTY_FX_MATRIX;
+    _fxMatrix = FxMatrix.empty();
     setAllCurves();
   }
 
@@ -632,7 +632,7 @@ public class MulticurveProviderDiscount implements MulticurveProviderInterface {
 
   @Override
   public double getFxRate(final Currency ccy1, final Currency ccy2) {
-    return _fxMatrix.getRate(ccy1, ccy2);
+    return _fxMatrix.rate(ccy1, ccy2);
   }
 
   /**

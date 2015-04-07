@@ -100,7 +100,7 @@ public class ForexNonDeliverableForwardDiscountingMethodTest {
   public void presentValue() {
     final MultiCurrencyAmount ce = METHOD_NDF.currencyExposure(NDF, MULTICURVES);
     final MultiCurrencyAmount pv = METHOD_NDF.presentValue(NDF, MULTICURVES);
-    final double pvExpected = ce.getAmount(KRW).getAmount() * FX_MATRIX.getRate(KRW, USD) + ce.getAmount(USD).getAmount();
+    final double pvExpected = ce.getAmount(KRW).getAmount() * FX_MATRIX.rate(KRW, USD) + ce.getAmount(USD).getAmount();
     assertEquals("Present value - non-deliverable forward", pvExpected, pv.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
 
@@ -112,7 +112,7 @@ public class ForexNonDeliverableForwardDiscountingMethodTest {
     final MultiCurrencyAmount pvNDF = METHOD_NDF.presentValue(NDF, MULTICURVES);
     final MultiCurrencyAmount pvFX = METHOD_FX.presentValue(FOREX, MULTICURVES);
     assertEquals("Present value - non-deliverable forward",
-        pvFX.getAmount(USD).getAmount() + pvFX.getAmount(KRW).getAmount() * FX_MATRIX.getRate(KRW, USD),
+        pvFX.getAmount(USD).getAmount() + pvFX.getAmount(KRW).getAmount() * FX_MATRIX.rate(KRW, USD),
         pvNDF.getAmount(USD).getAmount(),
         TOLERANCE_PV);
   }

@@ -75,7 +75,7 @@ public class ComputedDataSetsMulticurveImmUsd {
 
   private static final HolidayCalendar NYC = CalendarUSD.NYC;
   private static final Currency USD = Currency.USD;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1.0;
   private static final NotionalProvider NOTIONAL_PROV = new NotionalProvider() {

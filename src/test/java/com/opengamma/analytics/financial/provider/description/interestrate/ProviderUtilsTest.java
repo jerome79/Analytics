@@ -79,8 +79,8 @@ public class ProviderUtilsTest {
       while (iterator.hasNext()) {
         final Currency otherCurrency = iterator.next();
 
-        assertThat(matrix1.getRate(initialCurrency, otherCurrency))
-            .isEqualTo(matrix2.getRate(initialCurrency, otherCurrency), offset(tolerance));
+        assertThat(matrix1.rate(initialCurrency, otherCurrency))
+            .isEqualTo(matrix2.rate(initialCurrency, otherCurrency), offset(tolerance));
       }
     }
   }

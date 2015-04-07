@@ -128,7 +128,7 @@ public class GeneratorForexForward extends GeneratorInstrument<GeneratorAttribut
   public ForexDefinition generateInstrument(final ZonedDateTime date, final double forwardPoints,
       final double notional, final GeneratorAttributeFX attribute) {
     ArgChecker.notNull(attribute, "Attribute");
-    final double fx = attribute.getFxMatrix().getRate(_currency1, _currency2);
+    final double fx = attribute.getFxMatrix().rate(_currency1, _currency2);
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, _spotLag, _calendar);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getEndPeriod(), 
         _businessDayConvention, _calendar, _endOfMonth);

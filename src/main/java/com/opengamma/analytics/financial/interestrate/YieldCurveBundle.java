@@ -43,7 +43,7 @@ public class YieldCurveBundle {
   public YieldCurveBundle() {
     _curves = new LinkedHashMap<>();
     _curveCurrency = new HashMap<>();
-    _fxMatrix = FxMatrix.EMPTY_FX_MATRIX;
+    _fxMatrix = FxMatrix.empty();
   }
 
   /**
@@ -83,7 +83,7 @@ public class YieldCurveBundle {
   public YieldCurveBundle(final Map<String, ? extends YieldAndDiscountCurve> curvesMap) {
     _curves = new LinkedHashMap<>();
     _curveCurrency = new HashMap<>();
-    _fxMatrix = FxMatrix.EMPTY_FX_MATRIX;
+    _fxMatrix = FxMatrix.empty();
     if (curvesMap != null) {
       ArgChecker.noNulls(curvesMap.keySet(), "curves map key set");
       ArgChecker.noNulls(curvesMap.values(), "curves map values");
@@ -105,7 +105,8 @@ public class YieldCurveBundle {
     ArgChecker.noNulls(curves, "curves");
     _curves = new LinkedHashMap<>();
     _curveCurrency = new HashMap<>();
-    _fxMatrix = FxMatrix.EMPTY_FX_MATRIX;;
+    _fxMatrix = FxMatrix.empty();
+    ;
     final int n = names.length;
     for (int i = 0; i < n; i++) {
       _curves.put(names[i], curves[i]);
@@ -158,7 +159,8 @@ public class YieldCurveBundle {
     ArgChecker.noNulls(curves, "curves");
     _curves = new LinkedHashMap<>();
     _curveCurrency = new HashMap<>();
-    _fxMatrix = FxMatrix.EMPTY_FX_MATRIX;;
+    _fxMatrix = FxMatrix.empty();
+    ;
     final int n = names.length;
     for (int i = 0; i < n; i++) {
       _curves.put(names[i], curves[i]);

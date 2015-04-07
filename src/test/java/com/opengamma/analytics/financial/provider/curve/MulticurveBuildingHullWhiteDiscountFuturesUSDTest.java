@@ -80,7 +80,7 @@ public class MulticurveBuildingHullWhiteDiscountFuturesUSDTest {
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
 
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
-  private static final FxMatrix FX_MATRIX = FxMatrix.EMPTY_FX_MATRIX;
+  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1000000.0;
 

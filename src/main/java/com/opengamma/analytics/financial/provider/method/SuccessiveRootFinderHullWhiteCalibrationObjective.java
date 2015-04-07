@@ -42,7 +42,7 @@ public class SuccessiveRootFinderHullWhiteCalibrationObjective extends Successiv
    * @param ccy The currency for which the Hull-White parameters are valid (Hull-White on the discounting curve).
    */
   public SuccessiveRootFinderHullWhiteCalibrationObjective(final HullWhiteOneFactorPiecewiseConstantParameters parameters, final Currency ccy) {
-    super(FxMatrix.EMPTY_FX_MATRIX, ccy);
+    super(FxMatrix.empty(), ccy);
     _hwParameters = parameters;
     _ccyHW = ccy;
     setMinimumParameter(1.0E-6);
