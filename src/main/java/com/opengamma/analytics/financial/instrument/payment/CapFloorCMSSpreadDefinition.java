@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -223,10 +222,10 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
       return false;
     }
     final CapFloorCMSSpreadDefinition other = (CapFloorCMSSpreadDefinition) obj;
-    if (!ObjectUtils.equals(_cmsIndex1, other._cmsIndex1)) {
+    if (!Objects.equals(_cmsIndex1, other._cmsIndex1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_cmsIndex2, other._cmsIndex2)) {
+    if (!Objects.equals(_cmsIndex2, other._cmsIndex2)) {
       return false;
     }
     if (_isCap != other._isCap) {
@@ -235,10 +234,10 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
     if (Double.doubleToLongBits(_strike) != Double.doubleToLongBits(other._strike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap1, other._underlyingSwap1)) {
+    if (!Objects.equals(_underlyingSwap1, other._underlyingSwap1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap2, other._underlyingSwap2)) {
+    if (!Objects.equals(_underlyingSwap2, other._underlyingSwap2)) {
       return false;
     }
     return true;

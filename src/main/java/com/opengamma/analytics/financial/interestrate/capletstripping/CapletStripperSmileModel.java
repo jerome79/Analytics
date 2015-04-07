@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.interestrate.capletstripping;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.model.volatility.discrete.ParameterizedSmileModelDiscreteVolatilityFunctionProvider;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SmileModelData;
 import com.opengamma.analytics.math.function.VectorFunctionProvider;
@@ -45,12 +43,12 @@ public class CapletStripperSmileModel<T extends SmileModelData> implements Caple
 
   @Override
   public CapletStrippingResult solve(double[] marketValues, MarketDataType type) {
-    throw new NotImplementedException("must provide a guess");
+    throw new UnsupportedOperationException("must provide a guess");
   }
 
   @Override
   public CapletStrippingResult solve(double[] marketValues, MarketDataType type, double[] errors) {
-    throw new NotImplementedException("must provide a guess");
+    throw new UnsupportedOperationException("must provide a guess");
   }
 
   @Override

@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.simpleinstruments.pricing;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,8 +19,8 @@ public class SimpleFXFutureDataBundle {
   private final double _spot;
   
   public SimpleFXFutureDataBundle(final YieldAndDiscountCurve payYieldCurve, final YieldAndDiscountCurve receiveYieldCurve, final double spot) {
-    Validate.notNull(payYieldCurve, "pay yield curve");
-    Validate.notNull(receiveYieldCurve, "receive yield curve");
+    ArgChecker.notNull(payYieldCurve, "pay yield curve");
+    ArgChecker.notNull(receiveYieldCurve, "receive yield curve");
     _payYieldCurve = payYieldCurve;
     _receiveYieldCurve = receiveYieldCurve;
     _spot = spot;
@@ -65,10 +65,10 @@ public class SimpleFXFutureDataBundle {
     if (Double.doubleToLongBits(_spot) != Double.doubleToLongBits(other._spot)) {
       return false;
     }
-    if (!ObjectUtils.equals(_payYieldCurve, other._payYieldCurve)) {
+    if (!Objects.equals(_payYieldCurve, other._payYieldCurve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_receiveYieldCurve, other._receiveYieldCurve)) {
+    if (!Objects.equals(_receiveYieldCurve, other._receiveYieldCurve)) {
       return false;
     }
     return true;

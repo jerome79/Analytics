@@ -7,13 +7,13 @@ package com.opengamma.analytics.math.integration;
 
 import java.util.function.DoubleUnaryOperator;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.util.MathUtils;
 
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 import com.opengamma.analytics.math.function.special.GammaFunction;
 import com.opengamma.analytics.math.function.special.LaguerrePolynomialFunction;
 import com.opengamma.analytics.math.rootfinding.NewtonRaphsonSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -54,7 +54,7 @@ public class GaussLaguerreWeightAndAbscissaFunction implements QuadratureWeightA
    */
   @Override
   public GaussianQuadratureData generate(final int n) {
-    Validate.isTrue(n > 0);
+    ArgChecker.isTrue(n > 0);
     final Pair<DoubleFunction1D, DoubleFunction1D>[] polynomials = LAGUERRE.getPolynomialsAndFirstDerivative(n, _alpha);
     final Pair<DoubleFunction1D, DoubleFunction1D> pair = polynomials[n];
     final DoubleFunction1D p1 = polynomials[n - 1].getFirst();

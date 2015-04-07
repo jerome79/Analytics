@@ -9,8 +9,6 @@ import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.IND
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.UK_IL_BOND;
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.US_IL_REAL;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationGearing;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondCapitalIndexedSecurity;
@@ -88,8 +86,8 @@ public class BondCapitalIndexedSecurityDiscountingMethodWithoutIssuer {
    * @return The present value.
    */
   public MultiCurrencyAmount presentValueFromCleanPriceReal(final BondCapitalIndexedSecurity<?> bondCapitalIndexedSecurity, final InflationProviderInterface market, final double cleanPriceReal) {
-    Validate.notNull(bondCapitalIndexedSecurity, "Coupon");
-    Validate.notNull(market, "Market");
+    ArgChecker.notNull(bondCapitalIndexedSecurity, "Coupon");
+    ArgChecker.notNull(market, "Market");
     final double notional = bondCapitalIndexedSecurity.getCoupon().getNthPayment(0).getNotional();
     final double dirtyPriceReal = cleanPriceReal + bondCapitalIndexedSecurity.getAccruedInterest() / notional;
     final MultiCurrencyAmount pv = bondCapitalIndexedSecurity.getSettlement().accept(PVIC, market.getInflationProvider());
@@ -204,7 +202,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodWithoutIssuer {
    * @return The dirty price.
    */
   public double dirtyPriceFromRealYield(final BondCapitalIndexedSecurity<?> bond, final double yield) {
-    Validate.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
+    ArgChecker.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
     final int nbCoupon = bond.getCoupon().getNumberOfPayments();
     final YieldConvention yieldConvention = bond.getYieldConvention();
     if (yieldConvention.equals(US_IL_REAL)) {
@@ -293,7 +291,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodWithoutIssuer {
    * @return The clean price.
    */
   public double cleanPriceFromYield(final BondCapitalIndexedSecurity<?> bond, final double yield) {
-    Validate.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
+    ArgChecker.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
     final double dirtyPrice = dirtyPriceFromRealYield(bond, yield);
     return cleanRealPriceFromDirtyRealPrice(bond, dirtyPrice);
   }

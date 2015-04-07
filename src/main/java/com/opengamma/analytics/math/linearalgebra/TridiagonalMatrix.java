@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.linearalgebra;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.strata.collect.ArgChecker;
@@ -39,12 +37,12 @@ public class TridiagonalMatrix implements Matrix<Double> {
    * @param c An array containing the lower sub-diagonal values of the matrix, not null. Its length must be one less than the length of the diagonal array
    */
   public TridiagonalMatrix(final double[] a, final double[] b, final double[] c) {
-    Validate.notNull(a, "a");
-    Validate.notNull(b, "b");
-    Validate.notNull(c, "c");
+    ArgChecker.notNull(a, "a");
+    ArgChecker.notNull(b, "b");
+    ArgChecker.notNull(c, "c");
     final int n = a.length;
-    Validate.isTrue(b.length == n - 1, "Length of subdiagonal b is incorrect");
-    Validate.isTrue(c.length == n - 1, "Length of subdiagonal c is incorrect");
+    ArgChecker.isTrue(b.length == n - 1, "Length of subdiagonal b is incorrect");
+    ArgChecker.isTrue(c.length == n - 1, "Length of subdiagonal c is incorrect");
     _a = a;
     _b = b;
     _c = c;

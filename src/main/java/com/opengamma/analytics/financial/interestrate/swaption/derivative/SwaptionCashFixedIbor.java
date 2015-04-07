@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.swaption.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -169,7 +169,7 @@ public final class SwaptionCashFixedIbor extends EuropeanVanillaOption implement
     if (Double.doubleToLongBits(_settlementTime) != Double.doubleToLongBits(other._settlementTime)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

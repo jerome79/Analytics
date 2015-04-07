@@ -5,13 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.option;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Given a model that returns the implied volatility of a European option as a function of strike (e.g. SABR), this find the implied 
@@ -25,9 +23,9 @@ public class DistributionFromImpliedVolatility implements ProbabilityDistributio
   private final Function1D<Double, Double> _volFunc;
 
   public DistributionFromImpliedVolatility(final double forward, final double maturity, final Function1D<Double, Double> impliedVolFunction) {
-    Validate.isTrue(maturity > 0.0, "maturity <= 0");
-    Validate.isTrue(forward > 0.0, "forward <= 0");
-    Validate.notNull(impliedVolFunction, "implied vol function");
+    ArgChecker.isTrue(maturity > 0.0, "maturity <= 0");
+    ArgChecker.isTrue(forward > 0.0, "forward <= 0");
+    ArgChecker.notNull(impliedVolFunction, "implied vol function");
     _f = forward;
     _volFunc = impliedVolFunction;
     _rootT = Math.sqrt(maturity);
@@ -55,12 +53,12 @@ public class DistributionFromImpliedVolatility implements ProbabilityDistributio
 
   @Override
   public double getInverseCDF(final Double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public double nextRandom() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   private double[] getSigmas(final double k) {

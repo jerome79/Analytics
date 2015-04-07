@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -22,12 +22,12 @@ public class SABRFormulaData implements SmileModelData {
    * @param parameters Must be 4 parameters in the order alpha, beta, rho, nu
    */
   public SABRFormulaData(final double[] parameters) {
-    Validate.notNull(parameters, "parameters are null");
-    Validate.isTrue(parameters.length == NUM_PARAMETERS, "must be " + NUM_PARAMETERS + " parameters");
-    Validate.isTrue(parameters[0] >= 0.0, "alpha must be >= 0.0");
-    Validate.isTrue(parameters[1] >= 0.0, "beta must be >= 0.0");
-    Validate.isTrue(parameters[2] >= -1 && parameters[2] <= 1, "rho must be between -1 and 1");
-    Validate.isTrue(parameters[3] >= 0.0, "nu must be >= 0.0");
+    ArgChecker.notNull(parameters, "parameters are null");
+    ArgChecker.isTrue(parameters.length == NUM_PARAMETERS, "must be " + NUM_PARAMETERS + " parameters");
+    ArgChecker.isTrue(parameters[0] >= 0.0, "alpha must be >= 0.0");
+    ArgChecker.isTrue(parameters[1] >= 0.0, "beta must be >= 0.0");
+    ArgChecker.isTrue(parameters[2] >= -1 && parameters[2] <= 1, "rho must be between -1 and 1");
+    ArgChecker.isTrue(parameters[3] >= 0.0, "nu must be >= 0.0");
 
     _parameters = new double[NUM_PARAMETERS];
     System.arraycopy(parameters, 0, _parameters, 0, NUM_PARAMETERS);

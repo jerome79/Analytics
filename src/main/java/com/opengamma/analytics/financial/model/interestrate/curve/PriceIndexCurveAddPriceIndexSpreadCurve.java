@@ -7,10 +7,10 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -137,7 +137,7 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
       return false;
     }
     final PriceIndexCurveAddPriceIndexSpreadCurve other = (PriceIndexCurveAddPriceIndexSpreadCurve) obj;
-    if (!ObjectUtils.equals(_curves, other._curves)) {
+    if (!Objects.equals(_curves, other._curves)) {
       return false;
     }
     if (Double.doubleToLongBits(_sign) != Double.doubleToLongBits(other._sign)) {

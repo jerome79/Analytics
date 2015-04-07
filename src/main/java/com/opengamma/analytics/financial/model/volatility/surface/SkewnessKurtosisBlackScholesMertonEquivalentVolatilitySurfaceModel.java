@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.SkewKurtosisOptionDataBundle;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -18,8 +17,8 @@ public class SkewnessKurtosisBlackScholesMertonEquivalentVolatilitySurfaceModel 
 
   @Override
   public VolatilitySurface getSurface(final OptionDefinition option, final SkewKurtosisOptionDataBundle data) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
     final double s = data.getSpot();
     final double t = option.getTimeToExpiry(data.getDate());
     final double k = option.getStrike();

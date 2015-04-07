@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.equity.trs.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.equity.EquityDefinition;
@@ -138,7 +137,7 @@ public class EquityTotalReturnSwapDefinition extends TotalReturnSwapDefinition {
     if (Double.compare(_notionalAmount, other._notionalAmount) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_notionalCurrency, other._notionalCurrency)) {
+    if (!Objects.equals(_notionalCurrency, other._notionalCurrency)) {
       return false;
     }
     if (Double.compare(_dividendPercentage, other._dividendPercentage) != 0) {

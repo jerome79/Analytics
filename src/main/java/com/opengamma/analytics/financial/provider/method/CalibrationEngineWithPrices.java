@@ -8,12 +8,11 @@ package com.opengamma.analytics.financial.provider.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Generic calibration engine for interest rate instruments. This calibrate a model using prices.
@@ -57,8 +56,8 @@ public abstract class CalibrationEngineWithPrices<DATA_TYPE extends ParameterPro
    * @param calibrationPrices The prices of the instruments we want to calibrate on.
    */
   public void addInstrument(final InstrumentDerivative[] instrument, final double[] calibrationPrices) {
-    Validate.notNull(instrument, "Instrument");
-    Validate.isTrue(instrument.length == calibrationPrices.length);
+    ArgChecker.notNull(instrument, "Instrument");
+    ArgChecker.isTrue(instrument.length == calibrationPrices.length);
     for (int loopins = 0; loopins < instrument.length; loopins++) {
       addInstrument(instrument[loopins], calibrationPrices[loopins]);
     }

@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.FederalFundsFutureSecurity;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -60,7 +59,7 @@ public final class FederalFundsFutureSecurityDiscountingMethod extends FederalFu
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof FederalFundsFutureSecurity, "Federal Funds future security");
+    ArgChecker.isTrue(instrument instanceof FederalFundsFutureSecurity, "Federal Funds future security");
     return presentValue((FederalFundsFutureSecurity) instrument, curves);
   }
 
@@ -72,8 +71,8 @@ public final class FederalFundsFutureSecurityDiscountingMethod extends FederalFu
    * @return The price.
    */
   public double price(final FederalFundsFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final int nbFixing = future.getFixingPeriodAccrualFactor().length;
     final YieldAndDiscountCurve ois = curves.getCurve(future.getOISCurveName());
     final double[] df = new double[nbFixing + 1];
@@ -95,8 +94,8 @@ public final class FederalFundsFutureSecurityDiscountingMethod extends FederalFu
    */
   @Override
   public InterestRateCurveSensitivity priceCurveSensitivity(final FederalFundsFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final int nbFixing = future.getFixingPeriodAccrualFactor().length;
     final YieldAndDiscountCurve ois = curves.getCurve(future.getOISCurveName());
     final double[] df = new double[nbFixing + 1];

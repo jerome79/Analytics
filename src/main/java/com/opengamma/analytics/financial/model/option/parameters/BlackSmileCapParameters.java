@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.parameters;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
@@ -86,10 +86,10 @@ public class BlackSmileCapParameters implements VolatilityModel<double[]> {
       return false;
     }
     final BlackSmileCapParameters other = (BlackSmileCapParameters) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatility, other._volatility)) {
+    if (!Objects.equals(_volatility, other._volatility)) {
       return false;
     }
     return true;

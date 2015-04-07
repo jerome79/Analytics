@@ -12,8 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.ArrayUtils;
-
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SmileModelData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
@@ -113,7 +112,7 @@ public abstract class ParameterizedSmileModelDiscreteVolatilityFunctionProvider<
       }
       expSet.add(t);
     }
-    final double[] expiries = ArrayUtils.toPrimitive(expSet.toArray(new Double[0]));
+    final double[] expiries = Doubles.toArray(expSet);
     final int nExpiries = expiries.length;
 
     //for each expiry, get the (sorted) array of unique strikes by walking the expStrikeSet (which is sorted first by expiry then strike)
@@ -127,13 +126,13 @@ public abstract class ParameterizedSmileModelDiscreteVolatilityFunctionProvider<
     while (iter.hasNext()) {
       p = iter.next();
       if (p.getFirst() > t0) {
-        strikes[expIndex++] = ArrayUtils.toPrimitive(strikeList.toArray(new Double[0]));
+        strikes[expIndex++] = Doubles.toArray(strikeList);
         t0 = p.getFirst();
         strikeList = new ArrayList<>();
       }
       strikeList.add(p.getSecond());
     }
-    strikes[expIndex++] = ArrayUtils.toPrimitive(strikeList.toArray(new Double[0]));
+    strikes[expIndex++] = Doubles.toArray(strikeList);
 
     //find the reverse map to go from the (sorted) expiry and strike arrays to the positions in the input 
     //expiryStrikePoints array - this allows the output vols from evaluate (and the vol sensitivities from calculateJacobian)

@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.sensitivity;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorInstrument;
@@ -136,10 +135,10 @@ public class PresentValueSwaptionSurfaceSensitivity {
       return false;
     }
     final PresentValueSwaptionSurfaceSensitivity other = (PresentValueSwaptionSurfaceSensitivity) obj;
-    if (!ObjectUtils.equals(_generatorSwap, other._generatorSwap)) {
+    if (!Objects.equals(_generatorSwap, other._generatorSwap)) {
       return false;
     }
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

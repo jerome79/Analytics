@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -467,7 +466,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
       return false;
     }
     final ArraysDoublesCurve other = (ArraysDoublesCurve) obj;
-    return ArrayUtils.isEquals(xData, other.xData) && ArrayUtils.isEquals(yData, other.yData);
+    return Arrays.equals(xData, other.xData) && Arrays.equals(yData, other.yData);
   }
 
   @Override

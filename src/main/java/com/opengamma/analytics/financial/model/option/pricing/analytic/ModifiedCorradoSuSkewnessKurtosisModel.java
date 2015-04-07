@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.SkewKurtosisOptionDataBundle;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.financial.model.option.definition.StandardOptionD
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The Corrado-Su option pricing formula extends the Black-Scholes-Merton model
@@ -45,13 +44,13 @@ public class ModifiedCorradoSuSkewnessKurtosisModel extends AnalyticOptionModel<
 
   @Override
   public Function1D<SkewKurtosisOptionDataBundle, Double> getPricingFunction(final OptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<SkewKurtosisOptionDataBundle, Double> pricingFunction = new Function1D<SkewKurtosisOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final SkewKurtosisOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final double k = definition.getStrike();
         final double t = definition.getTimeToExpiry(data.getDate());

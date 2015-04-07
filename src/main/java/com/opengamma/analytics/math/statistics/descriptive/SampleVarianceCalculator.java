@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.statistics.descriptive;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the sample variance of a series of data. 
@@ -29,8 +28,8 @@ public class SampleVarianceCalculator extends Function1D<double[], Double> {
    */
   @Override
   public Double evaluate(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length >= 2, "Need at least two points to calculate the sample variance");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 2, "Need at least two points to calculate the sample variance");
     final Double mean = MEAN.evaluate(x);
     double sum = 0;
     for (final Double value : x) {

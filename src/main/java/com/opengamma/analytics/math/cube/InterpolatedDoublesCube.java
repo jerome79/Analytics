@@ -6,12 +6,11 @@
 package com.opengamma.analytics.math.cube;
 
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.interpolation.InterpolatorND;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
 /**
@@ -108,7 +107,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    */
   public InterpolatedDoublesCube(double[] xData, double[] yData, double[] zData, double[] values, InterpolatorND interpolator) {
     super(xData, yData, zData, values);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     init();
   }
@@ -122,7 +121,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    */
   public InterpolatedDoublesCube(Double[] xData, Double[] yData, Double[] zData, Double[] values, InterpolatorND interpolator) {
     super(xData, yData, zData, values);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     init();
   }
@@ -136,7 +135,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    */
   public InterpolatedDoublesCube(List<Double> xData, List<Double> yData, List<Double> zData, List<Double> values, InterpolatorND interpolator) {
     super(xData, yData, zData, values);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     init();
   }
@@ -151,7 +150,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    */  
   public InterpolatedDoublesCube(double[] xData, double[] yData, double[] zData, double[] values, InterpolatorND interpolator, String name) {
     super(xData, yData, zData, values, name);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     init();
   }
@@ -166,7 +165,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    */ 
   public InterpolatedDoublesCube(Double[] xData, Double[] yData, Double[] zData, Double[] values, InterpolatorND interpolator, String name) {
     super(xData, yData, zData, values, name);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     init();
   }
@@ -181,7 +180,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    */ 
   public InterpolatedDoublesCube(List<Double> xData, List<Double> yData, List<Double> zData, List<Double> values, InterpolatorND interpolator, String name) {
     super(xData, yData, zData, values, name);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     init();
   }
@@ -192,21 +191,21 @@ public class InterpolatedDoublesCube extends DoublesCube {
 
   @Override
   public Double getValue(Double x, Double y, Double z) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
+    ArgChecker.notNull(z, "z");
     return _interpolator.interpolate(_dataBundle, new double[] {x, y, z});
   }
 
   @Override
   public Double getValue(Triple<Double, Double, Double> xyz) {
-    Validate.notNull(xyz, "xyz");
+    ArgChecker.notNull(xyz, "xyz");
     Double x = xyz.getFirst();
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     Double y = xyz.getSecond();
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(y, "y");
     Double z = xyz.getThird();
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return _interpolator.interpolate(_dataBundle, new double[] {x, y, z});
   }
 
@@ -234,7 +233,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
       return false;
     }
     InterpolatedDoublesCube other = (InterpolatedDoublesCube) obj;
-    return ObjectUtils.equals(_interpolator, other._interpolator);
+    return Objects.equals(_interpolator, other._interpolator);
   }
 
 }

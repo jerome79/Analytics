@@ -6,14 +6,13 @@
 package com.opengamma.analytics.financial.riskfactor;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.financial.pnl.UnderlyingType;
 import com.opengamma.analytics.financial.trade.OptionTradeData;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -24,13 +23,13 @@ public class GreekDataBundle {
   private final OptionTradeData _tradeData;
 
   public GreekDataBundle(final GreekResultCollection greekValues, final Map<UnderlyingType, Double> underlyingData, final OptionTradeData tradeData) {
-    Validate.notNull(greekValues, "greek result collection");
+    ArgChecker.notNull(greekValues, "greek result collection");
     if (greekValues.isEmpty()) {
       throw new IllegalArgumentException("Greek result collection was empty");
     }
-    Validate.notNull(underlyingData, "underlying data");
-    Validate.notEmpty(underlyingData, "underlying data");
-    Validate.notNull(tradeData, "trade data");
+    ArgChecker.notNull(underlyingData, "underlying data");
+    ArgChecker.notEmpty(underlyingData, "underlying data");
+    ArgChecker.notNull(tradeData, "trade data");
     _greekValues = greekValues;
     _underlyingData = underlyingData;
     _tradeData = tradeData;
@@ -84,6 +83,6 @@ public class GreekDataBundle {
       return false;
     }
     final GreekDataBundle other = (GreekDataBundle) obj;
-    return ObjectUtils.equals(_greekValues, other._greekValues) && ObjectUtils.equals(_underlyingData, other._underlyingData) && ObjectUtils.equals(_tradeData, other._tradeData);
+    return Objects.equals(_greekValues, other._greekValues) && Objects.equals(_underlyingData, other._underlyingData) && Objects.equals(_tradeData, other._tradeData);
   }
 }

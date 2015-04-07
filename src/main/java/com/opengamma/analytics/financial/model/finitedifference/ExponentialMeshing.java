@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -35,7 +33,7 @@ public class ExponentialMeshing extends MeshingFunction {
    */
   public ExponentialMeshing(final double lowerBound, final double upperBound, final int nPoints, final double lambda) {
     super(nPoints);
-    Validate.isTrue(upperBound > lowerBound, "need upperBound>lowerBound");
+    ArgChecker.isTrue(upperBound > lowerBound, "need upperBound>lowerBound");
     _l = lowerBound;
     _r = upperBound;
     _lambda = lambda;
@@ -66,7 +64,7 @@ public class ExponentialMeshing extends MeshingFunction {
    */
   public ExponentialMeshing(final double lowerBound, final double upperBound, final int nPoints, final double lambda, final double[] fixedPoints) {
     super(nPoints);
-    Validate.isTrue(upperBound > lowerBound, "need upperBound>lowerBound");
+    ArgChecker.isTrue(upperBound > lowerBound, "need upperBound>lowerBound");
     ArgChecker.notNull(fixedPoints, "null fixedPoints");
     _lambda = lambda;
     _l = lowerBound;
@@ -97,7 +95,7 @@ public class ExponentialMeshing extends MeshingFunction {
 
   @Override
   public Double evaluate(final Integer i) {
-    Validate.isTrue(i >= 0 && i < getNumberOfPoints(), "i out of range");
+    ArgChecker.isTrue(i >= 0 && i < getNumberOfPoints(), "i out of range");
     if (i == 0) {
       return _l;
     }

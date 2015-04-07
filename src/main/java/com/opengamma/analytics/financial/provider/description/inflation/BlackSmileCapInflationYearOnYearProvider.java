@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.inflation;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.option.parameters.BlackSmileCapInflationYearOnYearParameters;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
@@ -105,10 +104,10 @@ public class BlackSmileCapInflationYearOnYearProvider implements BlackSmileCapIn
       return false;
     }
     final BlackSmileCapInflationYearOnYearProvider other = (BlackSmileCapInflationYearOnYearProvider) obj;
-    if (!ObjectUtils.equals(_inflation, other._inflation)) {
+    if (!Objects.equals(_inflation, other._inflation)) {
       return false;
     }
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.surface;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts a {@link ConstantDoublesSurface}. Only constant percentage shifts of the surface are supported.
@@ -17,7 +17,7 @@ public class ConstantSurfaceMultiplicativeShiftFunction implements SurfaceShiftF
    */
   @Override
   public ConstantDoublesSurface evaluate(final ConstantDoublesSurface surface, final double percentage) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, percentage, "CONSTANT_MULTIPLIER_" + surface.getName());
   }
 
@@ -26,7 +26,7 @@ public class ConstantSurfaceMultiplicativeShiftFunction implements SurfaceShiftF
    */
   @Override
   public ConstantDoublesSurface evaluate(final ConstantDoublesSurface surface, final double percentage, final String newName) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     final double z = surface.getZValue(0., 0.);
     return ConstantDoublesSurface.from(z * (1 + percentage), newName);
   }

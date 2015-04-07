@@ -8,8 +8,7 @@ package com.opengamma.analytics.financial.instrument.inflation;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
@@ -310,10 +309,10 @@ public class CouponInflationZeroCouponMonthlyGearingDefinition extends CouponInf
     if (_payNotional != other._payNotional) {
       return false;
     }
-    if (!ObjectUtils.equals(_referenceEndDate, other._referenceEndDate)) {
+    if (!Objects.equals(_referenceEndDate, other._referenceEndDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_referenceStartDate, other._referenceStartDate)) {
+    if (!Objects.equals(_referenceStartDate, other._referenceStartDate)) {
       return false;
     }
     return true;

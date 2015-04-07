@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -183,7 +183,7 @@ public class CapFloorCMS extends CouponFloating implements CapFloor {
     if (Double.doubleToLongBits(_strike) != Double.doubleToLongBits(other._strike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

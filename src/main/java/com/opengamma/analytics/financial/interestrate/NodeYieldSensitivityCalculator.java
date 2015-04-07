@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.DiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -46,13 +45,13 @@ public abstract class NodeYieldSensitivityCalculator {
    */
   public DoubleMatrix1D calculateSensitivities(final InstrumentDerivative derivative, final InstrumentDerivativeVisitor<YieldCurveBundle, Map<String, List<DoublesPair>>> calculator,
       final YieldCurveBundle fixedCurves, final YieldCurveBundle interpolatedCurves) {
-    Validate.notNull(derivative, "null InterestRateDerivative");
-    Validate.notNull(calculator, "null calculator");
-    Validate.notNull(interpolatedCurves, "interpolated curves");
+    ArgChecker.notNull(derivative, "null InterestRateDerivative");
+    ArgChecker.notNull(calculator, "null calculator");
+    ArgChecker.notNull(interpolatedCurves, "interpolated curves");
     final YieldCurveBundle allCurves = interpolatedCurves.copy();
     if (fixedCurves != null) {
       for (final String name : interpolatedCurves.getAllNames()) {
-        Validate.isTrue(!fixedCurves.containsName(name), "fixed curves contain a name that is also in interpolated curves");
+        ArgChecker.isTrue(!fixedCurves.containsName(name), "fixed curves contain a name that is also in interpolated curves");
       }
       allCurves.addAll(fixedCurves);
     }

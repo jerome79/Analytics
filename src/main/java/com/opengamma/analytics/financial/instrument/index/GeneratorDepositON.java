@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
@@ -114,13 +113,13 @@ public class GeneratorDepositON extends GeneratorInstrument<GeneratorAttributeIR
       return false;
     }
     final GeneratorDepositON other = (GeneratorDepositON) obj;
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_dayCount, other._dayCount)) {
+    if (!Objects.equals(_dayCount, other._dayCount)) {
       return false;
     }
     return true;

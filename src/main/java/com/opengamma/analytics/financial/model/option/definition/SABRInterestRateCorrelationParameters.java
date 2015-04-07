@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -94,7 +94,7 @@ public class SABRInterestRateCorrelationParameters extends SABRInterestRateParam
       return false;
     }
     final SABRInterestRateCorrelationParameters other = (SABRInterestRateCorrelationParameters) obj;
-    if (!ObjectUtils.equals(_correlation, other._correlation)) {
+    if (!Objects.equals(_correlation, other._correlation)) {
       return false;
     }
     return true;

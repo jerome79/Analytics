@@ -7,9 +7,7 @@ package com.opengamma.analytics.convention.yield;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A simple yield convention.
@@ -163,7 +161,7 @@ public class SimpleYieldConvention implements YieldConvention, Serializable {
    * @param name  the convention name, not null
    */
   protected SimpleYieldConvention(final String name) {
-    Validate.notNull(name, "name");
+    ArgChecker.notNull(name, "name");
     _name = name;
   }
 
@@ -174,7 +172,7 @@ public class SimpleYieldConvention implements YieldConvention, Serializable {
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    return "SimpleYieldConvention{name=" + _name + "}";
   }
 
   @Override

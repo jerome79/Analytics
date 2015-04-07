@@ -9,8 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
@@ -237,10 +236,10 @@ public class InflationSensitivity {
       return false;
     }
     final InflationSensitivity other = (InflationSensitivity) obj;
-    if (!ObjectUtils.equals(_multicurveSensitivity, other._multicurveSensitivity)) {
+    if (!Objects.equals(_multicurveSensitivity, other._multicurveSensitivity)) {
       return false;
     }
-    if (!ObjectUtils.equals(_sensitivityPriceCurve, other._sensitivityPriceCurve)) {
+    if (!Objects.equals(_sensitivityPriceCurve, other._sensitivityPriceCurve)) {
       return false;
     }
     return true;

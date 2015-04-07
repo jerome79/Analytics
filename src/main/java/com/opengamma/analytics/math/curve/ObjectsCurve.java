@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -267,7 +266,7 @@ public abstract class ObjectsCurve<T extends Comparable<T>, U>
       return false;
     }
     final ObjectsCurve<?, ?> other = (ObjectsCurve<?, ?>) obj;
-    return ArrayUtils.isEquals(xData, other.xData) && ArrayUtils.isEquals(yData, other.yData);
+    return Arrays.equals(xData, other.xData) && Arrays.equals(yData, other.yData);
   }
 
   @Override

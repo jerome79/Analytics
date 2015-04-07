@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.linearalgebra.TridiagonalMatrix;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -19,20 +16,20 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getCondition(final Matrix<?> m) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getDeterminant(final Matrix<?> m) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -40,13 +37,13 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getInnerProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D && m2 instanceof DoubleMatrix1D) {
       final double[] a = ((DoubleMatrix1D) m1).getData();
       final double[] b = ((DoubleMatrix1D) m2).getData();
       final int l = a.length;
-      Validate.isTrue(l == b.length, "Matrix size mismacth");
+      ArgChecker.isTrue(l == b.length, "Matrix size mismacth");
       double sum = 0.0;
       for (int i = 0; i < l; i++) {
         sum += a[i] * b[i];
@@ -59,20 +56,20 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public DoubleMatrix2D getInverse(final Matrix<?> m) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getNorm1(final Matrix<?> m) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -81,7 +78,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNorm2(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       final double[] a = ((DoubleMatrix1D) m).getData();
       final int l = a.length;
@@ -91,18 +88,18 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
       }
       return Math.sqrt(sum);
     } else if (m instanceof DoubleMatrix2D) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     throw new IllegalArgumentException("Can only find norm2 of a DoubleMatrix1D; have " + m.getClass());
   }
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getNormInfinity(final Matrix<?> m) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -110,8 +107,8 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getOuterProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D && m2 instanceof DoubleMatrix1D) {
       final double[] a = ((DoubleMatrix1D) m1).getData();
       final double[] b = ((DoubleMatrix1D) m2).getData();
@@ -132,11 +129,11 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final int p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -144,11 +141,11 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getTrace(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final double[][] data = ((DoubleMatrix2D) m).getData();
       final int rows = data.length;
-      Validate.isTrue(rows == data[0].length, "Matrix not square");
+      ArgChecker.isTrue(rows == data[0].length, "Matrix not square");
       double sum = 0.0;
       for (int i = 0; i < rows; i++) {
         sum += data[i][i];
@@ -163,7 +160,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getTranspose(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof IdentityMatrix) {
       return (IdentityMatrix) m;
     }
@@ -193,8 +190,8 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public Matrix<?> multiply(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof IdentityMatrix) {
       if (m2 instanceof IdentityMatrix) {
         return multiply((IdentityMatrix) m1, (IdentityMatrix) m2);
@@ -233,11 +230,11 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   private DoubleMatrix2D multiply(final IdentityMatrix idet, final DoubleMatrix2D m) {
@@ -263,7 +260,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
     final double[][] a = m1.getData();
     final double[][] b = m2.getData();
     final int p = b.length;
-    Validate.isTrue(
+    ArgChecker.isTrue(
         a[0].length == p,
         "Matrix size mismatch. m1 is " + m1.getNumberOfRows() + " by " + m1.getNumberOfColumns() + ", but m2 is " +
             m2.getNumberOfRows() + " by " + m2.getNumberOfColumns());
@@ -302,7 +299,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
     final double[][] a = matrix.getData();
     final double[] b = vector.getData();
     final int n = b.length;
-    Validate.isTrue(a[0].length == n, "Matrix/vector size mismatch");
+    ArgChecker.isTrue(a[0].length == n, "Matrix/vector size mismatch");
     final int m = a.length;
     final double[] res = new double[m];
     int i, j;
@@ -323,7 +320,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
     final double[] c = matrix.getUpperSubDiagonalData();
     final double[] x = vector.getData();
     final int n = x.length;
-    Validate.isTrue(b.length == n, "Matrix/vector size mismatch");
+    ArgChecker.isTrue(b.length == n, "Matrix/vector size mismatch");
     final double[] res = new double[n];
     int i;
     res[0] = b[0] * x[0] + c[0] * x[1];
@@ -338,7 +335,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
     final double[] a = vector.getData();
     final double[][] b = matrix.getData();
     final int n = a.length;
-    Validate.isTrue(b.length == n, "Matrix/vector size mismatch");
+    ArgChecker.isTrue(b.length == n, "Matrix/vector size mismatch");
     final int m = b[0].length;
     final double[] res = new double[m];
     int i, j;
@@ -359,7 +356,7 @@ public class OGMatrixAlgebra extends MatrixAlgebra {
     final double[] c = matrix.getUpperSubDiagonalData();
     final double[] x = vector.getData();
     final int n = x.length;
-    Validate.isTrue(b.length == n, "Matrix/vector size mismatch");
+    ArgChecker.isTrue(b.length == n, "Matrix/vector size mismatch");
     final double[] res = new double[n];
     int i;
     res[0] = b[0] * x[0] + a[0] * x[1];

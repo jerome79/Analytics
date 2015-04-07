@@ -6,9 +6,7 @@
 package com.opengamma.analytics.financial.model.volatility.surface;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.option.definition.SmileDeltaParameters;
 import com.opengamma.analytics.financial.model.volatility.SmileAndBucketedSensitivities;
@@ -267,12 +265,12 @@ public class SmileDeltaTermStructureParameters implements VolatilityAndBucketedS
    */
   @Override
   public Double getVolatility(final Triple<Double, Double, Double> tsf) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public VolatilityAndBucketedSensitivities getVolatilityAndSensitivities(final Triple<Double, Double, Double> tsf) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   public BlackForexTermStructureParameters toTermStructureOnlyData(final Interpolator1D interpolator) {
@@ -316,7 +314,7 @@ public class SmileDeltaTermStructureParameters implements VolatilityAndBucketedS
     if (!Arrays.equals(_volatilityTerm, other._volatilityTerm)) {
       return false;
     }
-    if (!ObjectUtils.equals(_timeInterpolator, other._timeInterpolator)) {
+    if (!Objects.equals(_timeInterpolator, other._timeInterpolator)) {
       return false;
     }
     return true;

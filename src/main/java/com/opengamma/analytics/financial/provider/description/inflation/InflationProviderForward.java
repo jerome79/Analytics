@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
@@ -353,12 +351,12 @@ public class InflationProviderForward implements InflationProviderInterface {
 
   @Override
   public InflationProviderInterface withForward(final IborIndex index, final YieldAndDiscountCurve replacement) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public InflationProviderInterface withForward(final IndexON index, final YieldAndDiscountCurve replacement) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override

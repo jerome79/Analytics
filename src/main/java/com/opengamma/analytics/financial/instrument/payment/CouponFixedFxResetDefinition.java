@@ -8,8 +8,7 @@ package com.opengamma.analytics.financial.instrument.payment;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -195,16 +194,16 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
       return false;
     }
     CouponFixedFxResetDefinition other = (CouponFixedFxResetDefinition) obj;
-    if (!ObjectUtils.equals(_fxFixingDate, other._fxFixingDate)) {
+    if (!Objects.equals(_fxFixingDate, other._fxFixingDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fxDeliveryDate, other._fxDeliveryDate)) {
+    if (!Objects.equals(_fxDeliveryDate, other._fxDeliveryDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_rate) != Double.doubleToLongBits(other._rate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_referenceCurrency, other._referenceCurrency)) {
+    if (!Objects.equals(_referenceCurrency, other._referenceCurrency)) {
       return false;
     }
     return true;

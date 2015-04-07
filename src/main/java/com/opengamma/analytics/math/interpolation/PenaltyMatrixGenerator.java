@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.apache.commons.math.util.MathUtils.binomialCoefficient;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
@@ -153,7 +151,7 @@ public abstract class PenaltyMatrixGenerator {
     if (k == 0) {
       return new IdentityMatrix(size);
     } else if (k > 2) {
-      throw new NotImplementedException("cannot handle order (k) > 2");
+      throw new UnsupportedOperationException("cannot handle order (k) > 2");
     }
     ArgChecker.isTrue(size > 2, "Need at least 3 points for a three point estimate");
     double[] dx = new double[size - 1];

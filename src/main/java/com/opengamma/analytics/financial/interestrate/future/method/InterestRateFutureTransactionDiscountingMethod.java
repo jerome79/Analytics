@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureTransaction;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Method to compute the price for an interest rate future with discounting (like a forward).
@@ -53,7 +52,7 @@ public final class InterestRateFutureTransactionDiscountingMethod extends Intere
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof InterestRateFutureTransaction, "Interest rate future");
+    ArgChecker.isTrue(instrument instanceof InterestRateFutureTransaction, "Interest rate future");
     return presentValue((InterestRateFutureTransaction) instrument, curves);
   }
 
@@ -64,8 +63,8 @@ public final class InterestRateFutureTransactionDiscountingMethod extends Intere
    * @return The rate.
    */
   public double parRate(final InterestRateFutureTransaction future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(future.getUnderlyingSecurity().getForwardCurveName());
     final double forward = (forwardCurve.getDiscountFactor(future.getUnderlyingSecurity().getFixingPeriodStartTime()) /
         forwardCurve.getDiscountFactor(future.getUnderlyingSecurity().getFixingPeriodEndTime()) - 1)

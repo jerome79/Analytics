@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.sensitivity;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.greeks.Greek;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class PositionGreek {
   private final Greek _underlyingGreek;
 
   public PositionGreek(final Greek underlyingGreek) {
-    Validate.notNull(underlyingGreek, "underlying greek");
+    ArgChecker.notNull(underlyingGreek, "underlying greek");
     _underlyingGreek = underlyingGreek;
   }
 
@@ -45,7 +45,7 @@ public class PositionGreek {
       return false;
     }
     final PositionGreek other = (PositionGreek) obj;
-    return ObjectUtils.equals(_underlyingGreek, other._underlyingGreek);
+    return Objects.equals(_underlyingGreek, other._underlyingGreek);
   }
 
   @Override

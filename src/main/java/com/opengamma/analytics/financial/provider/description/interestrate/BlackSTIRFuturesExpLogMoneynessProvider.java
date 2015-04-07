@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
@@ -126,13 +125,13 @@ public class BlackSTIRFuturesExpLogMoneynessProvider implements BlackSTIRFutures
       return false;
     }
     final BlackSTIRFuturesExpLogMoneynessProvider other = (BlackSTIRFuturesExpLogMoneynessProvider) obj;
-    if (!ObjectUtils.equals(_multicurve, other._multicurve)) {
+    if (!Objects.equals(_multicurve, other._multicurve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     return true;

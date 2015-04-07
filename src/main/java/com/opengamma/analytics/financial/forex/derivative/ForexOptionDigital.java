@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -169,7 +169,7 @@ public class ForexOptionDigital implements InstrumentDerivative {
     if (_isLong != other._isLong) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingForex, other._underlyingForex)) {
+    if (!Objects.equals(_underlyingForex, other._underlyingForex)) {
       return false;
     }
     return true;

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.ParRateCalculator;
@@ -29,6 +27,7 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFor
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -90,8 +89,8 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethod extends CapFloor
    */
   @Override
   public CurrencyAmount presentValue(final CapFloorCMS cmsCapFloor, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(cmsCapFloor);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(cmsCapFloor, "cmsCapFloor");
+    ArgChecker.notNull(sabrData, "sabrData");
     final SABRInterestRateParameters sabrParameter = sabrData.getSABRParameter();
     final SwapFixedCoupon<? extends Payment> underlyingSwap = cmsCapFloor.getUnderlyingSwap();
     final double forward = underlyingSwap.accept(PRC, sabrData);
@@ -128,8 +127,8 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethod extends CapFloor
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorCMS, "CMS cap/floor");
-    Validate.isTrue(curves instanceof SABRInterestRateDataBundle, "Bundle should contain SABR data");
+    ArgChecker.isTrue(instrument instanceof CapFloorCMS, "CMS cap/floor");
+    ArgChecker.isTrue(curves instanceof SABRInterestRateDataBundle, "Bundle should contain SABR data");
     return presentValue((CapFloorCMS) instrument, (SABRInterestRateDataBundle) curves);
   }
 
@@ -141,8 +140,8 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethod extends CapFloor
    */
   @Override
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final CapFloorCMS cmsCapFloor, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(cmsCapFloor);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(cmsCapFloor, "cmsCapFloor");
+    ArgChecker.notNull(sabrData, "sabrData");
     final SABRInterestRateParameters sabrParameter = sabrData.getSABRParameter();
     final SwapFixedCoupon<? extends Payment> underlyingSwap = cmsCapFloor.getUnderlyingSwap();
     final double forward = underlyingSwap.accept(PRC, sabrData);

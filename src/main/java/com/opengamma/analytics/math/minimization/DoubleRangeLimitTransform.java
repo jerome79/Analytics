@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.TrigonometricFunctionUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * If a model parameter $x$ is constrained to be between two values $a \geq x
@@ -40,7 +39,7 @@ public class DoubleRangeLimitTransform implements ParameterLimitsTransform {
    * @throws IllegalArgumentException If the upper limit is not greater than the lower limit
    */
   public DoubleRangeLimitTransform(final double lower, final double upper) {
-    Validate.isTrue(upper > lower, "upper limit must be greater than lower");
+    ArgChecker.isTrue(upper > lower, "upper limit must be greater than lower");
     _lower = lower;
     _upper = upper;
     _mid = (lower + upper) / 2;
@@ -67,7 +66,7 @@ public class DoubleRangeLimitTransform implements ParameterLimitsTransform {
    */
   @Override
   public double transform(final double x) {
-    Validate.isTrue(x <= _upper && x >= _lower, "parameter out of range");
+    ArgChecker.isTrue(x <= _upper && x >= _lower, "parameter out of range");
     if (x == _upper) {
       return TANH_MAX;
     } else if (x == _lower) {
@@ -97,7 +96,7 @@ public class DoubleRangeLimitTransform implements ParameterLimitsTransform {
    */
   @Override
   public double transformGradient(final double x) {
-    Validate.isTrue(x <= _upper && x >= _lower, "parameter out of range");
+    ArgChecker.isTrue(x <= _upper && x >= _lower, "parameter out of range");
     final double t = (x - _mid) / _scale;
     return 1 / (_scale * (1 - t * t));
   }

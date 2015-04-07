@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Triple;
@@ -52,19 +50,19 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final Double[] xData, final Double[] yData, final Double[] zData) {
     super();
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.length == yData.length);
-    Validate.isTrue(xData.length == zData.length);
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.length == yData.length);
+    ArgChecker.isTrue(xData.length == zData.length);
     _n = xData.length;
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     for (int i = 0; i < _n; i++) {
-      Validate.notNull(xData[i]);
-      Validate.notNull(yData[i]);
-      Validate.notNull(zData[i]);
+      ArgChecker.notNull(xData[i], "xData");
+      ArgChecker.notNull(yData[i], "yData");
+      ArgChecker.notNull(zData[i], "zData");
       _xData[i] = xData[i];
       _yData[i] = yData[i];
       _zData[i] = zData[i];
@@ -78,11 +76,11 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final List<Double> xData, final List<Double> yData, final List<Double> zData) {
     super();
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.size() == yData.size());
-    Validate.isTrue(xData.size() == zData.size());
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.size() == yData.size());
+    ArgChecker.isTrue(xData.size() == zData.size());
     _n = xData.size();
     _xData = new double[_n];
     _yData = new double[_n];
@@ -91,9 +89,9 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
       final Double x = xData.get(i);
       final Double y = yData.get(i);
       final Double z = zData.get(i);
-      Validate.notNull(x);
-      Validate.notNull(y);
-      Validate.notNull(z);
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(y, "y");
+      ArgChecker.notNull(z, "z");
       _xData[i] = x;
       _yData[i] = y;
       _zData[i] = z;
@@ -106,17 +104,17 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final DoublesPair[] xyData, final double[] zData) {
     super();
-    Validate.notNull(xyData, "x-y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xyData.length == zData.length);
+    ArgChecker.notNull(xyData, "x-y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xyData.length == zData.length);
     _n = xyData.length;
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = Arrays.copyOf(zData, _n);
     for (int i = 0; i < _n; i++) {
       final DoublesPair pair = xyData[i];
-      Validate.notNull(pair);
-      Validate.notNull(zData[i]);
+      ArgChecker.notNull(pair, "pair");
+      ArgChecker.notNull(zData[i], "zData");
       _xData[i] = pair.getFirst();
       _yData[i] = pair.getSecond();
     }
@@ -128,17 +126,17 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final DoublesPair[] xyData, final Double[] zData) {
     super();
-    Validate.notNull(xyData, "x-y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xyData.length == zData.length);
+    ArgChecker.notNull(xyData, "x-y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xyData.length == zData.length);
     _n = xyData.length;
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     for (int i = 0; i < _n; i++) {
       final DoublesPair pair = xyData[i];
-      Validate.notNull(pair);
-      Validate.notNull(zData[i]);
+      ArgChecker.notNull(pair, "pair");
+      ArgChecker.notNull(zData[i], "zData");
       _xData[i] = pair.getFirst();
       _yData[i] = pair.getSecond();
       _zData[i] = zData[i];
@@ -151,9 +149,9 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final List<DoublesPair> xyData, final List<Double> zData) {
     super();
-    Validate.notNull(xyData, "x-y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xyData.size() == zData.size());
+    ArgChecker.notNull(xyData, "x-y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xyData.size() == zData.size());
     _n = xyData.size();
     _xData = new double[_n];
     _yData = new double[_n];
@@ -161,8 +159,8 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
     for (int i = 0; i < _n; i++) {
       final DoublesPair pair = xyData.get(i);
       final Double z = zData.get(i);
-      Validate.notNull(pair);
-      Validate.notNull(z);
+      ArgChecker.notNull(pair, "pair");
+      ArgChecker.notNull(z, "z");
       _xData[i] = pair.getFirst();
       _yData[i] = pair.getSecond();
       _zData[i] = z;
@@ -174,15 +172,15 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final Map<DoublesPair, Double> xyzData) {
     super();
-    Validate.notNull(xyzData, "x-y-z data");
+    ArgChecker.notNull(xyzData, "x-y-z data");
     _n = xyzData.size();
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     int i = 0;
     for (final Map.Entry<DoublesPair, Double> entry : xyzData.entrySet()) {
-      Validate.notNull(entry.getKey());
-      Validate.notNull(entry.getValue());
+      ArgChecker.notNull(entry.getKey(), "entry.key");
+      ArgChecker.notNull(entry.getValue(), "entry.value");
       _xData[i] = entry.getKey().getFirst();
       _yData[i] = entry.getKey().getSecond();
       _zData[i++] = entry.getValue();
@@ -194,14 +192,14 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final List<Triple<Double, Double, Double>> xyzData) {
     super();
-    Validate.notNull(xyzData, "x-y-z data");
+    ArgChecker.notNull(xyzData, "x-y-z data");
     _n = xyzData.size();
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     int i = 0;
     for (final Triple<Double, Double, Double> entry : xyzData) {
-      Validate.notNull(entry);
+      ArgChecker.notNull(entry, "entry");
       final double x = entry.getFirst();
       final double y = entry.getSecond();
       final double z = entry.getThird();
@@ -220,11 +218,11 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final double[] xData, final double[] yData, final double[] zData, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.length == yData.length);
-    Validate.isTrue(xData.length == zData.length);
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.length == yData.length);
+    ArgChecker.isTrue(xData.length == zData.length);
     _n = xData.length;
     _xData = Arrays.copyOf(xData, _n);
     _yData = Arrays.copyOf(yData, _n);
@@ -239,19 +237,19 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final Double[] xData, final Double[] yData, final Double[] zData, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.length == yData.length);
-    Validate.isTrue(xData.length == zData.length);
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.length == yData.length);
+    ArgChecker.isTrue(xData.length == zData.length);
     _n = xData.length;
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     for (int i = 0; i < _n; i++) {
-      Validate.notNull(xData[i]);
-      Validate.notNull(yData[i]);
-      Validate.notNull(zData[i]);
+      ArgChecker.notNull(xData[i], "xData");
+      ArgChecker.notNull(yData[i], "yData");
+      ArgChecker.notNull(zData[i], "zData");
       _xData[i] = xData[i];
       _yData[i] = yData[i];
       _zData[i] = zData[i];
@@ -266,11 +264,11 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final List<Double> xData, final List<Double> yData, final List<Double> zData, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.size() == yData.size());
-    Validate.isTrue(xData.size() == zData.size());
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.size() == yData.size());
+    ArgChecker.isTrue(xData.size() == zData.size());
     _n = xData.size();
     _xData = new double[_n];
     _yData = new double[_n];
@@ -279,9 +277,9 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
       final Double x = xData.get(i);
       final Double y = yData.get(i);
       final Double z = zData.get(i);
-      Validate.notNull(x);
-      Validate.notNull(y);
-      Validate.notNull(z);
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(y, "y");
+      ArgChecker.notNull(z, "z");
       _xData[i] = x;
       _yData[i] = y;
       _zData[i] = z;
@@ -295,17 +293,17 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final DoublesPair[] xyData, final double[] zData, final String name) {
     super(name);
-    Validate.notNull(xyData, "x-y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xyData.length == zData.length);
+    ArgChecker.notNull(xyData, "x-y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xyData.length == zData.length);
     _n = xyData.length;
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = Arrays.copyOf(zData, _n);
     for (int i = 0; i < _n; i++) {
       final DoublesPair pair = xyData[i];
-      Validate.notNull(pair);
-      Validate.notNull(zData[i]);
+      ArgChecker.notNull(pair, "pair");
+      ArgChecker.notNull(zData[i], "zData");
       _xData[i] = pair.getFirst();
       _yData[i] = pair.getSecond();
     }
@@ -318,17 +316,17 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final DoublesPair[] xyData, final Double[] zData, final String name) {
     super(name);
-    Validate.notNull(xyData, "x-y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xyData.length == zData.length);
+    ArgChecker.notNull(xyData, "x-y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xyData.length == zData.length);
     _n = xyData.length;
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     for (int i = 0; i < _n; i++) {
       final DoublesPair pair = xyData[i];
-      Validate.notNull(pair);
-      Validate.notNull(zData[i]);
+      ArgChecker.notNull(pair, "pair");
+      ArgChecker.notNull(zData[i], "zData");
       _xData[i] = pair.getFirst();
       _yData[i] = pair.getSecond();
       _zData[i] = zData[i];
@@ -342,9 +340,9 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final List<DoublesPair> xyData, final List<Double> zData, final String name) {
     super(name);
-    Validate.notNull(xyData, "x-y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xyData.size() == zData.size());
+    ArgChecker.notNull(xyData, "x-y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xyData.size() == zData.size());
     _n = xyData.size();
     _xData = new double[_n];
     _yData = new double[_n];
@@ -352,8 +350,8 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
     for (int i = 0; i < _n; i++) {
       final DoublesPair pair = xyData.get(i);
       final Double z = zData.get(i);
-      Validate.notNull(pair);
-      Validate.notNull(z);
+      ArgChecker.notNull(pair, "pair");
+      ArgChecker.notNull(z, "z");
       _xData[i] = pair.getFirst();
       _yData[i] = pair.getSecond();
       _zData[i] = z;
@@ -366,15 +364,15 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final Map<DoublesPair, Double> xyzData, final String name) {
     super(name);
-    Validate.notNull(xyzData, "x-y-z data");
+    ArgChecker.notNull(xyzData, "x-y-z data");
     _n = xyzData.size();
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     int i = 0;
     for (final Map.Entry<DoublesPair, Double> entry : xyzData.entrySet()) {
-      Validate.notNull(entry.getKey());
-      Validate.notNull(entry.getValue());
+      ArgChecker.notNull(entry.getKey(), "entry.key");
+      ArgChecker.notNull(entry.getValue(), "entry.value");
       _xData[i] = entry.getKey().getFirst();
       _yData[i] = entry.getKey().getSecond();
       _zData[i++] = entry.getValue();
@@ -387,14 +385,14 @@ public abstract class DoublesSurface extends Surface<Double, Double, Double> {
    */
   public DoublesSurface(final List<Triple<Double, Double, Double>> xyzData, final String name) {
     super(name);
-    Validate.notNull(xyzData, "x-y-z data");
+    ArgChecker.notNull(xyzData, "x-y-z data");
     _n = xyzData.size();
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     int i = 0;
     for (final Triple<Double, Double, Double> entry : xyzData) {
-      Validate.notNull(entry);
+      ArgChecker.notNull(entry, "entry");
       final double x = entry.getFirst();
       final double y = entry.getSecond();
       final double z = entry.getThird();

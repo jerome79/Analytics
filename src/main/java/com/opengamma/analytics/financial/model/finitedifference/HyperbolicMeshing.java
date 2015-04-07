@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.TrigonometricFunctionUtils;
 import com.opengamma.strata.collect.ArgChecker;
@@ -39,9 +37,9 @@ public class HyperbolicMeshing extends MeshingFunction {
    */
   public HyperbolicMeshing(final double xMin, final double xMax, final double xCent, final int nPoints, final double beta) {
     super(nPoints);
-    Validate.isTrue(xMax > xMin, "need xMax > xMin");
-    Validate.isTrue(xMax >= xCent && xCent >= xMin, "need xCent between upper and lower bounds");
-    Validate.isTrue(beta > 0, "need beta > 0");
+    ArgChecker.isTrue(xMax > xMin, "need xMax > xMin");
+    ArgChecker.isTrue(xMax >= xCent && xCent >= xMin, "need xCent between upper and lower bounds");
+    ArgChecker.isTrue(beta > 0, "need beta > 0");
 
     _l = xMin;
     _r = xMax;
@@ -55,9 +53,9 @@ public class HyperbolicMeshing extends MeshingFunction {
 
   public HyperbolicMeshing(final double xMin, final double xMax, final double xCent, final int nPoints, final double beta, final double[] fixedPoints) {
     super(nPoints);
-    Validate.isTrue(xMax > xMin, "need xMax > xMin");
-    Validate.isTrue(xMax >= xCent && xCent >= xMin, "need xCent between upper and lower bounds");
-    Validate.isTrue(beta > 0, "need beta > 0");
+    ArgChecker.isTrue(xMax > xMin, "need xMax > xMin");
+    ArgChecker.isTrue(xMax >= xCent && xCent >= xMin, "need xCent between upper and lower bounds");
+    ArgChecker.isTrue(beta > 0, "need beta > 0");
     ArgChecker.notNull(fixedPoints, "null fixedPoints");
 
     _l = xMin;
@@ -79,7 +77,7 @@ public class HyperbolicMeshing extends MeshingFunction {
 
   @Override
   public Double evaluate(Integer i) {
-    Validate.isTrue(i >= 0 && i < getNumberOfPoints(), "i out of range");
+    ArgChecker.isTrue(i >= 0 && i < getNumberOfPoints(), "i out of range");
     if (i == 0) {
       return _l;
     }

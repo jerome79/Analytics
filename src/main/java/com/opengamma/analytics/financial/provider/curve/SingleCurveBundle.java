@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.provider.curve;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurve;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -99,7 +98,7 @@ public class SingleCurveBundle<T extends GeneratorCurve> {
     if (_size != other._size) {
       return false;
     }
-    if (!ObjectUtils.equals(_curveName, other._curveName)) {
+    if (!Objects.equals(_curveName, other._curveName)) {
       return false;
     }
     if (!Arrays.equals(_startingPoints, other._startingPoints)) {
@@ -108,7 +107,7 @@ public class SingleCurveBundle<T extends GeneratorCurve> {
     if (!Arrays.deepEquals(_derivatives, other._derivatives)) {
       return false;
     }
-    if (!ObjectUtils.equals(_curveGenerator, other._curveGenerator)) {
+    if (!Objects.equals(_curveGenerator, other._curveGenerator)) {
       return false;
     }
     return true;

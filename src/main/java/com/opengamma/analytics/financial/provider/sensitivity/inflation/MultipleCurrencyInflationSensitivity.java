@@ -7,10 +7,9 @@ package com.opengamma.analytics.financial.provider.sensitivity.inflation;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
@@ -215,7 +214,7 @@ public class MultipleCurrencyInflationSensitivity {
       return false;
     }
     final MultipleCurrencyInflationSensitivity other = (MultipleCurrencyInflationSensitivity) obj;
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

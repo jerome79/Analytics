@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.equity.option;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexFuture;
@@ -173,7 +173,7 @@ public class EquityIndexFutureOption implements InstrumentDerivative {
     if (Double.compare(_pointValue, other._pointValue) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlying, other._underlying)) {
+    if (!Objects.equals(_underlying, other._underlying)) {
       return false;
     }
     return true;

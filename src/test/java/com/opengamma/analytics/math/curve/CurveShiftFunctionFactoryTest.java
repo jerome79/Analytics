@@ -8,11 +8,11 @@ package com.opengamma.analytics.math.curve;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
+import com.opengamma.analytics.util.ArrayUtils;
 
 
 /**

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMSSpread;
@@ -27,6 +25,7 @@ import com.opengamma.analytics.financial.interestrate.swaption.method.SwaptionCa
 import com.opengamma.analytics.financial.interestrate.swaption.method.SwaptionPhysicalFixedIborSABRExtrapolationRightMethod;
 import com.opengamma.analytics.financial.model.option.definition.SABRInterestRateCorrelationParameters;
 import com.opengamma.analytics.financial.model.option.definition.SABRInterestRateDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Present value sensitivity to SABR parameters calculator for interest rate instruments using SABR volatility formula.
@@ -64,8 +63,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCapFloorIbor(final CapFloorIbor cap, final YieldCurveBundle curves) {
-    Validate.notNull(cap);
-    Validate.notNull(curves);
+    ArgChecker.notNull(cap, "cap");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       final CapFloorIborSABRExtrapolationRightMethod method = new CapFloorIborSABRExtrapolationRightMethod(_cutOffStrike, _mu);
@@ -77,8 +76,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitSwaptionCashFixedIbor(final SwaptionCashFixedIbor swaption, final YieldCurveBundle curves) {
-    Validate.notNull(swaption);
-    Validate.notNull(curves);
+    ArgChecker.notNull(swaption, "swaption");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       final SwaptionCashFixedIborSABRExtrapolationRightMethod method = new SwaptionCashFixedIborSABRExtrapolationRightMethod(_cutOffStrike, _mu);
@@ -90,8 +89,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, final YieldCurveBundle curves) {
-    Validate.notNull(swaption);
-    Validate.notNull(curves);
+    ArgChecker.notNull(swaption, "swaption");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       final SwaptionPhysicalFixedIborSABRExtrapolationRightMethod method = new SwaptionPhysicalFixedIborSABRExtrapolationRightMethod(_cutOffStrike, _mu);
@@ -104,8 +103,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCouponCMS(final CouponCMS payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       return _methodExtraCMSCpn.presentValueSABRSensitivity(payment, sabr);
@@ -116,8 +115,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCapFloorCMS(final CapFloorCMS payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       return _methodExtraCMSCap.presentValueSABRSensitivity(payment, sabr);
@@ -128,8 +127,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCapFloorCMSSpread(final CapFloorCMSSpread payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabrBundle = (SABRInterestRateDataBundle) curves;
       if (sabrBundle.getSABRParameter() instanceof SABRInterestRateCorrelationParameters) {
@@ -144,8 +143,8 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitGenericAnnuity(final Annuity<? extends Payment> annuity, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(annuity);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(annuity, "annuity");
     PresentValueSABRSensitivityDataBundle pvss = new PresentValueSABRSensitivityDataBundle();
     for (final Payment p : annuity.getPayments()) {
       pvss = pvss.plus(p.accept(this, curves));
@@ -155,16 +154,16 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCouponFixed(final CouponFixed coupon, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(coupon);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(coupon, "coupon");
     final PresentValueSABRSensitivityDataBundle pvss = new PresentValueSABRSensitivityDataBundle();
     return pvss;
   }
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitSwap(final Swap<?, ?> swap, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(swap);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(swap, "swap");
     PresentValueSABRSensitivityDataBundle pvss = new PresentValueSABRSensitivityDataBundle();
     for (final Payment p : swap.getFirstLeg().getPayments()) {
       pvss = pvss.plus(p.accept(this, curves));
@@ -177,16 +176,16 @@ public final class PresentValueSABRSensitivitySABRRightExtrapolationCalculator e
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCouponIbor(final CouponIbor coupon, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(coupon);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(coupon, "coupon");
     final PresentValueSABRSensitivityDataBundle pvss = new PresentValueSABRSensitivityDataBundle();
     return pvss;
   }
 
   @Override
   public PresentValueSABRSensitivityDataBundle visitCouponIborSpread(final CouponIborSpread coupon, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(coupon);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(coupon, "coupon");
     final PresentValueSABRSensitivityDataBundle pvss = new PresentValueSABRSensitivityDataBundle();
     return pvss;
   }

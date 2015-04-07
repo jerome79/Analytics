@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.google.common.primitives.Doubles;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -79,7 +77,7 @@ public abstract class BarrierOptionFunctionProvider extends OptionFunctionProvid
         _checker = new CrossUpperBarrier();
         break;
       default:
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
   }

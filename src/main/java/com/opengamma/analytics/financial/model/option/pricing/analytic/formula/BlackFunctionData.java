@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.BlackOptionDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -44,8 +43,8 @@ public class BlackFunctionData {
   }
 
   public static BlackFunctionData fromDataBundle(final BlackOptionDataBundle bundle, final EuropeanVanillaOptionDefinition definition) {
-    Validate.notNull(bundle, "bundle");
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(bundle, "bundle");
+    ArgChecker.notNull(definition, "definition");
     final double t = definition.getTimeToExpiry(bundle.getDate());
     final double k = definition.getStrike();
     return new BlackFunctionData(bundle.getForward(), bundle.getDiscountFactor(t), bundle.getVolatility(t, k));

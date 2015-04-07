@@ -7,10 +7,8 @@ package com.opengamma.analytics.financial.model.option.definition;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.AnalyticOptionModel;
@@ -64,8 +62,8 @@ public class ComplexChooserOptionDefinition extends OptionDefinition {
    */
   public ComplexChooserOptionDefinition(final Expiry chooseDate, final double callStrike, final Expiry callExpiry, final double putStrike, final Expiry putExpiry) {
     super(null, chooseDate, null);
-    Validate.notNull(callExpiry);
-    Validate.notNull(putExpiry);
+    ArgChecker.notNull(callExpiry, "callExpiry");
+    ArgChecker.notNull(putExpiry, "putExpiry");
     ArgChecker.notNegative(callStrike, "call strike");
     ArgChecker.notNegative(putStrike, "put strike");
     if (callExpiry.getExpiry().isBefore(chooseDate.getExpiry())) {
@@ -162,7 +160,7 @@ public class ComplexChooserOptionDefinition extends OptionDefinition {
     if (Double.doubleToLongBits(_putStrike) != Double.doubleToLongBits(other._putStrike)) {
       return false;
     }
-    return ObjectUtils.equals(_callExpiry, other._callExpiry) && ObjectUtils.equals(_putExpiry, other._putExpiry);
+    return Objects.equals(_callExpiry, other._callExpiry) && Objects.equals(_putExpiry, other._putExpiry);
   }
 
 }

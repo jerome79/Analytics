@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation.data;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialInterpolator;
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResult;
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResultsWithSensitivity;
@@ -193,7 +191,7 @@ public class Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle implements
 
   @Override
   public void setYValueAtIndex(int index, double y) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override

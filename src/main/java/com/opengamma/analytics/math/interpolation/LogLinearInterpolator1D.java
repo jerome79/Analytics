@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A one-dimensional interpolator. The interpolated value of the function
@@ -27,8 +26,8 @@ public class LogLinearInterpolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle model, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(model, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(model, "data bundle");
     final InterpolationBoundedValues boundedValues = model.getBoundedValues(value);
     final Double x1 = boundedValues.getLowerBoundKey();
     final Double y1 = boundedValues.getLowerBoundValue();
@@ -42,8 +41,8 @@ public class LogLinearInterpolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle model, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(model, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(model, "data bundle");
     final InterpolationBoundedValues boundedValues = model.getBoundedValues(value);
     final Double x1 = boundedValues.getLowerBoundKey();
     final Double y1 = boundedValues.getLowerBoundValue();

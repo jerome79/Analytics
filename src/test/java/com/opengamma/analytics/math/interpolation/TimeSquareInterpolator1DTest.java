@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
@@ -151,7 +150,7 @@ public class TimeSquareInterpolator1DTest {
   }
 
   /** Tests first derivative at node when value is 0. */
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void firstDerivativeNodeOne0Exception1() {
     double[] xData = new double[] {1.0, 2.0, 3.0};
     double[] yData = new double[] {1.0, 0.0, 1.0 };
@@ -160,7 +159,7 @@ public class TimeSquareInterpolator1DTest {
   }
 
   /** Tests first derivative at node when value is 0. */
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void firstDerivativeNodeOne0Exception2() {
     double[] xData = new double[] {1.0, 2.0, 3.0};
     double[] yData = new double[] {1.0, 0.0, 1.0 };
@@ -169,7 +168,7 @@ public class TimeSquareInterpolator1DTest {
   }
 
   /** Tests sensitivity at node when all values are 0. */
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void sensitivityNodeOne0Exception1() {
     double[] xData = new double[] {1.0, 2.0, 3.0};
     double[] yData = new double[] {1.0, 0.0, 1.0 };
@@ -178,7 +177,7 @@ public class TimeSquareInterpolator1DTest {
   }
 
   /** Tests sensitivity at node when all values are 0. */
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void sensitivityNodeOne0Exception2() {
     double[] xData = new double[] {1.0, 2.0, 3.0};
     double[] yData = new double[] {1.0, 0.0, 1.0 };

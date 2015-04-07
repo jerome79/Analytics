@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.tree;
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.financial.greeks.GreekVisitor;
@@ -43,7 +41,7 @@ public class BinomialOptionModel<T extends StandardOptionDataBundle> extends Tre
   }
 
   public BinomialOptionModel(final BinomialOptionModelDefinition<OptionDefinition, T> model, final int n, final int maxDepthToSave) {
-    Validate.notNull(model, "model");
+    ArgChecker.notNull(model, "model");
     ArgChecker.notNegativeOrZero(n, "n");
     ArgChecker.notNegative(maxDepthToSave, "max. depth to save");
     if (maxDepthToSave > n) {

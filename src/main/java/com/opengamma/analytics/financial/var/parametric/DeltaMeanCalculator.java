@@ -6,13 +6,12 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -21,14 +20,14 @@ public class DeltaMeanCalculator extends Function1D<Map<Integer, ParametricVaRDa
   private final MatrixAlgebra _algebra;
 
   public DeltaMeanCalculator(final MatrixAlgebra algebra) {
-    Validate.notNull(algebra, "algebra");
+    ArgChecker.notNull(algebra, "algebra");
     _algebra = algebra;
   }
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
-    Validate.notNull(data, "data");
-    Validate.isTrue(data.containsKey(1));
+    ArgChecker.notNull(data, "data");
+    ArgChecker.isTrue(data.containsKey(1));
     final ParametricVaRDataBundle deltaData = data.get(1);
     final DoubleMatrix1D mean = deltaData.getExpectedReturn();
     final DoubleMatrix1D delta = (DoubleMatrix1D) deltaData.getSensitivities();
@@ -55,7 +54,7 @@ public class DeltaMeanCalculator extends Function1D<Map<Integer, ParametricVaRDa
       return false;
     }
     final DeltaMeanCalculator other = (DeltaMeanCalculator) obj;
-    return ObjectUtils.equals(_algebra, other._algebra);
+    return Objects.equals(_algebra, other._algebra);
   }
 
 }

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.volatilityswap;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
@@ -106,10 +106,10 @@ public class FXVolatilitySwap extends VolatilitySwap {
       return false;
     }
     final FXVolatilitySwap other = (FXVolatilitySwap) obj;
-    if (!ObjectUtils.equals(_baseCurrency, other._baseCurrency)) {
+    if (!Objects.equals(_baseCurrency, other._baseCurrency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_counterCurrency, other._counterCurrency)) {
+    if (!Objects.equals(_counterCurrency, other._counterCurrency)) {
       return false;
     }
     return true;

@@ -7,10 +7,9 @@ package com.opengamma.analytics.math.curve;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ObjectUtils;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -24,6 +23,7 @@ import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
@@ -528,7 +528,7 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
 
   private void init(final Interpolator1D interpolator) {
     ArgChecker.notNull(interpolator, "interpolator");
-    //  Validate.isTrue(size() >= 2);
+    //  ArgChecker.isTrue(size() >= 2);
     dataBundle = interpolator.getDataBundleFromSortedArrays(getXDataAsPrimitive(), getYDataAsPrimitive());
     this.interpolator = interpolator;
   }
@@ -572,7 +572,7 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
       return false;
     }
     final InterpolatedDoublesCurve other = (InterpolatedDoublesCurve) obj;
-    return ObjectUtils.equals(dataBundle, other.dataBundle) && ObjectUtils.equals(interpolator, other.interpolator);
+    return Objects.equals(dataBundle, other.dataBundle) && Objects.equals(interpolator, other.interpolator);
   }
 
   @Override

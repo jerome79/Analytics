@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.swaption;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -200,7 +199,7 @@ public final class SwaptionPhysicalFixedCompoundedONCompoundedDefinition impleme
       return false;
     }
     final SwaptionPhysicalFixedCompoundedONCompoundedDefinition other = (SwaptionPhysicalFixedCompoundedONCompoundedDefinition) obj;
-    if (!ObjectUtils.equals(_expiry, other._expiry)) {
+    if (!Objects.equals(_expiry, other._expiry)) {
       return false;
     }
     if (_isLong != other._isLong) {
@@ -209,7 +208,7 @@ public final class SwaptionPhysicalFixedCompoundedONCompoundedDefinition impleme
     if (_isCall != other._isCall) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

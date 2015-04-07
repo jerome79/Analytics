@@ -8,8 +8,6 @@ package com.opengamma.analytics.math.statistics.estimation;
 import java.util.function.DoubleUnaryOperator;
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.special.GammaFunction;
 import com.opengamma.analytics.math.minimization.GoldenSectionMinimizer1D;
@@ -32,7 +30,7 @@ public class StudentTDistributionMaximumLikelihoodEstimator extends Distribution
 
   @Override
   public ProbabilityDistribution<Double> evaluate(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     ArgChecker.notEmpty(x, "x");
     final double[] standardized = getStandardizedData(x);
     final Function1D<Double, Double> f = new Function1D<Double, Double>() {

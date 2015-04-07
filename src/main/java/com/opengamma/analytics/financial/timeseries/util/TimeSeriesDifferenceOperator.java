@@ -11,8 +11,7 @@ import java.time.LocalDate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang.Validate;
-
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -48,8 +47,8 @@ public class TimeSeriesDifferenceOperator implements UnaryOperator<LocalDateDoub
   
   @Override
   public LocalDateDoubleTimeSeries apply(final LocalDateDoubleTimeSeries ts) {
-    Validate.notNull(ts, "time series");
-    Validate.isTrue(ts.size() > lag, "time series length must be > lag");
+    ArgChecker.notNull(ts, "time series");
+    ArgChecker.isTrue(ts.size() > lag, "time series length must be > lag");
 
     Stream<LocalDateDoublePoint> lagged = ts.stream().skip(lag);
 

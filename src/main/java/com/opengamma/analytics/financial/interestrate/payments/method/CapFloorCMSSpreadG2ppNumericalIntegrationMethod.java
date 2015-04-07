@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.CashFlowEquivalentCalculator;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
@@ -19,6 +17,7 @@ import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.integration.IntegratorRepeated2D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Method to compute the present value of CMS spread cap/floor with the G2++ model by numerical integration.
@@ -51,8 +50,8 @@ public class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CapFloorCMSSpread cmsSpread, final G2ppPiecewiseConstantDataBundle g2Data) {
-    Validate.notNull(cmsSpread, "CMS spread");
-    Validate.notNull(g2Data, "Yield curves and G2++ parameters");
+    ArgChecker.notNull(cmsSpread, "CMS spread");
+    ArgChecker.notNull(g2Data, "Yield curves and G2++ parameters");
     final YieldAndDiscountCurve dsc = g2Data.getCurve(cmsSpread.getUnderlyingSwap1().getFixedLeg().getDiscountCurve());
     final double strike = cmsSpread.getStrike();
     final double theta = cmsSpread.getFixingTime();

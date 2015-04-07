@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.interpolation.data;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -18,12 +18,12 @@ public class Interpolator2DDataBundle {
   private final double[] _zData;
 
   public Interpolator2DDataBundle(final double[] xData, final double[] yData, final double[] zData) {
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
     final int n = xData.length;
-    Validate.isTrue(n == yData.length);
-    Validate.isTrue(n == zData.length);
+    ArgChecker.isTrue(n == yData.length);
+    ArgChecker.isTrue(n == zData.length);
     _xData = xData;
     _yData = yData;
     _zData = zData;

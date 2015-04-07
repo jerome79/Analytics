@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
@@ -143,10 +142,10 @@ public abstract class CouponDefinition extends PaymentDefinition {
       return false;
     }
     final CouponDefinition other = (CouponDefinition) obj;
-    if (!ObjectUtils.equals(_accrualEndDate, other._accrualEndDate)) {
+    if (!Objects.equals(_accrualEndDate, other._accrualEndDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_accrualStartDate, other._accrualStartDate)) {
+    if (!Objects.equals(_accrualStartDate, other._accrualStartDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {

@@ -5,20 +5,19 @@
  */
 package com.opengamma.analytics.financial.simpleinstruments.pricing;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleFXFuture;
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleFuture;
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleInstrument;
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleInstrumentVisitor;
+import com.opengamma.strata.collect.ArgChecker;
 
 /** Computes PV as the difference between Live and last day's closing prices */
 public class SimpleFuturePresentValueCalculator implements SimpleInstrumentVisitor<SimpleFutureDataBundle, Double> {
 
   @Override
   public Double visit(SimpleInstrument derivative, SimpleFutureDataBundle data) {
-    Validate.notNull(derivative, "derivative");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(derivative, "derivative");
+    ArgChecker.notNull(data, "data");
     return derivative.accept(this, data);
   }
 

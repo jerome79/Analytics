@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexSwap;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
@@ -78,8 +76,8 @@ public final class PresentValueBasisPointCalculator extends InstrumentDerivative
   }
 
   public Double visitCoupon(final Coupon coupon, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(coupon);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(coupon, "coupon");
     final YieldAndDiscountCurve fundingCurve = curves.getCurve(coupon.getFundingCurveName());
     return fundingCurve.getDiscountFactor(coupon.getPaymentTime()) * coupon.getPaymentYearFraction() * coupon.getNotional();
   }
@@ -122,8 +120,8 @@ public final class PresentValueBasisPointCalculator extends InstrumentDerivative
 
   @Override
   public Double visitGenericAnnuity(final Annuity<? extends Payment> annuity, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(annuity);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(annuity, "annuity");
     double pvbp = 0;
     for (final Payment p : annuity.getPayments()) {
       pvbp += p.accept(this, curves);
@@ -140,8 +138,8 @@ public final class PresentValueBasisPointCalculator extends InstrumentDerivative
 
   @Override
   public Double visitSwap(final Swap<?, ?> swap, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(swap);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(swap, "swap");
     return swap.getFirstLeg().accept(this, curves);
   }
 

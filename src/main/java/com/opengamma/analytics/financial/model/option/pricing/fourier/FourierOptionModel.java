@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +19,7 @@ import com.opengamma.analytics.financial.model.option.pricing.OptionModel;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.integration.Integrator1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -53,9 +52,9 @@ public class FourierOptionModel implements OptionModel<EuropeanVanillaOptionDefi
   }
 
   public FourierOptionModel(final MartingaleCharacteristicExponent characteristicExponent, final double alpha, final double limitTolerance, final boolean useVarianceReduction) {
-    Validate.notNull(characteristicExponent, "characteristic exponent");
-    Validate.isTrue(alpha != 0 && alpha != -1, "alpha cannot be equal to -1 or 0");
-    Validate.isTrue(limitTolerance > 0, "limit tolerance > 0");
+    ArgChecker.notNull(characteristicExponent, "characteristic exponent");
+    ArgChecker.isTrue(alpha != 0 && alpha != -1, "alpha cannot be equal to -1 or 0");
+    ArgChecker.isTrue(limitTolerance > 0, "limit tolerance > 0");
     _characteristicExponent = characteristicExponent;
     _pricer = new FourierPricer();
     _alpha = alpha;
@@ -65,10 +64,10 @@ public class FourierOptionModel implements OptionModel<EuropeanVanillaOptionDefi
 
   public FourierOptionModel(final MartingaleCharacteristicExponent characteristicExponent, final Integrator1D<Double, Double> integrator, final double alpha,
       final double limitTolerance, final boolean useVarianceReduction) {
-    Validate.notNull(characteristicExponent, "characteristic exponent");
-    Validate.notNull(integrator, "integrator");
-    Validate.isTrue(alpha != 0 && alpha != -1, "alpha cannot be equal to -1 or 0");
-    Validate.isTrue(limitTolerance > 0, "limit tolerance > 0");
+    ArgChecker.notNull(characteristicExponent, "characteristic exponent");
+    ArgChecker.notNull(integrator, "integrator");
+    ArgChecker.isTrue(alpha != 0 && alpha != -1, "alpha cannot be equal to -1 or 0");
+    ArgChecker.isTrue(limitTolerance > 0, "limit tolerance > 0");
     _characteristicExponent = characteristicExponent;
     _pricer = new FourierPricer(integrator);
     _alpha = alpha;
@@ -78,11 +77,11 @@ public class FourierOptionModel implements OptionModel<EuropeanVanillaOptionDefi
 
   @Override
   public GreekResultCollection getGreeks(final EuropeanVanillaOptionDefinition definition, final BlackOptionDataBundle dataBundle, final Set<Greek> requiredGreeks) {
-    Validate.notNull(definition, "definition");
-    Validate.notNull(dataBundle, "data bundle");
-    Validate.notNull(requiredGreeks, "required greeks");
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(dataBundle, "data bundle");
+    ArgChecker.notNull(requiredGreeks, "required greeks");
     if (!requiredGreeks.contains(Greek.FAIR_PRICE)) {
-      throw new NotImplementedException("Can only calculate fair price at the moment: asked for " + requiredGreeks);
+      throw new UnsupportedOperationException("Can only calculate fair price at the moment: asked for " + requiredGreeks);
     }
     if (requiredGreeks.size() > 1) {
       s_logger.warn("Can only calculate fair price - ignoring other greeks");

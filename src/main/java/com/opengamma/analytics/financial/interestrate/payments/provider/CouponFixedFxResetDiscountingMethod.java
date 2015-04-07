@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixedFxReset;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 /**
  * Method to compute results for fixed coupon with FX reset notional.
@@ -55,8 +54,8 @@ public final class CouponFixedFxResetDiscountingMethod {
    */
   public MultiCurrencyAmount presentValue(final CouponFixedFxReset coupon,
       final MulticurveProviderInterface multicurve) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(multicurve, "multicurve");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(multicurve, "multicurve");
     Currency ccyPayment = coupon.getCurrency();
     Currency ccyReference = coupon.getReferenceCurrency();
     double tp = coupon.getPaymentTime();
@@ -79,8 +78,8 @@ public final class CouponFixedFxResetDiscountingMethod {
    */
   public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final CouponFixedFxReset coupon, 
       final MulticurveProviderInterface multicurve) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(multicurve, "multicurve");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(multicurve, "multicurve");
     Currency ccyPayment = coupon.getCurrency();
     Currency ccyReference = coupon.getReferenceCurrency();
     double tp = coupon.getPaymentTime();
@@ -120,8 +119,8 @@ public final class CouponFixedFxResetDiscountingMethod {
    */
   public MultiCurrencyAmount currencyExposure(final CouponFixedFxReset coupon,
       final MulticurveProviderInterface multicurves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(multicurves, "multicurve");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(multicurves, "multicurve");
     Currency ccyPayment = coupon.getCurrency();
     Currency ccyReference = coupon.getReferenceCurrency();
     double dfCcyPaymentAtPayment = multicurves.getDiscountFactor(ccyPayment, coupon.getPaymentTime());

@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -403,24 +402,24 @@ public class CouponIborAverageIndexDefinition extends CouponFloatingDefinition {
     if (Double.doubleToLongBits(_fixingPeriodAccrualFactor2) != Double.doubleToLongBits(other._fixingPeriodAccrualFactor2)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fixingPeriodEndDate1, other._fixingPeriodEndDate1)) {
+    if (!Objects.equals(_fixingPeriodEndDate1, other._fixingPeriodEndDate1)) {
       return false;
     }
 
-    if (!ObjectUtils.equals(_fixingPeriodEndDate2, other._fixingPeriodEndDate2)) {
+    if (!Objects.equals(_fixingPeriodEndDate2, other._fixingPeriodEndDate2)) {
       return false;
     }
 
-    if (!ObjectUtils.equals(_fixingPeriodStartDate1, other._fixingPeriodStartDate1)) {
+    if (!Objects.equals(_fixingPeriodStartDate1, other._fixingPeriodStartDate1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fixingPeriodStartDate2, other._fixingPeriodStartDate2)) {
+    if (!Objects.equals(_fixingPeriodStartDate2, other._fixingPeriodStartDate2)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index1, other._index1)) {
+    if (!Objects.equals(_index1, other._index1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index2, other._index2)) {
+    if (!Objects.equals(_index2, other._index2)) {
       return false;
     }
     if (Double.doubleToLongBits(_weight1) != Double.doubleToLongBits(other._weight1)) {

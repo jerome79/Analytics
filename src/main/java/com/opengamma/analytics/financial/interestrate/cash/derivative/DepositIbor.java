@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.cash.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -91,7 +91,7 @@ public class DepositIbor extends Cash {
       return false;
     }
     final DepositIbor other = (DepositIbor) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     return true;

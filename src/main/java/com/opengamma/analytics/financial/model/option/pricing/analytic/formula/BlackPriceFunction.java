@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,7 +19,7 @@ public class BlackPriceFunction implements OptionPriceFunction<BlackFunctionData
 
   @Override
   public Function1D<BlackFunctionData, Double> getPriceFunction(final EuropeanVanillaOption option) {
-    Validate.notNull(option, "option");
+    ArgChecker.notNull(option, "option");
     final double k = option.getStrike();
     final double t = option.getTimeToExpiry();
     final boolean isCall = option.isCall();
@@ -28,7 +27,7 @@ public class BlackPriceFunction implements OptionPriceFunction<BlackFunctionData
 
       @Override
       public Double evaluate(final BlackFunctionData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double forward = data.getForward();
         final double sigma = data.getBlackVolatility();
         final double df = data.getDiscountFactor();
@@ -208,14 +207,14 @@ public class BlackPriceFunction implements OptionPriceFunction<BlackFunctionData
   }
 
   public Function1D<BlackFunctionData, Double> getVegaFunction(final EuropeanVanillaOption option) {
-    Validate.notNull(option, "option");
+    ArgChecker.notNull(option, "option");
     final double k = option.getStrike();
     final double t = option.getTimeToExpiry();
     return new Function1D<BlackFunctionData, Double>() {
 
       @Override
       public Double evaluate(final BlackFunctionData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double sigma = data.getBlackVolatility();
         final double f = data.getForward();
         final double discountFactor = data.getDiscountFactor();

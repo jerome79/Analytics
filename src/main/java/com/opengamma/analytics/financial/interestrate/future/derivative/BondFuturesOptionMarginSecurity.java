@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
@@ -151,7 +151,7 @@ public class BondFuturesOptionMarginSecurity extends FuturesSecurity {
     if (Double.doubleToLongBits(_strike) != Double.doubleToLongBits(other._strike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingFuture, other._underlyingFuture)) {
+    if (!Objects.equals(_underlyingFuture, other._underlyingFuture)) {
       return false;
     }
     return true;

@@ -8,8 +8,7 @@ package com.opengamma.analytics.math.interpolation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
@@ -130,7 +129,7 @@ public class RadialBasisFunctionInterpolatorND extends InterpolatorND {
       return false;
     }
     final RadialBasisFunctionInterpolatorND other = (RadialBasisFunctionInterpolatorND) obj;
-    if (!ObjectUtils.equals(_basisFunction, other._basisFunction)) {
+    if (!Objects.equals(_basisFunction, other._basisFunction)) {
       return false;
     }
     return _useNormalized == other._useNormalized;

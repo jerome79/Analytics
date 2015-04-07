@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.DecompositionSolver;
 import org.apache.commons.math.linear.SingularValueDecomposition;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Wrapper for results of the Commons implementation of singular value decomposition {@link SVDecompositionCommons}
@@ -34,7 +34,7 @@ public class SVDecompositionCommonsResult implements SVDecompositionResult {
    * @param svd The result of the SV decomposition, not null
    */
   public SVDecompositionCommonsResult(final SingularValueDecomposition svd) {
-    Validate.notNull(svd);
+    ArgChecker.notNull(svd, "svd");
     _condition = svd.getConditionNumber();
     _norm = svd.getNorm();
     _rank = svd.getRank();
@@ -124,7 +124,7 @@ public class SVDecompositionCommonsResult implements SVDecompositionResult {
    */
   @Override
   public DoubleMatrix1D solve(final DoubleMatrix1D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return CommonsMathWrapper.unwrap(_solver.solve(CommonsMathWrapper.wrap(b)));
   }
 
@@ -133,7 +133,7 @@ public class SVDecompositionCommonsResult implements SVDecompositionResult {
    */
   @Override
   public double[] solve(final double[] b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return _solver.solve(b);
   }
 
@@ -142,7 +142,7 @@ public class SVDecompositionCommonsResult implements SVDecompositionResult {
    */
   @Override
   public DoubleMatrix2D solve(final DoubleMatrix2D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return CommonsMathWrapper.unwrap(_solver.solve(CommonsMathWrapper.wrap(b)));
   }
 }

@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.linearalgebra.LUDecompositionCommons;
@@ -52,8 +50,8 @@ public class CoupledFiniteDifference {
 
   public PDEResults1D[] solve(final CoupledPDEDataBundle pdeData1,
       final CoupledPDEDataBundle pdeData2) {
-    Validate.notNull(pdeData1, "pde1 data");
-    Validate.notNull(pdeData2, "pde2 data");
+    ArgChecker.notNull(pdeData1, "pde1 data");
+    ArgChecker.notNull(pdeData2, "pde2 data");
 
     final PDEGrid1D grid = pdeData1.getGrid();
     ArgChecker.isTrue(grid == pdeData2.getGrid(), "grids must be same object");

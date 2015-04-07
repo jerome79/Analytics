@@ -7,11 +7,10 @@ package com.opengamma.analytics.financial.model.interestrate;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.definition.VasicekDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -21,13 +20,13 @@ public class VasicekInterestRateModel implements DiscountBondModel<VasicekDataBu
 
   @Override
   public Function1D<VasicekDataBundle, Double> getDiscountBondFunction(final ZonedDateTime time, final ZonedDateTime maturity) {
-    Validate.notNull(time);
-    Validate.notNull(maturity);
+    ArgChecker.notNull(time, "time");
+    ArgChecker.notNull(maturity, "maturity");
     return new Function1D<VasicekDataBundle, Double>() {
 
       @Override
       public Double evaluate(final VasicekDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final double lt = data.getLongTermInterestRate();
         final double speed = data.getReversionSpeed();
         final double dt = DateUtils.getDifferenceInYears(time, maturity);

@@ -11,12 +11,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-
+import com.google.common.base.Joiner;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -109,7 +108,7 @@ public class GreekResultCollection implements Iterable<Pair<Greek, Double>> {
       elementSb.append(entry.getKey()).append("=").append(entry.getValue());
       elements.add(elementSb.toString());
     }
-    sb.append(StringUtils.join(elements, ", "));
+    sb.append(Joiner.on(", ").join(elements));
     sb.append("]");
     return sb.toString();
   }
@@ -135,7 +134,7 @@ public class GreekResultCollection implements Iterable<Pair<Greek, Double>> {
     }
     final GreekResultCollection other = (GreekResultCollection) obj;
     // This is really bad and we'll want to change it when we're less reliant on just the backing map.
-    return ObjectUtils.equals(_backingMap, other._backingMap);
+    return Objects.equals(_backingMap, other._backingMap);
   }
 
   @Override

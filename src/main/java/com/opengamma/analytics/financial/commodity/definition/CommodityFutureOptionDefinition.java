@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.commodity.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -115,13 +114,13 @@ public abstract class CommodityFutureOptionDefinition<T extends CommodityFutureD
       return false;
     }
     final CommodityFutureOptionDefinition<?, ?> other = (CommodityFutureOptionDefinition<?, ?>) obj;
-    if (!ObjectUtils.equals(_expiryDate, other._expiryDate)) {
+    if (!Objects.equals(_expiryDate, other._expiryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlying, other._underlying)) {
+    if (!Objects.equals(_underlying, other._underlying)) {
       return false;
     }
-    if (!ObjectUtils.equals(_exerciseType, other._exerciseType)) {
+    if (!Objects.equals(_exerciseType, other._exerciseType)) {
       return false;
     }
     if (Double.compare(_strike, other._strike) != 0) {

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.swap.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
@@ -78,7 +78,7 @@ public abstract class TotalReturnSwap implements InstrumentDerivative {
       return false;
     }
     final TotalReturnSwap other = (TotalReturnSwap) obj;
-    if (!ObjectUtils.equals(_fundingLeg, other._fundingLeg)) {
+    if (!Objects.equals(_fundingLeg, other._fundingLeg)) {
       return false;
     }
     return true;

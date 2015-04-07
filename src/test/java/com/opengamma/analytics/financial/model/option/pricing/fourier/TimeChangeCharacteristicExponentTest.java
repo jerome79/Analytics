@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -88,12 +87,12 @@ public class TimeChangeCharacteristicExponentTest {
 
     @Override
     public ComplexNumber[] getCharacteristicExponentAdjoint(ComplexNumber u, double t) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @Override
     public Function1D<ComplexNumber, ComplexNumber[]> getAdjointFunction(double t) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
   }

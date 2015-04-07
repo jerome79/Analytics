@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
@@ -142,7 +142,7 @@ public class CouponFixedFxReset extends Coupon {
     if (Double.doubleToLongBits(_rate) != Double.doubleToLongBits(other._rate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_referenceCurrency, other._referenceCurrency)) {
+    if (!Objects.equals(_referenceCurrency, other._referenceCurrency)) {
       return false;
     }
     return true;

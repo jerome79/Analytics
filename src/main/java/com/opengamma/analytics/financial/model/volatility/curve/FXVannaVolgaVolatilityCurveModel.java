@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.volatility.curve;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.FXOptionDataBundle;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -23,8 +22,8 @@ public class FXVannaVolgaVolatilityCurveModel implements VolatilityCurveModel<FX
 
   @Override
   public VolatilityCurve getCurve(final FXVannaVolgaVolatilityCurveDataBundle marketQuotes, final FXOptionDataBundle data) {
-    Validate.notNull(marketQuotes);
-    Validate.notNull(data);
+    ArgChecker.notNull(marketQuotes, "marketQuotes");
+    ArgChecker.notNull(data, "data");
     final double sigmaRR = marketQuotes.getRiskReversal();
     final double sigmaATM = marketQuotes.getAtTheMoney();
     final double sigmaVWB = marketQuotes.getVegaWeightedButterfly();
@@ -51,7 +50,7 @@ public class FXVannaVolgaVolatilityCurveModel implements VolatilityCurveModel<FX
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final Double x) {
-        Validate.notNull(x);
+        ArgChecker.notNull(x, "x");
 
         final double k = x;
         final double a1 = Math.log(k2 / k) * Math.log(k3 / k) / lnk21 / lnk31;

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math.optimization.GoalType;
@@ -15,6 +14,7 @@ import org.apache.commons.math.optimization.univariate.BrentOptimizer;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/optimization/univariate/BrentOptimizer.html">Commons Math library implementation</a>
@@ -30,7 +30,7 @@ public class BrentMinimizer1D implements ScalarMinimizer {
    */
   @Override
   public double minimize(final Function1D<Double, Double> function, final double startPosition, final double lowerBound, final double upperBound) {
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     final UnivariateRealFunction commonsFunction = CommonsMathWrapper.wrapUnivariate(function);
     try {
       return OPTIMIZER.optimize(commonsFunction, MINIMIZE, lowerBound, upperBound, startPosition);
@@ -46,7 +46,7 @@ public class BrentMinimizer1D implements ScalarMinimizer {
    */
   @Override
   public Double minimize(final Function1D<Double, Double> function, final Double startPosition) {
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     final UnivariateRealFunction commonsFunction = CommonsMathWrapper.wrapUnivariate(function);
     try {
       return OPTIMIZER.optimize(commonsFunction, MINIMIZE, -Double.MAX_VALUE, Double.MAX_VALUE, startPosition);

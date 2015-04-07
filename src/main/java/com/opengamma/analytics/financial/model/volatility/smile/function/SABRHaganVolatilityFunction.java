@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +16,7 @@ import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class with the Hagan et al SABR volatility function.
@@ -42,13 +42,13 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
 
   @Override
   public Function1D<SABRFormulaData, Double> getVolatilityFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward >= 0.0, "forward must be greater than zero");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward >= 0.0, "forward must be greater than zero");
 
     return new Function1D<SABRFormulaData, Double>() {
       @Override
       public final Double evaluate(final SABRFormulaData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         return getVolatility(option, forward, data);
       }
     };
@@ -56,13 +56,13 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
 
   @Override
   public Function1D<SABRFormulaData, double[]> getVolatilityAdjointFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward >= 0.0, "forward must be greater than zero");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward >= 0.0, "forward must be greater than zero");
 
     return new Function1D<SABRFormulaData, double[]>() {
       @Override
       public double[] evaluate(final SABRFormulaData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         return getVolatilityAdjoint(option, forward, data);
       }
     };
@@ -75,13 +75,13 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
 
   @Override
   public Function1D<SABRFormulaData, double[]> getModelAdjointFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward >= 0.0, "forward must be greater than zero");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward >= 0.0, "forward must be greater than zero");
 
     return new Function1D<SABRFormulaData, double[]>() {
       @Override
       public double[] evaluate(final SABRFormulaData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         return getVolatilityModelAdjoint(option, forward, data);
       }
     };
@@ -156,7 +156,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
   }
 
   public double getVolatility(final double forward, final double strike, final double timeToExpiry, final double alpha, final double beta, final double rho, final double nu) {
-    Validate.isTrue(forward > 0, "Forward must be > 0");
+    ArgChecker.isTrue(forward > 0, "Forward must be > 0");
     final EuropeanVanillaOption option = new EuropeanVanillaOption(strike, timeToExpiry, true);
     final SABRFormulaData data = new SABRFormulaData(alpha, beta, rho, nu);
     return getVolatility(option, forward, data);

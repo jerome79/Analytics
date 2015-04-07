@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.math.cube;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.Plane;
 import com.opengamma.analytics.math.interpolation.Interpolator2D;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,16 +18,16 @@ import com.opengamma.analytics.math.surface.Surface;
 public class CubeSliceFunction {
 
   public Surface<Double, Double, Double> cut(final Cube<Double, Double, Double, Double> cube, final Plane plane, final Double at) {
-    Validate.notNull(cube, "cube");
-    Validate.notNull(plane, "plane");
-    Validate.notNull(at, "at");
+    ArgChecker.notNull(cube, "cube");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(at, "at");
     return ConstantDoublesSurface.from(cube.getValue(null, null, null));
   }
 
   public static Surface<Double, Double, Double> cut(final Cube<Double, Double, Double, Double> cube, final Plane plane, final Double at, final Interpolator2D interpolator) {
-    Validate.notNull(cube, "cube");
-    Validate.notNull(plane, "plane");
-    Validate.notNull(at, "at");
+    ArgChecker.notNull(cube, "cube");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(at, "at");
 
     if (plane == Plane.XY) {
       Double[] xData = cube.getXData();

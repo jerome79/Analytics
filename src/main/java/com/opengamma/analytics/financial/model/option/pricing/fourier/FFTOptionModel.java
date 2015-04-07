@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +19,7 @@ import com.opengamma.analytics.financial.model.option.pricing.OptionModel;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.interpolation.DoubleQuadraticInterpolator1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -45,11 +44,11 @@ public class FFTOptionModel implements OptionModel<EuropeanVanillaOptionDefiniti
   }
 
   public FFTOptionModel(final MartingaleCharacteristicExponent characteristicExponent, final int nStrikes, final double maxDeltaMoneyness, final double alpha, final double tolerance) {
-    Validate.notNull(characteristicExponent, "characteristic exponent");
-    Validate.isTrue(nStrikes > 0, "number of strikes must be > 0");
-    Validate.isTrue(maxDeltaMoneyness > 0, "max delta moneyness must be > 0");
-    Validate.isTrue(alpha != 0 && alpha != -1, "alpha cannot be -1 or 0");
-    Validate.isTrue(tolerance > 0, "tolerance must be > 0");
+    ArgChecker.notNull(characteristicExponent, "characteristic exponent");
+    ArgChecker.isTrue(nStrikes > 0, "number of strikes must be > 0");
+    ArgChecker.isTrue(maxDeltaMoneyness > 0, "max delta moneyness must be > 0");
+    ArgChecker.isTrue(alpha != 0 && alpha != -1, "alpha cannot be -1 or 0");
+    ArgChecker.isTrue(tolerance > 0, "tolerance must be > 0");
     _characteristicExponent = characteristicExponent;
     _nStrikes = nStrikes;
     _maxDeltaMoneyness = maxDeltaMoneyness;
@@ -59,11 +58,11 @@ public class FFTOptionModel implements OptionModel<EuropeanVanillaOptionDefiniti
 
   @Override
   public GreekResultCollection getGreeks(final EuropeanVanillaOptionDefinition definition, final BlackOptionDataBundle dataBundle, final Set<Greek> requiredGreeks) {
-    Validate.notNull(definition, "definition");
-    Validate.notNull(dataBundle, "data bundle");
-    Validate.notNull(requiredGreeks, "required greeks");
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(dataBundle, "data bundle");
+    ArgChecker.notNull(requiredGreeks, "required greeks");
     if (!requiredGreeks.contains(Greek.FAIR_PRICE)) {
-      throw new NotImplementedException("Can only calculate fair price at the moment: asked for " + requiredGreeks);
+      throw new UnsupportedOperationException("Can only calculate fair price at the moment: asked for " + requiredGreeks);
     }
     if (requiredGreeks.size() > 1) {
       s_logger.warn("Can only calculate fair price - ignoring other greeks");

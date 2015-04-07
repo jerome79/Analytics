@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.montecarlo;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponIborRatchet;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborGearing;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborRatchet;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Computes the instrument price as the average over different paths and the derivative of the output with respect to the inputs. 
@@ -44,7 +43,7 @@ public class MonteCarloDiscountFactorDerivativeCalculator extends InstrumentDeri
     // Forward sweep
     final Double[][][] pathDiscountFactors = mcResults.getPathDiscountingFactor();
     final double[][] impactAmount = mcResults.getImpactAmount();
-    Validate.isTrue(pathDiscountFactors[0].length == 1, "Only one decision date for swaptions.");
+    ArgChecker.isTrue(pathDiscountFactors[0].length == 1, "Only one decision date for swaptions.");
     double price = 0;
     final int nbPath = pathDiscountFactors.length;
     final double[] swapPathValue = new double[nbPath];

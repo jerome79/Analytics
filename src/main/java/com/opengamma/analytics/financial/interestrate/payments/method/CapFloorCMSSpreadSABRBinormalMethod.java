@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.ParRateCalculator;
@@ -32,6 +30,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -77,7 +76,7 @@ public class CapFloorCMSSpreadSABRBinormalMethod implements PricingMethod {
    */
   public CapFloorCMSSpreadSABRBinormalMethod(DoubleFunction1D correlation, final CapFloorCMSSABRReplicationAbstractMethod methodCmsCap,
       final CouponCMSSABRReplicationGenericMethod methodCmsCoupon) {
-    Validate.notNull(correlation, "Correlation");
+    ArgChecker.notNull(correlation, "Correlation");
     _correlation = correlation;
     _methodCmsCap = methodCmsCap;
     _methodCmsCoupon = methodCmsCoupon;
@@ -142,8 +141,8 @@ public class CapFloorCMSSpreadSABRBinormalMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorCMSSpread, "CMS spread cap/floor");
-    Validate.isTrue(curves instanceof SABRInterestRateDataBundle, "Bundle should contain SABR data");
+    ArgChecker.isTrue(instrument instanceof CapFloorCMSSpread, "CMS spread cap/floor");
+    ArgChecker.isTrue(curves instanceof SABRInterestRateDataBundle, "Bundle should contain SABR data");
     return presentValue((CapFloorCMSSpread) instrument, (SABRInterestRateDataBundle) curves);
   }
 

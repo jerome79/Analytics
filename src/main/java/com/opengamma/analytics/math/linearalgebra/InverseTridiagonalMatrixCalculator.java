@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Direct inversion of a tridiagonal matrix using the method from
@@ -22,7 +21,7 @@ public class InverseTridiagonalMatrixCalculator extends Function1D<TridiagonalMa
    */
   @Override
   public DoubleMatrix2D evaluate(final TridiagonalMatrix x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     final double[] a = x.getDiagonalData();
     final double[] b = x.getUpperSubDiagonalData();
     final double[] c = x.getLowerSubDiagonalData();

@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class representing the "double-ramp" function, defined as:
@@ -37,7 +36,7 @@ public class DoubleRampFunction extends Function1D<Double, Double> {
    * @param y2 The height above x2 
    */
   public DoubleRampFunction(final double x1, final double x2, final double y1, final double y2) {
-    Validate.isTrue(x1 < x2, "x1 must be less than x2");
+    ArgChecker.isTrue(x1 < x2, "x1 must be less than x2");
     _x1 = x1;
     _x2 = x2;
     _y1 = y1;
@@ -50,7 +49,7 @@ public class DoubleRampFunction extends Function1D<Double, Double> {
    */
   @Override
   public Double evaluate(final Double x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     if (x < _x1) {
       return _y1;
     }

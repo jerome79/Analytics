@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -27,8 +25,8 @@ public class AmericanVanillaOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
-      Validate.notNull(optionPrice);
+      ArgChecker.notNull(data, "data");
+      ArgChecker.notNull(optionPrice, "optionPrice");
       ArgChecker.notNegative(optionPrice, "option price");
       final double spot = data.getSpot();
       return isCall() ? Math.max(optionPrice, spot - getStrike()) : Math.max(optionPrice, getStrike() - spot);
@@ -39,8 +37,8 @@ public class AmericanVanillaOptionDefinition extends OptionDefinition {
     @SuppressWarnings("synthetic-access")
     @Override
     public boolean shouldExercise(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
-      Validate.notNull(optionPrice);
+      ArgChecker.notNull(data, "data");
+      ArgChecker.notNull(optionPrice, "optionPrice");
       ArgChecker.notNegative(optionPrice, "option price");
       return optionPrice < _payoffFunction.getPayoff(data, optionPrice);
     }

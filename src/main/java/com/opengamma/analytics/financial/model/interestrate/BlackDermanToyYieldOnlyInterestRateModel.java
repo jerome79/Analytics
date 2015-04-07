@@ -7,14 +7,13 @@ package com.opengamma.analytics.financial.model.interestrate;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.definition.StandardDiscountBondModelDataBundle;
 import com.opengamma.analytics.financial.model.tree.RecombiningBinomialTree;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
 /**
@@ -34,13 +33,13 @@ public class BlackDermanToyYieldOnlyInterestRateModel {
   }
 
   public Function1D<StandardDiscountBondModelDataBundle, RecombiningBinomialTree<Triple<Double, Double, Double>>> getTrees(final ZonedDateTime time) {
-    Validate.notNull(time, "time");
+    ArgChecker.notNull(time, "time");
     return new Function1D<StandardDiscountBondModelDataBundle, RecombiningBinomialTree<Triple<Double, Double, Double>>>() {
 
       @SuppressWarnings({"unchecked", "synthetic-access" })
       @Override
       public RecombiningBinomialTree<Triple<Double, Double, Double>> evaluate(final StandardDiscountBondModelDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double[][] r = new double[_n + 1][_j];
         final double[][] q = new double[_n + 1][_j];
         final double[][] d = new double[_n + 1][_j];

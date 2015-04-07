@@ -6,9 +6,8 @@
 package com.opengamma.analytics.math.curve;
 
 import java.util.Map;
+import java.util.Objects;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -102,7 +101,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
    * @param function  the function that defines the curve, not null
    */
   public FunctionalDoublesCurve(final Function1D<Double, Double> function) {
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     this.function = function;
     this.derivative = DIFF.differentiate(function);
   }
@@ -128,7 +127,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
    */
   public FunctionalDoublesCurve(final Function1D<Double, Double> function, final String name) {
     super(name);
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     this.function = function;
     this.derivative = DIFF.differentiate(function);
   }
@@ -173,7 +172,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
 
   @Override
   public Double getYValue(final Double x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     return function.evaluate(x);
   }
 
@@ -206,8 +205,8 @@ public class FunctionalDoublesCurve extends DoublesCurve {
    * @return the interpolated curve with values <i>(x, f(x))</i>, not null
    */
   public InterpolatedDoublesCurve toInterpolatedDoublesCurve(final double[] x, final Interpolator1D interpolator) {
-    Validate.notNull(x, "x");
-    Validate.notNull(interpolator);
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(interpolator, "interpolator");
     final int n = x.length;
     final double[] y = new double[n];
     for (int i = 0; i < n; i++) {
@@ -247,7 +246,7 @@ public class FunctionalDoublesCurve extends DoublesCurve {
       return false;
     }
     final FunctionalDoublesCurve other = (FunctionalDoublesCurve) obj;
-    return ObjectUtils.equals(function, other.function);
+    return Objects.equals(function, other.function);
   }
 
   @Override

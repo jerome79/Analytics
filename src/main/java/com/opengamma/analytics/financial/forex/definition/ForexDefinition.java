@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.forex.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -175,10 +174,10 @@ public class ForexDefinition implements InstrumentDefinition<InstrumentDerivativ
       return false;
     }
     final ForexDefinition other = (ForexDefinition) obj;
-    if (!ObjectUtils.equals(_paymentCurrency1, other._paymentCurrency1)) {
+    if (!Objects.equals(_paymentCurrency1, other._paymentCurrency1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_paymentCurrency2, other._paymentCurrency2)) {
+    if (!Objects.equals(_paymentCurrency2, other._paymentCurrency2)) {
       return false;
     }
     return true;

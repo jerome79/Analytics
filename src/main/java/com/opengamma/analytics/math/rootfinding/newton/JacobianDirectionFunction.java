@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.math.rootfinding.newton;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,14 +18,14 @@ public class JacobianDirectionFunction implements NewtonRootFinderDirectionFunct
   private final Decomposition<?> _decomposition;
 
   public JacobianDirectionFunction(final Decomposition<?> decomposition) {
-    Validate.notNull(decomposition);
+    ArgChecker.notNull(decomposition, "decomposition");
     _decomposition = decomposition;
   }
 
   @Override
   public DoubleMatrix1D getDirection(final DoubleMatrix2D estimate, final DoubleMatrix1D y) {
-    Validate.notNull(estimate);
-    Validate.notNull(y);
+    ArgChecker.notNull(estimate, "estimate");
+    ArgChecker.notNull(y, "y");
     final DecompositionResult result = _decomposition.evaluate(estimate);
     return result.solve(y);
   }

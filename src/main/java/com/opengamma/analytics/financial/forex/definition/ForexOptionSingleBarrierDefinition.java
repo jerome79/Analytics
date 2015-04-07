@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.forex.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionSingleBarrier;
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionVanilla;
@@ -136,7 +135,7 @@ public class ForexOptionSingleBarrierDefinition implements InstrumentDefinition<
     if (Double.doubleToLongBits(_rebate) != Double.doubleToLongBits(other._rebate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingOption, other._underlyingOption)) {
+    if (!Objects.equals(_underlyingOption, other._underlyingOption)) {
       return false;
     }
     return true;

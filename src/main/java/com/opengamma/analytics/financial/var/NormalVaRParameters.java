@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.var;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.strata.collect.ArgChecker;
@@ -23,8 +21,8 @@ public class NormalVaRParameters {
   private final double _timeScaling;
   
   public NormalVaRParameters(final double horizon, final double periods, final double quantile) {
-    Validate.isTrue(horizon > 0, "horizon");
-    Validate.isTrue(periods > 0, "periods");
+    ArgChecker.isTrue(horizon > 0, "horizon");
+    ArgChecker.isTrue(periods > 0, "periods");
     if (!ArgChecker.isInRangeInclusive(0, 1, quantile)) {
       throw new IllegalArgumentException("Quantile must be between 0 and 1");
     }

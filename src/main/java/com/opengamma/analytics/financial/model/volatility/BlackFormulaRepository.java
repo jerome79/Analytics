@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -969,13 +968,13 @@ public abstract class BlackFormulaRepository {
    * @return The implied volatility of the portfolio
    */
   public static double impliedVolatility(final SimpleOptionData[] data, final double price) {
-    Validate.notEmpty(data, "no option data given");
+    ArgChecker.notEmpty(data, "no option data given");
     double intrinsicPrice = 0.0;
     for (final SimpleOptionData option : data) {
       intrinsicPrice += Math.max(0, (option.isCall() ? 1 : -1) * option.getDiscountFactor() *
           (option.getForward() - option.getStrike()));
     }
-    Validate.isTrue(price >= intrinsicPrice, "option price (" + price + ") less than intrinsic value (" +
+    ArgChecker.isTrue(price >= intrinsicPrice, "option price (" + price + ") less than intrinsic value (" +
         intrinsicPrice + ")");
 
     if (Double.doubleToLongBits(price) == Double.doubleToLongBits(intrinsicPrice)) {
@@ -1022,9 +1021,9 @@ public abstract class BlackFormulaRepository {
 
   public static double impliedStrike(final double delta, final boolean isCall, final double forward, final double time,
       final double volatility) {
-    Validate.isTrue(delta > -1 && delta < 1, "Delta out of range");
-    Validate.isTrue(isCall ^ (delta < 0), "Delta incompatible with call/put: " + isCall + ", " + delta);
-    Validate.isTrue(forward > 0, "Forward negative");
+    ArgChecker.isTrue(delta > -1 && delta < 1, "Delta out of range");
+    ArgChecker.isTrue(isCall ^ (delta < 0), "Delta incompatible with call/put: " + isCall + ", " + delta);
+    ArgChecker.isTrue(forward > 0, "Forward negative");
     final double omega = (isCall ? 1.0 : -1.0);
     final double strike = forward *
         Math.exp(-volatility * Math.sqrt(time) * omega * NORMAL.getInverseCDF(omega * delta) + volatility * volatility *
@@ -1046,9 +1045,9 @@ public abstract class BlackFormulaRepository {
    */
   public static double impliedStrike(final double delta, final boolean isCall, final double forward, final double time,
       final double volatility, final double[] derivatives) {
-    Validate.isTrue(delta > -1 && delta < 1, "Delta out of range");
-    Validate.isTrue(isCall ^ (delta < 0), "Delta incompatible with call/put: " + isCall + ", " + delta);
-    Validate.isTrue(forward > 0, "Forward negative");
+    ArgChecker.isTrue(delta > -1 && delta < 1, "Delta out of range");
+    ArgChecker.isTrue(isCall ^ (delta < 0), "Delta incompatible with call/put: " + isCall + ", " + delta);
+    ArgChecker.isTrue(forward > 0, "Forward negative");
     final double omega = (isCall ? 1.0 : -1.0);
     final double sqrtt = Math.sqrt(time);
     final double n = NORMAL.getInverseCDF(omega * delta);

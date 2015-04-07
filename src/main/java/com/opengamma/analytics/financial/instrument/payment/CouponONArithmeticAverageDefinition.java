@@ -13,8 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalDouble;
 
-import org.apache.commons.lang.ArrayUtils;
-
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -124,7 +123,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
     fixingStartDateList.remove(fixingPeriodEndDate);
     _fixingPeriodStartDates = fixingStartDateList.toArray(new ZonedDateTime[fixingStartDateList.size()]);
     _fixingPeriodEndDates = fixingEndDateList.toArray(new ZonedDateTime[fixingEndDateList.size()]);
-    _fixingPeriodAccrualFactors = ArrayUtils.toPrimitive(fixingAccrualFactorList.toArray(new Double[fixingAccrualFactorList.size()]));
+    _fixingPeriodAccrualFactors = Doubles.toArray(fixingAccrualFactorList);
   }
 
   /**
@@ -176,7 +175,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
     }
     final ZonedDateTime[] fixingPeriodStartDates = fixingStartDateList.toArray(new ZonedDateTime[fixingStartDateList.size()]);
     final ZonedDateTime[] fixingPeriodEndDates = fixingEndDateList.toArray(new ZonedDateTime[fixingEndDateList.size()]);
-    final double[] fixingPeriodAccrualFactors = ArrayUtils.toPrimitive(fixingAccrualFactorList.toArray(new Double[fixingAccrualFactorList.size()]));
+    final double[] fixingPeriodAccrualFactors = Doubles.toArray(fixingAccrualFactorList);
     return new CouponONArithmeticAverageDefinition(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional, index, fixingPeriodStartDates, fixingPeriodEndDates,
         fixingPeriodAccrualFactors, calendar);
   }

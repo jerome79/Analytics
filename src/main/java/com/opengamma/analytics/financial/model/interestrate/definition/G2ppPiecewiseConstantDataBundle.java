@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.G2ppProviderDiscount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing the data required to price interest rate derivatives with G2++ (curves and parameters).
@@ -30,7 +30,7 @@ public class G2ppPiecewiseConstantDataBundle extends YieldCurveBundle {
    */
   public G2ppPiecewiseConstantDataBundle(final G2ppPiecewiseConstantParameters g2ppParameters, final YieldCurveBundle curves) {
     super(curves);
-    Validate.notNull(g2ppParameters, "G2++ parameters");
+    ArgChecker.notNull(g2ppParameters, "G2++ parameters");
     _parameters = g2ppParameters;
   }
 
@@ -71,7 +71,7 @@ public class G2ppPiecewiseConstantDataBundle extends YieldCurveBundle {
       return false;
     }
     final G2ppPiecewiseConstantDataBundle other = (G2ppPiecewiseConstantDataBundle) obj;
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

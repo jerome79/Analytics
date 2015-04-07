@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.statistics.descriptive;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the quartile skewness coefficient, which is given by:
@@ -30,9 +30,9 @@ public class QuartileSkewnessCalculator implements Function<double[], Double> {
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     final int n = x.length;
-    Validate.isTrue(n >= 3, "Need at least three points to calculate interquartile range");
+    ArgChecker.isTrue(n >= 3, "Need at least three points to calculate interquartile range");
     if (n == 3) {
       return (x[2] - 2 * x[1] + x[0]) / 2.;
     }

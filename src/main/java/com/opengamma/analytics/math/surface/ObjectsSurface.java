@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.surface;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Parent class for a family of surfaces that have <i>x</i>, <i>y</i> and <i>z</i> values of any type.
@@ -28,11 +28,11 @@ public abstract class ObjectsSurface<T, U, V> extends Surface<T, U, V> {
    */
   public ObjectsSurface(final T[] xData, final U[] yData, final V[] zData) {
     super();
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.length == yData.length);
-    Validate.isTrue(xData.length == zData.length);
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.length == yData.length);
+    ArgChecker.isTrue(xData.length == zData.length);
     _n = xData.length;
     _xData = Arrays.copyOf(xData, _n);
     _yData = Arrays.copyOf(yData, _n);
@@ -47,11 +47,11 @@ public abstract class ObjectsSurface<T, U, V> extends Surface<T, U, V> {
    */
   public ObjectsSurface(final T[] xData, final U[] yData, final V[] zData, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.isTrue(xData.length == yData.length);
-    Validate.isTrue(xData.length == zData.length);
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.isTrue(xData.length == yData.length);
+    ArgChecker.isTrue(xData.length == zData.length);
     _n = xData.length;
     _xData = Arrays.copyOf(xData, _n);
     _yData = Arrays.copyOf(yData, _n);

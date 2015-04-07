@@ -8,9 +8,7 @@ package com.opengamma.analytics.math.surface;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
@@ -251,12 +249,12 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(points, "points");
-    Validate.notNull(curves, "curves");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(curves, "curves");
     final int n = points.length;
-    Validate.isTrue(points.length > 0 && points.length == curves.length);
-    Validate.noNullElements(curves, "curves");
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(points.length > 0 && points.length == curves.length, "points size must equal curves size");
+    ArgChecker.noNulls(curves, "curves");
+    ArgChecker.notNull(interpolator, "interpolator");
     _xzCurves = xzCurves;
     _points = Arrays.copyOf(points, n);
     _curves = Arrays.copyOf(curves, n);
@@ -278,18 +276,18 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(points, "points");
-    Validate.notNull(curves, "curves");
-    Validate.isTrue(points.length > 0 && points.length == curves.length);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.isTrue(points.length > 0 && points.length == curves.length, "points size must equal curves size");
+    ArgChecker.notNull(interpolator, "interpolator");
     _nCurves = points.length;
     _xzCurves = xzCurves;
     _curves = curves;
     _points = new double[_nCurves];
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points[i];
-      Validate.notNull(x, "x");
-      Validate.notNull(_curves[i], "curve " + i);
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(_curves[i], "curve " + i);
       _points[i] = x;
     }
     _interpolator = interpolator;
@@ -310,10 +308,10 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(points, "points");
-    Validate.notNull(curves, "curves");
-    Validate.isTrue(points.size() > 0 && points.size() == curves.size());
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.isTrue(points.size() > 0 && points.size() == curves.size(), "points size must equal curves size");
+    ArgChecker.notNull(interpolator, "interpolator");
     _nCurves = points.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
@@ -321,8 +319,8 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points.get(i);
       final Curve<Double, Double> curve = curves.get(i);
-      Validate.notNull(x, "x");
-      Validate.notNull(curve, "curve");
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(curve, "curve");
       _points[i] = x;
       _curves[i] = curve;
     }
@@ -342,9 +340,9 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves, final Interpolator1D interpolator,
       final boolean isSorted) {
     super();
-    Validate.notNull(curves, "curves");
-    Validate.notNull(interpolator, "interpolator");
-    Validate.notEmpty(curves, "curves");
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(interpolator, "interpolator");
+    ArgChecker.notEmpty(curves, "curves");
     _nCurves = curves.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
@@ -353,8 +351,8 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     for (final Map.Entry<Double, Curve<Double, Double>> entry : curves.entrySet()) {
       final Double x = entry.getKey();
       final Curve<Double, Double> curve = entry.getValue();
-      Validate.notNull(x, "x");
-      Validate.notNull(curve, "curve");
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(curve, "curve");
       _points[i] = x;
       _curves[i++] = curve;
     }
@@ -376,12 +374,12 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(points, "points");
-    Validate.notNull(curves, "curves");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(curves, "curves");
     final int n = points.length;
-    Validate.isTrue(points.length > 0 && points.length == curves.length);
-    Validate.noNullElements(curves, "curves");
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(points.length > 0 && points.length == curves.length, "points size must equal curves size");
+    ArgChecker.noNulls(curves, "curves");
+    ArgChecker.notNull(interpolator, "interpolator");
     _xzCurves = xzCurves;
     _points = Arrays.copyOf(points, n);
     _curves = Arrays.copyOf(curves, n);
@@ -405,10 +403,10 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(points, "points");
-    Validate.notNull(curves, "curves");
-    Validate.isTrue(points.length > 0 && points.length == curves.length);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.isTrue(points.length > 0 && points.length == curves.length, "points size must equal curves size");
+    ArgChecker.notNull(interpolator, "interpolator");
     _nCurves = points.length;
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
@@ -416,8 +414,8 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points[i];
       final Curve<Double, Double> curve = curves[i];
-      Validate.notNull(x, "x");
-      Validate.notNull(curve, "curve");
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(curve, "curve");
       _points[i] = x;
       _curves[i] = curve;
     }
@@ -440,10 +438,10 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(points, "points");
-    Validate.notNull(curves, "curves");
-    Validate.isTrue(points.size() > 0 && points.size() == curves.size());
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.isTrue(points.size() > 0 && points.size() == curves.size(), "points size must equal curves size");
+    ArgChecker.notNull(interpolator, "interpolator");
     _nCurves = points.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
@@ -451,8 +449,8 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points.get(i);
       final Curve<Double, Double> curve = curves.get(i);
-      Validate.notNull(x, "x");
-      Validate.notNull(curve, "curve");
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(curve, "curve");
       _points[i] = x;
       _curves[i] = curve;
     }
@@ -473,9 +471,9 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves, final Interpolator1D interpolator,
       final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(curves, "curves");
-    Validate.notNull(interpolator, "interpolator");
-    Validate.notEmpty(curves, "curves");
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(interpolator, "interpolator");
+    ArgChecker.notEmpty(curves, "curves");
     _nCurves = curves.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
@@ -484,8 +482,8 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     for (final Map.Entry<Double, Curve<Double, Double>> entry : curves.entrySet()) {
       final Double x = entry.getKey();
       final Curve<Double, Double> curve = entry.getValue();
-      Validate.notNull(x, "x");
-      Validate.notNull(curve, "curve");
+      ArgChecker.notNull(x, "x");
+      ArgChecker.notNull(curve, "curve");
       _points[i] = x;
       _curves[i++] = curve;
     }
@@ -500,8 +498,8 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    */
   @Override
   public Double getZValue(final Double x, final Double y) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
     final double[] z = new double[_nCurves];
     int i = 0;
     if (_xzCurves) {
@@ -626,7 +624,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     if (_xzCurves != other._xzCurves) {
       return false;
     }
-    return ObjectUtils.equals(_interpolator, other._interpolator);
+    return Objects.equals(_interpolator, other._interpolator);
   }
 
 }

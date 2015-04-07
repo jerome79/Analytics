@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionVanilla;
 import com.opengamma.analytics.financial.forex.method.PresentValueForexBlackVolatilitySensitivity;
 import com.opengamma.analytics.financial.model.option.definition.SmileDeltaParameters;
@@ -25,6 +23,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multipl
 import com.opengamma.analytics.util.amount.SurfaceValue;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -66,9 +65,9 @@ public final class ForexOptionVanillaVannaVolgaMethod {
    * @return The present value. The value is in the domestic currency (currency 2).
    */
   public MultiCurrencyAmount presentValue(final ForexOptionVanilla optionForex, final BlackForexVannaVolgaProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double dfDomestic = multicurves.getDiscountFactor(optionForex.getCurrency2(), optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = multicurves.getDiscountFactor(optionForex.getCurrency1(), optionForex.getUnderlyingForex().getPaymentTime());
@@ -105,9 +104,9 @@ public final class ForexOptionVanillaVannaVolgaMethod {
    * @return The currency exposure
    */
   public MultiCurrencyAmount currencyExposure(final ForexOptionVanilla optionForex, final BlackForexVannaVolgaProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double dfDomestic = multicurves.getDiscountFactor(optionForex.getCurrency2(), optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = multicurves.getDiscountFactor(optionForex.getCurrency1(), optionForex.getUnderlyingForex().getPaymentTime());
@@ -155,9 +154,9 @@ public final class ForexOptionVanillaVannaVolgaMethod {
    * @return The volatility sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final ForexOptionVanilla optionForex, final BlackForexVannaVolgaProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double dfDomestic = multicurves.getDiscountFactor(optionForex.getCurrency2(), optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = multicurves.getDiscountFactor(optionForex.getCurrency1(), optionForex.getUnderlyingForex().getPaymentTime());
@@ -208,9 +207,9 @@ public final class ForexOptionVanillaVannaVolgaMethod {
    * @return The curve sensitivity.
    */
   public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final ForexOptionVanilla optionForex, final BlackForexVannaVolgaProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final SmileDeltaParameters smileAtTime = smileMulticurves.getSmile(optionForex.getCurrency1(), optionForex.getCurrency2(), optionForex.getTimeToExpiry());
     final double payTime = optionForex.getUnderlyingForex().getPaymentTime();

@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.option.definition.Barrier.BarrierType;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockType;
@@ -29,7 +28,7 @@ public class EuropeanStandardBarrierOptionDefinition extends OptionDefinition {
 
   public EuropeanStandardBarrierOptionDefinition(final double strike, final Expiry expiry, final boolean isCall, final Barrier barrier, final double rebate) {
     super(strike, expiry, isCall);
-    Validate.notNull(barrier);
+    ArgChecker.notNull(barrier, "barrier");
     ArgChecker.notNegative(rebate, "rebate");
     _barrier = barrier;
     _payoffFunction = new MyOptionPayoffFunction(barrier, new EuropeanVanillaOptionDefinition(strike, expiry, isCall), rebate);
@@ -82,7 +81,7 @@ public class EuropeanStandardBarrierOptionDefinition extends OptionDefinition {
       return false;
     }
     final EuropeanStandardBarrierOptionDefinition other = (EuropeanStandardBarrierOptionDefinition) obj;
-    return ObjectUtils.equals(_barrier, other._barrier) && Double.doubleToLongBits(_rebate) == Double.doubleToLongBits(other._rebate);
+    return Objects.equals(_barrier, other._barrier) && Double.doubleToLongBits(_rebate) == Double.doubleToLongBits(other._rebate);
   }
 
   //TODO promote to its own class

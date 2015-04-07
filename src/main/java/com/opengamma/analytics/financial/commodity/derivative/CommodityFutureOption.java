@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.commodity.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -111,10 +111,10 @@ public abstract class CommodityFutureOption<T extends CommodityFuture> implement
       return false;
     }
     final CommodityFutureOption<?> other = (CommodityFutureOption<?>) obj;
-    if (!ObjectUtils.equals(_underlying, other._underlying)) {
+    if (!Objects.equals(_underlying, other._underlying)) {
       return false;
     }
-    if (!ObjectUtils.equals(_exerciseType, other._exerciseType)) {
+    if (!Objects.equals(_exerciseType, other._exerciseType)) {
       return false;
     }
     if (Double.compare(_expiry, other._expiry) != 0) {

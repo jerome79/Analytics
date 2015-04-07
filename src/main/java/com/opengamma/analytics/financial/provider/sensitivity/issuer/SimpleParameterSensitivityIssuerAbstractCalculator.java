@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.provider.sensitivity.issuer;
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterIssuerProviderInterface;
@@ -48,9 +46,9 @@ public abstract class SimpleParameterSensitivityIssuerAbstractCalculator<DATA_TY
    * @return The sensitivity (as a ParameterSensitivity).
    */
   public SimpleParameterSensitivity calculateSensitivity(final InstrumentDerivative instrument, final DATA_TYPE multicurves, final Set<String> curvesSet) {
-    Validate.notNull(instrument, "null InterestRateDerivative");
-    Validate.notNull(multicurves, "null multicurve");
-    Validate.notNull(curvesSet, "null curves set");
+    ArgChecker.notNull(instrument, "null InterestRateDerivative");
+    ArgChecker.notNull(multicurves, "null multicurve");
+    ArgChecker.notNull(curvesSet, "null curves set");
     MulticurveSensitivity sensitivity = instrument.accept(_curveSensitivityCalculator, multicurves);
     sensitivity = sensitivity.cleaned(); // TODO: for testing purposes mainly. Could be removed after the tests.
     return pointToParameterSensitivity(sensitivity, multicurves, curvesSet);

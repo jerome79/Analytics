@@ -17,11 +17,10 @@ import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static com.opengamma.analytics.math.number.ComplexNumber.I;
 import static com.opengamma.analytics.math.number.ComplexNumber.ZERO;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.volatility.smile.function.HestonModelData;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The Heston stochastic volatility model is defined as:
@@ -77,7 +76,7 @@ public class HestonCharacteristicExponent implements MartingaleCharacteristicExp
   }
 
   public HestonCharacteristicExponent(final HestonModelData data) {
-    Validate.notNull(data, "null data");
+    ArgChecker.notNull(data, "null data");
     _kappa = data.getKappa();
     _theta = data.getTheta();
     _vol0 = data.getVol0();

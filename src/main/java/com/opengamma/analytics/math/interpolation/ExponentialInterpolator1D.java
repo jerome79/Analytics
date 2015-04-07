@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
@@ -23,8 +21,8 @@ public class ExponentialInterpolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
     InterpolationBoundedValues boundedValues = data.getBoundedValues(value);
     Double x1 = boundedValues.getLowerBoundKey();
     Double y1 = boundedValues.getLowerBoundValue();
@@ -38,8 +36,8 @@ public class ExponentialInterpolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
     int lowerIndex = data.getLowerBoundIndex(value);
     if (lowerIndex == data.size() - 1) {
       --lowerIndex;

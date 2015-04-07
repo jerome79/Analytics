@@ -7,14 +7,13 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 
 import static com.opengamma.analytics.math.FunctionUtils.square;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Expansion from Paulot, Louis, Asymptotic Implied Volatility at the Second Order With Applications to the SABR Model (2009)
@@ -31,7 +30,7 @@ public class SABRPaulotVolatilityFunction extends VolatilityFunctionProvider<SAB
 
   @Override
   public Function1D<SABRFormulaData, Double> getVolatilityFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
+    ArgChecker.notNull(option, "option");
     final double strike = option.getStrike();
 
     final double cutoff = forward * CUTOFF_MONEYNESS;
@@ -49,7 +48,7 @@ public class SABRPaulotVolatilityFunction extends VolatilityFunctionProvider<SAB
       @SuppressWarnings("synthetic-access")
       @Override
       public final Double evaluate(final SABRFormulaData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double alpha = data.getAlpha();
         final double beta = data.getBeta();
         final double rho = data.getRho();
@@ -64,7 +63,7 @@ public class SABRPaulotVolatilityFunction extends VolatilityFunctionProvider<SAB
           if (CompareUtils.closeEquals(beta, 1.0, EPS)) {
             return alpha; // this is just log-normal
           }
-          throw new NotImplementedException("Have not implemented the case where nu = 0, beta != 0");
+          throw new UnsupportedOperationException("Have not implemented the case where nu = 0, beta != 0");
         }
 
         // the formula behaves very badly close to ATM

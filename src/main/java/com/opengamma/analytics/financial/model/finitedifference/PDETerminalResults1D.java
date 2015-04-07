@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Holds the result of the PDE solver on the final time slice only
@@ -16,7 +16,7 @@ public class PDETerminalResults1D implements PDEResults1D {
   private final PDEGrid1D _grid;
 
   public PDETerminalResults1D(final PDEGrid1D grid, final double[] finalTimeStep) {
-    Validate.isTrue(grid.getNumSpaceNodes() == finalTimeStep.length, "space steps in grid not equal to that in data");
+    ArgChecker.isTrue(grid.getNumSpaceNodes() == finalTimeStep.length, "space steps in grid not equal to that in data");
     _f = finalTimeStep;
     _grid = grid;
   }
@@ -75,7 +75,7 @@ public class PDETerminalResults1D implements PDEResults1D {
   }
 
   private void checkSpaceIndex(final int spaceIndex) {
-    Validate.isTrue(spaceIndex >= 0 && spaceIndex < _grid.getNumSpaceNodes(), "spaceIndex out of range");
+    ArgChecker.isTrue(spaceIndex >= 0 && spaceIndex < _grid.getNumSpaceNodes(), "spaceIndex out of range");
   }
 
   @Override

@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.interestrate.payments.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -17,6 +15,7 @@ import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIbor;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -52,8 +51,8 @@ public final class CouponIborDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CouponIbor coupon, final YieldCurveBundle curves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(coupon.getForwardCurveName());
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(coupon.getFundingCurveName());
     final double forward = (forwardCurve.getDiscountFactor(coupon.getFixingPeriodStartTime()) / forwardCurve.getDiscountFactor(coupon.getFixingPeriodEndTime()) - 1) / coupon.getFixingAccrualFactor();
@@ -64,7 +63,7 @@ public final class CouponIborDiscountingMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponIbor, "Coupon Ibor");
+    ArgChecker.isTrue(instrument instanceof CouponIbor, "Coupon Ibor");
     return presentValue((CouponIbor) instrument, curves);
   }
 
@@ -75,8 +74,8 @@ public final class CouponIborDiscountingMethod implements PricingMethod {
    * @return The present value sensitivity.
    */
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final CouponIbor coupon, final YieldCurveBundle curves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(coupon.getForwardCurveName());
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(coupon.getFundingCurveName());
     final double df = discountingCurve.getDiscountFactor(coupon.getPaymentTime());
@@ -107,8 +106,8 @@ public final class CouponIborDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public double parRate(final CouponIbor coupon, final YieldCurveBundle curves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve curve = curves.getCurve(coupon.getForwardCurveName());
     return (curve.getDiscountFactor(coupon.getFixingPeriodStartTime()) / curve.getDiscountFactor(coupon.getFixingPeriodEndTime()) - 1.0) / coupon.getFixingAccrualFactor();
   }
@@ -120,8 +119,8 @@ public final class CouponIborDiscountingMethod implements PricingMethod {
    * @return The par rate curve sensitivity.
    */
   public InterestRateCurveSensitivity parRateCurveSensitivity(final CouponIbor coupon, final YieldCurveBundle curves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(coupon.getForwardCurveName());
     final double dfForwardStart = forwardCurve.getDiscountFactor(coupon.getFixingPeriodStartTime());
     final double dfForwardEnd = forwardCurve.getDiscountFactor(coupon.getFixingPeriodEndTime());

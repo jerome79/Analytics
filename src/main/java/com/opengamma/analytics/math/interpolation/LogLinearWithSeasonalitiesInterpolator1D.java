@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.MaxIterationsExceededException;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
@@ -16,6 +15,7 @@ import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBu
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  A one-dimensional interpolator using a vector of 12 values as input(seasonalities). The interpolated value of the function
@@ -45,8 +45,8 @@ public class LogLinearWithSeasonalitiesInterpolator1D extends Interpolator1D {
    *
    */
   public LogLinearWithSeasonalitiesInterpolator1D(final double[] monthlyFactors) {
-    Validate.notNull(monthlyFactors, "Monthly factors");
-    Validate.isTrue(monthlyFactors.length == 11, "Monthly factors with incorrect length; should be 11");
+    ArgChecker.notNull(monthlyFactors, "Monthly factors");
+    ArgChecker.isTrue(monthlyFactors.length == 11, "Monthly factors with incorrect length; should be 11");
     double sum = 0.0;
     final double[] seasonalValues = new double[NB_MONTH];
     for (int loopmonth = 0; loopmonth < NB_MONTH - 1; loopmonth++) {
@@ -59,8 +59,8 @@ public class LogLinearWithSeasonalitiesInterpolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle model, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(model, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(model, "data bundle");
     final InterpolationBoundedValues boundedValues = model.getBoundedValues(value);
     final Double x1 = boundedValues.getLowerBoundKey();
     final Double y1 = boundedValues.getLowerBoundValue();

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.fourier;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +15,7 @@ import com.opengamma.analytics.math.number.ComplexNumber;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A calculator to determine the upper limit of the Fourier integral for a
@@ -44,9 +44,9 @@ public class IntegralLimitCalculator {
    * @return The root
    */
   public double solve(final Function1D<ComplexNumber, ComplexNumber> psi, final double alpha, final double tol) {
-    Validate.notNull(psi, "psi null");
-    Validate.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
-    Validate.isTrue(tol > 0.0, "need tol > 0");
+    ArgChecker.notNull(psi, "psi null");
+    ArgChecker.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
+    ArgChecker.isTrue(tol > 0.0, "need tol > 0");
 
     final double k = Math.log(tol) + Math.log(ComplexMathUtils.mod(psi.evaluate(new ComplexNumber(0.0, -(1 + alpha)))));
     final Function1D<Double, Double> f = new Function1D<Double, Double>() {

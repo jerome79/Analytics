@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class used to compute interest rate instrument sensitivity by finite difference.
@@ -39,10 +38,10 @@ public class SensitivityFiniteDifference {
   public static double[] curveSensitivity(final InstrumentDerivative instrument, final YieldCurveBundle curves, final double pv,
       final String curveToBumpName, final String curveBumpedName, final double[] nodeTimes,
       final double deltaShift, final PricingMethod method, final FiniteDifferenceType differenceType) {
-    Validate.notNull(instrument, "Instrument");
-    Validate.notNull(curves, "Curves");
-    Validate.notNull(method, "Method");
-    Validate.notNull(differenceType, "Difference type");
+    ArgChecker.notNull(instrument, "Instrument");
+    ArgChecker.notNull(curves, "Curves");
+    ArgChecker.notNull(method, "Method");
+    ArgChecker.notNull(differenceType, "Difference type");
     final int nbNode = nodeTimes.length;
     final double[] result = new double[nbNode];
     final YieldAndDiscountCurve curveToBump = curves.getCurve(curveToBumpName);

@@ -7,12 +7,11 @@ package com.opengamma.analytics.math.minimization;
 
 import static com.opengamma.analytics.math.matrix.MatrixAlgebraFactory.OG_ALGEBRA;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.differentiation.ScalarFieldFirstOrderDifferentiator;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This implementation of the conjugate gradient method is taken from <i>"An Introduction to the Conjugate Gradient Method Without the Agonizing Pain", Shewchuk</i>.
@@ -52,10 +51,10 @@ public class ConjugateGradientVectorMinimizer implements MinimizerWithGradient<F
    * @param maxIterations The number of iterations, greater than one
    */
   public ConjugateGradientVectorMinimizer(final ScalarMinimizer minimizer, final double relativeTolerance, final double absoluteTolerance, final int maxIterations) {
-    Validate.notNull(minimizer, "minimizer");
-    Validate.isTrue(relativeTolerance > 0.0 || relativeTolerance < 1.0, "relative tolerance must be greater than 0.0 and less than 1.0");
-    Validate.isTrue(absoluteTolerance > SMALL, "absolute tolerance must be greater than " + SMALL);
-    Validate.isTrue(maxIterations >= 1, "Need at least one iteration");
+    ArgChecker.notNull(minimizer, "minimizer");
+    ArgChecker.isTrue(relativeTolerance > 0.0 || relativeTolerance < 1.0, "relative tolerance must be greater than 0.0 and less than 1.0");
+    ArgChecker.isTrue(absoluteTolerance > SMALL, "absolute tolerance must be greater than " + SMALL);
+    ArgChecker.isTrue(maxIterations >= 1, "Need at least one iteration");
     _lineSearch = new LineSearch(minimizer);
     _relTol = relativeTolerance;
     _absTol = absoluteTolerance;
@@ -67,8 +66,8 @@ public class ConjugateGradientVectorMinimizer implements MinimizerWithGradient<F
    */
   @Override
   public DoubleMatrix1D minimize(final Function1D<DoubleMatrix1D, Double> function, final DoubleMatrix1D startPosition) {
-    Validate.notNull(function, "function");
-    Validate.notNull(startPosition, "start position");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(startPosition, "start position");
     final ScalarFieldFirstOrderDifferentiator diff = new ScalarFieldFirstOrderDifferentiator();
     final Function1D<DoubleMatrix1D, DoubleMatrix1D> grad = diff.differentiate(function);
     return minimize(function, grad, startPosition);
@@ -79,9 +78,9 @@ public class ConjugateGradientVectorMinimizer implements MinimizerWithGradient<F
    */
   @Override
   public DoubleMatrix1D minimize(final Function1D<DoubleMatrix1D, Double> function, final Function1D<DoubleMatrix1D, DoubleMatrix1D> grad, final DoubleMatrix1D startPosition) {
-    Validate.notNull(function, "function");
-    Validate.notNull(grad, "grad");
-    Validate.notNull(startPosition, "start position");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(grad, "grad");
+    ArgChecker.notNull(startPosition, "start position");
     final int n = startPosition.getNumberOfElements();
     DoubleMatrix1D x = startPosition;
     DoubleMatrix1D deltaX;

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -22,6 +20,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -56,8 +55,8 @@ public final class PresentValueBasisPointCurveSensitivityCalculator extends Inst
   }
 
   public InterestRateCurveSensitivity visitCoupon(final Coupon coupon, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(coupon);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(coupon, "coupon");
     final YieldAndDiscountCurve fundingCurve = curves.getCurve(coupon.getFundingCurveName());
     final double df = fundingCurve.getDiscountFactor(coupon.getPaymentTime());
     // Backward sweep
@@ -92,8 +91,8 @@ public final class PresentValueBasisPointCurveSensitivityCalculator extends Inst
 
   @Override
   public InterestRateCurveSensitivity visitGenericAnnuity(final Annuity<? extends Payment> annuity, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(annuity);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(annuity, "annuity");
     InterestRateCurveSensitivity pvbpSensi = new InterestRateCurveSensitivity();
     for (final Payment p : annuity.getPayments()) {
       pvbpSensi = pvbpSensi.plus(p.accept(this, curves));

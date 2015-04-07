@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts an {@link InterpolatedDoublesCube}. If the <i>(x, y)</i> value(s) of the shift(s) are not in the nodal points of the
@@ -22,7 +22,7 @@ public class InterpolatedCubeMultiplicativeShiftFunction implements CubeShiftFun
    */
   @Override
   public InterpolatedDoublesCube evaluate(final InterpolatedDoublesCube cube, final double percentage) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     return evaluate(cube, percentage, "CONSTANT_MULTIPLIER_" + cube.getName());
   }
 
@@ -31,7 +31,7 @@ public class InterpolatedCubeMultiplicativeShiftFunction implements CubeShiftFun
    */
   @Override
   public InterpolatedDoublesCube evaluate(final InterpolatedDoublesCube cube, final double percentage, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final double[] xData = cube.getXDataAsPrimitive();
     final double[] yData = cube.getYDataAsPrimitive();
     final double[] zData = cube.getZDataAsPrimitive();
@@ -48,7 +48,7 @@ public class InterpolatedCubeMultiplicativeShiftFunction implements CubeShiftFun
    */
   @Override
   public InterpolatedDoublesCube evaluate(final InterpolatedDoublesCube cube, final double x, final double y, final double z, final double percentage) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     return evaluate(cube, x, y, z, percentage, "SINGLE_MULTIPLIER_" + cube.getName());
   }
 
@@ -57,7 +57,7 @@ public class InterpolatedCubeMultiplicativeShiftFunction implements CubeShiftFun
    */
   @Override
   public InterpolatedDoublesCube evaluate(final InterpolatedDoublesCube cube, final double x, final double y, final double z, final double percentage, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final double[] xData = cube.getXDataAsPrimitive();
     final double[] yData = cube.getYDataAsPrimitive();
     final double[] zData = cube.getZDataAsPrimitive();
@@ -94,7 +94,7 @@ public class InterpolatedCubeMultiplicativeShiftFunction implements CubeShiftFun
    */
   @Override
   public InterpolatedDoublesCube evaluate(final InterpolatedDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] percentage) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     return evaluate(cube, xShift, yShift, zShift, percentage, "MULTIPLE_MULTIPLIER_" + cube.getName());
   }
 
@@ -103,16 +103,16 @@ public class InterpolatedCubeMultiplicativeShiftFunction implements CubeShiftFun
    */
   @Override
   public InterpolatedDoublesCube evaluate(final InterpolatedDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] percentage, final String newName) {
-    Validate.notNull(cube, "cube");
-    Validate.notNull(xShift, "x shift");
-    Validate.notNull(yShift, "y shift");
-    Validate.notNull(zShift, "z shift");
-    Validate.notNull(percentage, "shifts");
+    ArgChecker.notNull(cube, "cube");
+    ArgChecker.notNull(xShift, "x shift");
+    ArgChecker.notNull(yShift, "y shift");
+    ArgChecker.notNull(zShift, "z shift");
+    ArgChecker.notNull(percentage, "shifts");
     final int n = xShift.length;
     if (n == 0) {
       return InterpolatedDoublesCube.from(cube.getXDataAsPrimitive(), cube.getYDataAsPrimitive(), cube.getZDataAsPrimitive(), cube.getValuesAsPrimitive(), cube.getInterpolator(), newName);
     }
-    Validate.isTrue(n == yShift.length && n == zShift.length && n == percentage.length);
+    ArgChecker.isTrue(n == yShift.length && n == zShift.length && n == percentage.length);
     final Double[] x = cube.getXData();
     final Double[] y = cube.getYData();
     final Double[] z = cube.getZData();

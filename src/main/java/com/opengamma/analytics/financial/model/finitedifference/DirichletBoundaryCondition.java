@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Dirichlet boundary condition, i.e. u(A,t) = f(t), where A is the boundary level, and f(t) is some specified function of time
@@ -23,7 +22,7 @@ public class DirichletBoundaryCondition implements BoundaryCondition {
    * @param level The boundary level (A)
    */
   public DirichletBoundaryCondition(final Function1D<Double, Double> timeValue, double level) {
-    Validate.notNull(timeValue, "null timeValue");
+    ArgChecker.notNull(timeValue, "null timeValue");
     _timeValue = timeValue;
     _level = level;
   }

@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class for defining the integration of 1-D functions.
@@ -25,13 +25,13 @@ public abstract class Integrator1D<T, U> implements Integrator<T, U, Function1D<
    */
   @Override
   public T integrate(final Function1D<U, T> f, final U[] lower, final U[] upper) {
-    Validate.notNull(f, "function was null");
-    Validate.notNull(lower, "lower bound array was null");
-    Validate.notNull(upper, "upper bound array was null");
-    Validate.notEmpty(lower, "lower bound array was empty");
-    Validate.notEmpty(upper, "upper bound array was empty");
-    Validate.notNull(lower[0], "lower bound was null");
-    Validate.notNull(upper[0], "upper bound was null");
+    ArgChecker.notNull(f, "function was null");
+    ArgChecker.notNull(lower, "lower bound array was null");
+    ArgChecker.notNull(upper, "upper bound array was null");
+    ArgChecker.notEmpty(lower, "lower bound array was empty");
+    ArgChecker.notEmpty(upper, "upper bound array was empty");
+    ArgChecker.notNull(lower[0], "lower bound was null");
+    ArgChecker.notNull(upper[0], "upper bound was null");
     if (lower.length > 1) {
       s_logger.info("Lower bound array had more than one element; only using the first");
     }

@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class representing the Heaviside step function, defined as:
@@ -26,7 +25,7 @@ public class HeavisideFunction extends Function1D<Double, Double> {
 
   @Override
   public Double evaluate(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     if (x < 0) {
       return 0.;
     }

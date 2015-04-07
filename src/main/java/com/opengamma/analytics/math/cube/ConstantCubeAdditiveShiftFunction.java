@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.cube;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts a {@link ConstantDoublesCube}. Only parallel shifts of the cube are supported.
@@ -17,7 +17,7 @@ public class ConstantCubeAdditiveShiftFunction implements CubeShiftFunction<Cons
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double shift) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     return evaluate(cube, shift, "PARALLEL_SHIFT_" + cube.getName());
   }
 
@@ -26,7 +26,7 @@ public class ConstantCubeAdditiveShiftFunction implements CubeShiftFunction<Cons
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double shift, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final double v = cube.getValue(0., 0., 0.);
     return ConstantDoublesCube.from(v + shift, newName);
   }

@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.interestrate.inflation.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Interface to inflation coupons.
@@ -32,7 +32,7 @@ public abstract class CouponInflation extends Coupon {
    */
   public CouponInflation(final Currency currency, final double paymentTime, final double paymentYearFraction, final double notional, final IndexPrice priceIndex) {
     super(currency, paymentTime, paymentYearFraction, notional);
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     _priceIndex = priceIndex;
   }
 
@@ -69,7 +69,7 @@ public abstract class CouponInflation extends Coupon {
       return false;
     }
     final CouponInflation other = (CouponInflation) obj;
-    if (!ObjectUtils.equals(_priceIndex, other._priceIndex)) {
+    if (!Objects.equals(_priceIndex, other._priceIndex)) {
       return false;
     }
     return true;

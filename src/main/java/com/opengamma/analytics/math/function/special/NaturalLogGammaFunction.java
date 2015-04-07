@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.special.Gamma;
 
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class NaturalLogGammaFunction extends Function1D<Double, Double> {
    */
   @Override
   public Double evaluate(final Double x) {
-    Validate.isTrue(x > 0, "x must be greater than zero");
+    ArgChecker.isTrue(x > 0, "x must be greater than zero");
     return Gamma.logGamma(x);
   }
 }

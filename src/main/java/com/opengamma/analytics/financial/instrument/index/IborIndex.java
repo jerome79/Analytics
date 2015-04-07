@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
@@ -154,10 +153,10 @@ public class IborIndex extends IndexDeposit {
       return false;
     }
     final IborIndex other = (IborIndex) obj;
-    if (!ObjectUtils.equals(_businessDayConvention, other._businessDayConvention)) {
+    if (!Objects.equals(_businessDayConvention, other._businessDayConvention)) {
       return false;
     }
-    if (!ObjectUtils.equals(_dayCount, other._dayCount)) {
+    if (!Objects.equals(_dayCount, other._dayCount)) {
       return false;
     }
     if (_endOfMonth != other._endOfMonth) {
@@ -166,7 +165,7 @@ public class IborIndex extends IndexDeposit {
     if (_spotLag != other._spotLag) {
       return false;
     }
-    if (!ObjectUtils.equals(_tenor, other._tenor)) {
+    if (!Objects.equals(_tenor, other._tenor)) {
       return false;
     }
     return true;

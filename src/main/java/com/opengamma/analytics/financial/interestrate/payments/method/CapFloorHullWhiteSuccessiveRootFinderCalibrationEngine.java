@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.interestrate.payments.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.financial.interestrate.method.SuccessiveRootFinde
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.RidderSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Specific calibration engine for the Hull-White one factor model with cap/floor.
@@ -46,7 +45,7 @@ public class CapFloorHullWhiteSuccessiveRootFinderCalibrationEngine extends Succ
    */
   @Override
   public void addInstrument(final InstrumentDerivative instrument, final PricingMethod method) {
-    Validate.isTrue(instrument instanceof CapFloorIbor, "Calibration instruments should be cap/floor");
+    ArgChecker.isTrue(instrument instanceof CapFloorIbor, "Calibration instruments should be cap/floor");
     getBasket().add(instrument);
     getMethod().add(method);
     getCalibrationPrice().add(0.0);
@@ -61,7 +60,7 @@ public class CapFloorHullWhiteSuccessiveRootFinderCalibrationEngine extends Succ
   @Override
   public void addInstrument(final InstrumentDerivative[] instrument, final PricingMethod method) {
     for (final InstrumentDerivative element : instrument) {
-      Validate.isTrue(element instanceof CapFloorIbor, "Calibration instruments should be cap/floor");
+      ArgChecker.isTrue(element instanceof CapFloorIbor, "Calibration instruments should be cap/floor");
       getBasket().add(element);
       getMethod().add(method);
       getCalibrationPrice().add(0.0);

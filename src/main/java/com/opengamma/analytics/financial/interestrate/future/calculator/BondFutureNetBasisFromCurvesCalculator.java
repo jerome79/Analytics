@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.calculator;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuture;
 import com.opengamma.analytics.financial.interestrate.future.method.BondFutureDiscountingMethod;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * @deprecated {@link YieldCurveBundle} is deprecated
@@ -29,8 +28,8 @@ public final class BondFutureNetBasisFromCurvesCalculator extends InstrumentDeri
 
   @Override
   public double[] visitBondFuture(final BondFuture bondFuture, final YieldCurveBundle curves) {
-    Validate.notNull(bondFuture, "bond future");
-    Validate.notNull(curves, "curves");
+    ArgChecker.notNull(bondFuture, "bond future");
+    ArgChecker.notNull(curves, "curves");
     final double futurePrice = CALCULATOR.price(bondFuture, curves);
     return CALCULATOR.netBasisAllBonds(bondFuture, curves, futurePrice);
   }

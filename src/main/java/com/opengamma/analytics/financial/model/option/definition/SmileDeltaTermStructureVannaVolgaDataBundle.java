@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.volatility.surface.SmileDeltaTermStructureParameters;
 import com.opengamma.analytics.financial.model.volatility.surface.SmileDeltaTermStructureParametersStrikeInterpolation;
@@ -63,7 +61,7 @@ public class SmileDeltaTermStructureVannaVolgaDataBundle extends ForexOptionData
     if (ccy1.equals(getCurrencyPair().getFirst()) && ccy2.equals(getCurrencyPair().getSecond())) {
       return smile;
     }
-    throw new NotImplementedException("Currency pair is not in expected order " + getCurrencyPair().toString());
+    throw new UnsupportedOperationException("Currency pair is not in expected order " + getCurrencyPair().toString());
   }
 
   @Override

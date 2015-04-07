@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import static com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.SurfaceArrayUtils.getLowerBoundIndex;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.equity.variance.pricing.AffineDividends;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
@@ -121,10 +121,10 @@ public class ForwardCurveAffineDividends extends ForwardCurve {
       return false;
     }
     final ForwardCurveAffineDividends other = (ForwardCurveAffineDividends) obj;
-    if (!ObjectUtils.equals(getRiskFreeCurve(), other.getRiskFreeCurve())) {
+    if (!Objects.equals(getRiskFreeCurve(), other.getRiskFreeCurve())) {
       return false;
     }
-    if (!ObjectUtils.equals(getDividends(), other.getDividends())) {
+    if (!Objects.equals(getDividends(), other.getDividends())) {
       return false;
     }
     if (Double.doubleToLongBits(getSpot()) != Double.doubleToLongBits(other.getSpot())) {

@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.strata.collect.ArgChecker;
@@ -70,7 +69,7 @@ public abstract class GeneratorInstrument<ATTRIBUTE_TYPE extends GeneratorAttrib
       return false;
     }
     final GeneratorInstrument<?> other = (GeneratorInstrument<?>) obj;
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     return true;

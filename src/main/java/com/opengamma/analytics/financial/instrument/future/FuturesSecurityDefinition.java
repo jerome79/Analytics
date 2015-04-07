@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.future.derivative.FuturesSecurity;
@@ -62,7 +61,7 @@ public abstract class FuturesSecurityDefinition<F extends FuturesSecurity> imple
     }
     @SuppressWarnings("unchecked")
     FuturesSecurityDefinition<F> other = (FuturesSecurityDefinition<F>) obj;
-    if (!ObjectUtils.equals(_lastTradingDate, other._lastTradingDate)) {
+    if (!Objects.equals(_lastTradingDate, other._lastTradingDate)) {
       return false;
     }
     return true;

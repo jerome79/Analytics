@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.forex.definition.ForexSwapDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -158,16 +157,16 @@ public class GeneratorForexSwap extends GeneratorInstrument<GeneratorAttributeFX
       return false;
     }
     final GeneratorForexSwap other = (GeneratorForexSwap) obj;
-    if (!ObjectUtils.equals(_businessDayConvention, other._businessDayConvention)) {
+    if (!Objects.equals(_businessDayConvention, other._businessDayConvention)) {
       return false;
     }
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency1, other._currency1)) {
+    if (!Objects.equals(_currency1, other._currency1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency2, other._currency2)) {
+    if (!Objects.equals(_currency2, other._currency2)) {
       return false;
     }
     if (_endOfMonth != other._endOfMonth) {

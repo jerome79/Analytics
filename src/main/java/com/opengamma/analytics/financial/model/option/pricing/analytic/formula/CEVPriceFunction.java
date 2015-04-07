@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NonCentralChiSquaredDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -27,7 +26,7 @@ public class CEVPriceFunction implements OptionPriceFunction<CEVFunctionData> {
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final CEVFunctionData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double forward = data.getForward();
         final double numeraire = data.getNumeraire();
         final double sigma = data.getVolatility();

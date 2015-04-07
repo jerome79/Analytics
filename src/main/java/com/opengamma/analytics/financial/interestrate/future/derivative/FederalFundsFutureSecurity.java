@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.future.derivative;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -267,10 +266,10 @@ public class FederalFundsFutureSecurity extends FuturesSecurity {
     if (!Arrays.equals(_fixingPeriodTime, other._fixingPeriodTime)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     return true;

@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.math.statistics.distribution;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.special.Gamma;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.special.GammaFunction;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The non-central chi-squared distribution is a continuous probability
@@ -39,8 +38,8 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
    * @param nonCentrality The non-centrality parameter, not negative
    */
   public NonCentralChiSquaredDistribution(final double degrees, final double nonCentrality) {
-    Validate.isTrue(degrees > 0, "degrees of freedom must be > 0, have " + degrees);
-    Validate.isTrue(nonCentrality >= 0, "non-centrality must be >= 0, have " + nonCentrality);
+    ArgChecker.isTrue(degrees > 0, "degrees of freedom must be > 0, have " + degrees);
+    ArgChecker.isTrue(nonCentrality >= 0, "non-centrality must be >= 0, have " + nonCentrality);
     _dofOverTwo = degrees / 2.0;
     _lambdaOverTwo = nonCentrality / 2.0;
     _k = (int) Math.round(_lambdaOverTwo);
@@ -70,7 +69,7 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     if (x < 0) {
       return 0.0;
     }
@@ -124,31 +123,31 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getInverseCDF(final Double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getPDF(final Double x) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double nextRandom() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**

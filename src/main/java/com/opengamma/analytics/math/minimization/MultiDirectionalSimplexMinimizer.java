@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.ConvergenceException;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/optimization/direct/MultiDirectional.html">Commons Math library implementation</a>
@@ -30,8 +30,8 @@ public class MultiDirectionalSimplexMinimizer implements Minimizer<Function1D<Do
    */
   @Override
   public DoubleMatrix1D minimize(final Function1D<DoubleMatrix1D, Double> f, final DoubleMatrix1D initialPoint) {
-    Validate.notNull(f, "function");
-    Validate.notNull(initialPoint, "initial point");
+    ArgChecker.notNull(f, "function");
+    ArgChecker.notNull(initialPoint, "initial point");
     final MultivariateRealOptimizer optimizer = new MultiDirectional();
     final MultivariateRealFunction commons = CommonsMathWrapper.wrapMultivariate(f);
     try {

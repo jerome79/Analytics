@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -40,12 +39,12 @@ public class RadialBasisFunction {
   }
 
   protected void validateInput(final List<Pair<double[], Double>> weights, final double[] x) {
-    Validate.notNull(x, "null position");
-    Validate.notNull(weights, "null data");
+    ArgChecker.notNull(x, "null position");
+    ArgChecker.notNull(weights, "null data");
 
     final int dim = x.length;
-    Validate.isTrue(dim > 0, "0 dimension");
-    Validate.isTrue(weights.get(0).getFirst().length == dim, "data and requested point different dimension");
+    ArgChecker.isTrue(dim > 0, "0 dimension");
+    ArgChecker.isTrue(weights.get(0).getFirst().length == dim, "data and requested point different dimension");
   }
 
 }

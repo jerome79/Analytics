@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.ShiftType;
 import com.opengamma.analytics.math.curve.AddCurveSpreadFunction;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
@@ -264,9 +263,8 @@ public class YieldCurveUtils {
         "Can only perform points shifts on interpolated curves");
     ArgChecker.notNull(shiftType, "shift type");
     String newName = curve.getName() + nameSuffix;
-    int n = t.size();
-    double[] tArray = ArrayUtils.toPrimitive(t.toArray(new Double[n]));
-    double[] shiftArray = ArrayUtils.toPrimitive(shifts.toArray(new Double[n]));
+    double[] tArray = Doubles.toArray(t);
+    double[] shiftArray = Doubles.toArray(shifts);
     switch (shiftType) {
       case ABSOLUTE: {
         return new YieldCurve(

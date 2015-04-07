@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.GeneralLogNormalOptionDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -135,7 +134,7 @@ public class LogNormalBinomialTreeBuilder<T extends GeneralLogNormalOptionDataBu
       if (_f == _spot) {
         p = _f / (x + _f);
       } else {
-        Validate.isTrue(x != _spot, "invalide x");
+        ArgChecker.isTrue(x != _spot, "invalide x");
         p = (x * _f - _spot * _spot) / (x * x - _spot * _spot);
       }
       double res = _spot * _spot * Math.exp(_rootdt * _sigma / Math.sqrt(p * (1 - p))) - x * x;

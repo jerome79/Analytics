@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.cube;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts a {@link ConstantDoublesCube}. Only constant percentage shifts of the cube are supported.
@@ -17,7 +17,7 @@ public class ConstantCubeMultiplicativeShiftFunction implements CubeShiftFunctio
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double percentage) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     return evaluate(cube, percentage, "CONSTANT_MULTIPLIER_" + cube.getName());
   }
 
@@ -26,7 +26,7 @@ public class ConstantCubeMultiplicativeShiftFunction implements CubeShiftFunctio
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double percentage, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final double z = cube.getValue(0., 0., 0.);
     return ConstantDoublesCube.from(z * (1 + percentage), newName);
   }

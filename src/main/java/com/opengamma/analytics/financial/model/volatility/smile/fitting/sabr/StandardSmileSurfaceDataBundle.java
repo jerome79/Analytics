@@ -6,13 +6,12 @@
 package com.opengamma.analytics.financial.model.volatility.smile.fitting.sabr;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -142,7 +141,7 @@ public class StandardSmileSurfaceDataBundle extends SmileSurfaceDataBundle {
       return false;
     }
     final StandardSmileSurfaceDataBundle other = (StandardSmileSurfaceDataBundle) obj;
-    if (!ObjectUtils.equals(_forwardCurve, other._forwardCurve)) {
+    if (!Objects.equals(_forwardCurve, other._forwardCurve)) {
       return false;
     }
     if (!Arrays.equals(_expiries, other._expiries)) {

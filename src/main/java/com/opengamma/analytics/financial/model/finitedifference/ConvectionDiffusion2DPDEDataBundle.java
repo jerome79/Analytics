@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.cube.Cube;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Describes a partial differential for a function $V(t,x,y)$, with the initial condition $V(0,x,y) = g(x,y)$
@@ -35,13 +34,13 @@ public class ConvectionDiffusion2DPDEDataBundle {
       final Cube<Double, Double, Double, Double> e,
       final Cube<Double, Double, Double, Double> f,
       final Surface<Double, Double, Double> initialCondition) {
-    Validate.notNull(a, "null a");
-    Validate.notNull(b, "null b");
-    Validate.notNull(c, "null c");
-    Validate.notNull(d, "null d");
-    Validate.notNull(e, "null e");
-    Validate.notNull(f, "null f");
-    Validate.notNull(initialCondition, "null initial Condition");
+    ArgChecker.notNull(a, "null a");
+    ArgChecker.notNull(b, "null b");
+    ArgChecker.notNull(c, "null c");
+    ArgChecker.notNull(d, "null d");
+    ArgChecker.notNull(e, "null e");
+    ArgChecker.notNull(f, "null f");
+    ArgChecker.notNull(initialCondition, "null initial Condition");
     _a = a;
     _b = b;
     _c = c;

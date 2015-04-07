@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -63,8 +61,8 @@ public final class InterestRateFutureSecurityHullWhiteMethod extends InterestRat
    * @return The price.
    */
   public double price(final InterestRateFutureSecurity future, final HullWhiteOneFactorPiecewiseConstantDataBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(future.getForwardCurveName());
     final double dfForwardStart = forwardCurve.getDiscountFactor(future.getFixingPeriodStartTime());
     final double dfForwardEnd = forwardCurve.getDiscountFactor(future.getFixingPeriodEndTime());

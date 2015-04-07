@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.analysis.interpolation.NevilleInterpolator;
 import org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeForm;
 
@@ -45,8 +44,8 @@ public class PolynomialInterpolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
     final int n = data.size();
     final double[] keys = data.getKeys();
     final double[] values = data.getValues();

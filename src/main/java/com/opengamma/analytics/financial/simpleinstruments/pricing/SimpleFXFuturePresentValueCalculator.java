@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.simpleinstruments.pricing;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleFXFuture;
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleFuture;
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleInstrument;
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleInstrumentVisitor;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,8 +19,8 @@ public class SimpleFXFuturePresentValueCalculator implements SimpleInstrumentVis
   
   @Override
   public CurrencyAmount visit(final SimpleInstrument derivative, final SimpleFXFutureDataBundle data) {
-    Validate.notNull(derivative, "derivative");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(derivative, "derivative");
+    ArgChecker.notNull(data, "data");
     return derivative.accept(this, data);
   }
 

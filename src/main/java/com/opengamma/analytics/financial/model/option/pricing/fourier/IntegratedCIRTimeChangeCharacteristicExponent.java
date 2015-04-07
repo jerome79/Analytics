@@ -14,8 +14,6 @@ import static com.opengamma.analytics.math.ComplexMathUtils.sqrt;
 import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static com.opengamma.analytics.math.number.ComplexNumber.I;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.TrigonometricFunctionUtils;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
@@ -176,12 +174,12 @@ public class IntegratedCIRTimeChangeCharacteristicExponent implements StocasticC
 
   @Override
   public ComplexNumber[] getCharacteristicExponentAdjoint(ComplexNumber u, double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public Function1D<ComplexNumber, ComplexNumber[]> getAdjointFunction(double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
  

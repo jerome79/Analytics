@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.SABRSTIRFuturesProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.interestrate.SABRSwaptionProviderDiscount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing the data required to price interest rate derivatives with SABR (curves and parameters).
@@ -31,7 +31,7 @@ public class SABRInterestRateDataBundle extends YieldCurveBundle {
    */
   public SABRInterestRateDataBundle(final SABRInterestRateParameters sabrParameter, final YieldCurveBundle curves) {
     super(curves);
-    Validate.notNull(sabrParameter, "SABR parameters");
+    ArgChecker.notNull(sabrParameter, "SABR parameters");
     _sabrParameter = sabrParameter;
   }
 
@@ -77,7 +77,7 @@ public class SABRInterestRateDataBundle extends YieldCurveBundle {
       return false;
     }
     final SABRInterestRateDataBundle other = (SABRInterestRateDataBundle) obj;
-    return ObjectUtils.equals(_sabrParameter, other._sabrParameter);
+    return Objects.equals(_sabrParameter, other._sabrParameter);
   }
 
 }

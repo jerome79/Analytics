@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.swaption;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -181,10 +180,10 @@ public final class SwaptionPhysicalFixedIborSpreadDefinition implements Instrume
     if (_isLong != other._isLong) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiry, other._expiry)) {
+    if (!Objects.equals(_expiry, other._expiry)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

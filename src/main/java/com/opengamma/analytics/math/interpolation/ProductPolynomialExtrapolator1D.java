@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle;
@@ -61,10 +59,10 @@ public class ProductPolynomialExtrapolator1D extends Interpolator1D {
    */
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     ArgChecker.isTrue(value < data.firstKey() || value > data.lastKey(), "value was within data range");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
     Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle polyData = (Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle) data;
     return _interpolator.interpolate(polyData, value, _func, SMALL);
   }
@@ -76,10 +74,10 @@ public class ProductPolynomialExtrapolator1D extends Interpolator1D {
    */
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     ArgChecker.isTrue(value < data.firstKey() || value > data.lastKey(), "value was within data range");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
     Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle polyData = (Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle) data;
     return _interpolator.firstDerivative(polyData, value, _func, SMALL);
   }
@@ -91,10 +89,10 @@ public class ProductPolynomialExtrapolator1D extends Interpolator1D {
    */
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     ArgChecker.isTrue(value < data.firstKey() || value > data.lastKey(), "value was within data range");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
     Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle polyData = (Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle) data;
     return _interpolator.getNodeSensitivitiesForValue(polyData, value, _func, SMALL);
   }

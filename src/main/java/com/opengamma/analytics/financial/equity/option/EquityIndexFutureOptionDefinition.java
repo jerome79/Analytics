@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.equity.option;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.equity.future.definition.IndexFutureDefinition;
@@ -160,10 +159,10 @@ public class EquityIndexFutureOptionDefinition implements InstrumentDefinition<E
     if (Double.compare(_pointValue, other._pointValue) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiryDate, other._expiryDate)) {
+    if (!Objects.equals(_expiryDate, other._expiryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlying, other._underlying)) {
+    if (!Objects.equals(_underlying, other._underlying)) {
       return false;
     }
     return true;

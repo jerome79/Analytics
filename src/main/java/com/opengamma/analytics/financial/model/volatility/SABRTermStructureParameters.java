@@ -7,14 +7,13 @@ package com.opengamma.analytics.financial.model.volatility;
 
 import java.util.LinkedHashMap;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -35,7 +34,7 @@ public class SABRTermStructureParameters implements VolatilityModel1D {
   private final VolatilityFunctionProvider<SABRFormulaData> _sabrFunction;
 
   public SABRTermStructureParameters(final LinkedHashMap<String, Curve<Double, Double>> curveBundle) {
-    Validate.notNull(curveBundle, "null curve bundle");
+    ArgChecker.notNull(curveBundle, "null curve bundle");
     Curve<Double, Double> alpha = curveBundle.get(ALPHA);
     Curve<Double, Double> beta = curveBundle.get(BETA);
     Curve<Double, Double> nu = curveBundle.get(NU);
@@ -56,7 +55,7 @@ public class SABRTermStructureParameters implements VolatilityModel1D {
   public SABRTermStructureParameters(final Curve<Double, Double> alpha, final Curve<Double, Double> beta, final Curve<Double, Double> rho,
       final Curve<Double, Double> nu, VolatilityFunctionProvider<SABRFormulaData> sabrFunction) {
     validate(alpha, beta, rho, nu);
-    Validate.notNull(sabrFunction, "null sabrFunction");
+    ArgChecker.notNull(sabrFunction, "null sabrFunction");
     _alpha = alpha;
     _beta = beta;
     _nu = nu;
@@ -66,10 +65,10 @@ public class SABRTermStructureParameters implements VolatilityModel1D {
 
   private static void validate(final Curve<Double, Double> alpha, final Curve<Double, Double> beta, final Curve<Double, Double> rho,
       final Curve<Double, Double> nu) {
-    Validate.notNull(alpha, "null aplha");
-    Validate.notNull(beta, "null beta");
-    Validate.notNull(nu, "null nu");
-    Validate.notNull(rho, "null rho");
+    ArgChecker.notNull(alpha, "null aplha");
+    ArgChecker.notNull(beta, "null beta");
+    ArgChecker.notNull(nu, "null nu");
+    ArgChecker.notNull(rho, "null rho");
   }
 
   public double getAlpha(final double timeToExpiry) {
@@ -95,8 +94,8 @@ public class SABRTermStructureParameters implements VolatilityModel1D {
    */
   @Override
   public Double getVolatility(double[] fwdKT) {
-    Validate.notNull(fwdKT, "null fwdKT");
-    Validate.isTrue(fwdKT.length == 3, "length must be 3");
+    ArgChecker.notNull(fwdKT, "null fwdKT");
+    ArgChecker.isTrue(fwdKT.length == 3, "length must be 3");
     return getVolatility(fwdKT[0], fwdKT[1], fwdKT[2]);
   }
 

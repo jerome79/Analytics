@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class BlackVolatilitySurfaceLogMoneyness extends BlackVolatilitySurface<L
    */
   public BlackVolatilitySurfaceLogMoneyness(final Surface<Double, Double, Double> surface, final ForwardCurve forwardCurve) {
     super(surface);
-    Validate.notNull(forwardCurve, "null forward curve");
+    ArgChecker.notNull(forwardCurve, "null forward curve");
     _fc = forwardCurve;
   }
 
@@ -101,7 +101,7 @@ public class BlackVolatilitySurfaceLogMoneyness extends BlackVolatilitySurface<L
       return false;
     }
     final BlackVolatilitySurfaceLogMoneyness other = (BlackVolatilitySurfaceLogMoneyness) obj;
-    if (!ObjectUtils.equals(_fc, other._fc)) {
+    if (!Objects.equals(_fc, other._fc)) {
       return false;
     }
     return true;

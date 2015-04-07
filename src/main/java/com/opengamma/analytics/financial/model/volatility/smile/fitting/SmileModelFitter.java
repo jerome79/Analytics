@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.volatility.smile.function.SmileModelData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 import com.opengamma.analytics.math.function.Function1D;
@@ -22,6 +20,7 @@ import com.opengamma.analytics.math.minimization.NonLinearTransformFunction;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -55,13 +54,13 @@ public abstract class SmileModelFitter<T extends SmileModelData> {
    */
   public SmileModelFitter(final double forward, final double[] strikes, final double timeToExpiry, final double[] impliedVols,
       final double[] error, final VolatilityFunctionProvider<T> model) {
-    Validate.notNull(strikes, "null strikes");
-    Validate.notNull(impliedVols, "null implied vols");
-    Validate.notNull(error, "null errors");
-    Validate.notNull(model, "null model");
+    ArgChecker.notNull(strikes, "null strikes");
+    ArgChecker.notNull(impliedVols, "null implied vols");
+    ArgChecker.notNull(error, "null errors");
+    ArgChecker.notNull(model, "null model");
     final int n = strikes.length;
-    Validate.isTrue(n == impliedVols.length, "vols not the same length as strikes");
-    Validate.isTrue(n == error.length, "errors not the same length as strikes");
+    ArgChecker.isTrue(n == impliedVols.length, "vols not the same length as strikes");
+    ArgChecker.isTrue(n == error.length, "errors not the same length as strikes");
 
     _marketValues = new DoubleMatrix1D(impliedVols);
     _errors = new DoubleMatrix1D(error);

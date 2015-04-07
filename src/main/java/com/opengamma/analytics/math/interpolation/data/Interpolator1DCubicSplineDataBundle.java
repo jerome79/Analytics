@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.interpolation.data;
 
 import static com.opengamma.analytics.math.matrix.MatrixAlgebraFactory.OG_ALGEBRA;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.linearalgebra.InverseTridiagonalMatrixCalculator;
 import com.opengamma.analytics.math.linearalgebra.TridiagonalMatrix;
@@ -288,7 +288,7 @@ public class Interpolator1DCubicSplineDataBundle implements Interpolator1DDataBu
       return false;
     }
     final Interpolator1DCubicSplineDataBundle other = (Interpolator1DCubicSplineDataBundle) obj;
-    if (!ObjectUtils.equals(_underlyingData, other._underlyingData)) {
+    if (!Objects.equals(_underlyingData, other._underlyingData)) {
       return false;
     }
     if (Double.doubleToLongBits(_leftFirstDev) != Double.doubleToLongBits(other._leftFirstDev)) {

@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.finitedifference.applications.InitialConditionsProvider;
@@ -22,6 +21,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -153,7 +153,7 @@ public class ForwardPDETest {
     final Function<Double, Double> lvFunc = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tm) {
-        Validate.isTrue(tm.length == 2);
+        ArgChecker.isTrue(tm.length == 2);
         final double t = tm[0];
         final double m = tm[1];
         final double x = Math.log(m);
@@ -255,7 +255,7 @@ public class ForwardPDETest {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double t = tx[0];
         final double x = tx[1];
 

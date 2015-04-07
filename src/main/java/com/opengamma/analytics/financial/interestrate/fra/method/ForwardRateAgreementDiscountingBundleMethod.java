@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -20,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.fra.provider.ForwardRateAg
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -59,8 +58,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The present value.
    */
   public CurrencyAmount presentValue(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(fra.getFundingCurveName());
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(fra.getForwardCurveName());
     final double discountFactorSettlement = discountingCurve.getDiscountFactor(fra.getPaymentTime());
@@ -71,7 +70,7 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForwardRateAgreement, "Forward rate agreement");
+    ArgChecker.isTrue(instrument instanceof ForwardRateAgreement, "Forward rate agreement");
     return presentValue((ForwardRateAgreement) instrument, curves);
   }
 
@@ -82,8 +81,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The present value sensitivity.
    */
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(fra.getFundingCurveName());
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(fra.getForwardCurveName());
     final double df = discountingCurve.getDiscountFactor(fra.getPaymentTime());
@@ -117,8 +116,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The par rate.
    */
   public double parRate(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(fra.getForwardCurveName());
     final double forward = (forwardCurve.getDiscountFactor(fra.getFixingPeriodStartTime()) / forwardCurve.getDiscountFactor(fra.getFixingPeriodEndTime()) - 1) / fra.getFixingYearFraction();
     return forward;
@@ -131,8 +130,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The par rate sensitivity.
    */
   public InterestRateCurveSensitivity parRateCurveSensitivity(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(fra.getForwardCurveName());
     final double dfForwardStart = forwardCurve.getDiscountFactor(fra.getFixingPeriodStartTime());
     final double dfForwardEnd = forwardCurve.getDiscountFactor(fra.getFixingPeriodEndTime());
@@ -156,8 +155,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The sensitivity.
    */
   public double presentValueCouponSensitivity(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve fundingCurve = curves.getCurve(fra.getFundingCurveName());
     final YieldAndDiscountCurve liborCurve = curves.getCurve(fra.getForwardCurveName());
     final double fixingAF = fra.getFixingYearFraction();
@@ -174,8 +173,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The par spread.
    */
   public double parSpread(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(fra.getForwardCurveName());
     final double dfStart = forwardCurve.getDiscountFactor(fra.getFixingPeriodStartTime());
     final double dfEnd = forwardCurve.getDiscountFactor(fra.getFixingPeriodEndTime());
@@ -190,8 +189,8 @@ public final class ForwardRateAgreementDiscountingBundleMethod implements Pricin
    * @return The par spread sensitivity.
    */
   public InterestRateCurveSensitivity parSpreadCurveSensitivity(final ForwardRateAgreement fra, final YieldCurveBundle curves) {
-    Validate.notNull(fra, "FRA");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(fra, "FRA");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(fra.getForwardCurveName());
     final double dfStart = forwardCurve.getDiscountFactor(fra.getFixingPeriodStartTime());
     final double dfEnd = forwardCurve.getDiscountFactor(fra.getFixingPeriodEndTime());

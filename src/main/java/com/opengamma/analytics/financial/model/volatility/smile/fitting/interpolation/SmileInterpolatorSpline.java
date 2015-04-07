@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.differentiation.ScalarFirstOrderDifferentiator;
 import com.opengamma.analytics.math.function.Function1D;
@@ -163,7 +163,7 @@ public class SmileInterpolatorSpline implements GeneralSmileInterpolator {
       return false;
     }
     final SmileInterpolatorSpline other = (SmileInterpolatorSpline) obj;
-    return ObjectUtils.equals(_interpolator, other._interpolator);
+    return Objects.equals(_interpolator, other._interpolator);
   }
 
 }

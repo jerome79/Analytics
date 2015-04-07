@@ -8,12 +8,11 @@ package com.opengamma.analytics.financial.interestrate;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -39,8 +38,8 @@ public class MultipleYieldCurveFinderIRSJacobian extends Function1D<DoubleMatrix
    * @param calculator The sensitivity calculator.
    */
   public MultipleYieldCurveFinderIRSJacobian(final MultipleYieldCurveFinderDataBundle data, final InstrumentDerivativeVisitor<YieldCurveBundle, InterestRateCurveSensitivity> calculator) {
-    Validate.notNull(data, "data");
-    Validate.notNull(calculator, "calculator");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(calculator, "calculator");
     _data = data;
     _calculator = calculator;
     _curveBuilderFunction = new InterpolatedYieldCurveBuildingFunction(data.getUnknownCurveNodePoints(), data.getUnknownCurveInterpolators());

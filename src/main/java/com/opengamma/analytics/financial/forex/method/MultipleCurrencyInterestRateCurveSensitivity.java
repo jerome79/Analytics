@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.forex.method;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.strata.basics.currency.Currency;
@@ -190,7 +189,7 @@ public final class MultipleCurrencyInterestRateCurveSensitivity {
       return false;
     }
     final MultipleCurrencyInterestRateCurveSensitivity other = (MultipleCurrencyInterestRateCurveSensitivity) obj;
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

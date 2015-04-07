@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.NelsonSiegelSvennsonBondCurveModel;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class defines a 1-D function that takes both its argument and
@@ -58,7 +57,7 @@ public abstract class ParameterizedFunction<S, T, U> {
    * @return A function that is always evaluated at <i>x</i> for different values of the parameters
    */
   public Function1D<T, U> asFunctionOfParameters(final S x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return new Function1D<T, U>() {
 
       @Override
@@ -74,7 +73,7 @@ public abstract class ParameterizedFunction<S, T, U> {
    * @return A function that can be evaluated at different <i>x</i> with the input parameters
    */
   public Function1D<S, U> asFunctionOfArguments(final T params) {
-    Validate.notNull(params);
+    ArgChecker.notNull(params, "params");
     return new Function1D<S, U>() {
 
       @Override

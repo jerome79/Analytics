@@ -6,13 +6,12 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.surface.DriftSurface;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * data bundle for the SDE df = a(f,t)dt + b(f,t)dw  
@@ -30,7 +29,7 @@ public class GeneralNormalOptionDataBundle extends StandardOptionDataBundle {
    */
   public GeneralNormalOptionDataBundle(final YieldAndDiscountCurve discountCurve, final DriftSurface localDrift, final VolatilitySurface localVolatility, final double spot, final ZonedDateTime date) {
     super(discountCurve, 0.0, localVolatility, spot, date);
-    Validate.notNull(localDrift, "null localDrift");
+    ArgChecker.notNull(localDrift, "null localDrift");
     _drift = localDrift;
   }
 
@@ -104,7 +103,7 @@ public class GeneralNormalOptionDataBundle extends StandardOptionDataBundle {
       return false;
     }
     final GeneralNormalOptionDataBundle other = (GeneralNormalOptionDataBundle) obj;
-    return ObjectUtils.equals(_drift, other._drift);
+    return Objects.equals(_drift, other._drift);
   }
 
 }

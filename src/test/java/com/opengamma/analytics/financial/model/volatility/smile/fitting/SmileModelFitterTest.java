@@ -13,7 +13,6 @@ import java.util.BitSet;
 
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.testng.annotations.Test;
 
@@ -26,6 +25,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
 import com.opengamma.analytics.util.monitor.OperationTimer;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -83,7 +83,7 @@ public abstract class SmileModelFitterTest<T extends SmileModelData> {
     final double[][] start = getStartValues();
     final BitSet[] fixed = getFixedValues();
     final int nStartPoints = start.length;
-    Validate.isTrue(fixed.length == nStartPoints);
+    ArgChecker.isTrue(fixed.length == nStartPoints);
     for (int trys = 0; trys < nStartPoints; trys++) {
       final LeastSquareResultsWithTransform results = _fitter.solve(new DoubleMatrix1D(start[trys]), fixed[trys]);
       final DoubleMatrix1D res = toStandardForm(results.getModelParameters());
@@ -116,7 +116,7 @@ public abstract class SmileModelFitterTest<T extends SmileModelData> {
     final double[][] start = getStartValues();
     final BitSet[] fixed = getFixedValues();
     final int nStartPoints = start.length;
-    Validate.isTrue(fixed.length == nStartPoints);
+    ArgChecker.isTrue(fixed.length == nStartPoints);
     for (int trys = 0; trys < nStartPoints; trys++) {
       final LeastSquareResultsWithTransform results = _fitter.solve(new DoubleMatrix1D(start[trys]), fixed[trys]);
       final DoubleMatrix1D res = toStandardForm(results.getModelParameters());

@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.instrument.swap;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponONSimplifiedDefinition;
@@ -22,6 +20,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing a fixed for OIS swap. Both legs are in the same currency.
@@ -36,7 +35,7 @@ public class SwapFixedONSimplifiedDefinition extends SwapDefinition {
    */
   public SwapFixedONSimplifiedDefinition(final AnnuityCouponFixedDefinition fixedLeg, final AnnuityCouponONSimplifiedDefinition oisLeg) {
     super(fixedLeg, oisLeg);
-    Validate.isTrue(fixedLeg.getCurrency() == oisLeg.getCurrency(), "Legs should have the same currency");
+    ArgChecker.isTrue(fixedLeg.getCurrency() == oisLeg.getCurrency(), "Legs should have the same currency");
   }
 
   /**

@@ -10,9 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -262,7 +261,7 @@ public class MultipleCurrencyParameterSensitivity {
       return false;
     }
     final MultipleCurrencyParameterSensitivity other = (MultipleCurrencyParameterSensitivity) obj;
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

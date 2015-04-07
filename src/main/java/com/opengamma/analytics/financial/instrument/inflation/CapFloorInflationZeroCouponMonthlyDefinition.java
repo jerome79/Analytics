@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
@@ -126,7 +124,7 @@ public class CapFloorInflationZeroCouponMonthlyDefinition extends CouponInflatio
   public static CapFloorInflationZeroCouponMonthlyDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime paymentDate, final double notional,
       final IndexPrice priceIndex, final int conventionalMonthLag, final int monthLag, final int maturity, final ZonedDateTime lastKnownFixingDate, final ZonedDateTime referenceStartDate,
       final ZonedDateTime referenceEndDate, final double strike, final boolean isCap) {
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     return new CapFloorInflationZeroCouponMonthlyDefinition(priceIndex.getCurrency(), paymentDate, accrualStartDate, paymentDate, 1.0,
         notional, priceIndex, lastKnownFixingDate, conventionalMonthLag, monthLag, maturity, referenceStartDate, referenceEndDate, strike, isCap);
   }
@@ -148,7 +146,7 @@ public class CapFloorInflationZeroCouponMonthlyDefinition extends CouponInflatio
   public static CapFloorInflationZeroCouponMonthlyDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime paymentDate, final double notional,
       final IndexPrice priceIndex, final int conventionalMonthLag, final int monthLag, final int maturity, final ZonedDateTime lastKnownFixingDate, final double strike,
       final boolean isCap) {
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     final ZonedDateTime referenceEndDate = paymentDate.minusMonths(conventionalMonthLag).with(TemporalAdjusters.lastDayOfMonth());
     final ZonedDateTime referenceStartDate = accrualStartDate.minusMonths(conventionalMonthLag).with(TemporalAdjusters.lastDayOfMonth());
     return new CapFloorInflationZeroCouponMonthlyDefinition(priceIndex.getCurrency(), paymentDate, accrualStartDate, paymentDate, 1.0,
@@ -166,7 +164,7 @@ public class CapFloorInflationZeroCouponMonthlyDefinition extends CouponInflatio
    */
   public static CapFloorInflationZeroCouponMonthlyDefinition from(final CouponInflationZeroCouponMonthlyDefinition couponInflation, final ZonedDateTime lastKnownFixingDate, final int maturity,
       final double strike, final boolean isCap) {
-    Validate.notNull(couponInflation, "coupon Ibor");
+    ArgChecker.notNull(couponInflation, "coupon Ibor");
     return new CapFloorInflationZeroCouponMonthlyDefinition(couponInflation.getCurrency(), couponInflation.getPaymentDate(), couponInflation.getAccrualStartDate(),
         couponInflation.getAccrualEndDate(), couponInflation.getPaymentYearFraction(), couponInflation.getNotional(), couponInflation.getPriceIndex(),
         lastKnownFixingDate, couponInflation.getMonthLag(), couponInflation.getMonthLag(), maturity, couponInflation.getReferenceStartDate(),

@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
+import com.opengamma.analytics.util.ArrayUtils;
 
 
 /**

@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,7 +30,7 @@ public class GreekVisitorTest {
       try {
         g.accept(NO_ACTION);
         Assert.fail();
-      } catch (final NotImplementedException e) {
+      } catch (final UnsupportedOperationException e) {
       }
       if (g.equals(Greek.DELTA)) {
         assertEquals(STRING, g.accept(DELTA_ONLY));
@@ -39,7 +38,7 @@ public class GreekVisitorTest {
         try {
           g.accept(DELTA_ONLY);
           Assert.fail();
-        } catch (final NotImplementedException e) {
+        } catch (final UnsupportedOperationException e) {
         }
       }
     }

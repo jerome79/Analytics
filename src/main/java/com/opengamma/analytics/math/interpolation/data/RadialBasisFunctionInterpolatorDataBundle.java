@@ -7,9 +7,7 @@ package com.opengamma.analytics.math.interpolation.data;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.DistanceCalculator;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.math.linearalgebra.DecompositionFactory;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -33,7 +32,7 @@ public class RadialBasisFunctionInterpolatorDataBundle extends InterpolatorNDDat
 
   public RadialBasisFunctionInterpolatorDataBundle(final List<Pair<double[], Double>> data, final Function1D<Double, Double> basisFunction, final boolean useNormalized) {
     super(data);
-    Validate.notNull(basisFunction, "basis function");
+    ArgChecker.notNull(basisFunction, "basis function");
     _basisFunction = basisFunction;
     _useNormalized = useNormalized;
     _weights = calculateWeights();
@@ -81,7 +80,7 @@ public class RadialBasisFunctionInterpolatorDataBundle extends InterpolatorNDDat
       for (int j = i + 1; j < n; j++) {
         x2 = data.get(j).getFirst();
         phi = _basisFunction.evaluate(DistanceCalculator.getDistance(x1, x2));
-        Validate.isTrue(!Double.isNaN(phi) || !Double.isInfinite(phi), "basis function return invalide number");
+        ArgChecker.isTrue(!Double.isNaN(phi) || !Double.isInfinite(phi), "basis function return invalide number");
         radii[i][j] = phi;
         radii[j][i] = phi; // matrix symmetric since basis function depends on distance only
       }
@@ -132,13 +131,13 @@ public class RadialBasisFunctionInterpolatorDataBundle extends InterpolatorNDDat
     if (!Arrays.equals(_weights, other._weights)) {
       return false;
     }
-    if (!ObjectUtils.equals(_basisFunction, other._basisFunction)) {
+    if (!Objects.equals(_basisFunction, other._basisFunction)) {
       return false;
     }
-    if (!ObjectUtils.equals(_decomp, other._decomp)) {
+    if (!Objects.equals(_decomp, other._decomp)) {
       return false;
     }
-    if (!ObjectUtils.equals(_decompRes, other._decompRes)) {
+    if (!Objects.equals(_decompRes, other._decompRes)) {
       return false;
     }
     return true;

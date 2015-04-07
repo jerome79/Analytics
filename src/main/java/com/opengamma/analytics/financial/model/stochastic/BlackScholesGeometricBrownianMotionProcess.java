@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.stochastic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.Function2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -21,8 +20,8 @@ public class BlackScholesGeometricBrownianMotionProcess<T extends OptionDefiniti
 
   @Override
   public Function1D<Double, Double> getPathGeneratingFunction(final T t, final U u, final int steps) {
-    Validate.notNull(t);
-    Validate.notNull(u);
+    ArgChecker.notNull(t, "t");
+    ArgChecker.notNull(u, "u");
     if (steps < 1) {
       throw new IllegalArgumentException("Number of steps must be greater than zero");
     }

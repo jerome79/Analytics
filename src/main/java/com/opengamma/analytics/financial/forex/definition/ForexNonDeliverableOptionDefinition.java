@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.forex.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableOption;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -131,7 +130,7 @@ public class ForexNonDeliverableOptionDefinition implements InstrumentDefinition
     if (_isLong != other._isLong) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingNDF, other._underlyingNDF)) {
+    if (!Objects.equals(_underlyingNDF, other._underlyingNDF)) {
       return false;
     }
     return true;

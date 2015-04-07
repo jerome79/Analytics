@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -172,7 +171,7 @@ public class CouponONArithmeticAverageSpreadSimplifiedDefinition extends CouponD
       return false;
     }
     final CouponONArithmeticAverageSpreadSimplifiedDefinition other = (CouponONArithmeticAverageSpreadSimplifiedDefinition) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_spread) != Double.doubleToLongBits(other._spread)) {

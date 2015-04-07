@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.inflation;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
@@ -95,7 +94,7 @@ public abstract class CouponInflationDefinition extends CouponDefinition
       return false;
     }
     final CouponInflationDefinition other = (CouponInflationDefinition) obj;
-    if (!ObjectUtils.equals(_indexPrice, other._indexPrice)) {
+    if (!Objects.equals(_indexPrice, other._indexPrice)) {
       return false;
     }
     return true;

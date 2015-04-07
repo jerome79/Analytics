@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.ParallelArrayBinarySort;
@@ -140,7 +138,7 @@ public class LinearInterpolator extends PiecewisePolynomialInterpolator {
 
   @Override
   public PiecewisePolynomialResultsWithSensitivity interpolateWithSensitivity(final double[] xValues, final double[] yValues) {
-    throw new NotImplementedException("Use LinearInterpolator1D for node sensitivity");
+    throw new UnsupportedOperationException("Use LinearInterpolator1D for node sensitivity");
   }
 
   /**

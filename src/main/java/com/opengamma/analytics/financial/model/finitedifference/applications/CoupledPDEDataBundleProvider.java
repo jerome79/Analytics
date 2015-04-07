@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoupledCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ExtendedCoupledPDEDataBundle;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -16,6 +14,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -67,9 +66,9 @@ public class CoupledPDEDataBundleProvider {
    */
   public ConvectionDiffusionPDE1DCoupledCoefficients[] getCoupledBackwardsPair(final ForwardCurve forward, final double maturity, final TwoStateMarkovChainDataBundle data,
       final AbsoluteLocalVolatilitySurface localVolOverlay) {
-    Validate.notNull(forward, "null forward");
-    Validate.notNull(data, "null data");
-    Validate.notNull(localVolOverlay, "null localVolOverlay");
+    ArgChecker.notNull(forward, "null forward");
+    ArgChecker.notNull(data, "null data");
+    ArgChecker.notNull(localVolOverlay, "null localVolOverlay");
 
     final ConvectionDiffusionPDE1DCoupledCoefficients[] res = new ConvectionDiffusionPDE1DCoupledCoefficients[2];
     res[0] = getCoupledBackwardsPDE(forward, data.getVol1(), maturity, data.getLambda12(), data.getBeta1(), localVolOverlay);
@@ -116,9 +115,9 @@ public class CoupledPDEDataBundleProvider {
    */
   public ConvectionDiffusionPDE1DCoupledCoefficients[] getCoupledForwardPair(final ForwardCurve forward, final TwoStateMarkovChainDataBundle data,
       final AbsoluteLocalVolatilitySurface localVolOverlay) {
-    Validate.notNull(forward, "null forward");
-    Validate.notNull(data, "null data");
-    Validate.notNull(localVolOverlay, "null localVolOverlay");
+    ArgChecker.notNull(forward, "null forward");
+    ArgChecker.notNull(data, "null data");
+    ArgChecker.notNull(localVolOverlay, "null localVolOverlay");
 
     final ConvectionDiffusionPDE1DCoupledCoefficients[] res = new ConvectionDiffusionPDE1DCoupledCoefficients[2];
     res[0] = getCoupledForwardPDE(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getBeta1(), localVolOverlay);
@@ -164,9 +163,9 @@ public class CoupledPDEDataBundleProvider {
    * @return a pair of extended convection diffusion data bundles
    */
   public ExtendedCoupledPDEDataBundle[] getCoupledFokkerPlankPair(final ForwardCurve forward, final TwoStateMarkovChainDataBundle data, final AbsoluteLocalVolatilitySurface localVolOverlay) {
-    Validate.notNull(forward, "null forward");
-    Validate.notNull(data, "null data");
-    Validate.notNull(localVolOverlay, "null localVolOverlay");
+    ArgChecker.notNull(forward, "null forward");
+    ArgChecker.notNull(data, "null data");
+    ArgChecker.notNull(localVolOverlay, "null localVolOverlay");
 
     final ExtendedCoupledPDEDataBundle[] res = new ExtendedCoupledPDEDataBundle[2];
     res[0] = getCoupledFokkerPlank(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getP0(), data.getBeta1(), localVolOverlay);
@@ -181,7 +180,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double s = ts[1];
         final double t = maturity - tau;
@@ -193,7 +192,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double s = ts[1];
         final double t = maturity - tau;
@@ -204,7 +203,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double t = maturity - tau;
         return forward.getDrift(t) + lambda;
@@ -221,7 +220,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double t = tk[0];
         final double k = tk[1];
         final double temp = vol * Math.pow(k, beta) * localVol.getVolatility(t, k);
@@ -232,7 +231,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double k = tk[1];
         return k * forward.getDrift(beta);
       }
@@ -241,7 +240,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return lambda1;
       }
     };
@@ -255,7 +254,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return -1.0;
       }
     };
@@ -263,7 +262,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> aStar = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double temp = localVol.getVolatility(t, s) * vol * Math.pow(s, beta);
@@ -275,7 +274,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         return s * forward.getDrift(t);
@@ -285,7 +284,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> bStar = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return 1.0;
       }
     };
@@ -293,7 +292,7 @@ public class CoupledPDEDataBundleProvider {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
 
         return forward.getDrift(t) + lambda1;

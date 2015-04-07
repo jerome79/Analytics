@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.math.rootfinding.newton;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,15 +18,15 @@ public class ShermanMorrisonMatrixUpdateFunction implements NewtonRootFinderMatr
   private final MatrixAlgebra _algebra;
 
   public ShermanMorrisonMatrixUpdateFunction(final MatrixAlgebra algebra) {
-    Validate.notNull(algebra);
+    ArgChecker.notNull(algebra, "algebra");
     _algebra = algebra;
   }
 
   @Override
   public DoubleMatrix2D getUpdatedMatrix(final Function1D<DoubleMatrix1D, DoubleMatrix2D> g, DoubleMatrix1D x, final DoubleMatrix1D deltaX, final DoubleMatrix1D deltaY, final DoubleMatrix2D matrix) {
-    Validate.notNull(deltaX);
-    Validate.notNull(deltaY);
-    Validate.notNull(matrix);
+    ArgChecker.notNull(deltaX, "deltaX");
+    ArgChecker.notNull(deltaY, "deltaY");
+    ArgChecker.notNull(matrix, "matrix");
     DoubleMatrix1D v1 = (DoubleMatrix1D) _algebra.multiply(deltaX, matrix);
     final double length = _algebra.getInnerProduct(v1, deltaY);
     if (length == 0) {

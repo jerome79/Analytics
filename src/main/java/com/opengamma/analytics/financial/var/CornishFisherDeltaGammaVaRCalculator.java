@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.var;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.strata.collect.ArgChecker;
@@ -89,16 +89,16 @@ public class CornishFisherDeltaGammaVaRCalculator<T> implements VaRCalculator<No
       return false;
     }
     final CornishFisherDeltaGammaVaRCalculator<?> other = (CornishFisherDeltaGammaVaRCalculator<?>) obj;
-    if (!ObjectUtils.equals(_kurtosisCalculator, other._kurtosisCalculator)) {
+    if (!Objects.equals(_kurtosisCalculator, other._kurtosisCalculator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_meanCalculator, other._meanCalculator)) {
+    if (!Objects.equals(_meanCalculator, other._meanCalculator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_skewCalculator, other._skewCalculator)) {
+    if (!Objects.equals(_skewCalculator, other._skewCalculator)) {
       return false;
     }
-    return ObjectUtils.equals(_stdCalculator, other._stdCalculator);
+    return Objects.equals(_stdCalculator, other._stdCalculator);
   }
 
 }

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.parameters;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.model.interestrate.definition.InflationYearOnYearCapFloorParameters;
@@ -181,10 +181,10 @@ public class BlackSmileCapInflationYearOnYearParameters implements VolatilityMod
       return false;
     }
     final BlackSmileCapInflationYearOnYearParameters other = (BlackSmileCapInflationYearOnYearParameters) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatility, other._volatility)) {
+    if (!Objects.equals(_volatility, other._volatility)) {
       return false;
     }
     return true;

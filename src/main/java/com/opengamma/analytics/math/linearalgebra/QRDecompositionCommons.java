@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.QRDecomposition;
 import org.apache.commons.math.linear.QRDecompositionImpl;
 import org.apache.commons.math.linear.RealMatrix;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/linear/QRDecompositionImpl.html">Commons Math library implementation</a> 
@@ -24,7 +24,7 @@ public class QRDecompositionCommons extends Decomposition<QRDecompositionResult>
    */
   @Override
   public QRDecompositionResult evaluate(final DoubleMatrix2D x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     final RealMatrix temp = CommonsMathWrapper.wrap(x);
     final QRDecomposition qr = new QRDecompositionImpl(temp);
     return new QRDecompositionCommonsResult(qr);

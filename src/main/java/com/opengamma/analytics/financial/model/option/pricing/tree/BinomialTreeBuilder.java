@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionExerciseFunction;
 import com.opengamma.analytics.financial.model.option.definition.OptionPayoffFunction;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.financial.model.tree.RecombiningBinomialTree;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -79,7 +78,7 @@ public abstract class BinomialTreeBuilder<T extends StandardOptionDataBundle> {
         double p;
         if (diff == 0.0) {
           // some branches of the tree are stuck at spot = 0.0 - this is not a problem as such
-          Validate.isTrue(Double.doubleToLongBits(forwards[j]) == Double.doubleToLongBits(nodes[j]), "inconsistent nodes");
+          ArgChecker.isTrue(Double.doubleToLongBits(forwards[j]) == Double.doubleToLongBits(nodes[j]), "inconsistent nodes");
           p = 0.5; // Arbitrary as nodes are degenerate
         } else {
           p = (forwards[j] - nodes[j]) / diff;

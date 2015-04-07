@@ -6,11 +6,10 @@
 package com.opengamma.analytics.financial.forex.method;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -38,13 +37,13 @@ public class PresentValueForexBlackVolatilityQuoteSensitivityDataBundle {
    * @param vega The initial sensitivity, not null
    */
   public PresentValueForexBlackVolatilityQuoteSensitivityDataBundle(final Currency ccy1, final Currency ccy2, final double[] expiries, final double[] delta, final double[][] vega) {
-    Validate.notNull(ccy1, "currency 1");
-    Validate.notNull(ccy2, "currency 2");
-    Validate.notNull(expiries, "expiries");
-    Validate.notNull(delta, "delta");
-    Validate.notNull(vega, "Matrix");
-    Validate.isTrue(vega.length == expiries.length, "Number of rows did not match number of expiries");
-    Validate.isTrue(vega[0].length == delta.length, "Number of columns did not match number of delta");
+    ArgChecker.notNull(ccy1, "currency 1");
+    ArgChecker.notNull(ccy2, "currency 2");
+    ArgChecker.notNull(expiries, "expiries");
+    ArgChecker.notNull(delta, "delta");
+    ArgChecker.notNull(vega, "Matrix");
+    ArgChecker.isTrue(vega.length == expiries.length, "Number of rows did not match number of expiries");
+    ArgChecker.isTrue(vega[0].length == delta.length, "Number of columns did not match number of delta");
     _currencyPair = Pair.of(ccy1, ccy2);
     _expiries = expiries;
     _delta = delta;
@@ -98,7 +97,7 @@ public class PresentValueForexBlackVolatilityQuoteSensitivityDataBundle {
       return false;
     }
     PresentValueForexBlackVolatilityQuoteSensitivityDataBundle other = (PresentValueForexBlackVolatilityQuoteSensitivityDataBundle) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
     if (!Arrays.equals(_delta, other._delta)) {

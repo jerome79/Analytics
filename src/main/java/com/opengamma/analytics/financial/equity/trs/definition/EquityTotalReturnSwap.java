@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.equity.trs.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -123,13 +123,13 @@ public class EquityTotalReturnSwap extends TotalReturnSwap {
       return false;
     }
     final EquityTotalReturnSwap other = (EquityTotalReturnSwap) obj;
-    if (!ObjectUtils.equals(_equity, other._equity)) {
+    if (!Objects.equals(_equity, other._equity)) {
       return false;
     }
     if (Double.compare(_notionalAmount, other._notionalAmount) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_notionalCurrency, other._notionalCurrency)) {
+    if (!Objects.equals(_notionalCurrency, other._notionalCurrency)) {
       return false;
     }
     if (Double.compare(_dividendRatio, other._dividendRatio) != 0) {

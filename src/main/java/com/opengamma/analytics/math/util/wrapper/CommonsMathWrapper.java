@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.util.wrapper;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.DifferentiableUnivariateRealFunction;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
@@ -25,6 +24,7 @@ import com.opengamma.analytics.math.function.FunctionND;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Utility class for converting OpenGamma mathematical objects into <a href="http://commons.apache.org/math/api-2.1/index.html">Commons</a> objects and vice versa.
@@ -39,7 +39,7 @@ public final class CommonsMathWrapper {
    * @return A Commons univariate real function
    */
   public static UnivariateRealFunction wrapUnivariate(final Function1D<Double, Double> f) {
-    Validate.notNull(f);
+    ArgChecker.notNull(f, "f");
     return f::evaluate;
   }
 
@@ -48,7 +48,7 @@ public final class CommonsMathWrapper {
    * @return A Commons multivariate real function
    */
   public static MultivariateRealFunction wrapMultivariate(final Function1D<DoubleMatrix1D, Double> f) {
-    Validate.notNull(f);
+    ArgChecker.notNull(f, "f");
     return point -> f.evaluate(new DoubleMatrix1D(point));
   }
 
@@ -57,7 +57,7 @@ public final class CommonsMathWrapper {
    * @return A Commons multivariate real function
    */
   public static MultivariateRealFunction wrap(final FunctionND<Double, Double> f) {
-    Validate.notNull(f);
+    ArgChecker.notNull(f, "f");
     return point -> {
       final int n = point.length;
       final Double[] coordinate = new Double[n];
@@ -73,7 +73,7 @@ public final class CommonsMathWrapper {
    * @return A Commons matrix
    */
   public static RealMatrix wrap(final DoubleMatrix2D x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return new Array2DRowRealMatrix(x.getData());
   }
 
@@ -82,7 +82,7 @@ public final class CommonsMathWrapper {
    * @return A Commons matrix 
    */
   public static RealMatrix wrapAsMatrix(final DoubleMatrix1D x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     final int n = x.getNumberOfElements();
     final double[][] y = new double[n][1];
     for (int i = 0; i < n; i++) {
@@ -96,7 +96,7 @@ public final class CommonsMathWrapper {
    * @return An OG 2-D matrix of doubles
    */
   public static DoubleMatrix2D unwrap(final RealMatrix x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return new DoubleMatrix2D(x.getData());
   }
 
@@ -105,7 +105,7 @@ public final class CommonsMathWrapper {
    * @return A Commons vector
    */
   public static RealVector wrap(final DoubleMatrix1D x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return new ArrayRealVector(x.getData());
   }
 
@@ -114,7 +114,7 @@ public final class CommonsMathWrapper {
    * @return An OG 1-D matrix of doubles
    */
   public static DoubleMatrix1D unwrap(final RealVector x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return new DoubleMatrix1D(x.getData());
   }
 
@@ -123,7 +123,7 @@ public final class CommonsMathWrapper {
    * @return A Commons complex number
    */
   public static Complex wrap(final ComplexNumber z) {
-    Validate.notNull(z);
+    ArgChecker.notNull(z, "z");
     return new Complex(z.getReal(), z.getImaginary());
   }
 
@@ -132,7 +132,7 @@ public final class CommonsMathWrapper {
    * @return An OG 1-D function mapping doubles to doubles
    */
   public static Function1D<Double, Double> unwrap(final PolynomialFunctionLagrangeForm lagrange) {
-    Validate.notNull(lagrange);
+    ArgChecker.notNull(lagrange, "lagrange");
     return new Function1D<Double, Double>() {
 
       @Override
@@ -152,7 +152,7 @@ public final class CommonsMathWrapper {
    * @return A matrix of double with the <i>x</i> as the first element and <i>f(x)</i> the second
    */
   public static double[] unwrap(final RealPointValuePair x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return x.getPoint();
   }
 
@@ -161,7 +161,7 @@ public final class CommonsMathWrapper {
    * @return A Commons differentiable univariate real function
    */
   public static DifferentiableUnivariateRealFunction wrapDifferentiable(final DoubleFunction1D f) {
-    Validate.notNull(f);
+    ArgChecker.notNull(f, "f");
     return new DifferentiableUnivariateRealFunction() {
 
       @Override

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.equity;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -111,13 +111,13 @@ public class StaticReplicationDataBundle {
       return false;
     }
     final StaticReplicationDataBundle other = (StaticReplicationDataBundle) obj;
-    if (!ObjectUtils.equals(_discountCurve, other._discountCurve)) {
+    if (!Objects.equals(_discountCurve, other._discountCurve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardCurve, other._forwardCurve)) {
+    if (!Objects.equals(_forwardCurve, other._forwardCurve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilitySurface, other._volatilitySurface)) {
+    if (!Objects.equals(_volatilitySurface, other._volatilitySurface)) {
       return false;
     }
     return true;

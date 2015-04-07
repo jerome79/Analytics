@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -23,7 +22,7 @@ public class LogOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
+      ArgChecker.notNull(data, "data");
       final double spot = data.getSpot();
       return Math.max(0, Math.log(spot / getStrike()));
     }

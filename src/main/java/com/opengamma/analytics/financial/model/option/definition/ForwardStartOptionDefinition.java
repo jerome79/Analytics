@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +50,9 @@ public class ForwardStartOptionDefinition extends OptionDefinition {
 
   public ForwardStartOptionDefinition(final Expiry expiry, final Boolean isCall, final Expiry startTime, final double percent, final Moneyness moneyness) {
     super(null, expiry, isCall);
-    Validate.notNull(startTime);
+    ArgChecker.notNull(startTime, "startTime");
     ArgChecker.notNegative(percent, "percent");
-    Validate.notNull(moneyness, "moneyness");
+    ArgChecker.notNull(moneyness, "moneyness");
     if (expiry.getExpiry().isBefore(startTime.getExpiry())) {
       throw new IllegalArgumentException("The forward start time must be before the expiry of the option");
     }
@@ -135,13 +134,13 @@ public class ForwardStartOptionDefinition extends OptionDefinition {
       return false;
     }
     final ForwardStartOptionDefinition other = (ForwardStartOptionDefinition) obj;
-    if (!ObjectUtils.equals(_moneyness, other._moneyness)) {
+    if (!Objects.equals(_moneyness, other._moneyness)) {
       return false;
     }
     if (Double.doubleToLongBits(_percent) != Double.doubleToLongBits(other._percent)) {
       return false;
     }
-    return ObjectUtils.equals(_startTime, other._startTime);
+    return Objects.equals(_startTime, other._startTime);
   }
 
 }

@@ -9,7 +9,6 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.greeks.Greek;
@@ -454,7 +453,7 @@ public class DoubleBarrierOptionFunctionProviderTest {
    * 
    */
   @SuppressWarnings("unused")
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void DoubleKnockInTest() {
     new DoubleBarrierOptionFunctionProvider(100., TIME, 21, true, 88., 121., DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockIn"));
   }

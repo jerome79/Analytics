@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -162,7 +161,7 @@ public class BondFutureOptionPremiumTransactionDefinition implements InstrumentD
       return false;
     }
     final BondFutureOptionPremiumTransactionDefinition other = (BondFutureOptionPremiumTransactionDefinition) obj;
-    if (!ObjectUtils.equals(_premium, other._premium)) {
+    if (!Objects.equals(_premium, other._premium)) {
       return false;
     }
     if (_quantity != other._quantity) {
@@ -171,7 +170,7 @@ public class BondFutureOptionPremiumTransactionDefinition implements InstrumentD
     if (Double.doubleToLongBits(_tradePrice) != Double.doubleToLongBits(other._tradePrice)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingOption, other._underlyingOption)) {
+    if (!Objects.equals(_underlyingOption, other._underlyingOption)) {
       return false;
     }
     return true;

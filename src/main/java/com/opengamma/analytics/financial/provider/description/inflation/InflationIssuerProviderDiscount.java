@@ -9,10 +9,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -560,10 +560,10 @@ public class InflationIssuerProviderDiscount implements InflationIssuerProviderI
       return false;
     }
     final InflationIssuerProviderDiscount other = (InflationIssuerProviderDiscount) obj;
-    if (!ObjectUtils.equals(_inflationProvider, other._inflationProvider)) {
+    if (!Objects.equals(_inflationProvider, other._inflationProvider)) {
       return false;
     }
-    if (!ObjectUtils.equals(_issuerCurves, other._issuerCurves)) {
+    if (!Objects.equals(_issuerCurves, other._issuerCurves)) {
       return false;
     }
     return true;

@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.method.SuccessiveRootFinderCalibrationObjective;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantDataBundle;
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantParameters;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Specific objective function for Hull-White model calibration with cap/floor.
@@ -83,7 +82,7 @@ public class CapFloorHullWhiteCalibrationObjective extends SuccessiveRootFinderC
   @Override
   public void setInstrument(final InstrumentDerivative instrument) {
     super.setInstrument(instrument);
-    Validate.isTrue(instrument instanceof CapFloorIbor, "Instrument should be a cap/floor");
+    ArgChecker.isTrue(instrument instanceof CapFloorIbor, "Instrument should be a cap/floor");
   }
 
   @Override

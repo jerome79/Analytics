@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.tree;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -18,7 +17,7 @@ public abstract class RecombiningTree<T> implements Lattice<T> {
   private final T[][] _tree;
 
   public RecombiningTree(final T[][] data) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     ArgChecker.notEmpty(data, "data");
     _tree = data;
   }
@@ -92,7 +91,7 @@ public abstract class RecombiningTree<T> implements Lattice<T> {
       return false;
     }
     final RecombiningTree<?> other = (RecombiningTree<?>) obj;
-    if (ObjectUtils.equals(_tree, other._tree)) {
+    if (Objects.equals(_tree, other._tree)) {
       return true;
     }
     final int length = _tree.length;
@@ -105,7 +104,7 @@ public abstract class RecombiningTree<T> implements Lattice<T> {
         return false;
       }
       for (int j = 0; j < width; j++) {
-        if (!ObjectUtils.equals(_tree[i][j], other._tree[i][j])) {
+        if (!Objects.equals(_tree[i][j], other._tree[i][j])) {
           return false;
         }
       }

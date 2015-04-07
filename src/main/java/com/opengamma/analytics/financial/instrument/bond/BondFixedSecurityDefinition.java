@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.bond;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.AccruedInterestCalculator;
@@ -794,7 +793,7 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
     if (_isEOM != other._isEOM) {
       return false;
     }
-    if (!ObjectUtils.equals(_yieldConvention, other._yieldConvention)) {
+    if (!Objects.equals(_yieldConvention, other._yieldConvention)) {
       return false;
     }
     return true;

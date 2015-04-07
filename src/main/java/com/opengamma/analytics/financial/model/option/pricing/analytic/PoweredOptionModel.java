@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.PoweredOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.financial.model.option.pricing.OptionPricingException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Analytic pricing model for powered options. *This model is only valid for options with an integer power.*
@@ -40,7 +39,7 @@ public class PoweredOptionModel extends AnalyticOptionModel<PoweredOptionDefinit
    */
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final PoweredOptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<StandardOptionDataBundle, Double> pricingFunction = new Function1D<StandardOptionDataBundle, Double>() {
 
       /**
@@ -49,7 +48,7 @@ public class PoweredOptionModel extends AnalyticOptionModel<PoweredOptionDefinit
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         if (Math.abs(definition.getPower() - Math.round(definition.getPower())) > 1e-15) {
           throw new OptionPricingException("Analytic powered option pricing model can only be used when then power is an integer");
         }

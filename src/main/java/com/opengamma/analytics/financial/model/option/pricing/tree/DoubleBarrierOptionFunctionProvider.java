@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.google.common.primitives.Doubles;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -39,7 +37,7 @@ public class DoubleBarrierOptionFunctionProvider extends BarrierOptionFunctionPr
         _checkerDouble = new DoubleBarrier();
         break;
       default:
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     _upperBarrier = upperBarrier;

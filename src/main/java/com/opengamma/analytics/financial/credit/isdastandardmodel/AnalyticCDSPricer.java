@@ -10,8 +10,6 @@ import static com.opengamma.analytics.math.utilities.Epsilon.epsilon;
 import static com.opengamma.analytics.math.utilities.Epsilon.epsilonP;
 import static com.opengamma.analytics.math.utilities.Epsilon.epsilonPP;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -630,7 +628,7 @@ public class AnalyticCDSPricer {
       return 0.0;
     }
     if (_formula != AccrualOnDefaultFormulae.MarkitFix) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     final double[] knots = DoublesScheduleGenerator.truncateSetInclusive(start, coupon.getEffEnd(), integrationPoints);
@@ -831,7 +829,7 @@ public class AnalyticCDSPricer {
 
       double dPVSense;
       //  if (Math.abs(fhBar) < 1e-5) {
-      // throw new NotImplementedException();
+      // throw new UnsupportedOperationException();
       final double e = epsilon(-fhBar);
       final double eP = epsilonP(-fhBar);
       final double dPVdp0 = q0 * hBar * (e - eP);

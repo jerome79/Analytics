@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.curve.inflation.generator;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
@@ -18,6 +17,7 @@ import com.opengamma.analytics.math.curve.DoublesCurveInterpolatedAnchor;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
+import com.opengamma.analytics.util.ArrayUtils;
 
 /**
  * Tests related to the generator of price index curves interpolated with an "anchor" node.

@@ -9,10 +9,9 @@ import static com.opengamma.analytics.math.ComplexMathUtils.add;
 import static com.opengamma.analytics.math.ComplexMathUtils.multiply;
 import static com.opengamma.analytics.math.ComplexMathUtils.square;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class represents the characteristic exponent for a Brownian motion driven by normally-distributed increments
@@ -42,7 +41,7 @@ public class GaussianCharacteristicExponent implements CharacteristicExponent {
    * @param sigma The standard deviation of the Gaussian distribution, not negative or zero
    */
   public GaussianCharacteristicExponent(final double mu, final double sigma) {
-    Validate.isTrue(sigma > 0.0, "sigma > 0");
+    ArgChecker.isTrue(sigma > 0.0, "sigma > 0");
     _mu = mu;
     _sigma = sigma;
   }
@@ -59,8 +58,8 @@ public class GaussianCharacteristicExponent implements CharacteristicExponent {
 
   @Override
   public ComplexNumber getValue(ComplexNumber u, double t) {
-    Validate.isTrue(t > 0.0, "t > 0");
-    Validate.notNull(u, "u");
+    ArgChecker.isTrue(t > 0.0, "t > 0");
+    ArgChecker.notNull(u, "u");
     final ComplexNumber temp = multiply(_sigma, u);
     final ComplexNumber res = add(multiply(u, new ComplexNumber(0, _mu)), multiply(-0.5, multiply(temp, temp)));
     return multiply(t, res);

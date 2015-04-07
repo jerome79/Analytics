@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class implementing the Kronecker delta function, defined as:
@@ -25,8 +24,8 @@ public class KroneckerDeltaFunction extends Function2D<Integer, Integer> {
 
   @Override
   public Integer evaluate(Integer i, Integer j) {
-    Validate.notNull(i, "i");
-    Validate.notNull(j, "j");
+    ArgChecker.notNull(i, "i");
+    ArgChecker.notNull(j, "j");
     return i.intValue() == j.intValue() ? 1 : 0;
   }
 

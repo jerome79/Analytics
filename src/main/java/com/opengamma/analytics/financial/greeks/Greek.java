@@ -7,9 +7,8 @@ package com.opengamma.analytics.financial.greeks;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.pnl.UnderlyingType;
 
@@ -532,7 +531,7 @@ public abstract class Greek implements Comparable<Greek> {
       return false;
     }
     final Greek other = (Greek) obj;
-    return ObjectUtils.equals(_name, other._name) && ObjectUtils.equals(_underlying, other._underlying);
+    return Objects.equals(_name, other._name) && Objects.equals(_underlying, other._underlying);
   }
 
 }

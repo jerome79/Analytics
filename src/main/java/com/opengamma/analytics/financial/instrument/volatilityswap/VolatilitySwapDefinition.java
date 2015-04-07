@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.volatilityswap;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -245,28 +244,28 @@ public class VolatilitySwapDefinition implements InstrumentDefinition<Volatility
     if (Double.doubleToLongBits(_annualizationFactor) != Double.doubleToLongBits(other._annualizationFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
     if (_nObservations != other._nObservations) {
       return false;
     }
-    if (!ObjectUtils.equals(_effectiveDate, other._effectiveDate)) {
+    if (!Objects.equals(_effectiveDate, other._effectiveDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_maturityDate, other._maturityDate)) {
+    if (!Objects.equals(_maturityDate, other._maturityDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_observationStartDate, other._observationStartDate)) {
+    if (!Objects.equals(_observationStartDate, other._observationStartDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_observationEndDate, other._observationEndDate)) {
+    if (!Objects.equals(_observationEndDate, other._observationEndDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_observationFrequency, other._observationFrequency)) {
+    if (!Objects.equals(_observationFrequency, other._observationFrequency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
     return true;

@@ -9,8 +9,7 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -290,7 +289,7 @@ public class AnnuityCouponIborDefinition extends AnnuityCouponDefinition<CouponI
       return false;
     }
     final AnnuityCouponIborDefinition other = (AnnuityCouponIborDefinition) obj;
-    if (!ObjectUtils.equals(_iborIndex, other._iborIndex)) {
+    if (!Objects.equals(_iborIndex, other._iborIndex)) {
       return false;
     }
     return true;

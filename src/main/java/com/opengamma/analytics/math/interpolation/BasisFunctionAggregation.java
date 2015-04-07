@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -23,9 +21,9 @@ public class BasisFunctionAggregation<T> extends Function1D<T, Double> {
   private final double[] _w;
 
   public BasisFunctionAggregation(final List<Function1D<T, Double>> functions, final double[] weights) {
-    Validate.notEmpty(functions, "no functions");
-    Validate.notNull(weights, "no weights");
-    Validate.isTrue(functions.size() == weights.length);
+    ArgChecker.notEmpty(functions, "no functions");
+    ArgChecker.notNull(weights, "no weights");
+    ArgChecker.isTrue(functions.size() == weights.length);
     _f = functions;
     _w = weights.clone();
   }

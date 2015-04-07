@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityFunction1D;
@@ -305,7 +304,7 @@ public class ProductPiecewisePolynomialInterpolatorTest {
   /**
    * 2D method is not implemented
    */
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void notImplementedTest() {
     double[] xValues = new double[] {-5.0, -1.4, 3.2, 3.5, 7.6 };
     double[][] yValues = new double[][] { {-2.2, 1.1, 1.9, 2.3, 1.2 }, {-2.2, 1.1, 1.9, 2.3, 1.2 } };

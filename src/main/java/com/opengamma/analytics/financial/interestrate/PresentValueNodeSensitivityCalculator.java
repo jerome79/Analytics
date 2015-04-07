@@ -7,12 +7,11 @@ package com.opengamma.analytics.financial.interestrate;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -29,7 +28,7 @@ public class PresentValueNodeSensitivityCalculator extends NodeYieldSensitivityC
   }
 
   public static PresentValueNodeSensitivityCalculator using(final InstrumentDerivativeVisitorAdapter<YieldCurveBundle, Map<String, List<DoublesPair>>> presentValueSensitivityCalculator) {
-    Validate.notNull(presentValueSensitivityCalculator, "present value sensitivity calculator");
+    ArgChecker.notNull(presentValueSensitivityCalculator, "present value sensitivity calculator");
     return new PresentValueNodeSensitivityCalculator(presentValueSensitivityCalculator);
   }
 
@@ -40,7 +39,7 @@ public class PresentValueNodeSensitivityCalculator extends NodeYieldSensitivityC
   }
 
   public PresentValueNodeSensitivityCalculator(final InstrumentDerivativeVisitorAdapter<YieldCurveBundle, Map<String, List<DoublesPair>>> presentValueSensitivityCalculator) {
-    Validate.notNull(presentValueSensitivityCalculator, "present value sensitivity calculator");
+    ArgChecker.notNull(presentValueSensitivityCalculator, "present value sensitivity calculator");
     _presentValueSensitivityCalculator = presentValueSensitivityCalculator;
   }
 
@@ -69,6 +68,6 @@ public class PresentValueNodeSensitivityCalculator extends NodeYieldSensitivityC
       return false;
     }
     final PresentValueNodeSensitivityCalculator other = (PresentValueNodeSensitivityCalculator) obj;
-    return ObjectUtils.equals(_presentValueSensitivityCalculator, other._presentValueSensitivityCalculator);
+    return Objects.equals(_presentValueSensitivityCalculator, other._presentValueSensitivityCalculator);
   }
 }

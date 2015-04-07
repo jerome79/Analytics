@@ -5,7 +5,6 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.Sets;
@@ -101,7 +100,7 @@ public class FFTOptionModelTest {
     FFT_MODEL.getGreeks(ITM_CALL, BLACK_DATA, null);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testWrongGreeks() {
     FFT_MODEL.getGreeks(ITM_CALL, BLACK_DATA, Sets.newHashSet(Greek.DELTA, Greek.GAMMA));
   }

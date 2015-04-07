@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.volatilityswap;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -215,7 +215,7 @@ public class VolatilitySwap implements InstrumentDerivative {
     if (Double.doubleToLongBits(_volStrike) != Double.doubleToLongBits(other._volStrike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_observationFrequency, other._observationFrequency)) {
+    if (!Objects.equals(_observationFrequency, other._observationFrequency)) {
       return false;
     }
     return true;

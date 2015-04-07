@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.surface;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
 import com.opengamma.analytics.math.interpolation.Interpolator2D;
@@ -508,7 +507,7 @@ public class InterpolatedDoublesSurface extends DoublesSurface {
       return false;
     }
     final InterpolatedDoublesSurface other = (InterpolatedDoublesSurface) obj;
-    return ObjectUtils.equals(_interpolator, other._interpolator);
+    return Objects.equals(_interpolator, other._interpolator);
   }
 
 }

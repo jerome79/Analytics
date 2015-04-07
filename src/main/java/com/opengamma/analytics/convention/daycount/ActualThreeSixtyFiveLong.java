@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.JulianFields;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The 'Actual/365L' day count.
@@ -22,14 +21,14 @@ public class ActualThreeSixtyFiveLong extends ActualTypeDayCount {
 
   @Override
   public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
-    throw new NotImplementedException("Need information on payment frequency to get day count");
+    throw new UnsupportedOperationException("Need information on payment frequency to get day count");
   }
 
   @Override
   public double getAccruedInterest(final ZonedDateTime previousCouponDate, final ZonedDateTime date, final ZonedDateTime nextCouponDate, final double coupon, final double paymentsPerYear) {
-    Validate.notNull(previousCouponDate);
-    Validate.notNull(date);
-    Validate.notNull(nextCouponDate);
+    ArgChecker.notNull(previousCouponDate, "previousCouponDate");
+    ArgChecker.notNull(date, "date");
+    ArgChecker.notNull(nextCouponDate, "nextCouponDate");
     return getAccruedInterest(previousCouponDate.toLocalDate(), date.toLocalDate(), nextCouponDate.toLocalDate(), coupon, paymentsPerYear);
   }
 

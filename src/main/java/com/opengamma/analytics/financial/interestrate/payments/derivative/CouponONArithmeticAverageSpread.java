@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -214,7 +213,7 @@ public final class CouponONArithmeticAverageSpread extends Coupon {
     if (!Arrays.equals(_fixingPeriodTimes, other._fixingPeriodTimes)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_rateAccrued) != Double.doubleToLongBits(other._rateAccrued)) {

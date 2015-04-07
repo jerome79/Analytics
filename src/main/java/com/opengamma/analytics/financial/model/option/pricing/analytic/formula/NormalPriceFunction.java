@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Computes the price of an option in the normally distributed assets hypothesis (Bachelier model).
@@ -23,7 +22,7 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
 
   @Override
   public Function1D<NormalFunctionData, Double> getPriceFunction(final EuropeanVanillaOption option) {
-    Validate.notNull(option, "option");
+    ArgChecker.notNull(option, "option");
     final double strike = option.getStrike();
     final double t = option.getTimeToExpiry();
     return new Function1D<NormalFunctionData, Double>() {
@@ -31,7 +30,7 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
       @SuppressWarnings("synthetic-access")
       @Override
       public final Double evaluate(final NormalFunctionData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double forward = data.getForward();
         final double numeraire = data.getNumeraire();
         final double sigma = data.getNormalVolatility();
@@ -55,10 +54,10 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
    * @return The price.
    */
   public double getPriceAdjoint(final EuropeanVanillaOption option, final NormalFunctionData data, double[] priceDerivative) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
-    Validate.notNull(priceDerivative, "derivatives");
-    Validate.isTrue(priceDerivative.length == 3, "array size");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(priceDerivative, "derivatives");
+    ArgChecker.isTrue(priceDerivative.length == 3, "array size");
     final double strike = option.getStrike();
     final double t = option.getTimeToExpiry();
     final double forward = data.getForward();
@@ -107,8 +106,8 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
    * @return The Delta.
    */
   public double getDelta(EuropeanVanillaOption option, NormalFunctionData data) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
     double strike = option.getStrike();
     double t = option.getTimeToExpiry();
     double forward = data.getForward();
@@ -135,8 +134,8 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
    * @return The gamma.
    */
   public double getGamma(EuropeanVanillaOption option, NormalFunctionData data) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
     double strike = option.getStrike();
     double t = option.getTimeToExpiry();
     double forward = data.getForward();
@@ -161,8 +160,8 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
    * @return The vega.
    */
   public double getVega(EuropeanVanillaOption option, NormalFunctionData data) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
     double strike = option.getStrike();
     double t = option.getTimeToExpiry();
     double forward = data.getForward();
@@ -188,8 +187,8 @@ public class NormalPriceFunction implements OptionPriceFunction<NormalFunctionDa
    * @return The theta.
    */
   public double getTheta(EuropeanVanillaOption option, NormalFunctionData data) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
     double strike = option.getStrike();
     double t = option.getTimeToExpiry();
     double forward = data.getForward();

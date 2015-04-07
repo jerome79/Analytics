@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.equity.option;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
@@ -190,7 +190,7 @@ public class EquityOption implements InstrumentDerivative {
     if (Double.compare(_unitAmount, other._unitAmount) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
     return true;

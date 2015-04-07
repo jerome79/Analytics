@@ -7,9 +7,8 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.strata.collect.ArgChecker;
@@ -108,10 +107,10 @@ public class PriceIndexCurveMultiplyFixedCurve  implements PriceIndexCurve {
       return false;
     }
     final PriceIndexCurveMultiplyFixedCurve other = (PriceIndexCurveMultiplyFixedCurve) obj;
-    if (!ObjectUtils.equals(_curve, other._curve)) {
+    if (!Objects.equals(_curve, other._curve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fixedCurve, other._fixedCurve)) {
+    if (!Objects.equals(_fixedCurve, other._fixedCurve)) {
       return false;
     }
     return true;

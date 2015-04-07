@@ -7,8 +7,7 @@ package com.opengamma.analytics.math.cube;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
 /**
@@ -159,9 +158,9 @@ public class NodalDoublesCube extends DoublesCube {
    */
   @Override
   public Double getValue(final Double x, final Double y, final Double z) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
-    Validate.notNull(y, "z");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
+    ArgChecker.notNull(y, "z");
     final double[] xArray = getXDataAsPrimitive();
     final double[] yArray = getYDataAsPrimitive();
     final double[] zArray = getZDataAsPrimitive();
@@ -181,7 +180,7 @@ public class NodalDoublesCube extends DoublesCube {
    */
   @Override
   public Double getValue(final Triple<Double, Double, Double> xyz) {
-    Validate.notNull(xyz, "x-y-z triple");
+    ArgChecker.notNull(xyz, "x-y-z triple");
     return getValue(xyz.getFirst(), xyz.getSecond(), xyz.getThird());
   }
 

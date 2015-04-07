@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * @deprecated {@link YieldCurveBundle} is deprecated
@@ -20,8 +19,8 @@ public class MultipleYieldCurveFinderFunction extends Function1D<DoubleMatrix1D,
   private final YieldCurveBundleBuildingFunction _curveBuilderFunction; //TODO this could be moved into MultipleYieldCurveFinderDataBundle
 
   public MultipleYieldCurveFinderFunction(final MultipleYieldCurveFinderDataBundle data, final InstrumentDerivativeVisitor<YieldCurveBundle, Double> calculator) {
-    Validate.notNull(data, "data");
-    Validate.notNull(calculator, "calculator");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(calculator, "calculator");
     _calculator = calculator;
     _data = data;
     _curveBuilderFunction = new InterpolatedYieldCurveBuildingFunction(data.getUnknownCurveNodePoints(), data.getUnknownCurveInterpolators());

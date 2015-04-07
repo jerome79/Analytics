@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
@@ -78,7 +77,7 @@ public abstract class CouponFloatingDefinition extends CouponDefinition
       return false;
     }
     final CouponFloatingDefinition other = (CouponFloatingDefinition) obj;
-    return ObjectUtils.equals(_fixingDate, other._fixingDate);
+    return Objects.equals(_fixingDate, other._fixingDate);
   }
 
 }

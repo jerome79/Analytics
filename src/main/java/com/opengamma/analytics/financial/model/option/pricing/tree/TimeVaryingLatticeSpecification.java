@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.descriptive.MeanCalculator;
 
@@ -17,7 +15,7 @@ public class TimeVaryingLatticeSpecification extends LatticeSpecification {
 
   @Override
   public double[] getParameters(final double spot, final double strike, final double timeToExpiry, final double volatility, final double interestRate, final int nSteps, final double dt) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**

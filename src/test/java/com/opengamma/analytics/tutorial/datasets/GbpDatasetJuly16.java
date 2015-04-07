@@ -11,8 +11,6 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
@@ -47,6 +45,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
@@ -209,7 +208,7 @@ public class GbpDatasetJuly16 {
             getDefinitions(STD_MARKET_QUOTES, STD_GENERATORS, STD_ATTR, calibrationDate));
     
     definitionsUnits[0] = new InstrumentDefinition<?>[][] {
-        (InstrumentDefinition<?>[]) ArrayUtils.addAll(definitionsStdInstruments, definitionsBoe)};
+        ArrayUtils.addAll(definitionsStdInstruments, definitionsBoe)};
     
     return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits, 
         GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP, 

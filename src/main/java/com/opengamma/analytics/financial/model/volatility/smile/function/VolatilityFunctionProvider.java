@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -71,15 +69,15 @@ public abstract class VolatilityFunctionProvider<T extends SmileModelData> {
    * @return Returns a function that, given data of type T, calculates the volatility adjoint
    */
   public Function1D<T, double[]> getVolatilityAdjointFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward >= 0.0, "forward must be greater than zero");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward >= 0.0, "forward must be greater than zero");
     final Function1D<T, Double> func = getVolatilityFunction(option, forward);
 
     return new Function1D<T, double[]>() {
       @SuppressWarnings("synthetic-access")
       @Override
       public final double[] evaluate(final T data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double[] x = new double[3 + data.getNumberOfParameters()]; //vol, fwd, strike, the model parameters
         x[0] = func.evaluate(data);
         x[1] = forwardBar(option, forward, data);
@@ -98,15 +96,15 @@ public abstract class VolatilityFunctionProvider<T extends SmileModelData> {
    * @return Returns a function that, given data of type T, calculates the volatility model sensitivity
    */
   public Function1D<T, double[]> getModelAdjointFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward >= 0.0, "forward must be greater than zero");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward >= 0.0, "forward must be greater than zero");
     final Function1D<T, Double> func = getVolatilityFunction(option, forward);
 
     return new Function1D<T, double[]>() {
       @SuppressWarnings("synthetic-access")
       @Override
       public final double[] evaluate(final T data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         return paramBar(func, data);
       }
     };
@@ -129,7 +127,7 @@ public abstract class VolatilityFunctionProvider<T extends SmileModelData> {
       @SuppressWarnings("synthetic-access")
       @Override
       public double[][] evaluate(final T data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double[][] res = new double[3 + data.getNumberOfParameters()][n];
         res[0] = func.evaluate(data);
         res[1] = forwardBar(strikes, timeToExpiry, forward, data);
@@ -185,7 +183,7 @@ public abstract class VolatilityFunctionProvider<T extends SmileModelData> {
       @SuppressWarnings("synthetic-access")
       @Override
       public double[][] evaluate(final T data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double[][] temp = paramBarSet(func, data);
 
         //now transpose

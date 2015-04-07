@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.provider.sensitivity.multicurve;
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
@@ -50,9 +48,9 @@ public abstract class ParameterSensitivityMulticurveMatrixAbstractCalculator {
    * @return The sensitivity (as a Matrix). The order of the sensitivity is by curve as provided by the curvesSet.
    */
   public DoubleMatrix1D calculateSensitivity(final InstrumentDerivative instrument, final MulticurveProviderInterface multicurves, final Set<String> curvesSet) {
-    Validate.notNull(instrument, "null InterestRateDerivative");
-    Validate.notNull(multicurves, "null multicurve");
-    Validate.notNull(curvesSet, "null curves set");
+    ArgChecker.notNull(instrument, "null InterestRateDerivative");
+    ArgChecker.notNull(multicurves, "null multicurve");
+    ArgChecker.notNull(curvesSet, "null curves set");
     MulticurveSensitivity sensitivity = instrument.accept(_curveSensitivityCalculator, multicurves);
     return pointToParameterSensitivity(sensitivity, multicurves, curvesSet);
   }

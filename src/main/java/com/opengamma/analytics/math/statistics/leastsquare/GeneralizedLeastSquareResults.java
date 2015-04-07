@@ -6,8 +6,7 @@
 package com.opengamma.analytics.math.statistics.leastsquare;
 
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.BasisFunctionAggregation;
@@ -62,7 +61,7 @@ public class GeneralizedLeastSquareResults<T> extends LeastSquareResults {
       return false;
     }
     final GeneralizedLeastSquareResults<?> other = (GeneralizedLeastSquareResults<?>) obj;
-    if (!ObjectUtils.equals(_function, other._function)) {
+    if (!Objects.equals(_function, other._function)) {
       return false;
     }
     return true;

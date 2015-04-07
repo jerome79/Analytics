@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -46,13 +46,13 @@ public class TwoStateMarkovChainDataBundle {
   public TwoStateMarkovChainDataBundle(final double vol1, final double vol2,
       final double lambda12, final double lambda21, final double probS1, final double beta1, final double beta2) {
 
-    Validate.isTrue(vol1 >= 0.0, "vol1 < 0");
-    Validate.isTrue(vol2 >= vol1, "vol2 < vol1");
-    Validate.isTrue(lambda12 >= 0.0, "lambda12 < 0");
-    Validate.isTrue(lambda21 >= 0.0, "lambda21 < 0");
-    Validate.isTrue(probS1 >= 0.0 && probS1 <= 1.0, "Need 0 <= probS1 <= 1.0");
-    Validate.isTrue(beta1 >= 0.0 && beta1 <= 2.0, "Need 0 <= beta1 <= 2.0");
-    Validate.isTrue(beta2 >= 0.0 && beta2 <= 2.0, "Need 0 <= beta2 <= 2.0");
+    ArgChecker.isTrue(vol1 >= 0.0, "vol1 < 0");
+    ArgChecker.isTrue(vol2 >= vol1, "vol2 < vol1");
+    ArgChecker.isTrue(lambda12 >= 0.0, "lambda12 < 0");
+    ArgChecker.isTrue(lambda21 >= 0.0, "lambda21 < 0");
+    ArgChecker.isTrue(probS1 >= 0.0 && probS1 <= 1.0, "Need 0 <= probS1 <= 1.0");
+    ArgChecker.isTrue(beta1 >= 0.0 && beta1 <= 2.0, "Need 0 <= beta1 <= 2.0");
+    ArgChecker.isTrue(beta2 >= 0.0 && beta2 <= 2.0, "Need 0 <= beta2 <= 2.0");
 
     _vol1 = vol1;
     _vol2 = vol2;

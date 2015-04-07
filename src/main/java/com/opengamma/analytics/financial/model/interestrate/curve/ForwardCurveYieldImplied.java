@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.interestrate.curve;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 
 
@@ -70,10 +70,10 @@ public class ForwardCurveYieldImplied extends ForwardCurve {
     if (Double.compare(_spot, other._spot) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_costOfCarryCurve, other._costOfCarryCurve)) {
+    if (!Objects.equals(_costOfCarryCurve, other._costOfCarryCurve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_riskFreeCurve, other._riskFreeCurve)) {
+    if (!Objects.equals(_riskFreeCurve, other._riskFreeCurve)) {
       return false;
     }
     return true;

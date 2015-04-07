@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Log-linear extrapolator: the extrapolant is exp(f(x)) where f(x) is a linear function 
@@ -31,7 +30,7 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
    * @param eps Bump parameter of finite difference approximation for the first derivative value
    */
   public LogLinearExtrapolator1D(final Interpolator1D interpolator, double eps) {
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     _eps = eps;
   }
@@ -48,8 +47,8 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
       return leftExtrapolate(data, value);
     } else if (value > data.lastKey()) {
@@ -60,8 +59,8 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
       return leftExtrapolateDerivative(data, value);
     } else if (value > data.lastKey()) {
@@ -72,7 +71,7 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     if (value < data.firstKey()) {
       return getLeftSensitivities(data, value);
     } else if (value > data.lastKey()) {
@@ -82,8 +81,8 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double leftExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = Math.log(data.firstValue());
     final double m = _interpolator.firstDerivative(data, x) / _interpolator.interpolate(data, x);
@@ -91,8 +90,8 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double rightExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = Math.log(data.lastValue());
     final double m = _interpolator.firstDerivative(data, x) / _interpolator.interpolate(data, x);
@@ -100,8 +99,8 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double leftExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = Math.log(data.firstValue());
     final double m = _interpolator.firstDerivative(data, x) / _interpolator.interpolate(data, x);
@@ -109,8 +108,8 @@ public class LogLinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double rightExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = Math.log(data.lastValue());
     final double m = _interpolator.firstDerivative(data, x) / _interpolator.interpolate(data, x);

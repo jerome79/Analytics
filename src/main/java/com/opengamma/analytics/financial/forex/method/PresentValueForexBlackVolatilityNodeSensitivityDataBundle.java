@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.method;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -164,16 +164,16 @@ public class PresentValueForexBlackVolatilityNodeSensitivityDataBundle {
       return false;
     }
     final PresentValueForexBlackVolatilityNodeSensitivityDataBundle other = (PresentValueForexBlackVolatilityNodeSensitivityDataBundle) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_vega, other._vega)) {
+    if (!Objects.equals(_vega, other._vega)) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiries, other._expiries)) {
+    if (!Objects.equals(_expiries, other._expiries)) {
       return false;
     }
-    if (!ObjectUtils.equals(_delta, other._delta)) {
+    if (!Objects.equals(_delta, other._delta)) {
       return false;
     }
     return true;

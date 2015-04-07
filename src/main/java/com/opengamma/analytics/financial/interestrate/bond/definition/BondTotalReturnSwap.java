@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
@@ -88,7 +88,7 @@ public class BondTotalReturnSwap extends TotalReturnSwap {
       return false;
     }
     BondTotalReturnSwap other = (BondTotalReturnSwap) obj;
-    if (!ObjectUtils.equals(_bond, other._bond)) {
+    if (!Objects.equals(_bond, other._bond)) {
       return false;
     }
     if (Double.doubleToLongBits(_quantity) != Double.doubleToLongBits(other._quantity)) {

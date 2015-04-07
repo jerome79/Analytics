@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -29,7 +28,7 @@ public class CappedPowerOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
+      ArgChecker.notNull(data, "data");
       final double spot = data.getSpot();
       return isCall() ? Math.min(Math.max(Math.pow(spot, getPower()) - getStrike(), 0), getCap()) : Math.min(Math.max(getStrike() - Math.pow(spot, getPower()), 0), getCap());
     }
@@ -48,8 +47,8 @@ public class CappedPowerOptionDefinition extends OptionDefinition {
    */
   public CappedPowerOptionDefinition(final double strike, final Expiry expiry, final double power, final double cap, final boolean isCall) {
     super(strike, expiry, isCall);
-    Validate.isTrue(power > 0, "power must be > 0");
-    Validate.isTrue(cap > 0, "cap must be > 0");
+    ArgChecker.isTrue(power > 0, "power must be > 0");
+    ArgChecker.isTrue(cap > 0, "cap must be > 0");
     if (!isCall && cap > strike) {
       throw new IllegalArgumentException("Cannot have cap larger than strike for a put");
     }

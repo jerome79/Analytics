@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.statistics.descriptive;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The second moment of a series of asset return data can be used as a measure
@@ -53,8 +53,8 @@ public class PartialMomentCalculator implements Function<double[], Double> {
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length > 0, "x cannot be empty");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length > 0, "x cannot be empty");
     final int n = x.length;
     final double[] copyX = Arrays.copyOf(x, n);
     Arrays.sort(copyX);

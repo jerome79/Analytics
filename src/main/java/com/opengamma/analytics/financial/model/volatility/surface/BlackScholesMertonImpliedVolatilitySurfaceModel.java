@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +31,9 @@ public class BlackScholesMertonImpliedVolatilitySurfaceModel implements Volatili
 
   @Override
   public VolatilitySurface getSurface(final Map<OptionDefinition, Double> optionPrices, final StandardOptionDataBundle optionDataBundle) {
-    Validate.notNull(optionPrices);
+    ArgChecker.notNull(optionPrices, "optionPrices");
     ArgChecker.notEmpty(optionPrices, "option prices");
-    Validate.notNull(optionDataBundle);
+    ArgChecker.notNull(optionDataBundle, "optionDataBundle");
     if (optionPrices.size() > 1) {
       s_logger.info("Option price map had more than one entry: using the first pair to imply volatility");
     }

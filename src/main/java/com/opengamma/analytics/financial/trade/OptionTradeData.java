@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.trade;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -15,7 +15,7 @@ public class OptionTradeData {
   private final double _pointValue;
 
   public OptionTradeData(final double numberOfContracts, final double pointValue) {
-    Validate.isTrue(pointValue > 0);
+    ArgChecker.isTrue(pointValue > 0);
     _numberOfContracts = numberOfContracts;
     _pointValue = pointValue;
   }

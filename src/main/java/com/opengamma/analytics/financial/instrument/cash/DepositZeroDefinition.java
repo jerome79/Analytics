@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.cash;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -254,13 +253,13 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
       return false;
     }
     final DepositZeroDefinition other = (DepositZeroDefinition) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_endDate, other._endDate)) {
+    if (!Objects.equals(_endDate, other._endDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_startDate, other._startDate)) {
+    if (!Objects.equals(_startDate, other._startDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_interestAmount) != Double.doubleToLongBits(other._interestAmount)) {
@@ -272,7 +271,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
     if (Double.doubleToLongBits(_paymentAccrualFactor) != Double.doubleToLongBits(other._paymentAccrualFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_rate, other._rate)) {
+    if (!Objects.equals(_rate, other._rate)) {
       return false;
     }
     return true;

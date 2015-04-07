@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -29,8 +29,8 @@ public class DoubleExponentialMeshing extends MeshingFunction {
    */
   public DoubleExponentialMeshing(final double lowerBound, final double upperBound, final double centre, final int nPoints, final double lambdaLower, final double lambdaUpper) {
     super(nPoints);
-    Validate.isTrue(centre > lowerBound, "need centre > lowerBound");
-    Validate.isTrue(centre < upperBound, "need centre < upperBound");
+    ArgChecker.isTrue(centre > lowerBound, "need centre > lowerBound");
+    ArgChecker.isTrue(centre < upperBound, "need centre < upperBound");
     final double frac = (centre - lowerBound) / (upperBound - lowerBound);
     final int nPointsLower = (int) (frac * nPoints);
     final int nPointUpper = nPoints - nPointsLower + 1;

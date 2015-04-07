@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 
@@ -42,9 +42,9 @@ public class AnnualScheduleOnDayAndMonthCalculator extends Schedule {
   }
 
   public LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate) {
-    Validate.notNull(startDate, "start date");
-    Validate.notNull(endDate, "end date");
-    Validate.isTrue(startDate.isBefore(endDate) || startDate.equals(endDate));
+    ArgChecker.notNull(startDate, "start date");
+    ArgChecker.notNull(endDate, "end date");
+    ArgChecker.isTrue(startDate.isBefore(endDate) || startDate.equals(endDate));
     if (startDate.equals(endDate)) {
       if (MonthDay.from(startDate).equals(_monthDay)) {
         return new LocalDate[] {startDate};
@@ -69,9 +69,9 @@ public class AnnualScheduleOnDayAndMonthCalculator extends Schedule {
   }
 
   public ZonedDateTime[] getSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate) {
-    Validate.notNull(startDate, "start date");
-    Validate.notNull(endDate, "end date");
-    Validate.isTrue(startDate.isBefore(endDate) || startDate.equals(endDate));
+    ArgChecker.notNull(startDate, "start date");
+    ArgChecker.notNull(endDate, "end date");
+    ArgChecker.isTrue(startDate.isBefore(endDate) || startDate.equals(endDate));
     if (startDate.equals(endDate)) {
       if (MonthDay.from(startDate).equals(_monthDay)) {
         return new ZonedDateTime[] {startDate};

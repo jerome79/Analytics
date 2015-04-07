@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the $n^th$ normalized central moment of a series of data. Given
@@ -32,7 +31,7 @@ public class SampleNormalizedCentralMomentCalculator implements Function<double[
    * @param n The degree of the moment of calculate, cannot be negative
    */
   public SampleNormalizedCentralMomentCalculator(final int n) {
-    Validate.isTrue(n >= 0, "n must be >= 0");
+    ArgChecker.isTrue(n >= 0, "n must be >= 0");
     _n = n;
     _moment = new SampleCentralMomentCalculator(n);
   }
@@ -43,8 +42,8 @@ public class SampleNormalizedCentralMomentCalculator implements Function<double[
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x);
-    Validate.isTrue(x.length >= 2, "Need at least 2 data points to calculate normalized central moment");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 2, "Need at least 2 data points to calculate normalized central moment");
     if (_n == 0) {
       return 1.;
     }

@@ -6,14 +6,13 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -22,15 +21,15 @@ public class DeltaGammaCovarianceMatrixMeanCalculator extends Function1D<Map<Int
   private final MatrixAlgebra _algebra;
 
   public DeltaGammaCovarianceMatrixMeanCalculator(final MatrixAlgebra algebra) {
-    Validate.notNull(algebra, "algebra");
+    ArgChecker.notNull(algebra, "algebra");
     _algebra = algebra;
   }
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     final ParametricVaRDataBundle firstOrderData = data.get(1);
-    Validate.notNull(firstOrderData, "first order data");
+    ArgChecker.notNull(firstOrderData, "first order data");
     final ParametricVaRDataBundle secondOrderData = data.get(2);
     if (secondOrderData == null) {
       return 0.;
@@ -63,7 +62,7 @@ public class DeltaGammaCovarianceMatrixMeanCalculator extends Function1D<Map<Int
       return false;
     }
     final DeltaGammaCovarianceMatrixMeanCalculator other = (DeltaGammaCovarianceMatrixMeanCalculator) obj;
-    return ObjectUtils.equals(_algebra, other._algebra);
+    return Objects.equals(_algebra, other._algebra);
   }
 
 }

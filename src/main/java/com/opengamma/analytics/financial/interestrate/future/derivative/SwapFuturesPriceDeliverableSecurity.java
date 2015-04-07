@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -122,7 +122,7 @@ public class SwapFuturesPriceDeliverableSecurity extends FuturesSecurity {
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

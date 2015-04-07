@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.timeseries.model;
 
 import java.time.LocalDate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
@@ -21,7 +19,7 @@ public class AutoregressiveMovingAverageTimeSeriesModel {
   private final MovingAverageTimeSeriesModel _maModel;
 
   public AutoregressiveMovingAverageTimeSeriesModel(final ProbabilityDistribution<Double> random) {
-    Validate.notNull(random, "random");
+    ArgChecker.notNull(random, "random");
     _maModel = new MovingAverageTimeSeriesModel(random);
     _arModel = new AutoregressiveTimeSeriesModel(random);
   }
@@ -45,7 +43,7 @@ public class AutoregressiveMovingAverageTimeSeriesModel {
     if (theta != null && theta.length < q) {
       throw new IllegalArgumentException("MA coefficient array must contain at least " + q + " elements");
     }
-    Validate.notNull(dates, "dates");
+    ArgChecker.notNull(dates, "dates");
     ArgChecker.notEmpty(dates, "dates");
     if (theta != null) {
       final double[] theta1 = new double[theta.length + 1];

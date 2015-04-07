@@ -7,8 +7,7 @@ package com.opengamma.analytics.math.minimization;
 
 import java.util.Arrays;
 import java.util.BitSet;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -207,7 +206,7 @@ public class UncoupledParameterTransforms implements NonLinearParameterTransform
     if (!Arrays.equals(_freeParameters, other._freeParameters)) {
       return false;
     }
-    if (!ObjectUtils.equals(_startValues, other._startValues)) {
+    if (!Objects.equals(_startValues, other._startValues)) {
       return false;
     }
     return Arrays.equals(_transforms, other._transforms);

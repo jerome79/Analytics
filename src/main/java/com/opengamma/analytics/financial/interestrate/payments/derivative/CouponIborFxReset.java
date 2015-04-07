@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -247,10 +247,10 @@ public class CouponIborFxReset extends Coupon implements DepositIndexCoupon<Ibor
     if (Double.doubleToLongBits(_fxFixingTime) != Double.doubleToLongBits(other._fxFixingTime)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_referenceCurrency, other._referenceCurrency)) {
+    if (!Objects.equals(_referenceCurrency, other._referenceCurrency)) {
       return false;
     }
     if (Double.doubleToLongBits(_spread) != Double.doubleToLongBits(other._spread)) {

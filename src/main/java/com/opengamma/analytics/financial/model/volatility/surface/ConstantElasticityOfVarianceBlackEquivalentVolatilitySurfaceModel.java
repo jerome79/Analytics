@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +23,9 @@ public class ConstantElasticityOfVarianceBlackEquivalentVolatilitySurfaceModel i
 
   @Override
   public VolatilitySurface getSurface(final Map<OptionDefinition, Double> optionData, final ConstantElasticityOfVarianceModelDataBundle data) {
-    Validate.notNull(optionData, "option data");
+    ArgChecker.notNull(optionData, "option data");
     ArgChecker.notEmpty(optionData, "option data");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     if (optionData.size() > 1) {
       s_logger.warn("Have more than one option: only using the first");
     }

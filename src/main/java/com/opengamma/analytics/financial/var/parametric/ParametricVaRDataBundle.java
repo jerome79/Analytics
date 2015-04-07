@@ -6,13 +6,12 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -37,22 +36,22 @@ public class ParametricVaRDataBundle {
   }
 
   public ParametricVaRDataBundle(final List<String> names, final DoubleMatrix1D expectedReturn, final Matrix<?> sensitivities, final DoubleMatrix2D covarianceMatrix, final int order) {
-    Validate.notNull(sensitivities, "sensitivities");
-    Validate.notNull(covarianceMatrix, "covariance matrix");
-    Validate.notNull(expectedReturn, "expected return");
-    Validate.isTrue(order > 0);
-    Validate.isTrue(covarianceMatrix.getNumberOfRows() == covarianceMatrix.getNumberOfColumns());
+    ArgChecker.notNull(sensitivities, "sensitivities");
+    ArgChecker.notNull(covarianceMatrix, "covariance matrix");
+    ArgChecker.notNull(expectedReturn, "expected return");
+    ArgChecker.isTrue(order > 0);
+    ArgChecker.isTrue(covarianceMatrix.getNumberOfRows() == covarianceMatrix.getNumberOfColumns());
     if (sensitivities instanceof DoubleMatrix1D) {
-      Validate.isTrue(sensitivities.getNumberOfElements() == covarianceMatrix.getNumberOfRows());
-      Validate.isTrue(sensitivities.getNumberOfElements() == expectedReturn.getNumberOfElements());
+      ArgChecker.isTrue(sensitivities.getNumberOfElements() == covarianceMatrix.getNumberOfRows());
+      ArgChecker.isTrue(sensitivities.getNumberOfElements() == expectedReturn.getNumberOfElements());
       if (names != null) {
-        Validate.isTrue(sensitivities.getNumberOfElements() == names.size());
+        ArgChecker.isTrue(sensitivities.getNumberOfElements() == names.size());
       }
     } else if (sensitivities instanceof DoubleMatrix2D) {
-      Validate.isTrue(((DoubleMatrix2D) sensitivities).getNumberOfRows() == covarianceMatrix.getNumberOfRows());
-      Validate.isTrue(((DoubleMatrix2D) sensitivities).getNumberOfRows() == expectedReturn.getNumberOfElements());
+      ArgChecker.isTrue(((DoubleMatrix2D) sensitivities).getNumberOfRows() == covarianceMatrix.getNumberOfRows());
+      ArgChecker.isTrue(((DoubleMatrix2D) sensitivities).getNumberOfRows() == expectedReturn.getNumberOfElements());
       if (names != null) {
-        Validate.isTrue(((DoubleMatrix2D) sensitivities).getNumberOfRows() == names.size());
+        ArgChecker.isTrue(((DoubleMatrix2D) sensitivities).getNumberOfRows() == names.size());
       }
     } else {
       throw new IllegalArgumentException("Can only handle 1- and 2-d sensitivity matrices");
@@ -117,16 +116,16 @@ public class ParametricVaRDataBundle {
       return false;
     }
     final ParametricVaRDataBundle other = (ParametricVaRDataBundle) obj;
-    if (!ObjectUtils.equals(_covarianceMatrix, other._covarianceMatrix)) {
+    if (!Objects.equals(_covarianceMatrix, other._covarianceMatrix)) {
       return false;
     }
-    if (!ObjectUtils.equals(_expectedReturn, other._expectedReturn)) {
+    if (!Objects.equals(_expectedReturn, other._expectedReturn)) {
       return false;
     }
-    if (!ObjectUtils.equals(_names, other._names)) {
+    if (!Objects.equals(_names, other._names)) {
       return false;
     }
-    if (!ObjectUtils.equals(_sensitivities, other._sensitivities)) {
+    if (!Objects.equals(_sensitivities, other._sensitivities)) {
       return false;
     }
     return _order == other._order;

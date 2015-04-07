@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -37,8 +35,8 @@ public class SampleMomentCalculator implements Function<double[], Double> {
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x was null");
-    Validate.isTrue(x.length > 0, "x was empty");
+    ArgChecker.notNull(x, "x was null");
+    ArgChecker.isTrue(x.length > 0, "x was empty");
     if (_n == 0) {
       return 1.;
     }

@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExpiredException;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -296,10 +295,10 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
       return false;
     }
     final InterestRateFutureSecurityDefinition other = (InterestRateFutureSecurityDefinition) obj;
-    if (!ObjectUtils.equals(_iborIndex, other._iborIndex)) {
+    if (!Objects.equals(_iborIndex, other._iborIndex)) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {

@@ -7,11 +7,10 @@ package com.opengamma.analytics.financial.model.interestrate;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -21,13 +20,13 @@ public class HullWhiteOneFactorInterestRateModel implements DiscountBondModel<Hu
 
   @Override
   public Function1D<HullWhiteOneFactorDataBundle, Double> getDiscountBondFunction(final ZonedDateTime time, final ZonedDateTime maturity) {
-    Validate.notNull(time);
-    Validate.notNull(maturity);
+    ArgChecker.notNull(time, "time");
+    ArgChecker.notNull(maturity, "maturity");
     return new Function1D<HullWhiteOneFactorDataBundle, Double>() {
 
       @Override
       public Double evaluate(final HullWhiteOneFactorDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final double t = DateUtils.getDifferenceInYears(data.getDate(), time);
         final double s = DateUtils.getDifferenceInYears(data.getDate(), maturity);
         final double rT = data.getShortRate(t);

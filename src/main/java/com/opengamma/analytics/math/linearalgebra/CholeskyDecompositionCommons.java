@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.CholeskyDecomposition;
 import org.apache.commons.math.linear.CholeskyDecompositionImpl;
 import org.apache.commons.math.linear.RealMatrix;
@@ -13,6 +12,7 @@ import org.apache.commons.math.linear.RealMatrix;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/linear/CholeskyDecompositionImpl.html">Commons Math library implementation</a> 
@@ -25,7 +25,7 @@ public class CholeskyDecompositionCommons extends Decomposition<CholeskyDecompos
    */
   @Override
   public CholeskyDecompositionResult evaluate(final DoubleMatrix2D x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     final RealMatrix temp = CommonsMathWrapper.wrap(x);
     CholeskyDecomposition cholesky;
     try {

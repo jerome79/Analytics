@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.cash;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -252,13 +251,13 @@ public class CashDefinition implements InstrumentDefinition<Cash> {
     if (Double.doubleToLongBits(_accrualFactor) != Double.doubleToLongBits(other._accrualFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_endDate, other._endDate)) {
+    if (!Objects.equals(_endDate, other._endDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_startDate, other._startDate)) {
+    if (!Objects.equals(_startDate, other._startDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {

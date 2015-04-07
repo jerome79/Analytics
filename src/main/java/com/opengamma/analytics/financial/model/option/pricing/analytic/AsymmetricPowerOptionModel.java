@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.AsymmetricPowerOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing model for asymmetric power options (see {@link AsymmetricPowerOptionDefinition}).
@@ -49,13 +48,13 @@ public class AsymmetricPowerOptionModel extends AnalyticOptionModel<AsymmetricPo
    */
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final AsymmetricPowerOptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<StandardOptionDataBundle, Double> pricingFunction = new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final double k = definition.getStrike();
         final double t = definition.getTimeToExpiry(data.getDate());

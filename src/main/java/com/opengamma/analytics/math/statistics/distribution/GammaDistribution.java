@@ -10,8 +10,8 @@ import java.util.Date;
 import cern.jet.random.Gamma;
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
+
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The Gamma distribution is a continuous probability distribution with cdf
@@ -51,9 +51,9 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
    * @param engine A uniform random number generator, not null
    */
   public GammaDistribution(final double k, final double theta, final RandomEngine engine) {
-    Validate.isTrue(k > 0, "k must be > 0");
-    Validate.isTrue(theta > 0, "theta must be > 0");
-    Validate.notNull(engine);
+    ArgChecker.isTrue(k > 0, "k must be > 0");
+    ArgChecker.isTrue(theta > 0, "theta must be > 0");
+    ArgChecker.notNull(engine, "engine");
     _gamma = new Gamma(k, 1. / theta, engine);
     _k = k;
     _theta = theta;
@@ -64,18 +64,18 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _gamma.cdf(x);
   }
 
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getInverseCDF(final Double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -83,7 +83,7 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _gamma.pdf(x);
   }
 

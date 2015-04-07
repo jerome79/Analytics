@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
@@ -92,7 +92,7 @@ public class IndexON extends IndexDeposit {
       return false;
     }
     final IndexON other = (IndexON) obj;
-    if (!ObjectUtils.equals(_dayCount, other._dayCount)) {
+    if (!Objects.equals(_dayCount, other._dayCount)) {
       return false;
     }
     if (_publicationLag != other._publicationLag) {

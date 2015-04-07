@@ -9,10 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
@@ -199,7 +199,7 @@ public class SwapGammaMultiCurveProfitJPYAnalysis {
       double[][] marketMvtIntra = new double[nbCurves][];
       int start = 0;
       for (int loopcurve = 0; loopcurve < nbCurves; loopcurve++) {
-        marketMvtIntra[loopcurve] = ArrayUtils.subarray(shiftAbsolute[loopsc], start, start + NB_NODE_JPY[loopcurve]);
+        marketMvtIntra[loopcurve] = Arrays.copyOfRange(shiftAbsolute[loopsc], start, start + NB_NODE_JPY[loopcurve]);
         start += NB_NODE_JPY[loopcurve];
       }
       // Full reval

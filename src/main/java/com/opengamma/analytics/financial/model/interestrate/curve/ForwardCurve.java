@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.interestrate.curve;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.curve.Curve;
@@ -220,10 +220,10 @@ public class ForwardCurve {
       return false;
     }
     final ForwardCurve other = (ForwardCurve) obj;
-    if (!ObjectUtils.equals(_drift, other._drift)) {
+    if (!Objects.equals(_drift, other._drift)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fwdCurve, other._fwdCurve)) {
+    if (!Objects.equals(_fwdCurve, other._fwdCurve)) {
       return false;
     }
     if (Double.doubleToLongBits(_spot) != Double.doubleToLongBits(other._spot)) {

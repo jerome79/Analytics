@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityFunction1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
@@ -36,9 +33,9 @@ public class PCHIPYieldCurveInterpolator1D extends Interpolator1D {
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
     final double eps = 1e-10;
 
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialDataBundle);
     final Interpolator1DPiecewisePoynomialDataBundle polyData = (Interpolator1DPiecewisePoynomialDataBundle) data;
 
     ArgChecker.isFalse(value < 0, "value must be zero or positive");
@@ -56,9 +53,9 @@ public class PCHIPYieldCurveInterpolator1D extends Interpolator1D {
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
     final double eps = 1e-10;
 
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialDataBundle);
     final Interpolator1DPiecewisePoynomialDataBundle polyData = (Interpolator1DPiecewisePoynomialDataBundle) data;
 
     ArgChecker.isFalse(value < 0, "value must be zero or positive");
@@ -74,7 +71,7 @@ public class PCHIPYieldCurveInterpolator1D extends Interpolator1D {
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override

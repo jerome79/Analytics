@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.SABRDataBundle;
 import com.opengamma.analytics.math.MathException;
@@ -17,6 +15,7 @@ import com.opengamma.analytics.math.rootfinding.CubicRealRootFinder;
 import com.opengamma.analytics.math.rootfinding.Polynomial1DRootFinder;
 import com.opengamma.analytics.math.rootfinding.QuadraticRealRootFinder;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -26,8 +25,8 @@ public class SABRATMVolatilityCalibrationFunction {
   private static final Polynomial1DRootFinder<Double> ROOT_FINDER = new CubicRealRootFinder();
 
   public SABRDataBundle calibrate(final OptionDefinition option, final SABRDataBundle data) {
-    Validate.notNull(option, "option");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
     final double beta = data.getBeta();
     final double t = option.getTimeToExpiry(data.getDate());
     final double rho = data.getRho();

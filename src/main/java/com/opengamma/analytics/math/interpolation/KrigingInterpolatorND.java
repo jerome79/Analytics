@@ -7,11 +7,10 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
 import com.opengamma.analytics.math.interpolation.data.KrigingInterpolatorDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -21,14 +20,14 @@ public class KrigingInterpolatorND extends InterpolatorND {
   private final double _beta;
 
   public KrigingInterpolatorND(final double beta) {
-    Validate.isTrue(beta >= 1 && beta < 2, "Beta was not in acceptable range (1 <= beta < 2");
+    ArgChecker.isTrue(beta >= 1 && beta < 2, "Beta was not in acceptable range (1 <= beta < 2");
     _beta = beta;
   }
 
   @Override
   public Double interpolate(final InterpolatorNDDataBundle data, final double[] x) {
     validateInput(data, x);
-    Validate.isTrue(data instanceof KrigingInterpolatorDataBundle, "KriginInterpolatorND needs a KriginInterpolatorDataBundle");
+    ArgChecker.isTrue(data instanceof KrigingInterpolatorDataBundle, "KriginInterpolatorND needs a KriginInterpolatorDataBundle");
     KrigingInterpolatorDataBundle krigingData = (KrigingInterpolatorDataBundle) data;
     final List<Pair<double[], Double>> rawData = krigingData.getData();
     final Function1D<Double, Double> variogram = krigingData.getVariogram();

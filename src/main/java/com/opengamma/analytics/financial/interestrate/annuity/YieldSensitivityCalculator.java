@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.annuity;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -15,6 +13,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -39,7 +38,7 @@ public final class YieldSensitivityCalculator {
    * @return continuously compounded yield (as a fraction) 
    */
   public double calculateYield(final Annuity<? extends PaymentFixed> annuity, final double pv) {
-    Validate.notNull(annuity, "annuity");
+    ArgChecker.notNull(annuity, "annuity");
     final Function1D<Double, Double> f = new Function1D<Double, Double>() {
 
       @Override
@@ -61,7 +60,7 @@ public final class YieldSensitivityCalculator {
    * @return continuously compounded yield (as a fraction) 
    */
   public double calculateYield(final AnnuityCouponFixed annuity, final double pv) {
-    Validate.notNull(annuity, "annuity");
+    ArgChecker.notNull(annuity, "annuity");
     final Function1D<Double, Double> f = new Function1D<Double, Double>() {
 
       @Override
@@ -81,7 +80,7 @@ public final class YieldSensitivityCalculator {
    * @return Present value (dirty price)
    */
   public double calculatePriceForYield(final Annuity<? extends PaymentFixed> annuity, final double yield) {
-    Validate.notNull(annuity, "annuity");
+    ArgChecker.notNull(annuity, "annuity");
     double sum = 0;
 
     final int n = annuity.getNumberOfPayments();
@@ -100,7 +99,7 @@ public final class YieldSensitivityCalculator {
    * @return Present value (dirty price)
    */
   public double calculatePriceForYield(final AnnuityCouponFixed annuity, final double yield) {
-    Validate.notNull(annuity, "annuity");
+    ArgChecker.notNull(annuity, "annuity");
     double sum = 0;
 
     final int n = annuity.getNumberOfPayments();
@@ -121,7 +120,7 @@ public final class YieldSensitivityCalculator {
    * @return nth order yield sensitivity (times (-1)^n
    */
   public double calculateNthOrderSensitivity(final Annuity<? extends PaymentFixed> annuity, final double pv, final int order) {
-    Validate.notNull(annuity, "annuity");
+    ArgChecker.notNull(annuity, "annuity");
     final double yield = calculateYield(annuity, pv);
     return calculateNthOrderSensitivityFromYield(annuity, yield, order);
   }
@@ -135,7 +134,7 @@ public final class YieldSensitivityCalculator {
    * @return nth order yield sensitivity (times (-1)^n
    */
   public double calculateNthOrderSensitivity(final AnnuityCouponFixed annuity, final double pv, final int order) {
-    Validate.notNull(annuity, "annuity");
+    ArgChecker.notNull(annuity, "annuity");
     final double yield = calculateYield(annuity, pv);
     return calculateNthOrderSensitivityFromYield(annuity, yield, order);
   }
@@ -149,8 +148,8 @@ public final class YieldSensitivityCalculator {
    * @return nth order yield sensitivity (times (-1)^n)
    */
   public double calculateNthOrderSensitivityFromYield(final Annuity<? extends PaymentFixed> annuity, final double yield, final int order) {
-    Validate.notNull(annuity, "annuity");
-    Validate.isTrue(order >= 0, "order must be positive");
+    ArgChecker.notNull(annuity, "annuity");
+    ArgChecker.isTrue(order >= 0, "order must be positive");
     double sum = 0;
 
     double t;
@@ -175,8 +174,8 @@ public final class YieldSensitivityCalculator {
    * @return nth order yield sensitivity (times (-1)^n)
    */
   public double calculateNthOrderSensitivityFromYield(final AnnuityCouponFixed annuity, final double yield, final int order) {
-    Validate.notNull(annuity, "annuity");
-    Validate.isTrue(order >= 0, "order must be positive");
+    ArgChecker.notNull(annuity, "annuity");
+    ArgChecker.isTrue(order >= 0, "order must be positive");
     double sum = 0;
 
     double t;

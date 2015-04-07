@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableOption;
 import com.opengamma.analytics.financial.forex.provider.ForexNonDeliverableOptionBlackSmileMethod;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -29,6 +27,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.amount.SurfaceValue;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -69,9 +68,9 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
    * @return The present value. The value is in the domestic currency (currency 2).
    */
   public MultiCurrencyAmount presentValue(final ForexNonDeliverableOption optionForex, final SmileDeltaTermStructureDataBundle smile) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smile, "Smile");
-    Validate.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smile, "Smile");
+    ArgChecker.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.
@@ -90,8 +89,8 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
 
   @Override
   public MultiCurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexNonDeliverableOption, "Forex non-deliverable option");
-    Validate.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexNonDeliverableOption, "Forex non-deliverable option");
+    ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
     return presentValue((ForexNonDeliverableOption) instrument, (SmileDeltaTermStructureDataBundle) curves);
   }
 
@@ -102,9 +101,9 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
    * @return The currency exposure
    */
   public MultiCurrencyAmount currencyExposure(final ForexNonDeliverableOption optionForex, final SmileDeltaTermStructureDataBundle smile) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smile, "Smile");
-    Validate.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smile, "Smile");
+    ArgChecker.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.
@@ -129,8 +128,8 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
 
   @Override
   public MultiCurrencyAmount currencyExposure(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexNonDeliverableOption, "Forex non-deliverable option");
-    Validate.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexNonDeliverableOption, "Forex non-deliverable option");
+    ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
     return currencyExposure((ForexNonDeliverableOption) instrument, (SmileDeltaTermStructureDataBundle) curves);
   }
 
@@ -152,9 +151,9 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
    * @return The curve sensitivities.
    */
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final ForexNonDeliverableOption optionForex, final SmileDeltaTermStructureDataBundle smile) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smile, "Smile");
-    Validate.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smile, "Smile");
+    ArgChecker.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.
@@ -199,8 +198,8 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
    */
   @Override
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexNonDeliverableOption, "Forex non-deliverable option");
-    Validate.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexNonDeliverableOption, "Forex non-deliverable option");
+    ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
     return presentValueCurveSensitivity((ForexNonDeliverableOption) instrument, (SmileDeltaTermStructureDataBundle) curves);
   }
 
@@ -211,9 +210,9 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
    * @return The currency exposure
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final ForexNonDeliverableOption optionForex, final SmileDeltaTermStructureDataBundle smile) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smile, "Smile");
-    Validate.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smile, "Smile");
+    ArgChecker.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.
@@ -243,9 +242,9 @@ public final class ForexNonDeliverableOptionBlackMethod implements ForexPricingM
    * @return The currency exposure
    */
   public PresentValueForexBlackVolatilityNodeSensitivityDataBundle presentValueVolatilityNodeSensitivity(final ForexNonDeliverableOption optionForex, final SmileDeltaTermStructureDataBundle smile) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smile, "Smile");
-    Validate.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smile, "Smile");
+    ArgChecker.isTrue(smile.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
     final double strike = 1.0 / optionForex.getStrike(); // The strike is 1 ccy2=X ccy1; we want the price in ccy2 => we need 1 ccy1 = 1/X ccy2.

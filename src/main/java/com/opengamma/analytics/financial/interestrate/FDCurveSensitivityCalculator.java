@@ -8,14 +8,13 @@ package com.opengamma.analytics.financial.interestrate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountAddZeroSpreadCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -38,19 +37,19 @@ public abstract class FDCurveSensitivityCalculator {
   public static final List<DoublesPair> curveSensitvityFDCalculator(final InstrumentDerivative ird, final InstrumentDerivativeVisitorAdapter<YieldCurveBundle, Double> calculator,
       final YieldCurveBundle curves, final String curveName, final double[] times, final double absTol) {
 
-    Validate.notNull(times, "null times");
-    Validate.notNull(ird, "null ird");
-    Validate.notNull(calculator, "null calculator");
-    Validate.notNull(curves, "null curves");
-    Validate.isTrue(times[0] >= 0.0, "t less than 0");
-    Validate.isTrue(curves.containsName(curveName), "curveName not in curves");
+    ArgChecker.notNull(times, "null times");
+    ArgChecker.notNull(ird, "null ird");
+    ArgChecker.notNull(calculator, "null calculator");
+    ArgChecker.notNull(curves, "null curves");
+    ArgChecker.isTrue(times[0] >= 0.0, "t less than 0");
+    ArgChecker.isTrue(curves.containsName(curveName), "curveName not in curves");
 
     final List<DoublesPair> res = new ArrayList<>();
     double oldT = times[0];
     boolean first = true;
     for (final double t : times) {
       if (!first) {
-        Validate.isTrue(t > oldT, "times not strictly assending");
+        ArgChecker.isTrue(t > oldT, "times not strictly assending");
       } else {
         first = false;
       }
@@ -83,19 +82,19 @@ public abstract class FDCurveSensitivityCalculator {
       final double[] times,
       final double absTol) {
 
-    Validate.notNull(times, "null times");
-    Validate.notNull(ird, "null ird");
-    Validate.notNull(method, "null method");
-    Validate.notNull(curves, "null curves");
-    Validate.isTrue(times[0] >= 0.0, "t less than 0");
-    Validate.isTrue(curves.containsName(curveName), "curveName not in curves");
+    ArgChecker.notNull(times, "null times");
+    ArgChecker.notNull(ird, "null ird");
+    ArgChecker.notNull(method, "null method");
+    ArgChecker.notNull(curves, "null curves");
+    ArgChecker.isTrue(times[0] >= 0.0, "t less than 0");
+    ArgChecker.isTrue(curves.containsName(curveName), "curveName not in curves");
 
     final List<DoublesPair> res = new ArrayList<>();
     double oldT = times[0];
     boolean first = true;
     for (final double t : times) {
       if (!first) {
-        Validate.isTrue(t > oldT, "times not strictly assending");
+        ArgChecker.isTrue(t > oldT, "times not strictly assending");
       } else {
         first = false;
       }
@@ -119,11 +118,11 @@ public abstract class FDCurveSensitivityCalculator {
    */
   public static final double curveSensitvityFDCalculator(final InstrumentDerivative ird, final InstrumentDerivativeVisitorAdapter<YieldCurveBundle, Double> calculator, final YieldCurveBundle curves,
       final String curveName, final double t) {
-    Validate.notNull(ird, "null ird");
-    Validate.notNull(calculator, "null calculator");
-    Validate.notNull(curves, "null curves");
-    Validate.isTrue(t >= 0.0, "t less than 0");
-    Validate.isTrue(curves.containsName(curveName), "curveName not in curves");
+    ArgChecker.notNull(ird, "null ird");
+    ArgChecker.notNull(calculator, "null calculator");
+    ArgChecker.notNull(curves, "null curves");
+    ArgChecker.isTrue(t >= 0.0, "t less than 0");
+    ArgChecker.isTrue(curves.containsName(curveName), "curveName not in curves");
 
     return impFDCalculator(ird, calculator, curves, curveName, t);
   }

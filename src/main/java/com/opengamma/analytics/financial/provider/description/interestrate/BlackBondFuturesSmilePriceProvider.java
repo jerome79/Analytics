@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
 import com.opengamma.strata.collect.ArgChecker;
@@ -103,7 +102,7 @@ public class BlackBondFuturesSmilePriceProvider implements BlackBondFuturesSmile
     if (Double.compare(_price, other._price) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_blackProvider, other._blackProvider)) {
+    if (!Objects.equals(_blackProvider, other._blackProvider)) {
       return false;
     }
     return true;

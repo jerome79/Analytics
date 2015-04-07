@@ -8,8 +8,7 @@ package com.opengamma.analytics.financial.instrument.payment;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -385,32 +384,32 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
       return false;
     }
     CouponIborFxResetDefinition other = (CouponIborFxResetDefinition) obj;
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
-    if (!ObjectUtils.equals(_iborIndexFixingDate, other._iborIndexFixingDate)) {
+    if (!Objects.equals(_iborIndexFixingDate, other._iborIndexFixingDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_iborIndexFixingPeriodAccrualFactor) != Double
         .doubleToLongBits(other._iborIndexFixingPeriodAccrualFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_iborIndexFixingPeriodEndDate, other._iborIndexFixingPeriodEndDate)) {
+    if (!Objects.equals(_iborIndexFixingPeriodEndDate, other._iborIndexFixingPeriodEndDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_iborIndexFixingPeriodStartDate, other._iborIndexFixingPeriodStartDate)) {
+    if (!Objects.equals(_iborIndexFixingPeriodStartDate, other._iborIndexFixingPeriodStartDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fxDeliveryDate, other._fxDeliveryDate)) {
+    if (!Objects.equals(_fxDeliveryDate, other._fxDeliveryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fxFixingDate, other._fxFixingDate)) {
+    if (!Objects.equals(_fxFixingDate, other._fxFixingDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_referenceCurrency, other._referenceCurrency)) {
+    if (!Objects.equals(_referenceCurrency, other._referenceCurrency)) {
       return false;
     }
     if (Double.doubleToLongBits(_spread) != Double.doubleToLongBits(other._spread)) {

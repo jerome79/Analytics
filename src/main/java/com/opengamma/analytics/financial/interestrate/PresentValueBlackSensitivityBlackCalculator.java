@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureOptionMarginSecurity;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureOptionMarginTransaction;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureOptionPremiumSecurity;
@@ -49,8 +47,8 @@ public final class PresentValueBlackSensitivityBlackCalculator extends Instrumen
 
   @Override
   public SurfaceValue visitInterestRateFutureOptionMarginTransaction(final InterestRateFutureOptionMarginTransaction transaction, final YieldCurveBundle curves) {
-    Validate.notNull(transaction);
-    Validate.notNull(curves);
+    ArgChecker.notNull(transaction, "transaction");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof YieldCurveWithBlackCubeBundle) {
       final YieldCurveWithBlackCubeBundle curvesBlack = (YieldCurveWithBlackCubeBundle) curves;
       return METHOD_OPTIONFUTURESMARGIN_BLACK.presentValueBlackSensitivity(transaction, curvesBlack);

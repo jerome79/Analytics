@@ -9,13 +9,13 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
+import com.opengamma.analytics.util.ArrayUtils;
 
 
 /**
@@ -195,7 +195,8 @@ public class StandardSmileSurfaceDataBundleTest {
         ArrayUtils.toPrimitive(other.getForwardCurve().getForwardCurve().getYData()), 0);
     assertEquals(((InterpolatedDoublesCurve) DATA.getForwardCurve().getForwardCurve()).getInterpolator(),
         ((InterpolatedDoublesCurve) other.getForwardCurve().getForwardCurve()).getInterpolator());
-    final ForwardCurve otherCurve = new ForwardCurve(InterpolatedDoublesCurve.from(ArrayUtils.add(EXPIRIES, 0, 0), ArrayUtils.add(EXPIRIES, 0, SPOT), INTERPOLATOR));
+    final ForwardCurve otherCurve = new ForwardCurve(
+        InterpolatedDoublesCurve.from(ArrayUtils.add(EXPIRIES, 0, 0), ArrayUtils.add(EXPIRIES, 0, SPOT), INTERPOLATOR));
     other = new StandardSmileSurfaceDataBundle(otherCurve, EXPIRIES, STRIKES, VOLS);
     assertFalse(DATA.equals(other));
     other = new StandardSmileSurfaceDataBundle(FORWARD_CURVE, new double[] {0, 0.01, 0.02 }, STRIKES, VOLS);

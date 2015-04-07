@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -351,10 +351,10 @@ public class IssuerProvider implements IssuerProviderInterface {
       return false;
     }
     final IssuerProvider other = (IssuerProvider) obj;
-    if (!ObjectUtils.equals(_issuerCurves, other._issuerCurves)) {
+    if (!Objects.equals(_issuerCurves, other._issuerCurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
     return true;

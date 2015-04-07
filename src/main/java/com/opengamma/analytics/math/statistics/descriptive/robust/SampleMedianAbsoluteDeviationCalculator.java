@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.descriptive.robust;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.statistics.descriptive.MedianCalculator;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,9 +18,9 @@ public class SampleMedianAbsoluteDeviationCalculator implements Function<double[
 
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     final int n = x.length;
-    Validate.isTrue(n > 1, "Need at least two data points to calculate MAD");
+    ArgChecker.isTrue(n > 1, "Need at least two data points to calculate MAD");
     final double median = MEDIAN.apply(x);
     final double[] diff = new double[n];
     for (int i = 0; i < n; i++) {

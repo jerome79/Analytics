@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.differentiation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -49,7 +47,7 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
    * Use around 10<sup>5</sup> times the domain size.
    */
   public ScalarFirstOrderDifferentiator(final FiniteDifferenceType differenceType, final double eps) {
-    Validate.notNull(differenceType);
+    ArgChecker.notNull(differenceType, "differenceType");
     if (eps < MIN_EPS) {
       throw new IllegalArgumentException("eps is too small. A good value is 1e-5*size of domain. The minimum value is " + MIN_EPS);
     }
@@ -60,7 +58,7 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
 
   @Override
   public Function1D<Double, Double> differentiate(final Function1D<Double, Double> function) {
-    Validate.notNull(function);
+    ArgChecker.notNull(function, "function");
     switch (_differenceType) {
       case FORWARD:
         return new Function1D<Double, Double>() {
@@ -68,7 +66,7 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
           @SuppressWarnings("synthetic-access")
           @Override
           public Double evaluate(final Double x) {
-            Validate.notNull(x, "x");
+            ArgChecker.notNull(x, "x");
             return (function.evaluate(x + _eps) - function.evaluate(x)) / _eps;
           }
         };
@@ -78,7 +76,7 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
           @SuppressWarnings("synthetic-access")
           @Override
           public Double evaluate(final Double x) {
-            Validate.notNull(x, "x");
+            ArgChecker.notNull(x, "x");
             return (function.evaluate(x + _eps) - function.evaluate(x - _eps)) / _twoEps;
           }
         };
@@ -88,7 +86,7 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
           @SuppressWarnings("synthetic-access")
           @Override
           public Double evaluate(final Double x) {
-            Validate.notNull(x, "x");
+            ArgChecker.notNull(x, "x");
             return (function.evaluate(x) - function.evaluate(x - _eps)) / _eps;
           }
         };
@@ -99,8 +97,8 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
 
   @Override
   public Function1D<Double, Double> differentiate(final Function1D<Double, Double> function, final Function1D<Double, Boolean> domain) {
-    Validate.notNull(function);
-    Validate.notNull(domain);
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(domain, "domain");
 
     final double[] wFwd = new double[] {-3. / _twoEps, 4. / _twoEps, -1. / _twoEps };
     final double[] wCent = new double[] {-1. / _twoEps, 0., 1. / _twoEps };
@@ -111,7 +109,7 @@ public class ScalarFirstOrderDifferentiator implements Differentiator<Double, Do
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final Double x) {
-        Validate.notNull(x, "x");
+        ArgChecker.notNull(x, "x");
         ArgChecker.isTrue(domain.evaluate(x), "point {} is not in the function domain", x.toString());
 
         final double[] y = new double[3];

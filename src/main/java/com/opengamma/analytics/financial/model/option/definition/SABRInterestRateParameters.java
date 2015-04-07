@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
@@ -286,19 +286,19 @@ public class SABRInterestRateParameters implements VolatilityModel<double[]> {
       return false;
     }
     final SABRInterestRateParameters other = (SABRInterestRateParameters) obj;
-    if (!ObjectUtils.equals(_alphaSurface, other._alphaSurface)) {
+    if (!Objects.equals(_alphaSurface, other._alphaSurface)) {
       return false;
     }
-    if (!ObjectUtils.equals(_betaSurface, other._betaSurface)) {
+    if (!Objects.equals(_betaSurface, other._betaSurface)) {
       return false;
     }
-    if (!ObjectUtils.equals(_rhoSurface, other._rhoSurface)) {
+    if (!Objects.equals(_rhoSurface, other._rhoSurface)) {
       return false;
     }
-    if (!ObjectUtils.equals(_nuSurface, other._nuSurface)) {
+    if (!Objects.equals(_nuSurface, other._nuSurface)) {
       return false;
     }
-    return ObjectUtils.equals(_sabrFunction, other._sabrFunction);
+    return Objects.equals(_sabrFunction, other._sabrFunction);
   }
 
 }

@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.curve.generator;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYield;
@@ -18,6 +17,7 @@ import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscou
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
+import com.opengamma.analytics.util.ArrayUtils;
 
 
 /**

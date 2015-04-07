@@ -9,8 +9,7 @@ import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtil
 import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtils.getWorkingDaysInclusive;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -288,19 +287,19 @@ public class VarianceSwapDefinition implements InstrumentDefinitionWithData<Vari
     if (Double.compare(_annualizationFactor, other._annualizationFactor) != 0) {
       return false;
     }
-    if (!(ObjectUtils.equals(_obsStartDate, other._obsStartDate))) {
+    if (!(Objects.equals(_obsStartDate, other._obsStartDate))) {
       return false;
     }
-    if (!(ObjectUtils.equals(_obsEndDate, other._obsEndDate))) {
+    if (!(Objects.equals(_obsEndDate, other._obsEndDate))) {
       return false;
     }
-    if (!(ObjectUtils.equals(_settlementDate, other._settlementDate))) {
+    if (!(Objects.equals(_settlementDate, other._settlementDate))) {
       return false;
     }
-    if (!(ObjectUtils.equals(_currency, other._currency))) {
+    if (!(Objects.equals(_currency, other._currency))) {
       return false;
     }
-    if (!(ObjectUtils.equals(_calendar, other._calendar))) {
+    if (!(Objects.equals(_calendar, other._calendar))) {
       return false;
     }
     return true;

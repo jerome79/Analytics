@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.fourier.FFTPricer;
 import com.opengamma.analytics.financial.model.option.pricing.fourier.HestonCharacteristicExponent;
 import com.opengamma.analytics.financial.model.option.pricing.fourier.MartingaleCharacteristicExponent;
@@ -19,6 +17,7 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -59,7 +58,7 @@ public class HestonPDETestCase {
     // final Function<Double, Double> volZeroBoundary = new Function<Double, Double>() {
     // @Override
     // public Double evaluate(final Double... tx) {
-    // Validate.isTrue(tx.length == 2);
+    // ArgChecker.isTrue(tx.length == 2);
     // double x = tx[1];
     // return Math.max(x - STRIKE, 0);
     // }
@@ -68,7 +67,7 @@ public class HestonPDETestCase {
     // final Function<Double, Double> volInfiniteBoundary = new Function<Double, Double>() {
     // @Override
     // public Double evaluate(final Double... tx) {
-    // Validate.isTrue(tx.length == 2);
+    // ArgChecker.isTrue(tx.length == 2);
     // double x = tx[1];
     // return x;
     // }
@@ -89,7 +88,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... txy) {
-        Validate.isTrue(txy.length == 3);
+        ArgChecker.isTrue(txy.length == 3);
         final double x = txy[1];
         final double y = txy[2];
         return -0.5 * x * x * y;
@@ -100,7 +99,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... txy) {
-        Validate.isTrue(txy.length == 3);
+        ArgChecker.isTrue(txy.length == 3);
         final double x = txy[1];
         return -x * RATE;
       }
@@ -110,7 +109,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... txy) {
-        Validate.isTrue(txy.length == 3);
+        ArgChecker.isTrue(txy.length == 3);
         return RATE;
       }
     };
@@ -119,7 +118,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> d = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... txy) {
-        Validate.isTrue(txy.length == 3);
+        ArgChecker.isTrue(txy.length == 3);
         final double y = txy[2];
         return -0.5 * OMEGA * OMEGA * y;
       }
@@ -129,7 +128,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> e = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... txy) {
-        Validate.isTrue(txy.length == 3);
+        ArgChecker.isTrue(txy.length == 3);
         final double x = txy[1];
         final double y = txy[2];
 
@@ -141,7 +140,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> f = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... txy) {
-        Validate.isTrue(txy.length == 3);
+        ArgChecker.isTrue(txy.length == 3);
         final double y = txy[2];
         return -KAPPA * (THETA - y);
       }
@@ -151,7 +150,7 @@ public class HestonPDETestCase {
     final Function<Double, Double> payoff = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... xy) {
-        Validate.isTrue(xy.length == 2);
+        ArgChecker.isTrue(xy.length == 2);
         final double x = xy[0];
         return Math.max(x - STRIKE, 0);
       }

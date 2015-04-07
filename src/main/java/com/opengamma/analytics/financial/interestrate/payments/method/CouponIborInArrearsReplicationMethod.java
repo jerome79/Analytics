@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFlo
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIbor;
 import com.opengamma.analytics.financial.model.option.definition.SABRInterestRateDataBundle;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Class used to compute the price and sensitivity of a Ibor coupon in arrears.
@@ -44,8 +43,8 @@ public class CouponIborInArrearsReplicationMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CouponIbor coupon, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(coupon);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(coupon, "coupon");
+    ArgChecker.notNull(sabrData, "sabrData");
     final CapFloorIbor cap0 = CapFloorIbor.from(coupon, 0.0, true);
     final CapFloorIborInArrearsGenericReplicationMethod method = new CapFloorIborInArrearsGenericReplicationMethod(_baseMethod);
     return method.presentValue(cap0, sabrData);
@@ -53,8 +52,8 @@ public class CouponIborInArrearsReplicationMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponIbor, "Coupon Ibor");
-    Validate.isTrue(curves instanceof SABRInterestRateDataBundle, "SABR interest rate data bundle required");
+    ArgChecker.isTrue(instrument instanceof CouponIbor, "Coupon Ibor");
+    ArgChecker.isTrue(curves instanceof SABRInterestRateDataBundle, "SABR interest rate data bundle required");
     return presentValue((CouponIbor) instrument, (SABRInterestRateDataBundle) curves);
   }
 

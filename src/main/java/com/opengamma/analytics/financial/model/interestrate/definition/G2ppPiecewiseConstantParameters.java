@@ -6,9 +6,9 @@
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -178,7 +178,7 @@ public class G2ppPiecewiseConstantParameters {
     if (!Arrays.equals(_volatility, other._volatility)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilityTime, other._volatilityTime)) {
+    if (!Objects.equals(_volatilityTime, other._volatilityTime)) {
       return false;
     }
     return true;

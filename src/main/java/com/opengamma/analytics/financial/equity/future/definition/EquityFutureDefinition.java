@@ -6,9 +6,7 @@
 package com.opengamma.analytics.financial.equity.future.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -42,9 +40,9 @@ public class EquityFutureDefinition implements InstrumentDefinitionWithData<Equi
       final double strikePrice,
       final Currency currency,
       final double unitValue) {
-    Validate.notNull(expiryDate, "expiry");
-    Validate.notNull(settlementDate, "settlement date");
-    Validate.notNull(currency, "currency");
+    ArgChecker.notNull(expiryDate, "expiry");
+    ArgChecker.notNull(settlementDate, "settlement date");
+    ArgChecker.notNull(currency, "currency");
     _expiryDate = expiryDate;
     _settlementDate = settlementDate;
     _strikePrice = strikePrice;
@@ -141,13 +139,13 @@ public class EquityFutureDefinition implements InstrumentDefinitionWithData<Equi
     if (Double.doubleToLongBits(_strikePrice) != Double.doubleToLongBits(other._strikePrice)) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiryDate, other._expiryDate)) {
+    if (!Objects.equals(_expiryDate, other._expiryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementDate, other._settlementDate)) {
+    if (!Objects.equals(_settlementDate, other._settlementDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
     if (Double.doubleToLongBits(_unitAmount) != Double.doubleToLongBits(other._unitAmount)) {

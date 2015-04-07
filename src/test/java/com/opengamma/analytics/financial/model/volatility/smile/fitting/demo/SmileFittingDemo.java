@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
@@ -39,6 +38,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.leastsquare.GeneralizedLeastSquare;
 import com.opengamma.analytics.math.statistics.leastsquare.GeneralizedLeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
+import com.opengamma.analytics.util.ArrayUtils;
 
 /**
  * The purpose of this class is to demonstrate the various methods in analytics for fitting/interpolating volatility 

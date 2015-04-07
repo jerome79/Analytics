@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math.analysis.integration.UnivariateRealIntegrator;
@@ -15,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Simpson's integration rule is a Newton-Cotes formula that approximates the
@@ -44,9 +44,9 @@ public class SimpsonIntegrator1D extends Integrator1D<Double, Double> {
    */
   @Override
   public Double integrate(final Function1D<Double, Double> f, final Double lower, final Double upper) {
-    Validate.notNull(f, "function");
-    Validate.notNull(lower, "lower bound");
-    Validate.notNull(upper, "upper bound");
+    ArgChecker.notNull(f, "function");
+    ArgChecker.notNull(lower, "lower bound");
+    ArgChecker.notNull(upper, "upper bound");
     try {
       if (lower < upper) {
         return _integrator.integrate(CommonsMathWrapper.wrapUnivariate(f), lower, upper);

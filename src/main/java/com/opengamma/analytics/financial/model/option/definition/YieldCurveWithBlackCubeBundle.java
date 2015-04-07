@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing the data required to price instruments by using a Black volatility cube and curves.
@@ -30,7 +30,7 @@ public class YieldCurveWithBlackCubeBundle extends YieldCurveBundle {
    */
   public YieldCurveWithBlackCubeBundle(final Surface<Double, Double, Double> parameters, final YieldCurveBundle curves) {
     super(curves);
-    Validate.notNull(parameters, "Volatility surface");
+    ArgChecker.notNull(parameters, "Volatility surface");
     _parameters = parameters;
   }
 
@@ -81,7 +81,7 @@ public class YieldCurveWithBlackCubeBundle extends YieldCurveBundle {
       return false;
     }
     final YieldCurveWithBlackCubeBundle other = (YieldCurveWithBlackCubeBundle) obj;
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

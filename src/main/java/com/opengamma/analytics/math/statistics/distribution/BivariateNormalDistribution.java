@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.math.statistics.distribution;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The bivariate normal distribution is a continuous probability distribution
@@ -33,9 +32,9 @@ public class BivariateNormalDistribution implements ProbabilityDistribution<doub
    */
   @Override
   public double getCDF(final double[] x) {
-    Validate.notNull(x);
-    Validate.isTrue(x.length == 3, "Need a, b and rho values");
-    Validate.isTrue(x[2] >= -1 && x[2] <= 1, "Correlation must be >= -1 and <= 1");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length == 3, "Need a, b and rho values");
+    ArgChecker.isTrue(x[2] >= -1 && x[2] <= 1, "Correlation must be >= -1 and <= 1");
     final double a = x[0];
     double b = x[1];
     final double rho = x[2];
@@ -96,11 +95,11 @@ public class BivariateNormalDistribution implements ProbabilityDistribution<doub
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getInverseCDF(final double[] p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -109,9 +108,9 @@ public class BivariateNormalDistribution implements ProbabilityDistribution<doub
    */
   @Override
   public double getPDF(final double[] x) {
-    Validate.notNull(x);
-    Validate.isTrue(x.length == 3, "Need a, b and rho values");
-    Validate.isTrue(x[2] >= -1 && x[2] <= 1, "Correlation must be >= -1 and <= 1");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length == 3, "Need a, b and rho values");
+    ArgChecker.isTrue(x[2] >= -1 && x[2] <= 1, "Correlation must be >= -1 and <= 1");
     final double denom = 1 - x[2] * x[2];
     return Math.exp(-(x[0] * x[0] - 2 * x[2] * x[0] * x[1] + x[1] * x[1]) / (2 * denom)) / (TWO_PI * Math.sqrt(denom));
   }
@@ -119,10 +118,10 @@ public class BivariateNormalDistribution implements ProbabilityDistribution<doub
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double nextRandom() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 }

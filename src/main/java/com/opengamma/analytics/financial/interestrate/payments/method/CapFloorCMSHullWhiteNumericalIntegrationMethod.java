@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.CashFlowEquivalentCalculator;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -21,6 +19,7 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing method of a CMS cap/floor in the Hull-White (extended Vasicek) model by approximation.
@@ -64,8 +63,8 @@ public final class CapFloorCMSHullWhiteNumericalIntegrationMethod implements Pri
   private static final int NB_INTEGRATION = 100;
 
   public CurrencyAmount presentValue(final CapFloorCMS cms, final HullWhiteOneFactorPiecewiseConstantDataBundle hwData) {
-    Validate.notNull(cms);
-    Validate.notNull(hwData);
+    ArgChecker.notNull(cms, "cms");
+    ArgChecker.notNull(hwData, "hwData");
     final double expiryTime = cms.getFixingTime();
     final SwapFixedCoupon<? extends Payment> swap = cms.getUnderlyingSwap();
     final int nbFixed = cms.getUnderlyingSwap().getFixedLeg().getNumberOfPayments();
@@ -107,8 +106,8 @@ public final class CapFloorCMSHullWhiteNumericalIntegrationMethod implements Pri
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorCMS, "Cap/floor CMS");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
+    ArgChecker.isTrue(instrument instanceof CapFloorCMS, "Cap/floor CMS");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
     return presentValue((CapFloorCMS) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 

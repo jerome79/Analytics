@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.util;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Performs sorting. This is not "parallel" in the sense of threads, but parallel in the sense that
@@ -20,9 +20,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final double[] keys, final double[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -34,9 +34,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final float[] keys, final double[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -48,9 +48,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final int[] keys, final double[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -63,9 +63,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final long[] keys, final double[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -77,9 +77,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final float[] keys, final int[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -91,9 +91,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final int[] keys, final int[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -105,9 +105,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final long[] keys, final int[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -119,9 +119,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static void parallelBinarySort(final double[] keys, final int[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -135,9 +135,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static <T extends Comparable<T>, U> void parallelBinarySort(final T[] keys, final U[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
@@ -150,9 +150,9 @@ public class ParallelArrayBinarySort {
    * @param values The values
    */
   public static <T> void parallelBinarySort(final double[] keys, final T[] values) {
-    Validate.notNull(keys, "x data");
-    Validate.notNull(values, "y data");
-    Validate.isTrue(keys.length == values.length);
+    ArgChecker.notNull(keys, "x data");
+    ArgChecker.notNull(values, "y data");
+    ArgChecker.isTrue(keys.length == values.length);
     final int n = keys.length;
     dualArrayQuickSort(keys, values, 0, n - 1);
   }

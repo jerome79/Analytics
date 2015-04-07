@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.forex;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.volatility.curve.BlackForexTermStructureParameters;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
@@ -136,13 +135,13 @@ public class BlackForexFlatProvider implements BlackForexFlatProviderInterface {
       return false;
     }
     final BlackForexFlatProvider other = (BlackForexFlatProvider) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatility, other._volatility)) {
+    if (!Objects.equals(_volatility, other._volatility)) {
       return false;
     }
     return true;

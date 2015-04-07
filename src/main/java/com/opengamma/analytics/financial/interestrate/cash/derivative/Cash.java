@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.cash.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -245,10 +245,10 @@ public class Cash implements InstrumentDerivative {
       return false;
     }
     final Cash other = (Cash) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_discountingCurveName, other._discountingCurveName)) {
+    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
       return false;
     }
     if (Double.doubleToLongBits(_endTime) != Double.doubleToLongBits(other._endTime)) {

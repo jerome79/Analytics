@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -108,11 +106,11 @@ public class ShapePreservingCubicSplineInterpolator extends PiecewisePolynomialI
    * Instead the node sensitivity is computed in {@link MonotoneConvexSplineInterpolator1D} via {@link Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle}
    * @param xValues The xValues
    * @param yValues The yValues
-   * @return NotImplementedException
+   * @return UnsupportedOperationException
    */
   @Override
   public PiecewisePolynomialResultsWithSensitivity interpolateWithSensitivity(final double[] xValues, final double[] yValues) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**

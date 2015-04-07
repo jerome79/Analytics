@@ -7,14 +7,13 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.greeks.GreekVisitor;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Generalized Black-Scholes-Merton option pricing. 
@@ -55,9 +54,9 @@ public class BlackScholesMertonModel extends AnalyticOptionModel<OptionDefinitio
    */
   @Override
   public GreekVisitor<Double> getGreekVisitor(final Function1D<StandardOptionDataBundle, Double> pricingFunction, final StandardOptionDataBundle data, final OptionDefinition definition) {
-    Validate.notNull(pricingFunction);
-    Validate.notNull(data);
-    Validate.notNull(definition);
+    ArgChecker.notNull(pricingFunction, "pricingFunction");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(definition, "definition");
     return new BlackScholesMertonGreekVisitor(data, pricingFunction, definition);
   }
 
@@ -66,13 +65,13 @@ public class BlackScholesMertonModel extends AnalyticOptionModel<OptionDefinitio
    */
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final OptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<StandardOptionDataBundle, Double> pricingFunction = new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final ZonedDateTime date = data.getDate();
         final double s = data.getSpot();
         final double k = definition.getStrike();

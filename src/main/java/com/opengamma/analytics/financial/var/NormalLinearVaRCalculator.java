@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.var;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.strata.collect.ArgChecker;
@@ -67,10 +67,10 @@ public class NormalLinearVaRCalculator<T> implements VaRCalculator<NormalVaRPara
       return false;
     }
     final NormalLinearVaRCalculator<?> other = (NormalLinearVaRCalculator<?>) obj;
-    if (!ObjectUtils.equals(_meanCalculator, other._meanCalculator)) {
+    if (!Objects.equals(_meanCalculator, other._meanCalculator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_stdCalculator, other._stdCalculator)) {
+    if (!Objects.equals(_stdCalculator, other._stdCalculator)) {
       return false;
     }
     return true;

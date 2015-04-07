@@ -9,10 +9,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -516,10 +515,10 @@ public class InflationProviderDiscount implements InflationProviderInterface {
       return false;
     }
     final InflationProviderDiscount other = (InflationProviderDiscount) obj;
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
-    if (!ObjectUtils.equals(_priceIndexCurves, other._priceIndexCurves)) {
+    if (!Objects.equals(_priceIndexCurves, other._priceIndexCurves)) {
       return false;
     }
     return true;

@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.riskfactor;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.util.MathUtils;
 
 import com.opengamma.analytics.financial.greeks.MixedOrderUnderlying;
@@ -15,6 +14,7 @@ import com.opengamma.analytics.financial.greeks.NthOrderUnderlying;
 import com.opengamma.analytics.financial.greeks.Underlying;
 import com.opengamma.analytics.financial.pnl.UnderlyingType;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -23,7 +23,7 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 public class TaylorExpansionMultiplierCalculator {
 
   public static double getMultiplier(final Underlying underlying) {
-    Validate.notNull(underlying, "underlying");
+    ArgChecker.notNull(underlying, "underlying");
     if (underlying instanceof NthOrderUnderlying) {
       final NthOrderUnderlying nthOrder = (NthOrderUnderlying) underlying;
       final int n = nthOrder.getOrder();
@@ -43,11 +43,11 @@ public class TaylorExpansionMultiplierCalculator {
   }
 
   public static double getValue(final Map<UnderlyingType, Double> underlyingData, final Underlying underlying) {
-    Validate.notNull(underlying, "underlying");
-    Validate.notNull(underlyingData, "underlying data");
-    Validate.notEmpty(underlyingData, "underlying data");
-    Validate.noNullElements(underlyingData.keySet(), "underlying data keys");
-    Validate.noNullElements(underlyingData.values(), "underlying data values");
+    ArgChecker.notNull(underlying, "underlying");
+    ArgChecker.notNull(underlyingData, "underlying data");
+    ArgChecker.notEmpty(underlyingData, "underlying data");
+    ArgChecker.noNulls(underlyingData.keySet(), "underlying data keys");
+    ArgChecker.noNulls(underlyingData.values(), "underlying data values");
     if (underlying instanceof NthOrderUnderlying) {
       final NthOrderUnderlying nthOrder = (NthOrderUnderlying) underlying;
       final int n = nthOrder.getOrder();
@@ -55,7 +55,7 @@ public class TaylorExpansionMultiplierCalculator {
         return 1;
       }
       final UnderlyingType type = nthOrder.getUnderlying();
-      Validate.isTrue(underlyingData.containsKey(type));
+      ArgChecker.isTrue(underlyingData.containsKey(type), "underlying data must contain key for type");
       final double value = Math.pow(underlyingData.get(type), n);
       return value * getMultiplier(underlying);
     } else if (underlying instanceof MixedOrderUnderlying) {
@@ -78,11 +78,11 @@ public class TaylorExpansionMultiplierCalculator {
   }
 
   public static DoubleTimeSeries<?> getTimeSeries(final Map<UnderlyingType, DoubleTimeSeries<?>> underlyingData, final Underlying underlying) {
-    Validate.notNull(underlying, "underlying");
-    Validate.notNull(underlyingData, "underlying data");
-    Validate.notEmpty(underlyingData, "underlying data");
-    Validate.noNullElements(underlyingData.keySet(), "underlying data keys");
-    Validate.noNullElements(underlyingData.values(), "underlying data values");
+    ArgChecker.notNull(underlying, "underlying");
+    ArgChecker.notNull(underlyingData, "underlying data");
+    ArgChecker.notEmpty(underlyingData, "underlying data");
+    ArgChecker.noNulls(underlyingData.keySet(), "underlying data keys");
+    ArgChecker.noNulls(underlyingData.values(), "underlying data values");
     if (underlying instanceof NthOrderUnderlying) {
       final NthOrderUnderlying nthOrder = (NthOrderUnderlying) underlying;
       final int n = nthOrder.getOrder();
@@ -90,7 +90,7 @@ public class TaylorExpansionMultiplierCalculator {
         throw new UnsupportedOperationException();
       }
       final UnderlyingType type = nthOrder.getUnderlying();
-      Validate.isTrue(underlyingData.containsKey(type));
+      ArgChecker.isTrue(underlyingData.containsKey(type), "underlying data must contain key for type");
       DoubleTimeSeries<?> ts = underlyingData.get(type);
       ts = ts.power(n);
       return ts.multiply(getMultiplier(underlying));

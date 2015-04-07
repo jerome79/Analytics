@@ -10,8 +10,6 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
@@ -131,7 +129,7 @@ public class CapFloorInflationZeroCouponInterpolationDefinition extends CouponIn
   public static CapFloorInflationZeroCouponInterpolationDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime paymentDate, final double notional,
       final IndexPrice priceIndex, final int conventionalMonthLag, final int monthlag, final int maturity, final ZonedDateTime lastKnownFixingDate, final ZonedDateTime[] referenceEndDate,
       final double strike, final boolean isCap) {
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     final double weight = 1.0 - (paymentDate.getDayOfMonth() - 1.0) / paymentDate.toLocalDate().lengthOfMonth();
     final ZonedDateTime[] referenceStartDates = new ZonedDateTime[2];
     referenceStartDates[0] = accrualStartDate.minusMonths(monthlag).with(TemporalAdjusters.lastDayOfMonth());
@@ -157,7 +155,7 @@ public class CapFloorInflationZeroCouponInterpolationDefinition extends CouponIn
   public static CapFloorInflationZeroCouponInterpolationDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime paymentDate, final double notional,
       final IndexPrice priceIndex, final int conventionalMonthLag, final int monthLag, final int maturity, final ZonedDateTime lastKnownFixingDate, final double strike,
       final boolean isCap) {
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     final double weight = 1.0 - (paymentDate.getDayOfMonth() - 1.0) / paymentDate.toLocalDate().lengthOfMonth();
 
     final ZonedDateTime refInterpolatedStartDate = accrualStartDate.minusMonths(monthLag);
@@ -185,7 +183,7 @@ public class CapFloorInflationZeroCouponInterpolationDefinition extends CouponIn
    */
   public static CapFloorInflationZeroCouponInterpolationDefinition from(final CouponInflationZeroCouponInterpolationDefinition couponInflation, final ZonedDateTime lastKnownFixingDate,
       final int maturity, final double strike, final boolean isCap) {
-    Validate.notNull(couponInflation, "coupon Ibor");
+    ArgChecker.notNull(couponInflation, "coupon Ibor");
     return new CapFloorInflationZeroCouponInterpolationDefinition(couponInflation.getCurrency(), couponInflation.getPaymentDate(), couponInflation.getAccrualStartDate(),
         couponInflation.getAccrualEndDate(), couponInflation.getPaymentYearFraction(), couponInflation.getNotional(), couponInflation.getPriceIndex(),
         lastKnownFixingDate, couponInflation.getConventionalMonthLag(), couponInflation.getMonthLag(), maturity, couponInflation.getReferenceStartDates(),

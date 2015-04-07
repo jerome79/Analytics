@@ -6,12 +6,11 @@
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.curve.VolatilityCurve;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -22,9 +21,9 @@ public class StandardDiscountBondModelDataBundle {
   private final VolatilityCurve _shortRateVolatilityCurve;
 
   public StandardDiscountBondModelDataBundle(final YieldAndDiscountCurve shortRateCurve, final VolatilityCurve shortRateVolatilityCurve, final ZonedDateTime date) {
-    Validate.notNull(shortRateCurve);
-    Validate.notNull(shortRateVolatilityCurve);
-    Validate.notNull(date);
+    ArgChecker.notNull(shortRateCurve, "shortRateCurve");
+    ArgChecker.notNull(shortRateVolatilityCurve, "shortRateVolatilityCurve");
+    ArgChecker.notNull(date, "date");
     _shortRateCurve = shortRateCurve;
     _shortRateVolatilityCurve = shortRateVolatilityCurve;
     _date = date;
@@ -72,7 +71,7 @@ public class StandardDiscountBondModelDataBundle {
       return false;
     }
     final StandardDiscountBondModelDataBundle other = (StandardDiscountBondModelDataBundle) obj;
-    return ObjectUtils.equals(_date, other._date) && ObjectUtils.equals(_shortRateVolatilityCurve, other._shortRateVolatilityCurve) && ObjectUtils.equals(_shortRateCurve, other._shortRateCurve);
+    return Objects.equals(_date, other._date) && Objects.equals(_shortRateVolatilityCurve, other._shortRateVolatilityCurve) && Objects.equals(_shortRateCurve, other._shortRateCurve);
   }
 
 }

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Various utility classes for matrices.
@@ -38,7 +38,7 @@ public final class DoubleMatrixUtils {
    * @return The identity matrix
    */
   public static DoubleMatrix2D getIdentityMatrix2D(final int dimension) {
-    Validate.isTrue(dimension >= 0, "dimension must be >= 0");
+    ArgChecker.isTrue(dimension >= 0, "dimension must be >= 0");
     if (dimension == 0) {
       return DoubleMatrix2D.EMPTY_MATRIX;
     }
@@ -58,7 +58,7 @@ public final class DoubleMatrixUtils {
    * @return A diagonal matrix 
    */
   public static DoubleMatrix2D getTwoDimensionalDiagonalMatrix(final DoubleMatrix1D vector) {
-    Validate.notNull(vector);
+    ArgChecker.notNull(vector, "vector");
     final int n = vector.getNumberOfElements();
     if (n == 0) {
       return DoubleMatrix2D.EMPTY_MATRIX;
@@ -76,7 +76,7 @@ public final class DoubleMatrixUtils {
    * @return A diagonal matrix
    */
   public static DoubleMatrix2D getTwoDimensionalDiagonalMatrix(final double[] vector) {
-    Validate.notNull(vector);
+    ArgChecker.notNull(vector, "vector");
     return getTwoDimensionalDiagonalMatrix(new DoubleMatrix1D(vector));
   }
 }

@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedInflationYearOnYearDefinition;
@@ -246,10 +245,10 @@ public class GeneratorSwapFixedInflationYearOnYear extends GeneratorInstrument<G
     if (_endOfMonth != other._endOfMonth) {
       return false;
     }
-    if (!ObjectUtils.equals(_fixedLegDayCount, other._fixedLegDayCount)) {
+    if (!Objects.equals(_fixedLegDayCount, other._fixedLegDayCount)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fixedLegPeriod, other._fixedLegPeriod)) {
+    if (!Objects.equals(_fixedLegPeriod, other._fixedLegPeriod)) {
       return false;
     }
     if (_indexPrice == null) {

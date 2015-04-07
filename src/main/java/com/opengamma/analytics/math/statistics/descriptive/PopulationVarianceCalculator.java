@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.statistics.descriptive;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the population variance of a series of data.
@@ -29,9 +28,9 @@ public class PopulationVarianceCalculator extends Function1D<double[], Double> {
    */
   @Override
   public Double evaluate(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     final int n = x.length;
-    Validate.isTrue(n >= 2, "Need at least two points to calculate the population variance");
+    ArgChecker.isTrue(n >= 2, "Need at least two points to calculate the population variance");
     return _variance.evaluate(x) * (n - 1) / n;
   }
 }

@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
@@ -258,10 +257,10 @@ public class BondFuturesSecurityDefinition extends FuturesSecurityDefinition<Bon
     if (!Arrays.equals(_deliveryBasket, other._deliveryBasket)) {
       return false;
     }
-    if (!ObjectUtils.equals(_noticeFirstDate, other._noticeFirstDate)) {
+    if (!Objects.equals(_noticeFirstDate, other._noticeFirstDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_noticeLastDate, other._noticeLastDate)) {
+    if (!Objects.equals(_noticeLastDate, other._noticeLastDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.CashFlowEquivalentCalculator;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
@@ -27,6 +25,7 @@ import com.opengamma.analytics.math.rootfinding.RidderSingleRootFinder;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -81,8 +80,8 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
    * @return The future price.
    */
   public double price(final BondFuture future, final HullWhiteOneFactorPiecewiseConstantDataBundle hwData, final int nbPoint) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(hwData, "Hull-White data bundle");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(hwData, "Hull-White data bundle");
     final int nbBond = future.getDeliveryBasket().length;
     final YieldAndDiscountCurve bndCurve = hwData.getCurve(future.getDeliveryBasket()[0].getDiscountingCurveName());
     final double expiry = future.getNoticeLastTime();
@@ -218,7 +217,7 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final BondFuture future, final HullWhiteOneFactorPiecewiseConstantDataBundle curves) {
-    Validate.notNull(future, "Future");
+    ArgChecker.notNull(future, "Future");
     final double futurePrice = price(future, curves);
     return presentValueFromPrice(future, futurePrice);
   }
@@ -231,8 +230,8 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
    */
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof BondFuture, "Bond future");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Bundle should contain Hull-White data");
+    ArgChecker.isTrue(instrument instanceof BondFuture, "Bond future");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Bundle should contain Hull-White data");
     return presentValue((BondFuture) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 
@@ -244,8 +243,8 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
    * @return The curve sensitivity.
    */
   public InterestRateCurveSensitivity priceCurveSensitivity(final BondFuture future, final HullWhiteOneFactorPiecewiseConstantDataBundle hwData, final int nbPoint) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(hwData, "Hull-White data bundle");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(hwData, "Hull-White data bundle");
     final int nbBond = future.getDeliveryBasket().length;
     final YieldAndDiscountCurve bndCurve = hwData.getCurve(future.getDeliveryBasket()[0].getDiscountingCurveName());
     final double expiry = future.getNoticeLastTime();
@@ -407,15 +406,15 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
    * @return The present value rate sensitivity.
    */
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final BondFuture future, final HullWhiteOneFactorPiecewiseConstantDataBundle curves) {
-    Validate.notNull(future, "Future");
+    ArgChecker.notNull(future, "Future");
     final InterestRateCurveSensitivity priceSensitivity = priceCurveSensitivity(future, curves);
     final InterestRateCurveSensitivity transactionSensitivity = priceSensitivity.multipliedBy(future.getNotional());
     return transactionSensitivity;
   }
 
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof BondFuture, "Bond future");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Bundle should contain Hull-White data");
+    ArgChecker.isTrue(instrument instanceof BondFuture, "Bond future");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Bundle should contain Hull-White data");
     return presentValueCurveSensitivity((BondFuture) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 

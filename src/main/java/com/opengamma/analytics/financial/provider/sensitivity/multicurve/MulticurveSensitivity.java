@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
@@ -185,10 +184,10 @@ public class MulticurveSensitivity {
       return false;
     }
     final MulticurveSensitivity other = (MulticurveSensitivity) obj;
-    if (!ObjectUtils.equals(_sensitivityForward, other._sensitivityForward)) {
+    if (!Objects.equals(_sensitivityForward, other._sensitivityForward)) {
       return false;
     }
-    if (!ObjectUtils.equals(_sensitivityYieldDiscounting, other._sensitivityYieldDiscounting)) {
+    if (!Objects.equals(_sensitivityYieldDiscounting, other._sensitivityYieldDiscounting)) {
       return false;
     }
     return true;

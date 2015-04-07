@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.equity.EquityTrsDataBundle;
 import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwap;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -100,7 +98,7 @@ public final class EquityTotalReturnSwapDiscountingMethod {
       return previousFixingPv.plus(equityMulticurves.getCurves().getFxRates().convert(equityPv, trs.getNotionalCurrency())).plus(fundingLegPV);
     }
     // Other cases not covered by the pricing method.
-    throw new NotImplementedException("Pricing of equity TRS not implemented for those types of coupons");
+    throw new UnsupportedOperationException("Pricing of equity TRS not implemented for those types of coupons");
   }
 
   /**
@@ -138,7 +136,7 @@ public final class EquityTotalReturnSwapDiscountingMethod {
       return previousFixingPv.plus(equityMulticurves.getCurves().getFxRates().convert(equityPv, trs.getNotionalCurrency()));
     }
     // Other cases not covered by the pricing method.
-    throw new NotImplementedException("Pricing of equity TRS not implemented for those types of coupons");
+    throw new UnsupportedOperationException("Pricing of equity TRS not implemented for those types of coupons");
   }
 
   /**
@@ -169,7 +167,7 @@ public final class EquityTotalReturnSwapDiscountingMethod {
       return trs.getFundingLeg().getNthPayment(0).accept(PVDC, equityMulticurves.getCurves());
     }
     // Other cases not covered by the pricing method.
-    throw new NotImplementedException("Pricing of equity TRS not implemented for those types of coupons");
+    throw new UnsupportedOperationException("Pricing of equity TRS not implemented for those types of coupons");
   }
 
   /**
@@ -212,7 +210,7 @@ public final class EquityTotalReturnSwapDiscountingMethod {
       return previousFixingPv.plus(equityPv).plus(fundingLegPV);
     }
     // Other cases not covered by the pricing method.
-    throw new NotImplementedException("Pricing of equity TRS not implemented for those types of coupons");
+    throw new UnsupportedOperationException("Pricing of equity TRS not implemented for those types of coupons");
   }
 
   /**
@@ -286,7 +284,7 @@ public final class EquityTotalReturnSwapDiscountingMethod {
       return equityLegPvcs.plus(fundingLegPvcs);
     }
     // Other cases not covered by the pricing method.
-    throw new NotImplementedException("Pricing of equity TRS not implemented for those types of coupons");
+    throw new UnsupportedOperationException("Pricing of equity TRS not implemented for those types of coupons");
   }
 
 }

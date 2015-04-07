@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * @deprecated Use the calculators that reference {@link ParameterProviderInterface}
@@ -42,12 +41,12 @@ public final class InstrumentSensitivityCalculator {
    */
   public DoubleMatrix1D calculateFromPresentValue(final InstrumentDerivative ird, final YieldCurveBundle fixedCurves, final YieldCurveBundle interpolatedCurves,
       final DoubleMatrix1D couponSensitivity, final DoubleMatrix2D pvJacobian, final PresentValueNodeSensitivityCalculator nsc) {
-    Validate.notNull(nsc, "node sensitivity calculator");
+    ArgChecker.notNull(nsc, "node sensitivity calculator");
     final DoubleMatrix1D nodeSense = nsc.calculateSensitivities(ird, fixedCurves, interpolatedCurves);
     final int n = nodeSense.getNumberOfElements();
-    Validate.isTrue(n == couponSensitivity.getNumberOfElements());
-    Validate.isTrue(n == pvJacobian.getNumberOfColumns());
-    Validate.isTrue(n == pvJacobian.getNumberOfRows());
+    ArgChecker.isTrue(n == couponSensitivity.getNumberOfElements());
+    ArgChecker.isTrue(n == pvJacobian.getNumberOfColumns());
+    ArgChecker.isTrue(n == pvJacobian.getNumberOfRows());
     final DoubleMatrix2D invJac = MATRIX_ALGEBRA.getInverse(pvJacobian);
     // TODO: REVIEW: do we need to inverse the Jacobian each time?
 
@@ -74,12 +73,12 @@ public final class InstrumentSensitivityCalculator {
    */
   public DoubleMatrix1D calculateFromParRate(final InstrumentDerivative ird, final YieldCurveBundle fixedCurves, final YieldCurveBundle interpolatedCurves, final DoubleMatrix2D parRateJacobian,
       final PresentValueNodeSensitivityCalculator nsc) {
-    Validate.notNull(nsc, "node sensitivity calculator");
+    ArgChecker.notNull(nsc, "node sensitivity calculator");
     final DoubleMatrix1D nodeSensitivities = nsc.calculateSensitivities(ird, fixedCurves, interpolatedCurves);
     final int n = nodeSensitivities.getNumberOfElements();
 
-    Validate.isTrue(n == parRateJacobian.getNumberOfColumns(), "Have " + n + " node sensitivities but " + parRateJacobian.getNumberOfColumns() + " columns in Jacobian");
-    Validate.isTrue(n == parRateJacobian.getNumberOfRows(), "Have " + n + " node sensitivities but " + parRateJacobian.getNumberOfRows() + " rows in Jacobian");
+    ArgChecker.isTrue(n == parRateJacobian.getNumberOfColumns(), "Have " + n + " node sensitivities but " + parRateJacobian.getNumberOfColumns() + " columns in Jacobian");
+    ArgChecker.isTrue(n == parRateJacobian.getNumberOfRows(), "Have " + n + " node sensitivities but " + parRateJacobian.getNumberOfRows() + " rows in Jacobian");
 
     final DoubleMatrix2D invJac = MATRIX_ALGEBRA.getInverse(parRateJacobian);
 
@@ -103,7 +102,7 @@ public final class InstrumentSensitivityCalculator {
    * @return bucketed delta
    */
   public DoubleMatrix1D calculateFromSimpleInterpolatedCurve(final InstrumentDerivative ird, final YieldCurveBundle interpolatedCurves, final PresentValueNodeSensitivityCalculator nsc) {
-    Validate.notNull(nsc, "node sensitivity calculator");
+    ArgChecker.notNull(nsc, "node sensitivity calculator");
     return nsc.calculateSensitivities(ird, null, interpolatedCurves);
   }
 }

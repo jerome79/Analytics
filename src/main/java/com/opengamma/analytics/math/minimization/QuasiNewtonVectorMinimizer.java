@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
@@ -60,7 +58,7 @@ public class QuasiNewtonVectorMinimizer implements MinimizerWithGradient<Functio
    */
   @Override
   public DoubleMatrix1D minimize(final Function1D<DoubleMatrix1D, Double> function, final DoubleMatrix1D startPosition) {
-    throw new NotImplementedException("Please supply gradient function or use ConjugateGradient");
+    throw new UnsupportedOperationException("Please supply gradient function or use ConjugateGradient");
   }
 
   @Override

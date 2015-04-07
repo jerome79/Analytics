@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -140,10 +140,10 @@ public abstract class Payment implements InstrumentDerivative {
       return false;
     }
     final Payment other = (Payment) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fundingCurveName, other._fundingCurveName)) {
+    if (!Objects.equals(_fundingCurveName, other._fundingCurveName)) {
       return false;
     }
     if (Double.doubleToLongBits(_paymentTime) != Double.doubleToLongBits(other._paymentTime)) {

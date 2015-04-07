@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DStandardCoefficients;
@@ -25,6 +23,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.B
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.SurfaceArrayUtils;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -75,8 +74,8 @@ public class BarrierOptionPricer {
    * @return The price.
    */
   public double getPrice(final EuropeanVanillaOption option, final Barrier barrier, final double rebate, final double spot, final double costOfCarry, final double rate, final double sigma) {
-    Validate.notNull(option, "option");
-    Validate.notNull(barrier, "barrier");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(barrier, "barrier");
     final boolean isKnockIn = (barrier.getKnockType() == KnockType.IN);
     final boolean isDown = (barrier.getBarrierType() == BarrierType.DOWN);
 

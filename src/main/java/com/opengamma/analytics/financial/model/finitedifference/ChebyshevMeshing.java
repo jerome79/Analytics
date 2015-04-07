@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class ChebyshevMeshing extends MeshingFunction {
    */
   public ChebyshevMeshing(final double lowerBound, final double upperBound, final int nPoints) {
     super(nPoints);
-    Validate.isTrue(upperBound > lowerBound, "need upperBound>lowerBound");
+    ArgChecker.isTrue(upperBound > lowerBound, "need upperBound>lowerBound");
     _a = lowerBound;
     _r = (upperBound - lowerBound) / 2;
     _n = nPoints - 1;
@@ -31,7 +31,7 @@ public class ChebyshevMeshing extends MeshingFunction {
 
   @Override
   public Double evaluate(final Integer i) {
-    Validate.isTrue(i >= 0 && i < getNumberOfPoints(), "i out of range");
+    ArgChecker.isTrue(i >= 0 && i < getNumberOfPoints(), "i out of range");
     return _a + _r * (1 - Math.cos(i * Math.PI / _n));
   }
 

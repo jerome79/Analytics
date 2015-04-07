@@ -6,7 +6,7 @@ package com.opengamma.analytics.financial.model.finitedifference;
  */
 //package com.opengamma.analytics.financial.model.finitedifference;
 //
-//import org.apache.commons.lang.Validate;
+//import com.opengamma.strata.collect.ArgChecker;
 //
 //import ThetaMethodFiniteDifference.SolverImpl;
 //
@@ -25,7 +25,7 @@ package com.opengamma.analytics.financial.model.finitedifference;
 //  }
 //
 //  public PDEResults1D solve(PDE1DDataBundle<ParabolicPDEExtendedCoefficients> pdeData) {
-//    Validate.notNull(pdeData, "pde data");
+//    ArgChecker.notNull(pdeData, "pde data");
 //    SolverImpl solver = new ExtendedSolverImpl(pdeData);
 //    return solver.solve();
 //  }
@@ -33,8 +33,8 @@ package com.opengamma.analytics.financial.model.finitedifference;
 //  //TODO this should @Override
 //  public PDEResults1D solve(final ExtendedConvectionDiffusionPDEDataBundle pdeData, final PDEGrid1D grid, final BoundaryCondition lowerBoundary, final BoundaryCondition upperBoundary) {
 //
-//    Validate.notNull(pdeData, "pde data");
-//    Validate.notNull(grid, "need a grid");
+//    ArgChecker.notNull(pdeData, "pde data");
+//    ArgChecker.notNull(grid, "need a grid");
 //
 //    SolverImpl solver = new ExtendedSolverImpl(pdeData, grid, lowerBoundary, upperBoundary, null);
 //    return solver.solve();

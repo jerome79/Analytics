@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.CashFlowEquivalentCalculator;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -20,6 +18,7 @@ import com.opengamma.analytics.financial.model.interestrate.definition.HullWhite
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing method of a CMS coupon in the Hull-White (extended Vasicek) model by approximation.
@@ -63,8 +62,8 @@ public final class CapFloorCMSHullWhiteApproximationMethod implements PricingMet
   private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1);
 
   public CurrencyAmount presentValue(final CapFloorCMS cms, final HullWhiteOneFactorPiecewiseConstantDataBundle hwData) {
-    Validate.notNull(cms);
-    Validate.notNull(hwData);
+    ArgChecker.notNull(cms, "cms");
+    ArgChecker.notNull(hwData, "hwData");
     final double expiryTime = cms.getFixingTime();
     final SwapFixedCoupon<? extends Payment> swap = cms.getUnderlyingSwap();
     final double dfPayment = hwData.getCurve(swap.getFirstLeg().getDiscountCurve()).getDiscountFactor(cms.getPaymentTime());
@@ -114,8 +113,8 @@ public final class CapFloorCMSHullWhiteApproximationMethod implements PricingMet
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorCMS, "Coupon CMS");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
+    ArgChecker.isTrue(instrument instanceof CapFloorCMS, "Coupon CMS");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
     return presentValue((CapFloorCMS) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 }

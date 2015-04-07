@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DFullCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DStandardCoefficients;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -46,7 +45,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double s = ts[1];
         final double temp = s * vol;
         return -0.5 * temp * temp;
@@ -56,7 +55,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double s = ts[1];
         return -s * (rate - yield);
       }
@@ -79,7 +78,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double temp = s * vol.getYValue(t);
@@ -90,7 +89,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         return -s * (rate.getYValue(t) - yield.getYValue(t));
@@ -100,7 +99,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         return rate.getYValue(t);
       }
@@ -136,12 +135,12 @@ public class PDE1DCoefficientsProvider {
    * @return A ConvectionDiffusionPDE1DStandardCofficients
    */
   public ConvectionDiffusionPDE1DStandardCoefficients getCEV(final double zeroRate, final double beta, final double vol) {
-    Validate.isTrue(beta >= 0.0, "Need beta >=0");
+    ArgChecker.isTrue(beta >= 0.0, "Need beta >=0");
 
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double s = ts[1];
         final double temp = vol * Math.pow(s, beta);
         return -0.5 * temp * temp;
@@ -169,7 +168,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double s = ts[1];
         final double t = maturity - tau;
@@ -181,7 +180,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double s = ts[1];
 
         return -s * (rate - yield);
@@ -214,7 +213,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tf) {
-        Validate.isTrue(tf.length == 2);
+        ArgChecker.isTrue(tf.length == 2);
         final double tau = tf[0];
         final double f = tf[1];
         final double t = maturity - tau;
@@ -245,7 +244,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double s = ts[1];
         final double t = maturity - tau;
@@ -257,7 +256,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double s = ts[1];
         final double t = maturity - tau;
@@ -268,7 +267,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double tau = ts[0];
         final double t = maturity - tau;
         return instRiskFreeRate.getYValue(t);
@@ -299,7 +298,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tf) {
-        Validate.isTrue(tf.length == 2);
+        ArgChecker.isTrue(tf.length == 2);
         final double tau = tf[0];
         final double f = tf[1];
         final double t = maturity - tau;
@@ -333,7 +332,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double tau = tx[0];
         final double x = tx[1];
         final double s = Math.exp(x);
@@ -347,7 +346,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double tau = tx[0];
         final double x = tx[1];
         final double t = maturity - tau;
@@ -380,7 +379,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double tau = tx[0];
         final double x = tx[1];
         final double t = maturity - tau;
@@ -393,7 +392,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double tau = tx[0];
         final double x = tx[1];
         final double t = maturity - tau;
@@ -427,7 +426,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double tau = tx[0];
         final double x = tx[1];
         final double ftT = Math.exp(x);
@@ -442,7 +441,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double tau = tx[0];
         final double x = tx[1];
         final double t = maturity - tau;
@@ -478,7 +477,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double k = tk[1];
         final double temp = k * vol;
         return -0.5 * temp * temp;
@@ -488,7 +487,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double k = tk[1];
         return k * (rate - yield);
       }
@@ -513,7 +512,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double t = tk[0];
         final double k = tk[1];
         final double temp = k * localVol.getVolatility(t, k);
@@ -524,7 +523,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double k = tk[1];
         return k * (rate - yield);
       }
@@ -550,7 +549,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tm) {
-        Validate.isTrue(tm.length == 2);
+        ArgChecker.isTrue(tm.length == 2);
         final double t = tm[0];
         final double m = tm[1];
 
@@ -603,7 +602,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> alpha = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double temp = localVol.getVolatility(t, s) * s;
@@ -615,7 +614,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> beta = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         return shortRate.getYValue(t) * s;
@@ -641,7 +640,7 @@ public class PDE1DCoefficientsProvider {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double sigma = localVol.getVolatility(t, s) * s;
@@ -653,7 +652,7 @@ public class PDE1DCoefficientsProvider {
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double lvDiv = getLocalVolFirstDiv(localVol, t, s);
@@ -666,7 +665,7 @@ public class PDE1DCoefficientsProvider {
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double lv1Div = getLocalVolFirstDiv(localVol, t, s);

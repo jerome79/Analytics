@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
@@ -58,6 +57,6 @@ public class FXOptionDataBundle extends StandardOptionDataBundle {
       return false;
     }
     final FXOptionDataBundle other = (FXOptionDataBundle) obj;
-    return ObjectUtils.equals(_foreignInterestRate, other._foreignInterestRate);
+    return Objects.equals(_foreignInterestRate, other._foreignInterestRate);
   }
 }

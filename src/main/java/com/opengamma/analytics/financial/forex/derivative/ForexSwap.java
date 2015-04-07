@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -32,8 +31,8 @@ public class ForexSwap implements InstrumentDerivative {
    * @param farLeg The far leg.
    */
   public ForexSwap(final Forex nearLeg, final Forex farLeg) {
-    Validate.notNull(nearLeg, "Near leg");
-    Validate.notNull(farLeg, "Far leg");
+    ArgChecker.notNull(nearLeg, "Near leg");
+    ArgChecker.notNull(farLeg, "Far leg");
     this._nearLeg = nearLeg;
     this._farLeg = farLeg;
   }
@@ -87,10 +86,10 @@ public class ForexSwap implements InstrumentDerivative {
       return false;
     }
     final ForexSwap other = (ForexSwap) obj;
-    if (!ObjectUtils.equals(_farLeg, other._farLeg)) {
+    if (!Objects.equals(_farLeg, other._farLeg)) {
       return false;
     }
-    if (!ObjectUtils.equals(_nearLeg, other._nearLeg)) {
+    if (!Objects.equals(_nearLeg, other._nearLeg)) {
       return false;
     }
     return true;

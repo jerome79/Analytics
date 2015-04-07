@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.PresentValueSABRSensitivityDataBundle;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMSSpread;
@@ -79,7 +77,7 @@ public class CapFloorCMSSpreadSABRBinormalMethod {
    */
   public CapFloorCMSSpreadSABRBinormalMethod(final DoubleFunction1D correlation, final CapFloorCMSSABRReplicationAbstractMethod methodCmsCap,
       final CouponCMSSABRReplicationGenericMethod methodCmsCoupon) {
-    Validate.notNull(correlation, "Correlation");
+    ArgChecker.notNull(correlation, "Correlation");
     _correlation = correlation;
     _methodCmsCap = methodCmsCap;
     _methodCmsCoupon = methodCmsCoupon;

@@ -6,10 +6,10 @@
 package com.opengamma.analytics.math.linearalgebra;
 
 import cern.colt.matrix.linalg.SingularValueDecomposition;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.ColtMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class is a wrapper for the <a href="http://acs.lbl.gov/software/colt/api/cern/colt/matrix/linalg/SingularValueDecomposition.html">Colt Math library implementation</a>
@@ -18,11 +18,11 @@ import com.opengamma.analytics.math.util.wrapper.ColtMathWrapper;
 public class SVDecompositionColt extends Decomposition<SVDecompositionResult> {
 
   @Override
-  public SVDecompositionResult evaluate(final DoubleMatrix2D x) {
-    Validate.notNull(x);
+  public SVDecompositionResult evaluate(DoubleMatrix2D x) {
+    ArgChecker.notNull(x, "x");
     MatrixValidate.notNaNOrInfinite(x);
-    final cern.colt.matrix.DoubleMatrix2D coltMatrix = ColtMathWrapper.wrap(x);
-    final SingularValueDecomposition svd = new SingularValueDecomposition(coltMatrix);
+    cern.colt.matrix.DoubleMatrix2D coltMatrix = ColtMathWrapper.wrap(x);
+    SingularValueDecomposition svd = new SingularValueDecomposition(coltMatrix);
     return new SVDecompositionColtResult(svd);
   }
 

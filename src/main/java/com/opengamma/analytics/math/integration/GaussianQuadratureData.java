@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.integration;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class holding the results of calculations of weights and abscissas by {@link QuadratureWeightAndAbscissaFunction}. 
@@ -21,9 +21,9 @@ public class GaussianQuadratureData {
    * @param weights An array containing the weights, not null, must be the same length as the abscissa array
    */
   public GaussianQuadratureData(final double[] abscissas, final double[] weights) {
-    Validate.notNull(abscissas, "abscissas");
-    Validate.notNull(weights, "weights");
-    Validate.isTrue(abscissas.length == weights.length, "Abscissa and weight arrays must be the same length");
+    ArgChecker.notNull(abscissas, "abscissas");
+    ArgChecker.notNull(weights, "weights");
+    ArgChecker.isTrue(abscissas.length == weights.length, "Abscissa and weight arrays must be the same length");
     _weights = weights;
     _abscissas = abscissas;
   }

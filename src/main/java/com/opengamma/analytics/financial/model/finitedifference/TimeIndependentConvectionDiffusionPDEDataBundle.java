@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Describes a partial differential for a function $V(t,x)$, with the initial
@@ -26,10 +25,10 @@ public class TimeIndependentConvectionDiffusionPDEDataBundle {
 
   public TimeIndependentConvectionDiffusionPDEDataBundle(final Curve<Double, Double> a, final Curve<Double, Double> b, final Curve<Double, Double> c,
       final Function1D<Double, Double> initialCondition) {
-    Validate.notNull(a, "null a");
-    Validate.notNull(b, "null b");
-    Validate.notNull(c, "null c");
-    Validate.notNull(initialCondition, "null initial Condition");
+    ArgChecker.notNull(a, "null a");
+    ArgChecker.notNull(b, "null b");
+    ArgChecker.notNull(c, "null c");
+    ArgChecker.notNull(initialCondition, "null initial Condition");
     _a = a;
     _b = b;
     _c = c;

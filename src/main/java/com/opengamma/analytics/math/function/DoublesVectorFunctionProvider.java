@@ -7,8 +7,7 @@ package com.opengamma.analytics.math.function;
 
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

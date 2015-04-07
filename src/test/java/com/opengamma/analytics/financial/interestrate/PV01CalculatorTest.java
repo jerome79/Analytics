@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCounts;
@@ -32,6 +31,7 @@ import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -227,9 +227,9 @@ public class PV01CalculatorTest {
     private final double _d;
 
     public MyFunction(final double a, final double b, final double c, final double d) {
-      Validate.isTrue(a + d > 0, "a+d>0");
-      Validate.isTrue(d > 0, "d>0");
-      Validate.isTrue(c > 0, "c>0");
+      ArgChecker.isTrue(a + d > 0, "a+d>0");
+      ArgChecker.isTrue(d > 0, "d>0");
+      ArgChecker.isTrue(c > 0, "c>0");
       _a = a;
       _b = b;
       _c = c;

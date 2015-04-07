@@ -9,8 +9,6 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDESolver;
@@ -77,10 +75,10 @@ public class LocalVolatilityPDEGreekCalculator {
 
     _marketData = new StandardSmileSurfaceDataBundle(forwardCurve, expiries, strikes, impliedVols);
 
-    Validate.notNull(forwardCurve, "null forward curve");
-    Validate.notNull(expiries, "null expiries");
-    Validate.notNull(strikes, "null strikes");
-    Validate.notNull(impliedVols, "null impliedVols");
+    ArgChecker.notNull(forwardCurve, "null forward curve");
+    ArgChecker.notNull(expiries, "null expiries");
+    ArgChecker.notNull(strikes, "null strikes");
+    ArgChecker.notNull(impliedVols, "null impliedVols");
 
     _isCall = isCall;
 

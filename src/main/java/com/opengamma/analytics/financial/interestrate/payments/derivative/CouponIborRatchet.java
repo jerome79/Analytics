@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.strata.basics.currency.Currency;
@@ -190,7 +189,7 @@ public class CouponIborRatchet extends CouponIborSpread {
     if (!Arrays.equals(_floorCoefficients, other._floorCoefficients)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (!Arrays.equals(_mainCoefficients, other._mainCoefficients)) {

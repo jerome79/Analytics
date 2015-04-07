@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.function;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResultsWithSensitivity;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
@@ -33,7 +31,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
     ArgChecker.isFalse(Double.isInfinite(xKey), "xKey containing Infinity");
 
     if (pp.getDimensions() > 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     final double[] knots = pp.getKnots().getData();
@@ -72,7 +70,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
       ArgChecker.isFalse(Double.isInfinite(xKeys[i]), "xKey containing Infinity");
     }
     if (pp.getDimensions() > 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     final double[] knots = pp.getKnots().getData();
@@ -110,7 +108,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
     ArgChecker.isFalse(Double.isInfinite(xKey), "xKey containing Infinity");
 
     if (pp.getDimensions() > 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     final int nCoefs = pp.getOrder();
     ArgChecker.isFalse(nCoefs < 2, "Polynomial degree is too low");
@@ -143,7 +141,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
     ArgChecker.notNull(pp, "null pp");
 
     if (pp.getDimensions() > 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     final int nCoefs = pp.getOrder();
     ArgChecker.isFalse(nCoefs < 2, "Polynomial degree is too low");
@@ -177,7 +175,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
     ArgChecker.isFalse(Double.isInfinite(xKey), "xKey containing Infinity");
 
     if (pp.getDimensions() > 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     final int nCoefs = pp.getOrder();
     ArgChecker.isFalse(nCoefs < 3, "Polynomial degree is too low");
@@ -210,7 +208,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
     ArgChecker.notNull(pp, "null pp");
 
     if (pp.getDimensions() > 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     final int nCoefs = pp.getOrder();
     ArgChecker.isFalse(nCoefs < 3, "Polynomial degree is too low");

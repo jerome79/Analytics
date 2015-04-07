@@ -9,10 +9,8 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.JulianFields;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.basics.schedule.StubConvention;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The 'Actual/Actual ICMA Normal' day count.
@@ -24,7 +22,7 @@ public class ActualActualICMANormal extends ActualTypeDayCount {
 
   @Override
   public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
-    throw new NotImplementedException("Cannot get daycount fraction; need information about the coupon and payment frequency");
+    throw new UnsupportedOperationException("Cannot get daycount fraction; need information about the coupon and payment frequency");
   }
 
   @Override
@@ -40,7 +38,7 @@ public class ActualActualICMANormal extends ActualTypeDayCount {
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear,
       final StubConvention stubType) {
     testDates(previousCouponDate, date, nextCouponDate);
-    Validate.notNull(stubType, "stub type");
+    ArgChecker.notNull(stubType, "stub type");
 
     long daysBetween, daysBetweenCoupons;
     final long previousCouponDateJulian = previousCouponDate.getLong(JulianFields.MODIFIED_JULIAN_DAY);

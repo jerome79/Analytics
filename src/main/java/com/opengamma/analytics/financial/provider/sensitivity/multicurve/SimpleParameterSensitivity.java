@@ -8,9 +8,8 @@ package com.opengamma.analytics.financial.provider.sensitivity.multicurve;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -149,7 +148,7 @@ public class SimpleParameterSensitivity {
       return false;
     }
     final SimpleParameterSensitivity other = (SimpleParameterSensitivity) obj;
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

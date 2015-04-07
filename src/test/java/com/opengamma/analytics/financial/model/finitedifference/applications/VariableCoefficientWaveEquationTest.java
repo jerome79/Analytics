@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
@@ -25,6 +24,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -45,7 +45,7 @@ public class VariableCoefficientWaveEquationTest {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tx) {
-        Validate.isTrue(tx.length == 2);
+        ArgChecker.isTrue(tx.length == 2);
         final double x = tx[1];
         return 0.2 + FunctionUtils.square(Math.sin(x - 1));
       }

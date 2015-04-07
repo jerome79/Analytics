@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -213,13 +212,13 @@ public class MulticurveProviderDiscountingDecoratedIssuer implements MulticurveP
       return false;
     }
     final MulticurveProviderDiscountingDecoratedIssuer other = (MulticurveProviderDiscountingDecoratedIssuer) obj;
-    if (!ObjectUtils.equals(_decoratedCurrency, other._decoratedCurrency)) {
+    if (!Objects.equals(_decoratedCurrency, other._decoratedCurrency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_decoratingIssuer, other._decoratingIssuer)) {
+    if (!Objects.equals(_decoratingIssuer, other._decoratingIssuer)) {
       return false;
     }
-    if (!ObjectUtils.equals(_issuerProvider, other._issuerProvider)) {
+    if (!Objects.equals(_issuerProvider, other._issuerProvider)) {
       return false;
     }
     return true;

@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponCMS;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Generic pricing method of CMS coupon as a CMS cap with strike 0.
@@ -36,7 +35,7 @@ public class CouponCMSGenericMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponCMS, "CMS coupon");
+    ArgChecker.isTrue(instrument instanceof CouponCMS, "CMS coupon");
     final CouponCMS coupon = (CouponCMS) instrument;
     final CapFloorCMS cap0 = CapFloorCMS.from(coupon, 0.0, true);
     return _methodCap.presentValue(cap0, curves);

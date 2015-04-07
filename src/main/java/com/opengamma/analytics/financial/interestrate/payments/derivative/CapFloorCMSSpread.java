@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
@@ -242,10 +242,10 @@ public class CapFloorCMSSpread extends CouponFloating implements CapFloor {
       return false;
     }
     final CapFloorCMSSpread other = (CapFloorCMSSpread) obj;
-    if (!ObjectUtils.equals(_cmsIndex1, other._cmsIndex1)) {
+    if (!Objects.equals(_cmsIndex1, other._cmsIndex1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_cmsIndex2, other._cmsIndex2)) {
+    if (!Objects.equals(_cmsIndex2, other._cmsIndex2)) {
       return false;
     }
     if (_isCap != other._isCap) {
@@ -257,10 +257,10 @@ public class CapFloorCMSSpread extends CouponFloating implements CapFloor {
     if (Double.doubleToLongBits(_strike) != Double.doubleToLongBits(other._strike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap1, other._underlyingSwap1)) {
+    if (!Objects.equals(_underlyingSwap1, other._underlyingSwap1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap2, other._underlyingSwap2)) {
+    if (!Objects.equals(_underlyingSwap2, other._underlyingSwap2)) {
       return false;
     }
     return true;

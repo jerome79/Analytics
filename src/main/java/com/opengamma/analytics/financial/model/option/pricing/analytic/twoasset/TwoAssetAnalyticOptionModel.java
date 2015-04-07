@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic.twoasset
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +16,7 @@ import com.opengamma.analytics.financial.model.option.definition.OptionDefinitio
 import com.opengamma.analytics.financial.model.option.definition.twoasset.StandardTwoAssetOptionDataBundle;
 import com.opengamma.analytics.financial.model.option.pricing.OptionModel;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Base class for the analytic pricing of two-asset options.  
@@ -44,10 +44,10 @@ public abstract class TwoAssetAnalyticOptionModel<T extends OptionDefinition, U 
    */
   @Override
   public GreekResultCollection getGreeks(final T definition, final U data, final Set<Greek> requiredGreeks) {
-    Validate.notNull(definition, "definition");
-    Validate.notNull(data, "data");
-    Validate.notNull(requiredGreeks, "required greeks");
-    Validate.notEmpty(requiredGreeks, "required greeks");
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(requiredGreeks, "required greeks");
+    ArgChecker.notEmpty(requiredGreeks, "required greeks");
     final Function1D<U, Double> pricingFunction = getPricingFunction(definition);
     final GreekResultCollection results = new GreekResultCollection();
     for (final Greek greek : requiredGreeks) {

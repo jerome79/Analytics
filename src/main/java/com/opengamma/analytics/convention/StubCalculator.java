@@ -9,9 +9,8 @@ import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 import java.time.LocalDate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.basics.schedule.StubConvention;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Utility to calculate the stub type.
@@ -35,7 +34,7 @@ public final class StubCalculator {
    * @param paymentsPerYear  the number of payments per year, one, two, three, four, six or twelve
    * @return the stub type, not null
    */
-  public static StubConvention getStartStubType(final LocalDate[] schedule, final int paymentsPerYear) {
+  public static StubConvention getStartStubType(LocalDate[] schedule, int paymentsPerYear) {
     return getStartStubType(schedule, paymentsPerYear, false);
   }
 
@@ -50,15 +49,14 @@ public final class StubCalculator {
    * @param isEndOfMonthConvention  whether to use end of month rules
    * @return the stub type, not null
    */
-  public static StubConvention getStartStubType(final LocalDate[] schedule, final double paymentsPerYear, final boolean isEndOfMonthConvention) {
-    Validate.notNull(schedule, "schedule");
-    Validate.noNullElements(schedule, "schedule");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(12 % paymentsPerYear == 0);
+  public static StubConvention getStartStubType(LocalDate[] schedule, double paymentsPerYear, boolean isEndOfMonthConvention) {
+    ArgChecker.noNulls(schedule, "schedule");
+    ArgChecker.isTrue(paymentsPerYear > 0, "Must be at least one payment per year");
+    ArgChecker.isTrue(12 % paymentsPerYear == 0, "Payment per year must be 1, 2, 3, 4, 6 or 12");
 
-    final int months = (int) (12 / paymentsPerYear);
-    final LocalDate first = schedule[0];
-    final LocalDate second = schedule[1];
+    int months = (int) (12 / paymentsPerYear);
+    LocalDate first = schedule[0];
+    LocalDate second = schedule[1];
     LocalDate date;
     if (isEndOfMonthConvention && second.equals(second.with(lastDayOfMonth()))) {
       date = second.minusMonths(months);
@@ -86,7 +84,7 @@ public final class StubCalculator {
    * @param paymentsPerYear  the number of payments per year, one, two, three, four, six or twelve
    * @return the stub type, not null
    */
-  public static StubConvention getEndStubType(final LocalDate[] schedule, final int paymentsPerYear) {
+  public static StubConvention getEndStubType(LocalDate[] schedule, int paymentsPerYear) {
     return getEndStubType(schedule, paymentsPerYear, false);
   }
 
@@ -101,16 +99,15 @@ public final class StubCalculator {
    * @param isEndOfMonthConvention  whether to use end of month rules
    * @return the stub type, not null
    */
-  public static StubConvention getEndStubType(final LocalDate[] schedule, final double paymentsPerYear, final boolean isEndOfMonthConvention) {
-    Validate.notNull(schedule, "schedule");
-    Validate.noNullElements(schedule, "schedule");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(12 % paymentsPerYear == 0);
+  public static StubConvention getEndStubType(LocalDate[] schedule, double paymentsPerYear, boolean isEndOfMonthConvention) {
+    ArgChecker.noNulls(schedule, "schedule");
+    ArgChecker.isTrue(paymentsPerYear > 0, "Must be at least one payment per year");
+    ArgChecker.isTrue(12 % paymentsPerYear == 0, "Payment per year must be 1, 2, 3, 4, 6 or 12");
 
-    final int months = (int) (12 / paymentsPerYear);
-    final int n = schedule.length;
-    final LocalDate first = schedule[n - 2];
-    final LocalDate second = schedule[n - 1];
+    int months = (int) (12 / paymentsPerYear);
+    int n = schedule.length;
+    LocalDate first = schedule[n - 2];
+    LocalDate second = schedule[n - 1];
     LocalDate date;
     if (isEndOfMonthConvention && first.equals(first.with(lastDayOfMonth()))) {
       date = first.plusMonths(months);

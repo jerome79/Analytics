@@ -8,8 +8,7 @@ package com.opengamma.analytics.financial.provider.curve;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -103,7 +102,7 @@ public class CurveBuildingBlockBundle {
       return false;
     }
     final CurveBuildingBlockBundle other = (CurveBuildingBlockBundle) obj;
-    if (!ObjectUtils.equals(_bundle, other._bundle)) {
+    if (!Objects.equals(_bundle, other._bundle)) {
       return false;
     }
     return true;

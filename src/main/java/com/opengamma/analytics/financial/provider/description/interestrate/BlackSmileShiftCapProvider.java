@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.option.parameters.BlackSmileShiftCapParameters;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
@@ -90,10 +89,10 @@ public class BlackSmileShiftCapProvider implements BlackSmileShiftCapProviderInt
       return false;
     }
     final BlackSmileShiftCapProvider other = (BlackSmileShiftCapProvider) obj;
-    if (!ObjectUtils.equals(_multicurves, other._multicurves)) {
+    if (!Objects.equals(_multicurves, other._multicurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

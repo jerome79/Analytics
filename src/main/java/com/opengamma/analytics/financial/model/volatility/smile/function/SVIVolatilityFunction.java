@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Gatheral's Stochastic Volatility Inspired (SVI) model
@@ -17,10 +16,10 @@ public class SVIVolatilityFunction extends VolatilityFunctionProvider<SVIFormula
 
   @Override
   public Function1D<SVIFormulaData, Double> getVolatilityFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward > 0, "Need forward >= 0");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward > 0, "Need forward >= 0");
     final double strike = option.getStrike();
-    Validate.isTrue(strike > 0, "Need strike >= 0");
+    ArgChecker.isTrue(strike > 0, "Need strike >= 0");
     final double kappa = Math.log(strike / forward);
 
     return new Function1D<SVIFormulaData, Double>() {
@@ -40,16 +39,16 @@ public class SVIVolatilityFunction extends VolatilityFunctionProvider<SVIFormula
   }
 
   public double getVolatility(final double forward, final double strike, final SVIFormulaData data) {
-    Validate.isTrue(forward > 0, "Need forward >= 0");
-    Validate.isTrue(strike > 0, "Need strike >= 0");
-    Validate.notNull(data, "null SVI parameters");
+    ArgChecker.isTrue(forward > 0, "Need forward >= 0");
+    ArgChecker.isTrue(strike > 0, "Need strike >= 0");
+    ArgChecker.notNull(data, "null SVI parameters");
 
     final double kappa = Math.log(strike / forward);
     return getVolatility(kappa, data);
   }
 
   private double getVolatility(final double kappa, final SVIFormulaData data) {
-    Validate.notNull(data, "null SVI parameters");
+    ArgChecker.notNull(data, "null SVI parameters");
     final double d = kappa - data.getM();
     final double nu = data.getNu();
     return Math.sqrt(data.getA() + data.getB() * (data.getRho() * d + Math.sqrt(d * d + nu * nu)));
@@ -57,10 +56,10 @@ public class SVIVolatilityFunction extends VolatilityFunctionProvider<SVIFormula
 
   @Override
   public Function1D<SVIFormulaData, double[]> getVolatilityAdjointFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward > 0, "Need forward >= 0");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward > 0, "Need forward >= 0");
     final double strike = option.getStrike();
-    Validate.isTrue(strike > 0, "Need strike >= 0");
+    ArgChecker.isTrue(strike > 0, "Need strike >= 0");
     final double kappa = Math.log(strike / forward);
 
     return new Function1D<SVIFormulaData, double[]>() {
@@ -79,10 +78,10 @@ public class SVIVolatilityFunction extends VolatilityFunctionProvider<SVIFormula
 
   @Override
   public Function1D<SVIFormulaData, double[]> getModelAdjointFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
-    Validate.isTrue(forward > 0, "Need forward >= 0");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(forward > 0, "Need forward >= 0");
     final double strike = option.getStrike();
-    Validate.isTrue(strike > 0, "Need strike >= 0");
+    ArgChecker.isTrue(strike > 0, "Need strike >= 0");
     final double kappa = Math.log(strike / forward);
 
     return new Function1D<SVIFormulaData, double[]>() {
@@ -106,15 +105,15 @@ public class SVIVolatilityFunction extends VolatilityFunctionProvider<SVIFormula
   }
 
   public double[] getVolatilityAjoint(final double forward, final double strike, final SVIFormulaData data) {
-    Validate.isTrue(forward > 0, "Need forward >= 0");
-    Validate.isTrue(strike > 0, "Need strike >= 0");
+    ArgChecker.isTrue(forward > 0, "Need forward >= 0");
+    ArgChecker.isTrue(strike > 0, "Need strike >= 0");
 
     final double kappa = Math.log(strike / forward);
     return getVolatilityAdjoint(forward, strike, kappa, data);
   }
 
   private double[] getVolatilityAdjoint(final double forward, final double strike, final double kappa, final SVIFormulaData data) {
-    Validate.notNull(data, "null data");
+    ArgChecker.notNull(data, "null data");
 
     final double b = data.getB();
     final double rho = data.getRho();
@@ -141,7 +140,7 @@ public class SVIVolatilityFunction extends VolatilityFunctionProvider<SVIFormula
   }
 
   private double[] getModelAdjoint(final double kappa, final SVIFormulaData data) {
-    Validate.notNull(data, "null data");
+    ArgChecker.notNull(data, "null data");
 
     final double b = data.getB();
     final double rho = data.getRho();

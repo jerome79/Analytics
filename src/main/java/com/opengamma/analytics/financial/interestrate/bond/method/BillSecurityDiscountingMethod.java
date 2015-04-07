@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -20,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BillSecurity;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -56,15 +55,15 @@ public final class BillSecurityDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final BillSecurity bill, final YieldCurveBundle curves) {
-    Validate.notNull(bill, "Bill");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bill, "Bill");
+    ArgChecker.notNull(curves, "Curves");
     final double pvBill = bill.getNotional() * curves.getCurve(bill.getCreditCurveName()).getDiscountFactor(bill.getEndTime());
     return CurrencyAmount.of(bill.getCurrency(), pvBill);
   }
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof BillSecurity, "Bill Security");
+    ArgChecker.isTrue(instrument instanceof BillSecurity, "Bill Security");
     return presentValue((BillSecurity) instrument, curves);
   }
 
@@ -135,8 +134,8 @@ public final class BillSecurityDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValueFromYield(final BillSecurity bill, final double yield, final YieldCurveBundle curves) {
-    Validate.notNull(bill, "Bill");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bill, "Bill");
+    ArgChecker.notNull(curves, "Curves");
     final double price = priceFromYield(bill, yield);
     return presentValueFromPrice(bill, price, curves);
   }
@@ -149,8 +148,8 @@ public final class BillSecurityDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValueFromPrice(final BillSecurity bill, final double price, final YieldCurveBundle curves) {
-    Validate.notNull(bill, "Bill");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bill, "Bill");
+    ArgChecker.notNull(curves, "Curves");
     final double pvBill = bill.getNotional() * price * curves.getCurve(bill.getDiscountingCurveName()).getDiscountFactor(bill.getSettlementTime());
     return CurrencyAmount.of(bill.getCurrency(), pvBill);
   }
@@ -162,8 +161,8 @@ public final class BillSecurityDiscountingMethod implements PricingMethod {
    * @return The price.
    */
   public double priceFromCurves(final BillSecurity bill, final YieldCurveBundle curves) {
-    Validate.notNull(bill, "Bill");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bill, "Bill");
+    ArgChecker.notNull(curves, "Curves");
     final double pvBill = bill.getNotional() * curves.getCurve(bill.getCreditCurveName()).getDiscountFactor(bill.getEndTime());
     final double price = pvBill / (bill.getNotional() * curves.getCurve(bill.getDiscountingCurveName()).getDiscountFactor(bill.getSettlementTime()));
     return price;
@@ -176,8 +175,8 @@ public final class BillSecurityDiscountingMethod implements PricingMethod {
    * @return The yield.
    */
   public double yieldFromCurves(final BillSecurity bill, final YieldCurveBundle curves) {
-    Validate.notNull(bill, "Bill");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bill, "Bill");
+    ArgChecker.notNull(curves, "Curves");
     final double pvBill = bill.getNotional() * curves.getCurve(bill.getCreditCurveName()).getDiscountFactor(bill.getEndTime());
     final double price = pvBill / (bill.getNotional() * curves.getCurve(bill.getDiscountingCurveName()).getDiscountFactor(bill.getSettlementTime()));
     return yieldFromPrice(bill, price);
@@ -190,8 +189,8 @@ public final class BillSecurityDiscountingMethod implements PricingMethod {
    * @return The sensitivity.
    */
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final BillSecurity bill, final YieldCurveBundle curves) {
-    Validate.notNull(bill, "Bill");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bill, "Bill");
+    ArgChecker.notNull(curves, "Curves");
     final double dfEnd = curves.getCurve(bill.getCreditCurveName()).getDiscountFactor(bill.getEndTime());
     // Backward sweep
     final double pvBar = 1.0;

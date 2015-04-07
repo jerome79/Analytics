@@ -11,8 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -336,13 +335,13 @@ public class FederalFundsFutureSecurityDefinition extends FuturesSecurityDefinit
     if (Double.doubleToLongBits(_fixingTotalAccrualFactor) != Double.doubleToLongBits(other._fixingTotalAccrualFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_marginAccrualFactor) != Double.doubleToLongBits(other._marginAccrualFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {

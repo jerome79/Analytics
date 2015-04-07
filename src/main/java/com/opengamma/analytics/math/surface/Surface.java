@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.surface;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.tuple.Pair;
 
@@ -99,7 +98,7 @@ public abstract class Surface<T, U, V> {
       return false;
     }
     final Surface<?, ?, ?> other = (Surface<?, ?, ?>) obj;
-    return ObjectUtils.equals(_name, other._name);
+    return Objects.equals(_name, other._name);
   }
 
 }

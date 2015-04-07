@@ -11,7 +11,6 @@ import java.util.Map;
 
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
@@ -59,6 +58,7 @@ import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquareWithPenalty;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -279,7 +279,7 @@ public class LocalVolFittingTest {
       sum += w[i] * f[i];
     }
     f[n - 1] = (fwd - sum) / w[n - 1];
-    Validate.isTrue(f[n - 1] > 0);
+    ArgChecker.isTrue(f[n - 1] > 0);
 
     final Function<Double, Double> surf = new Function<Double, Double>() {
       @Override

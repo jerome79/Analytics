@@ -9,11 +9,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.curve.CommodityForwardCurve;
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying.CommodityUnderlying;
@@ -351,12 +349,12 @@ public class CommodityProviderDiscount implements CommodityProviderInterface {
 
   @Override
   public CommodityProviderInterface withForward(final IborIndex index, final YieldAndDiscountCurve replacement) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public CommodityProviderInterface withForward(final IndexON index, final YieldAndDiscountCurve replacement) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
@@ -419,10 +417,10 @@ public class CommodityProviderDiscount implements CommodityProviderInterface {
       return false;
     }
     final CommodityProviderDiscount other = (CommodityProviderDiscount) obj;
-    if (!ObjectUtils.equals(_commodityForwardCurves, other._commodityForwardCurves)) {
+    if (!Objects.equals(_commodityForwardCurves, other._commodityForwardCurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
     return true;

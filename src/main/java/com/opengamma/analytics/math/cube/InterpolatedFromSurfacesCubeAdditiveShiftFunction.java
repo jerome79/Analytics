@@ -7,11 +7,10 @@ package com.opengamma.analytics.math.cube;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.Plane;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts an {@link InterpolatedFromSurfacesCubeAdditiveShiftFunction}. If an <i>x</i> (<i>y</i>) shift does not coincide with the one of the <i>x</i> (<i>y</i>) values
@@ -24,7 +23,7 @@ public class InterpolatedFromSurfacesCubeAdditiveShiftFunction implements CubeSh
    */
   @Override
   public InterpolatedFromSurfacesDoublesCube evaluate(final InterpolatedFromSurfacesDoublesCube surface, final double shift) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, shift, "PARALLEL_SHIFT_" + surface.getName());
   }
 
@@ -34,7 +33,7 @@ public class InterpolatedFromSurfacesCubeAdditiveShiftFunction implements CubeSh
   @SuppressWarnings("unchecked")
   @Override
   public InterpolatedFromSurfacesDoublesCube evaluate(final InterpolatedFromSurfacesDoublesCube cube, final double shift, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final double[] points = cube.getPoints();
     final Surface<Double, Double, Double>[] surfaces = cube.getSurfaces();
     final int n = surfaces.length;
@@ -53,7 +52,7 @@ public class InterpolatedFromSurfacesCubeAdditiveShiftFunction implements CubeSh
 
   @Override
   public InterpolatedFromSurfacesDoublesCube evaluate(final InterpolatedFromSurfacesDoublesCube surface, final double x, final double y, final double z, final double shift) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, x, y, z, shift, "SINGLE_SHIFT_" + surface.getName());
   }
 
@@ -64,7 +63,7 @@ public class InterpolatedFromSurfacesCubeAdditiveShiftFunction implements CubeSh
    */
   @Override
   public InterpolatedFromSurfacesDoublesCube evaluate(final InterpolatedFromSurfacesDoublesCube cube, final double x, final double y, final double z, final double shift, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final double[] points = cube.getPoints();
 
     if (cube.getPlane() == Plane.ZX) {
@@ -105,7 +104,7 @@ public class InterpolatedFromSurfacesCubeAdditiveShiftFunction implements CubeSh
    */
   @Override
   public InterpolatedFromSurfacesDoublesCube evaluate(final InterpolatedFromSurfacesDoublesCube surface, final double[] xShift, final double[] yShift, final double[] zShift, final double[] shift) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, xShift, yShift, zShift, shift, "MULTIPLE_SHIFT_" + surface.getName());
   }
 
@@ -117,16 +116,16 @@ public class InterpolatedFromSurfacesCubeAdditiveShiftFunction implements CubeSh
   @Override
   public InterpolatedFromSurfacesDoublesCube evaluate(final InterpolatedFromSurfacesDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] shift,
       final String newName) {
-    Validate.notNull(cube, "surface");
-    Validate.notNull(xShift, "x shifts");
-    Validate.notNull(yShift, "y shifts");
-    Validate.notNull(yShift, "z shifts");
-    Validate.notNull(shift, "shifts");
+    ArgChecker.notNull(cube, "surface");
+    ArgChecker.notNull(xShift, "x shifts");
+    ArgChecker.notNull(yShift, "y shifts");
+    ArgChecker.notNull(yShift, "z shifts");
+    ArgChecker.notNull(shift, "shifts");
     final int n = xShift.length;
     if (n == 0) {
       return InterpolatedFromSurfacesDoublesCube.from(cube.getPlane(), cube.getPoints(), cube.getSurfaces(), cube.getInterpolator(), newName);
     }
-    Validate.isTrue(n == yShift.length && n == shift.length);
+    ArgChecker.isTrue(n == yShift.length && n == shift.length);
     final double[] points = cube.getPoints();
     if (cube.getPlane() == Plane.ZX) {
       final Surface<Double, Double, Double>[] newSurfaces = Arrays.copyOf(cube.getSurfaces(), points.length);

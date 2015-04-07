@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.matrix;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A minimal implementation of a vector (in the mathematical sense) that contains doubles.
@@ -22,7 +22,7 @@ public class DoubleMatrix1D implements Matrix<Double> {
    * @param data The data, not null
    */
   public DoubleMatrix1D(final Double[] data) {
-    Validate.notNull(data);
+    ArgChecker.notNull(data, "data");
     _elements = data.length;
     _data = new double[_elements];
     for (int i = 0; i < _elements; i++) {
@@ -34,7 +34,7 @@ public class DoubleMatrix1D implements Matrix<Double> {
    * @param data The data, not null
    */
   public DoubleMatrix1D(final double... data) {
-    Validate.notNull(data);
+    ArgChecker.notNull(data, "data");
     _elements = data.length;
     _data = Arrays.copyOf(data, _elements);
   }

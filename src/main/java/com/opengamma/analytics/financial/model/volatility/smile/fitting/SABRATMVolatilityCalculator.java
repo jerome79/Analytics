@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RidderSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -24,7 +23,7 @@ public class SABRATMVolatilityCalculator {
   private final RealSingleRootFinder _rootFinder = new RidderSingleRootFinder();
 
   public SABRATMVolatilityCalculator(final VolatilityFunctionProvider<SABRFormulaData> formula) {
-    Validate.notNull(formula, "formula");
+    ArgChecker.notNull(formula, "formula");
     _sabrFormula = formula;
   }
 
@@ -37,9 +36,9 @@ public class SABRATMVolatilityCalculator {
    * @return the value of alpha
    */
   public double calculate(final SABRFormulaData data, final EuropeanVanillaOption option, final double forward, final double atmVol) {
-    Validate.notNull(data, "data");
-    Validate.notNull(option, "option");
-    Validate.isTrue(atmVol > 0, "ATM vol must be > 0");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.isTrue(atmVol > 0, "ATM vol must be > 0");
     final Function1D<Double, Double> f = new Function1D<Double, Double>() {
 
       @SuppressWarnings("synthetic-access")

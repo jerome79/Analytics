@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.AmericanVanillaOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
@@ -105,12 +103,12 @@ public class BjerksundStenslandModel {
    * @return The pricing function
    */
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final AmericanVanillaOptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     Function1D<StandardOptionDataBundle, Double> pricingFunction = new Function1D<StandardOptionDataBundle, Double>() {
 
       @Override
       public Double evaluate(StandardOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         ZonedDateTime date = data.getDate();
         double s = data.getSpot();
         double k = definition.getStrike();

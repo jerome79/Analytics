@@ -9,9 +9,8 @@ import static com.opengamma.strata.basics.currency.Currency.GBP;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
-
-import org.apache.commons.lang.ArrayUtils;
 
 import com.opengamma.analytics.convention.rolldate.RollConvention;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
@@ -44,6 +43,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
@@ -171,13 +171,12 @@ public class RecentDataSetsMulticurveOisMeetingDatesGbp {
       ZonedDateTime calibrationDate) {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[NB_UNITS][][];
     InstrumentDefinition<?>[] definitionsDsc = generateDatesOis(DSC_2_GBP_DATES, 
-        ArrayUtils.subarray(DSC_GBP_MARKET_QUOTES, 1, DSC_GBP_MARKET_QUOTES.length));
+        Arrays.copyOfRange(DSC_GBP_MARKET_QUOTES, 1, DSC_GBP_MARKET_QUOTES.length));
 
     /// Adding instruments to cover period between calibrationDate and first date of BOE instruments
     InstrumentDefinition<?>[] definitionsOis = 
         RecentDataSetsMulticurveStandardGbp.getDefinitionForFirstInstruments(calibrationDate, DSC_2_GBP_DATES[0]);
-    InstrumentDefinition<?>[] definitions = 
-        (InstrumentDefinition<?>[]) ArrayUtils.addAll(definitionsOis, definitionsDsc);
+    InstrumentDefinition<?>[] definitions = ArrayUtils.addAll(definitionsOis, definitionsDsc);
     definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitions};
         
     return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits, 

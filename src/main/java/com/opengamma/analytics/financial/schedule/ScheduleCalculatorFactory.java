@@ -10,7 +10,7 @@ import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -102,7 +102,7 @@ public class ScheduleCalculatorFactory {
   }
 
   public static Schedule getScheduleCalculator(final String name, final DayOfWeek dayOfWeek) {
-    Validate.notNull(name, "name");
+    ArgChecker.notNull(name, "name");
     if (!name.equals(WEEKLY_ON_DAY)) {
       throw new IllegalArgumentException("Can only ask for " + WEEKLY_ON_DAY + " schedule");
     }
@@ -110,7 +110,7 @@ public class ScheduleCalculatorFactory {
   }
 
   public static Schedule getScheduleCalculator(final String name, final int dayOfMonth, final Month monthOfYear) {
-    Validate.notNull(name, "name");
+    ArgChecker.notNull(name, "name");
     if (!name.equals(ANNUAL_ON_DAY_AND_MONTH)) {
       throw new IllegalArgumentException("Can only ask for " + ANNUAL_ON_DAY_AND_MONTH + " schedule");
     }

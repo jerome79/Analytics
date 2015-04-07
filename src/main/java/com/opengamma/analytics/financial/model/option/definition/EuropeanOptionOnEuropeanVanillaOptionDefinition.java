@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.BlackScholesMertonModel;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -23,7 +23,7 @@ public class EuropeanOptionOnEuropeanVanillaOptionDefinition extends OptionDefin
     @SuppressWarnings("synthetic-access")
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data, "data");
+      ArgChecker.notNull(data, "data");
       final double underlyingPrice = UNDERLYING_MODEL.getPricingFunction(_underlyingOption).evaluate(data);
       return isCall() ? Math.max(underlyingPrice - getStrike(), 0) : Math.max(getStrike() - underlyingPrice, 0);
     }
@@ -37,7 +37,7 @@ public class EuropeanOptionOnEuropeanVanillaOptionDefinition extends OptionDefin
 
   public EuropeanOptionOnEuropeanVanillaOptionDefinition(final double strike, final Expiry expiry, final boolean isCall, final EuropeanVanillaOptionDefinition underlyingOption) {
     super(strike, expiry, isCall);
-    Validate.notNull(underlyingOption, "underlying definition");
+    ArgChecker.notNull(underlyingOption, "underlying definition");
     if (expiry.getExpiry().isAfter(underlyingOption.getExpiry().getExpiry())) {
       throw new IllegalArgumentException("Underlying option expiry must be after option expiry");
     }
@@ -78,7 +78,7 @@ public class EuropeanOptionOnEuropeanVanillaOptionDefinition extends OptionDefin
       return false;
     }
     final EuropeanOptionOnEuropeanVanillaOptionDefinition other = (EuropeanOptionOnEuropeanVanillaOptionDefinition) obj;
-    return ObjectUtils.equals(_underlyingOption, other._underlyingOption);
+    return Objects.equals(_underlyingOption, other._underlyingOption);
   }
 
 }

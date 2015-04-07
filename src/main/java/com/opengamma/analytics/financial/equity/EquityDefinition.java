@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.equity;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -104,10 +103,10 @@ public class EquityDefinition implements InstrumentDefinition<Equity> {
     if (Double.compare(_numberOfShares, other._numberOfShares) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_entity, other._entity)) {
+    if (!Objects.equals(_entity, other._entity)) {
       return false;
     }
     return true;

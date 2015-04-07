@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.CappedPowerOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.SimpleChooserOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -41,13 +40,13 @@ public class SimpleChooserOptionModel extends AnalyticOptionModel<SimpleChooserO
    */
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final SimpleChooserOptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<StandardOptionDataBundle, Double> pricingFunction = new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final double k = definition.getUnderlyingStrike();
         final double t1 = definition.getTimeToExpiry(data.getDate());

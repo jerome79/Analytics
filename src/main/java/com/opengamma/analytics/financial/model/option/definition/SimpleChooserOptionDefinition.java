@@ -6,15 +6,14 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.AnalyticOptionModel;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.BlackScholesMertonModel;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -42,7 +41,7 @@ public class SimpleChooserOptionDefinition extends OptionDefinition {
     @SuppressWarnings("synthetic-access")
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
+      ArgChecker.notNull(data, "data");
       final double callPrice = BSM.getGreeks(getCallDefinition(), data, GREEKS).get(Greek.FAIR_PRICE);
       final double putPrice = BSM.getGreeks(getPutDefinition(), data, GREEKS).get(Greek.FAIR_PRICE);
       return Math.max(callPrice, putPrice);
@@ -70,8 +69,8 @@ public class SimpleChooserOptionDefinition extends OptionDefinition {
    */
   public SimpleChooserOptionDefinition(final Expiry chooseDate, final double underlyingStrike, final Expiry underlyingExpiry) {
     super(null, chooseDate, null);
-    Validate.notNull(underlyingExpiry);
-    Validate.isTrue(underlyingStrike > 0, "underlying strike");
+    ArgChecker.notNull(underlyingExpiry, "underlyingExpiry");
+    ArgChecker.isTrue(underlyingStrike > 0, "underlying strike");
     if (underlyingExpiry.getExpiry().isBefore(chooseDate.getExpiry())) {
       throw new IllegalArgumentException("Underlying option expiry must be after the choice date");
     }
@@ -151,6 +150,6 @@ public class SimpleChooserOptionDefinition extends OptionDefinition {
     if (Double.doubleToLongBits(_underlyingStrike) != Double.doubleToLongBits(other._underlyingStrike)) {
       return false;
     }
-    return ObjectUtils.equals(_underlyingExpiry, other._underlyingExpiry);
+    return Objects.equals(_underlyingExpiry, other._underlyingExpiry);
   }
 }

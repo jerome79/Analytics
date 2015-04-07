@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.financial.model.volatility.local;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -86,7 +85,7 @@ public abstract class LocalVolatilitySurfaceConverter {
    * @return New expiry-moneyness local volatility surface, such that the expiry-strike surface would be unchanged
    */
   public static LocalVolatilitySurfaceMoneyness shiftForwardCurve(final LocalVolatilitySurfaceMoneyness from, final double shift) {
-    Validate.isTrue(shift > -1, "shift must be > -1");
+    ArgChecker.isTrue(shift > -1, "shift must be > -1");
     final ForwardCurve newForwardCurve = from.getForwardCurve().withFractionalShift(shift);
 
     final Function<Double, Double> surFunc = new Function<Double, Double>() {

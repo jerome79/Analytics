@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.var;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.strata.collect.ArgChecker;
@@ -65,7 +65,7 @@ public class StudentTLinearVaRCalculator<T> implements VaRCalculator<StudentTVaR
       return false;
     }
     final StudentTLinearVaRCalculator<?> other = (StudentTLinearVaRCalculator<?>) obj;
-    return ObjectUtils.equals(_meanCalculator, other._meanCalculator) && ObjectUtils.equals(_stdCalculator, other._stdCalculator);
+    return Objects.equals(_meanCalculator, other._meanCalculator) && Objects.equals(_stdCalculator, other._stdCalculator);
   }
 
 }

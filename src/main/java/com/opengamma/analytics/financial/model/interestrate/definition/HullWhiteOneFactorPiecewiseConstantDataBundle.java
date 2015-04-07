@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.HullWhiteOneFactorProviderDiscount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing the data required to price interest rate derivatives with Hull-White one factor model (curves and model parameters).
@@ -30,7 +30,7 @@ public class HullWhiteOneFactorPiecewiseConstantDataBundle extends YieldCurveBun
    */
   public HullWhiteOneFactorPiecewiseConstantDataBundle(final HullWhiteOneFactorPiecewiseConstantParameters hullWhiteParameters, final YieldCurveBundle curves) {
     super(curves);
-    Validate.notNull(hullWhiteParameters, "Hull-White parameters");
+    ArgChecker.notNull(hullWhiteParameters, "Hull-White parameters");
     _parameters = hullWhiteParameters;
   }
 
@@ -71,7 +71,7 @@ public class HullWhiteOneFactorPiecewiseConstantDataBundle extends YieldCurveBun
       return false;
     }
     final HullWhiteOneFactorPiecewiseConstantDataBundle other = (HullWhiteOneFactorPiecewiseConstantDataBundle) obj;
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

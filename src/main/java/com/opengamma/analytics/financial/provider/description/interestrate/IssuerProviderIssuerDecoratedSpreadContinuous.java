@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.analytics.financial.legalentity.LegalEntityFilter;
@@ -144,10 +143,10 @@ public class IssuerProviderIssuerDecoratedSpreadContinuous implements IssuerProv
     if (Double.compare(_spread, other._spread) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_issuer, other._issuer)) {
+    if (!Objects.equals(_issuer, other._issuer)) {
       return false;
     }
-    if (!ObjectUtils.equals(_issuerProvider, other._issuerProvider)) {
+    if (!Objects.equals(_issuerProvider, other._issuerProvider)) {
       return false;
     }
     return true;

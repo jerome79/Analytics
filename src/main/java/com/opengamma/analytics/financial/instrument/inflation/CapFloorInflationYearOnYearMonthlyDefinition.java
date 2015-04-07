@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
@@ -151,7 +149,7 @@ public class CapFloorInflationYearOnYearMonthlyDefinition extends CouponInflatio
    */
   public static CapFloorInflationYearOnYearMonthlyDefinition from(final CouponInflationYearOnYearMonthlyDefinition coupon, final ZonedDateTime lastKnownFixingDate,
       final double strike, final boolean isCap) {
-    Validate.notNull(coupon, "coupon year on year monthly Inflation");
+    ArgChecker.notNull(coupon, "coupon year on year monthly Inflation");
     return new CapFloorInflationYearOnYearMonthlyDefinition(coupon.getCurrency(), coupon.getPaymentDate(), coupon.getAccrualStartDate(),
         coupon.getAccrualEndDate(), coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getPriceIndex(), lastKnownFixingDate,
         coupon.getConventionalMonthLag(), coupon.getMonthLag(), coupon.getReferenceStartDate(), coupon.getReferenceEndDate(), strike, isCap);

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
@@ -60,7 +58,7 @@ public class TimeSquareInterpolator1D extends Interpolator1D {
     double x2 = data.getKeys()[index + 1];
     double y2 = data.getValues()[index + 1];
     if ((y1 < EPS) || (y2 < EPS)) {
-      throw new NotImplementedException("node sensitivity not implemented when one node is 0 value");
+      throw new UnsupportedOperationException("node sensitivity not implemented when one node is 0 value");
     }
     final double w = (x2 - value) / (x2 - x1);
     final double xy21 = x1 * y1 * y1;
@@ -86,7 +84,7 @@ public class TimeSquareInterpolator1D extends Interpolator1D {
     final double x2 = boundedValues.getHigherBoundKey();
     final double y2 = boundedValues.getHigherBoundValue();
     if ((y1 < EPS) || (y2 < EPS)) {
-      throw new NotImplementedException("node sensitivity not implemented when one node is 0 value");
+      throw new UnsupportedOperationException("node sensitivity not implemented when one node is 0 value");
     }
     final double w = (x2 - value) / (x2 - x1);
     final double xy21 = x1 * y1 * y1;

@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Describes a transaction on a generic single currency bond issue.
@@ -48,9 +48,9 @@ public abstract class BondTransaction<B extends BondSecurity<? extends Payment, 
    * @param notionalStandard The notional at the standard spot time.
    */
   public BondTransaction(B bondPurchased, double quantity, double transactionPrice, B bondStandard, double notionalStandard) {
-    Validate.notNull(bondPurchased, "Bond underlying the transaction");
-    Validate.notNull(transactionPrice, "Price");
-    Validate.notNull(bondStandard, "Bond underlying with standard settlement date");
+    ArgChecker.notNull(bondPurchased, "Bond underlying the transaction");
+    ArgChecker.notNull(transactionPrice, "Price");
+    ArgChecker.notNull(bondStandard, "Bond underlying with standard settlement date");
     // TODO: Check coherence of bond with settlement.
     _bondPurchased = bondPurchased;
     _quantity = quantity;
@@ -134,10 +134,10 @@ public abstract class BondTransaction<B extends BondSecurity<? extends Payment, 
       return false;
     }
     BondTransaction<?> other = (BondTransaction<?>) obj;
-    if (!ObjectUtils.equals(_bondPurchased, other._bondPurchased)) {
+    if (!Objects.equals(_bondPurchased, other._bondPurchased)) {
       return false;
     }
-    if (!ObjectUtils.equals(_bondStandard, other._bondStandard)) {
+    if (!Objects.equals(_bondStandard, other._bondStandard)) {
       return false;
     }
     if (Double.doubleToLongBits(_notionalStandard) != Double.doubleToLongBits(other._notionalStandard)) {

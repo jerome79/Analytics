@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -315,13 +315,13 @@ public class BillSecurity implements InstrumentDerivative {
     if (Double.doubleToLongBits(_accrualFactor) != Double.doubleToLongBits(other._accrualFactor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_creditCurveName, other._creditCurveName)) {
+    if (!Objects.equals(_creditCurveName, other._creditCurveName)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_discountingCurveName, other._discountingCurveName)) {
+    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
       return false;
     }
     if (Double.doubleToLongBits(_endTime) != Double.doubleToLongBits(other._endTime)) {
@@ -340,7 +340,7 @@ public class BillSecurity implements InstrumentDerivative {
     if (Double.doubleToLongBits(_settlementTime) != Double.doubleToLongBits(other._settlementTime)) {
       return false;
     }
-    if (!ObjectUtils.equals(_yieldConvention, other._yieldConvention)) {
+    if (!Objects.equals(_yieldConvention, other._yieldConvention)) {
       return false;
     }
     return true;

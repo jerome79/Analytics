@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.equity.option;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
@@ -223,13 +222,13 @@ public class EquityIndexOptionDefinition implements InstrumentDefinition<EquityI
     if (Double.compare(_pointValue, other._pointValue) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiryDT, other._expiryDT)) {
+    if (!Objects.equals(_expiryDT, other._expiryDT)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementDate, other._settlementDate)) {
+    if (!Objects.equals(_settlementDate, other._settlementDate)) {
       return false;
     }
     return true;

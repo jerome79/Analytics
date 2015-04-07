@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
@@ -118,10 +117,10 @@ public abstract class ForexOptionDataBundle<T extends VolatilityModel<?>> extend
       return false;
     }
     final ForexOptionDataBundle<?> other = (ForexOptionDataBundle<?>) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilityModel, other._volatilityModel)) {
+    if (!Objects.equals(_volatilityModel, other._volatilityModel)) {
       return false;
     }
     return true;

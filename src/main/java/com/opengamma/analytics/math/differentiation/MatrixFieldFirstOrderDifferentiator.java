@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.differentiation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
@@ -43,14 +41,14 @@ public class MatrixFieldFirstOrderDifferentiator implements Differentiator<Doubl
 
   @Override
   public Function1D<DoubleMatrix1D, DoubleMatrix2D[]> differentiate(final Function1D<DoubleMatrix1D, DoubleMatrix2D> function) {
-    Validate.notNull(function);
+    ArgChecker.notNull(function, "function");
 
     return new Function1D<DoubleMatrix1D, DoubleMatrix2D[]>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public DoubleMatrix2D[] evaluate(final DoubleMatrix1D x) {
-        Validate.notNull(x, "x");
+        ArgChecker.notNull(x, "x");
         final int n = x.getNumberOfElements();
 
         final DoubleMatrix2D[] res = new DoubleMatrix2D[n];
@@ -71,8 +69,8 @@ public class MatrixFieldFirstOrderDifferentiator implements Differentiator<Doubl
 
   @Override
   public Function1D<DoubleMatrix1D, DoubleMatrix2D[]> differentiate(final Function1D<DoubleMatrix1D, DoubleMatrix2D> function, final Function1D<DoubleMatrix1D, Boolean> domain) {
-    Validate.notNull(function);
-    Validate.notNull(domain);
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(domain, "domain");
 
     final double[] wFwd = new double[] {-3. / _twoEps, 4. / _twoEps, -1. / _twoEps };
     final double[] wCent = new double[] {-1. / _twoEps, 0., 1. / _twoEps };
@@ -83,7 +81,7 @@ public class MatrixFieldFirstOrderDifferentiator implements Differentiator<Doubl
       @SuppressWarnings("synthetic-access")
       @Override
       public DoubleMatrix2D[] evaluate(final DoubleMatrix1D x) {
-        Validate.notNull(x, "x");
+        ArgChecker.notNull(x, "x");
         ArgChecker.isTrue(domain.evaluate(x), "point {} is not in the function domain", x.toString());
 
         final int n = x.getNumberOfElements();

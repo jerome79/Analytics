@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
@@ -79,10 +79,10 @@ public abstract class IndexDeposit {
       return false;
     }
     final IndexDeposit other = (IndexDeposit) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     return true;

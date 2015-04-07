@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -15,7 +15,7 @@ public class Strike implements StrikeType {
   private final double _value;
 
   public Strike(final double value) {
-    Validate.isTrue(value >= 0, "negative strike");
+    ArgChecker.isTrue(value >= 0, "negative strike");
     _value = value;
   }
 

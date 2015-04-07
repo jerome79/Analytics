@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.cash;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -116,7 +115,7 @@ public class DepositIborDefinition extends CashDefinition {
       return false;
     }
     final DepositIborDefinition other = (DepositIborDefinition) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     return true;

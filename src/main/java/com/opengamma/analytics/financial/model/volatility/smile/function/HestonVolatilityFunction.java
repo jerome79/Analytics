@@ -10,8 +10,6 @@ import static com.opengamma.analytics.math.interpolation.Interpolator1DFactory.F
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.option.pricing.fourier.FFTModelGreeks;
 import com.opengamma.analytics.financial.model.option.pricing.fourier.FFTPricer;
@@ -22,6 +20,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -182,7 +181,7 @@ public class HestonVolatilityFunction extends VolatilityFunctionProvider<HestonM
       @Override
       public double[] evaluate(final HestonModelData x) {
         final double[][] temp = func.evaluate(x);
-        Validate.isTrue(temp.length == 1);
+        ArgChecker.isTrue(temp.length == 1);
         return temp[0];
       }
 
@@ -263,7 +262,7 @@ public class HestonVolatilityFunction extends VolatilityFunctionProvider<HestonM
       @Override
       public double[] evaluate(final HestonModelData x) {
         final double[][] temp = func.evaluate(x);
-        Validate.isTrue(temp.length == 1);
+        ArgChecker.isTrue(temp.length == 1);
         return temp[0];
       }
 

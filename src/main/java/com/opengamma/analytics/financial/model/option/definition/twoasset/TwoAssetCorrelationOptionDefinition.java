@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.definition.twoasset;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanExerciseFunction;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionExerciseFunction;
 import com.opengamma.analytics.financial.model.option.definition.OptionPayoffFunction;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Defines a European-style two-asset correlation option.
@@ -38,7 +37,7 @@ public class TwoAssetCorrelationOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardTwoAssetOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data, "data");
+      ArgChecker.notNull(data, "data");
       final double s1 = data.getFirstSpot();
       final double s2 = data.getSecondSpot();
       final double k = getStrike();

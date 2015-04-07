@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpo
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackPriceFunction;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
@@ -55,8 +53,8 @@ public class SABRExtrapolationLeftFunction extends SABRExtrapolationLeftRightFun
   public SABRExtrapolationLeftFunction(final double forward, final SABRFormulaData sabrData, final double cutOffStrike, final double timeToExpiry, final double mu,
       final VolatilityFunctionProvider<SABRFormulaData> volatilityFunction) {
     super(volatilityFunction);
-    Validate.notNull(sabrData, "SABR data");
-    Validate.notNull(volatilityFunction, "volatilityFunction");
+    ArgChecker.notNull(sabrData, "SABR data");
+    ArgChecker.notNull(volatilityFunction, "volatilityFunction");
     _forward = forward;
     _sabrData = sabrData;
     _cutOffStrike = cutOffStrike;

@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.currency.Currency;
@@ -135,10 +134,10 @@ public class IndexSwap {
       return false;
     }
     final IndexSwap other = (IndexSwap) obj;
-    if (!ObjectUtils.equals(_swapGenerator, other._swapGenerator)) {
+    if (!Objects.equals(_swapGenerator, other._swapGenerator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_tenor, other._tenor)) {
+    if (!Objects.equals(_tenor, other._tenor)) {
       return false;
     }
     return true;

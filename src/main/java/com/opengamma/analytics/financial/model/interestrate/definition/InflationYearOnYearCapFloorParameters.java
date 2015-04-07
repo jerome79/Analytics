@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.strata.collect.ArgChecker;
@@ -207,7 +206,7 @@ public class InflationYearOnYearCapFloorParameters {
     if (!Arrays.equals(_strikes, other._strikes)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (!Arrays.deepEquals(_volatility, other._volatility)) {

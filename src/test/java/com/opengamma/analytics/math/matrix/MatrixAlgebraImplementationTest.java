@@ -8,7 +8,6 @@ package com.opengamma.analytics.math.matrix;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 
@@ -50,7 +49,7 @@ public class MatrixAlgebraImplementationTest {
     COLT.getCondition(M1);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGCondition() {
     OG.getCondition(M3);
   }
@@ -65,7 +64,7 @@ public class MatrixAlgebraImplementationTest {
     COLT.getCondition(M1);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGDeterminant() {
     OG.getDeterminant(M3);
   }
@@ -100,7 +99,7 @@ public class MatrixAlgebraImplementationTest {
     COLT.getInverse(M1);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGInverse() {
     OG.getInverse(M1);
   }
@@ -115,7 +114,7 @@ public class MatrixAlgebraImplementationTest {
     COLT.getNorm1(M5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGNorm1() {
     OG.getNorm1(M1);
   }
@@ -130,7 +129,7 @@ public class MatrixAlgebraImplementationTest {
     COLT.getNorm2(M5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGNorm2_1() {
     OG.getNorm2(M3);
   }
@@ -150,7 +149,7 @@ public class MatrixAlgebraImplementationTest {
     COLT.getNormInfinity(M5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGNormInfinity() {
     OG.getNormInfinity(M5);
   }
@@ -180,12 +179,12 @@ public class MatrixAlgebraImplementationTest {
     COLT.getPower(M2, 2);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGPower1() {
     OG.getPower(M2, 2);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testOGPower2() {
     OG.getPower(M2, 2.3);
   }

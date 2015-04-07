@@ -11,9 +11,8 @@ import static com.opengamma.analytics.financial.interestrate.InterestRateCurveSe
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
@@ -178,7 +177,7 @@ public class InterestRateCurveSensitivity {
       return false;
     }
     final InterestRateCurveSensitivity other = (InterestRateCurveSensitivity) obj;
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

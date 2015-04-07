@@ -11,8 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.strata.basics.currency.FxMatrix;
@@ -288,22 +287,22 @@ public class MultipleYieldCurveFinderDataBundle {
     if (!Arrays.equals(_marketValues, other._marketValues)) {
       return false;
     }
-    if (!ObjectUtils.equals(_derivatives, other._derivatives)) {
+    if (!Objects.equals(_derivatives, other._derivatives)) {
       return false;
     }
-    if (!ObjectUtils.equals(_knownCurves, other._knownCurves)) {
+    if (!Objects.equals(_knownCurves, other._knownCurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_unknownCurveInterpolators, other._unknownCurveInterpolators)) {
+    if (!Objects.equals(_unknownCurveInterpolators, other._unknownCurveInterpolators)) {
       return false;
     }
-    if (!ObjectUtils.equals(_unknownCurveNodePoints, other._unknownCurveNodePoints)) {
+    if (!Objects.equals(_unknownCurveNodePoints, other._unknownCurveNodePoints)) {
       return false;
     }
     if (_useFiniteDifferenceByDefault != other._useFiniteDifferenceByDefault) {
       return false;
     }
-    if (!ObjectUtils.equals(_fxMatrix, other._fxMatrix)) {
+    if (!Objects.equals(_fxMatrix, other._fxMatrix)) {
       return false;
     }
     return true;

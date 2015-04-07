@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackPriceFunction;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.Integrator1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -28,11 +27,11 @@ public class MarkovChainSmallTimeApprox {
   private final BlackPriceFunction _black = new BlackPriceFunction();
 
   public MarkovChainSmallTimeApprox(final double vol1, final double vol2, final double lambda12, final double lambda21, final double probState1) {
-    Validate.isTrue(vol1 >= 0);
-    Validate.isTrue(vol2 >= 0);
-    Validate.isTrue(lambda12 >= 0);
-    Validate.isTrue(lambda21 >= 0);
-    Validate.isTrue(probState1 >= 0 && probState1 <= 1.0);
+    ArgChecker.isTrue(vol1 >= 0);
+    ArgChecker.isTrue(vol2 >= 0);
+    ArgChecker.isTrue(lambda12 >= 0);
+    ArgChecker.isTrue(lambda21 >= 0);
+    ArgChecker.isTrue(probState1 >= 0 && probState1 <= 1.0);
     _vol1 = vol1;
     _vol2 = vol2;
     _lambda12 = lambda12;

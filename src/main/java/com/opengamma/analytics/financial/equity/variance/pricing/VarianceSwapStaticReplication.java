@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.equity.variance.pricing;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.equity.StaticReplicationDataBundle;
 import com.opengamma.analytics.financial.model.volatility.surface.BlackVolatilitySurface;
 import com.opengamma.analytics.financial.model.volatility.surface.BlackVolatilitySurfaceDelta;
@@ -198,7 +196,7 @@ public class VarianceSwapStaticReplication {
 
     @Override
     public Double visitStrike(final BlackVolatilitySurfaceStrike surface, final DoublesPair data) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @SuppressWarnings("synthetic-access")
@@ -213,7 +211,7 @@ public class VarianceSwapStaticReplication {
 
     @Override
     public Double visitDelta(final BlackVolatilitySurfaceDelta surface, final DoublesPair data) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @SuppressWarnings("synthetic-access")
@@ -228,7 +226,7 @@ public class VarianceSwapStaticReplication {
 
     @Override
     public Double visitMoneyness(final BlackVolatilitySurfaceMoneyness surface, final DoublesPair data) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @SuppressWarnings("synthetic-access")
@@ -246,7 +244,7 @@ public class VarianceSwapStaticReplication {
      */
     @Override
     public Double visitLogMoneyness(final BlackVolatilitySurfaceLogMoneyness surface, final DoublesPair data) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     /**

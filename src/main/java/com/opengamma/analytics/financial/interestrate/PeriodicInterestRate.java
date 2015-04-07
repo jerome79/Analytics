@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -29,20 +27,20 @@ public class PeriodicInterestRate extends InterestRate {
 
   @Override
   public InterestRate fromContinuous(final ContinuousInterestRate continuous) {
-    Validate.notNull(continuous, "continuous");
+    ArgChecker.notNull(continuous, "continuous");
     final int m = getCompoundingPeriodsPerYear();
     return new PeriodicInterestRate(m * (Math.exp(continuous.getRate() / m) - 1), m);
   }
 
   @Override
   public double fromContinuousDerivative(final ContinuousInterestRate continuous) {
-    Validate.notNull(continuous);
+    ArgChecker.notNull(continuous, "continuous");
     return Math.exp(continuous.getRate() / getCompoundingPeriodsPerYear());
   }
 
   @Override
   public InterestRate fromPeriodic(final PeriodicInterestRate periodic) {
-    Validate.notNull(periodic, "periodic");
+    ArgChecker.notNull(periodic, "periodic");
     final int n = periodic.getCompoundingPeriodsPerYear();
     final double oneYearValue = Math.pow(1 + periodic.getRate() / n, n);
     final double r = getCompoundingPeriodsPerYear() * (Math.pow(oneYearValue, 1. / getCompoundingPeriodsPerYear()) - 1);

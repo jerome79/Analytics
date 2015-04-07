@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.DecompositionSolver;
 import org.apache.commons.math.linear.QRDecomposition;
 
@@ -13,6 +12,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Wrapper for results of the Commons implementation of QR Decomposition ({@link QRDecompositionCommons}).
@@ -28,7 +28,7 @@ public class QRDecompositionCommonsResult implements QRDecompositionResult {
    * @param qr The result of the QR decomposition, not null
    */
   public QRDecompositionCommonsResult(final QRDecomposition qr) {
-    Validate.notNull(qr);
+    ArgChecker.notNull(qr, "qr");
     _h = CommonsMathWrapper.unwrap(qr.getH());
     _q = CommonsMathWrapper.unwrap(qr.getQ());
     _r = CommonsMathWrapper.unwrap(qr.getR());
@@ -73,7 +73,7 @@ public class QRDecompositionCommonsResult implements QRDecompositionResult {
    */
   @Override
   public DoubleMatrix1D solve(final DoubleMatrix1D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return CommonsMathWrapper.unwrap(_solver.solve(CommonsMathWrapper.wrap(b)));
   }
 
@@ -82,7 +82,7 @@ public class QRDecompositionCommonsResult implements QRDecompositionResult {
    */
   @Override
   public double[] solve(final double[] b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return _solver.solve(b);
   }
 
@@ -91,7 +91,7 @@ public class QRDecompositionCommonsResult implements QRDecompositionResult {
    */
   @Override
   public DoubleMatrix2D solve(final DoubleMatrix2D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return CommonsMathWrapper.unwrap(_solver.solve(CommonsMathWrapper.wrap(b)));
   }
 

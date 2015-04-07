@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.credit.isdastandardmodel;
 import java.time.LocalDate;
 import java.time.Period;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
@@ -194,7 +192,7 @@ public class SimpleCreditCurveBuilder extends ISDACompliantCreditCurveBuilder {
 
   @Override
   public ISDACompliantCreditCurve calibrateCreditCurve(final CDSAnalytic[] calibrationCDSs, final CDSQuoteConvention[] marketQuotes, final ISDACompliantYieldCurve yieldCurve) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
 }

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition.twoasset;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanExerciseFunction;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionExerciseFunction;
@@ -36,7 +34,7 @@ public class EuropeanExchangeAssetOptionDefinition extends OptionDefinition {
     @SuppressWarnings("synthetic-access")
     @Override
     public double getPayoff(final StandardTwoAssetOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data, "data");
+      ArgChecker.notNull(data, "data");
       final double s1 = data.getFirstSpot();
       final double s2 = data.getSecondSpot();
       return Math.max(_firstQuantity * s1 - _secondQuantity * s2, 0);

@@ -9,8 +9,6 @@ import static com.opengamma.analytics.math.linearalgebra.TridiagonalSolver.solvT
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
@@ -246,7 +244,7 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
             h = solvePSOR(lhs, y, h, free);
             break;
           default:
-            throw new NotImplementedException("SolverMode " + _mode.toString() + " not implemented");
+            throw new UnsupportedOperationException("SolverMode " + _mode.toString() + " not implemented");
         }
 
         if (_showFullResults && full != null) {

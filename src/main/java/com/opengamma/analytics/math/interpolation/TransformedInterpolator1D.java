@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.minimization.ParameterLimitsTransform;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This allows one to fit an interpolated curve, where the y-coordinates of the curve must lie in a certain range (e.g. nowhere must the
@@ -36,8 +35,8 @@ public class TransformedInterpolator1D extends Interpolator1D {
    * @param transform a two way mapping between a limited range and the real line
    */
   public TransformedInterpolator1D(final Interpolator1D baseInterpolator, final ParameterLimitsTransform transform) {
-    Validate.notNull(baseInterpolator, "null baseInterpolator");
-    Validate.notNull(transform, "null transform");
+    ArgChecker.notNull(baseInterpolator, "null baseInterpolator");
+    ArgChecker.notNull(transform, "null transform");
     _base = baseInterpolator;
     _transform = transform;
   }

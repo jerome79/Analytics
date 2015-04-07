@@ -7,9 +7,8 @@ package com.opengamma.analytics.math;
 
 import static com.opengamma.analytics.math.number.ComplexNumber.I;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -28,18 +27,18 @@ public class TrigonometricFunctionUtils {
    * @return acos(z)
    */
   public static ComplexNumber acos(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return ComplexMathUtils.multiply(NEGATIVE_I, ComplexMathUtils.log(ComplexMathUtils.add(z, ComplexMathUtils.sqrt(ComplexMathUtils.subtract(ComplexMathUtils.multiply(z, z), 1)))));
   }
 
   public static double acosh(final double x) {
     final double y = x * x - 1;
-    Validate.isTrue(y >= 0, "|x|>=1.0 for real solution");
+    ArgChecker.isTrue(y >= 0, "|x|>=1.0 for real solution");
     return Math.log(x + Math.sqrt(x * x - 1));
   }
 
   public static ComplexNumber acosh(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return ComplexMathUtils.log(ComplexMathUtils.add(z, ComplexMathUtils.sqrt(ComplexMathUtils.subtract(ComplexMathUtils.multiply(z, z), 1))));
   }
 
@@ -49,7 +48,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber asin(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return ComplexMathUtils.multiply(NEGATIVE_I,
         ComplexMathUtils.log(ComplexMathUtils.add(ComplexMathUtils.multiply(I, z), ComplexMathUtils.sqrt(ComplexMathUtils.subtract(1, ComplexMathUtils.multiply(z, z))))));
   }
@@ -59,7 +58,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber asinh(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return ComplexMathUtils.log(ComplexMathUtils.add(z, ComplexMathUtils.sqrt(ComplexMathUtils.add(ComplexMathUtils.multiply(z, z), 1))));
   }
 
@@ -68,7 +67,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber atan(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     final ComplexNumber iZ = ComplexMathUtils.multiply(z, I);
     final ComplexNumber half = new ComplexNumber(0, 0.5);
     return ComplexMathUtils.multiply(half, ComplexMathUtils.log(ComplexMathUtils.divide(ComplexMathUtils.subtract(1, iZ), ComplexMathUtils.add(1, iZ))));
@@ -80,12 +79,12 @@ public class TrigonometricFunctionUtils {
 
   //TODO R White 21/07/2011 not sure why this was used over the equivalent below 
 //  public static ComplexNumber atanh(final ComplexNumber z) {
-//    Validate.notNull(z, "z");
+//    ArgChecker.notNull(z, "z");
 //    return ComplexMathUtils.log(ComplexMathUtils.divide(ComplexMathUtils.sqrt(ComplexMathUtils.subtract(1, ComplexMathUtils.multiply(z, z))), ComplexMathUtils.subtract(1, z)));
 //  }
 
   public static ComplexNumber atanh(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return ComplexMathUtils.multiply(0.5, ComplexMathUtils.log(ComplexMathUtils.divide(ComplexMathUtils.add(1, z), ComplexMathUtils.subtract(1, z))));
   }
 
@@ -94,7 +93,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber cos(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     final double x = z.getReal();
     final double y = z.getImaginary();
     return new ComplexNumber(Math.cos(x) * Math.cosh(y), -Math.sin(x) * Math.sinh(y));
@@ -105,7 +104,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber cosh(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return new ComplexNumber(Math.cosh(z.getReal()) * Math.cos(z.getImaginary()), Math.sinh(z.getReal()) * Math.sin(z.getImaginary()));
   }
 
@@ -114,7 +113,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber sin(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     final double x = z.getReal();
     final double y = z.getImaginary();
     return new ComplexNumber(Math.sin(x) * Math.cosh(y), Math.cos(x) * Math.sinh(y));
@@ -125,7 +124,7 @@ public class TrigonometricFunctionUtils {
   }
 
   public static ComplexNumber sinh(final ComplexNumber z) {
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(z, "z");
     return new ComplexNumber(Math.sinh(z.getReal()) * Math.cos(z.getImaginary()), Math.cosh(z.getReal()) * Math.sin(z.getImaginary()));
   }
 

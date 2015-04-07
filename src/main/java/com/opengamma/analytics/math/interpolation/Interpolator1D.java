@@ -9,13 +9,12 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.SortedMap;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.Validate;
-
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
 import com.opengamma.analytics.math.differentiation.ScalarFirstOrderDifferentiator;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A base class for interpolation in one dimension.
@@ -67,7 +66,7 @@ public abstract class Interpolator1D implements Interpolator<Interpolator1DDataB
 
   /**
    * Generate a 1D function representing the gradient of the interpolant from the interpolator and the data bundle
-   * @param The knots and computed values used by the interpolator
+   * @param data The knots and computed values used by the interpolator
    * @return a 1D function of the gradient
    */
   public Function1D<Double, Double> getGradientFunction(final Interpolator1DDataBundle data) {
@@ -111,7 +110,7 @@ public abstract class Interpolator1D implements Interpolator<Interpolator1DDataB
    * @return The sensitivity.
    */
   protected double[] getFiniteDifferenceSensitivities(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     final double[] x = data.getKeys();
     final double[] y = data.getValues();
     final int n = x.length;
@@ -155,11 +154,11 @@ public abstract class Interpolator1D implements Interpolator<Interpolator1DDataB
    * @return Interpolator1DDataBundle
    */
   public Interpolator1DDataBundle getDataBundle(final Map<Double, Double> data) {
-    Validate.notNull(data, "Backing data for interpolation must not be null.");
-    Validate.notEmpty(data, "Backing data for interpolation must not be empty.");
+    ArgChecker.notNull(data, "Backing data for interpolation must not be null.");
+    ArgChecker.notEmpty(data, "Backing data for interpolation must not be empty.");
     if (data instanceof SortedMap) {
-      final double[] keys = ArrayUtils.toPrimitive(data.keySet().toArray(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY));
-      final double[] values = ArrayUtils.toPrimitive(data.values().toArray(ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY));
+      final double[] keys = Doubles.toArray(data.keySet());
+      final double[] values = Doubles.toArray(data.values());
       return getDataBundleFromSortedArrays(keys, values);
     }
     final double[] keys = new double[data.size()];

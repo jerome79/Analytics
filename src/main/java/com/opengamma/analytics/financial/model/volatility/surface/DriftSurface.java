@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * for a model of forward rates that follow the SDE df = a(f,t)dt + b(f,t)dw this describes the drift function (of forward, f, and time, t)
@@ -17,7 +17,7 @@ public class DriftSurface {
   private final Surface<Double, Double, Double> _surface;
 
   public DriftSurface(final Surface<Double, Double, Double> surface) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     _surface = surface;
   }
 
@@ -49,7 +49,7 @@ public class DriftSurface {
       return false;
     }
     final DriftSurface other = (DriftSurface) obj;
-    return ObjectUtils.equals(_surface, other._surface);
+    return Objects.equals(_surface, other._surface);
   }
 
 }

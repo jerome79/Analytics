@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Neumann boundary condition, i.e. du/dx(A,t) = f(t), where A is the boundary level, and f(t) is some specified function of time
@@ -25,7 +24,7 @@ public class NeumannBoundaryCondition implements BoundaryCondition {
    * @param isLower True if this represents a lower boundary
    */
   public NeumannBoundaryCondition(final Function1D<Double, Double> timeValue, final double level, final boolean isLower) {
-    Validate.notNull(timeValue, "null timeValue");
+    ArgChecker.notNull(timeValue, "null timeValue");
     _timeValue = timeValue;
     _level = level;
     _isLower = isLower;

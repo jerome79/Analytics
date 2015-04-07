@@ -7,12 +7,12 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatilityFormula;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -45,7 +45,7 @@ public class MarkovChainApproxTest {
 
     final double[] res1 = CHAIN.getMoments(T, SIMS);
     final double[] res2 = CHAIN_APPROX.getMoments(T);
-    Validate.isTrue(res1.length == res2.length);
+    ArgChecker.isTrue(res1.length == res2.length);
     for (int i = 0; i < res1.length; i++) {
       assertEquals(res1[i], res2[i], 5e-3 * res1[i]);
     }

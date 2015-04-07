@@ -8,8 +8,6 @@ package com.opengamma.analytics.math.surface;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -319,8 +317,8 @@ public class NodalDoublesSurface extends DoublesSurface {
    */
   @Override
   public Double getZValue(final Double x, final Double y) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
     final double[] xArray = getXDataAsPrimitive();
     final double[] yArray = getYDataAsPrimitive();
     final int n = size();

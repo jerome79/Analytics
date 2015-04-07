@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Parent class for root-finders that find a single real root $x$ for a function $f(x)$.  
@@ -16,8 +15,8 @@ public abstract class RealSingleRootFinder implements SingleRootFinder<Double, D
 
   @Override
   public Double getRoot(final Function1D<Double, Double> function, final Double... startingPoints) {
-    Validate.notNull(startingPoints);
-    Validate.isTrue(startingPoints.length == 2);
+    ArgChecker.notNull(startingPoints, "startingPoints");
+    ArgChecker.isTrue(startingPoints.length == 2);
     return getRoot(function, startingPoints[0], startingPoints[1]);
   }
 
@@ -31,10 +30,10 @@ public abstract class RealSingleRootFinder implements SingleRootFinder<Double, D
    * @throws IllegalArgumentException if x1 and x2 do not bracket a root
    */
   protected void checkInputs(final Function1D<Double, Double> function, final Double x1, final Double x2) {
-    Validate.notNull(function);
-    Validate.notNull(x1);
-    Validate.notNull(x2);
-    Validate.isTrue(x1 <= x2, "x1 must be less or equal to  x2");
-    Validate.isTrue(function.evaluate(x1) * function.evaluate(x2) <= 0, "x1 and x2 do not bracket a root");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(x1, "x1");
+    ArgChecker.notNull(x2, "x2");
+    ArgChecker.isTrue(x1 <= x2, "x1 must be less or equal to  x2");
+    ArgChecker.isTrue(function.evaluate(x1) * function.evaluate(x2) <= 0, "x1 and x2 do not bracket a root");
   }
 }

@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -44,7 +43,7 @@ public class ForexNonDeliverableOption implements InstrumentDerivative {
    * @param isLong The long (true) / short (false) flag.
    */
   public ForexNonDeliverableOption(final ForexNonDeliverableForward underlyingNDF, final boolean isCall, final boolean isLong) {
-    Validate.notNull(underlyingNDF, "Underlying NDF is null");
+    ArgChecker.notNull(underlyingNDF, "Underlying NDF is null");
     this._underlyingNDF = underlyingNDF;
     _isLong = isLong;
     _isCall = isCall;
@@ -146,7 +145,7 @@ public class ForexNonDeliverableOption implements InstrumentDerivative {
     if (_isLong != other._isLong) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingNDF, other._underlyingNDF)) {
+    if (!Objects.equals(_underlyingNDF, other._underlyingNDF)) {
       return false;
     }
     return true;

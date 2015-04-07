@@ -7,9 +7,7 @@ package com.opengamma.analytics.math.interpolation.data;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.DistanceCalculator;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.math.linearalgebra.DecompositionFactory;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -34,7 +33,7 @@ public class KrigingInterpolatorDataBundle extends InterpolatorNDDataBundle {
    */
   public KrigingInterpolatorDataBundle(final List<Pair<double[], Double>> data, final double beta) {
     super(data);
-    Validate.isTrue(beta >= 1 && beta < 2, "Beta was not in acceptable range (1 <= beta < 2");
+    ArgChecker.isTrue(beta >= 1 && beta < 2, "Beta was not in acceptable range (1 <= beta < 2");
     _variogram = calculateVariogram(data, beta);
     _weights = calculateWeights(data, _variogram);
   }
@@ -151,10 +150,10 @@ public class KrigingInterpolatorDataBundle extends InterpolatorNDDataBundle {
       return false;
     }
     final KrigingInterpolatorDataBundle other = (KrigingInterpolatorDataBundle) obj;
-    if (!ObjectUtils.equals(_decomp, other._decomp)) {
+    if (!Objects.equals(_decomp, other._decomp)) {
       return false;
     }
-    if (!ObjectUtils.equals(_variogram, other._variogram)) {
+    if (!Objects.equals(_variogram, other._variogram)) {
       return false;
     }
     if (!Arrays.equals(_weights, other._weights)) {

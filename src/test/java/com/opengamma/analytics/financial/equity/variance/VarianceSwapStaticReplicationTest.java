@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.equity.variance;
 import static com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory.getInterpolator;
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.equity.StaticReplicationDataBundle;
@@ -35,6 +34,7 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -258,7 +258,7 @@ public class VarianceSwapStaticReplicationTest {
       sum += w[i] * f[i];
     }
     f[n - 1] = (fwd - sum) / w[n - 1];
-    Validate.isTrue(f[n - 1] > 0);
+    ArgChecker.isTrue(f[n - 1] > 0);
 
     final Function<Double, Double> surf = new Function<Double, Double>() {
       @Override

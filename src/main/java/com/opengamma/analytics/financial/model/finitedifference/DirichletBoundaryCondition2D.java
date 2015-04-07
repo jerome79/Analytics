@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Dirichlet boundary condition, i.e. u(A, x, t) = f(x, t), where A is the boundary level of one of the spatial dimensions, and f(x, t) is some specified 
@@ -26,7 +25,7 @@ public class DirichletBoundaryCondition2D implements BoundaryCondition2D {
    * @param boundaryLevel The boundary level (A)
    */
   public DirichletBoundaryCondition2D(final Surface<Double, Double, Double> boundaryValue, double boundaryLevel) {
-    Validate.notNull(boundaryValue, "boundaryValue ");
+    ArgChecker.notNull(boundaryValue, "boundaryValue ");
     _f = boundaryValue;
     _level = boundaryLevel;
   }

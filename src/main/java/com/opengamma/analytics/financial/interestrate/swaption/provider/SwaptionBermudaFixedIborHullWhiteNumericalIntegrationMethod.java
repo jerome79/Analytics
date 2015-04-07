@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.interestrate.swaption.provider;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionBermudaFixedIbor;
 import com.opengamma.analytics.financial.model.interestrate.HullWhiteOneFactorPiecewiseConstantInterestRateModel;
@@ -78,7 +76,7 @@ public final class SwaptionBermudaFixedIborHullWhiteNumericalIntegrationMethod {
     HullWhiteOneFactorPiecewiseConstantParameters parameters = hullWhite.getHullWhiteParameters();
     Currency ccy = swaption.getCurrency();
     final int nbExpiry = swaption.getExpiryTime().length;
-    Validate.isTrue(nbExpiry > 1, "At least two expiry dates required for this method");
+    ArgChecker.isTrue(nbExpiry > 1, "At least two expiry dates required for this method");
 
     double tmpdb;
 

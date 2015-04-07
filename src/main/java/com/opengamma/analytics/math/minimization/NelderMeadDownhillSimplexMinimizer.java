@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.ConvergenceException;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /** 
  * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/optimization/direct/NelderMead.html">Commons Math library implementation</a>
@@ -30,8 +30,8 @@ public class NelderMeadDownhillSimplexMinimizer implements Minimizer<Function1D<
    */
   @Override
   public DoubleMatrix1D minimize(final Function1D<DoubleMatrix1D, Double> function, final DoubleMatrix1D startPosition) {
-    Validate.notNull(function, "function");
-    Validate.notNull(startPosition, "start position");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(startPosition, "start position");
     final MultivariateRealOptimizer optimizer = new NelderMead();
     final MultivariateRealFunction commonsFunction = CommonsMathWrapper.wrapMultivariate(function);
     try {

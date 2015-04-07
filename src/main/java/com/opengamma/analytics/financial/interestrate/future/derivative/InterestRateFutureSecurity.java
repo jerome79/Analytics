@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -288,16 +288,16 @@ public class InterestRateFutureSecurity extends FuturesSecurity {
     if (Double.doubleToLongBits(_fixingPeriodStartTime) != Double.doubleToLongBits(other._fixingPeriodStartTime)) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardCurveName, other._forwardCurveName)) {
+    if (!Objects.equals(_forwardCurveName, other._forwardCurveName)) {
       return false;
     }
-    if (!ObjectUtils.equals(_discountingCurveName, other._discountingCurveName)) {
+    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
       return false;
     }
-    if (!ObjectUtils.equals(_iborIndex, other._iborIndex)) {
+    if (!Objects.equals(_iborIndex, other._iborIndex)) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {

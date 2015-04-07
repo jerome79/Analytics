@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.LiborMarketModelDisplacedDiffusionProviderDiscount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing the data required to price interest rate derivatives with LMM displaced diffusion (curves and parameters).
@@ -30,7 +30,7 @@ public class LiborMarketModelDisplacedDiffusionDataBundle extends YieldCurveBund
    */
   public LiborMarketModelDisplacedDiffusionDataBundle(final LiborMarketModelDisplacedDiffusionParameters lmmParameters, final YieldCurveBundle curves) {
     super(curves);
-    Validate.notNull(lmmParameters, "LMM parameters");
+    ArgChecker.notNull(lmmParameters, "LMM parameters");
     _parameters = lmmParameters;
   }
 
@@ -71,7 +71,7 @@ public class LiborMarketModelDisplacedDiffusionDataBundle extends YieldCurveBund
       return false;
     }
     final LiborMarketModelDisplacedDiffusionDataBundle other = (LiborMarketModelDisplacedDiffusionDataBundle) obj;
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

@@ -10,11 +10,10 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.convention.StubCalculator;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Utility to calculate the accrued interest.
@@ -42,20 +41,20 @@ public final class AccruedInterestCalculator {
    */
   public static double getAccruedInterest(final DayCount dayCount, final ZonedDateTime settlementDate, final ZonedDateTime[] nominalDates, final double coupon, final int paymentsPerYear,
       final boolean isEndOfMonthConvention, final int exDividendDays, final HolidayCalendar calendar) {
-    Validate.notNull(dayCount, "day-count");
-    Validate.notNull(settlementDate, "date");
-    Validate.noNullElements(nominalDates, "nominalDates");
-    Validate.notNull(calendar, "calendar");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(exDividendDays >= 0);
+    ArgChecker.notNull(dayCount, "day-count");
+    ArgChecker.notNull(settlementDate, "date");
+    ArgChecker.noNulls(nominalDates, "nominalDates");
+    ArgChecker.notNull(calendar, "calendar");
+    ArgChecker.isTrue(paymentsPerYear > 0, "payments per year must be greater than zero");
+    ArgChecker.isTrue(exDividendDays >= 0, "ex dividend days must be zero or greater");
     final int i = Arrays.binarySearch(nominalDates, settlementDate);
     if (i > 0) {
       return 0;
     }
     final int index = -i - 2;
     final int length = nominalDates.length;
-    Validate.isTrue(index >= 0, "Settlement date is before first accrual date");
-    Validate.isTrue(index < length, "Settlement date is after maturity date");
+    ArgChecker.isTrue(index >= 0, "Settlement date is before first accrual date");
+    ArgChecker.isTrue(index < length, "Settlement date is after maturity date");
     final double accruedInterest = getAccruedInterest(dayCount, index, length, nominalDates[index], settlementDate, nominalDates[index + 1], coupon, paymentsPerYear, isEndOfMonthConvention);
     ZonedDateTime exDividendDate = nominalDates[index + 1];
     for (int j = 0; j < exDividendDays; j++) {
@@ -86,14 +85,14 @@ public final class AccruedInterestCalculator {
    */
   public static double getAccruedInterest(final DayCount dayCount, final ZonedDateTime settlementDate, final ZonedDateTime[] nominalDates, final double coupon, final double paymentsPerYear,
       final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final HolidayCalendar calendar) {
-    Validate.notNull(dayCount, "day-count");
-    Validate.notNull(settlementDate, "date");
-    Validate.noNullElements(nominalDates, "nominalDates");
-    Validate.notNull(calendar, "calendar");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(exDividendDays >= 0);
+    ArgChecker.notNull(dayCount, "day-count");
+    ArgChecker.notNull(settlementDate, "date");
+    ArgChecker.noNulls(nominalDates, "nominalDates");
+    ArgChecker.notNull(calendar, "calendar");
+    ArgChecker.isTrue(paymentsPerYear > 0, "payments per year must be greater than zero");
+    ArgChecker.isTrue(exDividendDays >= 0, "ex dividend days must be zero or greater");
     final int length = nominalDates.length;
-    Validate.isTrue(index >= 0 && index < length);
+    ArgChecker.isTrue(index >= 0 && index < length, "index must be valid");
     final double accruedInterest = getAccruedInterest(dayCount, index, length, nominalDates[index], settlementDate, nominalDates[index + 1], coupon, paymentsPerYear, isEndOfMonthConvention);
     ZonedDateTime exDividendDate = nominalDates[index + 1];
     for (int i = 0; i < exDividendDays; i++) {
@@ -124,12 +123,12 @@ public final class AccruedInterestCalculator {
   //TODO one where you can pass in array of coupons
   public static double getAccruedInterest(final DayCount dayCount, final LocalDate settlementDate, final LocalDate[] nominalDates, final double coupon, final double paymentsPerYear,
       final boolean isEndOfMonthConvention, final int exDividendDays, final HolidayCalendar calendar) {
-    Validate.notNull(dayCount, "day-count");
-    Validate.notNull(settlementDate, "date");
-    Validate.noNullElements(nominalDates, "nominalDates");
-    Validate.notNull(calendar, "calendar");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(exDividendDays >= 0);
+    ArgChecker.notNull(dayCount, "day-count");
+    ArgChecker.notNull(settlementDate, "date");
+    ArgChecker.noNulls(nominalDates, "nominalDates");
+    ArgChecker.notNull(calendar, "calendar");
+    ArgChecker.isTrue(paymentsPerYear > 0, "payments per year must be greater than zero");
+    ArgChecker.isTrue(exDividendDays >= 0, "ex dividend days must be zero or greater");
     final int i = Arrays.binarySearch(nominalDates, settlementDate);
     if (i > 0) {
       return 0;
@@ -175,14 +174,14 @@ public final class AccruedInterestCalculator {
    */
   public static double getAccruedInterest(final DayCount dayCount, final LocalDate settlementDate, final LocalDate[] nominalDates, final double coupon, final double paymentsPerYear,
       final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final HolidayCalendar calendar) {
-    Validate.notNull(dayCount, "day-count");
-    Validate.notNull(settlementDate, "date");
-    Validate.noNullElements(nominalDates, "nominalDates");
-    Validate.notNull(calendar, "calendar");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(exDividendDays >= 0);
+    ArgChecker.notNull(dayCount, "day-count");
+    ArgChecker.notNull(settlementDate, "date");
+    ArgChecker.noNulls(nominalDates, "nominalDates");
+    ArgChecker.notNull(calendar, "calendar");
+    ArgChecker.isTrue(paymentsPerYear > 0, "payments per year must be greater than zero");
+    ArgChecker.isTrue(exDividendDays >= 0, "ex dividend days must be zero or greater");
     final int length = nominalDates.length;
-    Validate.isTrue(index >= 0 && index < length);
+    ArgChecker.isTrue(index >= 0 && index < length, "index must be valid");
     final ZonedDateTime previousCouponDate = nominalDates[index].atStartOfDay(ZoneOffset.UTC);
     final ZonedDateTime date = settlementDate.atStartOfDay(ZoneOffset.UTC);
     final ZonedDateTime nextCouponDate = nominalDates[index + 1].atStartOfDay(ZoneOffset.UTC);
@@ -222,15 +221,15 @@ public final class AccruedInterestCalculator {
    */
   public static double getAccruedInterest(final DayCount dayCount, final LocalDate settlementDate, final LocalDate[] nominalDates, final LocalDate[] settlementDates, final double coupon,
       final double paymentsPerYear, final boolean isEndOfMonthConvention, final int exDividendDays, final int index, final HolidayCalendar calendar) {
-    Validate.notNull(dayCount, "day-count");
-    Validate.notNull(settlementDate, "date");
-    Validate.notNull(calendar, "calendar");
-    Validate.noNullElements(nominalDates, "nominalDates");
-    Validate.noNullElements(settlementDates, "settlementDates");
-    Validate.isTrue(paymentsPerYear > 0);
-    Validate.isTrue(exDividendDays >= 0);
+    ArgChecker.notNull(dayCount, "day-count");
+    ArgChecker.notNull(settlementDate, "date");
+    ArgChecker.notNull(calendar, "calendar");
+    ArgChecker.noNulls(nominalDates, "nominalDates");
+    ArgChecker.noNulls(settlementDates, "settlementDates");
+    ArgChecker.isTrue(paymentsPerYear > 0, "payments per year must be greater than zero");
+    ArgChecker.isTrue(exDividendDays >= 0, "ex dividend days must be zero or greater");
     final int length = nominalDates.length;
-    Validate.isTrue(index >= 0 && index < length);
+    ArgChecker.isTrue(index >= 0 && index < length, "index must be valid");
     final LocalDate previousCouponDate = nominalDates[index];
     final LocalDate nextCouponDate = nominalDates[index + 1];
     double accruedInterest;

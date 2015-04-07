@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.sabr.SmileSurfaceDataBundle;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  A surface that contains the Black (implied) volatility  as a function of time to maturity and moneyness, m, defined
@@ -38,9 +38,9 @@ public class BlackVolatilitySurfaceMoneynessFcnBackedByGrid extends BlackVolatil
   public BlackVolatilitySurfaceMoneynessFcnBackedByGrid(final Surface<Double, Double, Double> surface, final ForwardCurve forwardCurve,
       final SmileSurfaceDataBundle gridData, final VolatilitySurfaceInterpolator interpolator) {
     super(surface, forwardCurve);
-    Validate.notNull(forwardCurve, "null ForwardCurve");
-    Validate.notNull(surface, "null Surface");
-    Validate.notNull(gridData, "null SmileSurfaceDataBundle");
+    ArgChecker.notNull(forwardCurve, "null ForwardCurve");
+    ArgChecker.notNull(surface, "null Surface");
+    ArgChecker.notNull(gridData, "null SmileSurfaceDataBundle");
     _gridData = gridData;
     _interpolator = interpolator;
   }
@@ -104,10 +104,10 @@ public class BlackVolatilitySurfaceMoneynessFcnBackedByGrid extends BlackVolatil
       return false;
     }
     final BlackVolatilitySurfaceMoneynessFcnBackedByGrid other = (BlackVolatilitySurfaceMoneynessFcnBackedByGrid) obj;
-    if (!ObjectUtils.equals(_interpolator, other._interpolator)) {
+    if (!Objects.equals(_interpolator, other._interpolator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_gridData, other._gridData)) {
+    if (!Objects.equals(_gridData, other._gridData)) {
       return false;
     }
     return true;

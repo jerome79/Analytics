@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.provider;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CommodityFutureTransaction;
 import com.opengamma.analytics.financial.provider.sensitivity.commodity.CommoditySensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.commodity.MultipleCurrencyCommoditySensitivity;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Methods for the pricing of commodity futures generic to all models.
@@ -35,7 +34,7 @@ public abstract class CommodityFutureTransactionMethod {
    * @return The present value rate sensitivity.
    */
   public MultipleCurrencyCommoditySensitivity presentValueCurveSensitivity(final CommodityFutureTransaction future, final CommoditySensitivity priceSensitivity) {
-    Validate.notNull(future, "Future");
+    ArgChecker.notNull(future, "Future");
     return MultipleCurrencyCommoditySensitivity.of(future.getCurrency(), priceSensitivity.multipliedBy(future.getQuantity() * future.getUnitAmount()));
   }
 }

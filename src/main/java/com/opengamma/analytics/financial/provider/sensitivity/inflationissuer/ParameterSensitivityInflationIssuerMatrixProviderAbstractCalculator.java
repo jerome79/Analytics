@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.provider.sensitivity.inflationissuer;
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.provider.description.inflation.InflationIssuerProviderInterface;
@@ -53,9 +51,9 @@ public abstract class ParameterSensitivityInflationIssuerMatrixProviderAbstractC
    * @return The sensitivity (as a DoubleMatrix1D).
    */
   public DoubleMatrix1D calculateSensitivity(final InstrumentDerivative instrument, final InflationIssuerProviderInterface inflationCurves, final Set<String> curvesSet) {
-    Validate.notNull(instrument, "null InterestRateDerivative");
-    Validate.notNull(inflationCurves, "null inflationcurves");
-    Validate.notNull(curvesSet, "null curves set");
+    ArgChecker.notNull(instrument, "null InterestRateDerivative");
+    ArgChecker.notNull(inflationCurves, "null inflationcurves");
+    ArgChecker.notNull(curvesSet, "null curves set");
     InflationSensitivity sensitivity = instrument.accept(_curveSensitivityCalculator, inflationCurves);
     sensitivity = sensitivity.cleaned();
     return pointToParameterSensitivity(sensitivity, inflationCurves, curvesSet);

@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.swap.SwapIborONDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -243,7 +242,7 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
       return false;
     }
     final GeneratorSwapIborON other = (GeneratorSwapIborON) obj;
-    if (!ObjectUtils.equals(_businessDayConvention, other._businessDayConvention)) {
+    if (!Objects.equals(_businessDayConvention, other._businessDayConvention)) {
       return false;
     }
     if (_endOfMonth != other._endOfMonth) {
@@ -252,10 +251,10 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
     if (_fromEnd != other._fromEnd) {
       return false;
     }
-    if (!ObjectUtils.equals(_indexIbor, other._indexIbor)) {
+    if (!Objects.equals(_indexIbor, other._indexIbor)) {
       return false;
     }
-    if (!ObjectUtils.equals(_indexON, other._indexON)) {
+    if (!Objects.equals(_indexON, other._indexON)) {
       return false;
     }
     if (_paymentLag != other._paymentLag) {
@@ -267,10 +266,10 @@ public class GeneratorSwapIborON extends GeneratorInstrument<GeneratorAttributeI
     if (_stubShort != other._stubShort) {
       return false;
     }
-    if (!ObjectUtils.equals(_iborCalendar, other._iborCalendar)) {
+    if (!Objects.equals(_iborCalendar, other._iborCalendar)) {
       return false;
     }
-    if (!ObjectUtils.equals(_overnightCalendar, other._overnightCalendar)) {
+    if (!Objects.equals(_overnightCalendar, other._overnightCalendar)) {
       return false;
     }
     return true;

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
@@ -287,10 +287,10 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
     if (Double.compare(_fixingAccrualFactor, other._fixingAccrualFactor) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardCurveName, other._forwardCurveName)) {
+    if (!Objects.equals(_forwardCurveName, other._forwardCurveName)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     return true;

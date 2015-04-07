@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.option.definition.SmileDeltaParameters;
 import com.opengamma.analytics.financial.model.volatility.SmileAndBucketedSensitivities;
@@ -225,7 +225,7 @@ public class SmileDeltaTermStructureParametersStrikeInterpolation extends SmileD
       return false;
     }
     final SmileDeltaTermStructureParametersStrikeInterpolation other = (SmileDeltaTermStructureParametersStrikeInterpolation) obj;
-    if (!ObjectUtils.equals(_strikeInterpolator, other._strikeInterpolator)) {
+    if (!Objects.equals(_strikeInterpolator, other._strikeInterpolator)) {
       return false;
     }
     return true;

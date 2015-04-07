@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.bond;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
@@ -170,10 +169,10 @@ public abstract class BondTransactionDefinition<N extends PaymentDefinition, C e
     if (Double.doubleToLongBits(_quantity) != Double.doubleToLongBits(other._quantity)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementDate, other._settlementDate)) {
+    if (!Objects.equals(_settlementDate, other._settlementDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingBond, other._underlyingBond)) {
+    if (!Objects.equals(_underlyingBond, other._underlyingBond)) {
       return false;
     }
     return true;

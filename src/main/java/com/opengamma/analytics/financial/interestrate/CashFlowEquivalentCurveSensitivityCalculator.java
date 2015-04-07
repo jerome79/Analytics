@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -22,6 +20,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -54,22 +53,22 @@ public class CashFlowEquivalentCurveSensitivityCalculator extends InstrumentDeri
 
   @Override
   public Map<Double, InterestRateCurveSensitivity> visitFixedPayment(final PaymentFixed payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     return new HashMap<>();
   }
 
   @Override
   public Map<Double, InterestRateCurveSensitivity> visitCouponFixed(final CouponFixed coupon, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(coupon);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(coupon, "coupon");
     return new HashMap<>();
   }
 
   @Override
   public Map<Double, InterestRateCurveSensitivity> visitCouponIbor(final CouponIbor payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(payment.getFundingCurveName());
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(payment.getForwardCurveName());
     final double fixingStartTime = payment.getFixingPeriodStartTime();
@@ -101,8 +100,8 @@ public class CashFlowEquivalentCurveSensitivityCalculator extends InstrumentDeri
 
   @Override
   public Map<Double, InterestRateCurveSensitivity> visitCouponIborSpread(final CouponIborSpread payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(payment.getFundingCurveName());
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(payment.getForwardCurveName());
     final double fixingStartTime = payment.getFixingPeriodStartTime();
@@ -133,8 +132,8 @@ public class CashFlowEquivalentCurveSensitivityCalculator extends InstrumentDeri
 
   @Override
   public Map<Double, InterestRateCurveSensitivity> visitGenericAnnuity(final Annuity<? extends Payment> annuity, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(annuity);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(annuity, "annuity");
     final Map<Double, InterestRateCurveSensitivity> result = new HashMap<>();
     for (final Payment p : annuity.getPayments()) {
       final Map<Double, InterestRateCurveSensitivity> paymentSensi = p.accept(this, curves);
@@ -151,8 +150,8 @@ public class CashFlowEquivalentCurveSensitivityCalculator extends InstrumentDeri
 
   @Override
   public Map<Double, InterestRateCurveSensitivity> visitSwap(final Swap<?, ?> swap, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(swap);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(swap, "swap");
     final Map<Double, InterestRateCurveSensitivity> result = new HashMap<>();
     final Map<Double, InterestRateCurveSensitivity> legSensi1 = swap.getFirstLeg().accept(this, curves);
     result.putAll(legSensi1);

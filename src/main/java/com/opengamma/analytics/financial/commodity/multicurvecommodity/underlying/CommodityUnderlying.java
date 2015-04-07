@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.underlying;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.id.StandardId;
 
 /**
@@ -37,9 +36,9 @@ public class CommodityUnderlying {
    * @param ccy The currency in which the underlying is computed. Not null.
    */
   public CommodityUnderlying(final StandardId identifier, final String name, final Currency ccy) {
-    Validate.notNull(identifier, "Identifier");
-    Validate.notNull(name, "Name");
-    Validate.notNull(ccy, "Currency");
+    ArgChecker.notNull(identifier, "Identifier");
+    ArgChecker.notNull(name, "Name");
+    ArgChecker.notNull(ccy, "Currency");
     _identifier = identifier;
     _name = name;
     _currency = ccy;

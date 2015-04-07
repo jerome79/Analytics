@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.statistics.descriptive;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the sample standard deviation of a series of data. The sample standard deviation of a series of data is defined as the square root of 
@@ -22,8 +21,8 @@ public class SampleStandardDeviationCalculator extends Function1D<double[], Doub
    */
   @Override
   public Double evaluate(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length >= 2, "Need at least two points to calculate standard deviation");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 2, "Need at least two points to calculate standard deviation");
     return Math.sqrt(VARIANCE.evaluate(x));
   }
 

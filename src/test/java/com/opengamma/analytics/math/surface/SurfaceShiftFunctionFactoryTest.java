@@ -9,7 +9,6 @@ import static com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory.g
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.curve.Curve;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**

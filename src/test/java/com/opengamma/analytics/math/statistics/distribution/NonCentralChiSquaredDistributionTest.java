@@ -8,7 +8,6 @@ package com.opengamma.analytics.math.statistics.distribution;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 
@@ -37,17 +36,17 @@ public class NonCentralChiSquaredDistributionTest {
     DIST.getCDF(null);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testInverseCDF() {
     DIST.getInverseCDF(0.5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testPDF() {
     DIST.getPDF(0.5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testRandom() {
     DIST.nextRandom();
   }

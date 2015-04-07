@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -23,6 +22,7 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -41,7 +41,7 @@ public class DermanKaniImpliedBinomialTreeModelTest {
 
     @Override
     public Double evaluate(final Double... tk) {
-      Validate.isTrue(tk.length == 2);
+      ArgChecker.isTrue(tk.length == 2);
       final double k = tk[1];
       return ATM_VOL + (SPOT - k) * 0.0005;
     }

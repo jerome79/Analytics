@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import org.apache.commons.lang.text.StrBuilder;
-
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.DirichletBoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ExponentialMeshing;
@@ -104,7 +102,7 @@ public class CoupledFokkerPlankExample {
     final PDEFullResults1D res2 = (PDEFullResults1D) res[1];
 
     // output in JSON format without using a JSON library to save dependencies
-    StrBuilder buf = new StrBuilder(2048).append('{');
+    StringBuilder buf = new StringBuilder(2048).append('{');
 
     ByteArrayOutputStream state_1_stream = new ByteArrayOutputStream();
     PrintStream state_1_out = new PrintStream(state_1_stream, true);
@@ -118,9 +116,8 @@ public class CoupledFokkerPlankExample {
     state_2_out.close();
     buf.append("\"state_2_data\":\"").append(state_2_stream.toString()).append("\"}");
 
-    buf.replaceAll("\t", "\\t").replaceAll("\r\n", "\\r\\n").replaceAll("\n", "\\n");
-    
-    out.print(buf.toString());
+    String temp = buf.toString().replaceAll("\t", "\\t").replaceAll("\r\n", "\\r\\n").replaceAll("\n", "\\n");
+    out.print(temp);
   }
 
 }

@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.regression;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Contains the result of a least squares regression.
@@ -25,7 +25,7 @@ public class LeastSquaresRegressionResult {
   private final boolean _hasIntercept;
 
   public LeastSquaresRegressionResult(final LeastSquaresRegressionResult result) {
-    Validate.notNull(result, "regression result");
+    ArgChecker.notNull(result, "regression result");
     _betas = result.getBetas();
     _residuals = result.getResiduals();
     _meanSquareError = result.getMeanSquareError();
@@ -87,7 +87,7 @@ public class LeastSquaresRegressionResult {
   }
 
   public double getPredictedValue(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     final double[] betas = getBetas();
     if (hasIntercept()) {
       if (x.length != betas.length - 1) {

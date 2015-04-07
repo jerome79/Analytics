@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.equity;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
@@ -75,7 +74,7 @@ public class EquityTrsDataBundle implements ParameterProviderInterface {
     if (Double.compare(_spotEquity, other._spotEquity) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_curves, other._curves)) {
+    if (!Objects.equals(_curves, other._curves)) {
       return false;
     }
     return true;

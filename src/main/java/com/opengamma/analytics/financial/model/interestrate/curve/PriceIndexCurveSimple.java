@@ -7,10 +7,8 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
@@ -40,7 +38,7 @@ public class PriceIndexCurveSimple implements PriceIndexCurve {
    * @param curve The curve.
    */
   public PriceIndexCurveSimple(final DoublesCurve curve) {
-    Validate.notNull(curve, "curve");
+    ArgChecker.notNull(curve, "curve");
     _curve = curve;
   }
 
@@ -181,7 +179,7 @@ public class PriceIndexCurveSimple implements PriceIndexCurve {
       return false;
     }
     final PriceIndexCurveSimple other = (PriceIndexCurveSimple) obj;
-    return ObjectUtils.equals(_curve, other._curve);
+    return Objects.equals(_curve, other._curve);
   }
 
 }

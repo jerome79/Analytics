@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.interestrate;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureOptionMarginTransaction;
 import com.opengamma.analytics.financial.interestrate.future.method.InterestRateFutureOptionMarginTransactionSABRMethod;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
@@ -27,6 +25,7 @@ import com.opengamma.analytics.financial.interestrate.swaption.method.SwaptionPh
 import com.opengamma.analytics.financial.model.option.definition.SABRInterestRateCorrelationParameters;
 import com.opengamma.analytics.financial.model.option.definition.SABRInterestRateDataBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -57,8 +56,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitCapFloorIbor(final CapFloorIbor cap, final YieldCurveBundle curves) {
-    Validate.notNull(cap);
-    Validate.notNull(curves);
+    ArgChecker.notNull(cap, "cap");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       final CapFloorIborSABRMethod method = CapFloorIborSABRMethod.getInstance();
@@ -69,8 +68,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitSwaptionCashFixedIbor(final SwaptionCashFixedIbor swaption, final YieldCurveBundle curves) {
-    Validate.notNull(swaption);
-    Validate.notNull(curves);
+    ArgChecker.notNull(swaption, "swaption");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       final SwaptionCashFixedIborSABRMethod method = SwaptionCashFixedIborSABRMethod.getInstance();
@@ -81,8 +80,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, final YieldCurveBundle curves) {
-    Validate.notNull(swaption);
-    Validate.notNull(curves);
+    ArgChecker.notNull(swaption, "swaption");
+    ArgChecker.notNull(curves, "curves");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabr = (SABRInterestRateDataBundle) curves;
       final SwaptionPhysicalFixedIborSABRMethod method = SwaptionPhysicalFixedIborSABRMethod.getInstance();
@@ -94,8 +93,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitCouponCMS(final CouponCMS payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabrBundle = (SABRInterestRateDataBundle) curves;
       final CouponCMSSABRReplicationMethod replication = CouponCMSSABRReplicationMethod.getInstance();
@@ -106,8 +105,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitCapFloorCMS(final CapFloorCMS payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabrBundle = (SABRInterestRateDataBundle) curves;
       final CapFloorCMSSABRReplicationMethod replication = CapFloorCMSSABRReplicationMethod.getDefaultInstance();
@@ -118,8 +117,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitCapFloorCMSSpread(final CapFloorCMSSpread payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabrBundle = (SABRInterestRateDataBundle) curves;
       if (sabrBundle.getSABRParameter() instanceof SABRInterestRateCorrelationParameters) {
@@ -134,8 +133,8 @@ public final class PresentValueCurveSensitivitySABRCalculator extends PresentVal
 
   @Override
   public Map<String, List<DoublesPair>> visitInterestRateFutureOptionMarginTransaction(final InterestRateFutureOptionMarginTransaction option, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(option);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(option, "option");
     if (curves instanceof SABRInterestRateDataBundle) {
       final SABRInterestRateDataBundle sabrBundle = (SABRInterestRateDataBundle) curves;
       final InterestRateFutureOptionMarginTransactionSABRMethod method = InterestRateFutureOptionMarginTransactionSABRMethod.getInstance();

@@ -8,8 +8,7 @@ package com.opengamma.analytics.convention.daycount;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The '30E/360 ISDA' day count.
@@ -21,12 +20,12 @@ public class ThirtyEThreeSixtyISDA extends ThirtyThreeSixtyTypeDayCount {
 
   @Override
   public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
-    throw new NotImplementedException("Need to know whether the second date is the maturity");
+    throw new UnsupportedOperationException("Need to know whether the second date is the maturity");
   }
 
   @Override
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
-    throw new NotImplementedException("Need to know whether the second date is the maturity");
+    throw new UnsupportedOperationException("Need to know whether the second date is the maturity");
   }
 
   public double getAccruedInterest(final ZonedDateTime previousCouponDate, final ZonedDateTime date, final double coupon, final boolean isMaturity) {
@@ -38,8 +37,8 @@ public class ThirtyEThreeSixtyISDA extends ThirtyThreeSixtyTypeDayCount {
   }
 
   public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final boolean isMaturity) {
-    Validate.notNull(firstDate);
-    Validate.notNull(secondDate);
+    ArgChecker.notNull(firstDate, "firstDate");
+    ArgChecker.notNull(secondDate, "secondDate");
     return getDayCountFraction(firstDate.toLocalDate(), secondDate.toLocalDate(), isMaturity);
   }
 

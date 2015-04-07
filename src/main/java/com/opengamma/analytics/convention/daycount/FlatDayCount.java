@@ -7,8 +7,6 @@ package com.opengamma.analytics.convention.daycount;
 
 import java.time.LocalDate;
 
-import org.apache.commons.lang.NotImplementedException;
-
 
 /**
  * The 'Flat' day count.
@@ -20,7 +18,7 @@ public class FlatDayCount extends StatelessDayCount {
 
   @Override
   public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
-    throw new NotImplementedException("Cannot get day count fraction for a flat day count");
+    throw new UnsupportedOperationException("Cannot get day count fraction for a flat day count");
   }
 
   @Override

@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
 import com.opengamma.analytics.math.curve.DoublesCurve;
@@ -122,13 +121,13 @@ public class MulticurveForwardPointsProvider implements MulticurveForwardPointsP
       return false;
     }
     final MulticurveForwardPointsProvider other = (MulticurveForwardPointsProvider) obj;
-    if (!ObjectUtils.equals(_ccyPair, other._ccyPair)) {
+    if (!Objects.equals(_ccyPair, other._ccyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardPoints, other._forwardPoints)) {
+    if (!Objects.equals(_forwardPoints, other._forwardPoints)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
     return true;

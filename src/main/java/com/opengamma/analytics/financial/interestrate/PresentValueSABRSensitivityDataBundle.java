@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.util.amount.SurfaceValue;
 import com.opengamma.strata.collect.ArgChecker;
@@ -194,16 +193,16 @@ public class PresentValueSABRSensitivityDataBundle {
       return false;
     }
     final PresentValueSABRSensitivityDataBundle other = (PresentValueSABRSensitivityDataBundle) obj;
-    if (!ObjectUtils.equals(_alpha, other._alpha)) {
+    if (!Objects.equals(_alpha, other._alpha)) {
       return false;
     }
-    if (!ObjectUtils.equals(_beta, other._beta)) {
+    if (!Objects.equals(_beta, other._beta)) {
       return false;
     }
-    if (!ObjectUtils.equals(_nu, other._nu)) {
+    if (!Objects.equals(_nu, other._nu)) {
       return false;
     }
-    return ObjectUtils.equals(_rho, other._rho);
+    return Objects.equals(_rho, other._rho);
   }
 
 }

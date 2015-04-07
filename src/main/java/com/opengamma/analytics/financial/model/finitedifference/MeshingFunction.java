@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -17,7 +16,7 @@ public abstract class MeshingFunction extends Function1D<Integer, Double> {
   private final int _nPoints;
 
   protected MeshingFunction(final int nPoints) {
-    Validate.isTrue(nPoints > 1, "Need more than 1 point for a mesh");
+    ArgChecker.isTrue(nPoints > 1, "Need more than 1 point for a mesh");
     _nPoints = nPoints;
   }
 

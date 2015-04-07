@@ -9,8 +9,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -19,8 +18,11 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * A generic annuity is a set of payments (cash flows) at known future times. All payments have the same currency.
- * There payments can be known in advance, or depend on the future value of some (possibly several) indices, e.g. the Libor.
+ * A generic annuity is a set of payments (cash flows) at known future times.
+ * All payments have the same currency.
+ * There payments can be known in advance, or depend on the future value of some
+ * (possibly several) indices, e.g. the Libor.
+ * 
  * @param <P> The payment type
  */
 public class Annuity<P extends Payment> implements InstrumentDerivative {
@@ -38,10 +40,10 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
   /**
    * @param payments The payments, not null or empty
    */
-  public Annuity(final P[] payments) {
+  public Annuity(P[] payments) {
     ArgChecker.noNulls(payments, "payments");
     ArgChecker.isTrue(payments.length > 0, "Have no payments in annuity");
-    final Currency currency0 = payments[0].getCurrency();
+    Currency currency0 = payments[0].getCurrency();
     double amount = payments[0].getReferenceAmount();
     for (int loopcpn = 1; loopcpn < payments.length; loopcpn++) {
       ArgChecker.isTrue(currency0.equals(payments[loopcpn].getCurrency()), "currency not the same for all payments");
@@ -56,7 +58,8 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
    * @param pType The type of the payments, not null
    * @param isPayer True if the annuity is to be paid
    */
-  public Annuity(final List<? extends P> payments, final Class<P> pType, final boolean isPayer) {
+  @SuppressWarnings("unchecked")
+  public Annuity(List<? extends P> payments, Class<P> pType, boolean isPayer) {
     ArgChecker.noNulls(payments, "payments");
     ArgChecker.notNull(pType, "type");
     ArgChecker.isTrue(payments.size() > 0, "Payments size must be greater than zero");
@@ -77,7 +80,7 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
    * @param n The number of the payment
    * @return The nth payment
    */
-  public P getNthPayment(final int n) {
+  public P getNthPayment(int n) {
     return _payments[n];
   }
 
@@ -95,7 +98,7 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
    */
   public boolean isIborOrFixed() { //TODO: is this method necessary?
     boolean result = true;
-    for (final P payment : _payments) {
+    for (P payment : _payments) {
       result = result && payment.isIborOrFixed();
     }
     return result;
@@ -136,10 +139,10 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
    * @return The trimmed annuity.
    */
   @SuppressWarnings("unchecked")
-  public Annuity<P> trimBefore(final double trimTime) {
-    final List<P> list = new ArrayList<>();
+  public Annuity<P> trimBefore(double trimTime) {
+    List<P> list = new ArrayList<>();
     list.clear();
-    for (final P payment : _payments) {
+    for (P payment : _payments) {
       if (payment.getPaymentTime() > trimTime) {
         list.add(payment);
       }
@@ -153,9 +156,9 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
    * @return The trimmed annuity.
    */
   @SuppressWarnings("unchecked")
-  public Annuity<P> trimAfter(final double trimTime) {
-    final List<P> list = new ArrayList<>();
-    for (final P payment : _payments) {
+  public Annuity<P> trimAfter(double trimTime) {
+    List<P> list = new ArrayList<>();
+    for (P payment : _payments) {
       if (payment.getPaymentTime() <= trimTime) {
         list.add(payment);
       }
@@ -165,8 +168,8 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
 
   @Override
   public String toString() {
-    final StringBuffer result = new StringBuffer("Annuity:");
-    for (final P payment : _payments) {
+    StringBuffer result = new StringBuffer("Annuity:");
+    for (P payment : _payments) {
       result.append(payment.toString());
       result.append("\n");
     }
@@ -175,14 +178,14 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    int prime = 31;
     int result = 1;
     result = prime * result + Arrays.hashCode(_payments);
     return result;
   }
 
   @Override
-  public boolean equals(final Object obj) {
+  public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
@@ -192,12 +195,12 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final Annuity<?> other = (Annuity<?>) obj;
+    Annuity<?> other = (Annuity<?>) obj;
     if (_payments.length != other._payments.length) {
       return false;
     }
     for (int i = 0; i < _payments.length; i++) {
-      if (!ObjectUtils.equals(_payments[i], other._payments[i])) {
+      if (!Objects.equals(_payments[i], other._payments[i])) {
         return false;
       }
     }
@@ -205,13 +208,13 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
   }
 
   @Override
-  public <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data) {
+  public <S, T> T accept(InstrumentDerivativeVisitor<S, T> visitor, S data) {
     ArgChecker.notNull(visitor, "visitor");
     return visitor.visitGenericAnnuity(this, data);
   }
 
   @Override
-  public <T> T accept(final InstrumentDerivativeVisitor<?, T> visitor) {
+  public <T> T accept(InstrumentDerivativeVisitor<?, T> visitor) {
     ArgChecker.notNull(visitor, "visitor");
     return visitor.visitGenericAnnuity(this);
   }

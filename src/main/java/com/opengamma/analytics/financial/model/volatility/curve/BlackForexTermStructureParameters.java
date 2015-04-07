@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.curve;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
 import com.opengamma.analytics.math.curve.DoublesCurve;
@@ -78,7 +78,7 @@ public class BlackForexTermStructureParameters implements VolatilityModel<Double
       return false;
     }
     final BlackForexTermStructureParameters other = (BlackForexTermStructureParameters) obj;
-    if (!ObjectUtils.equals(_volatility, other._volatility)) {
+    if (!Objects.equals(_volatility, other._volatility)) {
       return false;
     }
     return true;

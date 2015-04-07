@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.commodity.multicurvecommodity.curve;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.math.curve.DoublesCurve;
@@ -37,7 +35,7 @@ public class CommodityForwardCurve {
    * @param fwdCurve The curve.
    */
   public CommodityForwardCurve(final DoublesCurve fwdCurve) {
-    Validate.notNull(fwdCurve, "curve");
+    ArgChecker.notNull(fwdCurve, "curve");
     _fwdCurve = fwdCurve;
   }
 
@@ -48,8 +46,8 @@ public class CommodityForwardCurve {
    * @param convenienceYieldCurve The convenience yield curve.
    */
   public CommodityForwardCurve(final double spot, final YieldAndDiscountCurve discountCurve, final YieldAndDiscountCurve convenienceYieldCurve) {
-    Validate.notNull(discountCurve, "curve");
-    Validate.notNull(convenienceYieldCurve, "curve");
+    ArgChecker.notNull(discountCurve, "curve");
+    ArgChecker.notNull(convenienceYieldCurve, "curve");
     _fwdCurve = getForwardCurve(spot, discountCurve, convenienceYieldCurve);
   }
 

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.montecarlo;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponIborRatchet;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborGearing;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborRatchet;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Computes the instrument price as the average over different paths. The data bundle contains the different discount factor paths and the instrument reference amounts.
@@ -43,7 +42,7 @@ public class MonteCarloDiscountFactorCalculator extends InstrumentDerivativeVisi
   public Double visitCapFloorIbor(final CapFloorIbor payment, final MonteCarloDiscountFactorDataBundle mcResults) {
     final Double[][][] pathDiscountFactors = mcResults.getPathDiscountingFactor();
     final double[][] impactAmount = mcResults.getImpactAmount();
-    Validate.isTrue(pathDiscountFactors[0].length == 1, "Only one decision date for cap/floor.");
+    ArgChecker.isTrue(pathDiscountFactors[0].length == 1, "Only one decision date for cap/floor.");
     double price = 0;
     final int nbPath = pathDiscountFactors.length;
     double ibor;
@@ -60,7 +59,7 @@ public class MonteCarloDiscountFactorCalculator extends InstrumentDerivativeVisi
   public Double visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, final MonteCarloDiscountFactorDataBundle mcResults) {
     final Double[][][] pathDiscountFactors = mcResults.getPathDiscountingFactor();
     final double[][] impactAmount = mcResults.getImpactAmount();
-    Validate.isTrue(pathDiscountFactors[0].length == 1, "Only one decision date for swaptions.");
+    ArgChecker.isTrue(pathDiscountFactors[0].length == 1, "Only one decision date for swaptions.");
     double price = 0;
     final int nbPath = pathDiscountFactors.length;
     double swapPathValue;

@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.math.cube;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
 /**
@@ -40,7 +40,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
    */
   public FunctionalDoublesCube(final Function<Double, Double> function) {
     super();
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     _function = function;
   }
 
@@ -50,7 +50,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
    */
   public FunctionalDoublesCube(final Function<Double, Double> function, final String name) {
     super(name);
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     _function = function;
   }
 
@@ -101,15 +101,15 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
 
   @Override
   public Double getValue(final Double x, final Double y, Double z) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
+    ArgChecker.notNull(z, "z");
     return _function.evaluate(x, y, z);
   }
 
   @Override
   public Double getValue(final Triple<Double, Double, Double> xyz) {
-    Validate.notNull(xyz, "x-y-z data");
+    ArgChecker.notNull(xyz, "x-y-z data");
     return _function.evaluate(xyz.getFirst(), xyz.getSecond(), xyz.getThird());
   }
 
@@ -140,7 +140,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
       return false;
     }
     final FunctionalDoublesCube other = (FunctionalDoublesCube) obj;
-    return ObjectUtils.equals(_function, other._function);
+    return Objects.equals(_function, other._function);
   }
 
 }

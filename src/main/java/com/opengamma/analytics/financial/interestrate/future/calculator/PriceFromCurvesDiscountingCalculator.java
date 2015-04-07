@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.calculator;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuture;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureSecurity;
 import com.opengamma.analytics.financial.interestrate.future.method.BondFutureDiscountingMethod;
 import com.opengamma.analytics.financial.interestrate.future.method.InterestRateFutureSecurityDiscountingMethod;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculate security prices for futures (bond and interest rate).
@@ -47,15 +46,15 @@ public final class PriceFromCurvesDiscountingCalculator extends InstrumentDeriva
 
   @Override
   public Double visitInterestRateFutureSecurity(final InterestRateFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(future);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(future, "future");
     return METHOD_RATE_FUTURE.price(future, curves);
   }
 
   @Override
   public Double visitBondFuture(final BondFuture future, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(future);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(future, "future");
     return METHOD_BOND_FUTURE.price(future, curves);
   }
 

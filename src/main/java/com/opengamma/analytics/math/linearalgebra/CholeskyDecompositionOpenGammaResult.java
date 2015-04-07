@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Results of the OpenGamma implementation of Cholesky decomposition.
@@ -57,7 +56,7 @@ public class CholeskyDecompositionOpenGammaResult implements CholeskyDecompositi
   @Override
   public double[] solve(double[] b) {
     int dim = b.length;
-    Validate.isTrue(dim == _lArray.length, "b array of incorrect size");
+    ArgChecker.isTrue(dim == _lArray.length, "b array of incorrect size");
     final double[] x = new double[dim];
     System.arraycopy(b, 0, x, 0, dim);
     // L y = b (y stored in x array)
@@ -81,7 +80,7 @@ public class CholeskyDecompositionOpenGammaResult implements CholeskyDecompositi
   public DoubleMatrix2D solve(DoubleMatrix2D b) {
     int nbRow = b.getNumberOfRows();
     int nbCol = b.getNumberOfColumns();
-    Validate.isTrue(nbRow == _lArray.length, "b array of incorrect size");
+    ArgChecker.isTrue(nbRow == _lArray.length, "b array of incorrect size");
     double[][] bArray = b.getData();
     final double[][] x = new double[nbRow][nbCol];
     for (int looprow = 0; looprow < nbRow; looprow++) {

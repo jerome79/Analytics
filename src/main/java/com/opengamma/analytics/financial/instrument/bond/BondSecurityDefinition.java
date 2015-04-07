@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.instrument.bond;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
@@ -239,19 +239,19 @@ public abstract class BondSecurityDefinition<N extends PaymentDefinition, C exte
       return false;
     }
     final BondSecurityDefinition<?, ?> other = (BondSecurityDefinition<?, ?>) obj;
-    if (!ObjectUtils.equals(_coupon, other._coupon)) {
+    if (!Objects.equals(_coupon, other._coupon)) {
       return false;
     }
-    if (!ObjectUtils.equals(_nominal, other._nominal)) {
+    if (!Objects.equals(_nominal, other._nominal)) {
       return false;
     }
-    if (!ObjectUtils.equals(_issuer, other._issuer)) {
+    if (!Objects.equals(_issuer, other._issuer)) {
       return false;
     }
     if (_exCouponDays != other._exCouponDays) {
       return false;
     }
-    if (!ObjectUtils.equals(_repoType, other._repoType)) {
+    if (!Objects.equals(_repoType, other._repoType)) {
       return false;
     }
     if (_settlementDays != other._settlementDays) {

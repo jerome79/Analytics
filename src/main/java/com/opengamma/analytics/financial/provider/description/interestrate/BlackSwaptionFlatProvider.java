@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.option.parameters.BlackFlatSwaptionParameters;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
@@ -92,10 +91,10 @@ public class BlackSwaptionFlatProvider implements BlackSwaptionFlatProviderInter
       return false;
     }
     final BlackSwaptionFlatProvider other = (BlackSwaptionFlatProvider) obj;
-    if (!ObjectUtils.equals(_blackParameters, other._blackParameters)) {
+    if (!Objects.equals(_blackParameters, other._blackParameters)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multiCurveProvider, other._multiCurveProvider)) {
+    if (!Objects.equals(_multiCurveProvider, other._multiCurveProvider)) {
       return false;
     }
     return true;

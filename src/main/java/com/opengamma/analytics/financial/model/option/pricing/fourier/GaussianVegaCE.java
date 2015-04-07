@@ -8,11 +8,9 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
 import static com.opengamma.analytics.math.ComplexMathUtils.add;
 import static com.opengamma.analytics.math.ComplexMathUtils.log;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * @deprecated This only exists for code testing during development 
@@ -30,14 +28,14 @@ public class GaussianVegaCE implements MartingaleCharacteristicExponent {
 
   @Override
   public Function1D<ComplexNumber, ComplexNumber> getFunction(final double t) {
-    Validate.isTrue(t > 0.0, "t > 0");
+    ArgChecker.isTrue(t > 0.0, "t > 0");
     final Function1D<ComplexNumber, ComplexNumber> baseFunc = _base.getFunction(t);
     final Function1D<ComplexNumber, ComplexNumber> divFunc = _div.getFunction(t);
     return new Function1D<ComplexNumber, ComplexNumber>() {
 
       @Override
       public ComplexNumber evaluate(final ComplexNumber u) {
-        Validate.notNull(u, "u");
+        ArgChecker.notNull(u, "u");
         final ComplexNumber psi = baseFunc.evaluate(u);
         final ComplexNumber temp = divFunc.evaluate(u);
         final ComplexNumber temp2 = log(temp); //don't like taking logs - bad things happen 
@@ -67,12 +65,12 @@ public class GaussianVegaCE implements MartingaleCharacteristicExponent {
 
   @Override
   public ComplexNumber[] getCharacteristicExponentAdjoint(ComplexNumber u, double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public Function1D<ComplexNumber, ComplexNumber[]> getAdjointFunction(double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
 }

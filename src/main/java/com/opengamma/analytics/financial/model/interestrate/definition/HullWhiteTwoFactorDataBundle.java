@@ -6,9 +6,7 @@
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.curve.VolatilityCurve;
@@ -28,8 +26,8 @@ public class HullWhiteTwoFactorDataBundle extends StandardDiscountBondModelDataB
   public HullWhiteTwoFactorDataBundle(final YieldAndDiscountCurve shortRateCurve, final VolatilityCurve volatilityCurve1, final VolatilityCurve volatilityCurve2, final ZonedDateTime date,
       final double reversionSpeed1, final double reversionSpeed2, final double meanReversionLevel, final YieldAndDiscountCurve forwardRateCurve, final double correlation) {
     super(shortRateCurve, volatilityCurve1, date);
-    Validate.notNull(volatilityCurve2, "second volatility curve");
-    Validate.notNull(forwardRateCurve, "forward rate curve");
+    ArgChecker.notNull(volatilityCurve2, "second volatility curve");
+    ArgChecker.notNull(forwardRateCurve, "forward rate curve");
     if (!ArgChecker.isInRangeInclusive(-1, 1, correlation)) {
       throw new IllegalArgumentException("Correlation must be >= -1 and <= 1");
     }
@@ -106,7 +104,7 @@ public class HullWhiteTwoFactorDataBundle extends StandardDiscountBondModelDataB
     if (Double.doubleToLongBits(_correlation) != Double.doubleToLongBits(other._correlation)) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardRateCurve, other._forwardRateCurve)) {
+    if (!Objects.equals(_forwardRateCurve, other._forwardRateCurve)) {
       return false;
     }
     if (Double.doubleToLongBits(_meanReversionLevel) != Double.doubleToLongBits(other._meanReversionLevel)) {
@@ -118,6 +116,6 @@ public class HullWhiteTwoFactorDataBundle extends StandardDiscountBondModelDataB
     if (Double.doubleToLongBits(_reversionSpeed2) != Double.doubleToLongBits(other._reversionSpeed2)) {
       return false;
     }
-    return ObjectUtils.equals(_volatilityCurve2, other._volatilityCurve2);
+    return Objects.equals(_volatilityCurve2, other._volatilityCurve2);
   }
 }

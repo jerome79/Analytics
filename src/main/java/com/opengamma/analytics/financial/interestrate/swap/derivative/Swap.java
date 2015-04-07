@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.swap.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -107,7 +107,7 @@ public class Swap<P1 extends Payment, P2 extends Payment> implements InstrumentD
       return false;
     }
     final Swap<?, ?> other = (Swap<?, ?>) obj;
-    return ObjectUtils.equals(this._firstLeg, other._firstLeg) && ObjectUtils.equals(this._secondLeg, other._secondLeg);
+    return Objects.equals(this._firstLeg, other._firstLeg) && Objects.equals(this._secondLeg, other._secondLeg);
 
   }
 }

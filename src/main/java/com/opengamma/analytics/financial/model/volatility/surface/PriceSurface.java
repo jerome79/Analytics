@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A surface with gives the price of a European call as a function of time to maturity and strike
@@ -21,7 +20,7 @@ public class PriceSurface {
    * @param surface  The time to maturity should be the first coordinate and the strike the second 
    */
   public PriceSurface(final Surface<Double, Double, Double> surface) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     _surface = surface;
   }
 

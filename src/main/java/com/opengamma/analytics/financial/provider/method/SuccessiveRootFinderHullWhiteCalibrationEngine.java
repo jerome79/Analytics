@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.provider.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -73,7 +71,7 @@ public class SuccessiveRootFinderHullWhiteCalibrationEngine<DATA_TYPE extends Pa
   @Override
   public void addInstrument(final InstrumentDerivative[] instrument, final InstrumentDerivativeVisitor<DATA_TYPE, MultiCurrencyAmount> calculator) {
     for (final InstrumentDerivative element : instrument) {
-      Validate.isTrue(element instanceof CapFloorIbor, "Calibration instruments should be cap/floor");
+      ArgChecker.isTrue(element instanceof CapFloorIbor, "Calibration instruments should be cap/floor");
       getBasket().add(element);
       getMethod().add(calculator);
       getCalibrationPrices().add(0.0);

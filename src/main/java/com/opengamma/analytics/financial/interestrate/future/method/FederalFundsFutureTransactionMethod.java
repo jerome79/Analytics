@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.FederalFundsFutureTransaction;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Methods for the pricing of Federal Funds futures generic to all models.
@@ -66,7 +65,7 @@ public abstract class FederalFundsFutureTransactionMethod implements PricingMeth
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof FederalFundsFutureTransaction, "Federal Funds future");
+    ArgChecker.isTrue(instrument instanceof FederalFundsFutureTransaction, "Federal Funds future");
     return presentValue((FederalFundsFutureTransaction) instrument, curves);
   }
 
@@ -77,7 +76,7 @@ public abstract class FederalFundsFutureTransactionMethod implements PricingMeth
    * @return The present value rate sensitivity.
    */
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final FederalFundsFutureTransaction future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
+    ArgChecker.notNull(future, "Future");
     final InterestRateCurveSensitivity priceSensi = _methodSecurity.priceCurveSensitivity(future.getUnderlyingSecurity(), curves);
     final InterestRateCurveSensitivity result = priceSensi.multipliedBy(future.getUnderlyingSecurity().getPaymentAccrualFactor() * future.getUnderlyingSecurity().getNotional() * future.getQuantity());
     return result;

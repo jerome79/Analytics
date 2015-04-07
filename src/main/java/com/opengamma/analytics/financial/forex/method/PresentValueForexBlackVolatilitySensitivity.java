@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.method;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.util.amount.SurfaceValue;
 import com.opengamma.strata.basics.currency.Currency;
@@ -140,10 +140,10 @@ public class PresentValueForexBlackVolatilitySensitivity {
       return false;
     }
     final PresentValueForexBlackVolatilitySensitivity other = (PresentValueForexBlackVolatilitySensitivity) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_vega, other._vega)) {
+    if (!Objects.equals(_vega, other._vega)) {
       return false;
     }
     return true;

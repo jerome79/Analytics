@@ -8,7 +8,6 @@ package com.opengamma.analytics.math.matrix;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 
@@ -70,7 +69,7 @@ public class MatrixAlgebraTest {
     ALGEBRA.add(M3, M5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testAddWrongType3() {
     ALGEBRA.add(M5, M5);
   }
@@ -115,7 +114,7 @@ public class MatrixAlgebraTest {
     ALGEBRA.subtract(M3, M5);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testSubtractWrongType3() {
     ALGEBRA.subtract(M5, M5);
   }
@@ -130,7 +129,7 @@ public class MatrixAlgebraTest {
     assertMatrixEquals(m, new DoubleMatrix2D(new double[][] {new double[] {-4, -4 }, new double[] {-4, -4 } }));
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testScaleWrongType() {
     ALGEBRA.scale(M5, 0.5);
   }

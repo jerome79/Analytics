@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.strata.collect.ArgChecker;
@@ -209,7 +207,7 @@ public abstract class BlackScholesFormulaRepository {
     ArgChecker.isFalse(Double.isInfinite(costOfCarry), "costOfCarry is infinite");
 
     final double rescaledDelta = spotDelta * Math.exp((-costOfCarry + interestRate) * timeToExpiry);
-    Validate.isTrue((isCall && rescaledDelta > 0. && rescaledDelta < 1.) || (!isCall && spotDelta < 0. && rescaledDelta > -1.),
+    ArgChecker.isTrue((isCall && rescaledDelta > 0. && rescaledDelta < 1.) || (!isCall && spotDelta < 0. && rescaledDelta > -1.),
         "delta/Math.exp((costOfCarry - interestRate) * timeToExpiry) out of range, ", rescaledDelta);
 
     final double sigmaRootT = lognormalVol * Math.sqrt(timeToExpiry);

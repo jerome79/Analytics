@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -255,7 +254,7 @@ public class CouponIborCompoundingFlatSpread extends Coupon implements DepositIn
     if (!Arrays.equals(_fixingTimes, other._fixingTimes)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_spread) != Double.doubleToLongBits(other._spread)) {

@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.equity.variance.pricing;
 
 import static com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.SurfaceArrayUtils.getLowerBoundIndex;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.math.function.Function1D;
@@ -113,13 +113,13 @@ public class EquityDividendsCurvesBundle {
       return false;
     }
     EquityDividendsCurvesBundle other = (EquityDividendsCurvesBundle) obj;
-    if (!ObjectUtils.equals(_d, other._d)) {
+    if (!Objects.equals(_d, other._d)) {
       return false;
     }
-    if (!ObjectUtils.equals(_f, other._f)) {
+    if (!Objects.equals(_f, other._f)) {
       return false;
     }
-    if (!ObjectUtils.equals(_r, other._r)) {
+    if (!Objects.equals(_r, other._r)) {
       return false;
     }
     return true;

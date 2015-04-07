@@ -11,8 +11,7 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -470,7 +469,7 @@ public class CouponIborCompoundingSimpleSpreadDefinition extends CouponDefinitio
     if (!Arrays.equals(_fixingSubperiodStartDates, other._fixingSubperiodStartDates)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_spread) != Double.doubleToLongBits(other._spread)) {

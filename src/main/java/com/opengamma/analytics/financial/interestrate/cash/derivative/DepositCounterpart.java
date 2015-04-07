@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.cash.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
@@ -92,7 +92,7 @@ public class DepositCounterpart extends Cash {
       return false;
     }
     final DepositCounterpart other = (DepositCounterpart) obj;
-    if (!ObjectUtils.equals(_counterparty, other._counterparty)) {
+    if (!Objects.equals(_counterparty, other._counterparty)) {
       return false;
     }
     return true;

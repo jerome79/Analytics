@@ -8,14 +8,13 @@ package com.opengamma.analytics.financial.provider.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Generic calibration engine for interest rate instruments. This calibrate a model using calculators.
@@ -79,7 +78,7 @@ public abstract class CalibrationEngineWithCalculators<DATA_TYPE extends Paramet
    * @param calculator The calculator.
    */
   public void addInstrument(final InstrumentDerivative[] instrument, final InstrumentDerivativeVisitor<DATA_TYPE, MultiCurrencyAmount> calculator) {
-    Validate.notNull(instrument, "Instrument");
+    ArgChecker.notNull(instrument, "Instrument");
     for (final InstrumentDerivative element : instrument) {
       addInstrument(element, calculator);
     }

@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.statistics.descriptive;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * For a series of data $x_1, x_2, \dots, x_n$, the percentile is the value $x$
@@ -21,7 +21,7 @@ public class PercentileCalculator implements Function<double[], Double> {
    * @param percentile The percentile, must be between 0 and 1
    */
   public PercentileCalculator(final double percentile) {
-    Validate.isTrue(percentile > 0 && percentile < 1, "Percentile must be between 0 and 1");
+    ArgChecker.isTrue(percentile > 0 && percentile < 1, "Percentile must be between 0 and 1");
     _percentile = percentile;
   }
 
@@ -29,7 +29,7 @@ public class PercentileCalculator implements Function<double[], Double> {
    * @param percentile The percentile, must be between 0 and 1
    */
   public void setPercentile(final double percentile) {
-    Validate.isTrue(percentile > 0 && percentile < 1, "Percentile must be between 0 and 1");
+    ArgChecker.isTrue(percentile > 0 && percentile < 1, "Percentile must be between 0 and 1");
     _percentile = percentile;
   }
 
@@ -39,8 +39,8 @@ public class PercentileCalculator implements Function<double[], Double> {
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length > 0, "x cannot be empty");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length > 0, "x cannot be empty");
     final int length = x.length;
     final double[] copy = Arrays.copyOf(x, length);
     Arrays.sort(copy);

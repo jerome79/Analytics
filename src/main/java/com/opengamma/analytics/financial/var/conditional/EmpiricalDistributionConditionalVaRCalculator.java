@@ -5,8 +5,9 @@
  */
 package com.opengamma.analytics.financial.var.conditional;
 
+import java.util.Objects;
+
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.var.EmpiricalDistributionVaRCalculator;
 import com.opengamma.analytics.financial.var.EmpiricalDistributionVaRParameters;
@@ -67,10 +68,10 @@ public class EmpiricalDistributionConditionalVaRCalculator implements VaRCalcula
       return false;
     }
     final EmpiricalDistributionConditionalVaRCalculator other = (EmpiricalDistributionConditionalVaRCalculator) obj;
-    if (!ObjectUtils.equals(_meanCalculator, other._meanCalculator)) {
+    if (!Objects.equals(_meanCalculator, other._meanCalculator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_varCalculator, other._varCalculator)) {
+    if (!Objects.equals(_varCalculator, other._varCalculator)) {
       return false;
     }
     return true;

@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.special.OrthogonalPolynomialFunctionGenerator;
@@ -39,8 +38,8 @@ public abstract class GaussianQuadratureIntegrator1D extends Integrator1D<Double
    * @param generator The generator of weights and abscissas
    */
   public GaussianQuadratureIntegrator1D(final int n, final QuadratureWeightAndAbscissaFunction generator) {
-    Validate.isTrue(n > 0, "number of intervals must be > 0");
-    Validate.notNull(generator, "generating function");
+    ArgChecker.isTrue(n > 0, "number of intervals must be > 0");
+    ArgChecker.notNull(generator, "generating function");
     _n = n;
     _generator = generator;
     _quadrature = _generator.generate(_n);
@@ -51,9 +50,9 @@ public abstract class GaussianQuadratureIntegrator1D extends Integrator1D<Double
    */
   @Override
   public Double integrate(final Function1D<Double, Double> function, final Double lower, final Double upper) {
-    Validate.notNull(function);
-    Validate.notNull(lower);
-    Validate.notNull(upper);
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(lower, "lower");
+    ArgChecker.notNull(upper, "upper");
     final Function1D<Double, Double> integral = getIntegralFunction(function, lower, upper);
     return integrateFromPolyFunc(integral);
   }
@@ -115,7 +114,7 @@ public abstract class GaussianQuadratureIntegrator1D extends Integrator1D<Double
     if (_n != other._n) {
       return false;
     }
-    return ObjectUtils.equals(_generator, other._generator);
+    return Objects.equals(_generator, other._generator);
   }
 
 }

@@ -7,9 +7,8 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,7 +19,7 @@ public class EuropeanVanillaOption {
   private final double _k;
 
   public EuropeanVanillaOption(final double k, final double t, final boolean isCall) {
-    Validate.isTrue(t >= 0.0, "t must be >= 0.0");
+    ArgChecker.isTrue(t >= 0.0, "t must be >= 0.0");
     _k = k;
     _t = t;
     _isCall = isCall;
@@ -48,8 +47,8 @@ public class EuropeanVanillaOption {
   }
 
   public static EuropeanVanillaOption fromDefinition(final EuropeanVanillaOptionDefinition definition, final ZonedDateTime date) {
-    Validate.notNull(definition, "definition");
-    Validate.notNull(date, "date");
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(date, "date");
     return new EuropeanVanillaOption(definition.getStrike(), definition.getTimeToExpiry(date), definition.isCall());
   }
 

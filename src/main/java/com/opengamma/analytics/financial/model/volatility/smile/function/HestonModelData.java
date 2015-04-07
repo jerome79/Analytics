@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -22,13 +22,13 @@ public class HestonModelData implements SmileModelData {
   }
 
   public HestonModelData(final double[] parameters) {
-    Validate.notNull(parameters, "null parameters");
-    Validate.isTrue(parameters.length == NUM_PARAMETERS, "number of parameters wrong");
-    Validate.isTrue(parameters[0] >= 0.0, "kappa must be >= 0");
-    Validate.isTrue(parameters[1] >= 0.0, "theta must be >= 0");
-    Validate.isTrue(parameters[2] >= 0.0, "vol0 must be >= 0");
-    Validate.isTrue(parameters[3] >= 0.0, "omega must be >= 0");
-    Validate.isTrue(parameters[4] >= -1.0 && parameters[4] <= 1.0, "rho must be >= -1 && <= 1");
+    ArgChecker.notNull(parameters, "null parameters");
+    ArgChecker.isTrue(parameters.length == NUM_PARAMETERS, "number of parameters wrong");
+    ArgChecker.isTrue(parameters[0] >= 0.0, "kappa must be >= 0");
+    ArgChecker.isTrue(parameters[1] >= 0.0, "theta must be >= 0");
+    ArgChecker.isTrue(parameters[2] >= 0.0, "vol0 must be >= 0");
+    ArgChecker.isTrue(parameters[3] >= 0.0, "omega must be >= 0");
+    ArgChecker.isTrue(parameters[4] >= -1.0 && parameters[4] <= 1.0, "rho must be >= -1 && <= 1");
 
     _parameters = new double[NUM_PARAMETERS];
     System.arraycopy(parameters, 0, _parameters, 0, NUM_PARAMETERS);

@@ -7,12 +7,11 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -28,8 +27,8 @@ public class ExtendedCoupledFiniteDifference extends CoupledFiniteDifference {
       final BoundaryCondition upperBoundary1, final BoundaryCondition lowerBoundary2, final BoundaryCondition upperBoundary2,
       @SuppressWarnings("unused") final Surface<Double, Double, Double> freeBoundary) {
 
-    Validate.notNull(pdeData1, "pde1 data");
-    Validate.notNull(pdeData2, "pde2 data");
+    ArgChecker.notNull(pdeData1, "pde1 data");
+    ArgChecker.notNull(pdeData2, "pde2 data");
     final int tNodes = grid.getNumTimeNodes();
     final int xNodes = grid.getNumSpaceNodes();
     final double theta = getTheta();

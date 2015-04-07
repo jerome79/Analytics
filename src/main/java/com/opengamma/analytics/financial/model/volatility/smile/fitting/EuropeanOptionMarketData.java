@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -25,10 +24,10 @@ public class EuropeanOptionMarketData {
 
   public EuropeanOptionMarketData(final double forward, final double strike, final double discountFactor, final double timeToExpiry,
       final boolean isCall, final double impliedVol) {
-    Validate.isTrue(forward > 0, "need forward > 0");
-    Validate.isTrue(strike >= 0, "need forward >= 0");
-    Validate.isTrue(timeToExpiry >= 0, "need timeToExpiry >= 0");
-    Validate.isTrue(impliedVol >= 0, "need impliedVol >= 0");
+    ArgChecker.isTrue(forward > 0, "need forward > 0");
+    ArgChecker.isTrue(strike >= 0, "need forward >= 0");
+    ArgChecker.isTrue(timeToExpiry >= 0, "need timeToExpiry >= 0");
+    ArgChecker.isTrue(impliedVol >= 0, "need impliedVol >= 0");
 
     _fwd = forward;
     _strike = strike;

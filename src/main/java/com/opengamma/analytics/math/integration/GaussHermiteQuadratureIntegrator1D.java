@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Gauss-Hermite quadrature approximates the value of integrals of the form
@@ -56,9 +55,9 @@ public class GaussHermiteQuadratureIntegrator1D extends GaussianQuadratureIntegr
    */
   @Override
   public Function1D<Double, Double> getIntegralFunction(final Function1D<Double, Double> function, final Double lower, final Double upper) {
-    Validate.notNull(function, "function");
-    Validate.notNull(lower, "lower");
-    Validate.notNull(upper, "upper");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(lower, "lower");
+    ArgChecker.notNull(upper, "upper");
     if (lower.equals(LIMITS[0]) && upper.equals(LIMITS[1])) {
       return new Function1D<Double, Double>() {
 

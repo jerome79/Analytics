@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuture;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
@@ -399,7 +397,7 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
    * @return The present value rate sensitivity.
    */
   public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final BondFuture future, final HullWhiteIssuerProviderInterface data) {
-    Validate.notNull(future, "Future");
+    ArgChecker.notNull(future, "Future");
     final MulticurveSensitivity priceSensitivity = priceCurveSensitivity(future, data);
     final MultipleCurrencyMulticurveSensitivity transactionSensitivity = MultipleCurrencyMulticurveSensitivity.of(future.getCurrency(), priceSensitivity.multipliedBy(future.getNotional()));
     return transactionSensitivity;

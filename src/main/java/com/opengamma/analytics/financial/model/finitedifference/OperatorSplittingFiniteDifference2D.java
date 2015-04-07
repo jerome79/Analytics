@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.cube.Cube;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Operating splitting (as in Duffy chapter 22) with boundary conditions applied at each of the 4 steps
@@ -150,7 +149,7 @@ public class OperatorSplittingFiniteDifference2D implements ConvectionDiffusionP
           }
           count++;
         }
-        Validate.isTrue(count < SOR_MAX, "SOR exceeded max interations");
+        ArgChecker.isTrue(count < SOR_MAX, "SOR exceeded max interations");
       }
 
       for (int j = 1; j < ySteps; j++) {
@@ -229,7 +228,7 @@ public class OperatorSplittingFiniteDifference2D implements ConvectionDiffusionP
           }
           count++;
         }
-        Validate.isTrue(count < SOR_MAX, "SOR exceeded max interations");
+        ArgChecker.isTrue(count < SOR_MAX, "SOR exceeded max interations");
       }
 
     } // time loop

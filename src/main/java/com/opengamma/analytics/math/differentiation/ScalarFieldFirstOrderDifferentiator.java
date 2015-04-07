@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.differentiation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
@@ -48,7 +46,7 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
    * Use around 10<sup>-5</sup> times the domain size.
    */
   public ScalarFieldFirstOrderDifferentiator(final FiniteDifferenceType differenceType, final double eps) {
-    Validate.notNull(differenceType);
+    ArgChecker.notNull(differenceType, "differenceType");
     if (eps < MIN_EPS) {
       throw new IllegalArgumentException("eps is too small. A good value is 1e-5*size of domain. The minimum value is " + MIN_EPS);
     }
@@ -59,7 +57,7 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
 
   @Override
   public Function1D<DoubleMatrix1D, DoubleMatrix1D> differentiate(final Function1D<DoubleMatrix1D, Double> function) {
-    Validate.notNull(function);
+    ArgChecker.notNull(function, "function");
     switch (_differenceType) {
       case FORWARD:
         return new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
@@ -67,7 +65,7 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
           @SuppressWarnings("synthetic-access")
           @Override
           public DoubleMatrix1D evaluate(final DoubleMatrix1D x) {
-            Validate.notNull(x, "x");
+            ArgChecker.notNull(x, "x");
             final int n = x.getNumberOfElements();
             final double y = function.evaluate(x);
             final double[] xData = x.getData();
@@ -88,7 +86,7 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
           @SuppressWarnings("synthetic-access")
           @Override
           public DoubleMatrix1D evaluate(final DoubleMatrix1D x) {
-            Validate.notNull(x, "x");
+            ArgChecker.notNull(x, "x");
             final int n = x.getNumberOfElements();
             final double[] xData = x.getData();
             double oldValue;
@@ -112,7 +110,7 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
           @SuppressWarnings("synthetic-access")
           @Override
           public DoubleMatrix1D evaluate(final DoubleMatrix1D x) {
-            Validate.notNull(x, "x");
+            ArgChecker.notNull(x, "x");
             final double y = function.evaluate(x);
             final int n = x.getNumberOfElements();
             final double[] xData = x.getData();
@@ -134,8 +132,8 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
 
   @Override
   public Function1D<DoubleMatrix1D, DoubleMatrix1D> differentiate(final Function1D<DoubleMatrix1D, Double> function, final Function1D<DoubleMatrix1D, Boolean> domain) {
-    Validate.notNull(function);
-    Validate.notNull(domain);
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(domain, "domain");
 
     final double[] wFwd = new double[] {-3. / _twoEps, 4. / _twoEps, -1. / _twoEps };
     final double[] wCent = new double[] {-1. / _twoEps, 0., 1. / _twoEps };
@@ -146,7 +144,7 @@ public class ScalarFieldFirstOrderDifferentiator implements Differentiator<Doubl
       @SuppressWarnings("synthetic-access")
       @Override
       public DoubleMatrix1D evaluate(final DoubleMatrix1D x) {
-        Validate.notNull(x, "x");
+        ArgChecker.notNull(x, "x");
         ArgChecker.isTrue(domain.evaluate(x), "point {} is not in the function domain", x.toString());
 
         final int n = x.getNumberOfElements();

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -146,7 +146,7 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
       return false;
     }
     final BondFutureOptionPremiumSecurity other = (BondFutureOptionPremiumSecurity) obj;
-    if (!ObjectUtils.equals(_discountingCurveName, other._discountingCurveName)) {
+    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
       return false;
     }
     if (Double.doubleToLongBits(_expirationTime) != Double.doubleToLongBits(other._expirationTime)) {
@@ -158,7 +158,7 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
     if (Double.doubleToLongBits(_strike) != Double.doubleToLongBits(other._strike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingFuture, other._underlyingFuture)) {
+    if (!Objects.equals(_underlyingFuture, other._underlyingFuture)) {
       return false;
     }
     return true;

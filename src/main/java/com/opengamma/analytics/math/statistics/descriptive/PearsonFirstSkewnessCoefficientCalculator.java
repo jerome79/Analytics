@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Given a series of data $x_1, x_2, \dots, x_n$ with mean $\overline{x}$, mode $m$
@@ -34,8 +33,8 @@ public class PearsonFirstSkewnessCoefficientCalculator implements Function<doubl
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x);
-    Validate.isTrue(x.length > 1, "Need at least two data points to calculate Pearson first skewness coefficient");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length > 1, "Need at least two data points to calculate Pearson first skewness coefficient");
     return 3 * (MEAN.evaluate(x) - MODE.apply(x)) / STD_DEV.evaluate(x);
   }
 

@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -41,7 +40,7 @@ public class ForexOptionVanilla extends EuropeanVanillaOption implements Instrum
    */
   public ForexOptionVanilla(final Forex underlyingForex, final double expirationTime, final boolean isCall, final boolean isLong) {
     super(-underlyingForex.getPaymentCurrency2().getAmount() / underlyingForex.getPaymentCurrency1().getAmount(), expirationTime, isCall ^ (underlyingForex.getPaymentCurrency1().getAmount() < 0));
-    Validate.isTrue(expirationTime <= underlyingForex.getPaymentTime(), "Expiration should be before payment.");
+    ArgChecker.isTrue(expirationTime <= underlyingForex.getPaymentTime(), "Expiration should be before payment.");
     this._underlyingForex = underlyingForex;
     _isLong = isLong;
   }
@@ -111,7 +110,7 @@ public class ForexOptionVanilla extends EuropeanVanillaOption implements Instrum
     if (_isLong != other._isLong) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingForex, other._underlyingForex)) {
+    if (!Objects.equals(_underlyingForex, other._underlyingForex)) {
       return false;
     }
     return true;

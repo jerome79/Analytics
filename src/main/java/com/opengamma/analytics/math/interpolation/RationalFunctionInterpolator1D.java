@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,15 +19,15 @@ public class RationalFunctionInterpolator1D extends Interpolator1D {
   private final double _eps;
 
   public RationalFunctionInterpolator1D(final int degree, double eps) {
-    Validate.isTrue(degree > 0, "Need a degree of at least one to perform rational function interpolation");
+    ArgChecker.isTrue(degree > 0, "Need a degree of at least one to perform rational function interpolation");
     _degree = degree;
     _eps = eps;
   }
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
     final int m = _degree + 1;
     if (data.size() < m) {
       throw new IllegalArgumentException("Need at least " + (_degree + 1) + " data points to perform this interpolation");

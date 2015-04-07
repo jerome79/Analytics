@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.Barrier;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.BarrierType;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockType;
@@ -16,6 +14,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -25,7 +24,7 @@ public class EuropeanStandardBarrierOptionModel extends AnalyticOptionModel<Euro
 
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final EuropeanStandardBarrierOptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     final Barrier barrier = definition.getBarrier();
     final boolean isKnockIn = barrier.getKnockType() == KnockType.IN;
     final boolean isDown = barrier.getBarrierType() == BarrierType.DOWN;
@@ -37,7 +36,7 @@ public class EuropeanStandardBarrierOptionModel extends AnalyticOptionModel<Euro
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final boolean isCall = definition.isCall();
         final double s = data.getSpot();
         final double b = data.getCostOfCarry();

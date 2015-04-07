@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
@@ -31,12 +30,12 @@ public class ThirtyEThreeSixtyISDATest {
   protected static final double COUPON = 0.01;
   protected static final int PAYMENTS = 4;
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoMaturityValue1() {
     DC.getAccruedInterest(D1, D2, D3, COUPON, PAYMENTS);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoMaturityValue2() {
     DC.getDayCountFraction(D1, D2);
   }
@@ -62,12 +61,12 @@ public class ThirtyEThreeSixtyISDATest {
     assertEquals(DC.getName(), "30E/360 ISDA");
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoMaturityValue3() {
     DC.getAccruedInterest(D4, D5, D6, COUPON, PAYMENTS);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoMaturityValue4() {
     DC.getDayCountFraction(D4, D5);
   }

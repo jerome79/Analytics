@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.cube;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Parent class for a family of curves that have real <i>(x, y, z, value)</i> points.  
@@ -32,14 +32,14 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
    */
   public DoublesCube(final double[] xData, final double[] yData, final double[] zData, final double[] values) {
     super();
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.notNull(values, "values");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.notNull(values, "values");
     _n = xData.length;
-    Validate.isTrue(_n == yData.length);
-    Validate.isTrue(_n == zData.length);
-    Validate.isTrue(_n == values.length);
+    ArgChecker.isTrue(_n == yData.length);
+    ArgChecker.isTrue(_n == zData.length);
+    ArgChecker.isTrue(_n == values.length);
     _xData = Arrays.copyOf(xData, _n);
     _yData = Arrays.copyOf(yData, _n);
     _zData = Arrays.copyOf(zData, _n);
@@ -54,23 +54,23 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
    */
   public DoublesCube(final Double[] xData, final Double[] yData, final Double[] zData, final Double[] values) {
     super();
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.notNull(values, "data");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.notNull(values, "data");
     _n = xData.length;
-    Validate.isTrue(_n == yData.length);
-    Validate.isTrue(_n == zData.length);
-    Validate.isTrue(_n == values.length);
+    ArgChecker.isTrue(_n == yData.length);
+    ArgChecker.isTrue(_n == zData.length);
+    ArgChecker.isTrue(_n == values.length);
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     _values = new double[_n];
     for (int i = 0; i < _n; i++) {
-      Validate.notNull(xData[i], "element " + i + " of x data");
-      Validate.notNull(yData[i], "element " + i + " of y data");
-      Validate.notNull(zData[i], "element " + i + " of z data");
-      Validate.notNull(values[i], "element " + i + " of data");
+      ArgChecker.notNull(xData[i], "element " + i + " of x data");
+      ArgChecker.notNull(yData[i], "element " + i + " of y data");
+      ArgChecker.notNull(zData[i], "element " + i + " of z data");
+      ArgChecker.notNull(values[i], "element " + i + " of data");
       _xData[i] = xData[i];
       _yData[i] = yData[i];
       _zData[i] = zData[i];
@@ -86,14 +86,14 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
    */
   public DoublesCube(final List<Double> xData, final List<Double> yData, final List<Double> zData, final List<Double> values) {
     super();
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.notNull(values, "data");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.notNull(values, "data");
     _n = xData.size();
-    Validate.isTrue(_n == yData.size());
-    Validate.isTrue(_n == zData.size());
-    Validate.isTrue(_n == values.size());
+    ArgChecker.isTrue(_n == yData.size());
+    ArgChecker.isTrue(_n == zData.size());
+    ArgChecker.isTrue(_n == values.size());
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
@@ -103,10 +103,10 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
       final Double y = yData.get(i);
       final Double z = zData.get(i);
       final Double value = values.get(i);
-      Validate.notNull(x, "element " + i + " of x data");
-      Validate.notNull(y, "element " + i + " of y data");
-      Validate.notNull(z, "element " + i + " of z data");
-      Validate.notNull(value, "element " + i + " of data");
+      ArgChecker.notNull(x, "element " + i + " of x data");
+      ArgChecker.notNull(y, "element " + i + " of y data");
+      ArgChecker.notNull(z, "element " + i + " of z data");
+      ArgChecker.notNull(value, "element " + i + " of data");
       _xData[i] = x;
       _yData[i] = y;
       _zData[i] = z;
@@ -123,14 +123,14 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
    */
   public DoublesCube(final double[] xData, final double[] yData, final double[] zData, final double[] values, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.notNull(values, "data");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.notNull(values, "data");
     _n = xData.length;
-    Validate.isTrue(_n == yData.length);
-    Validate.isTrue(_n == zData.length);
-    Validate.isTrue(_n == values.length);
+    ArgChecker.isTrue(_n == yData.length);
+    ArgChecker.isTrue(_n == zData.length);
+    ArgChecker.isTrue(_n == values.length);
     _xData = Arrays.copyOf(xData, _n);
     _yData = Arrays.copyOf(yData, _n);
     _zData = Arrays.copyOf(zData, _n);
@@ -146,23 +146,23 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
    */
   public DoublesCube(final Double[] xData, final Double[] yData, final Double[] zData, final Double[] values, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.notNull(values, "data");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.notNull(values, "data");
     _n = xData.length;
-    Validate.isTrue(_n == yData.length);
-    Validate.isTrue(_n == zData.length);
-    Validate.isTrue(_n == values.length);
+    ArgChecker.isTrue(_n == yData.length);
+    ArgChecker.isTrue(_n == zData.length);
+    ArgChecker.isTrue(_n == values.length);
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
     _values = new double[_n];
     for (int i = 0; i < _n; i++) {
-      Validate.notNull(xData[i], "element " + i + " of x data");
-      Validate.notNull(yData[i], "element " + i + " of y data");
-      Validate.notNull(zData[i], "element " + i + " of z data");
-      Validate.notNull(values[i], "element " + i + " of data");
+      ArgChecker.notNull(xData[i], "element " + i + " of x data");
+      ArgChecker.notNull(yData[i], "element " + i + " of y data");
+      ArgChecker.notNull(zData[i], "element " + i + " of z data");
+      ArgChecker.notNull(values[i], "element " + i + " of data");
       _xData[i] = xData[i];
       _yData[i] = yData[i];
       _zData[i] = zData[i];
@@ -179,14 +179,14 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
    */
   public DoublesCube(final List<Double> xData, final List<Double> yData, final List<Double> zData, final List<Double> values, final String name) {
     super(name);
-    Validate.notNull(xData, "x data");
-    Validate.notNull(yData, "y data");
-    Validate.notNull(zData, "z data");
-    Validate.notNull(values, "data");
+    ArgChecker.notNull(xData, "x data");
+    ArgChecker.notNull(yData, "y data");
+    ArgChecker.notNull(zData, "z data");
+    ArgChecker.notNull(values, "data");
     _n = xData.size();
-    Validate.isTrue(_n == yData.size());
-    Validate.isTrue(_n == zData.size());
-    Validate.isTrue(_n == values.size());
+    ArgChecker.isTrue(_n == yData.size());
+    ArgChecker.isTrue(_n == zData.size());
+    ArgChecker.isTrue(_n == values.size());
     _xData = new double[_n];
     _yData = new double[_n];
     _zData = new double[_n];
@@ -196,10 +196,10 @@ public abstract class DoublesCube extends Cube<Double, Double, Double, Double> {
       final Double y = yData.get(i);
       final Double z = zData.get(i);
       final Double value = values.get(i);
-      Validate.notNull(x, "element " + i + " of x data");
-      Validate.notNull(y, "element " + i + " of y data");
-      Validate.notNull(z, "element " + i + " of z data");
-      Validate.notNull(value, "element " + i + " of data");
+      ArgChecker.notNull(x, "element " + i + " of x data");
+      ArgChecker.notNull(y, "element " + i + " of y data");
+      ArgChecker.notNull(z, "element " + i + " of z data");
+      ArgChecker.notNull(value, "element " + i + " of data");
       _xData[i] = x;
       _yData[i] = y;
       _zData[i] = z;

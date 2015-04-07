@@ -7,13 +7,12 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.ForwardStartOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -23,13 +22,13 @@ public class ForwardStartOptionModel extends AnalyticOptionModel<ForwardStartOpt
 
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final ForwardStartOptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     return new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final ZonedDateTime date = data.getDate();
         final double s = data.getSpot();
         final double t = definition.getTimeToExpiry(date);

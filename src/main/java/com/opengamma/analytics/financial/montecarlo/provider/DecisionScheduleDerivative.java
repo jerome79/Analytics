@@ -8,8 +8,7 @@ package com.opengamma.analytics.financial.montecarlo.provider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.montecarlo.DecisionSchedule;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
@@ -75,7 +74,7 @@ public class DecisionScheduleDerivative extends DecisionSchedule {
       return false;
     }
     final DecisionScheduleDerivative other = (DecisionScheduleDerivative) obj;
-    if (!ObjectUtils.equals(_impactAmountDerivative, other._impactAmountDerivative)) {
+    if (!Objects.equals(_impactAmountDerivative, other._impactAmountDerivative)) {
       return false;
     }
     return true;

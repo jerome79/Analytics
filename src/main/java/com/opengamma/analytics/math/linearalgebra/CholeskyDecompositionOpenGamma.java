@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * OpenGamma implementation of the Cholesky decomposition and its differentiation.
@@ -41,10 +40,10 @@ public class CholeskyDecompositionOpenGamma extends Decomposition<CholeskyDecomp
    * @return The Cholesky decomposition.
    */
   public CholeskyDecompositionResult evaluate(final DoubleMatrix2D matrix, final double symmetryThreshold, final double positivityThreshold) {
-    Validate.notNull(matrix, "Matrix null");
+    ArgChecker.notNull(matrix, "Matrix null");
     int nbRow = matrix.getNumberOfRows();
     int nbCol = matrix.getNumberOfColumns();
-    Validate.isTrue(nbRow == nbCol, "Matrix not square");
+    ArgChecker.isTrue(nbRow == nbCol, "Matrix not square");
     double[][] l = new double[nbRow][nbRow];
     // Check symmetry and initial fill of _lTArray
     double[][] matrixData = matrix.getData();
@@ -52,13 +51,13 @@ public class CholeskyDecompositionOpenGamma extends Decomposition<CholeskyDecomp
       for (int loopcol = 0; loopcol <= looprow; loopcol++) {
         double maxValue = Math.max(Math.abs(matrixData[looprow][loopcol]), Math.abs(matrixData[loopcol][looprow]));
         double diff = Math.abs(matrixData[looprow][loopcol] - matrixData[loopcol][looprow]);
-        Validate.isTrue(diff <= maxValue * symmetryThreshold, "Matrix not symmetrical");
+        ArgChecker.isTrue(diff <= maxValue * symmetryThreshold, "Matrix not symmetrical");
         l[looprow][loopcol] = matrixData[looprow][loopcol];
       }
     }
     // The decomposition
     for (int loopcol = 0; loopcol < nbCol; loopcol++) {
-      Validate.isTrue(l[loopcol][loopcol] > positivityThreshold, "Matrix not positive");
+      ArgChecker.isTrue(l[loopcol][loopcol] > positivityThreshold, "Matrix not positive");
       l[loopcol][loopcol] = Math.sqrt(l[loopcol][loopcol]); // Pivot
       double lInverse = 1.0 / l[loopcol][loopcol];
       for (int looprow = loopcol + 1; looprow < nbRow; looprow++) { // Current column

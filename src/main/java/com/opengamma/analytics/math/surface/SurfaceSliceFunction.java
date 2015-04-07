@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.math.surface;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.Axis;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,16 +18,16 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 public class SurfaceSliceFunction {
 
   public ConstantDoublesCurve cut(final ConstantDoublesSurface surface, final Axis axis, final Double at) {
-    Validate.notNull(surface, "surface");
-    Validate.notNull(axis, "axis");
-    Validate.notNull(at, "at");
+    ArgChecker.notNull(surface, "surface");
+    ArgChecker.notNull(axis, "axis");
+    ArgChecker.notNull(at, "at");
     return ConstantDoublesCurve.from(surface.getZValue(null, null));
   }
 
   public static Curve<Double, Double> cut(final Surface<Double, Double, Double> surface, final Axis axis, final Double at, final Interpolator1D interpolator) {
-    Validate.notNull(surface, "surface");
-    Validate.notNull(axis, "axis");
-    Validate.notNull(at, "at");
+    ArgChecker.notNull(surface, "surface");
+    ArgChecker.notNull(axis, "axis");
+    ArgChecker.notNull(at, "at");
 
     if (axis == Axis.X) {
       Double[] yData = surface.getYData();

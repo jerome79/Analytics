@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -227,10 +227,10 @@ public abstract class BondSecurity<N extends Payment, C extends Coupon> implemen
       return false;
     }
     final BondSecurity<?, ?> other = (BondSecurity<?, ?>) obj;
-    if (!ObjectUtils.equals(_coupon, other._coupon)) {
+    if (!Objects.equals(_coupon, other._coupon)) {
       return false;
     }
-    if (!ObjectUtils.equals(_nominal, other._nominal)) {
+    if (!Objects.equals(_nominal, other._nominal)) {
       return false;
     }
     return true;

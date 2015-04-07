@@ -7,10 +7,9 @@ package com.opengamma.analytics.financial.sensitivity;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.greeks.Underlying;
 import com.opengamma.analytics.financial.pnl.UnderlyingType;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,8 +19,8 @@ public class ValueGreekSensitivity implements Sensitivity<ValueGreek> {
   private final String _identifier;
 
   public ValueGreekSensitivity(final ValueGreek valueGreek, final String identifier) {
-    Validate.notNull(valueGreek, "ValueGreek");
-    Validate.notNull(identifier, "identifier");
+    ArgChecker.notNull(valueGreek, "ValueGreek");
+    ArgChecker.notNull(identifier, "identifier");
     _valueGreek = valueGreek;
     _identifier = identifier;
   }

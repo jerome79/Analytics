@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.cube.Cube;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * <b>Note</b> this is for testing purposes and is not recommended for actual use
@@ -89,7 +88,7 @@ public class ExplicitFiniteDifference2D implements ConvectionDiffusionPDESolver2
         double q = sum + yLowerBoundary.getConstant(t, x[i], dy);
         sum = 0;
         temp = yLowerBoundary.getLeftMatrixCondition(x[i], t);
-        Validate.isTrue(temp[0] != 0.0);
+        ArgChecker.isTrue(temp[0] != 0.0);
         for (int k1 = 1; k1 < temp.length; k1++) {
           sum += temp[k1] * vNew[i][k1];
         }

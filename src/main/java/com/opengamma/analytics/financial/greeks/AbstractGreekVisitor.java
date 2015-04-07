@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.greeks;
 
-import org.apache.commons.lang.NotImplementedException;
-
 /**
  * @param <T> Return type of visitor
  */
@@ -14,92 +12,92 @@ public abstract class AbstractGreekVisitor<T> implements GreekVisitor<T> {
 
   @Override
   public T visitCarryRho() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitDVannaDVol() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitDZetaDVol() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitDelta() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitDeltaBleed() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitDriftlessTheta() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitElasticity() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitGamma() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitGammaBleed() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitGammaP() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitGammaPBleed() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitPhi() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitPrice() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitRho() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitSpeed() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitSpeedP() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitStrikeDelta() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitStrikeGamma() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
@@ -114,84 +112,84 @@ public abstract class AbstractGreekVisitor<T> implements GreekVisitor<T> {
 
   @Override
   public T visitTheta() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitUltima() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVanna() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVarianceUltima() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVarianceVanna() {
 
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVarianceVega() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVarianceVomma() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVega() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVegaBleed() {
 
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVegaP() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVomma() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitVommaP() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitZeta() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitZetaBleed() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitZomma() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public T visitZommaP() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
 }

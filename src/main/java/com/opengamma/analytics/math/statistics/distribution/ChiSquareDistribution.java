@@ -10,10 +10,10 @@ import java.util.Date;
 import cern.jet.random.ChiSquare;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.function.special.InverseIncompleteGammaFunction;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A $\chi^2$ distribution with $k$ degrees of freedom is the distribution of
@@ -53,8 +53,8 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
    * @param engine A uniform random number generator, not null
    */
   public ChiSquareDistribution(final double degrees, final RandomEngine engine) {
-    Validate.isTrue(degrees >= 1, "Degrees of freedom must be greater than or equal to one");
-    Validate.notNull(engine);
+    ArgChecker.isTrue(degrees >= 1, "Degrees of freedom must be greater than or equal to one");
+    ArgChecker.notNull(engine, "engine");
     _chiSquare = new ChiSquare(degrees, engine);
     _degrees = degrees;
   }
@@ -64,7 +64,7 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _chiSquare.cdf(x);
   }
 
@@ -73,7 +73,7 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _chiSquare.pdf(x);
   }
 
@@ -82,8 +82,8 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getInverseCDF(final Double p) {
-    Validate.notNull(p);
-    Validate.isTrue(p >= 0 && p <= 1, "Probability must lie between 0 and 1");
+    ArgChecker.notNull(p, "p");
+    ArgChecker.isTrue(p >= 0 && p <= 1, "Probability must lie between 0 and 1");
     return 2 * _inverseFunction.evaluate(0.5 * _degrees, p);
   }
 

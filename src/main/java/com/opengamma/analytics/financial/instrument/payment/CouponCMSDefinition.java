@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
@@ -222,7 +221,7 @@ public class CouponCMSDefinition extends CouponFloatingDefinition {
       return false;
     }
     final CouponCMSDefinition other = (CouponCMSDefinition) obj;
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.statistics.estimation;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.descriptive.MeanCalculator;
 import com.opengamma.analytics.math.statistics.descriptive.PopulationStandardDeviationCalculator;
@@ -26,7 +24,7 @@ public class NormalDistributionMaximumLikelihoodEstimator extends DistributionPa
 
   @Override
   public ProbabilityDistribution<Double> evaluate(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     ArgChecker.notEmpty(x, "x");
     return new NormalDistribution(_mean.evaluate(x), _std.apply(x));
   }

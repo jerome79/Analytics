@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
@@ -15,6 +14,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -33,7 +33,7 @@ public class SABRSurfaceFittingTest {
     final double[] atmVols = new double[] {0.23845, 0.36995, 0.18745, 0.162, 0.7332, 0.2177 };
 
     final int n = maturities.length;
-    Validate.isTrue(n == tenors.length && n == forwards.length && n == atmVols.length);
+    ArgChecker.isTrue(n == tenors.length && n == forwards.length && n == atmVols.length);
 
     final double[] moneynessSigma = new double[] {-2, -1, -0.5, -0.25, 0, 0.25, 0.5, 1, 2 };
     final double[][] vols = new double[n][];

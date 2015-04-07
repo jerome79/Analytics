@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantParameters;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
@@ -120,13 +119,13 @@ public class HullWhiteOneFactorProvider implements HullWhiteOneFactorProviderInt
       return false;
     }
     final HullWhiteOneFactorProvider other = (HullWhiteOneFactorProvider) obj;
-    if (!ObjectUtils.equals(_ccyHW, other._ccyHW)) {
+    if (!Objects.equals(_ccyHW, other._ccyHW)) {
       return false;
     }
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
     return true;

@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DCubicSplineDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -29,9 +28,9 @@ public class NaturalCubicSplineInterpolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DCubicSplineDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DCubicSplineDataBundle);
     Interpolator1DCubicSplineDataBundle splineData = (Interpolator1DCubicSplineDataBundle) data;
     final int low = data.getLowerBoundIndex(value);
     final int high = low + 1;
@@ -53,9 +52,9 @@ public class NaturalCubicSplineInterpolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DCubicSplineDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DCubicSplineDataBundle);
     Interpolator1DCubicSplineDataBundle splineData = (Interpolator1DCubicSplineDataBundle) data;
     int low = data.getLowerBoundIndex(value);
     int high = low + 1;
@@ -81,8 +80,8 @@ public class NaturalCubicSplineInterpolator1D extends Interpolator1D {
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.isTrue(data instanceof Interpolator1DCubicSplineDataBundle);
+    ArgChecker.notNull(data, "data");
+    ArgChecker.isTrue(data instanceof Interpolator1DCubicSplineDataBundle);
     Interpolator1DCubicSplineDataBundle cubicData = (Interpolator1DCubicSplineDataBundle) data;
     final int n = cubicData.size();
     final double[] result = new double[n];

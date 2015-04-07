@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.sensitivity;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.util.amount.CubeValue;
@@ -127,10 +126,10 @@ public class PresentValueBlackSTIRFuturesCubeSensitivity {
       return false;
     }
     final PresentValueBlackSTIRFuturesCubeSensitivity other = (PresentValueBlackSTIRFuturesCubeSensitivity) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.statistics.descriptive;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the median of a series of data.
@@ -32,8 +32,8 @@ public class MedianCalculator implements Function<double[], Double> {
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x);
-    Validate.isTrue(x.length > 0, "x cannot be empty");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length > 0, "x cannot be empty");
     if (x.length == 1) {
       return x[0];
     }

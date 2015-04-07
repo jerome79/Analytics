@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.SABRExtrapolationLeftRightFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.rootfinding.RidderSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing function in the SABR model with Hagan et al. volatility function and controlled extrapolation for large strikes by extrapolation on call prices.
@@ -96,7 +95,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
    * @param mu The mu parameter.
    */
   public SABRExtrapolationRightFunction(final double forward, final SABRFormulaData sabrData, final double cutOffStrike, final double timeToExpiry, final double mu) {
-    Validate.notNull(sabrData, "SABR data");
+    ArgChecker.notNull(sabrData, "SABR data");
     _forward = forward;
     _sabrData = sabrData;
     _cutOffStrike = cutOffStrike;
@@ -125,7 +124,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
   public SABRExtrapolationRightFunction(final double forward, final SABRFormulaData sabrData, final double cutOffStrike, final double timeToExpiry, final double mu,
       final VolatilityFunctionProvider<SABRFormulaData> volatilityFunction) {
     super(volatilityFunction);
-    Validate.notNull(sabrData, "SABR data");
+    ArgChecker.notNull(sabrData, "SABR data");
     _forward = forward;
     _sabrData = sabrData;
     _cutOffStrike = cutOffStrike;

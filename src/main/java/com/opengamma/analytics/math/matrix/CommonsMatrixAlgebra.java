@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.Array2DRowRealMatrix;
 import org.apache.commons.math.linear.EigenDecomposition;
 import org.apache.commons.math.linear.EigenDecompositionImpl;
@@ -18,6 +16,7 @@ import org.apache.commons.math.linear.SingularValueDecomposition;
 import org.apache.commons.math.linear.SingularValueDecompositionImpl;
 
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Provides matrix algebra by using the <a href = "http://commons.apache.org/math/api-2.1/index.html">Commons library</a>. 
@@ -29,7 +28,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getCondition(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       final SingularValueDecomposition svd = new SingularValueDecompositionImpl(temp);
@@ -43,7 +42,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getDeterminant(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       final LUDecomposition lud = new LUDecompositionImpl(temp);
@@ -57,8 +56,8 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getInnerProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D && m2 instanceof DoubleMatrix1D) {
       final RealVector t1 = CommonsMathWrapper.wrap((DoubleMatrix1D) m1);
       final RealVector t2 = CommonsMathWrapper.wrap((DoubleMatrix1D) m2);
@@ -72,7 +71,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getInverse(final Matrix<?> m) {
-    Validate.notNull(m, "matrix was null");
+    ArgChecker.notNull(m, "matrix was null");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       final SingularValueDecomposition sv = new SingularValueDecompositionImpl(temp);
@@ -87,7 +86,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNorm1(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       final RealVector temp = CommonsMathWrapper.wrap((DoubleMatrix1D) m);
       return temp.getL1Norm();
@@ -110,7 +109,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNorm2(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       final RealVector temp = CommonsMathWrapper.wrap((DoubleMatrix1D) m);
       return temp.getNorm();
@@ -127,7 +126,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNormInfinity(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       final RealVector temp = CommonsMathWrapper.wrap((DoubleMatrix1D) m);
       return temp.getLInfNorm();
@@ -150,8 +149,8 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getOuterProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D && m2 instanceof DoubleMatrix1D) {
       final RealVector t1 = CommonsMathWrapper.wrap((DoubleMatrix1D) m1);
       final RealVector t2 = CommonsMathWrapper.wrap((DoubleMatrix1D) m2);
@@ -165,7 +164,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final int p) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     return getPower(m, (double) p);
   }
 
@@ -188,7 +187,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
       for (int i = n - 1; i >= 0; --i) {
         d[i][i] = Math.pow(rEigenValues[i], p);
         if (iEigenValues[i] != 0.0) {
-          throw new NotImplementedException("Cannot handle complex eigenvalues in getPower");
+          throw new UnsupportedOperationException("Cannot handle complex eigenvalues in getPower");
         }
       }
       final RealMatrix res = eigen.getV().multiply((new Array2DRowRealMatrix(d)).multiply(eigen.getVT()));
@@ -202,7 +201,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getTrace(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       return temp.getTrace();
@@ -215,7 +214,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getTranspose(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       return CommonsMathWrapper.unwrap(temp.transpose());
@@ -233,9 +232,9 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public Matrix<?> multiply(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
-    Validate.isTrue(!(m1 instanceof DoubleMatrix1D), "Cannot have 1D matrix as first argument");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
+    ArgChecker.isTrue(!(m1 instanceof DoubleMatrix1D), "Cannot have 1D matrix as first argument");
     if (m1 instanceof DoubleMatrix2D) {
       final RealMatrix t1 = CommonsMathWrapper.wrap((DoubleMatrix2D) m1);
       RealMatrix t2;

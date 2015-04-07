@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The sample Fisher kurtosis gives a measure of how heavy the tails of a distribution are with respect to the normal distribution (which
@@ -32,8 +31,8 @@ public class SampleFisherKurtosisCalculator implements Function<double[], Double
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length >= 4, "Need at least four points to calculate kurtosis");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 4, "Need at least four points to calculate kurtosis");
     double sum = 0;
     final double mean = MEAN.evaluate(x);
     double variance = 0;

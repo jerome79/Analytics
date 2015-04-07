@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.DoublesCurve;
@@ -142,7 +141,7 @@ public class DiscountCurve extends YieldAndDiscountCurve {
       return false;
     }
     final DiscountCurve other = (DiscountCurve) obj;
-    return ObjectUtils.equals(_curve, other._curve);
+    return Objects.equals(_curve, other._curve);
   }
 
 }

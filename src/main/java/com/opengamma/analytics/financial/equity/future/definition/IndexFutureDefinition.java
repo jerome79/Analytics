@@ -6,9 +6,7 @@
 package com.opengamma.analytics.financial.equity.future.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.equity.future.derivative.IndexFuture;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.id.StandardId;
+
 /**
  * Generic index future definition. An IndexFuture is always cash-settled.
  */
@@ -50,9 +49,9 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
       final Currency currency,
       final double unitValue,
       final StandardId underlying) {
-    Validate.notNull(expiryDate, "expiry");
-    Validate.notNull(settlementDate, "settlement date");
-    Validate.notNull(currency, "currency");
+    ArgChecker.notNull(expiryDate, "expiry");
+    ArgChecker.notNull(settlementDate, "settlement date");
+    ArgChecker.notNull(currency, "currency");
     _expiryDate = expiryDate;
     _settlementDate = settlementDate;
     _referencePrice = strikePrice;
@@ -155,13 +154,13 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
     if (Double.doubleToLongBits(_referencePrice) != Double.doubleToLongBits(other._referencePrice)) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiryDate, other._expiryDate)) {
+    if (!Objects.equals(_expiryDate, other._expiryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementDate, other._settlementDate)) {
+    if (!Objects.equals(_settlementDate, other._settlementDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
     if (Double.doubleToLongBits(_unitAmount) != Double.doubleToLongBits(other._unitAmount)) {

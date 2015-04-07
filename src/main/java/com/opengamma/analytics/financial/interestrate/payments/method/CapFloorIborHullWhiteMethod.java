@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.interestrate.payments.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -86,8 +84,8 @@ public class CapFloorIborHullWhiteMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorIbor, "Ibor Cap/floor");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Bundle should contain Hull-White data");
+    ArgChecker.isTrue(instrument instanceof CapFloorIbor, "Ibor Cap/floor");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Bundle should contain Hull-White data");
     return presentValue((CapFloorIbor) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 

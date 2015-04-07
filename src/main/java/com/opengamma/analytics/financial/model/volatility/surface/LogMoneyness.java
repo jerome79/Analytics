@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Defined as x = ln(strike/forward)
@@ -19,8 +19,8 @@ public class LogMoneyness implements StrikeType {
   }
 
   public LogMoneyness(final double strike, final double forward) {
-    Validate.isTrue(strike > 0, "negative or zero strike");
-    Validate.isTrue(forward > 0, "negative or zero forward");
+    ArgChecker.isTrue(strike > 0, "negative or zero strike");
+    ArgChecker.isTrue(forward > 0, "negative or zero forward");
     _value = Math.log(strike / forward);
   }
 

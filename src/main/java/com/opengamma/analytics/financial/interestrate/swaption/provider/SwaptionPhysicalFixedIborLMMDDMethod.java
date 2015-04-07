@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
 import com.opengamma.analytics.financial.model.interestrate.definition.LiborMarketModelDisplacedDiffusionParameters;
@@ -111,7 +109,7 @@ public final class SwaptionPhysicalFixedIborLMMDDMethod {
           if (cftInit[loopcf] - timeLMM[-indCFDate[loopcf] - 2] < TIME_TOLERANCE) {
             indCFDate[loopcf] = -indCFDate[loopcf] - 2;
           } else {
-            Validate.isTrue(true, "Instrument time incompatible with LMM parametrisation");
+            ArgChecker.isTrue(true, "Instrument time incompatible with LMM parametrisation");
           }
         }
       }
@@ -275,7 +273,7 @@ public final class SwaptionPhysicalFixedIborLMMDDMethod {
           if (cftInit[loopcf] - timeLMM[-indCFDate[loopcf] - 2] < TIME_TOLERANCE) {
             indCFDate[loopcf] = -indCFDate[loopcf] - 2;
           } else {
-            Validate.isTrue(true, "Instrument time incompatible with LMM");
+            ArgChecker.isTrue(true, "Instrument time incompatible with LMM");
           }
         }
       }
@@ -544,7 +542,7 @@ public final class SwaptionPhysicalFixedIborLMMDDMethod {
           if (cftInit[loopcf] - timeLMM[-indCFDate[loopcf] - 2] < TIME_TOLERANCE) {
             indCFDate[loopcf] = -indCFDate[loopcf] - 2;
           } else {
-            Validate.isTrue(true, "Instrument time incompatible with LMM");
+            ArgChecker.isTrue(true, "Instrument time incompatible with LMM");
           }
         }
       }
@@ -808,7 +806,7 @@ public final class SwaptionPhysicalFixedIborLMMDDMethod {
           if (cftInit[loopcf] - timeLMM[-indCFDate[loopcf] - 2] < TIME_TOLERANCE) {
             indCFDate[loopcf] = -indCFDate[loopcf] - 2;
           } else {
-            Validate.isTrue(true, "Instrument time incompatible with LMM");
+            ArgChecker.isTrue(true, "Instrument time incompatible with LMM");
           }
         }
       }

@@ -8,9 +8,8 @@ package com.opengamma.analytics.financial.interestrate;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
@@ -306,13 +305,13 @@ public class YieldCurveBundle {
       return false;
     }
     final YieldCurveBundle other = (YieldCurveBundle) obj;
-    if (!ObjectUtils.equals(_curveCurrency, other._curveCurrency)) {
+    if (!Objects.equals(_curveCurrency, other._curveCurrency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_curves, other._curves)) {
+    if (!Objects.equals(_curves, other._curves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fxMatrix, other._fxMatrix)) {
+    if (!Objects.equals(_fxMatrix, other._fxMatrix)) {
       return false;
     }
     return true;

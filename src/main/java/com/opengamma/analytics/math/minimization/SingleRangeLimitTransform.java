@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * If a model parameter $x$ is constrained to be either above or below some
@@ -86,7 +86,7 @@ public class SingleRangeLimitTransform implements ParameterLimitsTransform {
    */
   @Override
   public double transform(final double x) {
-    Validate.isTrue(_sign * x >= _sign * _limit, "x not in limit");
+    ArgChecker.isTrue(_sign * x >= _sign * _limit, "x not in limit");
     if (x == _limit) {
       return -EXP_MAX;
     }
@@ -116,7 +116,7 @@ public class SingleRangeLimitTransform implements ParameterLimitsTransform {
    */
   @Override
   public double transformGradient(final double x) {
-    Validate.isTrue(_sign * x >= _sign * _limit, "x not in limit");
+    ArgChecker.isTrue(_sign * x >= _sign * _limit, "x not in limit");
     final double r = _sign * (x - _limit);
     if (r > EXP_MAX) {
       return 1.0;

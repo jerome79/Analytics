@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -150,13 +149,13 @@ public class SwapFuturesPriceDeliverableSecurityDefinition extends FuturesSecuri
       return false;
     }
     final SwapFuturesPriceDeliverableSecurityDefinition other = (SwapFuturesPriceDeliverableSecurityDefinition) obj;
-    if (!ObjectUtils.equals(_deliveryDate, other._deliveryDate)) {
+    if (!Objects.equals(_deliveryDate, other._deliveryDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSwap, other._underlyingSwap)) {
+    if (!Objects.equals(_underlyingSwap, other._underlyingSwap)) {
       return false;
     }
     return true;

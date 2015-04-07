@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class representing the top-hat function, defined as:
@@ -37,7 +36,7 @@ public class TopHatFunction extends Function1D<Double, Double> {
    * @param y The height 
    */
   public TopHatFunction(final double x1, final double x2, final double y) {
-    Validate.isTrue(x1 < x2, "x1 must be less than x2");
+    ArgChecker.isTrue(x1 < x2, "x1 must be less than x2");
     _x1 = x1;
     _x2 = x2;
     _y = y;
@@ -49,9 +48,9 @@ public class TopHatFunction extends Function1D<Double, Double> {
    */
   @Override
   public Double evaluate(final Double x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x != _x1, "Function is undefined for x = x1");
-    Validate.isTrue(x != _x2, "Function is undefined for x = x2");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x != _x1, "Function is undefined for x = x1");
+    ArgChecker.isTrue(x != _x2, "Function is undefined for x = x2");
     if (x > _x1 && x < _x2) {
       return _y;
     }

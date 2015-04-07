@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.number.ComplexNumber;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -144,7 +142,7 @@ public class ComplexMathUtils {
   public static ComplexNumber multiply(final ComplexNumber... z) {
     ArgChecker.notNull(z, "z");
     final int n = z.length;
-    Validate.isTrue(n > 0, "nothing to multiply");
+    ArgChecker.isTrue(n > 0, "nothing to multiply");
     if (n == 1) {
       return z[0];
     } else if (n == 2) {

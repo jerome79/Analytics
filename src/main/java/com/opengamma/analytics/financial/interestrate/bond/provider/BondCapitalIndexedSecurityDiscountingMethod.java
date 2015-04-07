@@ -9,8 +9,6 @@ import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.IND
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.UK_IL_BOND;
 import static com.opengamma.analytics.convention.yield.SimpleYieldConvention.US_IL_REAL;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.instrument.inflation.CouponInflationGearing;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondCapitalIndexedSecurity;
@@ -98,8 +96,8 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    */
   public MultiCurrencyAmount presentValueFromCleanRealPrice(final BondCapitalIndexedSecurity<?> bond,
       final InflationIssuerProviderInterface market, final double cleanPriceReal) {
-    Validate.notNull(bond, "Coupon");
-    Validate.notNull(market, "Market");
+    ArgChecker.notNull(bond, "Coupon");
+    ArgChecker.notNull(market, "Market");
     double settlementFactor = bond.getIndexRatio();
     final double cleanPriceNominal = cleanPriceReal * settlementFactor;
     return presentValueFromCleanNominalPrice(bond, market, cleanPriceNominal);
@@ -115,8 +113,8 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    */
   public MultiCurrencyAmount presentValueFromCleanNominalPrice(final BondCapitalIndexedSecurity<?> bond,
       final InflationIssuerProviderInterface market, final double cleanPriceNominal) {
-    Validate.notNull(bond, "Coupon");
-    Validate.notNull(market, "Market");
+    ArgChecker.notNull(bond, "Coupon");
+    ArgChecker.notNull(market, "Market");
     Currency ccy = bond.getCurrency();
     final double notional = bond.getCoupon().getNthPayment(0).getNotional();
     final MultiCurrencyAmount nominalAccruedInterest =
@@ -181,8 +179,8 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    */
   public double cleanRealPriceFromCurves(final BondCapitalIndexedSecurity<?> bond, 
       final InflationIssuerProviderInterface curves) {
-    Validate.notNull(bond, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(bond, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     Currency ccy = bond.getCurrency();
     double indexRatioAtSettlement = bond.getIndexRatio();
     double notional = bond.getCoupon().getNthPayment(0).getNotional();
@@ -280,7 +278,7 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    * @return The dirty price.
    */
   public double dirtyPriceFromRealYield(final BondCapitalIndexedSecurity<?> bond, final double yield) {
-    Validate.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
+    ArgChecker.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
     final int nbCoupon = bond.getCoupon().getNumberOfPayments();
     final YieldConvention yieldConvention = bond.getYieldConvention();
     if (yieldConvention.equals(US_IL_REAL)) {
@@ -353,7 +351,7 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    * @return The clean price.
    */
   public double cleanPriceFromYield(final BondCapitalIndexedSecurity<?> bond, final double yield) {
-    Validate.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
+    ArgChecker.isTrue(bond.getNominal().getNumberOfPayments() == 1, "Yield: more than one nominal repayment.");
     final double dirtyPrice = dirtyPriceFromRealYield(bond, yield);
     if (bond.getYieldConvention().equals(INDEX_LINKED_FLOAT)) {
       return cleanNominalPriceFromDirtyNominalPrice(bond, dirtyPrice);

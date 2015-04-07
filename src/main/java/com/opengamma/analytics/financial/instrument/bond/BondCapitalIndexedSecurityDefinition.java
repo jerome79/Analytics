@@ -9,8 +9,7 @@ import java.time.Period;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.AccruedInterestCalculator;
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -651,7 +650,7 @@ public class BondCapitalIndexedSecurityDefinition<C extends CouponInflationDefin
     if (_monthLag != other._monthLag) {
       return false;
     }
-    if (!ObjectUtils.equals(_priceIndex, other._priceIndex)) {
+    if (!Objects.equals(_priceIndex, other._priceIndex)) {
       return false;
     }
     return true;

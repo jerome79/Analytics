@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.model.option.definition.SABRInterestRateParameters;
@@ -103,13 +102,13 @@ public class SABRSwaptionProvider implements SABRSwaptionProviderInterface {
       return false;
     }
     final SABRSwaptionProvider other = (SABRSwaptionProvider) obj;
-    if (!ObjectUtils.equals(_generator, other._generator)) {
+    if (!Objects.equals(_generator, other._generator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

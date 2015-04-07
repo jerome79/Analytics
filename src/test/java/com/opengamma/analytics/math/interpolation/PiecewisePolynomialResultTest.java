@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
@@ -88,7 +87,7 @@ public class PiecewisePolynomialResultTest {
       final PiecewisePolynomialResultsWithSensitivity resSen0 = new PiecewisePolynomialResultsWithSensitivity(new DoubleMatrix1D(knots1), new DoubleMatrix2D(matrix1), order, 2, sense1);
       throw new RuntimeException();
     } catch (Exception e) {
-      assertTrue(e instanceof NotImplementedException);
+      assertTrue(e instanceof UnsupportedOperationException);
     }
   }
 }

@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.curve;
 
 import java.util.LinkedHashMap;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -105,7 +104,7 @@ public class CurveBuildingBlock {
       return false;
     }
     final CurveBuildingBlock other = (CurveBuildingBlock) obj;
-    if (!ObjectUtils.equals(_unit, other._unit)) {
+    if (!Objects.equals(_unit, other._unit)) {
       return false;
     }
     return true;

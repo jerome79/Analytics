@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class CEVFunctionData {
     _forward = f;
     _numeraire = df;
     _volatility = sigma;
-    Validate.isTrue(beta >= 0.0, "beta less than zero not supported");
+    ArgChecker.isTrue(beta >= 0.0, "beta less than zero not supported");
     _beta = beta;
   }
 

@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
@@ -24,7 +23,7 @@ public class FlatDayCountTest {
   private static final ZonedDateTime D1 = DateUtils.getUTCDate(2010, 1, 1);
   private static final ZonedDateTime D2 = DateUtils.getUTCDate(2011, 1, 1);
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testYearFraction() {
     DC.getDayCountFraction(D1, D2);
   }

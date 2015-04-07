@@ -7,9 +7,8 @@ package com.opengamma.analytics.util.amount;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
@@ -235,7 +234,7 @@ public class SurfaceValue {
       return false;
     }
     final SurfaceValue other = (SurfaceValue) obj;
-    if (!ObjectUtils.equals(_data, other._data)) {
+    if (!Objects.equals(_data, other._data)) {
       return false;
     }
     return true;

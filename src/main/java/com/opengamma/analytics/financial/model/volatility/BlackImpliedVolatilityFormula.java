@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -16,8 +15,8 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 public class BlackImpliedVolatilityFormula {
 
   public double getImpliedVolatility(final BlackFunctionData data, final EuropeanVanillaOption option, final double optionPrice) {
-    Validate.notNull(data, "null data");
-    Validate.notNull(option, "null option");
+    ArgChecker.notNull(data, "null data");
+    ArgChecker.notNull(option, "null option");
 
     final double discountFactor = data.getDiscountFactor();
     final boolean isCall = option.isCall();

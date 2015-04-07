@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.cube.Cube;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Peaceman-Rachford splitting with boundary conditions applied at each of the 4 steps
@@ -177,7 +176,7 @@ public class PeacemanRachfordFiniteDifference2Db implements ConvectionDiffusionP
           }
           count++;
         }
-        Validate.isTrue(count < SOR_MAX, "SOR exceeded max interations");
+        ArgChecker.isTrue(count < SOR_MAX, "SOR exceeded max interations");
       }
 
       // stag 3 explicit in x
@@ -287,7 +286,7 @@ public class PeacemanRachfordFiniteDifference2Db implements ConvectionDiffusionP
           }
           count++;
         }
-        Validate.isTrue(count < SOR_MAX, "SOR exceeded max interations");
+        ArgChecker.isTrue(count < SOR_MAX, "SOR exceeded max interations");
       }
 
     } // time loop

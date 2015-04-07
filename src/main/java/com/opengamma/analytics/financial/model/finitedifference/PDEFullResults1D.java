@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,8 +19,8 @@ public class PDEFullResults1D implements PDEResults1D {
   private final PDETerminalResults1D _terminalResults;
 
   public PDEFullResults1D(final PDEGrid1D grid, final double[][] fullSolverData) {
-    Validate.isTrue(grid.getNumTimeNodes() == fullSolverData.length, "time steps in grid not equal to that in data");
-    Validate.isTrue(grid.getNumSpaceNodes() == fullSolverData[0].length, "space steps in grid not equal to that in data");
+    ArgChecker.isTrue(grid.getNumTimeNodes() == fullSolverData.length, "time steps in grid not equal to that in data");
+    ArgChecker.isTrue(grid.getNumSpaceNodes() == fullSolverData[0].length, "space steps in grid not equal to that in data");
     _grid = grid;
     _f = fullSolverData;
     _terminalResults = new PDETerminalResults1D(grid, fullSolverData[grid.getNumTimeNodes() - 1]);

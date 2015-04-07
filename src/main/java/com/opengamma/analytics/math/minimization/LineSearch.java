@@ -7,10 +7,9 @@ package com.opengamma.analytics.math.minimization;
 
 import static com.opengamma.analytics.math.matrix.MatrixAlgebraFactory.OG_ALGEBRA;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,15 +19,15 @@ public class LineSearch {
   private final MinimumBracketer _bracketer;
 
   public LineSearch(final ScalarMinimizer minimizer) {
-    Validate.notNull(minimizer, "null minimizer");
+    ArgChecker.notNull(minimizer, "null minimizer");
     _minimizer = minimizer;
     _bracketer = new ParabolicMinimumBracketer();
   }
 
   public double minimise(final Function1D<DoubleMatrix1D, Double> function, final DoubleMatrix1D direction, final DoubleMatrix1D x) {
-    Validate.notNull(function, "function");
-    Validate.notNull(direction, "direction");
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(direction, "direction");
+    ArgChecker.notNull(x, "x");
     final LineSearchFunction f = new LineSearchFunction(function, direction, x);
 
     final double[] bracketPoints = _bracketer.getBracketedPoints(f, 0, 1);

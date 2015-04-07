@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.forex.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionDigital;
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionVanilla;
 import com.opengamma.analytics.financial.forex.provider.ForexOptionDigitalCallSpreadBlackSmileMethod;
@@ -54,11 +52,11 @@ public class ForexOptionDigitalCallSpreadBlackMethod extends ForexOptionDigitalC
    * @return The gamma.
    */
   public CurrencyAmount gamma(final ForexOptionDigital optionDigital, final YieldCurveBundle curves) {
-    Validate.notNull(optionDigital, "Forex option");
+    ArgChecker.notNull(optionDigital, "Forex option");
     ArgChecker.notNull(curves, "Curves");
     ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Yield curve bundle should contain smile data");
     final SmileDeltaTermStructureDataBundle smile = (SmileDeltaTermStructureDataBundle) curves;
-    Validate.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
     final ForexOptionVanilla[] callSpread = callSpread(optionDigital, getSpread());
     // Spread value
     final CurrencyAmount gammaM = ((ForexOptionVanillaBlackSmileMethod) getBaseMethod()).gamma(callSpread[0], smile, optionDigital.payDomestic());
@@ -74,11 +72,11 @@ public class ForexOptionDigitalCallSpreadBlackMethod extends ForexOptionDigitalC
    * @return The gamma.
    */
   public CurrencyAmount gammaSpot(final ForexOptionDigital optionDigital, final YieldCurveBundle curves) {
-    Validate.notNull(optionDigital, "Forex option");
+    ArgChecker.notNull(optionDigital, "Forex option");
     ArgChecker.notNull(curves, "Curves");
     ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Yield curve bundle should contain smile data");
     final SmileDeltaTermStructureDataBundle smile = (SmileDeltaTermStructureDataBundle) curves;
-    Validate.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
     final ForexOptionVanilla[] callSpread = callSpread(optionDigital, getSpread());
     // Spread value
     final CurrencyAmount gammaM = ((ForexOptionVanillaBlackSmileMethod) getBaseMethod()).gammaSpot(callSpread[0], smile, optionDigital.payDomestic());
@@ -94,9 +92,9 @@ public class ForexOptionDigitalCallSpreadBlackMethod extends ForexOptionDigitalC
    * @return The volatility sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final ForexOptionDigital optionDigital, final SmileDeltaTermStructureDataBundle smile) {
-    Validate.notNull(optionDigital, "Forex option difital");
-    Validate.notNull(smile, "Curve and smile data");
-    Validate.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionDigital, "Forex option difital");
+    ArgChecker.notNull(smile, "Curve and smile data");
+    ArgChecker.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
     final ForexOptionVanilla[] callSpread = callSpread(optionDigital, getSpread());
     // Spread value
     final PresentValueForexBlackVolatilitySensitivity pvbsM = ((ForexOptionVanillaBlackSmileMethod) getBaseMethod()).presentValueBlackVolatilitySensitivity(callSpread[0], smile);
@@ -111,8 +109,8 @@ public class ForexOptionDigitalCallSpreadBlackMethod extends ForexOptionDigitalC
    * @return The volatility sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexOptionDigital, "Digital Forex option");
-    Validate.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexOptionDigital, "Digital Forex option");
+    ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Smile delta data bundle required");
     return presentValueBlackVolatilitySensitivity((ForexOptionDigital) instrument, (SmileDeltaTermStructureDataBundle) curves);
   }
 
@@ -124,10 +122,10 @@ public class ForexOptionDigitalCallSpreadBlackMethod extends ForexOptionDigitalC
    * @return The volatility node sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
   public PresentValueForexBlackVolatilityNodeSensitivityDataBundle presentValueBlackVolatilityNodeSensitivity(final ForexOptionDigital optionDigital, final YieldCurveBundle curves) {
-    Validate.notNull(optionDigital, "Forex option");
+    ArgChecker.notNull(optionDigital, "Forex option");
     ArgChecker.isTrue(curves instanceof SmileDeltaTermStructureDataBundle, "Yield curve bundle should contain smile data");
     final SmileDeltaTermStructureDataBundle smile = (SmileDeltaTermStructureDataBundle) curves;
-    Validate.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
     final PresentValueForexBlackVolatilitySensitivity pointSensitivity = presentValueBlackVolatilitySensitivity(optionDigital, smile); // In ccy2
     final double df = smile.getCurve(optionDigital.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionDigital.getUnderlyingForex().getPaymentTime());
     final double spot = smile.getFxRates().rate(optionDigital.getCurrency1(), optionDigital.getCurrency2());

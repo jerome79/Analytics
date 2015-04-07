@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackPriceFunction;
@@ -15,6 +14,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.C
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.CEVPriceFunction;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -36,11 +36,11 @@ public class MarkovChain {
   }
 
   public MarkovChain(final double vol1, final double vol2, final double lambda12, final double lambda21, final double probState1, final int seed) {
-    Validate.isTrue(vol1 >= 0);
-    Validate.isTrue(vol2 >= 0);
-    Validate.isTrue(lambda12 >= 0);
-    Validate.isTrue(lambda21 >= 0);
-    Validate.isTrue(probState1 >= 0 && probState1 <= 1.0);
+    ArgChecker.isTrue(vol1 >= 0);
+    ArgChecker.isTrue(vol2 >= 0);
+    ArgChecker.isTrue(lambda12 >= 0);
+    ArgChecker.isTrue(lambda21 >= 0);
+    ArgChecker.isTrue(probState1 >= 0 && probState1 <= 1.0);
     _vol1 = vol1;
     _vol2 = vol2;
     _lambda12 = lambda12;
@@ -77,9 +77,9 @@ public class MarkovChain {
   public double[][] price(final double[] forwards, final double[] df, final double[] strike, final double[] expiries, final double[][] sigmas) {
     final int nTime = forwards.length;
     final int nStrikes = strike.length;
-    Validate.isTrue(nTime == df.length);
-    Validate.isTrue(nTime == expiries.length);
-    Validate.isTrue(nTime == sigmas.length);
+    ArgChecker.isTrue(nTime == df.length);
+    ArgChecker.isTrue(nTime == expiries.length);
+    ArgChecker.isTrue(nTime == sigmas.length);
 
     final BlackPriceFunction func = new BlackPriceFunction();
     final double[][] price = new double[nTime][nStrikes];
@@ -159,14 +159,14 @@ public class MarkovChain {
   }
 
   public double[][] simulate(final double[] expiries, final int n, final double a, final double b) {
-    Validate.notNull(expiries);
-    Validate.isTrue(b > a, "need b > a");
-    Validate.isTrue(a >= 0.0, "Nedd a >= 0.0");
-    Validate.isTrue(b <= 1.0, "Nedd b <= 1.0");
+    ArgChecker.notNull(expiries, "expiries");
+    ArgChecker.isTrue(b > a, "need b > a");
+    ArgChecker.isTrue(a >= 0.0, "Nedd a >= 0.0");
+    ArgChecker.isTrue(b <= 1.0, "Nedd b <= 1.0");
     final int m = expiries.length;
-    Validate.isTrue(m > 0);
+    ArgChecker.isTrue(m > 0);
     for (int j = 1; j < m; j++) {
-      Validate.isTrue(expiries[j] > expiries[j - 1]);
+      ArgChecker.isTrue(expiries[j] > expiries[j - 1]);
     }
 
     double vol, lambda, tau;

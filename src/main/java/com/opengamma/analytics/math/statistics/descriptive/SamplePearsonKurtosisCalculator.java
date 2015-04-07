@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The sample Pearson kurtosis gives a measure of how heavy the tails of a
@@ -29,8 +29,8 @@ public class SamplePearsonKurtosisCalculator implements Function<double[], Doubl
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length >= 4, "Need at least four points to calculate kurtosis");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 4, "Need at least four points to calculate kurtosis");
     return KURTOSIS.apply(x) + 3;
   }
 }

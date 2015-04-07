@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.interestrate.payments.derivative;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -56,17 +55,17 @@ public class PaymentTest {
 
     @Override
     public <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> T accept(final InstrumentDerivativeVisitor<?, T> visitor) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @Override
     public double getReferenceAmount() {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
   }

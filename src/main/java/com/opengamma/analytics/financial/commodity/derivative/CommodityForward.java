@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.commodity.derivative;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -207,22 +206,22 @@ public abstract class CommodityForward implements InstrumentDerivative {
     if (Double.doubleToLongBits(_expiry) != Double.doubleToLongBits(other._expiry)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlying, other._underlying)) {
+    if (!Objects.equals(_underlying, other._underlying)) {
       return false;
     }
-    if (!ObjectUtils.equals(_firstDeliveryDate, other._firstDeliveryDate)) {
+    if (!Objects.equals(_firstDeliveryDate, other._firstDeliveryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_lastDeliveryDate, other._lastDeliveryDate)) {
+    if (!Objects.equals(_lastDeliveryDate, other._lastDeliveryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_unitName, other._unitName)) {
+    if (!Objects.equals(_unitName, other._unitName)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementType, other._settlementType)) {
+    if (!Objects.equals(_settlementType, other._settlementType)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
     if (Double.compare(_amount, other._amount) != 0) {

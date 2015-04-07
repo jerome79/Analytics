@@ -6,9 +6,7 @@
 package com.opengamma.analytics.financial.model.volatility.curve;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -24,7 +22,7 @@ public class FXVannaVolgaVolatilityCurveDataBundle {
 
   public FXVannaVolgaVolatilityCurveDataBundle(final double delta, final double riskReversal, final double atm, final double vegaWeightedButterfly, final ZonedDateTime maturity) {
     ArgChecker.notNegative(atm, "atm");
-    Validate.notNull(maturity, "maturity");
+    ArgChecker.notNull(maturity, "maturity");
     _delta = delta;
     _riskReversal = riskReversal;
     _atm = atm;
@@ -87,7 +85,7 @@ public class FXVannaVolgaVolatilityCurveDataBundle {
     if (Double.doubleToLongBits(_delta) != Double.doubleToLongBits(other._delta)) {
       return false;
     }
-    if (!ObjectUtils.equals(_maturity, other._maturity)) {
+    if (!Objects.equals(_maturity, other._maturity)) {
       return false;
     }
     if (Double.doubleToLongBits(_riskReversal) != Double.doubleToLongBits(other._riskReversal)) {

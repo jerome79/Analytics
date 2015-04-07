@@ -8,9 +8,9 @@ package com.opengamma.analytics.math.rootfinding;
 import cern.colt.matrix.DoubleFactory2D;
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.linalg.EigenvalueDecomposition;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The eigenvalues of a matrix $\mathbf{A}$ are the roots of the characteristic
@@ -43,7 +43,7 @@ public class EigenvaluePolynomialRootFinder implements Polynomial1DRootFinder<Do
    */
   @Override
   public Double[] getRoots(final RealPolynomialFunction1D function) {
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     final double[] coeffs = function.getCoefficients();
     final int l = coeffs.length - 1;
     final DoubleMatrix2D hessian = DoubleFactory2D.dense.make(l, l);

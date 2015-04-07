@@ -5,8 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.interestrate.definition;
 
+import java.util.Objects;
+
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -136,10 +137,10 @@ public class HullWhiteOneFactorPiecewiseConstantParameters {
     if (Double.doubleToLongBits(_meanReversion) != Double.doubleToLongBits(other._meanReversion)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatility, other._volatility)) {
+    if (!Objects.equals(_volatility, other._volatility)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilityTime, other._volatilityTime)) {
+    if (!Objects.equals(_volatilityTime, other._volatilityTime)) {
       return false;
     }
     return true;

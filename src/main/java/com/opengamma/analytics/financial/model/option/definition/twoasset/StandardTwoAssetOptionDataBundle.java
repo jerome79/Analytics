@@ -6,9 +6,7 @@
 package com.opengamma.analytics.financial.model.option.definition.twoasset;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
@@ -64,7 +62,7 @@ public class StandardTwoAssetOptionDataBundle {
    * @throws IllegalArgumentException If the other data bundle is null
    */
   public StandardTwoAssetOptionDataBundle(final StandardTwoAssetOptionDataBundle other) {
-    Validate.notNull(other, "data bundle");
+    ArgChecker.notNull(other, "data bundle");
     _interestRateCurve = other.getInterestRateCurve();
     _b1 = other.getFirstCostOfCarry();
     _b2 = other.getSecondCostOfCarry();
@@ -311,10 +309,10 @@ public class StandardTwoAssetOptionDataBundle {
     if (Double.doubleToLongBits(_b2) != Double.doubleToLongBits(other._b2)) {
       return false;
     }
-    if (!ObjectUtils.equals(_date, other._date)) {
+    if (!Objects.equals(_date, other._date)) {
       return false;
     }
-    if (!ObjectUtils.equals(_interestRateCurve, other._interestRateCurve)) {
+    if (!Objects.equals(_interestRateCurve, other._interestRateCurve)) {
       return false;
     }
     if (Double.doubleToLongBits(_rho) != Double.doubleToLongBits(other._rho)) {
@@ -326,10 +324,10 @@ public class StandardTwoAssetOptionDataBundle {
     if (Double.doubleToLongBits(_spot2) != Double.doubleToLongBits(other._spot2)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilitySurface1, other._volatilitySurface1)) {
+    if (!Objects.equals(_volatilitySurface1, other._volatilitySurface1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilitySurface2, other._volatilitySurface2)) {
+    if (!Objects.equals(_volatilitySurface2, other._volatilitySurface2)) {
       return false;
     }
     return true;

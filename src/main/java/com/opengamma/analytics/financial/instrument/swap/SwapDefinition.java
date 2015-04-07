@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.swap;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -88,10 +87,10 @@ public class SwapDefinition implements InstrumentDefinitionWithData<Swap<? exten
       return false;
     }
     final SwapDefinition other = (SwapDefinition) obj;
-    if (!ObjectUtils.equals(_firstLeg, other._firstLeg)) {
+    if (!Objects.equals(_firstLeg, other._firstLeg)) {
       return false;
     }
-    if (!ObjectUtils.equals(_secondLeg, other._secondLeg)) {
+    if (!Objects.equals(_secondLeg, other._secondLeg)) {
       return false;
     }
     return true;

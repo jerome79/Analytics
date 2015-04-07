@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -15,7 +15,7 @@ public class RichardsonExtrapolationFiniteDifference implements ConvectionDiffus
   private final ConvectionDiffusionPDESolver _baseSolver;
 
   public RichardsonExtrapolationFiniteDifference(final ConvectionDiffusionPDESolver baseSolver) {
-    Validate.notNull(baseSolver, "null baseSolver");
+    ArgChecker.notNull(baseSolver, "null baseSolver");
     _baseSolver = baseSolver;
   }
 

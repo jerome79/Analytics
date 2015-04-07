@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.model.volatility.surface;
 
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.google.common.collect.ImmutableList;
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
@@ -178,6 +177,6 @@ public class VolatilitySurface implements VolatilityModel<DoublesPair> {
       return false;
     }
     final VolatilitySurface other = (VolatilitySurface) obj;
-    return ObjectUtils.equals(_surface, other._surface);
+    return Objects.equals(_surface, other._surface);
   }
 }

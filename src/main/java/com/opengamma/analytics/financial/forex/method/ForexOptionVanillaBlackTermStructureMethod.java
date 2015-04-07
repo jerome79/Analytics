@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionVanilla;
 import com.opengamma.analytics.financial.forex.provider.ForexOptionVanillaBlackFlatMethod;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -67,9 +65,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The present value. The value is in the domestic currency (currency 2).
    */
   public MultiCurrencyAmount presentValue(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double dfDomestic = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
@@ -112,9 +110,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The currency exposure
    */
   public MultiCurrencyAmount currencyExposure(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double dfDomestic = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
@@ -136,8 +134,8 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
 
   @Override
   public MultiCurrencyAmount currencyExposure(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexOptionVanilla, "Vanilla Forex option");
-    Validate.isTrue(curves instanceof YieldCurveWithBlackForexTermStructureBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexOptionVanilla, "Vanilla Forex option");
+    ArgChecker.isTrue(curves instanceof YieldCurveWithBlackForexTermStructureBundle, "Smile delta data bundle required");
     return currencyExposure((ForexOptionVanilla) instrument, (YieldCurveWithBlackForexTermStructureBundle) curves);
   }
 
@@ -149,9 +147,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The delta.
    */
   public double deltaRelative(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black, final boolean directQuote) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double dfDomestic = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
@@ -176,9 +174,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The delta.
    */
   public double deltaRelativeSpot(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black, final boolean directQuote) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double dfDomestic = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
@@ -203,9 +201,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The gamma.
    */
   public double gammaRelative(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black, final boolean directQuote) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double dfDomestic = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
@@ -231,9 +229,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The gamma.
    */
   public double gammaRelativeSpot(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black, final boolean directQuote) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double dfDomestic = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double dfForeign = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
@@ -321,9 +319,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The curve sensitivity.
    */
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double payTime = optionForex.getUnderlyingForex().getPaymentTime();
     final String domesticCurveName = optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName();
@@ -365,8 +363,8 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    */
   @Override
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final InstrumentDerivative instrument, final YieldCurveBundle black) {
-    Validate.isTrue(instrument instanceof ForexOptionVanilla, "Vanilla Forex option");
-    Validate.isTrue(black instanceof YieldCurveWithBlackForexTermStructureBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexOptionVanilla, "Vanilla Forex option");
+    ArgChecker.isTrue(black instanceof YieldCurveWithBlackForexTermStructureBundle, "Smile delta data bundle required");
     return presentValueCurveSensitivity((ForexOptionVanilla) instrument, (YieldCurveWithBlackForexTermStructureBundle) black);
   }
 
@@ -378,9 +376,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The volatility sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final double df = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime())
@@ -404,8 +402,8 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @return The volatility sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final InstrumentDerivative instrument, final YieldCurveBundle black) {
-    Validate.isTrue(instrument instanceof ForexOptionVanilla, "Vanilla Forex option");
-    Validate.isTrue(black instanceof YieldCurveWithBlackForexTermStructureBundle, "Smile delta data bundle required");
+    ArgChecker.isTrue(instrument instanceof ForexOptionVanilla, "Vanilla Forex option");
+    ArgChecker.isTrue(black instanceof YieldCurveWithBlackForexTermStructureBundle, "Smile delta data bundle required");
     return presentValueBlackVolatilitySensitivity((ForexOptionVanilla) instrument, (YieldCurveWithBlackForexTermStructureBundle) black);
   }
 
@@ -417,9 +415,9 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    */
   //TODO: REVIEW: should a new object with the sensitivity be created?
   public double[] presentValueBlackVolatilityNodeSensitivity(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(black, "Smile");
-    Validate.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(black, "Smile");
+    ArgChecker.isTrue(black.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final int nbParameters = black.getVolatilityModel().getVolatilityCurve().size();
     final double df = black.getCurve(optionForex.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionForex.getUnderlyingForex().getPaymentTime());
     final double spot = black.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());

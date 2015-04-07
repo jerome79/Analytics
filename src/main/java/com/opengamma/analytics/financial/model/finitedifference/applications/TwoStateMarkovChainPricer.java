@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoupledCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.CoupledFiniteDifference;
@@ -19,6 +17,7 @@ import com.opengamma.analytics.financial.model.finitedifference.PDEResults1D;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.volatility.local.AbsoluteLocalVolatilitySurface;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Solves a coupled forward PDE for the price of a call option when the process is CEV with vol levels determined by a two state Markov chain.  
@@ -38,8 +37,8 @@ public class TwoStateMarkovChainPricer {
   //  private final double _p0;
 
   public TwoStateMarkovChainPricer(final ForwardCurve forward, final TwoStateMarkovChainDataBundle chainDB) {
-    Validate.notNull(forward, "null forward curve");
-    Validate.notNull(chainDB, "null MC DB");
+    ArgChecker.notNull(forward, "null forward curve");
+    ArgChecker.notNull(chainDB, "null MC DB");
 
     _forward = forward;
     _chainDB = chainDB;
@@ -55,9 +54,9 @@ public class TwoStateMarkovChainPricer {
    * @param localVolOverlay The local volatility overlay
    */
   public TwoStateMarkovChainPricer(final ForwardCurve forward, final TwoStateMarkovChainDataBundle chainDB, final AbsoluteLocalVolatilitySurface localVolOverlay) {
-    Validate.notNull(forward, "null forward curve");
-    Validate.notNull(chainDB, "null MC DB");
-    Validate.notNull(localVolOverlay, "null local vol");
+    ArgChecker.notNull(forward, "null forward curve");
+    ArgChecker.notNull(chainDB, "null MC DB");
+    ArgChecker.notNull(localVolOverlay, "null local vol");
 
     _forward = forward;
     _chainDB = chainDB;
@@ -67,10 +66,10 @@ public class TwoStateMarkovChainPricer {
   }
 
   PDEFullResults1D solve(final PDEGrid1D grid, final double theta) {
-    Validate.notNull(grid, "null grid");
-    Validate.isTrue(0 <= theta && theta <= 1.0, "theta must be in range 0 to 1");
+    ArgChecker.notNull(grid, "null grid");
+    ArgChecker.isTrue(0 <= theta && theta <= 1.0, "theta must be in range 0 to 1");
 
-    Validate.isTrue(grid.getSpaceNode(0) == 0.0, "space grid must start at zero");
+    ArgChecker.isTrue(grid.getSpaceNode(0) == 0.0, "space grid must start at zero");
 
     final Function1D<Double, Double> strikeZeroPrice1 = new Function1D<Double, Double>() {
       @SuppressWarnings("synthetic-access")

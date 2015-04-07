@@ -12,14 +12,13 @@ import static com.opengamma.analytics.math.ComplexMathUtils.multiply;
 import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static com.opengamma.analytics.math.number.ComplexNumber.MINUS_I;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.Integrator1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -34,17 +33,17 @@ public class FourierModelGreeks {
   }
 
   public FourierModelGreeks(final Integrator1D<Double, Double> integrator) {
-    Validate.notNull(integrator, "null integrator");
+    ArgChecker.notNull(integrator, "null integrator");
     _integrator = integrator;
   }
 
 
   public double[] getGreeks(final BlackFunctionData data, final EuropeanVanillaOption option, final MartingaleCharacteristicExponent ce, final double alpha, final double limitTolerance) {
-    Validate.notNull(data, "data");
-    Validate.notNull(option, "option");
-    Validate.notNull(ce, "characteristic exponent");
-    Validate.isTrue(limitTolerance > 0, "limit tolerance must be > 0");
-    Validate.isTrue(alpha <= ce.getLargestAlpha() && alpha >= ce.getSmallestAlpha(),
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
+    ArgChecker.notNull(ce, "characteristic exponent");
+    ArgChecker.isTrue(limitTolerance > 0, "limit tolerance must be > 0");
+    ArgChecker.isTrue(alpha <= ce.getLargestAlpha() && alpha >= ce.getSmallestAlpha(),
         "The value of alpha is not valid for the Characteristic Exponent and will most likely lead to mispricing. Choose a value between " + ce.getSmallestAlpha() + " and " + ce.getLargestAlpha());
 
     final EuropeanCallFourierTransform psi = new EuropeanCallFourierTransform(ce);

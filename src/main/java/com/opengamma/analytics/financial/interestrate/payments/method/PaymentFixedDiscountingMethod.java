@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -20,6 +18,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.util.amount.StringAmount;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -55,8 +54,8 @@ public final class PaymentFixedDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final PaymentFixed payment, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(payment);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(payment, "payment");
     final YieldAndDiscountCurve fundingCurve = curves.getCurve(payment.getFundingCurveName());
     final double pv = payment.getAmount() * fundingCurve.getDiscountFactor(payment.getPaymentTime());
     return CurrencyAmount.of(payment.getCurrency(), pv);
@@ -64,8 +63,8 @@ public final class PaymentFixedDiscountingMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.notNull(instrument);
-    Validate.isTrue(instrument instanceof PaymentFixed, "Payment Fixed");
+    ArgChecker.notNull(instrument, "instrument");
+    ArgChecker.isTrue(instrument instanceof PaymentFixed, "Payment Fixed");
     return presentValue((PaymentFixed) instrument, curves);
   }
 

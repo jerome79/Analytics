@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
@@ -26,6 +24,7 @@ import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -53,7 +52,7 @@ public class SABRNonLinearLeastSquareFitter extends LeastSquareSmileFitter {
   }
 
   public SABRNonLinearLeastSquareFitter(final VolatilityFunctionProvider<SABRFormulaData> formula) {
-    Validate.notNull(formula, "SABR formula");
+    ArgChecker.notNull(formula, "SABR formula");
     _formula = formula;
     _atmCalculator = new SABRATMVolatilityCalculator(formula);
   }
@@ -78,7 +77,7 @@ public class SABRNonLinearLeastSquareFitter extends LeastSquareSmileFitter {
       final BitSet fixed, final double atmVol, final boolean recoverATMVol) {
     testData(options, data, errors, initialFitParameters, fixed, N_PARAMETERS);
     if (recoverATMVol) {
-      Validate.isTrue(atmVol > 0.0, "ATM volatility must be > 0");
+      ArgChecker.isTrue(atmVol > 0.0, "ATM volatility must be > 0");
       fixed.set(0, true);
     }
     final int n = options.length;
@@ -89,7 +88,7 @@ public class SABRNonLinearLeastSquareFitter extends LeastSquareSmileFitter {
     strikes[0] = options[0].getStrike();
     blackVols[0] = data[0].getBlackVolatility();
     for (int i = 1; i < n; i++) {
-      Validate.isTrue(CompareUtils.closeEquals(options[i].getTimeToExpiry(), maturity),
+      ArgChecker.isTrue(CompareUtils.closeEquals(options[i].getTimeToExpiry(), maturity),
           "All options must have the same maturity " + maturity + "; have one with maturity " + options[i].getTimeToExpiry());
       strikes[i] = options[i].getStrike();
       blackVols[i] = data[i].getBlackVolatility();

@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.instrument;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -23,11 +23,11 @@ public class Convention {
   private final String _name;
 
   public Convention(final int settlementDays, final DayCount dayCount, final BusinessDayConvention businessDayConvention, final HolidayCalendar workingDayCalendar, final String name) {
-    Validate.isTrue(settlementDays >= 0);
-    Validate.notNull(dayCount);
-    Validate.notNull(businessDayConvention);
-    Validate.notNull(workingDayCalendar);
-    Validate.notNull(name, "name");
+    ArgChecker.isTrue(settlementDays >= 0);
+    ArgChecker.notNull(dayCount, "dayCount");
+    ArgChecker.notNull(businessDayConvention, "businessDayConvention");
+    ArgChecker.notNull(workingDayCalendar, "workingDayCalendar");
+    ArgChecker.notNull(name, "name");
     _settlementDays = settlementDays;
     _dayCount = dayCount;
     _businessDayConvention = businessDayConvention;
@@ -79,19 +79,19 @@ public class Convention {
       return false;
     }
     final Convention other = (Convention) obj;
-    if (!ObjectUtils.equals(_businessDayConvention, other._businessDayConvention)) {
+    if (!Objects.equals(_businessDayConvention, other._businessDayConvention)) {
       return false;
     }
-    if (!ObjectUtils.equals(_dayCount, other._dayCount)) {
+    if (!Objects.equals(_dayCount, other._dayCount)) {
       return false;
     }
     if (_settlementDays != other._settlementDays) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
-    return ObjectUtils.equals(_workingDayCalendar, other._workingDayCalendar);
+    return Objects.equals(_workingDayCalendar, other._workingDayCalendar);
   }
 
 }

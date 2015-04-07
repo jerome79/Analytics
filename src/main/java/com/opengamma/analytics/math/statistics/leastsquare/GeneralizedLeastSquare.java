@@ -9,9 +9,8 @@ import static org.apache.commons.math.util.MathUtils.binomialCoefficient;
 
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
@@ -22,6 +21,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -77,8 +77,8 @@ public class GeneralizedLeastSquare {
     ArgChecker.isTrue(differenceOrder >= 0, "difference order");
 
     final List<T> lx = Lists.newArrayList(x);
-    final List<Double> ly = Lists.newArrayList(ArrayUtils.toObject(y));
-    final List<Double> lsigma = Lists.newArrayList(ArrayUtils.toObject(sigma));
+    final List<Double> ly = Lists.newArrayList(Doubles.asList(y));
+    final List<Double> lsigma = Lists.newArrayList(Doubles.asList(sigma));
 
     return solveImp(lx, ly, lsigma, basisFunctions, lambda, differenceOrder);
   }

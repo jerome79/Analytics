@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DFullCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DStandardCoefficients;
@@ -17,6 +15,7 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -36,7 +35,7 @@ public class LocalVolDensity {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double sigma = localVol.getVolatility(t, s) * s;
@@ -48,7 +47,7 @@ public class LocalVolDensity {
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double lvDiv = getLocalVolFirstDiv(localVol, t, s);
@@ -61,7 +60,7 @@ public class LocalVolDensity {
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double lv1Div = getLocalVolFirstDiv(localVol, t, s);
@@ -104,7 +103,7 @@ public class LocalVolDensity {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return -1.0;
       }
     };
@@ -112,7 +111,7 @@ public class LocalVolDensity {
     final Function<Double, Double> alpha = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double temp = s * localVol.getVolatility(t, s);
@@ -124,7 +123,7 @@ public class LocalVolDensity {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         return s * forward.getDrift(t);
@@ -134,7 +133,7 @@ public class LocalVolDensity {
     final Function<Double, Double> beta = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return 1.0;
       }
     };
@@ -142,7 +141,7 @@ public class LocalVolDensity {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
 
         return forward.getDrift(t);
@@ -159,7 +158,7 @@ public class LocalVolDensity {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return -1.0;
       }
     };
@@ -167,7 +166,7 @@ public class LocalVolDensity {
     final Function<Double, Double> alpha = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double temp = s * localVol.getVolatility(t, s);
@@ -179,7 +178,7 @@ public class LocalVolDensity {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         return s * forward.getDrift(t);
@@ -189,7 +188,7 @@ public class LocalVolDensity {
     final Function<Double, Double> beta = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return 1.0;
       }
     };
@@ -197,7 +196,7 @@ public class LocalVolDensity {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
 
         return forward.getDrift(t) + lambda1;

@@ -6,13 +6,12 @@
 package com.opengamma.analytics.financial.simpleinstruments.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.simpleinstruments.derivative.SimpleFXFuture;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -27,10 +26,10 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
   
   public SimpleFXFutureDefinition(final ZonedDateTime expiryDate, final ZonedDateTime settlementDate, final double referencePrice, final Currency payCurrency, final Currency recieveCurrency, 
       final double unitAmount) {
-    Validate.notNull(expiryDate, "expiry date");
-    Validate.notNull(settlementDate, "settlement date");
-    Validate.notNull(payCurrency, "pay currency");
-    Validate.notNull(recieveCurrency, "receive currency");
+    ArgChecker.notNull(expiryDate, "expiry date");
+    ArgChecker.notNull(settlementDate, "settlement date");
+    ArgChecker.notNull(payCurrency, "pay currency");
+    ArgChecker.notNull(recieveCurrency, "receive currency");
     _expiryDate = expiryDate;
     _settlementDate = settlementDate;
     _referencePrice = referencePrice;
@@ -65,8 +64,8 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
   
   @Override
   public SimpleFXFuture toDerivative(final ZonedDateTime date) {
-    Validate.notNull(date, "date");
-    Validate.isTrue(date.isBefore(_expiryDate));
+    ArgChecker.notNull(date, "date");
+    ArgChecker.isTrue(date.isBefore(_expiryDate));
     double timeToFixing = TimeCalculator.getTimeBetween(date, _expiryDate);
     double timeToDelivery = TimeCalculator.getTimeBetween(date, _settlementDate);
     return new SimpleFXFuture(timeToFixing, timeToDelivery, _referencePrice, _unitAmount, _payCurrency, _receiveCurrency);
@@ -103,16 +102,16 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
     if (Double.doubleToLongBits(_referencePrice) != Double.doubleToLongBits(other._referencePrice)) {
       return false;
     }
-    if (!ObjectUtils.equals(_expiryDate, other._expiryDate)) {
+    if (!Objects.equals(_expiryDate, other._expiryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementDate, other._settlementDate)) {
+    if (!Objects.equals(_settlementDate, other._settlementDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_payCurrency, other._payCurrency)) {
+    if (!Objects.equals(_payCurrency, other._payCurrency)) {
       return false;
     }   
-    if (!ObjectUtils.equals(_receiveCurrency, other._receiveCurrency)) {
+    if (!Objects.equals(_receiveCurrency, other._receiveCurrency)) {
       return false;
     }
     if (Double.doubleToLongBits(_unitAmount) != Double.doubleToLongBits(other._unitAmount)) {

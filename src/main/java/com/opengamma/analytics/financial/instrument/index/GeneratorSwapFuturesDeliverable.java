@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.future.SwapFuturesPriceDeliverableSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.future.SwapFuturesPriceDeliverableTransactionDefinition;
@@ -72,7 +71,7 @@ public class GeneratorSwapFuturesDeliverable extends GeneratorInstrument<Generat
       return false;
     }
     final GeneratorSwapFuturesDeliverable other = (GeneratorSwapFuturesDeliverable) obj;
-    if (!ObjectUtils.equals(_security, other._security)) {
+    if (!Objects.equals(_security, other._security)) {
       return false;
     }
     return true;

@@ -9,9 +9,8 @@ import static com.opengamma.strata.basics.currency.Currency.USD;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
-
-import org.apache.commons.lang.ArrayUtils;
 
 import com.opengamma.analytics.convention.rolldate.QuarterlyIMMRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
@@ -285,7 +284,7 @@ public class UsdDatasetJuly16 {
     InstrumentDefinition<?>[] fwd3Definitions = new InstrumentDefinition<?>[nbImmSwaps + 1];
     fwd3Definitions[0] = new DepositIborDefinition(USD, calibrationDate, immDates[0], NOTIONAL,
         marketQuoteFwd3m[0], USDLIBOR3M.getDayCount().getDayCountFraction(calibrationDate, immDates[0]), USDLIBOR3M);
-    double[] parRateSwp = ArrayUtils.subarray(marketQuoteFwd3m, 1, nbImmSwaps + 1);
+    double[] parRateSwp = Arrays.copyOfRange(marketQuoteFwd3m, 1, nbImmSwaps + 1);
     InstrumentDefinition<?>[] swpDefinition = ComputedDataSetsMulticurveImmUsd.generateImmIrs(immDates, parRateSwp);
     for (int loopimm = 0; loopimm < nbImmSwaps; loopimm++) {
       fwd3Definitions[loopimm + 1] = swpDefinition[loopimm];
@@ -311,7 +310,7 @@ public class UsdDatasetJuly16 {
     dscDefinitions[0] = new CashDefinition(USD, calibrationDate, immDates[0], NOTIONAL,
         marketQuoteDsc[0], USDFEDFUND.getDayCount().getDayCountFraction(calibrationDate, immDates[0]));
     InstrumentDefinition<?>[] oisDefinition = 
-        ComputedDataSetsMulticurveImmUsd.generateImmOis(immDates, ArrayUtils.subarray(marketQuoteDsc, 1, nbImmSwaps + 1));
+        ComputedDataSetsMulticurveImmUsd.generateImmOis(immDates, Arrays.copyOfRange(marketQuoteDsc, 1, nbImmSwaps + 1));
     for (int loopimm = 0; loopimm < nbImmSwaps; loopimm++) {
       dscDefinitions[loopimm + 1] = oisDefinition[loopimm];
     }

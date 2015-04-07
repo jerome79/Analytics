@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.math.statistics.leastsquare;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.math.minimization.NonLinearParameterTransforms;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Container for the results of a least square (minimum chi-square) fit, where some model (with a set of parameters), is calibrated
@@ -34,7 +33,7 @@ public class LeastSquareResultsWithTransform extends LeastSquareResults {
 
   public LeastSquareResultsWithTransform(final LeastSquareResults transformedFitResult, final NonLinearParameterTransforms transform) {
     super(transformedFitResult);
-    Validate.notNull(transform, "null transform");
+    ArgChecker.notNull(transform, "null transform");
     _transform = transform;
     _modelParameters = transform.inverseTransform(getFitParameters());
   }

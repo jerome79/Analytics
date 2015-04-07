@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
@@ -282,10 +281,10 @@ public class CouponFixed extends Coupon {
     if (Double.doubleToLongBits(_fixedRate) != Double.doubleToLongBits(other._fixedRate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_accrualEndDate, other._accrualEndDate)) {
+    if (!Objects.equals(_accrualEndDate, other._accrualEndDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_accrualStartDate, other._accrualStartDate)) {
+    if (!Objects.equals(_accrualStartDate, other._accrualStartDate)) {
       return false;
     }
     return true;

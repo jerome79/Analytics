@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.cash.DepositIborDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -85,10 +84,10 @@ public class GeneratorDepositIbor extends GeneratorInstrument<GeneratorAttribute
       return false;
     }
     final GeneratorDepositIbor other = (GeneratorDepositIbor) obj;
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
     return true;

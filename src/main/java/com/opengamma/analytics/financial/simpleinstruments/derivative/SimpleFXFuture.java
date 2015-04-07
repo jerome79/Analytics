@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.simpleinstruments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -22,9 +22,9 @@ public class SimpleFXFuture implements SimpleInstrument {
   private final Currency _receiveCurrency;
   
   public SimpleFXFuture(final double expiry, final double settlement, final double referencePrice, final double unitAmount, final Currency payCurrency, final Currency receiveCurrency) {
-    Validate.notNull(payCurrency, "currency");
-    Validate.isTrue(expiry >= 0, "time to expiry must be positive");
-    Validate.isTrue(settlement >= 0, "time to settlement must be positive");
+    ArgChecker.notNull(payCurrency, "currency");
+    ArgChecker.isTrue(expiry >= 0, "time to expiry must be positive");
+    ArgChecker.isTrue(settlement >= 0, "time to settlement must be positive");
     _expiry = expiry;
     _settlement = settlement;
     _referencePrice = referencePrice;
@@ -99,10 +99,10 @@ public class SimpleFXFuture implements SimpleInstrument {
     if (Double.doubleToLongBits(_unitAmount) != Double.doubleToLongBits(other._unitAmount)) {
       return false;
     }
-    if (!ObjectUtils.equals(_payCurrency, other._payCurrency)) {
+    if (!Objects.equals(_payCurrency, other._payCurrency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_receiveCurrency, other._receiveCurrency)) {
+    if (!Objects.equals(_receiveCurrency, other._receiveCurrency)) {
       return false;
     }
     return true;

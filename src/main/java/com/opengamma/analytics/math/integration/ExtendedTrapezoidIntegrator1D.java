@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.integration.TrapezoidIntegrator;
 import org.apache.commons.math.analysis.integration.UnivariateRealIntegrator;
@@ -15,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The trapezoid integration rule is a two-point Newton-Cotes formula that
@@ -39,9 +39,9 @@ public class ExtendedTrapezoidIntegrator1D extends Integrator1D<Double, Double> 
    */
   @Override
   public Double integrate(final Function1D<Double, Double> f, final Double lower, final Double upper) {
-    Validate.notNull(f);
-    Validate.notNull(lower);
-    Validate.notNull(upper);
+    ArgChecker.notNull(f, "f");
+    ArgChecker.notNull(lower, "lower");
+    ArgChecker.notNull(upper, "upper");
     try {
       if (lower < upper) {
         return INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariate(f), lower, upper);

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.forex.provider;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionDigital;
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionVanilla;
@@ -161,8 +159,8 @@ public class ForexOptionDigitalCallSpreadBlackSmileMethod {
   public PresentValueForexBlackVolatilityNodeSensitivityDataBundle presentValueBlackVolatilityNodeSensitivity(final ForexOptionDigital optionDigital,
       final BlackForexSmileProviderInterface smileMulticurves) {
     ArgChecker.notNull(optionDigital, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
     MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final PresentValueForexBlackVolatilitySensitivity pointSensitivity = presentValueBlackVolatilitySensitivity(optionDigital, smileMulticurves); // In ccy2
     final double df = multicurves.getDiscountFactor(optionDigital.getCurrency2(), optionDigital.getUnderlyingForex().getPaymentTime());

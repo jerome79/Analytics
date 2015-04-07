@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 import com.opengamma.analytics.math.function.special.LegendrePolynomialFunction;
 import com.opengamma.analytics.math.rootfinding.NewtonRaphsonSingleRootFinder;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -34,7 +33,7 @@ public class GaussLegendreWeightAndAbscissaFunction implements QuadratureWeightA
    */
   @Override
   public GaussianQuadratureData generate(final int n) {
-    Validate.isTrue(n > 0);
+    ArgChecker.isTrue(n > 0);
     final int mid = (n + 1) / 2;
     final double[] x = new double[n];
     final double[] w = new double[n];

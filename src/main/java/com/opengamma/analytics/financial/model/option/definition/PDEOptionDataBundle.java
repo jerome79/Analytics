@@ -6,11 +6,10 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Describes a partial differential for a option price V in the form
@@ -24,9 +23,9 @@ public class PDEOptionDataBundle extends StandardOptionDataBundle {
 
   public PDEOptionDataBundle(final Surface<Double, Double, Double> a, final Surface<Double, Double, Double> b, final Surface<Double, Double, Double> c, final double spot, final ZonedDateTime date) {
     super(null, 0.0, null, spot, date);
-    Validate.notNull(a, "null a");
-    Validate.notNull(b, "null b");
-    Validate.notNull(c, "null c");
+    ArgChecker.notNull(a, "null a");
+    ArgChecker.notNull(b, "null b");
+    ArgChecker.notNull(c, "null c");
     _a = a;
     _b = b;
     _c = c;
@@ -71,13 +70,13 @@ public class PDEOptionDataBundle extends StandardOptionDataBundle {
       return false;
     }
     final PDEOptionDataBundle other = (PDEOptionDataBundle) obj;
-    if (!ObjectUtils.equals(_a, other._a)) {
+    if (!Objects.equals(_a, other._a)) {
       return false;
     }
-    if (!ObjectUtils.equals(_b, other._b)) {
+    if (!Objects.equals(_b, other._b)) {
       return false;
     }
-    if (!ObjectUtils.equals(_c, other._c)) {
+    if (!Objects.equals(_c, other._c)) {
       return false;
     }
     return true;

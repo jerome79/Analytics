@@ -12,14 +12,13 @@ import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static com.opengamma.analytics.math.number.ComplexNumber.MINUS_I;
 import static com.opengamma.analytics.math.number.ComplexNumber.ZERO;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.ComplexMathUtils;
 import com.opengamma.analytics.math.fft.JTransformsWrapper;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -48,13 +47,13 @@ public class FFTModelGreeks {
   public double[][] getGreeks(final double forward, final double discountFactor, final double t, final boolean isCall, final MartingaleCharacteristicExponent ce, final double lowestStrike,
       final double highestStrike, final int minStrikesDisplayed, final double limitSigma, final double alpha, final double tol) {
 
-    Validate.notNull(ce, "characteristic exponent");
-    Validate.isTrue(tol > 0.0, "need tol > 0");
-    Validate.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
+    ArgChecker.notNull(ce, "characteristic exponent");
+    ArgChecker.isTrue(tol > 0.0, "need tol > 0");
+    ArgChecker.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
 
-    Validate.isTrue(lowestStrike <= forward, "need lowestStrike <= forward");
-    Validate.isTrue(highestStrike >= forward, "need highestStrike >= forward");
-    Validate.isTrue(limitSigma > 0.0, "need limitSigma > 0");
+    ArgChecker.isTrue(lowestStrike <= forward, "need lowestStrike <= forward");
+    ArgChecker.isTrue(highestStrike >= forward, "need highestStrike >= forward");
+    ArgChecker.isTrue(limitSigma > 0.0, "need limitSigma > 0");
 
     double kMax;
     final double limitSigmaRootT = limitSigma * Math.sqrt(t);
@@ -110,13 +109,13 @@ public class FFTModelGreeks {
   public double[][] getGreeks(final double forward, final double discountFactor, final double t, final boolean isCall, final MartingaleCharacteristicExponent ce, final int nStrikesBelowATM,
       final int nStrikesAboveATM, final double alpha, final double delta, final int n, final int m) {
 
-    Validate.notNull(ce, "characteristic exponent");
-    Validate.isTrue(nStrikesBelowATM >= 0, "nStrikesBelowATM >= 0");
-    Validate.isTrue(nStrikesAboveATM >= 0, "nStrikesAboveATM >= 0");
-    Validate.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
-    Validate.isTrue(delta > 0.0, "need delta > 0");
-    Validate.isTrue(m > 0, "need m > 0");
-    Validate.isTrue(n >= 2 * m - 1, "need n > 2m-1");
+    ArgChecker.notNull(ce, "characteristic exponent");
+    ArgChecker.isTrue(nStrikesBelowATM >= 0, "nStrikesBelowATM >= 0");
+    ArgChecker.isTrue(nStrikesAboveATM >= 0, "nStrikesAboveATM >= 0");
+    ArgChecker.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
+    ArgChecker.isTrue(delta > 0.0, "need delta > 0");
+    ArgChecker.isTrue(m > 0, "need m > 0");
+    ArgChecker.isTrue(n >= 2 * m - 1, "need n > 2m-1");
 
     final Function1D<ComplexNumber, ComplexNumber[]> func = ce.getAdjointFunction(t);
     final int halfN = n % 2 == 0 ? n / 2 : (n + 1) / 2;

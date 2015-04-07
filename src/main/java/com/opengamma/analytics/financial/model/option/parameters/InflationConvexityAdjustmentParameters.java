@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.model.option.parameters;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.math.curve.Curve;
@@ -148,16 +147,16 @@ public class InflationConvexityAdjustmentParameters {
     if (!Arrays.equals(_atmVolatility, other._atmVolatility)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_liborCorrelation, other._liborCorrelation)) {
+    if (!Objects.equals(_liborCorrelation, other._liborCorrelation)) {
       return false;
     }
-    if (!ObjectUtils.equals(_priceIndexCorrelation, other._priceIndexCorrelation)) {
+    if (!Objects.equals(_priceIndexCorrelation, other._priceIndexCorrelation)) {
       return false;
     }
-    if (!ObjectUtils.equals(_priceIndexRateCorrelation, other._priceIndexRateCorrelation)) {
+    if (!Objects.equals(_priceIndexRateCorrelation, other._priceIndexRateCorrelation)) {
       return false;
     }
     return true;

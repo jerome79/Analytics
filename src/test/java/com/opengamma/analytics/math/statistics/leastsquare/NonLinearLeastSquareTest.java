@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -29,6 +28,7 @@ import com.opengamma.analytics.math.minimization.BrentMinimizer1D;
 import com.opengamma.analytics.math.minimization.ConjugateGradientVectorMinimizer;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.util.monitor.OperationTimer;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -59,7 +59,7 @@ public class NonLinearLeastSquareTest {
     @SuppressWarnings("synthetic-access")
     @Override
     public DoubleMatrix1D evaluate(final DoubleMatrix1D a) {
-      Validate.isTrue(a.getNumberOfElements() == 4, "four parameters");
+      ArgChecker.isTrue(a.getNumberOfElements() == 4, "four parameters");
       final int n = X.getNumberOfElements();
       final double[] res = new double[n];
       for (int i = 0; i < n; i++) {
@@ -73,7 +73,7 @@ public class NonLinearLeastSquareTest {
 
     @Override
     public Double evaluate(final Double x, final DoubleMatrix1D a) {
-      Validate.isTrue(a.getNumberOfElements() == getNumberOfParameters(), "four parameters");
+      ArgChecker.isTrue(a.getNumberOfElements() == getNumberOfParameters(), "four parameters");
       return a.getEntry(0) * Math.sin(a.getEntry(1) * x + a.getEntry(2)) + a.getEntry(3);
     }
 
@@ -87,7 +87,7 @@ public class NonLinearLeastSquareTest {
 
     @Override
     public DoubleMatrix1D evaluate(final Double x, final DoubleMatrix1D a) {
-      Validate.isTrue(a.getNumberOfElements() == getNumberOfParameters(), "four parameters");
+      ArgChecker.isTrue(a.getNumberOfElements() == getNumberOfParameters(), "four parameters");
       final double temp1 = Math.sin(a.getEntry(1) * x + a.getEntry(2));
       final double temp2 = Math.cos(a.getEntry(1) * x + a.getEntry(2));
       final double[] res = new double[4];
@@ -114,7 +114,7 @@ public class NonLinearLeastSquareTest {
       final double[][] res = new double[n][m];
       for (int i = 0; i < n; i++) {
         final DoubleMatrix1D temp = PARAM_GRAD.evaluate(X.getEntry(i), a);
-        Validate.isTrue(m == temp.getNumberOfElements());
+        ArgChecker.isTrue(m == temp.getNumberOfElements());
         for (int j = 0; j < m; j++) {
           res[i][j] = temp.getEntry(j);
         }

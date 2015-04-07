@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.math.surface;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.strata.collect.ArgChecker;
@@ -41,7 +40,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
    */
   public FunctionalDoublesSurface(final Function<Double, Double> function) {
     super();
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     _function = function;
   }
 
@@ -51,7 +50,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
    */
   public FunctionalDoublesSurface(final Function<Double, Double> function, final String name) {
     super(name);
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     _function = function;
   }
 
@@ -96,8 +95,8 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
    */
   @Override
   public Double getZValue(final Double x, final Double y) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
     return _function.evaluate(x, y);
   }
 
@@ -134,7 +133,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
       return false;
     }
     final FunctionalDoublesSurface other = (FunctionalDoublesSurface) obj;
-    return ObjectUtils.equals(_function, other._function);
+    return Objects.equals(_function, other._function);
   }
 
 }

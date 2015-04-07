@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class that brackets single root of a function. For a 1-D function ({@link Function1D}) $f(x)$,
@@ -31,7 +30,7 @@ public class BracketRoot {
    * @throws MathException If a root is not bracketed in 50 attempts.
    */
   public double[] getBracketedPoints(final Function1D<Double, Double> f, final double xLower, final double xUpper) {
-    Validate.notNull(f, "f");
+    ArgChecker.notNull(f, "f");
     double x1 = xLower;
     double x2 = xUpper;
     double f1 = 0;
@@ -67,9 +66,9 @@ public class BracketRoot {
   }
 
   public double[] getBracketedPoints(final Function1D<Double, Double> f, final double xLower, final double xUpper, final double minX, final double maxX) {
-    Validate.notNull(f, "f");
-    Validate.isTrue(xLower >= minX, "xLower < minX");
-    Validate.isTrue(xUpper <= maxX, "xUpper < maxX");
+    ArgChecker.notNull(f, "f");
+    ArgChecker.isTrue(xLower >= minX, "xLower < minX");
+    ArgChecker.isTrue(xUpper <= maxX, "xUpper < maxX");
     double x1 = xLower;
     double x2 = xUpper;
     double f1 = 0;

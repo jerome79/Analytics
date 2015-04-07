@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts an {@link InterpolatedDoublesSurface}. If the <i>(x, y)</i> value(s) of the shift(s) are not in the nodal points of the
@@ -22,7 +22,7 @@ public class InterpolatedSurfaceMultiplicativeShiftFunction implements SurfaceSh
    */
   @Override
   public InterpolatedDoublesSurface evaluate(final InterpolatedDoublesSurface surface, final double percentage) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, percentage, "CONSTANT_MULTIPLIER_" + surface.getName());
   }
 
@@ -31,7 +31,7 @@ public class InterpolatedSurfaceMultiplicativeShiftFunction implements SurfaceSh
    */
   @Override
   public InterpolatedDoublesSurface evaluate(final InterpolatedDoublesSurface surface, final double percentage, final String newName) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     final double[] xData = surface.getXDataAsPrimitive();
     final double[] yData = surface.getYDataAsPrimitive();
     final int n = xData.length;
@@ -47,7 +47,7 @@ public class InterpolatedSurfaceMultiplicativeShiftFunction implements SurfaceSh
    */
   @Override
   public InterpolatedDoublesSurface evaluate(final InterpolatedDoublesSurface surface, final double x, final double y, final double percentage) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, x, y, percentage, "SINGLE_MULTIPLIER_" + surface.getName());
   }
 
@@ -56,7 +56,7 @@ public class InterpolatedSurfaceMultiplicativeShiftFunction implements SurfaceSh
    */
   @Override
   public InterpolatedDoublesSurface evaluate(final InterpolatedDoublesSurface surface, final double x, final double y, final double percentage, final String newName) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     final double[] xData = surface.getXDataAsPrimitive();
     final double[] yData = surface.getYDataAsPrimitive();
     final double[] zData = surface.getZDataAsPrimitive();
@@ -89,7 +89,7 @@ public class InterpolatedSurfaceMultiplicativeShiftFunction implements SurfaceSh
    */
   @Override
   public InterpolatedDoublesSurface evaluate(final InterpolatedDoublesSurface surface, final double[] xShift, final double[] yShift, final double[] percentage) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, xShift, yShift, percentage, "MULTIPLE_MULTIPLIER_" + surface.getName());
   }
 
@@ -98,15 +98,15 @@ public class InterpolatedSurfaceMultiplicativeShiftFunction implements SurfaceSh
    */
   @Override
   public InterpolatedDoublesSurface evaluate(final InterpolatedDoublesSurface surface, final double[] xShift, final double[] yShift, final double[] percentage, final String newName) {
-    Validate.notNull(surface, "surface");
-    Validate.notNull(xShift, "x shift");
-    Validate.notNull(yShift, "y shift");
-    Validate.notNull(percentage, "shifts");
+    ArgChecker.notNull(surface, "surface");
+    ArgChecker.notNull(xShift, "x shift");
+    ArgChecker.notNull(yShift, "y shift");
+    ArgChecker.notNull(percentage, "shifts");
     final int n = xShift.length;
     if (n == 0) {
       return InterpolatedDoublesSurface.from(surface.getXDataAsPrimitive(), surface.getYDataAsPrimitive(), surface.getZDataAsPrimitive(), surface.getInterpolator(), newName);
     }
-    Validate.isTrue(n == yShift.length && n == percentage.length);
+    ArgChecker.isTrue(n == yShift.length && n == percentage.length);
     final Double[] x = surface.getXData();
     final Double[] y = surface.getYData();
     final Double[] z = surface.getZData();

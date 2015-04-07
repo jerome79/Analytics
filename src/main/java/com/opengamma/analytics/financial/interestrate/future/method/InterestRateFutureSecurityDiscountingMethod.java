@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureSecurity;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -54,8 +53,8 @@ public final class InterestRateFutureSecurityDiscountingMethod extends InterestR
    * @return The price.
    */
   public double price(final InterestRateFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(future.getForwardCurveName());
     final double forward = (forwardCurve.getDiscountFactor(future.getFixingPeriodStartTime()) / forwardCurve.getDiscountFactor(future.getFixingPeriodEndTime()) - 1)
         / future.getFixingPeriodAccrualFactor();
@@ -71,8 +70,8 @@ public final class InterestRateFutureSecurityDiscountingMethod extends InterestR
    */
   @Override
   public InterestRateCurveSensitivity priceCurveSensitivity(final InterestRateFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(future.getForwardCurveName());
     final double dfForwardStart = forwardCurve.getDiscountFactor(future.getFixingPeriodStartTime());
     final double dfForwardEnd = forwardCurve.getDiscountFactor(future.getFixingPeriodEndTime());
@@ -99,8 +98,8 @@ public final class InterestRateFutureSecurityDiscountingMethod extends InterestR
    * @return The rate.
    */
   public double parRate(final InterestRateFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(future.getForwardCurveName());
     final double forward = (forwardCurve.getDiscountFactor(future.getFixingPeriodStartTime()) / forwardCurve.getDiscountFactor(future.getFixingPeriodEndTime()) - 1)
         / future.getFixingPeriodAccrualFactor();
@@ -114,8 +113,8 @@ public final class InterestRateFutureSecurityDiscountingMethod extends InterestR
    * @return The rate curve sensitivity.
    */
   public InterestRateCurveSensitivity parRateCurveSensitivity(final InterestRateFutureSecurity future, final YieldCurveBundle curves) {
-    Validate.notNull(future, "Future");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(future, "Future");
+    ArgChecker.notNull(curves, "Curves");
     final String curveName = future.getForwardCurveName();
     final YieldAndDiscountCurve curve = curves.getCurve(curveName);
     final double ta = future.getFixingPeriodStartTime();

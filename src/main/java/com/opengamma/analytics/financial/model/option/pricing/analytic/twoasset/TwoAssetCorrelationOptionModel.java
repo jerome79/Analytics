@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.twoasset;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.twoasset.StandardTwoAssetOptionDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.twoasset.TwoAssetCorrelationOptionDefinition;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.BivariateNormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -63,13 +62,13 @@ public class TwoAssetCorrelationOptionModel extends TwoAssetAnalyticOptionModel<
    */
   @Override
   public Function1D<StandardTwoAssetOptionDataBundle, Double> getPricingFunction(final TwoAssetCorrelationOptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     return new Function1D<StandardTwoAssetOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardTwoAssetOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double s1 = data.getFirstSpot();
         final double s2 = data.getSecondSpot();
         final double k = definition.getStrike();

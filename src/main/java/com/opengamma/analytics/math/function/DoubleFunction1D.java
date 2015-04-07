@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Parent class for a family of functions that take real arguments and return real values. The functionality of {@link Function1D} is 
@@ -36,7 +35,7 @@ public abstract class DoubleFunction1D extends Function1D<Double, Double> {
    * @return A function that calculates the first derivative of this function
    */
   public DoubleFunction1D derivative(final FiniteDifferenceType differenceType, final double eps) {
-    Validate.notNull(differenceType, "difference type");
+    ArgChecker.notNull(differenceType, "difference type");
     switch (differenceType) {
       case CENTRAL:
         return new DoubleFunction1D() {
@@ -77,7 +76,7 @@ public abstract class DoubleFunction1D extends Function1D<Double, Double> {
    * @return A function $h(x) = f(x) + g(x)$
    */
   public DoubleFunction1D add(final DoubleFunction1D f) {
-    Validate.notNull(f, "f");
+    ArgChecker.notNull(f, "f");
     return new DoubleFunction1D() {
 
       @Override
@@ -113,7 +112,7 @@ public abstract class DoubleFunction1D extends Function1D<Double, Double> {
    */
 
   public DoubleFunction1D divide(final DoubleFunction1D f) {
-    Validate.notNull(f, "f");
+    ArgChecker.notNull(f, "f");
     return new DoubleFunction1D() {
 
       @Override
@@ -148,7 +147,7 @@ public abstract class DoubleFunction1D extends Function1D<Double, Double> {
    * @return A function $h(x) = f(x) g(x)$
    */
   public DoubleFunction1D multiply(final DoubleFunction1D f) {
-    Validate.notNull(f, "f");
+    ArgChecker.notNull(f, "f");
     return new DoubleFunction1D() {
 
       @Override
@@ -183,7 +182,7 @@ public abstract class DoubleFunction1D extends Function1D<Double, Double> {
    * @return A function $h(x) = g(x) - f(x)$
    */
   public DoubleFunction1D subtract(final DoubleFunction1D f) {
-    Validate.notNull(f, "f");
+    ArgChecker.notNull(f, "f");
     return new DoubleFunction1D() {
 
       @Override
@@ -217,7 +216,7 @@ public abstract class DoubleFunction1D extends Function1D<Double, Double> {
    * @return The converted function
    */
   public static DoubleFunction1D from(final Function1D<Double, Double> f) {
-    Validate.notNull(f, "f");
+    ArgChecker.notNull(f, "f");
     return new DoubleFunction1D() {
 
       @Override

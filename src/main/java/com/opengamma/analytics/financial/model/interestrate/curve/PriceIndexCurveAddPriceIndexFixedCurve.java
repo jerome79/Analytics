@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -102,10 +101,10 @@ public class PriceIndexCurveAddPriceIndexFixedCurve extends PriceIndexCurveSimpl
       return false;
     }
     final PriceIndexCurveAddPriceIndexFixedCurve other = (PriceIndexCurveAddPriceIndexFixedCurve) obj;
-    if (!ObjectUtils.equals(_curve, other._curve)) {
+    if (!Objects.equals(_curve, other._curve)) {
       return false;
     }
-    if (!ObjectUtils.equals(_curveFixed, other._curveFixed)) {
+    if (!Objects.equals(_curveFixed, other._curveFixed)) {
       return false;
     }
     if (Double.doubleToLongBits(_sign) != Double.doubleToLongBits(other._sign)) {

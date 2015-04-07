@@ -14,8 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.ArrayUtils;
-
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
@@ -70,7 +69,7 @@ public class CombinedCapletStrippingResults {
   private double[] toUnique(double[][] from) {
     int n = from.length;
     double[] base = from[0];
-    List<Double> list = Arrays.asList(ArrayUtils.toObject(base));
+    List<Double> list = Doubles.asList(base);
     Set<Double> set = new TreeSet<>(list);
 
     for (int i = 1; i < n; i++) {
@@ -83,7 +82,7 @@ public class CombinedCapletStrippingResults {
       }
     }
     list = new ArrayList<>(set);
-    double[] res = ArrayUtils.toPrimitive(list.toArray(new Double[0]));
+    double[] res = Doubles.toArray(list);
     Arrays.sort(res);
     return res;
 

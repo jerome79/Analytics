@@ -8,11 +8,10 @@ package com.opengamma.analytics.math.minimization;
 import static com.opengamma.analytics.math.FunctionUtils.square;
 import static com.opengamma.analytics.math.matrix.MatrixAlgebraFactory.OG_ALGEBRA;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Standard version of Powell's method. It is intended to be used when an analytic function for the gradient is not available.
@@ -40,9 +39,9 @@ public class ConjugateDirectionVectorMinimizer implements Minimizer<Function1D<D
    * @param maxIterations The maximum number of iterations
    */
   public ConjugateDirectionVectorMinimizer(final ScalarMinimizer minimizer, final double tolerance, final int maxIterations) {
-    Validate.notNull(minimizer, "minimizer");
-    Validate.isTrue(tolerance > SMALL && tolerance < 1, "Tolerance must be greater than " + SMALL + " and less than 1.0");
-    Validate.isTrue(maxIterations >= 1, "Need at least one iteration");
+    ArgChecker.notNull(minimizer, "minimizer");
+    ArgChecker.isTrue(tolerance > SMALL && tolerance < 1, "Tolerance must be greater than " + SMALL + " and less than 1.0");
+    ArgChecker.isTrue(maxIterations >= 1, "Need at least one iteration");
     _lineSearch = new LineSearch(minimizer);
     _eps = tolerance;
     _maxIterations = maxIterations;
@@ -53,8 +52,8 @@ public class ConjugateDirectionVectorMinimizer implements Minimizer<Function1D<D
    */
   @Override
   public DoubleMatrix1D minimize(final Function1D<DoubleMatrix1D, Double> function, final DoubleMatrix1D startPosition) {
-    Validate.notNull(function, "function");
-    Validate.notNull(startPosition, "start position");
+    ArgChecker.notNull(function, "function");
+    ArgChecker.notNull(startPosition, "start position");
     final int n = startPosition.getNumberOfElements();
     final DoubleMatrix1D[] directionSet = getDefaultDirectionSet(n);
 

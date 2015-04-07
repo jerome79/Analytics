@@ -6,10 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.forex;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.option.definition.SmileDeltaParameters;
 import com.opengamma.analytics.financial.model.volatility.surface.SmileDeltaTermStructureParameters;
@@ -101,7 +99,7 @@ public class BlackForexVannaVolgaProvider implements BlackForexVannaVolgaProvide
     if (ccy1.equals(getCurrencyPair().getFirst()) && ccy2.equals(getCurrencyPair().getSecond())) {
       return smile;
     }
-    throw new NotImplementedException("Currency pair is not in expected order " + getCurrencyPair().toString());
+    throw new UnsupportedOperationException("Currency pair is not in expected order " + getCurrencyPair().toString());
   }
 
   @Override
@@ -138,13 +136,13 @@ public class BlackForexVannaVolgaProvider implements BlackForexVannaVolgaProvide
       return false;
     }
     final BlackForexVannaVolgaProvider other = (BlackForexVannaVolgaProvider) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
-    if (!ObjectUtils.equals(_smile, other._smile)) {
+    if (!Objects.equals(_smile, other._smile)) {
       return false;
     }
     return true;

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -14,7 +14,7 @@ public class DistanceCalculator {
 
   public static double getDistance(final double[] x1, final double[] x2) {
     final int dim = x1.length;
-    Validate.isTrue(dim == x2.length, "different dimensions");
+    ArgChecker.isTrue(dim == x2.length, "different dimensions");
     double sum = 0;
     double diff;
     for (int i = 0; i < dim; i++) {

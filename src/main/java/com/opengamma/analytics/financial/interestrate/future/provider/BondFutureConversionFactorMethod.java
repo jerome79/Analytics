@@ -7,11 +7,10 @@ package com.opengamma.analytics.financial.interestrate.future.provider;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
 import com.opengamma.analytics.financial.interestrate.bond.provider.BondSecurityDiscountingMethod;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Methods for the computation of conversion factors of bonds in bond futures basket.
@@ -32,16 +31,16 @@ public class BondFutureConversionFactorMethod {
    * @return The factor.
    */
   public double conversionFactorLiffe(final BondFixedSecurityDefinition bondDefinition, final ZonedDateTime deliveryDate, final double notionalCoupon) {
-    Validate.notNull(bondDefinition, "Bond definition");
-    Validate.notNull(deliveryDate, "Delivery date");
+    ArgChecker.notNull(bondDefinition, "Bond definition");
+    ArgChecker.notNull(deliveryDate, "Delivery date");
     final BondFixedSecurity bond = bondDefinition.toDerivative(deliveryDate, deliveryDate);
     final double cleanPrice = METHOD_BOND_SECURITY.cleanPriceFromYield(bond, notionalCoupon);
     return cleanPrice;
   }
 
   public double conversionFactorEuronext(final BondFixedSecurityDefinition bondDefinition, final ZonedDateTime deliveryDate, final double notionalCoupon) {
-    Validate.notNull(bondDefinition, "Bond definition");
-    Validate.notNull(deliveryDate, "Delivery date");
+    ArgChecker.notNull(bondDefinition, "Bond definition");
+    ArgChecker.notNull(deliveryDate, "Delivery date");
     final BondFixedSecurity bond = bondDefinition.toDerivative(deliveryDate, deliveryDate);
     final double cleanPrice = METHOD_BOND_SECURITY.cleanPriceFromYield(bond, notionalCoupon);
     return cleanPrice;

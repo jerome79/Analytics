@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.DirichletBoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ExtendedCoupledFiniteDifference;
@@ -21,6 +19,7 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -34,9 +33,9 @@ public class TwoStateMarkovChainWithLocalVolDensity {
   private final ExtendedCoupledPDEDataBundle _data2;
 
   public TwoStateMarkovChainWithLocalVolDensity(final ForwardCurve forward, final TwoStateMarkovChainDataBundle data, final AbsoluteLocalVolatilitySurface localVolOverlay) {
-    Validate.notNull(forward, "null forward");
-    Validate.notNull(data, "null data");
-    Validate.notNull(localVolOverlay, "null localVolOverlay");
+    ArgChecker.notNull(forward, "null forward");
+    ArgChecker.notNull(data, "null data");
+    ArgChecker.notNull(localVolOverlay, "null localVolOverlay");
     //    _data1 = getCoupledPDEDataBundle(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getP0(), data.getBeta1(), localVol);
     //    _data2 = getCoupledPDEDataBundle(forward, data.getVol2(), data.getLambda21(), data.getLambda12(), 1.0 - data.getP0(), data.getBeta2(), localVol);
     _data1 = getExtendedCoupledPDEDataBundle(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getP0(), data.getBeta1(), localVolOverlay);
@@ -64,7 +63,7 @@ public class TwoStateMarkovChainWithLocalVolDensity {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return -1.0;
       }
     };
@@ -72,7 +71,7 @@ public class TwoStateMarkovChainWithLocalVolDensity {
     final Function<Double, Double> aStar = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         final double temp = localVol.getVolatility(t, s) * vol * Math.pow(s, beta);
@@ -84,7 +83,7 @@ public class TwoStateMarkovChainWithLocalVolDensity {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         final double s = ts[1];
         return s * forward.getDrift(t);
@@ -94,7 +93,7 @@ public class TwoStateMarkovChainWithLocalVolDensity {
     final Function<Double, Double> bStar = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         return 1.0;
       }
     };
@@ -102,7 +101,7 @@ public class TwoStateMarkovChainWithLocalVolDensity {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
 
         return forward.getDrift(t) + lambda1;

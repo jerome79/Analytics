@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.ParRateCalculator;
@@ -26,6 +24,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.B
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -64,8 +63,8 @@ public final class CapFloorIborSABRMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CapFloorIbor cap, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(cap);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(cap, "cap");
+    ArgChecker.notNull(sabrData, "sabrData");
     final EuropeanVanillaOption option = new EuropeanVanillaOption(cap.getStrike(), cap.getFixingTime(), cap.isCap());
     final double forward = cap.accept(PRC, sabrData);
     final double df = sabrData.getCurve(cap.getFundingCurveName()).getDiscountFactor(cap.getPaymentTime());
@@ -80,8 +79,8 @@ public final class CapFloorIborSABRMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorIbor, "Cap/Floor on Ibor");
-    Validate.isTrue(curves instanceof SABRInterestRateDataBundle, "SABR interest rate data bundle required");
+    ArgChecker.isTrue(instrument instanceof CapFloorIbor, "Cap/Floor on Ibor");
+    ArgChecker.isTrue(curves instanceof SABRInterestRateDataBundle, "SABR interest rate data bundle required");
     return presentValue((CapFloorIbor) instrument, (SABRInterestRateDataBundle) curves);
   }
 
@@ -92,8 +91,8 @@ public final class CapFloorIborSABRMethod implements PricingMethod {
    * @return The present value curve sensitivity.
    */
   public InterestRateCurveSensitivity presentValueSensitivity(final CapFloorIbor cap, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(cap);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(cap, "cap");
+    ArgChecker.notNull(sabrData, "sabrData");
     final EuropeanVanillaOption option = new EuropeanVanillaOption(cap.getStrike(), cap.getFixingTime(), cap.isCap());
     final double forward = cap.accept(PRC, sabrData);
     final InterestRateCurveSensitivity forwardDr = new InterestRateCurveSensitivity(cap.accept(PRSC, sabrData));
@@ -121,8 +120,8 @@ public final class CapFloorIborSABRMethod implements PricingMethod {
    * @return The present value SABR sensitivity.
    */
   public PresentValueSABRSensitivityDataBundle presentValueSABRSensitivity(final CapFloorIbor cap, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(cap);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(cap, "cap");
+    ArgChecker.notNull(sabrData, "sabrData");
     final EuropeanVanillaOption option = new EuropeanVanillaOption(cap.getStrike(), cap.getFixingTime(), cap.isCap());
     final double forward = cap.accept(PRC, sabrData);
     final double df = sabrData.getCurve(cap.getFundingCurveName()).getDiscountFactor(cap.getPaymentTime());

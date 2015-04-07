@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The delta of a call option, D_c. This is in the range (0,1), where 0.5 is ATM (Delta-Neutral Straddle DNS), D_c > 0.5 are ITM  and D_c < 0.5 are OTM options.
@@ -17,7 +17,7 @@ public class Delta implements StrikeType {
   private final double _value;
 
   public Delta(final double value) {
-    Validate.isTrue(value >= 0 && value <= 1.0, "Delta must be in the range (0,1)");
+    ArgChecker.isTrue(value >= 0 && value <= 1.0, "Delta must be in the range (0,1)");
     _value = value;
   }
 

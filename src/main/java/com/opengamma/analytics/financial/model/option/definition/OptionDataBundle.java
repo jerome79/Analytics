@@ -6,12 +6,11 @@
 package com.opengamma.analytics.financial.model.option.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -23,14 +22,14 @@ public class OptionDataBundle {
   private final ZonedDateTime _date;
 
   public OptionDataBundle(final YieldAndDiscountCurve interestRateCurve, final VolatilitySurface volatilitySurface, final ZonedDateTime date) {
-    Validate.notNull(date, "date");
+    ArgChecker.notNull(date, "date");
     _interestRateCurve = interestRateCurve;
     _volatilitySurface = volatilitySurface;
     _date = date;
   }
 
   public OptionDataBundle(final OptionDataBundle data) {
-    Validate.notNull(data);
+    ArgChecker.notNull(data, "data");
     _interestRateCurve = data.getInterestRateCurve();
     _volatilitySurface = data.getVolatilitySurface();
     _date = data.getDate();
@@ -90,13 +89,13 @@ public class OptionDataBundle {
       return false;
     }
     final OptionDataBundle other = (OptionDataBundle) obj;
-    if (!ObjectUtils.equals(_volatilitySurface, other._volatilitySurface)) {
+    if (!Objects.equals(_volatilitySurface, other._volatilitySurface)) {
       return false;
     }
-    if (!ObjectUtils.equals(_interestRateCurve, other._interestRateCurve)) {
+    if (!Objects.equals(_interestRateCurve, other._interestRateCurve)) {
       return false;
     }
-    return ObjectUtils.equals(_date, other._date);
+    return Objects.equals(_date, other._date);
   }
 
 }

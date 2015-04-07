@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  A surface that contains the Black (implied) volatility as a function of time to maturity and (call) delta. Delta is in the range [0,1], where 0.5 is
@@ -28,7 +28,7 @@ public class BlackVolatilitySurfaceDelta extends BlackVolatilitySurface<Delta> {
    */
   public BlackVolatilitySurfaceDelta(final Surface<Double, Double, Double> surface, final ForwardCurve forwardCurve) {
     super(surface);
-    Validate.notNull(forwardCurve, "null forward curve");
+    ArgChecker.notNull(forwardCurve, "null forward curve");
     _fc = forwardCurve;
   }
 
@@ -108,7 +108,7 @@ public class BlackVolatilitySurfaceDelta extends BlackVolatilitySurface<Delta> {
       return false;
     }
     final BlackVolatilitySurfaceDelta other = (BlackVolatilitySurfaceDelta) obj;
-    if (!ObjectUtils.equals(_fc, other._fc)) {
+    if (!Objects.equals(_fc, other._fc)) {
       return false;
     }
     return true;

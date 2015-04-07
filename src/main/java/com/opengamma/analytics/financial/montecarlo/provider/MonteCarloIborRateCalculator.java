@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.montecarlo.provider;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponIborRatchet;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -17,6 +15,7 @@ import com.opengamma.analytics.financial.interestrate.swap.provider.SwapFixedCou
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionCashFixedIbor;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
 import com.opengamma.analytics.financial.montecarlo.MonteCarloIborRateDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Computes the total instrument price over different paths (the sum of prices over the different paths, not its average).
@@ -50,7 +49,7 @@ public class MonteCarloIborRateCalculator extends InstrumentDerivativeVisitorAda
 
   @Override
   public Double visitCapFloorIbor(final CapFloorIbor payment, final MonteCarloIborRateDataBundle mcResults) {
-    Validate.isTrue(mcResults.getPathIborRate().length == 1, "Only one decision date for cap/floor.");
+    ArgChecker.isTrue(mcResults.getPathIborRate().length == 1, "Only one decision date for cap/floor.");
     final double[][] pathIborRate = mcResults.getPathIborRate()[0];
     final double[] impactAmount = mcResults.getImpactAmount()[0];
     final int[] impactIndex = mcResults.getImpactIndex()[0];

@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.interestrate.InterestRate;
 import com.opengamma.analytics.financial.interestrate.PeriodicInterestRate;
 import com.opengamma.analytics.math.curve.DoublesCurve;
@@ -69,7 +67,7 @@ public class YieldPeriodicAddZeroFixedCurve extends YieldAndDiscountCurve {
 
   @Override
   public double getForwardRate(double t) {
-    throw new NotImplementedException("Instantaneous Forward rate not implemented for Periodic rate curves.");
+    throw new UnsupportedOperationException("Instantaneous Forward rate not implemented for Periodic rate curves.");
   }
 
   @Override

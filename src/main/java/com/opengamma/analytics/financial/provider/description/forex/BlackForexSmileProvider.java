@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.forex;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.volatility.VolatilityAndBucketedSensitivities;
 import com.opengamma.analytics.financial.model.volatility.surface.SmileDeltaTermStructureParametersStrikeInterpolation;
@@ -148,13 +147,13 @@ public class BlackForexSmileProvider implements BlackForexSmileProviderInterface
       return false;
     }
     final BlackForexSmileProvider other = (BlackForexSmileProvider) obj;
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_multicurveProvider, other._multicurveProvider)) {
+    if (!Objects.equals(_multicurveProvider, other._multicurveProvider)) {
       return false;
     }
-    if (!ObjectUtils.equals(_smile, other._smile)) {
+    if (!Objects.equals(_smile, other._smile)) {
       return false;
     }
     return true;

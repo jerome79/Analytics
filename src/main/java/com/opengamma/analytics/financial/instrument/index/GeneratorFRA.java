@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.fra.ForwardRateAgreementDefinition;
 import com.opengamma.strata.basics.currency.Currency;
@@ -105,10 +104,10 @@ public class GeneratorFRA extends GeneratorInstrument<GeneratorAttributeIR> {
       return false;
     }
     final GeneratorFRA other = (GeneratorFRA) obj;
-    if (!ObjectUtils.equals(_iborIndex, other._iborIndex)) {
+    if (!Objects.equals(_iborIndex, other._iborIndex)) {
       return false;
     }
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
     return true;

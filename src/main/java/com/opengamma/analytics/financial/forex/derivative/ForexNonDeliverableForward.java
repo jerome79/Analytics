@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -231,10 +231,10 @@ public class ForexNonDeliverableForward implements InstrumentDerivative {
       return false;
     }
     final ForexNonDeliverableForward other = (ForexNonDeliverableForward) obj;
-    if (!ObjectUtils.equals(_currency1, other._currency1)) {
+    if (!Objects.equals(_currency1, other._currency1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency2, other._currency2)) {
+    if (!Objects.equals(_currency2, other._currency2)) {
       return false;
     }
     if (Double.doubleToLongBits(_exchangeRate) != Double.doubleToLongBits(other._exchangeRate)) {

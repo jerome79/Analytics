@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.commodity.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
@@ -233,28 +232,28 @@ public abstract class CommodityFutureDefinition<T extends InstrumentDerivative> 
       return false;
     }
     final CommodityFutureDefinition<?> other = (CommodityFutureDefinition<?>) obj;
-    if (!ObjectUtils.equals(_expiryDate, other._expiryDate)) {
+    if (!Objects.equals(_expiryDate, other._expiryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlying, other._underlying)) {
+    if (!Objects.equals(_underlying, other._underlying)) {
       return false;
     }
-    if (!ObjectUtils.equals(_firstDeliveryDate, other._firstDeliveryDate)) {
+    if (!Objects.equals(_firstDeliveryDate, other._firstDeliveryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_lastDeliveryDate, other._lastDeliveryDate)) {
+    if (!Objects.equals(_lastDeliveryDate, other._lastDeliveryDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_unitName, other._unitName)) {
+    if (!Objects.equals(_unitName, other._unitName)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementType, other._settlementType)) {
+    if (!Objects.equals(_settlementType, other._settlementType)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_settlementDate, other._settlementDate)) {
+    if (!Objects.equals(_settlementDate, other._settlementDate)) {
       return false;
     }
     if (Double.compare(_amount, other._amount) != 0) {

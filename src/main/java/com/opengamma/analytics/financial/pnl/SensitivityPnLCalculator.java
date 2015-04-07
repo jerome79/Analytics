@@ -7,12 +7,11 @@ package com.opengamma.analytics.financial.pnl;
 
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.greeks.Underlying;
 import com.opengamma.analytics.financial.riskfactor.TaylorExpansionMultiplierCalculator;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -22,7 +21,7 @@ public class SensitivityPnLCalculator implements Function<SensitivityAndReturnDa
 
   @Override
   public DoubleTimeSeries<?> evaluate(final SensitivityAndReturnDataBundle... data) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     DoubleTimeSeries<?> result = null;
     DoubleTimeSeries<?> pnl = null;
     for (final SensitivityAndReturnDataBundle bundle : data) {

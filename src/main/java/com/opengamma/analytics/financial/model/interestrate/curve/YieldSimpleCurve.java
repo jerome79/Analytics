@@ -7,9 +7,7 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.strata.collect.ArgChecker;
@@ -50,7 +48,7 @@ public class YieldSimpleCurve extends YieldAndDiscountCurve {
 
   @Override
   public double getForwardRate(double t) {
-    throw new NotImplementedException("Forward instantaneous rate not implemented for simple rate curves");
+    throw new UnsupportedOperationException("Forward instantaneous rate not implemented for simple rate curves");
   }
 
   @Override
@@ -103,7 +101,7 @@ public class YieldSimpleCurve extends YieldAndDiscountCurve {
       return false;
     }
     final YieldSimpleCurve other = (YieldSimpleCurve) obj;
-    return ObjectUtils.equals(_curve, other._curve);
+    return Objects.equals(_curve, other._curve);
   }
 
 }

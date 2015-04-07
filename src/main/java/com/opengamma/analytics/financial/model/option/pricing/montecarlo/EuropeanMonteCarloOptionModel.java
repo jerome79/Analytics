@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.montecarlo;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionPayoffFunction;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.financial.model.stochastic.StochasticProcess;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.random.RandomNumberGenerator;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -26,7 +25,7 @@ public class EuropeanMonteCarloOptionModel extends MonteCarloOptionModel<OptionD
 
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final OptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     final OptionPayoffFunction<StandardOptionDataBundle> payoffFunction = definition.getPayoffFunction();
     final int steps = getSteps();
     final int n = getN();
@@ -37,7 +36,7 @@ public class EuropeanMonteCarloOptionModel extends MonteCarloOptionModel<OptionD
 
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final Function1D<Double, Double> generator = process.getPathGeneratingFunction(definition, data, steps);
         double[] e;
         final double s0 = process.getInitialValue(definition, data);

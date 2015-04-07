@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * A one-dimensional step interpolator using the upper bound value.
@@ -20,8 +19,8 @@ public class StepUpperInterpolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double x) {
-    Validate.notNull(x, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(x, "value");
+    ArgChecker.notNull(data, "data bundle");
     // For x equal to a key
     Double exactValue = data.get(x);
     if (exactValue != null) {
@@ -33,8 +32,8 @@ public class StepUpperInterpolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double x) {
-    Validate.notNull(x, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(x, "value");
+    ArgChecker.notNull(data, "data bundle");
     return 0.;
   }
 

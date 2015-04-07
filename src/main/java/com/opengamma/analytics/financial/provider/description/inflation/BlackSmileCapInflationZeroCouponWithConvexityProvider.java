@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.inflation;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.option.parameters.BlackFlatCapFloorParameters;
 import com.opengamma.analytics.financial.model.option.parameters.BlackSmileCapInflationZeroCouponParameters;
@@ -134,16 +133,16 @@ public class BlackSmileCapInflationZeroCouponWithConvexityProvider implements Bl
       return false;
     }
     final BlackSmileCapInflationZeroCouponWithConvexityProvider other = (BlackSmileCapInflationZeroCouponWithConvexityProvider) obj;
-    if (!ObjectUtils.equals(_inflation, other._inflation)) {
+    if (!Objects.equals(_inflation, other._inflation)) {
       return false;
     }
-    if (!ObjectUtils.equals(_blackSmileIborCapParameters, other._blackSmileIborCapParameters)) {
+    if (!Objects.equals(_blackSmileIborCapParameters, other._blackSmileIborCapParameters)) {
       return false;
     }
-    if (!ObjectUtils.equals(_inflationConvexityAdjustmentsParameters, other._inflationConvexityAdjustmentsParameters)) {
+    if (!Objects.equals(_inflationConvexityAdjustmentsParameters, other._inflationConvexityAdjustmentsParameters)) {
       return false;
     }
-    if (!ObjectUtils.equals(_parameters, other._parameters)) {
+    if (!Objects.equals(_parameters, other._parameters)) {
       return false;
     }
     return true;

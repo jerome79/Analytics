@@ -5,10 +5,8 @@
  */
 package com.opengamma.analytics.math.statistics.distribution;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -72,7 +70,7 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
    * @param ksi The shape parameter
    */
   public GeneralizedExtremeValueDistribution(final double mu, final double sigma, final double ksi) {
-    Validate.isTrue(sigma >= 0, "sigma must be >= 0");
+    ArgChecker.isTrue(sigma >= 0, "sigma must be >= 0");
     _mu = mu;
     _sigma = sigma;
     _ksi = ksi;
@@ -85,18 +83,18 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return Math.exp(-getT(x));
   }
 
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getInverseCDF(final Double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -105,7 +103,7 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
    */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     final double t = getT(x);
     return Math.pow(t, _ksi + 1) * Math.exp(-t) / _sigma;
   }
@@ -113,11 +111,11 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double nextRandom() {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**

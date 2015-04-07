@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -38,7 +38,7 @@ public class SemiStandardDeviationCalculator implements Function<double[], Doubl
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     final double mean = MEAN.evaluate(x);
     final int n = x.length;
     return new PartialMomentCalculator(mean, _useDownSide).apply(x) * n / (n - 1);

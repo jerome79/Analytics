@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -42,7 +41,7 @@ public class GapOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
+      ArgChecker.notNull(data, "data");
       final double s = data.getSpot();
       final double k = getStrike();
       final double x = getPayoffStrike();
@@ -59,7 +58,7 @@ public class GapOptionDefinition extends OptionDefinition {
    */
   public GapOptionDefinition(final double strike, final Expiry expiry, final boolean isCall, final double payoffStrike) {
     super(strike, expiry, isCall);
-    Validate.isTrue(payoffStrike >= 0, "payoff strike");
+    ArgChecker.isTrue(payoffStrike >= 0, "payoff strike");
     _payoffStrike = payoffStrike;
   }
 

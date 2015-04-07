@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixedAccruedCompounding;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -51,8 +50,8 @@ public final class CouponFixedAccruedCompoundingDiscountingMethod {
    * @return The present value.
    */
   public MultiCurrencyAmount presentValue(final CouponFixedAccruedCompounding coupon, final MulticurveProviderInterface multicurves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(multicurves, "multicurve");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(multicurves, "multicurve");
     final double df = multicurves.getDiscountFactor(coupon.getCurrency(), coupon.getPaymentTime());
     final double value = coupon.getAmount() * df;
     return MultiCurrencyAmount.of(coupon.getCurrency(), value);
@@ -65,8 +64,8 @@ public final class CouponFixedAccruedCompoundingDiscountingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValuePositiveNotional(final CouponFixedAccruedCompounding coupon, final MulticurveProviderInterface multicurves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(multicurves, "multicurve");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(multicurves, "multicurve");
     return CurrencyAmount.of(coupon.getCurrency(), Math.signum(coupon.getNotional()) * presentValue(coupon, multicurves).getAmount(coupon.getCurrency()).getAmount());
   }
 

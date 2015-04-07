@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -30,6 +29,7 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -60,7 +60,7 @@ public class LogNormalBinomialTreeBuilderTest {
     final Function<Double, Double> driftless = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         return 0.0;
       }
     };
@@ -71,7 +71,7 @@ public class LogNormalBinomialTreeBuilderTest {
   private static final Function<Double, Double> FLAT_LOCAL_VOL = new Function<Double, Double>() {
     @Override
     public Double evaluate(final Double... tk) {
-      Validate.isTrue(tk.length == 2);
+      ArgChecker.isTrue(tk.length == 2);
       return ATM_VOL;
     }
   };
@@ -79,7 +79,7 @@ public class LogNormalBinomialTreeBuilderTest {
   private static final Function<Double, Double> TIME_DEPENDENT_LOCAL_VOL = new Function<Double, Double>() {
     @Override
     public Double evaluate(final Double... tk) {
-      Validate.isTrue(tk.length == 2);
+      ArgChecker.isTrue(tk.length == 2);
       final double t = tk[0];
       return (2 * ATM_VOL - t * ATM_VOL / T);
     }
@@ -89,7 +89,7 @@ public class LogNormalBinomialTreeBuilderTest {
     @SuppressWarnings("synthetic-access")
     @Override
     public Double evaluate(final Double... tk) {
-      Validate.isTrue(tk.length == 2);
+      ArgChecker.isTrue(tk.length == 2);
 
       final double f = tk[1];
       final double sigma = SIGMA_BETA * Math.pow(f, BETA - 1);

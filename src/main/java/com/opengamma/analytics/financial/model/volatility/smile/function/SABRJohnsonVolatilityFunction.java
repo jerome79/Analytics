@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.function;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.CEVFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.CEVPriceFunction;
@@ -15,6 +12,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatilityFormula;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * From the paper Johnson & Nonas, Arbitrage-free construction of the swaption cube (2009). <b>Note:</b> truncation weight does not seem to work
@@ -26,7 +24,7 @@ public class SABRJohnsonVolatilityFunction extends VolatilityFunctionProvider<SA
 
   @Override
   public Function1D<SABRFormulaData, Double> getVolatilityFunction(final EuropeanVanillaOption option, final double forward) {
-    Validate.notNull(option, "option");
+    ArgChecker.notNull(option, "option");
     final double k = option.getStrike();
     final double t = option.getTimeToExpiry();
     final Function1D<CEVFunctionData, Double> priceFunction = CEV_FUNCTION.getPriceFunction(option);
@@ -35,7 +33,7 @@ public class SABRJohnsonVolatilityFunction extends VolatilityFunctionProvider<SA
       @SuppressWarnings("synthetic-access")
       @Override
       public final Double evaluate(final SABRFormulaData data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double alpha = data.getAlpha();
         final double beta = data.getBeta();
         final double rho = data.getRho();
@@ -44,7 +42,7 @@ public class SABRJohnsonVolatilityFunction extends VolatilityFunctionProvider<SA
           if (CompareUtils.closeEquals(beta, 1.0, EPS)) {
             return alpha; // this is just log-normal
           }
-          throw new NotImplementedException("Have not implemented the case where nu = 0, beta != 0");
+          throw new UnsupportedOperationException("Have not implemented the case where nu = 0, beta != 0");
         }
         if (beta > 0) {
           final double sigmaDD = alpha * beta * Math.pow(forward, beta - 1);
@@ -65,7 +63,7 @@ public class SABRJohnsonVolatilityFunction extends VolatilityFunctionProvider<SA
           final double price = priceFunction.evaluate(cevData);
           return BLACK_IMPLIED_VOL.getImpliedVolatility(new BlackFunctionData(forward, 1, sigmaCEV), option, price);
         }
-        throw new NotImplementedException("Have not implemented the case where b <= 0");
+        throw new UnsupportedOperationException("Have not implemented the case where b <= 0");
       }
     };
   }

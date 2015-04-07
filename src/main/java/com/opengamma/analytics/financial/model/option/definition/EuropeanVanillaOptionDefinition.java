@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -22,7 +21,7 @@ public class EuropeanVanillaOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data);
+      ArgChecker.notNull(data, "data");
       final double spot = data.getSpot();
       return isCall() ? Math.max(0, spot - getStrike()) : Math.max(0, getStrike() - spot);
     }

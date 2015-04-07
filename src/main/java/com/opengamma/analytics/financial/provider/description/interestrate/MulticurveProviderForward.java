@@ -11,10 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -588,16 +587,16 @@ public class MulticurveProviderForward implements MulticurveProviderInterface {
       return false;
     }
     final MulticurveProviderForward other = (MulticurveProviderForward) obj;
-    if (!ObjectUtils.equals(_discountingCurves, other._discountingCurves)) {
+    if (!Objects.equals(_discountingCurves, other._discountingCurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardIborCurves, other._forwardIborCurves)) {
+    if (!Objects.equals(_forwardIborCurves, other._forwardIborCurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_forwardONCurves, other._forwardONCurves)) {
+    if (!Objects.equals(_forwardONCurves, other._forwardONCurves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fxMatrix, other._fxMatrix)) {
+    if (!Objects.equals(_fxMatrix, other._fxMatrix)) {
       return false;
     }
     return true;

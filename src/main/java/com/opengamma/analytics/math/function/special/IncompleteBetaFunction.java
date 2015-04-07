@@ -5,11 +5,11 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.special.Beta;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -47,10 +47,10 @@ public class IncompleteBetaFunction extends Function1D<Double, Double> {
    * @param maxIter Maximum number of iterations, $\iter \geq 1$
    */
   public IncompleteBetaFunction(final double a, final double b, final double eps, final int maxIter) {
-    Validate.isTrue(a > 0, "a must be > 0");
-    Validate.isTrue(b > 0, "b must be > 0");
-    Validate.isTrue(eps >= 0, "eps must not be negative");
-    Validate.isTrue(maxIter >= 1, "maximum number of iterations must be greater than zero");
+    ArgChecker.isTrue(a > 0, "a must be > 0");
+    ArgChecker.isTrue(b > 0, "b must be > 0");
+    ArgChecker.isTrue(eps >= 0, "eps must not be negative");
+    ArgChecker.isTrue(maxIter >= 1, "maximum number of iterations must be greater than zero");
     _a = a;
     _b = b;
     _eps = eps;
@@ -64,7 +64,7 @@ public class IncompleteBetaFunction extends Function1D<Double, Double> {
    */
   @Override
   public Double evaluate(final Double x) {
-    Validate.isTrue(x >= 0 && x <= 1, "x must be in the range 0 to 1");
+    ArgChecker.isTrue(x >= 0 && x <= 1, "x must be in the range 0 to 1");
     try {
       return Beta.regularizedBeta(x, _a, _b, _eps, _maxIter);
     } catch (final org.apache.commons.math.MathException e) {

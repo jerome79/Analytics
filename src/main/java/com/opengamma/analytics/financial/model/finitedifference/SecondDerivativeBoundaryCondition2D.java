@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
 * boundary condition, i.e. d^2u/dx^2(A,t) = f(t), where A is the boundary level, and f(t) is some specified function of time
@@ -19,7 +18,7 @@ public class SecondDerivativeBoundaryCondition2D implements BoundaryCondition2D 
   private final double _level;
 
   public SecondDerivativeBoundaryCondition2D(final Surface<Double, Double, Double> boundarySecondDeriviative, double boundaryLevel) {
-    Validate.notNull(boundarySecondDeriviative, "boundaryValue ");
+    ArgChecker.notNull(boundarySecondDeriviative, "boundaryValue ");
     _f = boundarySecondDeriviative;
     _level = boundaryLevel;
   }

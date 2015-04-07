@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.equity.future.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -36,7 +35,7 @@ public abstract class CashSettledFuture implements InstrumentDerivative {
       final double strike,
       final Currency currency,
       final double unitAmount) {
-    Validate.isTrue(unitAmount > 0, "point value must be positive");
+    ArgChecker.isTrue(unitAmount > 0, "point value must be positive");
     _timeToExpiry = timeToExpiry;
     _timeToSettlement = timeToSettlement;
     _referencePrice = strike;
@@ -136,7 +135,7 @@ public abstract class CashSettledFuture implements InstrumentDerivative {
     }
     final CashSettledFuture other = (CashSettledFuture) obj;
 
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
 

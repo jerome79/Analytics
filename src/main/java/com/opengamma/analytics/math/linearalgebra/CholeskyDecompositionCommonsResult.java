@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.CholeskyDecomposition;
 import org.apache.commons.math.linear.DecompositionSolver;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Wrapper for results of the Commons implementation of Cholesky decomposition ({@link CholeskyDecompositionCommons})
@@ -27,7 +27,7 @@ public class CholeskyDecompositionCommonsResult implements CholeskyDecomposition
    * @param ch The result of the Cholesky decomposition.
    */
   public CholeskyDecompositionCommonsResult(final CholeskyDecomposition ch) {
-    Validate.notNull(ch, "Cholesky decomposition");
+    ArgChecker.notNull(ch, "Cholesky decomposition");
     _determinant = ch.getDeterminant();
     _l = CommonsMathWrapper.unwrap(ch.getL());
     _lt = CommonsMathWrapper.unwrap(ch.getLT());
@@ -39,7 +39,7 @@ public class CholeskyDecompositionCommonsResult implements CholeskyDecomposition
    */
   @Override
   public DoubleMatrix1D solve(DoubleMatrix1D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return CommonsMathWrapper.unwrap(_solver.solve(CommonsMathWrapper.wrap(b)));
   }
 
@@ -48,7 +48,7 @@ public class CholeskyDecompositionCommonsResult implements CholeskyDecomposition
    */
   @Override
   public double[] solve(double[] b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return _solver.solve(b);
   }
 
@@ -57,7 +57,7 @@ public class CholeskyDecompositionCommonsResult implements CholeskyDecomposition
    */
   @Override
   public DoubleMatrix2D solve(DoubleMatrix2D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return CommonsMathWrapper.unwrap(_solver.solve(CommonsMathWrapper.wrap(b)));
   }
 

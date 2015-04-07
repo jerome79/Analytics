@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.forex.definition;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
@@ -180,7 +179,7 @@ public class ForexOptionDigitalDefinition implements InstrumentDefinition<Instru
       return false;
     }
     final ForexOptionDigitalDefinition other = (ForexOptionDigitalDefinition) obj;
-    if (!ObjectUtils.equals(_expirationDate, other._expirationDate)) {
+    if (!Objects.equals(_expirationDate, other._expirationDate)) {
       return false;
     }
     if (_isCall != other._isCall) {
@@ -192,7 +191,7 @@ public class ForexOptionDigitalDefinition implements InstrumentDefinition<Instru
     if (_payDomestic != other._payDomestic) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingForex, other._underlyingForex)) {
+    if (!Objects.equals(_underlyingForex, other._underlyingForex)) {
       return false;
     }
     return true;

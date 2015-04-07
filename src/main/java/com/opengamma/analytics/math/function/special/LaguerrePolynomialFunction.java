@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 
@@ -30,7 +29,7 @@ public class LaguerrePolynomialFunction extends OrthogonalPolynomialFunctionGene
   }
 
   public DoubleFunction1D[] getPolynomials(final int n, final double alpha) {
-    Validate.isTrue(n >= 0);
+    ArgChecker.isTrue(n >= 0);
     final DoubleFunction1D[] polynomials = new DoubleFunction1D[n + 1];
     for (int i = 0; i <= n; i++) {
       if (i == 0) {
@@ -45,7 +44,7 @@ public class LaguerrePolynomialFunction extends OrthogonalPolynomialFunctionGene
   }
 
   public Pair<DoubleFunction1D, DoubleFunction1D>[] getPolynomialsAndFirstDerivative(final int n, final double alpha) {
-    Validate.isTrue(n >= 0);
+    ArgChecker.isTrue(n >= 0);
     @SuppressWarnings("unchecked")
     final Pair<DoubleFunction1D, DoubleFunction1D>[] polynomials = new Pair[n + 1];
     DoubleFunction1D p, dp, p1, p2;

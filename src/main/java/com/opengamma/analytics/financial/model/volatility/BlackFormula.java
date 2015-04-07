@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.NewtonRaphsonSingleRootFinder;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Black pricing in the forward measure. All prices, input/output, are *forward* prices, i.e. price(t,T) / Zero(t,T).
@@ -52,7 +52,7 @@ public class BlackFormula {
    * @return Black formula price of the option
    */
   public final double computePrice() {
-    Validate.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
+    ArgChecker.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
     return BlackFormulaRepository.price(_forward, _strike, _expiry, _lognormalVol, _isCall);
   }
 
@@ -65,7 +65,7 @@ public class BlackFormula {
    * @return  d/dF [C(0,T) / Z(0,T)]
    */
   public final double computeForwardDelta() {
-    Validate.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
+    ArgChecker.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
     return BlackFormulaRepository.delta(_forward, _strike, _expiry, _lognormalVol, _isCall);
   }
 
@@ -78,12 +78,12 @@ public class BlackFormula {
    * @return The true strike value
    */
   public final Double computeStrikeImpliedByForwardDelta(final double fwdDelta, final boolean forCall) {
-    Validate.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
+    ArgChecker.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
     return BlackFormulaRepository.strikeForDelta(_forward, fwdDelta, _expiry, _lognormalVol, forCall);
   }
 
   public final double computeStrikeSensitivity() {
-    Validate.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
+    ArgChecker.notNull(_lognormalVol, "Black Volatility parameter, _vol, has not been set.");
     return BlackFormulaRepository.dualDelta(_forward, _strike, _expiry, _lognormalVol, _isCall);
   }
 
@@ -94,7 +94,7 @@ public class BlackFormula {
    * @return Black formula price of the option
    */
   public final double computeImpliedVolatility() {
-    Validate.notNull(_fwdMtm, "price is not set. Cannot compute implied volatility. call setMtm first");
+    ArgChecker.notNull(_fwdMtm, "price is not set. Cannot compute implied volatility. call setMtm first");
     return BlackFormulaRepository.impliedVolatility(_fwdMtm.doubleValue(), _forward, _strike, _expiry, _isCall);
   }
 
@@ -102,7 +102,7 @@ public class BlackFormula {
   // Will likely be useful when dealing with manipulating strike and vol as they depend on each other in delta parameterisation
   public final Double computeStrikeImpliedByDeltaViaRootFinding(final double fwdDelta, final boolean forCall) {
     try {
-      Validate.isTrue(fwdDelta >= 0.0 && fwdDelta <= 1.0, "Delta must be between 0.0 and 1.0");
+      ArgChecker.isTrue(fwdDelta >= 0.0 && fwdDelta <= 1.0, "Delta must be between 0.0 and 1.0");
       final BlackFormula black = new BlackFormula(_forward, _strike, _expiry, _lognormalVol, _fwdMtm, forCall);
 
       final Function1D<Double, Double> difference = new Function1D<Double, Double>() {
@@ -191,7 +191,7 @@ public class BlackFormula {
    * @param vol  the vol
    */
   public final void setLognormalVol(final Double vol) {
-    Validate.isTrue(vol > 0.0 || CompareUtils.closeEquals(vol, 0.0), "Cannot set vol to be negative.");
+    ArgChecker.isTrue(vol > 0.0 || CompareUtils.closeEquals(vol, 0.0), "Cannot set vol to be negative.");
     _lognormalVol = vol;
   }
 
@@ -257,10 +257,10 @@ public class BlackFormula {
     if (_isCall != other._isCall) {
       return false;
     }
-    if (!ObjectUtils.equals(_fwdMtm, other._fwdMtm)) {
+    if (!Objects.equals(_fwdMtm, other._fwdMtm)) {
       return false;
     }
-    if (!ObjectUtils.equals(_lognormalVol, other._lognormalVol)) {
+    if (!Objects.equals(_lognormalVol, other._lognormalVol)) {
       return false;
     }
     return true;

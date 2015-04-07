@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.commons.lang.ClassUtils;
-
 import com.google.common.collect.Maps;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -23,7 +21,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * This factory provides access to all the instances.
  * <p>
  * Implementations should typically be singletons with a public static factory instance
- * named 'INSTANCE' accessible using {@link ClassUtils#singletonInstance(Class)}.
+ * named 'INSTANCE'.
  * 
  * @param <T> type of objects returned
  */
@@ -95,8 +93,8 @@ public abstract class AbstractNamedInstanceFactory<T extends NamedInstance>
    */
   protected void loadFromProperties(String bundleName) {
     ArgChecker.notNull(bundleName, "bundleName");
-    final ResourceBundle bundle = ResourceBundle.getBundle(bundleName);
-    final Map<String, T> instances = Maps.newHashMap();
+    ResourceBundle bundle = ResourceBundle.getBundle(bundleName);
+    Map<String, T> instances = Maps.newHashMap();
     for (String name : bundle.keySet()) {
       String implementationType = bundle.getString(name);
       T instance = instances.get(implementationType);
@@ -122,9 +120,9 @@ public abstract class AbstractNamedInstanceFactory<T extends NamedInstance>
 
   //-------------------------------------------------------------------------
   @Override
-  public T instance(final String name) {
+  public T instance(String name) {
     ArgChecker.notNull(name, "name");
-    final T result = _lookupMap.get(name.toLowerCase(Locale.ENGLISH));
+    T result = _lookupMap.get(name.toLowerCase(Locale.ENGLISH));
     if (result == null) {
       throw new IllegalArgumentException("Unknown " + _type.getSimpleName() + ": " + name);
     }

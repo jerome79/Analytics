@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.ParRateCalculator;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantDataBundle;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Pricing and sensitivities of a CMS coupon by discounting (no convexity adjustment).
@@ -52,8 +51,8 @@ public final class CouponCMSDiscountingMethod implements PricingMethod {
    * @return The coupon price.
    */
   public CurrencyAmount presentValue(final CouponCMS cmsCoupon, final YieldCurveBundle curves) {
-    Validate.notNull(cmsCoupon);
-    Validate.notNull(curves);
+    ArgChecker.notNull(cmsCoupon, "cmsCoupon");
+    ArgChecker.notNull(curves, "curves");
     final ParRateCalculator parRate = ParRateCalculator.getInstance();
     final double swapRate = parRate.visitFixedCouponSwap(cmsCoupon.getUnderlyingSwap(), curves);
     final YieldAndDiscountCurve fundingCurve = curves.getCurve(cmsCoupon.getFundingCurveName());
@@ -64,8 +63,8 @@ public final class CouponCMSDiscountingMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponCMS, "Coupon CMS");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Hull-White data");
+    ArgChecker.isTrue(instrument instanceof CouponCMS, "Coupon CMS");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Hull-White data");
     return presentValue((CouponCMS) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 
@@ -76,8 +75,8 @@ public final class CouponCMSDiscountingMethod implements PricingMethod {
    * @return The present value curve sensitivity.
    */
   public InterestRateCurveSensitivity presentValueSensitivity(final CouponCMS cmsCoupon, final YieldCurveBundle curves) {
-    Validate.notNull(cmsCoupon);
-    Validate.notNull(curves);
+    ArgChecker.notNull(cmsCoupon, "cmsCoupon");
+    ArgChecker.notNull(curves, "curves");
     final ParRateCalculator parRateCal = ParRateCalculator.getInstance();
     final double swapRate = parRateCal.visitFixedCouponSwap(cmsCoupon.getUnderlyingSwap(), curves);
     final String fundingCurveName = cmsCoupon.getFundingCurveName();

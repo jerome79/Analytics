@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityFunction1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
@@ -37,9 +35,9 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
     final Interpolator1DLogPiecewisePoynomialDataBundle polyData = (Interpolator1DLogPiecewisePoynomialDataBundle) data;
     final DoubleMatrix1D res = FUNC.evaluate(polyData.getPiecewisePolynomialResultsWithSensitivity(), value);
     return Math.exp(res.getEntry(0));
@@ -47,9 +45,9 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
     final Interpolator1DLogPiecewisePoynomialDataBundle polyData = (Interpolator1DLogPiecewisePoynomialDataBundle) data;
     final DoubleMatrix1D resValue = FUNC.evaluate(polyData.getPiecewisePolynomialResultsWithSensitivity(), value);
     final DoubleMatrix1D resDerivative = FUNC.differentiate(polyData.getPiecewisePolynomialResultsWithSensitivity(), value);
@@ -58,9 +56,9 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
     final Interpolator1DLogPiecewisePoynomialDataBundle polyData = (Interpolator1DLogPiecewisePoynomialDataBundle) data;
     final double[] resSense = FUNC.nodeSensitivity(polyData.getPiecewisePolynomialResultsWithSensitivity(), value).getData();
     final double resValue = Math.exp(FUNC.evaluate(polyData.getPiecewisePolynomialResultsWithSensitivity(), value).getEntry(0));
@@ -75,7 +73,7 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
 
   @Override
   public Interpolator1DDataBundle getDataBundle(final double[] x, final double[] y) {
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(y, "y");
     final int nData = y.length;
     final double[] logY = new double[nData];
     for (int i = 0; i < nData; ++i) {
@@ -87,7 +85,7 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
 
   @Override
   public Interpolator1DDataBundle getDataBundleFromSortedArrays(final double[] x, final double[] y) {
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(y, "y");
     final int nData = y.length;
     final double[] logY = new double[nData];
     for (int i = 0; i < nData; ++i) {

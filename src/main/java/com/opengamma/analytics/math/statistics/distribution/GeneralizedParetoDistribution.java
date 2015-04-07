@@ -9,10 +9,9 @@ import java.util.Date;
 
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -82,9 +81,9 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
    * @param engine A uniform random number generator, not null
    */
   public GeneralizedParetoDistribution(final double mu, final double sigma, final double ksi, final RandomEngine engine) {
-    Validate.isTrue(sigma > 0, "sigma must be > 0");
-    Validate.isTrue(!CompareUtils.closeEquals(ksi, 0, 1e-15), "ksi cannot be zero");
-    Validate.notNull(engine);
+    ArgChecker.isTrue(sigma > 0, "sigma must be > 0");
+    ArgChecker.isTrue(!CompareUtils.closeEquals(ksi, 0, 1e-15), "ksi cannot be zero");
+    ArgChecker.notNull(engine, "engine");
     _mu = mu;
     _sigma = sigma;
     _ksi = ksi;
@@ -118,18 +117,18 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return 1 - Math.pow(1 + _ksi * getZ(x), -1. / _ksi);
   }
 
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public double getInverseCDF(final Double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -138,7 +137,7 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
   */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return Math.pow(1 + _ksi * getZ(x), -(1. / _ksi + 1)) / _sigma;
   }
 

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.surface;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -71,8 +69,8 @@ public class FunctionalSurface<U, V> extends Surface<U, U, V> {
    */
   @Override
   public V getZValue(final U x, final U y) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
     return _function.evaluate(x, y);
   }
 
@@ -81,7 +79,7 @@ public class FunctionalSurface<U, V> extends Surface<U, U, V> {
    */
   @Override
   public V getZValue(final Pair<U, U> xy) {
-    Validate.notNull(xy, "x-y pair");
+    ArgChecker.notNull(xy, "x-y pair");
     return _function.evaluate(xy.getFirst(), xy.getSecond());
   }
 

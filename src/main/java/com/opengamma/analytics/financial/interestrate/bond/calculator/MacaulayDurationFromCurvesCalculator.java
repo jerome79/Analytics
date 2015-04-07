@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.calculator;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
 import com.opengamma.analytics.financial.interestrate.bond.method.BondSecurityDiscountingMethod;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculate Macaulay duration for bonds.
@@ -44,8 +43,8 @@ public final class MacaulayDurationFromCurvesCalculator extends InstrumentDeriva
 
   @Override
   public Double visitBondFixedSecurity(final BondFixedSecurity bond, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(bond);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(bond, "bond");
     return METHOD_BOND.macaulayDurationFromCurves(bond, curves);
   }
 

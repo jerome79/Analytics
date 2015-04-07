@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.calculator;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
 import com.opengamma.analytics.financial.interestrate.bond.method.BondSecurityDiscountingMethod;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculate dirty price for bonds.
@@ -40,8 +39,8 @@ public final class DirtyPriceFromCurvesCalculator extends InstrumentDerivativeVi
 
   @Override
   public Double visitBondFixedSecurity(final BondFixedSecurity bond, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(bond);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(bond, "bond");
     final BondSecurityDiscountingMethod method = BondSecurityDiscountingMethod.getInstance();
     return method.dirtyPriceFromCurves(bond, curves);
   }

@@ -6,12 +6,12 @@
 package com.opengamma.analytics.math.linearalgebra;
 
 import cern.colt.matrix.linalg.SingularValueDecomposition;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
 import com.opengamma.analytics.math.util.wrapper.ColtMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Wrapper for results of the Colt implementation of singular value decomposition {@link SVDecompositionColt}).
@@ -31,7 +31,7 @@ public class SVDecompositionColtResult implements SVDecompositionResult {
    * @param svd The result of the SV decomposition, not null
    */
   public SVDecompositionColtResult(final SingularValueDecomposition svd) {
-    Validate.notNull(svd);
+    ArgChecker.notNull(svd, "svd");
     _condition = svd.cond();
     _norm = svd.norm2();
     _rank = svd.rank();
@@ -120,7 +120,7 @@ public class SVDecompositionColtResult implements SVDecompositionResult {
    */
   @Override
   public DoubleMatrix1D solve(final DoubleMatrix1D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     return new DoubleMatrix1D(solve(b.getData()));
   }
 
@@ -129,7 +129,7 @@ public class SVDecompositionColtResult implements SVDecompositionResult {
    */
   @Override
   public double[] solve(final double[] b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     final double[][] u = _u.getData();
     final double[][] v = _v.getData();
     final double[] w = _singularValues;
@@ -166,7 +166,7 @@ public class SVDecompositionColtResult implements SVDecompositionResult {
    */
   @Override
   public DoubleMatrix2D solve(final DoubleMatrix2D b) {
-    Validate.notNull(b);
+    ArgChecker.notNull(b, "b");
     final DoubleMatrix2D bt = DoubleMatrixUtils.getTranspose(b);
     final double[][] data = bt.getData();
     final int n = data.length;

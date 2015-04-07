@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.financial.greeks.GreekVisitor;
@@ -20,6 +18,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * @param <T> The type of the option definition
@@ -44,9 +43,9 @@ public abstract class AnalyticOptionModel<T extends OptionDefinition, U extends 
    * @return A visitor that calculates greeks
    */
   public GreekVisitor<Double> getGreekVisitor(final Function1D<U, Double> pricingFunction, final U data, final T definition) {
-    Validate.notNull(pricingFunction);
-    Validate.notNull(data);
-    Validate.notNull(definition);
+    ArgChecker.notNull(pricingFunction, "pricingFunction");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(definition, "definition");
     return new AnalyticOptionModelFiniteDifferenceGreekVisitor<>(pricingFunction, data, definition);
   }
 
@@ -55,9 +54,9 @@ public abstract class AnalyticOptionModel<T extends OptionDefinition, U extends 
    */
   @Override
   public GreekResultCollection getGreeks(final T definition, final U data, final Set<Greek> requiredGreeks) {
-    Validate.notNull(definition);
-    Validate.notNull(data);
-    Validate.notNull(requiredGreeks);
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(requiredGreeks, "requiredGreeks");
     final Function1D<U, Double> pricingFunction = getPricingFunction(definition);
     final GreekResultCollection results = new GreekResultCollection();
     final GreekVisitor<Double> visitor = getGreekVisitor(pricingFunction, data, definition);

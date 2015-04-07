@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Objects;
 
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -333,10 +333,10 @@ public abstract class SmileInterpolator<T extends SmileModelData> implements Gen
       return false;
     }
     final SmileInterpolator<?> other = (SmileInterpolator<?>) obj;
-    if (!ObjectUtils.equals(_model, other._model)) {
+    if (!Objects.equals(_model, other._model)) {
       return false;
     }
-    if (!ObjectUtils.equals(_weightingFunction, other._weightingFunction)) {
+    if (!Objects.equals(_weightingFunction, other._weightingFunction)) {
       return false;
     }
     return true;

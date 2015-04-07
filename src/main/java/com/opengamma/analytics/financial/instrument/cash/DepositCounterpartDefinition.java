@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.cash;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
@@ -165,7 +164,7 @@ public class DepositCounterpartDefinition extends CashDefinition {
       return false;
     }
     final DepositCounterpartDefinition other = (DepositCounterpartDefinition) obj;
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     return true;

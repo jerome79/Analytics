@@ -5,14 +5,13 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.calculator;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuture;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureTransaction;
 import com.opengamma.analytics.financial.interestrate.future.method.BondFutureDiscountingMethod;
 import com.opengamma.analytics.financial.interestrate.future.method.InterestRateFutureTransactionDiscountingMethod;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculate present value for futures from the quoted price.
@@ -50,13 +49,13 @@ public final class PresentValueFromFuturePriceCalculator extends InstrumentDeriv
 
   @Override
   public Double visitInterestRateFutureTransaction(final InterestRateFutureTransaction future, final Double futurePrice) {
-    Validate.notNull(future);
+    ArgChecker.notNull(future, "future");
     return METHOD_RATE_FUTURE.presentValueFromPrice(future, futurePrice);
   }
 
   @Override
   public Double visitBondFuture(final BondFuture future, final Double futurePrice) {
-    Validate.notNull(future);
+    ArgChecker.notNull(future, "future");
     return METHOD_BOND_FUTURE.presentValueFromPrice(future, futurePrice).getAmount();
   }
 

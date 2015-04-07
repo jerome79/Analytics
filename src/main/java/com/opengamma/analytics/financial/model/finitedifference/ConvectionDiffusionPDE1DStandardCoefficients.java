@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * $$
@@ -27,9 +26,9 @@ public class ConvectionDiffusionPDE1DStandardCoefficients implements ConvectionD
 
   public ConvectionDiffusionPDE1DStandardCoefficients(final Surface<Double, Double, Double> a, final Surface<Double, Double, Double> b,
       final Surface<Double, Double, Double> c) {
-    Validate.notNull(a, "null a");
-    Validate.notNull(b, "null b");
-    Validate.notNull(c, "null c");
+    ArgChecker.notNull(a, "null a");
+    ArgChecker.notNull(b, "null b");
+    ArgChecker.notNull(c, "null c");
     _a = a;
     _b = b;
     _c = c;

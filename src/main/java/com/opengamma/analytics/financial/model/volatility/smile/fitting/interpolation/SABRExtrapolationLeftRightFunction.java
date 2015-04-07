@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.SABRExtrapolationRightFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
@@ -16,6 +14,7 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
 import com.opengamma.analytics.math.differentiation.ScalarFirstOrderDifferentiator;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Abstract class for {@link SABRExtrapolationRightFunction} and {@link SABRExtrapolationLeftFunction}
@@ -36,7 +35,7 @@ public abstract class SABRExtrapolationLeftRightFunction {
    * @param volatilityFunction The volatility function
    */
   public SABRExtrapolationLeftRightFunction(final VolatilityFunctionProvider<SABRFormulaData> volatilityFunction) {
-    Validate.notNull(volatilityFunction, "volatilityFunction");
+    ArgChecker.notNull(volatilityFunction, "volatilityFunction");
     _sabrFunction = volatilityFunction;
   }
   

@@ -6,15 +6,14 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -24,16 +23,16 @@ public class DeltaGammaCovarianceMatrixFisherKurtosisCalculator extends Function
   private final Function1D<Map<Integer, ParametricVaRDataBundle>, Double> _std;
 
   public DeltaGammaCovarianceMatrixFisherKurtosisCalculator(final MatrixAlgebra algebra) {
-    Validate.notNull(algebra, "algebra");
+    ArgChecker.notNull(algebra, "algebra");
     _algebra = algebra;
     _std = new DeltaGammaCovarianceMatrixStandardDeviationCalculator(algebra);
   }
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     final ParametricVaRDataBundle firstOrderData = data.get(1);
-    Validate.notNull(firstOrderData, "first order data");
+    ArgChecker.notNull(firstOrderData, "first order data");
     final ParametricVaRDataBundle secondOrderData = data.get(2);
     if (secondOrderData == null) {
       return 0.;
@@ -77,6 +76,6 @@ public class DeltaGammaCovarianceMatrixFisherKurtosisCalculator extends Function
       return false;
     }
     final DeltaGammaCovarianceMatrixFisherKurtosisCalculator other = (DeltaGammaCovarianceMatrixFisherKurtosisCalculator) obj;
-    return ObjectUtils.equals(_algebra, other._algebra) && ObjectUtils.equals(_std, other._std);
+    return Objects.equals(_algebra, other._algebra) && Objects.equals(_std, other._std);
   }
 }

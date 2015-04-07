@@ -7,10 +7,9 @@ package com.opengamma.analytics.math.interpolation.data;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
-
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -29,12 +28,12 @@ public class InterpolatorNDDataBundle {
   }
 
   private void validateData(final List<Pair<double[], Double>> data) {
-    Validate.notEmpty(data, "no data");
+    ArgChecker.notEmpty(data, "no data");
     final Iterator<Pair<double[], Double>> iter = data.iterator();
     final int dim = iter.next().getFirst().length;
-    Validate.isTrue(dim > 0, "no actual data");
+    ArgChecker.isTrue(dim > 0, "no actual data");
     while (iter.hasNext()) {
-      Validate.isTrue(iter.next().getFirst().length == dim, "different dimensions in data");
+      ArgChecker.isTrue(iter.next().getFirst().length == dim, "different dimensions in data");
     }
   }
 
@@ -55,7 +54,7 @@ public class InterpolatorNDDataBundle {
       return false;
     }
     final InterpolatorNDDataBundle other = (InterpolatorNDDataBundle) obj;
-    if (!ObjectUtils.equals(_data, other._data)) {
+    if (!Objects.equals(_data, other._data)) {
       return false;
     }
     return true;

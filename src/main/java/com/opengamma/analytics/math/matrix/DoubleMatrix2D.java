@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -38,8 +36,8 @@ public class DoubleMatrix2D implements Matrix<Double> {
    * @param columns Number of columns
    */
   public DoubleMatrix2D(final int rows, final int columns) {
-    Validate.isTrue(rows > 0, "row number cannot be negative or zero");
-    Validate.isTrue(columns > 0, "column number cannot be negative or zero");
+    ArgChecker.isTrue(rows > 0, "row number cannot be negative or zero");
+    ArgChecker.isTrue(columns > 0, "column number cannot be negative or zero");
     _rows = rows;
     _columns = columns;
     _data = new double[_rows][_columns];
@@ -52,7 +50,7 @@ public class DoubleMatrix2D implements Matrix<Double> {
    * @throws IllegalArgumentException If the matrix is not rectangular
    */
   public DoubleMatrix2D(final double[][] data) {
-    Validate.notNull(data);
+    ArgChecker.notNull(data, "data");
     if (data.length == 0) {
       _data = new double[0][0];
       _elements = 0;
@@ -74,7 +72,7 @@ public class DoubleMatrix2D implements Matrix<Double> {
    * @throws IllegalArgumentException If the matrix is not rectangular
    */
   public DoubleMatrix2D(final Double[][] data) {
-    Validate.notNull(data);
+    ArgChecker.notNull(data, "data");
     if (data.length == 0) {
       _data = new double[0][0];
       _elements = 0;

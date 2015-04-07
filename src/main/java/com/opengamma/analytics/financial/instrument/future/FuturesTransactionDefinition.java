@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.future.derivative.FuturesSecurity;
 import com.opengamma.strata.collect.ArgChecker;
@@ -142,13 +141,13 @@ public abstract class FuturesTransactionDefinition<FS extends FuturesSecurityDef
     if (_quantity != other._quantity) {
       return false;
     }
-    if (!ObjectUtils.equals(_tradeDate, other._tradeDate)) {
+    if (!Objects.equals(_tradeDate, other._tradeDate)) {
       return false;
     }
     if (Double.doubleToLongBits(_tradePrice) != Double.doubleToLongBits(other._tradePrice)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSecurity, other._underlyingSecurity)) {
+    if (!Objects.equals(_underlyingSecurity, other._underlyingSecurity)) {
       return false;
     }
     return true;

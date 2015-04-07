@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.interpolation.data;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -224,7 +224,7 @@ public class Interpolator1DDoubleQuadraticDataBundle implements Interpolator1DDa
       return false;
     }
     final Interpolator1DDoubleQuadraticDataBundle other = (Interpolator1DDoubleQuadraticDataBundle) obj;
-    return ObjectUtils.equals(_underlyingData, other._underlyingData);
+    return Objects.equals(_underlyingData, other._underlyingData);
   }
 
 }

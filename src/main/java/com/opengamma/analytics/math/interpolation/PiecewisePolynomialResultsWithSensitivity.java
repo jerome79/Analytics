@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -39,7 +37,7 @@ public class PiecewisePolynomialResultsWithSensitivity extends PiecewisePolynomi
   public PiecewisePolynomialResultsWithSensitivity(DoubleMatrix1D knots, DoubleMatrix2D coefMatrix, int order, int dim, final DoubleMatrix2D[] coeffSense) {
     super(knots, coefMatrix, order, dim);
     if (dim != 1) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     ArgChecker.noNulls(coeffSense, "null coeffSense"); // coefficient
     _coeffSense = coeffSense;

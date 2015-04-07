@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.CashFlowEquivalentCalculator;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -21,6 +19,7 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing method of a CMS coupon in the Hull-White (extended Vasicek) model by numerical integration.
@@ -68,8 +67,8 @@ public final class CouponCMSHullWhiteNumericalIntegrationMethod implements Prici
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CouponCMS cmsCoupon, final HullWhiteOneFactorPiecewiseConstantDataBundle hwData) {
-    Validate.notNull(cmsCoupon);
-    Validate.notNull(hwData);
+    ArgChecker.notNull(cmsCoupon, "cmsCoupon");
+    ArgChecker.notNull(hwData, "hwData");
     final double expiryTime = cmsCoupon.getFixingTime();
     final SwapFixedCoupon<? extends Payment> swap = cmsCoupon.getUnderlyingSwap();
     final int nbFixed = cmsCoupon.getUnderlyingSwap().getFixedLeg().getNumberOfPayments();
@@ -109,8 +108,8 @@ public final class CouponCMSHullWhiteNumericalIntegrationMethod implements Prici
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponCMS, "Coupon CMS");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
+    ArgChecker.isTrue(instrument instanceof CouponCMS, "Coupon CMS");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
     return presentValue((CouponCMS) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 

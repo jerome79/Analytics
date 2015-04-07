@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.statistics.descriptive;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The sample skewness gives a measure of the asymmetry of the probability
@@ -29,8 +28,8 @@ public class SampleSkewnessCalculator extends Function1D<double[], Double> {
    */
   @Override
   public Double evaluate(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length >= 3, "Need at least three points to calculate sample skewness");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 3, "Need at least three points to calculate sample skewness");
     double sum = 0;
     double variance = 0;
     final double mean = MEAN.evaluate(x);

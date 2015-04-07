@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.GeneralNormalOptionDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -24,7 +23,7 @@ public class NormalBinomialTreeBuilder<T extends GeneralNormalOptionDataBundle> 
     final double b = 2 * centreLevel;
     final double c = forward * (2 * centreLevel - forward) - sigma2dt;
     final double root = b * b - 4 * c;
-    Validate.isTrue(root >= 0, "can't find upper node - root negative");
+    ArgChecker.isTrue(root >= 0, "can't find upper node - root negative");
     final double upper = (b + Math.sqrt(root)) / 2;
     final double lower = 2 * centreLevel - upper;
     return DoublesPair.of(lower, upper);
@@ -33,7 +32,7 @@ public class NormalBinomialTreeBuilder<T extends GeneralNormalOptionDataBundle> 
   @Override
   protected double getNextHigherNode(final double dt, final double sigma, final double forward, final double lowerNode) {
     final double sigma2dt = sigma * sigma * dt;
-    Validate.isTrue(forward > lowerNode, "need forward > lowerNode");
+    ArgChecker.isTrue(forward > lowerNode, "need forward > lowerNode");
     return sigma2dt / (forward - lowerNode) + forward;
   }
 
@@ -43,7 +42,7 @@ public class NormalBinomialTreeBuilder<T extends GeneralNormalOptionDataBundle> 
       return 0.0;
     }
     final double sigma2dt = sigma * sigma * dt;
-    Validate.isTrue(higherNode > forward, "need higherNode > forward");
+    ArgChecker.isTrue(higherNode > forward, "need higherNode > forward");
     double lowerNode = sigma2dt / (forward - higherNode) + forward;
     if (lowerNode < 0.0) {
       lowerNode = 0.0; // set zero as an absorbing boundary

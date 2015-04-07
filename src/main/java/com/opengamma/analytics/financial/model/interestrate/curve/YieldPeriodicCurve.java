@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.ContinuousInterestRate;
 import com.opengamma.analytics.financial.interestrate.InterestRate;
@@ -165,7 +164,7 @@ public class YieldPeriodicCurve extends YieldAndDiscountCurve {
       return false;
     }
     final YieldPeriodicCurve other = (YieldPeriodicCurve) obj;
-    return ObjectUtils.equals(_curve, other._curve);
+    return Objects.equals(_curve, other._curve);
   }
 
 }

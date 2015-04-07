@@ -8,10 +8,9 @@ package com.opengamma.analytics.financial.interestrate.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Generic calibration engine for interest rate instruments.
@@ -61,7 +60,7 @@ public abstract class CalibrationEngine {
    * @param method A pricing method.
    */
   public void addInstrument(final InstrumentDerivative[] instrument, final PricingMethod method) {
-    Validate.notNull(instrument, "Instrument");
+    ArgChecker.notNull(instrument, "Instrument");
     for (final InstrumentDerivative element : instrument) {
       addInstrument(element, method);
     }

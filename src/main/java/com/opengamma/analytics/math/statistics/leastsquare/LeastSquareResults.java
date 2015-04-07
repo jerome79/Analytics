@@ -5,12 +5,11 @@
  */
 package com.opengamma.analytics.math.statistics.leastsquare;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Container for the results of a least square (minimum chi-square) fit, where some model (with a set of parameters), is calibrated
@@ -36,12 +35,12 @@ public class LeastSquareResults {
   }
 
   public LeastSquareResults(final double chiSq, final DoubleMatrix1D parameters, final DoubleMatrix2D covariance, final DoubleMatrix2D inverseJacobian) {
-    Validate.isTrue(chiSq >= 0, "chi square < 0");
-    Validate.notNull(parameters, "parameters");
-    Validate.notNull(covariance, "covariance");
+    ArgChecker.isTrue(chiSq >= 0, "chi square < 0");
+    ArgChecker.notNull(parameters, "parameters");
+    ArgChecker.notNull(covariance, "covariance");
     final int n = parameters.getNumberOfElements();
-    Validate.isTrue(covariance.getNumberOfColumns() == n, "covariance matrix not square");
-    Validate.isTrue(covariance.getNumberOfRows() == n, "covariance matrix wrong size");
+    ArgChecker.isTrue(covariance.getNumberOfColumns() == n, "covariance matrix not square");
+    ArgChecker.isTrue(covariance.getNumberOfRows() == n, "covariance matrix wrong size");
     //TODO test size of inverse Jacobian
     _chiSq = chiSq;
     _parameters = parameters;
@@ -82,7 +81,7 @@ public class LeastSquareResults {
    */
   public DoubleMatrix2D getFittingParameterSensitivityToData() {
     if (_inverseJacobian == null) {
-      throw new NotImplementedException("The inverse Jacobian was not set");
+      throw new UnsupportedOperationException("The inverse Jacobian was not set");
     }
     return _inverseJacobian;
   }
@@ -115,13 +114,13 @@ public class LeastSquareResults {
     if (Double.doubleToLongBits(_chiSq) != Double.doubleToLongBits(other._chiSq)) {
       return false;
     }
-    if (!ObjectUtils.equals(_covariance, other._covariance)) {
+    if (!Objects.equals(_covariance, other._covariance)) {
       return false;
     }
-    if (!ObjectUtils.equals(_inverseJacobian, other._inverseJacobian)) {
+    if (!Objects.equals(_inverseJacobian, other._inverseJacobian)) {
       return false;
     }
-    return ObjectUtils.equals(_parameters, other._parameters);
+    return Objects.equals(_parameters, other._parameters);
   }
 
 }

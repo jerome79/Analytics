@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.payment;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
@@ -88,10 +87,10 @@ public abstract class PaymentDefinition implements InstrumentDefinition<Payment>
       return false;
     }
     final PaymentDefinition other = (PaymentDefinition) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_paymentDate, other._paymentDate)) {
+    if (!Objects.equals(_paymentDate, other._paymentDate)) {
       return false;
     }
     return true;

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.provider;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondCapitalIndexedTransaction;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.provider.calculator.inflation.PresentValueCurveSensitivityDiscountingInflationCalculator;
@@ -15,6 +13,7 @@ import com.opengamma.analytics.financial.provider.description.inflation.Inflatio
 import com.opengamma.analytics.financial.provider.description.inflation.ParameterInflationIssuerProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.inflation.MultipleCurrencyInflationSensitivity;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing method for inflation bond transaction. The price is computed by index estimation and discounting.
@@ -68,8 +67,8 @@ public final class BondCapitalIndexedTransactionDiscountingMethod {
    * @return The present value.
    */
   public MultiCurrencyAmount presentValueFromCleanPriceReal(final BondCapitalIndexedTransaction<Coupon> bond, final InflationIssuerProviderInterface provider, final double cleanPriceReal) {
-    Validate.notNull(bond, "Coupon");
-    Validate.notNull(provider, "Provider");
+    ArgChecker.notNull(bond, "Coupon");
+    ArgChecker.notNull(provider, "Provider");
     final MultiCurrencyAmount pvBond = METHOD_SECURITY.presentValueFromCleanRealPrice(bond.getBondTransaction(), provider, cleanPriceReal);
     final MultiCurrencyAmount pvSettlement = bond.getBondTransaction().getSettlement().accept(PVIC, provider.getInflationProvider()).multipliedBy(
         bond.getQuantity() * bond.getBondTransaction().getCoupon().getNthPayment(0).getNotional());

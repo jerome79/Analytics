@@ -8,15 +8,14 @@ package com.opengamma.analytics.math.cube;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.Plane;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.util.ParallelArrayBinarySort;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
 /**
@@ -254,14 +253,14 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final double[] points, final Surface<Double, Double, Double>[] surfaces,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(plane, "plane");
-    Validate.notNull(points, "points");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = points.length;
-    Validate.isTrue(n > 0);
-    Validate.isTrue(n == surfaces.length);
-    Validate.noNullElements(surfaces, "surfaces");
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "points size must be greater than zero");
+    ArgChecker.isTrue(n == surfaces.length, "points size must equal surfaces size");
+    ArgChecker.noNulls(surfaces, "surfaces");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = Arrays.copyOf(points, n);
     _surfaces = Arrays.copyOf(surfaces, n);
@@ -284,19 +283,19 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final Double[] points, final Surface<Double, Double, Double>[] surfaces,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(plane, "plane");
-    Validate.notNull(points, "points");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = points.length;
-    Validate.isTrue(n > 0);
-    Validate.isTrue(n == surfaces.length);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "points size must be greater than zero");
+    ArgChecker.isTrue(n == surfaces.length, "points size must equal surfaces size");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = new double[n];
     _surfaces = new Surface[n];
     for (int i = 0; i < n; i++) {
-      Validate.notNull(points[i], "point " + i);
-      Validate.notNull(surfaces[i], "surface " + i);
+      ArgChecker.notNull(points[i], "point " + i);
+      ArgChecker.notNull(surfaces[i], "surface " + i);
       _points[i] = points[i];
       _surfaces[i] = surfaces[i];
     }
@@ -319,15 +318,15 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final List<Double> points, final List<Surface<Double, Double, Double>> surfaces,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(plane, "plane");
-    Validate.notNull(points, "points");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = points.size();
-    Validate.isTrue(n > 0);
-    Validate.isTrue(n == surfaces.size());
-    Validate.noNullElements(points);
-    Validate.noNullElements(surfaces);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "point size must be greater than zero");
+    ArgChecker.isTrue(n == surfaces.size(), "point size must equal surface size");
+    ArgChecker.noNulls(points, "points");
+    ArgChecker.noNulls(surfaces, "surfaces");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = new double[n];
     _surfaces = new Surface[n];
@@ -353,18 +352,18 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final Map<Double, Surface<Double, Double, Double>> surfaces,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
-    Validate.notNull(plane, "plane");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = surfaces.size();
-    Validate.isTrue(n > 0);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "surfaces size must be greater than zero");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = new double[n];
     _surfaces = new Surface[n];
     int i = 0;
     for (final Map.Entry<Double, Surface<Double, Double, Double>> entry : surfaces.entrySet()) {
-      Validate.notNull(entry.getKey(), "point " + i);
-      Validate.notNull(entry.getValue(), "surface " + i);
+      ArgChecker.notNull(entry.getKey(), "point " + i);
+      ArgChecker.notNull(entry.getValue(), "surface " + i);
       _points[i] = entry.getKey();
       _surfaces[i] = entry.getValue();
       i++;
@@ -388,14 +387,14 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final double[] points, final Surface<Double, Double, Double>[] surfaces,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(plane, "plane");
-    Validate.notNull(points, "points");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = points.length;
-    Validate.isTrue(n > 0);
-    Validate.isTrue(n == surfaces.length);
-    Validate.noNullElements(surfaces, "surfaces");
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "points size must be greater than zero");
+    ArgChecker.isTrue(n == surfaces.length, "points size must equal surfaces size");
+    ArgChecker.noNulls(surfaces, "surfaces");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = Arrays.copyOf(points, n);
     _surfaces = Arrays.copyOf(surfaces, n);
@@ -419,19 +418,19 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final Double[] points, final Surface<Double, Double, Double>[] surfaces,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(plane, "plane");
-    Validate.notNull(points, "points");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = points.length;
-    Validate.isTrue(n > 0);
-    Validate.isTrue(n == surfaces.length);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "points size must be greater than zero");
+    ArgChecker.isTrue(n == surfaces.length, "points size must equal surfaces size");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = new double[n];
     _surfaces = new Surface[n];
     for (int i = 0; i < n; i++) {
-      Validate.notNull(points[i], "point " + i);
-      Validate.notNull(surfaces[i], "surface " + i);
+      ArgChecker.notNull(points[i], "point " + i);
+      ArgChecker.notNull(surfaces[i], "surface " + i);
       _points[i] = points[i];
       _surfaces[i] = surfaces[i];
     }
@@ -455,15 +454,15 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final List<Double> points, final List<Surface<Double, Double, Double>> surfaces,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(plane, "plane");
-    Validate.notNull(points, "points");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(points, "points");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = points.size();
-    Validate.isTrue(n > 0);
-    Validate.isTrue(n == surfaces.size());
-    Validate.noNullElements(points);
-    Validate.noNullElements(surfaces);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "point size must be greater than zero");
+    ArgChecker.isTrue(n == surfaces.size(), "point size must equal surface size");
+    ArgChecker.noNulls(points, "points");
+    ArgChecker.noNulls(surfaces, "surfaces");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = new double[n];
     _surfaces = new Surface[n];
@@ -490,18 +489,18 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
   public InterpolatedFromSurfacesDoublesCube(final Plane plane, final Map<Double, Surface<Double, Double, Double>> surfaces,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
-    Validate.notNull(plane, "plane");
-    Validate.notNull(surfaces, "surfaces");
+    ArgChecker.notNull(plane, "plane");
+    ArgChecker.notNull(surfaces, "surfaces");
     final int n = surfaces.size();
-    Validate.isTrue(n > 0);
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.isTrue(n > 0, "surfaces size must be greater than zero");
+    ArgChecker.notNull(interpolator, "interpolator");
     _plane = plane;
     _points = new double[n];
     _surfaces = new Surface[n];
     int i = 0;
     for (final Map.Entry<Double, Surface<Double, Double, Double>> entry : surfaces.entrySet()) {
-      Validate.notNull(entry.getKey(), "point " + i);
-      Validate.notNull(entry.getValue(), "surface " + i);
+      ArgChecker.notNull(entry.getKey(), "point " + i);
+      ArgChecker.notNull(entry.getValue(), "surface " + i);
       _points[i] = entry.getKey();
       _surfaces[i] = entry.getValue();
       i++;
@@ -560,9 +559,9 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   @Override
   public Double getValue(final Double x, final Double y, final Double z) {
-    Validate.notNull(x, "x");
-    Validate.notNull(y, "y");
-    Validate.notNull(z, "z");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.notNull(y, "y");
+    ArgChecker.notNull(z, "z");
     final double[] values = new double[_nSurfaces];
     int i = 0;
     double x1, y1, z1;
@@ -597,7 +596,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   @Override
   public Double getValue(final Triple<Double, Double, Double> xyz) {
-    Validate.notNull(xyz, "xyz");
+    ArgChecker.notNull(xyz, "xyz");
     return getValue(xyz.getFirst(), xyz.getSecond(), xyz.getThird());
   }
 
@@ -659,7 +658,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
     if (!Arrays.equals(_points, other._points)) {
       return false;
     }
-    if (!ObjectUtils.equals(_interpolator, other._interpolator)) {
+    if (!Objects.equals(_interpolator, other._interpolator)) {
       return false;
     }
     return _plane == other._plane;

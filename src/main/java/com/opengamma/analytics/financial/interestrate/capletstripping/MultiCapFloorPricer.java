@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -22,6 +20,7 @@ import com.opengamma.analytics.financial.model.volatility.SimpleOptionData;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
@@ -89,10 +88,10 @@ public class MultiCapFloorPricer {
       }
     }
 
-    _capStartTimes = ArrayUtils.toPrimitive(capStartTimes.toArray(new Double[0]));
-    _capEndTimes = ArrayUtils.toPrimitive(capEndTimes.toArray(new Double[0]));
-    _strikes = ArrayUtils.toPrimitive(strikes.toArray(new Double[0]));
-    _capletExp = ArrayUtils.toPrimitive(expiries.toArray(new Double[0]));
+    _capStartTimes = Doubles.toArray(capStartTimes);
+    _capEndTimes = Doubles.toArray(capEndTimes);
+    _strikes = Doubles.toArray(strikes);
+    _capletExp = Doubles.toArray(expiries);
 
     //represent the unique set of caplets as SimpleOptionData
     _capletsArray = CapFloorDecomposer.toOptions(capletSet.toArray(new CapFloorIbor[0]), curves);

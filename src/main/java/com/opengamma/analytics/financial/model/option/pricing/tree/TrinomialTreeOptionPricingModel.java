@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.Validate;
-
 import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
@@ -647,7 +645,7 @@ public class TrinomialTreeOptionPricingModel extends TreeOptionPricingModel {
   @Override
   public double getPrice(final OptionFunctionProvider1D function, final StandardOptionDataBundle data) {
     ArgChecker.notNull(function, "function");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
 
     final int nSteps = function.getNumberOfSteps();
     final double strike = function.getStrike();

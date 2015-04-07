@@ -9,10 +9,9 @@ import static com.opengamma.analytics.math.ComplexMathUtils.add;
 import static com.opengamma.analytics.math.ComplexMathUtils.multiply;
 import static com.opengamma.analytics.math.number.ComplexNumber.MINUS_I;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -21,7 +20,7 @@ public abstract class MeanCorrection implements MartingaleCharacteristicExponent
   private CharacteristicExponent _base;
 
   public MeanCorrection(CharacteristicExponent base) {
-    Validate.notNull(base, "null base ce");
+    ArgChecker.notNull(base, "null base ce");
     _base = base;
   }
 
@@ -35,7 +34,7 @@ public abstract class MeanCorrection implements MartingaleCharacteristicExponent
 
     final Function1D<ComplexNumber, ComplexNumber> func = _base.getFunction(t);
     final ComplexNumber temp = func.evaluate(MINUS_I);
-    Validate.isTrue(Math.abs(temp.getImaginary()) < 1e-12, "problem with CharacteristicExponent");
+    ArgChecker.isTrue(Math.abs(temp.getImaginary()) < 1e-12, "problem with CharacteristicExponent");
     final ComplexNumber w = new ComplexNumber(0, -temp.getReal());
 
     return new Function1D<ComplexNumber, ComplexNumber>() {
@@ -49,7 +48,7 @@ public abstract class MeanCorrection implements MartingaleCharacteristicExponent
   @Override
   public ComplexNumber getValue(ComplexNumber u, double t) {
     final ComplexNumber temp = _base.getValue(MINUS_I, t);
-    Validate.isTrue(Math.abs(temp.getImaginary()) < 1e-12, "problem with CharacteristicExponent");
+    ArgChecker.isTrue(Math.abs(temp.getImaginary()) < 1e-12, "problem with CharacteristicExponent");
     final ComplexNumber w = new ComplexNumber(0, -temp.getReal());
     return add(_base.getValue(u, t), multiply(w, u));
   }

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableOption;
 import com.opengamma.analytics.financial.forex.method.PresentValueForexBlackVolatilityNodeSensitivityDataBundle;
 import com.opengamma.analytics.financial.forex.method.PresentValueForexBlackVolatilitySensitivity;
@@ -30,6 +28,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.amount.SurfaceValue;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -73,9 +72,9 @@ public final class ForexNonDeliverableOptionBlackSmileMethod {
    * @return The present value. The value is in the domestic currency (currency 2).
    */
   public MultiCurrencyAmount presentValue(final ForexNonDeliverableOption optionForex, final BlackForexSmileProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
@@ -100,9 +99,9 @@ public final class ForexNonDeliverableOptionBlackSmileMethod {
    * @return The currency exposure
    */
   public MultiCurrencyAmount currencyExposure(final ForexNonDeliverableOption optionForex, final BlackForexSmileProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
@@ -143,9 +142,9 @@ public final class ForexNonDeliverableOptionBlackSmileMethod {
    * @return The curve sensitivities.
    */
   public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final ForexNonDeliverableOption optionForex, final BlackForexSmileProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
@@ -186,9 +185,9 @@ public final class ForexNonDeliverableOptionBlackSmileMethod {
    * @return The currency exposure
    */
   public PresentValueForexBlackVolatilitySensitivity presentValueBlackVolatilitySensitivity(final ForexNonDeliverableOption optionForex, final BlackForexSmileProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();
@@ -218,9 +217,9 @@ public final class ForexNonDeliverableOptionBlackSmileMethod {
    */
   public PresentValueForexBlackVolatilityNodeSensitivityDataBundle presentValueVolatilityNodeSensitivity(final ForexNonDeliverableOption optionForex,
       final BlackForexSmileProviderInterface smileMulticurves) {
-    Validate.notNull(optionForex, "Forex option");
-    Validate.notNull(smileMulticurves, "Smile");
-    Validate.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
+    ArgChecker.notNull(optionForex, "Forex option");
+    ArgChecker.notNull(smileMulticurves, "Smile");
+    ArgChecker.isTrue(smileMulticurves.checkCurrencies(optionForex.getCurrency1(), optionForex.getCurrency2()), "Option currencies not compatible with smile data");
     final MulticurveProviderInterface multicurves = smileMulticurves.getMulticurveProvider();
     final double paymentTime = optionForex.getUnderlyingNDF().getPaymentTime();
     final double expiryTime = optionForex.getExpiryTime();

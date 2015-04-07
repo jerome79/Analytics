@@ -11,11 +11,10 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.OptionalDouble;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ObjectUtils;
-
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -96,7 +95,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
       currentDate = nextDate;
     }
     _fixingPeriodDates = fixingDateList.toArray(new ZonedDateTime[fixingDateList.size()]);
-    _fixingPeriodAccrualFactors = ArrayUtils.toPrimitive(fixingAccrualFactorList.toArray(new Double[fixingAccrualFactorList.size()]));
+    _fixingPeriodAccrualFactors = Doubles.toArray(fixingAccrualFactorList);
     _spread = spread;
     _spreadAmount = spread * paymentYearFraction * notional;
   }
@@ -290,7 +289,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
     if (!Arrays.equals(_fixingPeriodDates, other._fixingPeriodDates)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_spread) != Double.doubleToLongBits(other._spread)) {

@@ -9,7 +9,8 @@ import java.util.Date;
 
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
+
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The Laplace distribution is a continuous probability distribution with probability density function
@@ -59,8 +60,8 @@ public class LaplaceDistribution implements ProbabilityDistribution<Double> {
    * @param engine A uniform random number generator, not null
    */
   public LaplaceDistribution(final double mu, final double b, final RandomEngine engine) {
-    Validate.isTrue(b > 0, "b must be > 0");
-    Validate.notNull(engine);
+    ArgChecker.isTrue(b > 0, "b must be > 0");
+    ArgChecker.notNull(engine, "engine");
     _mu = mu;
     _b = b;
     _engine = engine;
@@ -71,7 +72,7 @@ public class LaplaceDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return 0.5 * (1 + Math.signum(x - _mu) * (1 - Math.exp(-Math.abs(x - _mu) / _b)));
   }
 
@@ -80,8 +81,8 @@ public class LaplaceDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getInverseCDF(final Double p) {
-    Validate.notNull(p);
-    Validate.isTrue(p >= 0 && p <= 1, "Probability must lie between 0 and 1 (inclusive)");
+    ArgChecker.notNull(p, "p");
+    ArgChecker.isTrue(p >= 0 && p <= 1, "Probability must lie between 0 and 1 (inclusive)");
     return _mu - _b * Math.signum(p - 0.5) * Math.log(1 - 2 * Math.abs(p - 0.5));
   }
 
@@ -90,7 +91,7 @@ public class LaplaceDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return Math.exp(-Math.abs(x - _mu) / _b) / (2 * _b);
   }
 

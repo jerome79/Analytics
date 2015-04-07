@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class that calculates the roots of a cubic equation. 
@@ -26,9 +25,9 @@ public class CubicRootFinder implements Polynomial1DRootFinder<ComplexNumber> {
    */
   @Override
   public ComplexNumber[] getRoots(final RealPolynomialFunction1D function) {
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     final double[] coefficients = function.getCoefficients();
-    Validate.isTrue(coefficients.length == 4, "Function is not a cubic");
+    ArgChecker.isTrue(coefficients.length == 4, "Function is not a cubic");
     final double divisor = coefficients[3];
     final double a = coefficients[2] / divisor;
     final double b = coefficients[1] / divisor;

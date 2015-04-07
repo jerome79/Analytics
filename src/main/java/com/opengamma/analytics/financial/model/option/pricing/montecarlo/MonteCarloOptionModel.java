@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.montecarlo;
 
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +35,8 @@ public abstract class MonteCarloOptionModel<T extends OptionDefinition, U extend
   public MonteCarloOptionModel(final int n, final int steps, final StochasticProcess<T, U> process, final RandomNumberGenerator generator) {
     ArgChecker.notNegativeOrZero(n, "n");
     ArgChecker.notNegativeOrZero(steps, "steps");
-    Validate.notNull(process, "process");
-    Validate.notNull(generator, "generator");
+    ArgChecker.notNull(process, "process");
+    ArgChecker.notNull(generator, "generator");
     _n = n;
     _steps = steps;
     _process = process;
@@ -46,10 +45,10 @@ public abstract class MonteCarloOptionModel<T extends OptionDefinition, U extend
 
   @Override
   public GreekResultCollection getGreeks(final T definition, final U data, final Set<Greek> requiredGreeks) {
-    Validate.notNull(definition, "definition");
-    Validate.notNull(data, "data");
-    Validate.notNull(requiredGreeks, "required greeks");
-    Validate.notEmpty(requiredGreeks, "required greeks");
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(requiredGreeks, "required greeks");
+    ArgChecker.notEmpty(requiredGreeks, "required greeks");
     if (requiredGreeks.contains(Greek.FAIR_PRICE)) {
       if (requiredGreeks.size() > 1) {
         s_logger.warn("Can only produce fair price");

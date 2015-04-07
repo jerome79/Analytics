@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -39,8 +38,8 @@ public class ForexOptionSingleBarrier implements InstrumentDerivative {
    * @param barrier The barrier
    */
   public ForexOptionSingleBarrier(final ForexOptionVanilla underlyingOption, final Barrier barrier) {
-    Validate.notNull(underlyingOption, "underlying option");
-    Validate.notNull(barrier, "barrier");
+    ArgChecker.notNull(underlyingOption, "underlying option");
+    ArgChecker.notNull(barrier, "barrier");
     _underlyingOption = underlyingOption;
     _barrier = barrier;
     _rebate = 0.0;
@@ -53,9 +52,9 @@ public class ForexOptionSingleBarrier implements InstrumentDerivative {
    * @param rebate The rebate amount (in domestic currency).
    */
   public ForexOptionSingleBarrier(final ForexOptionVanilla underlyingOption, final Barrier barrier, final double rebate) {
-    Validate.notNull(underlyingOption, "underlying option");
-    Validate.notNull(barrier, "barrier");
-    Validate.isTrue(rebate >= 0.0, "Rebate is positive or null");
+    ArgChecker.notNull(underlyingOption, "underlying option");
+    ArgChecker.notNull(barrier, "barrier");
+    ArgChecker.isTrue(rebate >= 0.0, "Rebate is positive or null");
     _underlyingOption = underlyingOption;
     _barrier = barrier;
     _rebate = rebate;
@@ -141,7 +140,7 @@ public class ForexOptionSingleBarrier implements InstrumentDerivative {
     if (Double.doubleToLongBits(_rebate) != Double.doubleToLongBits(other._rebate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingOption, other._underlyingOption)) {
+    if (!Objects.equals(_underlyingOption, other._underlyingOption)) {
       return false;
     }
     return true;

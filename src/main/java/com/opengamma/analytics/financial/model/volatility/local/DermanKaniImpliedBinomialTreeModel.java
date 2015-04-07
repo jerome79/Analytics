@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.local;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.BinomialOptionModelDefinition;
 import com.opengamma.analytics.financial.model.option.definition.CoxRossRubinsteinBinomialOptionModelDefinition;
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.financial.model.option.pricing.tree.BinomialOptio
 import com.opengamma.analytics.financial.model.tree.RecombiningBinomialTree;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -28,13 +27,13 @@ public class DermanKaniImpliedBinomialTreeModel implements ImpliedTreeModel<Opti
   private final int _n;
 
   public DermanKaniImpliedBinomialTreeModel(final int n) {
-    Validate.isTrue(n > 0);
+    ArgChecker.isTrue(n > 0);
     _n = n;
   }
   @Override
   public ImpliedTreeResult getImpliedTrees(final OptionDefinition definition, final StandardOptionDataBundle data) {
-    Validate.notNull(definition, "definition");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(definition, "definition");
+    ArgChecker.notNull(data, "data");
 
     final int m1 = RecombiningBinomialTree.NODES.evaluate(_n);
     final int m2 = RecombiningBinomialTree.NODES.evaluate(_n - 1);

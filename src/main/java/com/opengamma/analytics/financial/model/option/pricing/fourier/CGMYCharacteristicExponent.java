@@ -12,12 +12,10 @@ import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static com.opengamma.analytics.math.number.ComplexNumber.I;
 import static com.opengamma.analytics.math.number.ComplexNumber.ZERO;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.special.GammaFunction;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class represents the characteristic function of the
@@ -51,10 +49,10 @@ public class CGMYCharacteristicExponent implements CharacteristicExponent {
    * @param y Y, < 2
    */
   public CGMYCharacteristicExponent(final double c, final double g, final double m, final double y) {
-    Validate.isTrue(c > 0, "C > 0");
-    Validate.isTrue(g > 0, "G > 0");
-    Validate.isTrue(m > 1, "M > 1");
-    Validate.isTrue(y < 2, "Y < 2");
+    ArgChecker.isTrue(c > 0, "C > 0");
+    ArgChecker.isTrue(g > 0, "G > 0");
+    ArgChecker.isTrue(m > 1, "M > 1");
+    ArgChecker.isTrue(y < 2, "Y < 2");
     _c = c;
     _g = g;
     _m = m;
@@ -189,12 +187,12 @@ public class CGMYCharacteristicExponent implements CharacteristicExponent {
 
   @Override
   public ComplexNumber[] getCharacteristicExponentAdjoint(ComplexNumber u, double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public Function1D<ComplexNumber, ComplexNumber[]> getAdjointFunction(double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
 }

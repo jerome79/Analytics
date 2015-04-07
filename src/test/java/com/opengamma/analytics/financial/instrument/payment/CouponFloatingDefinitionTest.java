@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -93,12 +92,12 @@ public class CouponFloatingDefinitionTest {
 
     @Override
     public Payment toDerivative(final ZonedDateTime date, final DoubleTimeSeries<ZonedDateTime> data) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @Override
     public Payment toDerivative(final ZonedDateTime date) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     @Override

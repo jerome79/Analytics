@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.interestrate.sensitivity;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.analytics.util.amount.CubeValue;
@@ -147,10 +146,10 @@ public class PresentValueBlackBondFuturesCubeSensitivity {
       return false;
     }
     final PresentValueBlackBondFuturesCubeSensitivity other = (PresentValueBlackBondFuturesCubeSensitivity) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_sensitivity, other._sensitivity)) {
+    if (!Objects.equals(_sensitivity, other._sensitivity)) {
       return false;
     }
     return true;

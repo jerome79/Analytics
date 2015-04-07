@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -23,14 +20,14 @@ public abstract class MatrixAlgebra {
    * @throws IllegalArgumentException If the matrices are not of the same type, if the matrices are not the same shape.
    */
   public Matrix<?> add(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D) {
       if (m2 instanceof DoubleMatrix1D) {
         final double[] x1 = ((DoubleMatrix1D) m1).getData();
         final double[] x2 = ((DoubleMatrix1D) m2).getData();
         final int n = x1.length;
-        Validate.isTrue(n == x2.length, "Can only add matrices of the same shape");
+        ArgChecker.isTrue(n == x2.length, "Can only add matrices of the same shape");
         final double[] sum = new double[n];
         for (int i = 0; i < n; i++) {
           sum[i] = x1[i] + x2[i];
@@ -45,10 +42,10 @@ public abstract class MatrixAlgebra {
         final double[][] x2 = ((DoubleMatrix2D) m2).getData();
         final int n = x1.length;
         final int m = x1[0].length;
-        Validate.isTrue(n == x2.length, "Can only add matrices of the same shape");
+        ArgChecker.isTrue(n == x2.length, "Can only add matrices of the same shape");
         final double[][] sum = new double[n][x1[0].length];
         for (int i = 0; i < n; i++) {
-          Validate.isTrue(m == x2[i].length, "Can only add matrices of the same shape");
+          ArgChecker.isTrue(m == x2[i].length, "Can only add matrices of the same shape");
           for (int j = 0; j < m; j++) {
             sum[i][j] = x1[i][j] + x2[i][j];
           }
@@ -57,7 +54,7 @@ public abstract class MatrixAlgebra {
       }
       throw new IllegalArgumentException("Tried to add a " + m1.getClass() + " and " + m2.getClass());
     }
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -68,10 +65,10 @@ public abstract class MatrixAlgebra {
    * @return The result
    */
   public Matrix<?> divide(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
-    Validate.isTrue(m1 instanceof DoubleMatrix2D, "Can only divide a 2D matrix");
-    Validate.isTrue(m2 instanceof DoubleMatrix2D, "Can only perform division with a 2D matrix");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
+    ArgChecker.isTrue(m1 instanceof DoubleMatrix2D, "Can only divide a 2D matrix");
+    ArgChecker.isTrue(m2 instanceof DoubleMatrix2D, "Can only perform division with a 2D matrix");
     return multiply(m1, getInverse(m2));
   }
 
@@ -106,8 +103,8 @@ public abstract class MatrixAlgebra {
    * @return The Kronecker product
    */
   public Matrix<?> kroneckerProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix2D && m2 instanceof DoubleMatrix2D) {
       final double[][] a = ((DoubleMatrix2D) m1).getData();
       final double[][] b = ((DoubleMatrix2D) m2).getData();
@@ -150,7 +147,7 @@ public abstract class MatrixAlgebra {
    * @return the scaled vector or matrix
    */
   public Matrix<?> scale(final Matrix<?> m, final double scale) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       final double[] x = ((DoubleMatrix1D) m).getData();
       final int n = x.length;
@@ -170,7 +167,7 @@ public abstract class MatrixAlgebra {
       }
       return new DoubleMatrix2D(scaled);
     }
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -181,14 +178,14 @@ public abstract class MatrixAlgebra {
    * @throws IllegalArgumentException If the matrices are not of the same type, if the matrices are not the same shape.
    */
   public Matrix<?> subtract(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D) {
       if (m2 instanceof DoubleMatrix1D) {
         final double[] x1 = ((DoubleMatrix1D) m1).getData();
         final double[] x2 = ((DoubleMatrix1D) m2).getData();
         final int n = x1.length;
-        Validate.isTrue(n == x2.length, "Can only subtract matrices of the same shape");
+        ArgChecker.isTrue(n == x2.length, "Can only subtract matrices of the same shape");
         final double[] sum = new double[n];
         for (int i = 0; i < n; i++) {
           sum[i] = x1[i] - x2[i];
@@ -202,10 +199,10 @@ public abstract class MatrixAlgebra {
         final double[][] x2 = ((DoubleMatrix2D) m2).getData();
         final int n = x1.length;
         final int m = x1[0].length;
-        Validate.isTrue(n == x2.length, "Can only subtract matrices of the same shape");
+        ArgChecker.isTrue(n == x2.length, "Can only subtract matrices of the same shape");
         final double[][] sum = new double[n][x1[0].length];
         for (int i = 0; i < n; i++) {
-          Validate.isTrue(m == x2[i].length, "Can only subtract matrices of the same shape");
+          ArgChecker.isTrue(m == x2[i].length, "Can only subtract matrices of the same shape");
           for (int j = 0; j < m; j++) {
             sum[i][j] = x1[i][j] - x2[i][j];
           }
@@ -214,7 +211,7 @@ public abstract class MatrixAlgebra {
       }
       throw new IllegalArgumentException("Tried to subtract a " + m1.getClass() + " and " + m2.getClass());
     }
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**

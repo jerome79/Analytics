@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -20,15 +19,15 @@ public class BarycentricRationalFunctionInterpolator1D extends Interpolator1D {
   private final double _eps;
 
   public BarycentricRationalFunctionInterpolator1D(final int degree, double eps) {
-    Validate.isTrue(degree > 0, "Cannot perform interpolation with rational functions of degree < 1");
+    ArgChecker.isTrue(degree > 0, "Cannot perform interpolation with rational functions of degree < 1");
     _degree = degree;
     _eps = eps;
   }
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
     if (data.size() < _degree) {
       throw new MathException("Cannot interpolate " + data.size() + " data points with rational functions of degree " + _degree);
     }

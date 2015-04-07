@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BillSecurity;
@@ -59,6 +57,7 @@ import com.opengamma.analytics.financial.interestrate.payments.method.PaymentFix
 import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -221,8 +220,8 @@ public class PresentValueCurveSensitivityCalculator extends InstrumentDerivative
 
   @Override
   public Map<String, List<DoublesPair>> visitBondFuture(final BondFuture bondFuture, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(bondFuture);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(bondFuture, "bondFuture");
     final BondFutureDiscountingMethod method = BondFutureDiscountingMethod.getInstance();
     return method.presentValueCurveSensitivity(bondFuture, curves).getSensitivities();
   }

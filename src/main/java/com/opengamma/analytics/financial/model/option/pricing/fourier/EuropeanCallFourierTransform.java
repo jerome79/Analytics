@@ -10,11 +10,11 @@ import static com.opengamma.analytics.math.ComplexMathUtils.divide;
 import static com.opengamma.analytics.math.ComplexMathUtils.exp;
 import static com.opengamma.analytics.math.ComplexMathUtils.multiply;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Gives the Fourier transform of a European call $\hat{C}(z) =
@@ -25,7 +25,7 @@ public class EuropeanCallFourierTransform {
   private final CharacteristicExponent _ce;
 
   public EuropeanCallFourierTransform(final MartingaleCharacteristicExponent ce) {
-    Validate.notNull(ce, "characteristic exponent");
+    ArgChecker.notNull(ce, "characteristic exponent");
     _ce = ce;
   }
 
@@ -71,7 +71,7 @@ public class EuropeanCallFourierTransform {
       return false;
     }
     final EuropeanCallFourierTransform other = (EuropeanCallFourierTransform) obj;
-    return ObjectUtils.equals(_ce, other._ce);
+    return Objects.equals(_ce, other._ce);
   }
 
 }

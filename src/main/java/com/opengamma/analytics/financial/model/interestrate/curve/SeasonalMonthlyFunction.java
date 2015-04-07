@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.JodaBeanUtils;
@@ -24,6 +23,7 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Monthly seasonal adjustments (used in particular for inflation curves).
@@ -58,10 +58,10 @@ class SeasonalMonthlyFunction extends Function1D<Double, Double> implements Bean
    * @param isAdditive
    */
   public SeasonalMonthlyFunction(double[] steps, double[] monthlyFactors, boolean isAdditive) {
-    Validate.notNull(monthlyFactors, "Monthly factors");
-    Validate.notNull(steps, "steps");
-    Validate.isTrue(monthlyFactors.length == NB_MONTH - 1, "Monthly factors with incorrect length; should be 11");
-    Validate.notNull(isAdditive, "isAdditive");
+    ArgChecker.notNull(monthlyFactors, "Monthly factors");
+    ArgChecker.notNull(steps, "steps");
+    ArgChecker.isTrue(monthlyFactors.length == NB_MONTH - 1, "Monthly factors with incorrect length; should be 11");
+    ArgChecker.notNull(isAdditive, "isAdditive");
     _steps = steps;
     double[] cumulativeFactors = new double[NB_MONTH]; // monthly factors
     if (isAdditive) {

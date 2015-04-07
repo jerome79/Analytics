@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableForward;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -64,7 +63,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
 
   @Override
   public MultiCurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexNonDeliverableForward, "Derivative should be ForexNonDeliverableForward");
+    ArgChecker.isTrue(instrument instanceof ForexNonDeliverableForward, "Derivative should be ForexNonDeliverableForward");
     return presentValue((ForexNonDeliverableForward) instrument, curves);
   }
 
@@ -89,7 +88,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
 
   @Override
   public MultiCurrencyAmount currencyExposure(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexNonDeliverableForward, "Derivative should be ForexNonDeliverableForward");
+    ArgChecker.isTrue(instrument instanceof ForexNonDeliverableForward, "Derivative should be ForexNonDeliverableForward");
     return currencyExposure((ForexNonDeliverableForward) instrument, curves);
   }
 
@@ -113,7 +112,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
    * @return The present value currency exposure.
    */
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final ForexNonDeliverableForward ndf, final YieldCurveBundle curves) {
-    //    Validate.isTrue(curves instanceof YieldCurveWithFXBundle, "Bundle should contain FX rate");
+    //    ArgChecker.isTrue(curves instanceof YieldCurveWithFXBundle, "Bundle should contain FX rate");
     //    YieldCurveWithFXBundle curvesFX = (YieldCurveWithFXBundle) curves;
     final double df2 = curves.getCurve(ndf.getDiscountingCurve2Name()).getDiscountFactor(ndf.getPaymentTime());
     final double df1 = curves.getCurve(ndf.getDiscountingCurve1Name()).getDiscountFactor(ndf.getPaymentTime());
@@ -135,7 +134,7 @@ public final class ForexNonDeliverableForwardDiscountingMethod implements ForexP
 
   @Override
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof ForexNonDeliverableForward, "Forex non-deliverable forward");
+    ArgChecker.isTrue(instrument instanceof ForexNonDeliverableForward, "Forex non-deliverable forward");
     return presentValueCurveSensitivity((ForexNonDeliverableForward) instrument, curves);
   }
 

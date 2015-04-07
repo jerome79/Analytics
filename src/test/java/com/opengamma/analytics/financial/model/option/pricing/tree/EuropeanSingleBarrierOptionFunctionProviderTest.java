@@ -9,7 +9,6 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.greeks.Greek;
@@ -493,7 +492,7 @@ public class EuropeanSingleBarrierOptionFunctionProviderTest {
    * 
    */
   @SuppressWarnings("unused")
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void downInBarrierTest() {
     new EuropeanSingleBarrierOptionFunctionProvider(STRIKES[2], 1., 101, true, 90., EuropeanSingleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DownAndIn"));
   }
@@ -502,7 +501,7 @@ public class EuropeanSingleBarrierOptionFunctionProviderTest {
    * 
    */
   @SuppressWarnings("unused")
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void upInBarrierTest() {
     new EuropeanSingleBarrierOptionFunctionProvider(STRIKES[2], 1., 101, true, 90., EuropeanSingleBarrierOptionFunctionProvider.BarrierTypes.valueOf("UpAndIn"));
   }

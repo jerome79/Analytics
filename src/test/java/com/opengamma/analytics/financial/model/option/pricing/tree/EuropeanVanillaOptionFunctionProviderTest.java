@@ -11,7 +11,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.greeks.Greek;
@@ -26,6 +25,7 @@ import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -58,7 +58,7 @@ public class EuropeanVanillaOptionFunctionProviderTest {
 
       @Override
       public Double evaluate(final Double... tk) {
-        Validate.isTrue(tk.length == 2);
+        ArgChecker.isTrue(tk.length == 2);
         final double k = tk[1];
         return atmVol + (spot - k) * 0.0005;
       }

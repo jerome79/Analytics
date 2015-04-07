@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
@@ -52,7 +51,7 @@ public class ActualThreeSixtyFiveLongTest {
     DC.getAccruedInterest(D1, D3, D2, COUPON, PAYMENTS);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetDayCount() {
     DC.getDayCountFraction(D1, D2);
   }

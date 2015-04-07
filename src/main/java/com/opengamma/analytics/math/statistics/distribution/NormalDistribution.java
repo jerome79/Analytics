@@ -11,9 +11,9 @@ import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 import cern.jet.stat.Probability;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.statistics.distribution.fnlib.DERFC;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The normal distribution is a continuous probability distribution with probability density function
@@ -51,8 +51,8 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
    * @param randomEngine A generator of uniform random numbers, not null
    */
   public NormalDistribution(final double mean, final double standardDeviation, final RandomEngine randomEngine) {
-    Validate.isTrue(standardDeviation > 0, "standard deviation");
-    Validate.notNull(randomEngine);
+    ArgChecker.isTrue(standardDeviation > 0, "standard deviation");
+    ArgChecker.notNull(randomEngine, "randomEngine");
     _mean = mean;
     _standardDeviation = standardDeviation;
     _normal = new Normal(mean, standardDeviation, randomEngine);
@@ -63,7 +63,7 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return DERFC.getErfc(-x / ROOT2) / 2;
   }
 
@@ -72,7 +72,7 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _normal.pdf(x);
   }
 
@@ -89,8 +89,8 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getInverseCDF(final Double p) {
-    Validate.notNull(p);
-    Validate.isTrue(p >= 0 && p <= 1, "Probability must be >= 0 and <= 1");
+    ArgChecker.notNull(p, "p");
+    ArgChecker.isTrue(p >= 0 && p <= 1, "Probability must be >= 0 and <= 1");
     return Probability.normalInverse(p);
   }
 

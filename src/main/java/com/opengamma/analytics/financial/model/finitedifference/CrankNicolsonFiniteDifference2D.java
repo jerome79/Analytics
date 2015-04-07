@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.cube.Cube;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * <b>Note</b> this is for testing purposes and is not recommended for actual use
@@ -29,7 +28,7 @@ public class CrankNicolsonFiniteDifference2D implements ConvectionDiffusionPDESo
    * @param theta The weight. theta = 0 - fully explicit, theta = 0.5 - Crank-Nicolson, theta = 1.0 - fully implicit
    */
   public CrankNicolsonFiniteDifference2D(final double theta) {
-    Validate.isTrue(theta >= 0 && theta <= 1.0, "theta must be in the range 0 to 1");
+    ArgChecker.isTrue(theta >= 0 && theta <= 1.0, "theta must be in the range 0 to 1");
     _theta = theta;
   }
 
@@ -294,37 +293,37 @@ public class CrankNicolsonFiniteDifference2D implements ConvectionDiffusionPDESo
       final BoundaryCondition2D xUpperBoundary, final BoundaryCondition2D yLowerBoundary, final BoundaryCondition2D yUpperBoundary,
       @SuppressWarnings("unused") final Cube<Double, Double, Double, Double> freeBoundary) {
 
-    Validate.notNull(pdeData, "pde data");
+    ArgChecker.notNull(pdeData, "pde data");
     final int tNodes = timeGrid.length;
     final int xNodes = xGrid.length;
     final int yNodes = yGrid.length;
-    Validate.isTrue(tNodes > 1, "need at least 2 time nodes");
-    Validate.isTrue(xNodes > 2, "need at least 3 x nodes");
-    Validate.isTrue(yNodes > 2, "need at least 3 y nodes");
+    ArgChecker.isTrue(tNodes > 1, "need at least 2 time nodes");
+    ArgChecker.isTrue(xNodes > 2, "need at least 3 x nodes");
+    ArgChecker.isTrue(yNodes > 2, "need at least 3 y nodes");
 
     // check grid and boundaries are consistent
-    Validate.isTrue(Math.abs(xGrid[0] - xLowerBoundary.getLevel()) < 1e-7, "x grid not consistent with boundary level");
-    Validate.isTrue(Math.abs(xGrid[xNodes - 1] - xUpperBoundary.getLevel()) < 1e-7, "x grid not consistent with boundary level");
-    Validate.isTrue(Math.abs(yGrid[0] - yLowerBoundary.getLevel()) < 1e-7, "y grid not consistent with boundary level");
-    Validate.isTrue(Math.abs(yGrid[yNodes - 1] - yUpperBoundary.getLevel()) < 1e-7, "y grid not consistent with boundary level");
+    ArgChecker.isTrue(Math.abs(xGrid[0] - xLowerBoundary.getLevel()) < 1e-7, "x grid not consistent with boundary level");
+    ArgChecker.isTrue(Math.abs(xGrid[xNodes - 1] - xUpperBoundary.getLevel()) < 1e-7, "x grid not consistent with boundary level");
+    ArgChecker.isTrue(Math.abs(yGrid[0] - yLowerBoundary.getLevel()) < 1e-7, "y grid not consistent with boundary level");
+    ArgChecker.isTrue(Math.abs(yGrid[yNodes - 1] - yUpperBoundary.getLevel()) < 1e-7, "y grid not consistent with boundary level");
 
     final double[] dt = new double[tNodes - 1];
     for (int n = 0; n < tNodes - 1; n++) {
       dt[n] = timeGrid[n + 1] - timeGrid[n];
-      Validate.isTrue(dt[n] > 0, "time steps must be increasing");
+      ArgChecker.isTrue(dt[n] > 0, "time steps must be increasing");
     }
 
     final double[] dx = new double[xNodes - 1];
 
     for (int i = 0; i < xNodes - 1; i++) {
       dx[i] = xGrid[i + 1] - xGrid[i];
-      Validate.isTrue(dx[i] > 0, "x steps must be increasing");
+      ArgChecker.isTrue(dx[i] > 0, "x steps must be increasing");
     }
 
     final double[] dy = new double[yNodes - 1];
     for (int i = 0; i < yNodes - 1; i++) {
       dy[i] = yGrid[i + 1] - yGrid[i];
-      Validate.isTrue(dy[i] > 0, "y steps must be increasing");
+      ArgChecker.isTrue(dy[i] > 0, "y steps must be increasing");
     }
 
     // since the space grid is time independent, we can calculate the coefficients for derivatives once

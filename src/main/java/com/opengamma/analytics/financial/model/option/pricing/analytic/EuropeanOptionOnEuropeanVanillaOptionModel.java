@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanOptionOnEuropeanVanillaOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
@@ -21,6 +19,7 @@ import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -34,13 +33,13 @@ public class EuropeanOptionOnEuropeanVanillaOptionModel extends AnalyticOptionMo
 
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final EuropeanOptionOnEuropeanVanillaOptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     return new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final OptionDefinition underlying = definition.getUnderlyingOption();
         final double k1 = definition.getStrike();

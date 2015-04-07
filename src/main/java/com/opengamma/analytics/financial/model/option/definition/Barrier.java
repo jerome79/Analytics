@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -43,10 +43,10 @@ public class Barrier {
   private final double _level;
 
   public Barrier(final KnockType knock, final BarrierType barrier, final ObservationType observation, final double level) {
-    Validate.notNull(knock, "knock type");
-    Validate.notNull(barrier, "barrier type");
-    Validate.notNull(observation, "observation type");
-    Validate.isTrue(level > 0, "barrier level must be > 0");
+    ArgChecker.notNull(knock, "knock type");
+    ArgChecker.notNull(barrier, "barrier type");
+    ArgChecker.notNull(observation, "observation type");
+    ArgChecker.isTrue(level > 0, "barrier level must be > 0");
     _knock = knock;
     _barrier = barrier;
     _observation = observation;

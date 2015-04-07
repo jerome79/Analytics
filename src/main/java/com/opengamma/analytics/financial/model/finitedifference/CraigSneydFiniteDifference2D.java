@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.cube.Cube;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Craig-Sneyd splitting
@@ -183,7 +182,7 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
         // SOR
         final double omega = 1.5;
         final int count = sor(xSteps, vt, q, mx, j, omega);
-        Validate.isTrue(count < 1000, "SOR exceeded max iterations");
+        ArgChecker.isTrue(count < 1000, "SOR exceeded max iterations");
       }
 
       // stag 3 explicit in y
@@ -311,7 +310,7 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
           }
           count++;
         }
-        Validate.isTrue(count < 1000, "SOR exceeded max interations");
+        ArgChecker.isTrue(count < 1000, "SOR exceeded max interations");
       }
 
     } // time loop

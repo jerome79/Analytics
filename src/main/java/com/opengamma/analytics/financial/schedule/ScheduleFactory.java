@@ -8,9 +8,8 @@ package com.opengamma.analytics.financial.schedule;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.strata.basics.schedule.Frequency;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Factory to create schedules.
@@ -19,18 +18,18 @@ public class ScheduleFactory {
 
   public static LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate, final com.opengamma.strata.basics.schedule.Frequency frequency, final boolean endOfMonth, final boolean fromEnd,
       final boolean generateRecursive) {
-    Validate.notNull(startDate, "start date");
-    Validate.notNull(endDate, "end date");
-    Validate.notNull(frequency, "frequency");
+    ArgChecker.notNull(startDate, "start date");
+    ArgChecker.notNull(endDate, "end date");
+    ArgChecker.notNull(frequency, "frequency");
     int periodsPerYear = frequency.eventsPerYear();
     return getSchedule(startDate, endDate, periodsPerYear, endOfMonth, fromEnd, generateRecursive);
   }
 
   public static LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate, final int periodsPerYear, final boolean endOfMonth, final boolean fromEnd,
       final boolean generateRecursive) {
-    Validate.notNull(startDate, "start date");
-    Validate.notNull(endDate, "end date");
-    Validate.isTrue(periodsPerYear > 0);
+    ArgChecker.notNull(startDate, "start date");
+    ArgChecker.notNull(endDate, "end date");
+    ArgChecker.isTrue(periodsPerYear > 0);
     LocalDate[] result = null;
     if (periodsPerYear == 1) {
       if (endOfMonth) {
@@ -91,24 +90,24 @@ public class ScheduleFactory {
       }
       result = ScheduleCalculatorFactory.DAILY_CALCULATOR.getSchedule(startDate, endDate);
     }
-    Validate.notNull(result, "result");
+    ArgChecker.notNull(result, "result");
     return result;
   }
 
   public static ZonedDateTime[] getSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final Frequency frequency, final boolean endOfMonth, final boolean fromEnd,
       final boolean generateRecursive) {
-    Validate.notNull(startDate, "start date");
-    Validate.notNull(endDate, "end date");
-    Validate.notNull(frequency, "frequency");
+    ArgChecker.notNull(startDate, "start date");
+    ArgChecker.notNull(endDate, "end date");
+    ArgChecker.notNull(frequency, "frequency");
     int periodsPerYear = frequency.eventsPerYear();
     return getSchedule(startDate, endDate, periodsPerYear, endOfMonth, fromEnd, generateRecursive);
   }
 
   public static ZonedDateTime[] getSchedule(final ZonedDateTime startDate, final ZonedDateTime endDate, final int periodsPerYear, final boolean endOfMonth, final boolean fromEnd,
       final boolean generateRecursive) {
-    Validate.notNull(startDate, "start date");
-    Validate.notNull(endDate, "end date");
-    Validate.isTrue(periodsPerYear > 0);
+    ArgChecker.notNull(startDate, "start date");
+    ArgChecker.notNull(endDate, "end date");
+    ArgChecker.isTrue(periodsPerYear > 0);
     ZonedDateTime[] result = null;
     if (periodsPerYear == 1) {
       if (endOfMonth) {
@@ -169,7 +168,7 @@ public class ScheduleFactory {
       }
       result = ScheduleCalculatorFactory.DAILY_CALCULATOR.getSchedule(startDate, endDate);
     }
-    Validate.notNull(result, "result");
+    ArgChecker.notNull(result, "result");
     return result;
   }
 }

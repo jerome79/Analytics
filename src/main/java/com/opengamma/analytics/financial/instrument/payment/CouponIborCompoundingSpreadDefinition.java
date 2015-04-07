@@ -12,8 +12,7 @@ import java.time.Period;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
@@ -675,7 +674,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     } else if (!_index.equals(other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_index, other._index)) {
+    if (!Objects.equals(_index, other._index)) {
       return false;
     }
     if (Double.doubleToLongBits(_initialRate) != Double.doubleToLongBits(other._initialRate)) {

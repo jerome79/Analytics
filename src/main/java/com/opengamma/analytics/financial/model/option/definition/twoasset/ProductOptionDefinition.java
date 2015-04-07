@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.definition.twoasset;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanExerciseFunction;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.OptionExerciseFunction;
 import com.opengamma.analytics.financial.model.option.definition.OptionPayoffFunction;
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -39,7 +38,7 @@ public class ProductOptionDefinition extends OptionDefinition {
 
     @Override
     public double getPayoff(final StandardTwoAssetOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data, "data");
+      ArgChecker.notNull(data, "data");
       final double s1 = data.getFirstSpot();
       final double s2 = data.getSecondSpot();
       return isCall() ? Math.max(s1 * s2 - getStrike(), 0) : Math.max(getStrike() - s1 * s2, 0);

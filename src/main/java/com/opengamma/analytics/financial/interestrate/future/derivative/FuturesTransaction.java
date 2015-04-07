@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.strata.basics.currency.Currency;
@@ -106,7 +106,7 @@ public abstract class FuturesTransaction<F extends FuturesSecurity> implements I
     if (Double.doubleToLongBits(_referencePrice) != Double.doubleToLongBits(other._referencePrice)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingSecurity, other._underlyingSecurity)) {
+    if (!Objects.equals(_underlyingSecurity, other._underlyingSecurity)) {
       return false;
     }
     return true;

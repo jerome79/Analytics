@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -204,7 +204,7 @@ public class BondFixedSecurity extends BondSecurity<PaymentFixed, CouponFixed> {
     if (Double.doubleToLongBits(_factorToNextCoupon) != Double.doubleToLongBits(other._factorToNextCoupon)) {
       return false;
     }
-    if (!ObjectUtils.equals(_yieldConvention, other._yieldConvention)) {
+    if (!Objects.equals(_yieldConvention, other._yieldConvention)) {
       return false;
     }
     return true;

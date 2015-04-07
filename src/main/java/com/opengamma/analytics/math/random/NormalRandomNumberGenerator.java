@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
@@ -28,7 +27,7 @@ public class NormalRandomNumberGenerator implements RandomNumberGenerator {
 
   public NormalRandomNumberGenerator(final double mean, final double sigma, final RandomEngine engine) {
     ArgChecker.notNegativeOrZero(sigma, "standard deviation");
-    Validate.notNull(engine, "engine");
+    ArgChecker.notNull(engine, "engine");
     _normal = new NormalDistribution(mean, sigma, engine);
   }
 

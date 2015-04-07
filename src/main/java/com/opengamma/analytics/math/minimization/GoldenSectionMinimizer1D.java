@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.math.minimization;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -25,7 +24,7 @@ public class GoldenSectionMinimizer1D implements ScalarMinimizer {
   }
 
   public double minimize(final Function1D<Double, Double> f, final double lower, final double upper) {
-    Validate.notNull(f, "function");
+    ArgChecker.notNull(f, "function");
     double x0, x1, x2, x3, f1, f2, temp;
     int i = 0;
     final double[] triplet = BRACKETER.getBracketedPoints(f, lower, upper);

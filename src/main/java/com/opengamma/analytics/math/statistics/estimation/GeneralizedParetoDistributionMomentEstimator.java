@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.statistics.estimation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BisectionSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
@@ -16,6 +14,7 @@ import com.opengamma.analytics.math.statistics.descriptive.SampleSkewnessCalcula
 import com.opengamma.analytics.math.statistics.descriptive.SampleVarianceCalculator;
 import com.opengamma.analytics.math.statistics.distribution.GeneralizedParetoDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -29,7 +28,7 @@ public class GeneralizedParetoDistributionMomentEstimator extends DistributionPa
 
   @Override
   public ProbabilityDistribution<Double> evaluate(final double[] x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     final double mean = MEAN.evaluate(x);
     final double variance = VARIANCE.evaluate(x);
     final double skewness = SKEWNESS.evaluate(x);

@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
@@ -60,7 +59,7 @@ public class ActualActualICMATest {
     DC1.getAccruedInterest(D1, D2, D3, COUPON, PAYMENTS, null);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetDayCount1() {
     DC1.getDayCountFraction(D1, D2);
   }
@@ -106,7 +105,7 @@ public class ActualActualICMATest {
     DC2.getAccruedInterest(D1, D2, D3, COUPON, PAYMENTS, null);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetDayCount2() {
     DC2.getDayCountFraction(D1, D2);
   }

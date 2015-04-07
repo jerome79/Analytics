@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Extrapolator based on a exponential function. Outside the data range the function is an exponential exp(m*x) where m is such that 
@@ -30,8 +29,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
       return leftExtrapolate(data, value);
     } else if (value > data.lastKey()) {
@@ -42,8 +41,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
       return leftExtrapolateDerivative(data, value);
     } else if (value > data.lastKey()) {
@@ -54,7 +53,7 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     if (value < data.firstKey()) {
       return getLeftSensitivities(data, value);
     } else if (value > data.lastKey()) {
@@ -64,8 +63,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
   }
 
   private Double leftExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = data.firstValue();
     final double m = Math.log(y) / x;
@@ -73,8 +72,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
   }
 
   private Double rightExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = data.lastValue();
     final double m = Math.log(y) / x;
@@ -82,8 +81,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
   }
 
   private Double leftExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = data.firstValue();
     final double m = Math.log(y) / x;
@@ -91,8 +90,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
   }
 
   private Double rightExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = data.lastValue();
     final double m = Math.log(y) / x;
@@ -100,8 +99,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
   }
 
   private double[] getLeftSensitivities(final Interpolator1DDataBundle data, final double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = data.firstValue();
     final double m = Math.log(y) / x;
@@ -112,8 +111,8 @@ public class ExponentialExtrapolator1D extends Interpolator1D {
   }
 
   private double[] getRightSensitivities(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = data.lastValue();
     final double m = Math.log(y) / x;

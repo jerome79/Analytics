@@ -7,13 +7,12 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -119,7 +118,7 @@ public class YieldCurve extends YieldAndDiscountCurve {
       return false;
     }
     final YieldCurve other = (YieldCurve) obj;
-    return ObjectUtils.equals(_curve, other._curve);
+    return Objects.equals(_curve, other._curve);
   }
 
   @Override

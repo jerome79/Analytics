@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.surface;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts a {@link FunctionalDoublesSurface}. Only parallel shifts of the surface are supported.
@@ -19,7 +18,7 @@ public class FunctionalSurfaceMultiplicativeShiftFunction implements SurfaceShif
    */
   @Override
   public FunctionalDoublesSurface evaluate(final FunctionalDoublesSurface surface, final double percentage) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, percentage, "CONSTANT_MULTIPLIER_" + surface.getName());
   }
 
@@ -28,7 +27,7 @@ public class FunctionalSurfaceMultiplicativeShiftFunction implements SurfaceShif
    */
   @Override
   public FunctionalDoublesSurface evaluate(final FunctionalDoublesSurface surface, final double percentage, final String newName) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     final Function<Double, Double> f = surface.getFunction();
     final Function<Double, Double> shiftedFunction = new ShiftedFunction(percentage, f);
     return FunctionalDoublesSurface.from(shiftedFunction, newName);

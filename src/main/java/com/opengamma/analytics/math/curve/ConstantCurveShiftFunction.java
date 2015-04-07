@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.curve;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts a {@link ConstantDoublesCurve}. Only parallel shifts of the curve are supported - the other methods would result in a curve that was
@@ -18,7 +18,7 @@ public class ConstantCurveShiftFunction implements CurveShiftFunction<ConstantDo
    */
   @Override
   public ConstantDoublesCurve evaluate(final ConstantDoublesCurve curve, final double shift) {
-    Validate.notNull(curve, "curve");
+    ArgChecker.notNull(curve, "curve");
     return evaluate(curve, shift, "PARALLEL_SHIFT_" + curve.getName());
   }
 
@@ -27,7 +27,7 @@ public class ConstantCurveShiftFunction implements CurveShiftFunction<ConstantDo
    */
   @Override
   public ConstantDoublesCurve evaluate(final ConstantDoublesCurve curve, final double shift, final String newName) {
-    Validate.notNull(curve, "curve");
+    ArgChecker.notNull(curve, "curve");
     final double y = curve.getYData()[0];
     return ConstantDoublesCurve.from(y + shift, newName);
   }

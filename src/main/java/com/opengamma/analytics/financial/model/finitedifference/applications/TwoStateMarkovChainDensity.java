@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference.applications;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoupledCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.CoupledFiniteDifference;
@@ -21,6 +19,7 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Solves a coupled forward PDE (i.e. coupled Fokker-Plank) for the density of an asset when the process is CEV with vol levels determined by a
@@ -41,8 +40,8 @@ public class TwoStateMarkovChainDensity {
   }
 
   public TwoStateMarkovChainDensity(final ForwardCurve forward, final TwoStateMarkovChainDataBundle data) {
-    Validate.notNull(forward, "null forward");
-    Validate.notNull(data, "null data");
+    ArgChecker.notNull(forward, "null forward");
+    ArgChecker.notNull(data, "null data");
 
     _data1 = getCoupledPDEDataBundle(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getBeta1());
     _data2 = getCoupledPDEDataBundle(forward, data.getVol2(), data.getLambda21(), data.getLambda12(), data.getBeta2());
@@ -91,7 +90,7 @@ public class TwoStateMarkovChainDensity {
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         double s = ts[1];
         if (s <= 0.0) { //TODO review how to handle absorption 
           s = -s;
@@ -103,7 +102,7 @@ public class TwoStateMarkovChainDensity {
     final Function<Double, Double> b = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         double s = ts[1];
         if (s < 0.0) {
@@ -117,7 +116,7 @@ public class TwoStateMarkovChainDensity {
     final Function<Double, Double> c = new Function<Double, Double>() {
       @Override
       public Double evaluate(final Double... ts) {
-        Validate.isTrue(ts.length == 2);
+        ArgChecker.isTrue(ts.length == 2);
         final double t = ts[0];
         double s = ts[1];
 

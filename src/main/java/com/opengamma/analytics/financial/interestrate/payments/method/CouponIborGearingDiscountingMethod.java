@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -19,6 +17,7 @@ import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborGearing;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -54,8 +53,8 @@ public final class CouponIborGearingDiscountingMethod implements PricingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CouponIborGearing coupon, final YieldCurveBundle curves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(coupon.getForwardCurveName());
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(coupon.getFundingCurveName());
     final double forward = (forwardCurve.getDiscountFactor(coupon.getFixingPeriodStartTime()) / forwardCurve.getDiscountFactor(coupon.getFixingPeriodEndTime()) - 1) / coupon.getFixingAccrualFactor();
@@ -66,7 +65,7 @@ public final class CouponIborGearingDiscountingMethod implements PricingMethod {
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponIborGearing, "Forward rate agreement");
+    ArgChecker.isTrue(instrument instanceof CouponIborGearing, "Forward rate agreement");
     return presentValue((CouponIborGearing) instrument, curves);
   }
 
@@ -77,8 +76,8 @@ public final class CouponIborGearingDiscountingMethod implements PricingMethod {
    * @return The present value sensitivity.
    */
   public InterestRateCurveSensitivity presentValueCurveSensitivity(final CouponIborGearing coupon, final YieldCurveBundle curves) {
-    Validate.notNull(coupon, "Coupon");
-    Validate.notNull(curves, "Curves");
+    ArgChecker.notNull(coupon, "Coupon");
+    ArgChecker.notNull(curves, "Curves");
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(coupon.getForwardCurveName());
     final YieldAndDiscountCurve discountingCurve = curves.getCurve(coupon.getFundingCurveName());
     final double df = discountingCurve.getDiscountFactor(coupon.getPaymentTime());

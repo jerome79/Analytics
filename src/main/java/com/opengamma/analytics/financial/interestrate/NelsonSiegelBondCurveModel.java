@@ -5,11 +5,10 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.ParameterizedFunction;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.utilities.Epsilon;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -21,9 +20,9 @@ public class NelsonSiegelBondCurveModel {
 
       @Override
       public Double evaluate(final Double t, final DoubleMatrix1D parameters) {
-        Validate.notNull(t, "t");
-        Validate.notNull(parameters, "parameters");
-        Validate.isTrue(parameters.getNumberOfElements() == getNumberOfParameters());
+        ArgChecker.notNull(t, "t");
+        ArgChecker.notNull(parameters, "parameters");
+        ArgChecker.isTrue(parameters.getNumberOfElements() == getNumberOfParameters());
         final double beta0 = parameters.getEntry(0);
         final double beta1 = parameters.getEntry(1);
         final double beta2 = parameters.getEntry(2);

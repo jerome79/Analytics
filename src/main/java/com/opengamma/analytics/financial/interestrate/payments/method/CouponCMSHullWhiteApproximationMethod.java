@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.CashFlowEquivalentCalculator;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
@@ -18,6 +16,7 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedC
 import com.opengamma.analytics.financial.model.interestrate.HullWhiteOneFactorPiecewiseConstantInterestRateModel;
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantDataBundle;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Pricing method of a CMS coupon in the Hull-White (extended Vasicek) model by approximation.
@@ -63,8 +62,8 @@ public final class CouponCMSHullWhiteApproximationMethod implements PricingMetho
    * @return The coupon price.
    */
   public CurrencyAmount presentValue(final CouponCMS cmsCoupon, final HullWhiteOneFactorPiecewiseConstantDataBundle hwData) {
-    Validate.notNull(cmsCoupon);
-    Validate.notNull(hwData);
+    ArgChecker.notNull(cmsCoupon, "cmsCoupon");
+    ArgChecker.notNull(hwData, "hwData");
     final double expiryTime = cmsCoupon.getFixingTime();
     final SwapFixedCoupon<? extends Payment> swap = cmsCoupon.getUnderlyingSwap();
     final double dfPayment = hwData.getCurve(swap.getFirstLeg().getDiscountCurve()).getDiscountFactor(cmsCoupon.getPaymentTime());
@@ -96,8 +95,8 @@ public final class CouponCMSHullWhiteApproximationMethod implements PricingMetho
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CouponCMS, "Coupon CMS");
-    Validate.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
+    ArgChecker.isTrue(instrument instanceof CouponCMS, "Coupon CMS");
+    ArgChecker.isTrue(curves instanceof HullWhiteOneFactorPiecewiseConstantDataBundle, "Curves with HW data");
     return presentValue((CouponCMS) instrument, (HullWhiteOneFactorPiecewiseConstantDataBundle) curves);
   }
 }

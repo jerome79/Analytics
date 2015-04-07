@@ -10,11 +10,11 @@ import java.util.Date;
 import cern.jet.random.StudentT;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.special.GammaFunction;
 import com.opengamma.analytics.math.function.special.InverseIncompleteBetaFunction;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Student's T-distribution is a continuous probability distribution with probability density function
@@ -46,8 +46,8 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
    * @param engine A generator of uniform random numbers, not null
    */
   public StudentTDistribution(final double degFreedom, final RandomEngine engine) {
-    Validate.isTrue(degFreedom > 0, "degrees of freedom");
-    Validate.notNull(engine);
+    ArgChecker.isTrue(degFreedom > 0, "degrees of freedom");
+    ArgChecker.notNull(engine, "engine");
     _degFreedom = degFreedom;
     _dist = new StudentT(degFreedom, engine);
     _beta = new InverseIncompleteBetaFunction(degFreedom / 2., 0.5);
@@ -58,7 +58,7 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getCDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _dist.cdf(x);
   }
 
@@ -67,7 +67,7 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getPDF(final Double x) {
-    Validate.notNull(x);
+    ArgChecker.notNull(x, "x");
     return _dist.pdf(x);
   }
 
@@ -92,8 +92,8 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double getInverseCDF(final Double p) {
-    Validate.notNull(p);
-    Validate.isTrue(p >= 0 && p <= 1, "Probability must be >= 0 and <= 1");
+    ArgChecker.notNull(p, "p");
+    ArgChecker.isTrue(p >= 0 && p <= 1, "Probability must be >= 0 and <= 1");
     final double x = _beta.evaluate(2 * Math.min(p, 1 - p));
     return Math.signum(p - 0.5) * Math.sqrt(_degFreedom * (1. / x - 1));
   }

@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class that calculates the real roots of a quadratic function. 
@@ -30,9 +29,9 @@ public class QuadraticRealRootFinder implements Polynomial1DRootFinder<Double> {
    */
   @Override
   public Double[] getRoots(final RealPolynomialFunction1D function) {
-    Validate.notNull(function, "function");
+    ArgChecker.notNull(function, "function");
     final double[] coefficients = function.getCoefficients();
-    Validate.isTrue(coefficients.length == 3, "Function is not a quadratic");
+    ArgChecker.isTrue(coefficients.length == 3, "Function is not a quadratic");
     final double c = coefficients[0];
     final double b = coefficients[1];
     final double a = coefficients[2];

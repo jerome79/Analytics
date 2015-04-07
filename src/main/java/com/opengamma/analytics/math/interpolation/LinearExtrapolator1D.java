@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -39,8 +37,8 @@ public class LinearExtrapolator1D extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
       return leftExtrapolate(data, value);
     } else if (value > data.lastKey()) {
@@ -51,8 +49,8 @@ public class LinearExtrapolator1D extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
       return leftExtrapolateDerivative(data, value);
     } else if (value > data.lastKey()) {
@@ -63,7 +61,7 @@ public class LinearExtrapolator1D extends Interpolator1D {
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     if (value < data.firstKey()) {
       return getLeftSensitivities(data, value);
     } else if (value > data.lastKey()) {
@@ -73,8 +71,8 @@ public class LinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double leftExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
 
     final double x = data.firstKey();
     final double y = data.firstValue();
@@ -84,8 +82,8 @@ public class LinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double rightExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = data.lastValue();
     final double eps = _eps * (x - data.firstKey());
@@ -94,8 +92,8 @@ public class LinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double leftExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = data.firstValue();
     final double eps = _eps * (data.lastKey() - x);
@@ -104,8 +102,8 @@ public class LinearExtrapolator1D extends Interpolator1D {
   }
 
   private Double rightExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.lastKey();
     final double y = data.lastValue();
     final double eps = _eps * (x - data.firstKey());

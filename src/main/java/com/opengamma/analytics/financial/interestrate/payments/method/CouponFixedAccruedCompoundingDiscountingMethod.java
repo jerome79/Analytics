@@ -10,14 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixedAccruedCompounding;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.util.amount.StringAmount;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -53,8 +52,8 @@ public final class CouponFixedAccruedCompoundingDiscountingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CouponFixedAccruedCompounding cpn, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(cpn);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(cpn, "cpn");
     final YieldAndDiscountCurve fundingCurve = curves.getCurve(cpn.getFundingCurveName());
     double tmp = fundingCurve.getDiscountFactor(cpn.getPaymentTime());
     final double pv = cpn.getAmount() * fundingCurve.getDiscountFactor(cpn.getPaymentTime());
@@ -68,8 +67,8 @@ public final class CouponFixedAccruedCompoundingDiscountingMethod {
    * @return The present value.
    */
   public CurrencyAmount presentValuePositiveNotional(final CouponFixedAccruedCompounding cpn, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(cpn);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(cpn, "cpn");
     return CurrencyAmount.of(cpn.getCurrency(), Math.signum(cpn.getNotional()) * presentValue(cpn, curves).getAmount());
   }
 

@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.montecarlo;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class describing the time and amount required to price interest rate derivatives. The data is used in particular for Monte Carlo pricing.
@@ -34,8 +34,8 @@ public class DecisionSchedule {
    * @param impactAmount The reference amounts at each impact times.
    */
   public DecisionSchedule(double[] decisionTime, double[][] impactTime, double[][] impactAmount) {
-    Validate.isTrue(decisionTime.length == impactTime.length, "Incorrect length");
-    Validate.isTrue(decisionTime.length == impactAmount.length, "Incorrect length");
+    ArgChecker.isTrue(decisionTime.length == impactTime.length, "Incorrect length");
+    ArgChecker.isTrue(decisionTime.length == impactAmount.length, "Incorrect length");
     _decisionTime = decisionTime;
     _impactTime = impactTime;
     _impactAmount = impactAmount;

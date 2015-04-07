@@ -6,9 +6,8 @@
 package com.opengamma.analytics.financial.provider.description.volatilityswap;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.analytics.financial.model.volatility.VolatilityAndBucketedSensitivities;
 import com.opengamma.analytics.financial.model.volatility.surface.SmileDeltaTermStructureParameters;
@@ -193,13 +192,13 @@ public class CarrLeeFXData implements CarrLeeData<MulticurveProviderInterface, S
     if (Double.compare(_realizedVariance, other._realizedVariance) != 0) {
       return false;
     }
-    if (!ObjectUtils.equals(_currencyPair, other._currencyPair)) {
+    if (!Objects.equals(_currencyPair, other._currencyPair)) {
       return false;
     }
-    if (!ObjectUtils.equals(_curves, other._curves)) {
+    if (!Objects.equals(_curves, other._curves)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatilitySurface, other._volatilitySurface)) {
+    if (!Objects.equals(_volatilitySurface, other._volatilitySurface)) {
       return false;
     }
     return true;

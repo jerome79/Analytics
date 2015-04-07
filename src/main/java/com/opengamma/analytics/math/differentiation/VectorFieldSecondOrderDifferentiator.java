@@ -6,8 +6,6 @@
 package com.opengamma.analytics.math.differentiation;
 
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -42,7 +40,7 @@ public class VectorFieldSecondOrderDifferentiator implements Differentiator<Doub
    */
   @Override
   public Function1D<DoubleMatrix1D, DoubleMatrix2D[]> differentiate(final Function1D<DoubleMatrix1D, DoubleMatrix1D> function) {
-    Validate.notNull(function);
+    ArgChecker.notNull(function, "function");
     final Function1D<DoubleMatrix1D, DoubleMatrix2D> jacFunc = _vectorFieldDiff.differentiate(function);
     final Function1D<DoubleMatrix1D, DoubleMatrix2D[]> hFunc = _maxtrixFieldDiff.differentiate(jacFunc);
     return new Function1D<DoubleMatrix1D, DoubleMatrix2D[]>() {
@@ -57,7 +55,7 @@ public class VectorFieldSecondOrderDifferentiator implements Differentiator<Doub
 
   @Override
   public Function1D<DoubleMatrix1D, DoubleMatrix2D[]> differentiate(final Function1D<DoubleMatrix1D, DoubleMatrix1D> function, final Function1D<DoubleMatrix1D, Boolean> domain) {
-    Validate.notNull(function);
+    ArgChecker.notNull(function, "function");
     final Function1D<DoubleMatrix1D, DoubleMatrix2D> jacFunc = _vectorFieldDiff.differentiate(function, domain);
     final Function1D<DoubleMatrix1D, DoubleMatrix2D[]> hFunc = _maxtrixFieldDiff.differentiate(jacFunc, domain);
     return new Function1D<DoubleMatrix1D, DoubleMatrix2D[]>() {
@@ -107,7 +105,7 @@ public class VectorFieldSecondOrderDifferentiator implements Differentiator<Doub
       @SuppressWarnings("synthetic-access")
       @Override
       public DoubleMatrix2D[] evaluate(final DoubleMatrix1D x) {
-        Validate.notNull(x, "x");
+        ArgChecker.notNull(x, "x");
         final DoubleMatrix1D y = function.evaluate(x);
         final int n = x.getNumberOfElements();
         final int m = y.getNumberOfElements();
@@ -163,7 +161,7 @@ public class VectorFieldSecondOrderDifferentiator implements Differentiator<Doub
       @SuppressWarnings("synthetic-access")
       @Override
       public DoubleMatrix2D evaluate(final DoubleMatrix1D x) {
-        Validate.notNull(x, "x");
+        ArgChecker.notNull(x, "x");
         final DoubleMatrix1D y = function.evaluate(x);
         final int n = x.getNumberOfElements();
         final int m = y.getNumberOfElements();

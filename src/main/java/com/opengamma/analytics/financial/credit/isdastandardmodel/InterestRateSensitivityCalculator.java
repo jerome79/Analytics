@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.credit.isdastandardmodel;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -56,7 +54,7 @@ public class InterestRateSensitivityCalculator {
       final PointsUpFront pufUp = CONVERTER.convert(cds, qs, ycUP);
       return pufUp.getPointsUpFront() - ((PointsUpFront) quote).getPointsUpFront();
     } else if (quote instanceof ParSpread) {
-      throw new NotImplementedException("This type of claculation don't make sense for par spreads. Use a fixed credit curve method.");
+      throw new UnsupportedOperationException("This type of claculation don't make sense for par spreads. Use a fixed credit curve method.");
     } else {
       throw new IllegalArgumentException("Unknown quote type: " + quote.getClass());
     }
@@ -91,7 +89,7 @@ public class InterestRateSensitivityCalculator {
       final PointsUpFront pufUp = CONVERTER.convert(cds, qs, ycUP);
       return pufUp.getPointsUpFront() - ((PointsUpFront) quote).getPointsUpFront();
     } else if (quote instanceof ParSpread) {
-      throw new NotImplementedException("This type of claculation don't make sense for par spreads. Use a fixed credit curve method.");
+      throw new UnsupportedOperationException("This type of claculation don't make sense for par spreads. Use a fixed credit curve method.");
     } else {
       throw new IllegalArgumentException("Unknown quote type: " + quote.getClass());
     }

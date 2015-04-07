@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.volatility.curve;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.volatility.VolatilityTermStructure;
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.CurveShiftFunctionFactory;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * VolatilityTermStructure backed by a Curve<Double, Double>
@@ -19,7 +19,7 @@ public class VolatilityCurve implements VolatilityTermStructure {
   private final Curve<Double, Double> _curve;
 
   public VolatilityCurve(final Curve<Double, Double> curve) {
-    Validate.notNull(curve, "curve");
+    ArgChecker.notNull(curve, "curve");
     _curve = curve;
   }
 
@@ -64,7 +64,7 @@ public class VolatilityCurve implements VolatilityTermStructure {
       return false;
     }
     final VolatilityCurve other = (VolatilityCurve) obj;
-    return ObjectUtils.equals(_curve, other._curve);
+    return Objects.equals(_curve, other._curve);
   }
 
 }

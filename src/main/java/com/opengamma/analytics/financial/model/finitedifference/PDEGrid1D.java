@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -33,10 +33,10 @@ public class PDEGrid1D {
    */
   public PDEGrid1D(final int numTimeNodes, final int numSpaceNodes, final double tMax, final double xMin, final double xMax) {
 
-    Validate.isTrue(numTimeNodes > 1, "need at least 2 time nodes");
-    Validate.isTrue(numSpaceNodes > 2, "need at least 3 space nodes");
-    Validate.isTrue(tMax > 0, "need tMax > 0");
-    Validate.isTrue(xMax > xMin, "need xMax > xMin");
+    ArgChecker.isTrue(numTimeNodes > 1, "need at least 2 time nodes");
+    ArgChecker.isTrue(numSpaceNodes > 2, "need at least 3 space nodes");
+    ArgChecker.isTrue(tMax > 0, "need tMax > 0");
+    ArgChecker.isTrue(xMax > xMin, "need xMax > xMin");
 
     _nSpaceNodes = numSpaceNodes;
     _tNodes = new double[numTimeNodes];
@@ -86,8 +86,8 @@ public class PDEGrid1D {
   public PDEGrid1D(final double[] timeGrid, final double[] spaceGrid) {
     final int tNodes = timeGrid.length;
     final int xNodes = spaceGrid.length;
-    Validate.isTrue(tNodes > 1, "need at least 2 time nodes");
-    Validate.isTrue(xNodes > 2, "need at least 3 space nodes");
+    ArgChecker.isTrue(tNodes > 1, "need at least 2 time nodes");
+    ArgChecker.isTrue(xNodes > 2, "need at least 3 space nodes");
 
     _nSpaceNodes = xNodes;
     _tNodes = timeGrid;
@@ -96,13 +96,13 @@ public class PDEGrid1D {
     _dt = new double[tNodes - 1];
     for (int n = 0; n < tNodes - 1; n++) {
       _dt[n] = timeGrid[n + 1] - timeGrid[n];
-      Validate.isTrue(_dt[n] > 0, "time steps must be increasing");
+      ArgChecker.isTrue(_dt[n] > 0, "time steps must be increasing");
     }
 
     _dx = new double[xNodes - 1];
     for (int i = 0; i < xNodes - 1; i++) {
       _dx[i] = spaceGrid[i + 1] - spaceGrid[i];
-      Validate.isTrue(_dx[i] > 0, "space steps must be increasing");
+      ArgChecker.isTrue(_dx[i] > 0, "space steps must be increasing");
     }
 
     _x1st = new double[xNodes - 2][3];
@@ -168,17 +168,17 @@ public class PDEGrid1D {
   }
 
   public double[] getFirstDerivativeCoefficients(final int i) {
-    Validate.isTrue(i > 0 && i < _nSpaceNodes - 1, "Can't take central difference at first or last node. Use Forward or backwards");
+    ArgChecker.isTrue(i > 0 && i < _nSpaceNodes - 1, "Can't take central difference at first or last node. Use Forward or backwards");
     return _x1st[i - 1];
   }
 
   public double[] getFirstDerivativeForwardCoefficients(final int i) {
-    Validate.isTrue(i < _nSpaceNodes - 1, "Can't take forward difference at last node. Use central or backwards");
+    ArgChecker.isTrue(i < _nSpaceNodes - 1, "Can't take forward difference at last node. Use central or backwards");
     return _x1stFwd[i];
   }
 
   public double[] getFirstDerivativeBackwardCoefficients(final int i) {
-    Validate.isTrue(i > 0, "Can't take backwards difference at first node. Use central or forwards");
+    ArgChecker.isTrue(i > 0, "Can't take backwards difference at first node. Use central or forwards");
     return _x1stBkd[i - 1];
   }
 

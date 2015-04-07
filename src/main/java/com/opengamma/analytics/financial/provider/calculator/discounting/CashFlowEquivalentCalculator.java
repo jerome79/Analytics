@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.provider.calculator.discounting;
 
 import java.util.TreeMap;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
@@ -142,7 +140,7 @@ public class CashFlowEquivalentCalculator extends InstrumentDerivativeVisitorAda
     ArgChecker.notNull(swap, "Swap");
     ArgChecker.notNull(multicurves, "Multicurves provider");
     final Currency ccy = swap.getFirstLeg().getCurrency();
-    Validate.isTrue(ccy.equals(swap.getSecondLeg().getCurrency()), "Cash flow equivalent available only for single currency swaps.");
+    ArgChecker.isTrue(ccy.equals(swap.getSecondLeg().getCurrency()), "Cash flow equivalent available only for single currency swaps.");
     final TreeMap<Double, Double> flow = new TreeMap<>();
     final AnnuityPaymentFixed cfeLeg1 = swap.getFirstLeg().accept(this, multicurves);
     final AnnuityPaymentFixed cfeLeg2 = swap.getSecondLeg().accept(this, multicurves);

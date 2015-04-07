@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.function.special;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -109,7 +108,7 @@ public class ChebyshevPolynomialOfFirstKindFunctionTest {
     CHEBYSHEV.getPolynomials(-3);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetPolynomials() {
     CHEBYSHEV.getPolynomialsAndFirstDerivative(3);
   }

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.local;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.volatility.surface.Moneyness;
@@ -82,7 +82,7 @@ public class LocalVolatilitySurfaceMoneyness extends LocalVolatilitySurface<Mone
       return false;
     }
     final LocalVolatilitySurfaceMoneyness other = (LocalVolatilitySurfaceMoneyness) obj;
-    if (!ObjectUtils.equals(_fc, other._fc)) {
+    if (!Objects.equals(_fc, other._fc)) {
       return false;
     }
     return true;

@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.model.volatility.smile.fitting.sabr;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.option.definition.SmileDeltaParameters;
@@ -196,7 +195,7 @@ public class ForexSmileDeltaSurfaceDataBundle extends SmileSurfaceDataBundle {
       return false;
     }
     final ForexSmileDeltaSurfaceDataBundle other = (ForexSmileDeltaSurfaceDataBundle) obj;
-    if (!ObjectUtils.equals(_forwardCurve, other._forwardCurve)) {
+    if (!Objects.equals(_forwardCurve, other._forwardCurve)) {
       return false;
     }
     if (!Arrays.equals(_expiries, other._expiries)) {

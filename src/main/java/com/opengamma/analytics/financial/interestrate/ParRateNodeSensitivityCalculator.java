@@ -7,11 +7,10 @@ package com.opengamma.analytics.financial.interestrate;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -27,7 +26,7 @@ public class ParRateNodeSensitivityCalculator extends NodeYieldSensitivityCalcul
   }
 
   public static ParRateNodeSensitivityCalculator using(final InstrumentDerivativeVisitorAdapter<YieldCurveBundle, Map<String, List<DoublesPair>>> parRateSensitivityCalculator) {
-    Validate.notNull(parRateSensitivityCalculator, "par rate sensitivity calculator");
+    ArgChecker.notNull(parRateSensitivityCalculator, "par rate sensitivity calculator");
     return new ParRateNodeSensitivityCalculator(parRateSensitivityCalculator);
   }
 
@@ -38,7 +37,7 @@ public class ParRateNodeSensitivityCalculator extends NodeYieldSensitivityCalcul
   }
 
   public ParRateNodeSensitivityCalculator(final InstrumentDerivativeVisitorAdapter<YieldCurveBundle, Map<String, List<DoublesPair>>> parRateSensitivityCalculator) {
-    Validate.notNull(parRateSensitivityCalculator, "par rate sensitivity calculator");
+    ArgChecker.notNull(parRateSensitivityCalculator, "par rate sensitivity calculator");
     _parRateSensitivityCalculator = parRateSensitivityCalculator;
   }
 
@@ -67,7 +66,7 @@ public class ParRateNodeSensitivityCalculator extends NodeYieldSensitivityCalcul
       return false;
     }
     final ParRateNodeSensitivityCalculator other = (ParRateNodeSensitivityCalculator) obj;
-    return ObjectUtils.equals(_parRateSensitivityCalculator, other._parRateSensitivityCalculator);
+    return Objects.equals(_parRateSensitivityCalculator, other._parRateSensitivityCalculator);
   }
 
 }

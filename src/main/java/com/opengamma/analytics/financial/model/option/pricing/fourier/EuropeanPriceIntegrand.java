@@ -12,13 +12,13 @@ import static com.opengamma.analytics.math.ComplexMathUtils.multiply;
 import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static com.opengamma.analytics.math.number.ComplexNumber.MINUS_I;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -29,15 +29,15 @@ public class EuropeanPriceIntegrand {
   private final boolean _useVarianceReduction;
 
   public EuropeanPriceIntegrand(final MartingaleCharacteristicExponent ce, final double alpha, final boolean useVarianceReduction) {
-    Validate.notNull(ce, "characteristic exponent");
+    ArgChecker.notNull(ce, "characteristic exponent");
     _ce = ce;
     _alpha = alpha;
     _useVarianceReduction = useVarianceReduction;
   }
 
   public Function1D<Double, Double> getFunction(final BlackFunctionData data, final EuropeanVanillaOption option) {
-    Validate.notNull(data, "data");
-    Validate.notNull(option, "option");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(option, "option");
     final double t = option.getTimeToExpiry();
     final Function1D<ComplexNumber, ComplexNumber> characteristicFunction = _ce.getFunction(t);
     final double k = Math.log(option.getStrike() / data.getForward());
@@ -111,7 +111,7 @@ public class EuropeanPriceIntegrand {
     if (Double.doubleToLongBits(_alpha) != Double.doubleToLongBits(other._alpha)) {
       return false;
     }
-    if (!ObjectUtils.equals(_ce, other._ce)) {
+    if (!Objects.equals(_ce, other._ce)) {
       return false;
     }
     return _useVarianceReduction == other._useVarianceReduction;

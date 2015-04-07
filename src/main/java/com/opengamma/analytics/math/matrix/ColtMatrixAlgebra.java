@@ -8,8 +8,8 @@ package com.opengamma.analytics.math.matrix;
 import cern.colt.matrix.DoubleFactory1D;
 import cern.colt.matrix.DoubleFactory2D;
 import cern.colt.matrix.linalg.Algebra;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
+
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Provides matrix algebra by using the <a href = "http://acs.lbl.gov/software/colt/api/cern/colt/matrix/linalg/Algebra.html">Colt matrix algebra library</a>. 
@@ -22,7 +22,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getCondition(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       return ALGEBRA.cond(DoubleFactory2D.dense.make(((DoubleMatrix2D) m).getData()));
     }
@@ -34,7 +34,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getDeterminant(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       return ALGEBRA.det(DoubleFactory2D.dense.make(((DoubleMatrix2D) m).getData()));
     }
@@ -46,7 +46,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getInverse(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       return new DoubleMatrix2D(ALGEBRA.inverse(DoubleFactory2D.dense.make(((DoubleMatrix2D) m).getData())).toArray());
     }
@@ -58,8 +58,8 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getInnerProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D && m2 instanceof DoubleMatrix1D) {
       return ALGEBRA.mult(DoubleFactory1D.dense.make(((DoubleMatrix1D) m1).getData()), DoubleFactory1D.dense.make(((DoubleMatrix1D) m2).getData()));
     }
@@ -76,8 +76,8 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public Matrix<?> multiply(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D) {
       return new OGMatrixAlgebra().multiply(m1, m2);
     }
@@ -98,8 +98,8 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getOuterProduct(final Matrix<?> m1, final Matrix<?> m2) {
-    Validate.notNull(m1, "m1");
-    Validate.notNull(m2, "m2");
+    ArgChecker.notNull(m1, "m1");
+    ArgChecker.notNull(m2, "m2");
     if (m1 instanceof DoubleMatrix1D && m2 instanceof DoubleMatrix1D) {
       final cern.colt.matrix.DoubleMatrix2D x = DoubleFactory2D.dense.make(m1.getNumberOfElements(), m2.getNumberOfElements());
       ALGEBRA.multOuter(DoubleFactory1D.dense.make(((DoubleMatrix1D) m1).getData()), DoubleFactory1D.dense.make(((DoubleMatrix1D) m2).getData()), x);
@@ -113,7 +113,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNorm1(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       return ALGEBRA.norm1(DoubleFactory1D.dense.make(((DoubleMatrix1D) m).getData()));
     } else if (m instanceof DoubleMatrix2D) {
@@ -127,7 +127,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNorm2(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       return Math.sqrt(ALGEBRA.norm2(DoubleFactory1D.dense.make(((DoubleMatrix1D) m).getData())));
     } else if (m instanceof DoubleMatrix2D) {
@@ -141,7 +141,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getNormInfinity(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix1D) {
       return ALGEBRA.normInfinity(DoubleFactory1D.dense.make(((DoubleMatrix1D) m).getData()));
     } else if (m instanceof DoubleMatrix2D) {
@@ -155,7 +155,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final int p) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       return new DoubleMatrix2D(ALGEBRA.pow(DoubleFactory2D.dense.make(((DoubleMatrix2D) m).getData()), p).toArray());
     }
@@ -164,11 +164,11 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
 
   /**
    * {@inheritDoc}
-   * @throws NotImplementedException
+   * @throws UnsupportedOperationException
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final double p) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -176,7 +176,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public double getTrace(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       return ALGEBRA.trace(DoubleFactory2D.dense.make(((DoubleMatrix2D) m).getData()));
     }
@@ -188,7 +188,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getTranspose(final Matrix<?> m) {
-    Validate.notNull(m, "m");
+    ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       return new DoubleMatrix2D(ALGEBRA.transpose(DoubleFactory2D.dense.make(((DoubleMatrix2D) m).getData())).toArray());
     }

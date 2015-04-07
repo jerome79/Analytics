@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -31,8 +31,8 @@ public class IndexPrice {
    * @param ccy The currency in which the index is computed. Not null.
    */
   public IndexPrice(final String name, final Currency ccy) {
-    Validate.notNull(name, "Name");
-    Validate.notNull(ccy, "Currency");
+    ArgChecker.notNull(name, "Name");
+    ArgChecker.notNull(ccy, "Currency");
     _name = name;
     _currency = ccy;
   }
@@ -80,10 +80,10 @@ public class IndexPrice {
       return false;
     }
     final IndexPrice other = (IndexPrice) obj;
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_name, other._name)) {
+    if (!Objects.equals(_name, other._name)) {
       return false;
     }
     return true;

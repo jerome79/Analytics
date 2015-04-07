@@ -9,7 +9,6 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.BitSet;
 
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.differentiation.VectorFieldFirstOrderDifferentiator;
@@ -17,6 +16,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.minimization.ParameterLimitsTransform.LimitType;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -31,7 +31,7 @@ public class NonLinearTransformFunctionTest {
   private static final Function1D<DoubleMatrix1D, DoubleMatrix1D> FUNCTION = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
     @Override
     public DoubleMatrix1D evaluate(DoubleMatrix1D x) {
-      Validate.isTrue(x.getNumberOfElements() == 2);
+      ArgChecker.isTrue(x.getNumberOfElements() == 2);
       double x1 = x.getEntry(0);
       double x2 = x.getEntry(1);
       double[] y = new double[3];
@@ -45,7 +45,7 @@ public class NonLinearTransformFunctionTest {
   private static final Function1D<DoubleMatrix1D, DoubleMatrix2D> JACOBIAN = new Function1D<DoubleMatrix1D, DoubleMatrix2D>() {
     @Override
     public DoubleMatrix2D evaluate(DoubleMatrix1D x) {
-      Validate.isTrue(x.getNumberOfElements() == 2);
+      ArgChecker.isTrue(x.getNumberOfElements() == 2);
       double x1 = x.getEntry(0);
       double x2 = x.getEntry(1);
       double[][] y = new double[3][2];

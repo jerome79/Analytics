@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -14,6 +12,7 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.analytics.financial.interestrate.payments.method.PaymentFixedDiscountingMethod;
 import com.opengamma.analytics.util.amount.StringAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the present value sensitivity to parallel curve movements.
@@ -58,8 +57,8 @@ public final class PresentValueParallelCurveSensitivityCalculator extends Instru
 
   @Override
   public StringAmount visitGenericAnnuity(final Annuity<? extends Payment> annuity, final YieldCurveBundle curves) {
-    Validate.notNull(curves);
-    Validate.notNull(annuity);
+    ArgChecker.notNull(curves, "curves");
+    ArgChecker.notNull(annuity, "annuity");
     StringAmount pvpcs = new StringAmount();
     for (final Payment p : annuity.getPayments()) {
       pvpcs = StringAmount.plus(pvpcs, p.accept(this, curves));

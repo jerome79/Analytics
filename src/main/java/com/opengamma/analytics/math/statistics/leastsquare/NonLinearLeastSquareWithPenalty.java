@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.statistics.leastsquare;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.differentiation.VectorFieldFirstOrderDifferentiator;
 import com.opengamma.analytics.math.function.Function1D;
@@ -191,13 +189,13 @@ public class NonLinearLeastSquareWithPenalty {
   public LeastSquareWithPenaltyResults solve(final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
       final Function1D<DoubleMatrix1D, DoubleMatrix2D> jac, final DoubleMatrix1D startPos, final DoubleMatrix2D penalty, final Function1D<DoubleMatrix1D, Boolean> allowedValue) {
 
-    Validate.notNull(observedValues, "observedValues");
-    Validate.notNull(sigma, " sigma");
-    Validate.notNull(func, " func");
-    Validate.notNull(jac, " jac");
-    Validate.notNull(startPos, "startPos");
+    ArgChecker.notNull(observedValues, "observedValues");
+    ArgChecker.notNull(sigma, " sigma");
+    ArgChecker.notNull(func, " func");
+    ArgChecker.notNull(jac, " jac");
+    ArgChecker.notNull(startPos, "startPos");
     final int nObs = observedValues.getNumberOfElements();
-    Validate.isTrue(nObs == sigma.getNumberOfElements(), "observedValues and sigma must be same length");
+    ArgChecker.isTrue(nObs == sigma.getNumberOfElements(), "observedValues and sigma must be same length");
     ArgChecker.isTrue(allowedValue.evaluate(startPos), "The start position {} is not valid for this model. Please choose a valid start position", startPos);
 
     DoubleMatrix2D alpha;
@@ -296,7 +294,7 @@ public class NonLinearLeastSquareWithPenalty {
   private DoubleMatrix1D getError(final Function1D<DoubleMatrix1D, DoubleMatrix1D> func, final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final DoubleMatrix1D theta) {
     final int n = observedValues.getNumberOfElements();
     final DoubleMatrix1D modelValues = func.evaluate(theta);
-    Validate.isTrue(n == modelValues.getNumberOfElements(), "Number of data points different between model (" + modelValues.getNumberOfElements() + ") and observed (" + n + ")");
+    ArgChecker.isTrue(n == modelValues.getNumberOfElements(), "Number of data points different between model (" + modelValues.getNumberOfElements() + ") and observed (" + n + ")");
     final double[] res = new double[n];
     for (int i = 0; i < n; i++) {
       res[i] = (observedValues.getEntry(i) - modelValues.getEntry(i)) / sigma.getEntry(i);
@@ -327,8 +325,8 @@ public class NonLinearLeastSquareWithPenalty {
     final double[][] data = res.getData();
     final int n = res.getNumberOfRows();
     final int m = res.getNumberOfColumns();
-    Validate.isTrue(theta.getNumberOfElements() == m, "Jacobian is wrong size");
-    Validate.isTrue(sigma.getNumberOfElements() == n, "Jacobian is wrong size");
+    ArgChecker.isTrue(theta.getNumberOfElements() == m, "Jacobian is wrong size");
+    ArgChecker.isTrue(sigma.getNumberOfElements() == n, "Jacobian is wrong size");
 
     for (int i = 0; i < n; i++) {
       double sigmaInv = 1.0 / sigma.getEntry(i);

@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.parameters;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorInstrument;
@@ -111,10 +111,10 @@ public class BlackFlatSwaptionParameters implements VolatilityModel<double[]>, S
       return false;
     }
     final BlackFlatSwaptionParameters other = (BlackFlatSwaptionParameters) obj;
-    if (!ObjectUtils.equals(_generatorSwap, other._generatorSwap)) {
+    if (!Objects.equals(_generatorSwap, other._generatorSwap)) {
       return false;
     }
-    if (!ObjectUtils.equals(_volatility, other._volatility)) {
+    if (!Objects.equals(_volatility, other._volatility)) {
       return false;
     }
     return true;

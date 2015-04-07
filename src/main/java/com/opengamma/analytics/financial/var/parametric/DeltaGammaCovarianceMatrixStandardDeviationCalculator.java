@@ -6,15 +6,14 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -23,13 +22,13 @@ public class DeltaGammaCovarianceMatrixStandardDeviationCalculator extends Funct
   private final MatrixAlgebra _algebra;
 
   public DeltaGammaCovarianceMatrixStandardDeviationCalculator(final MatrixAlgebra algebra) {
-    Validate.notNull(algebra);
+    ArgChecker.notNull(algebra, "algebra");
     _algebra = algebra;
   }
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
-    Validate.notNull(data);
+    ArgChecker.notNull(data, "data");
     final ParametricVaRDataBundle firstOrderData = data.get(1);
     final ParametricVaRDataBundle secondOrderData = data.get(2);
     double deltaStd = 0;
@@ -67,7 +66,7 @@ public class DeltaGammaCovarianceMatrixStandardDeviationCalculator extends Funct
       return false;
     }
     final DeltaGammaCovarianceMatrixStandardDeviationCalculator other = (DeltaGammaCovarianceMatrixStandardDeviationCalculator) obj;
-    return ObjectUtils.equals(_algebra, other._algebra);
+    return Objects.equals(_algebra, other._algebra);
   }
 
 }

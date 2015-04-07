@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.method;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.method.PricingMethod;
@@ -15,6 +13,7 @@ import com.opengamma.analytics.financial.model.option.definition.SABRInterestRat
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *  Class used to compute the price and sensitivity of a Ibor cap/floor in arrears.
@@ -53,8 +52,8 @@ public class CapFloorIborInArrearsGenericReplicationMethod implements PricingMet
    * @return The present value.
    */
   public CurrencyAmount presentValue(final CapFloorIbor cap, final SABRInterestRateDataBundle sabrData) {
-    Validate.notNull(cap);
-    Validate.notNull(sabrData);
+    ArgChecker.notNull(cap, "cap");
+    ArgChecker.notNull(sabrData, "sabrData");
     final CapFloorIbor capStandard = new CapFloorIbor(cap.getCurrency(), cap.getFixingPeriodEndTime(), cap.getFundingCurveName(), cap.getPaymentYearFraction(), cap.getNotional(), cap.getFixingTime(),
         cap.getIndex(), cap.getFixingPeriodStartTime(), cap.getFixingPeriodEndTime(), cap.getFixingAccrualFactor(), cap.getForwardCurveName(), cap.getStrike(), cap.isCap());
     final double beta = sabrData.getCurve(cap.getForwardCurveName()).getDiscountFactor(cap.getFixingPeriodStartTime())
@@ -82,8 +81,8 @@ public class CapFloorIborInArrearsGenericReplicationMethod implements PricingMet
 
   @Override
   public CurrencyAmount presentValue(final InstrumentDerivative instrument, final YieldCurveBundle curves) {
-    Validate.isTrue(instrument instanceof CapFloorIbor, "Cap/Floor on Ibor");
-    Validate.isTrue(curves instanceof SABRInterestRateDataBundle, "SABR interest rate data bundle required");
+    ArgChecker.isTrue(instrument instanceof CapFloorIbor, "Cap/Floor on Ibor");
+    ArgChecker.isTrue(curves instanceof SABRInterestRateDataBundle, "SABR interest rate data bundle required");
     return presentValue((CapFloorIbor) instrument, (SABRInterestRateDataBundle) curves);
   }
 

@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This left extrapolator is designed for extrapolating a discount factor where the trivial point (0.,1.) is NOT involved in the data. 
@@ -31,7 +30,7 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
    * @param eps Bump parameter of finite difference approximation for the first derivative value
    */
   public QuadraticPolynomialLeftExtrapolator(final Interpolator1D interpolator, double eps) {
-    Validate.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(interpolator, "interpolator");
     _interpolator = interpolator;
     _eps = eps;
   }
@@ -48,8 +47,8 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (data.firstKey() == 0.) {
       throw new IllegalArgumentException("The trivial point at key=0. is already included");
     }
@@ -63,8 +62,8 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     if (data.firstKey() == 0.) {
       throw new IllegalArgumentException("The trivial point at key=0. is already included");
     }
@@ -78,7 +77,7 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(data, "data");
     if (data.firstKey() == 0.) {
       throw new IllegalArgumentException("The trivial point at key=0. is already included");
     }
@@ -91,8 +90,8 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
   }
 
   private Double leftExtrapolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = data.firstValue();
     final double m = _interpolator.firstDerivative(data, x);
@@ -102,8 +101,8 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
   }
 
   private Double leftExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(data, "data");
-    Validate.notNull(value, "value");
+    ArgChecker.notNull(data, "data");
+    ArgChecker.notNull(value, "value");
     final double x = data.firstKey();
     final double y = data.firstValue();
     final double m = _interpolator.firstDerivative(data, x);

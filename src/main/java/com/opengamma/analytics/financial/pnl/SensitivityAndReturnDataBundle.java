@@ -7,14 +7,12 @@ package com.opengamma.analytics.financial.pnl;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.greeks.Underlying;
 import com.opengamma.analytics.financial.sensitivity.Sensitivity;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
-
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -25,15 +23,19 @@ public class SensitivityAndReturnDataBundle {
   private final Map<UnderlyingType, DoubleTimeSeries<?>> _underlyingReturnTS;
   private final List<UnderlyingType> _underlyings;
 
-  public SensitivityAndReturnDataBundle(final Sensitivity<?> sensitivity, final double value, final Map<UnderlyingType, DoubleTimeSeries<?>> underlyingReturnTS) {
-    Validate.notNull(sensitivity, "sensitivity");
-    Validate.notNull(underlyingReturnTS, "underlying returns");
-    Validate.notEmpty(underlyingReturnTS, "underlying returns");
-    Validate.noNullElements(underlyingReturnTS.keySet(), "underlying return key set");
-    Validate.noNullElements(underlyingReturnTS.values(), "underlying return values");
+  public SensitivityAndReturnDataBundle(
+      Sensitivity<?> sensitivity,
+      double value,
+      Map<UnderlyingType, DoubleTimeSeries<?>> underlyingReturnTS) {
+
+    ArgChecker.notNull(sensitivity, "sensitivity");
+    ArgChecker.notNull(underlyingReturnTS, "underlying returns");
+    ArgChecker.notEmpty(underlyingReturnTS, "underlying returns");
+    ArgChecker.noNulls(underlyingReturnTS.keySet(), "underlying return key set");
+    ArgChecker.noNulls(underlyingReturnTS.values(), "underlying return values");
     _underlyings = sensitivity.getUnderlyingTypes();
-    Validate.isTrue(_underlyings.size() == underlyingReturnTS.size());
-    Validate.isTrue(_underlyings.containsAll(underlyingReturnTS.keySet()));
+    ArgChecker.isTrue(_underlyings.size() == underlyingReturnTS.size(), "underlying sizes must match");
+    ArgChecker.isTrue(_underlyings.containsAll(underlyingReturnTS.keySet()), "underlyings key sets must match");
     _sensitivity = sensitivity;
     _value = value;
     _underlyingReturnTS = underlyingReturnTS;
@@ -59,16 +61,16 @@ public class SensitivityAndReturnDataBundle {
     return _sensitivity.getUnderlying();
   }
 
-  public DoubleTimeSeries<?> getReturnTimeSeriesForUnderlying(final UnderlyingType type) {
-    Validate.notNull(type, "underlying");
-    final DoubleTimeSeries<?> result = _underlyingReturnTS.get(type);
-    Validate.notNull(result, "underlying return time series for " + type);
+  public DoubleTimeSeries<?> getReturnTimeSeriesForUnderlying(UnderlyingType type) {
+    ArgChecker.notNull(type, "underlying");
+    DoubleTimeSeries<?> result = _underlyingReturnTS.get(type);
+    ArgChecker.notNull(result, "underlying return time series for " + type);
     return result;
   }
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    int prime = 31;
     int result = 1;
     result = prime * result + ((_sensitivity == null) ? 0 : _sensitivity.hashCode());
     result = prime * result + ((_underlyingReturnTS == null) ? 0 : _underlyingReturnTS.hashCode());
@@ -79,7 +81,7 @@ public class SensitivityAndReturnDataBundle {
   }
 
   @Override
-  public boolean equals(final Object obj) {
+  public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
@@ -89,8 +91,10 @@ public class SensitivityAndReturnDataBundle {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final SensitivityAndReturnDataBundle other = (SensitivityAndReturnDataBundle) obj;
-    return ObjectUtils.equals(_sensitivity, other._sensitivity) && ObjectUtils.equals(_underlyingReturnTS, other._underlyingReturnTS) && ObjectUtils.equals(_value, other._value);
+    SensitivityAndReturnDataBundle other = (SensitivityAndReturnDataBundle) obj;
+    return Objects.equals(_sensitivity, other._sensitivity) &&
+        Objects.equals(_underlyingReturnTS, other._underlyingReturnTS) &&
+        Objects.equals(_value, other._value);
   }
 
 }

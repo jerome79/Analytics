@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.simpleinstruments.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.strata.basics.currency.Currency;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -21,9 +21,9 @@ public class SimpleFuture implements SimpleInstrument {
   private final Currency _currency;
   
   public SimpleFuture(final double expiry, final double settlement, final double referencePrice, final double unitAmount, final Currency currency) {
-    Validate.notNull(currency, "currency");
-    Validate.isTrue(expiry >= 0, "time to expiry must be positive");
-    Validate.isTrue(settlement >= 0, "time to settlement must be positive");
+    ArgChecker.notNull(currency, "currency");
+    ArgChecker.isTrue(expiry >= 0, "time to expiry must be positive");
+    ArgChecker.isTrue(settlement >= 0, "time to settlement must be positive");
     _expiry = expiry;
     _settlement = settlement;
     _referencePrice = referencePrice;
@@ -92,7 +92,7 @@ public class SimpleFuture implements SimpleInstrument {
     if (Double.doubleToLongBits(_unitAmount) != Double.doubleToLongBits(other._unitAmount)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
     return true;

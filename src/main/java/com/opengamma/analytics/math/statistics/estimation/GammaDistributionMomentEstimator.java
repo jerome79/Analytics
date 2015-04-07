@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.statistics.estimation;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.statistics.descriptive.SampleMomentCalculator;
 import com.opengamma.analytics.math.statistics.distribution.GammaDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
@@ -23,7 +21,7 @@ public class GammaDistributionMomentEstimator extends DistributionParameterEstim
 
   @Override
   public ProbabilityDistribution<Double> evaluate(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     ArgChecker.notEmpty(x, "x");
     final double m1 = _first.apply(x);
     final double m2 = _second.apply(x);

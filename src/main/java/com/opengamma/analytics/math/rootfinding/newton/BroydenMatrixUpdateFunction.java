@@ -7,12 +7,11 @@ package com.opengamma.analytics.math.rootfinding.newton;
 
 import static com.opengamma.analytics.math.matrix.MatrixAlgebraFactory.OG_ALGEBRA;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  *
@@ -21,9 +20,9 @@ public class BroydenMatrixUpdateFunction implements NewtonRootFinderMatrixUpdate
 
   @Override
   public DoubleMatrix2D getUpdatedMatrix(Function1D<DoubleMatrix1D, DoubleMatrix2D> j, DoubleMatrix1D x, final DoubleMatrix1D deltaX, final DoubleMatrix1D deltaY, final DoubleMatrix2D matrix) {
-    Validate.notNull(deltaX);
-    Validate.notNull(deltaY);
-    Validate.notNull(matrix);
+    ArgChecker.notNull(deltaX, "deltaX");
+    ArgChecker.notNull(deltaY, "deltaY");
+    ArgChecker.notNull(matrix, "matrix");
     final double length2 = OG_ALGEBRA.getInnerProduct(deltaX, deltaX);
     if (length2 == 0.0) {
       return matrix;

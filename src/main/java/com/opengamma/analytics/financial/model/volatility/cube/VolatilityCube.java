@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.volatility.cube;
 
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
@@ -108,6 +108,6 @@ public class VolatilityCube implements VolatilityModel<Triple<Double, Double, Do
       return false;
     }
     final VolatilityCube other = (VolatilityCube) obj;
-    return ObjectUtils.equals(_cube, other._cube);
+    return Objects.equals(_cube, other._cube);
   }
 }

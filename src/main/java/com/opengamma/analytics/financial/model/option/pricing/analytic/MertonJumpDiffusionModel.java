@@ -7,14 +7,13 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.MertonJumpDiffusionModelDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The Merton jump-diffusion model prices options with an underlying process
@@ -55,13 +54,13 @@ public class MertonJumpDiffusionModel extends AnalyticOptionModel<OptionDefiniti
    */
   @Override
   public Function1D<MertonJumpDiffusionModelDataBundle, Double> getPricingFunction(final OptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<MertonJumpDiffusionModelDataBundle, Double> pricingFunction = new Function1D<MertonJumpDiffusionModelDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final MertonJumpDiffusionModelDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final ZonedDateTime date = data.getDate();
         final double k = definition.getStrike();
         final double t = definition.getTimeToExpiry(date);

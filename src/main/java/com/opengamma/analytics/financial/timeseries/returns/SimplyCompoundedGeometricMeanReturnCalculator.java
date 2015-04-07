@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.timeseries.returns;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -17,7 +15,7 @@ public class SimplyCompoundedGeometricMeanReturnCalculator extends Function1D<do
 
   @Override
   public Double evaluate(final double[] x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     ArgChecker.notEmpty(x, "x");
     final int n = x.length;
     double mult = 1 + x[0];

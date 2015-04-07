@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityFunction1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -85,7 +83,7 @@ public class ProductPiecewisePolynomialInterpolator extends PiecewisePolynomialI
 
   @Override
   public PiecewisePolynomialResult interpolate(double[] xValues, double[][] yValuesMatrix) {
-    throw new NotImplementedException("Use 1D interpolation method");
+    throw new UnsupportedOperationException("Use 1D interpolation method");
   }
 
   @Override

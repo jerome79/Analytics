@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.curve;
 
 import java.util.Map;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -19,6 +18,7 @@ import org.joda.beans.impl.direct.DirectBeanBuilder;
 import org.joda.beans.impl.direct.DirectMetaProperty;
 import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 
+import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.util.ParallelArrayBinarySort;
 import com.opengamma.strata.collect.ArgChecker;
@@ -78,7 +78,7 @@ public final class DoublesCurveInterpolatedAnchor extends InterpolatedDoublesCur
     xExtended[xLength] = anchor;
     System.arraycopy(yData, 0, yExtended, 0, xLength);
     ParallelArrayBinarySort.parallelBinarySort(xExtended, yExtended);
-    int anchorIndex = ArrayUtils.indexOf(xExtended, anchor);
+    int anchorIndex = Doubles.indexOf(xExtended, anchor);
     return new DoublesCurveInterpolatedAnchor(xExtended, yExtended, anchorIndex, interpolator, name);
   }
 
@@ -105,7 +105,7 @@ public final class DoublesCurveInterpolatedAnchor extends InterpolatedDoublesCur
     System.arraycopy(yData, 0, yExtended, 0, xLength);
     yExtended[xLength] = anchorValue;
     ParallelArrayBinarySort.parallelBinarySort(xExtended, yExtended);
-    int anchorIndex = ArrayUtils.indexOf(xExtended, anchor);
+    int anchorIndex = Doubles.indexOf(xExtended, anchor);
     return new DoublesCurveInterpolatedAnchor(xExtended, yExtended, anchorIndex, interpolator, name);
   }
 

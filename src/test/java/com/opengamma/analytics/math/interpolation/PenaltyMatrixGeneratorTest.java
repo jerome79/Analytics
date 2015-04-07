@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -284,7 +283,7 @@ public class PenaltyMatrixGeneratorTest {
     assertEquals(expected, r, 1e-11);
   }
 
-  @Test(expectedExceptions = NotImplementedException.class)
+  @Test(expectedExceptions = UnsupportedOperationException.class)
   public void orderG2Test() {
     double[] x = new double[] {0.0, 0.3, 0.7, 0.8, 1.2, 2.0 };
     @SuppressWarnings("unused")

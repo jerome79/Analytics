@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.model.volatility;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.option.definition.SmileDeltaParameters;
 import com.opengamma.strata.collect.ArgChecker;
@@ -67,7 +66,7 @@ public class SmileAndBucketedSensitivities {
       return false;
     }
     final SmileAndBucketedSensitivities other = (SmileAndBucketedSensitivities) obj;
-    if (!ObjectUtils.equals(_smile, other._smile)) {
+    if (!Objects.equals(_smile, other._smile)) {
       return false;
     }
     if (!Arrays.deepEquals(_sensitivities, other._sensitivities)) {

@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -58,6 +56,6 @@ public abstract class InterpolatorND implements Interpolator<InterpolatorNDDataB
    * @return The node sensitivities
    */
   public Map<double[], Double> getNodeSensitivitiesForValue(final InterpolatorNDDataBundle data, final double[] x) {
-    throw new NotImplementedException("Node sensitivities cannot be calculated by this interpolator");
+    throw new UnsupportedOperationException("Node sensitivities cannot be calculated by this interpolator");
   }
 }

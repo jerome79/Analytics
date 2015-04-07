@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.HullWhiteStochasticVolatilityModelDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
@@ -19,6 +17,7 @@ import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -32,13 +31,13 @@ public class HullWhiteStochasticVolatilityModel extends AnalyticOptionModel<Opti
 
   @Override
   public Function1D<HullWhiteStochasticVolatilityModelDataBundle, Double> getPricingFunction(final OptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final Function1D<HullWhiteStochasticVolatilityModelDataBundle, Double> pricingFunction = new Function1D<HullWhiteStochasticVolatilityModelDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final HullWhiteStochasticVolatilityModelDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final ZonedDateTime date = data.getDate();
         final double s = data.getSpot();
         final double k = definition.getStrike();

@@ -5,10 +5,9 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -19,7 +18,7 @@ public class NeumannBoundaryCondition2D implements BoundaryCondition2D {
   private final double _level;
 
   public NeumannBoundaryCondition2D(final Surface<Double, Double, Double> boundaryFirstDeriviative, double boundaryLevel) {
-    Validate.notNull(boundaryFirstDeriviative, "boundaryValue ");
+    ArgChecker.notNull(boundaryFirstDeriviative, "boundaryValue ");
     _f = boundaryFirstDeriviative;
     _level = boundaryLevel;
   }

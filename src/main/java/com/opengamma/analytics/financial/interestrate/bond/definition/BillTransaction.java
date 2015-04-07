@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.bond.definition;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -46,9 +45,9 @@ public class BillTransaction implements InstrumentDerivative {
    * @param billStandard The bill with standard settlement date (time).
    */
   public BillTransaction(final BillSecurity billPurchased, final double quantity, final double settlementAmount, final BillSecurity billStandard) {
-    Validate.notNull(billPurchased, "Bill purchased");
-    Validate.notNull(billStandard, "Bill standard");
-    Validate.isTrue(quantity * settlementAmount <= 0, "Quantity and settlement amount should have opposite signs");
+    ArgChecker.notNull(billPurchased, "Bill purchased");
+    ArgChecker.notNull(billStandard, "Bill standard");
+    ArgChecker.isTrue(quantity * settlementAmount <= 0, "Quantity and settlement amount should have opposite signs");
     _billPurchased = billPurchased;
     _quantity = quantity;
     _settlementAmount = settlementAmount;
@@ -138,10 +137,10 @@ public class BillTransaction implements InstrumentDerivative {
       return false;
     }
     final BillTransaction other = (BillTransaction) obj;
-    if (!ObjectUtils.equals(_billPurchased, other._billPurchased)) {
+    if (!Objects.equals(_billPurchased, other._billPurchased)) {
       return false;
     }
-    if (!ObjectUtils.equals(_billStandard, other._billStandard)) {
+    if (!Objects.equals(_billStandard, other._billStandard)) {
       return false;
     }
     if (Double.doubleToLongBits(_quantity) != Double.doubleToLongBits(other._quantity)) {

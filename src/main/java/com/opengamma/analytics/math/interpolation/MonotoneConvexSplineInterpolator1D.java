@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -33,9 +32,9 @@ public class MonotoneConvexSplineInterpolator1D extends PiecewisePolynomialInter
 
   @Override
   public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
     final Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle polyData = (Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle) data;
     final DoubleMatrix1D res = FUNC.evaluate(polyData.getPiecewisePolynomialResult(), value);
     return res.getEntry(0);
@@ -43,9 +42,9 @@ public class MonotoneConvexSplineInterpolator1D extends PiecewisePolynomialInter
 
   @Override
   public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
     final Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle polyData = (Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle) data;
     final DoubleMatrix1D res = FUNC.differentiate(polyData.getPiecewisePolynomialResult(), value);
     return res.getEntry(0);
@@ -53,9 +52,9 @@ public class MonotoneConvexSplineInterpolator1D extends PiecewisePolynomialInter
 
   @Override
   public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    Validate.notNull(value, "value");
-    Validate.notNull(data, "data bundle");
-    Validate.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
+    ArgChecker.notNull(value, "value");
+    ArgChecker.notNull(data, "data bundle");
+    ArgChecker.isTrue(data instanceof Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle);
     final Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle polyData = (Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle) data;
     final int nData = polyData.size();
     final double[] res = new double[nData];

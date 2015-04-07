@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -33,7 +31,7 @@ public class SupershareOptionDefinition extends OptionDefinition {
     @SuppressWarnings("synthetic-access")
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data, "data");
+      ArgChecker.notNull(data, "data");
       final double s = data.getSpot();
       return ArgChecker.isInRangeExcludingHigh(_lowerBound, _upperBound, s) ? s / _lowerBound : 0;
     }
@@ -48,9 +46,9 @@ public class SupershareOptionDefinition extends OptionDefinition {
    */
   public SupershareOptionDefinition(final Expiry expiry, final double lowerBound, final double upperBound) {
     super(null, expiry, null);
-    Validate.isTrue(lowerBound >= 0, "lower bound must be >= 0");
-    Validate.isTrue(upperBound >= 0, "upper bound must be >= 0");
-    Validate.isTrue(upperBound > lowerBound, "Lower bound must be less than upper bound");
+    ArgChecker.isTrue(lowerBound >= 0, "lower bound must be >= 0");
+    ArgChecker.isTrue(upperBound >= 0, "upper bound must be >= 0");
+    ArgChecker.isTrue(upperBound > lowerBound, "Lower bound must be less than upper bound");
     _lowerBound = lowerBound;
     _upperBound = upperBound;
   }

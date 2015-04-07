@@ -9,8 +9,6 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.finitedifference.PDEFullResults1D;
 import com.opengamma.analytics.financial.model.finitedifference.PDETerminalResults1D;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -232,10 +230,10 @@ public class PDEUtilityTools {
   public static void printSurface(final String name, final Surface<Double, Double, Double> surface, final double xMin, final double xMax, final double yMin, final double yMax, final int xSteps,
       final int ySteps) {
 
-    Validate.isTrue(xMax > xMin, "need xMax > xMin");
-    Validate.isTrue(yMax > yMin, "need yMax > yMin");
-    Validate.isTrue(xSteps > 0, "need xSteps > 0");
-    Validate.isTrue(ySteps > 0, "need ySteps > 0");
+    ArgChecker.isTrue(xMax > xMin, "need xMax > xMin");
+    ArgChecker.isTrue(yMax > yMin, "need yMax > yMin");
+    ArgChecker.isTrue(xSteps > 0, "need xSteps > 0");
+    ArgChecker.isTrue(ySteps > 0, "need ySteps > 0");
 
     final StringBuffer result = new StringBuffer(name);
     result.append("\n");
@@ -311,8 +309,8 @@ public class PDEUtilityTools {
    * @param y Sample y values
    */
   public static void printSurface(final String name, final Surface<Double, Double, Double> surface, final double[] x, final double[] y) {
-    Validate.isTrue(x.length > 0, "The x-array was empty");
-    Validate.isTrue(y.length > 0, "The y-array was empty");
+    ArgChecker.isTrue(x.length > 0, "The x-array was empty");
+    ArgChecker.isTrue(y.length > 0, "The y-array was empty");
 
     final StringBuffer result = new StringBuffer(name);
     result.append("\n");

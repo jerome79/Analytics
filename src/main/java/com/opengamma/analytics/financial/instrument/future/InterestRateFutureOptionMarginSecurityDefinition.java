@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.future;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureOptionMarginSecurity;
@@ -135,7 +134,7 @@ public class InterestRateFutureOptionMarginSecurityDefinition extends FuturesSec
       return false;
     }
     final InterestRateFutureOptionMarginSecurityDefinition other = (InterestRateFutureOptionMarginSecurityDefinition) obj;
-    if (!ObjectUtils.equals(_expirationDate, other._expirationDate)) {
+    if (!Objects.equals(_expirationDate, other._expirationDate)) {
       return false;
     }
     if (_isCall != other._isCall) {
@@ -144,7 +143,7 @@ public class InterestRateFutureOptionMarginSecurityDefinition extends FuturesSec
     if (Double.doubleToLongBits(_strike) != Double.doubleToLongBits(other._strike)) {
       return false;
     }
-    if (!ObjectUtils.equals(_underlyingFuture, other._underlyingFuture)) {
+    if (!Objects.equals(_underlyingFuture, other._underlyingFuture)) {
       return false;
     }
     return true;

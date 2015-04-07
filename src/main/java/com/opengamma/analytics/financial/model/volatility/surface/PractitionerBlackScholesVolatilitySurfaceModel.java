@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +20,7 @@ import com.opengamma.analytics.math.regression.LeastSquaresRegression;
 import com.opengamma.analytics.math.regression.LeastSquaresRegressionResult;
 import com.opengamma.analytics.math.regression.OrdinaryLeastSquaresRegression;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -55,8 +55,8 @@ public class PractitionerBlackScholesVolatilitySurfaceModel implements Volatilit
 
   @Override
   public VolatilitySurface getSurface(final Map<OptionDefinition, Double> prices, final StandardOptionDataBundle data) {
-    Validate.notNull(prices, "prices");
-    Validate.notNull(data, "data");
+    ArgChecker.notNull(prices, "prices");
+    ArgChecker.notNull(data, "data");
     if (prices.size() < DEGREE) {
       throw new IllegalArgumentException("Price map contained " + prices.size() + " data point(s); need at least " + DEGREE);
     }
@@ -106,7 +106,7 @@ public class PractitionerBlackScholesVolatilitySurfaceModel implements Volatilit
     @SuppressWarnings("synthetic-access")
     @Override
     public Double evaluate(final Double... tk) {
-      Validate.notNull(tk, "tk pair");
+      ArgChecker.notNull(tk, "tk pair");
       final double t = tk[0];
       final double k = tk[1];
       return _result.getPredictedValue(_independentVariableFunction.evaluate(t, k));

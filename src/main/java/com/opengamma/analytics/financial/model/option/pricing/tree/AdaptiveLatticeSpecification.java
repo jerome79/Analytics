@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.tree;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.financial.model.option.pricing.tree.BarrierOptionFunctionProvider.BarrierTypes;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -28,7 +26,7 @@ public class AdaptiveLatticeSpecification extends LatticeSpecification {
       throw new IllegalArgumentException();
     }
     if (provider instanceof DoubleBarrierOptionFunctionProvider) {
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
     _provider = (BarrierOptionFunctionProvider) provider;
 

@@ -5,13 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.SupershareOptionDefinition;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class for pricing supershare options (see {@link SupershareOptionDefinition}).
@@ -39,13 +38,13 @@ public class SupershareOptionModel extends AnalyticOptionModel<SupershareOptionD
    */
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final SupershareOptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     return new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final double t = definition.getTimeToExpiry(data.getDate());
         final double r = data.getInterestRate(t);

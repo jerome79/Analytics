@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.util.wrapper;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Utility class for converting OpenGamma mathematical objects into <a href="http://acs.lbl.gov/software/colt/api/index.html">Colt</a> objects and vice versa.
@@ -22,7 +21,7 @@ public final class ColtMathWrapper {
    * @return An OG 2D matrix
    */
   public static DoubleMatrix2D wrap(final cern.colt.matrix.DoubleMatrix2D x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     return new DoubleMatrix2D(x.toArray());
   }
 
@@ -31,7 +30,7 @@ public final class ColtMathWrapper {
    * @return A Colt 2D matrix
    */
   public static cern.colt.matrix.DoubleMatrix2D wrap(final DoubleMatrix2D x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     return cern.colt.matrix.DoubleFactory2D.dense.make(x.getData());
 
   }

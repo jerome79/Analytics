@@ -8,8 +8,8 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 import static com.opengamma.analytics.math.FunctionUtils.square;
 
 import java.util.Arrays;
+import java.util.Objects;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -319,10 +319,10 @@ public class VolatilitySurfaceInterpolator {
       return false;
     }
     final VolatilitySurfaceInterpolator other = (VolatilitySurfaceInterpolator) obj;
-    if (!ObjectUtils.equals(_smileInterpolator, other._smileInterpolator)) {
+    if (!Objects.equals(_smileInterpolator, other._smileInterpolator)) {
       return false;
     }
-    if (!ObjectUtils.equals(_timeInterpolator, other._timeInterpolator)) {
+    if (!Objects.equals(_timeInterpolator, other._timeInterpolator)) {
       return false;
     }
     if (_useIntegratedVariance != other._useIntegratedVariance) {

@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.bond;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -262,16 +261,16 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
       return false;
     }
     final BillSecurityDefinition other = (BillSecurityDefinition) obj;
-    if (!ObjectUtils.equals(_endDate, other._endDate)) {
+    if (!Objects.equals(_endDate, other._endDate)) {
       return false;
     }
-    if (!ObjectUtils.equals(_issuer, other._issuer)) {
+    if (!Objects.equals(_issuer, other._issuer)) {
       return false;
     }
-    if (!ObjectUtils.equals(_currency, other._currency)) {
+    if (!Objects.equals(_currency, other._currency)) {
       return false;
     }
-    if (!ObjectUtils.equals(_dayCount, other._dayCount)) {
+    if (!Objects.equals(_dayCount, other._dayCount)) {
       return false;
     }
     if (Double.doubleToLongBits(_notional) != Double.doubleToLongBits(other._notional)) {
@@ -280,10 +279,10 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
     if (_settlementDays != other._settlementDays) {
       return false;
     }
-    if (!ObjectUtils.equals(_yieldConvention, other._yieldConvention)) {
+    if (!Objects.equals(_yieldConvention, other._yieldConvention)) {
       return false;
     }
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
     return true;

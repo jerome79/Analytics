@@ -7,13 +7,12 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
 
 import static com.opengamma.analytics.math.number.ComplexNumber.MINUS_I;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.math.ComplexMathUtils;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This characteristic exponent converts a Levy process from calendar time to
@@ -49,8 +48,8 @@ public class TimeChangedCharacteristicExponent implements CharacteristicExponent
    * @param timeChange The characteristic exponent to time change, not null
    */
   public TimeChangedCharacteristicExponent(final CharacteristicExponent base, final StocasticClockCharcteristicExponent timeChange) {
-    Validate.notNull(base, "base");
-    Validate.notNull(timeChange, "timeChange");
+    ArgChecker.notNull(base, "base");
+    ArgChecker.notNull(timeChange, "timeChange");
     _base = base;
     _timeChange = timeChange;
   }
@@ -130,20 +129,20 @@ public class TimeChangedCharacteristicExponent implements CharacteristicExponent
       return false;
     }
     final TimeChangedCharacteristicExponent other = (TimeChangedCharacteristicExponent) obj;
-    if (!ObjectUtils.equals(_base, other._base)) {
+    if (!Objects.equals(_base, other._base)) {
       return false;
     }
-    return ObjectUtils.equals(_timeChange, other._timeChange);
+    return Objects.equals(_timeChange, other._timeChange);
   }
 
   @Override
   public ComplexNumber[] getCharacteristicExponentAdjoint(ComplexNumber u, double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public Function1D<ComplexNumber, ComplexNumber[]> getAdjointFunction(double t) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
 }

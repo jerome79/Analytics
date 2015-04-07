@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.cube;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts a {@link FunctionalDoublesCube}. Only parallel shifts of the cube are supported.
@@ -19,7 +18,7 @@ public class FunctionalCubeAdditiveShiftFunction implements CubeShiftFunction<Fu
    */
   @Override
   public FunctionalDoublesCube evaluate(final FunctionalDoublesCube cube, final double shift) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     return evaluate(cube, shift, "PARALLEL_SHIFT_" + cube.getName());
   }
 
@@ -28,7 +27,7 @@ public class FunctionalCubeAdditiveShiftFunction implements CubeShiftFunction<Fu
    */
   @Override
   public FunctionalDoublesCube evaluate(final FunctionalDoublesCube cube, final double shift, final String newName) {
-    Validate.notNull(cube, "cube");
+    ArgChecker.notNull(cube, "cube");
     final Function<Double, Double> f = cube.getFunction();
     final Function<Double, Double> shiftedFunction = new Function<Double, Double>() {
 

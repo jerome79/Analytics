@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.function;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.CompareUtils;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Class representing a polynomial that has real coefficients and takes a real
@@ -31,15 +30,15 @@ public class RealPolynomialFunction1D extends DoubleFunction1D {
    * @param coefficients The array of coefficients, not null or empty
    */
   public RealPolynomialFunction1D(final double... coefficients) {
-    Validate.notNull(coefficients);
-    Validate.isTrue(coefficients.length > 0, "coefficients length must be greater than zero");
+    ArgChecker.notNull(coefficients, "coefficients");
+    ArgChecker.isTrue(coefficients.length > 0, "coefficients length must be greater than zero");
     _coefficients = coefficients;
     _n = _coefficients.length;
   }
 
   @Override
   public Double evaluate(Double x) {
-    Validate.notNull(x, "x");
+    ArgChecker.notNull(x, "x");
     double y = _coefficients[_n - 1];
     for (int i = _n - 2; i >= 0; i--) {
       y = x * y + _coefficients[i];
@@ -63,7 +62,7 @@ public class RealPolynomialFunction1D extends DoubleFunction1D {
    */
   @Override
   public DoubleFunction1D add(final DoubleFunction1D f) {
-    Validate.notNull(f, "function");
+    ArgChecker.notNull(f, "function");
     if (f instanceof RealPolynomialFunction1D) {
       final RealPolynomialFunction1D p1 = (RealPolynomialFunction1D) f;
       final double[] c1 = p1.getCoefficients();
@@ -134,7 +133,7 @@ public class RealPolynomialFunction1D extends DoubleFunction1D {
    */
   @Override
   public DoubleFunction1D multiply(final DoubleFunction1D f) {
-    Validate.notNull(f, "function");
+    ArgChecker.notNull(f, "function");
     if (f instanceof RealPolynomialFunction1D) {
       final RealPolynomialFunction1D p1 = (RealPolynomialFunction1D) f;
       final double[] c = _coefficients;
@@ -175,7 +174,7 @@ public class RealPolynomialFunction1D extends DoubleFunction1D {
    */
   @Override
   public DoubleFunction1D subtract(final DoubleFunction1D f) {
-    Validate.notNull(f, "function");
+    ArgChecker.notNull(f, "function");
     if (f instanceof RealPolynomialFunction1D) {
       final RealPolynomialFunction1D p1 = (RealPolynomialFunction1D) f;
       final double[] c = _coefficients;

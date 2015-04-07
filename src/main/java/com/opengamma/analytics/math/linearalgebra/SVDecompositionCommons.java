@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.lang.Validate;
 import org.apache.commons.math.linear.RealMatrix;
 import org.apache.commons.math.linear.SingularValueDecomposition;
 import org.apache.commons.math.linear.SingularValueDecompositionImpl;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/linear/SingularValueDecompositionImpl.html">Commons Math library implementation</a>
@@ -23,14 +23,12 @@ public class SVDecompositionCommons extends Decomposition<SVDecompositionResult>
    * {@inheritDoc}
    */
   @Override
-  public SVDecompositionResult evaluate(final DoubleMatrix2D x) {
-    Validate.notNull(x);
+  public SVDecompositionResult evaluate(DoubleMatrix2D x) {
+    ArgChecker.notNull(x, "x");
     MatrixValidate.notNaNOrInfinite(x);
-    final RealMatrix commonsMatrix = CommonsMathWrapper.wrap(x);
-    final SingularValueDecomposition svd = new SingularValueDecompositionImpl(commonsMatrix);
+    RealMatrix commonsMatrix = CommonsMathWrapper.wrap(x);
+    SingularValueDecomposition svd = new SingularValueDecompositionImpl(commonsMatrix);
     return new SVDecompositionCommonsResult(svd);
   }
-
-
 
 }

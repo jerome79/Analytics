@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.credit.isdastandardmodel;
 import java.util.Arrays;
 import java.util.Map;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -21,6 +20,7 @@ import org.joda.beans.impl.direct.DirectMetaProperty;
 import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
+import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**

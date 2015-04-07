@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 import java.util.Collections;
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.financial.model.option.definition.AmericanVanillaOptionDefinition;
@@ -20,6 +18,7 @@ import com.opengamma.analytics.math.rootfinding.BisectionSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.RealSingleRootFinder;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -32,14 +31,14 @@ public class JuZhongModel extends AnalyticOptionModel<AmericanVanillaOptionDefin
 
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final AmericanVanillaOptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     final double phi = definition.isCall() ? 1 : -1;
     final Function1D<StandardOptionDataBundle, Double> pricingFunction = new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final GreekResultCollection bsmResult = BSM.getGreeks(definition, data, PRICE);
         final double bsmPrice = bsmResult.get(Greek.FAIR_PRICE);
         final double s = data.getSpot();

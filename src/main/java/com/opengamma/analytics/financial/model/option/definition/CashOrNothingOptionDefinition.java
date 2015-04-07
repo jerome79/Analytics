@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.util.time.Expiry;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -42,7 +41,7 @@ public class CashOrNothingOptionDefinition extends OptionDefinition {
     @SuppressWarnings("synthetic-access")
     @Override
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
-      Validate.notNull(data, "data");
+      ArgChecker.notNull(data, "data");
       final double s = data.getSpot();
       final double k = getStrike();
       return isCall() ? (s < k ? _payment : 0) : s > k ? _payment : 0;
@@ -59,7 +58,7 @@ public class CashOrNothingOptionDefinition extends OptionDefinition {
    */
   public CashOrNothingOptionDefinition(final double strike, final Expiry expiry, final boolean isCall, final double payment) {
     super(strike, expiry, isCall);
-    Validate.isTrue(payment >= 0, "payment");
+    ArgChecker.isTrue(payment >= 0, "payment");
     _payment = payment;
   }
 

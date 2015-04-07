@@ -8,9 +8,8 @@ package com.opengamma.analytics.financial.timeseries.model;
 import java.time.LocalDate;
 import java.util.stream.IntStream;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
@@ -21,19 +20,19 @@ public class AutoregressiveTimeSeriesModel {
   private final ProbabilityDistribution<Double> _random;
 
   public AutoregressiveTimeSeriesModel(final ProbabilityDistribution<Double> random) {
-    Validate.notNull(random, "random");
+    ArgChecker.notNull(random, "random");
     _random = random;
   }
 
   public LocalDateDoubleTimeSeries getSeries(final double[] phi, final int p, final LocalDate[] dates) {
-    Validate.notNull(phi, "phi");
+    ArgChecker.notNull(phi, "phi");
     if (p < 1) {
       throw new IllegalArgumentException("Order must be greater than zero");
     }
     if (phi.length < p + 1) {
       throw new IllegalArgumentException("Coefficient array must contain at least " + (p + 1) + " elements");
     }
-    Validate.notNull(dates, "dates");
+    ArgChecker.notNull(dates, "dates");
     if (dates.length == 0) {
       throw new IllegalArgumentException("Dates array was empty");
     }

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation.data;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialInterpolator;
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResultsWithSensitivity;
 import com.opengamma.strata.collect.ArgChecker;
@@ -158,7 +156,7 @@ public class Interpolator1DPiecewisePoynomialDataBundle implements Interpolator1
 
   @Override
   public void setYValueAtIndex(int index, double y) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   @Override

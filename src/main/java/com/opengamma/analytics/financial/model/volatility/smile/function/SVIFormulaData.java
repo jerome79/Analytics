@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -17,12 +17,12 @@ public class SVIFormulaData implements SmileModelData {
   private final double[] _parameters;
 
   public SVIFormulaData(final double[] parameters) {
-    Validate.notNull(parameters, "parameters are null");
-    Validate.isTrue(parameters.length == NUM_PARAMETERS, "must be " + NUM_PARAMETERS + " parameters");
-    Validate.isTrue(parameters[0] >= 0, "Need a >= 0");
-    Validate.isTrue(parameters[1] >= 0, "Need b >= 0");
-    Validate.isTrue(parameters[2] >= -1 && parameters[2] <= 1, "Need -1 <= rho <= 1");
-    Validate.isTrue(parameters[3] >= 0, "Need nu >= 0");
+    ArgChecker.notNull(parameters, "parameters are null");
+    ArgChecker.isTrue(parameters.length == NUM_PARAMETERS, "must be " + NUM_PARAMETERS + " parameters");
+    ArgChecker.isTrue(parameters[0] >= 0, "Need a >= 0");
+    ArgChecker.isTrue(parameters[1] >= 0, "Need b >= 0");
+    ArgChecker.isTrue(parameters[2] >= -1 && parameters[2] <= 1, "Need -1 <= rho <= 1");
+    ArgChecker.isTrue(parameters[3] >= 0, "Need nu >= 0");
 
     _parameters = new double[NUM_PARAMETERS];
     System.arraycopy(parameters, 0, _parameters, 0, NUM_PARAMETERS);

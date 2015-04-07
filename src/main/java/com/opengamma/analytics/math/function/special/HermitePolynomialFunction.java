@@ -5,10 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.DoubleFunction1D;
+import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -26,7 +24,7 @@ public class HermitePolynomialFunction extends OrthogonalPolynomialFunctionGener
 
   @Override
   public DoubleFunction1D[] getPolynomials(final int n) {
-    Validate.isTrue(n >= 0);
+    ArgChecker.isTrue(n >= 0);
     final DoubleFunction1D[] polynomials = new DoubleFunction1D[n + 1];
     for (int i = 0; i <= n; i++) {
       if (i == 0) {
@@ -42,6 +40,6 @@ public class HermitePolynomialFunction extends OrthogonalPolynomialFunctionGener
 
   @Override
   public Pair<DoubleFunction1D, DoubleFunction1D>[] getPolynomialsAndFirstDerivative(final int n) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 }

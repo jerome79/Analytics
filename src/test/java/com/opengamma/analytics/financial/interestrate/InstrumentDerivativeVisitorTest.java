@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.fail;
 
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.commodity.derivative.AgricultureForward;
@@ -384,7 +383,7 @@ public class InstrumentDerivativeVisitorTest {
 
     @Override
     public String visitForexForward(final ForexForward fx, final T data) {
-      throw new NotImplementedException("Not implemented because derivative is deprecated");
+      throw new UnsupportedOperationException("Not implemented because derivative is deprecated");
     }
 
     @Override
@@ -500,7 +499,7 @@ public class InstrumentDerivativeVisitorTest {
 
     @Override
     public String visitForexForward(final ForexForward fx) {
-      throw new NotImplementedException("Not implemented because derivative is deprecated");
+      throw new UnsupportedOperationException("Not implemented because derivative is deprecated");
     }
 
     @Override

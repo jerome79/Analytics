@@ -8,9 +8,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.Validate;
-
 import com.google.common.collect.Sets;
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
@@ -21,6 +18,7 @@ import com.opengamma.analytics.financial.model.option.definition.StandardOptionD
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * This model can be used to approximate the value of call-on-call or
@@ -63,13 +61,13 @@ public class BensoussanCrouhyGalaiOptionOnOptionModel extends AnalyticOptionMode
    */
   @Override
   public Function1D<StandardOptionDataBundle, Double> getPricingFunction(final EuropeanOptionOnEuropeanVanillaOptionDefinition definition) {
-    Validate.notNull(definition, "definition");
+    ArgChecker.notNull(definition, "definition");
     return new Function1D<StandardOptionDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final StandardOptionDataBundle data) {
-        Validate.notNull(data, "data");
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final OptionDefinition underlying = definition.getUnderlyingOption();
         final double k1 = definition.getStrike();
@@ -90,7 +88,7 @@ public class BensoussanCrouhyGalaiOptionOnOptionModel extends AnalyticOptionMode
         if (underlying.isCall()) {
           return sign * (callBSM * NORMAL.getCDF(sign * d1) - k1 * Math.exp(-r * t1) * NORMAL.getCDF(sign * d2));
         }
-        throw new NotImplementedException("This model can only price call-on-call or put-on-call options");
+        throw new UnsupportedOperationException("This model can only price call-on-call or put-on-call options");
       }
 
     };

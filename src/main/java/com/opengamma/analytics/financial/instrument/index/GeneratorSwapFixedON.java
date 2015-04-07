@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.instrument.index;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedONDefinition;
@@ -248,13 +247,13 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
       return false;
     }
     final GeneratorSwapFixedON other = (GeneratorSwapFixedON) obj;
-    if (!ObjectUtils.equals(_businessDayConvention, other._businessDayConvention)) {
+    if (!Objects.equals(_businessDayConvention, other._businessDayConvention)) {
       return false;
     }
     if (_endOfMonth != other._endOfMonth) {
       return false;
     }
-    if (!ObjectUtils.equals(_fixedLegDayCount, other._fixedLegDayCount)) {
+    if (!Objects.equals(_fixedLegDayCount, other._fixedLegDayCount)) {
       return false;
     }
     if (_fromEnd != other._fromEnd) {
@@ -267,7 +266,7 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
     } else if (!_index.equals(other._index)) {
       return false;
     }
-    if (!ObjectUtils.equals(_legsPeriod, other._legsPeriod)) {
+    if (!Objects.equals(_legsPeriod, other._legsPeriod)) {
       return false;
     }
     if (_paymentLag != other._paymentLag) {
@@ -279,7 +278,7 @@ public class GeneratorSwapFixedON extends GeneratorInstrument<GeneratorAttribute
     if (_stubShort != other._stubShort) {
       return false;
     }
-    if (!ObjectUtils.equals(_calendar, other._calendar)) {
+    if (!Objects.equals(_calendar, other._calendar)) {
       return false;
     }
     return true;

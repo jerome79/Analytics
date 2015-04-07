@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.model.volatility.local;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.tree.RecombiningTree;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -18,8 +18,8 @@ public class ImpliedTreeResult {
   private final RecombiningTree<Double> _localVolatilities;
 
   public ImpliedTreeResult(final RecombiningTree<Double> spotPrices, final RecombiningTree<Double> localVolatilities) {
-    Validate.notNull(spotPrices, "spot price tree");
-    Validate.notNull(localVolatilities, "local volatility tree");
+    ArgChecker.notNull(spotPrices, "spot price tree");
+    ArgChecker.notNull(localVolatilities, "local volatility tree");
     if (spotPrices.getDepth() - 1 != localVolatilities.getDepth()) {
       throw new IllegalArgumentException("Spot price tree must have depth equal to the depth of the local volatility tree plus one; have " + spotPrices.getDepth() + " and "
           + localVolatilities.getDepth());
@@ -57,6 +57,6 @@ public class ImpliedTreeResult {
       return false;
     }
     final ImpliedTreeResult other = (ImpliedTreeResult) obj;
-    return ObjectUtils.equals(_localVolatilities, other._localVolatilities) && ObjectUtils.equals(_spotPrices, other._spotPrices);
+    return Objects.equals(_localVolatilities, other._localVolatilities) && Objects.equals(_spotPrices, other._spotPrices);
   }
 }

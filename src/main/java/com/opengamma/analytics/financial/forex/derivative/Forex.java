@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.forex.derivative;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.Validate;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
@@ -34,11 +33,11 @@ public class Forex implements InstrumentDerivative {
    * @param paymentCurrency2 The second currency payment.
    */
   public Forex(final PaymentFixed paymentCurrency1, final PaymentFixed paymentCurrency2) {
-    Validate.notNull(paymentCurrency1, "Payment 1");
-    Validate.notNull(paymentCurrency2, "Payment 2");
-    Validate.isTrue(Double.doubleToLongBits(paymentCurrency1.getPaymentTime()) == Double.doubleToLongBits(paymentCurrency2.getPaymentTime()), "Payments on different time");
-    Validate.isTrue((paymentCurrency1.getAmount() * paymentCurrency2.getAmount()) <= 0, "Payments with same sign");
-    Validate.isTrue(!paymentCurrency1.getCurrency().equals(paymentCurrency2.getCurrency()), "same currency");
+    ArgChecker.notNull(paymentCurrency1, "Payment 1");
+    ArgChecker.notNull(paymentCurrency2, "Payment 2");
+    ArgChecker.isTrue(Double.doubleToLongBits(paymentCurrency1.getPaymentTime()) == Double.doubleToLongBits(paymentCurrency2.getPaymentTime()), "Payments on different time");
+    ArgChecker.isTrue((paymentCurrency1.getAmount() * paymentCurrency2.getAmount()) <= 0, "Payments with same sign");
+    ArgChecker.isTrue(!paymentCurrency1.getCurrency().equals(paymentCurrency2.getCurrency()), "same currency");
     this._paymentCurrency1 = paymentCurrency1;
     this._paymentCurrency2 = paymentCurrency2;
   }
@@ -109,10 +108,10 @@ public class Forex implements InstrumentDerivative {
       return false;
     }
     final Forex other = (Forex) obj;
-    if (!ObjectUtils.equals(_paymentCurrency1, other._paymentCurrency1)) {
+    if (!Objects.equals(_paymentCurrency1, other._paymentCurrency1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_paymentCurrency2, other._paymentCurrency2)) {
+    if (!Objects.equals(_paymentCurrency2, other._paymentCurrency2)) {
       return false;
     }
     return true;

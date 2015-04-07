@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.instrument.swap;
 
 import java.time.ZonedDateTime;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -134,10 +133,10 @@ public abstract class TotalReturnSwapDefinition implements InstrumentDefinitionW
       return false;
     }
     final TotalReturnSwapDefinition other = (TotalReturnSwapDefinition) obj;
-    if (!ObjectUtils.equals(_asset, other._asset)) {
+    if (!Objects.equals(_asset, other._asset)) {
       return false;
     }
-    if (!ObjectUtils.equals(_fundingLeg, other._fundingLeg)) {
+    if (!Objects.equals(_fundingLeg, other._fundingLeg)) {
       return false;
     }
     return true;

@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.pnl.UnderlyingType;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -23,7 +22,7 @@ public class MixedOrderUnderlying implements Underlying {
   private final int _totalOrder;
 
   public MixedOrderUnderlying(final NavigableMap<Integer, UnderlyingType> underlyings) {
-    Validate.notNull(underlyings, "underlyings");
+    ArgChecker.notNull(underlyings, "underlyings");
     if (underlyings.size() < 2) {
       throw new IllegalArgumentException("Must have at least two underlying types to have mixed order");
     }
@@ -45,7 +44,7 @@ public class MixedOrderUnderlying implements Underlying {
   }
 
   public MixedOrderUnderlying(final List<NthOrderUnderlying> underlyings) {
-    Validate.notNull(underlyings, "underlyings");
+    ArgChecker.notNull(underlyings, "underlyings");
     if (underlyings.size() < 2) {
       throw new IllegalArgumentException("Must have at least two nth order underlyings to have mixed order");
     }

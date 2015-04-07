@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.descriptive;
 
 import java.util.function.Function;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Calculates the $n^th$ sample central moment of a series of data.
@@ -30,7 +29,7 @@ public class SampleCentralMomentCalculator implements Function<double[], Double>
    * @param n The degree of the moment to calculate, cannot be negative
    */
   public SampleCentralMomentCalculator(final int n) {
-    Validate.isTrue(n >= 0, "n must be >= 0");
+    ArgChecker.isTrue(n >= 0, "n must be >= 0");
     _n = n;
   }
 
@@ -40,8 +39,8 @@ public class SampleCentralMomentCalculator implements Function<double[], Double>
    */
   @Override
   public Double apply(final double[] x) {
-    Validate.notNull(x, "x");
-    Validate.isTrue(x.length >= 2, "Need at least 2 data points to calculate central moment");
+    ArgChecker.notNull(x, "x");
+    ArgChecker.isTrue(x.length >= 2, "Need at least 2 data points to calculate central moment");
     if (_n == 0) {
       return 1.;
     }

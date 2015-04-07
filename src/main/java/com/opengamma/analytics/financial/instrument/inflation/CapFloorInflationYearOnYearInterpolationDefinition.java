@@ -10,8 +10,6 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
@@ -127,7 +125,7 @@ public class CapFloorInflationYearOnYearInterpolationDefinition extends CouponIn
   public static CapFloorInflationYearOnYearInterpolationDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime paymentDate, final double notional,
       final IndexPrice priceIndex, final ZonedDateTime lastKnownFixingDate, final int conventionalMonthLag, final int monthLag, final ZonedDateTime[] referenceStartDate,
       final ZonedDateTime[] referenceEndDate, final double strike, final boolean isCap) {
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     final double weightStart;
     final double weightEnd;
     weightStart = 1.0 - (paymentDate.getDayOfMonth() - 1.0) / paymentDate.toLocalDate().lengthOfMonth();
@@ -154,7 +152,7 @@ public class CapFloorInflationYearOnYearInterpolationDefinition extends CouponIn
   public static CapFloorInflationYearOnYearInterpolationDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime paymentDate, final double notional,
       final IndexPrice priceIndex, final ZonedDateTime lastKnownFixingDate, final int conventionalMonthLag, final ZonedDateTime[] referenceStartDate, final ZonedDateTime[] referenceEndDate,
       final double strike, final boolean isCap) {
-    Validate.notNull(priceIndex, "Price index");
+    ArgChecker.notNull(priceIndex, "Price index");
     final double weightStart;
     final double weightEnd;
     weightStart = 1.0 - (paymentDate.getDayOfMonth() - 1.0) / paymentDate.toLocalDate().lengthOfMonth();
@@ -174,7 +172,7 @@ public class CapFloorInflationYearOnYearInterpolationDefinition extends CouponIn
    */
   public static CapFloorInflationYearOnYearInterpolationDefinition from(final CouponInflationYearOnYearInterpolationDefinition coupon, final ZonedDateTime lastKnownFixingDate,
       final double strike, final boolean isCap) {
-    Validate.notNull(coupon, "coupon year on year interpolation Inflation");
+    ArgChecker.notNull(coupon, "coupon year on year interpolation Inflation");
     return new CapFloorInflationYearOnYearInterpolationDefinition(coupon.getCurrency(), coupon.getPaymentDate(), coupon.getAccrualStartDate(),
         coupon.getAccrualEndDate(), coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getPriceIndex(), lastKnownFixingDate,
         coupon.getConventionalMonthLag(), coupon.getMonthLag(), coupon.getReferenceStartDates(), coupon.getReferenceEndDate(), coupon.getWeightStart(),

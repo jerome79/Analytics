@@ -6,8 +6,7 @@
 package com.opengamma.analytics.financial.forex.convention;
 
 import java.util.Arrays;
-
-import org.apache.commons.lang.ObjectUtils;
+import java.util.Objects;
 
 import com.opengamma.analytics.util.time.ComparableTenor;
 import com.opengamma.strata.basics.currency.Currency;
@@ -139,13 +138,13 @@ public class ForexQuoteConvention {
       return false;
     }
     final ForexQuoteConvention other = (ForexQuoteConvention) obj;
-    if (!ObjectUtils.equals(_ccy1, other._ccy1)) {
+    if (!Objects.equals(_ccy1, other._ccy1)) {
       return false;
     }
-    if (!ObjectUtils.equals(_ccy2, other._ccy2)) {
+    if (!Objects.equals(_ccy2, other._ccy2)) {
       return false;
     }
-    if (!ObjectUtils.equals(_premiumCurrency, other._premiumCurrency)) {
+    if (!Objects.equals(_premiumCurrency, other._premiumCurrency)) {
       return false;
     }
     if (!Arrays.equals(_atmType, other._atmType)) {
@@ -157,10 +156,10 @@ public class ForexQuoteConvention {
     if (_isPremiumAdjusted != other._isPremiumAdjusted) {
       return false;
     }
-    if (!ObjectUtils.equals(_atmTypeCutoff, other._atmTypeCutoff)) {
+    if (!Objects.equals(_atmTypeCutoff, other._atmTypeCutoff)) {
       return false;
     }
-    if (!ObjectUtils.equals(_deltaTypeCutoff, other._deltaTypeCutoff)) {
+    if (!Objects.equals(_deltaTypeCutoff, other._deltaTypeCutoff)) {
       return false;
     }
     return true;

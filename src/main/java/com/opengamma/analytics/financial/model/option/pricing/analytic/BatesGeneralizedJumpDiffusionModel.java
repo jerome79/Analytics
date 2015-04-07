@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.option.definition.BatesGeneralizedJumpDiffusionModelDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
@@ -16,6 +14,7 @@ import com.opengamma.analytics.financial.model.option.definition.StandardOptionD
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * The Bates generalized jump-diffusion model prices options with an underlying process:
@@ -57,13 +56,13 @@ public class BatesGeneralizedJumpDiffusionModel extends AnalyticOptionModel<Opti
    */
   @Override
   public Function1D<BatesGeneralizedJumpDiffusionModelDataBundle, Double> getPricingFunction(final OptionDefinition definition) {
-    Validate.notNull(definition);
+    ArgChecker.notNull(definition, "definition");
     return new Function1D<BatesGeneralizedJumpDiffusionModelDataBundle, Double>() {
 
       @SuppressWarnings("synthetic-access")
       @Override
       public Double evaluate(final BatesGeneralizedJumpDiffusionModelDataBundle data) {
-        Validate.notNull(data);
+        ArgChecker.notNull(data, "data");
         final double s = data.getSpot();
         final YieldAndDiscountCurve discountCurve = data.getInterestRateCurve();
         final VolatilitySurface volSurface = data.getVolatilitySurface();

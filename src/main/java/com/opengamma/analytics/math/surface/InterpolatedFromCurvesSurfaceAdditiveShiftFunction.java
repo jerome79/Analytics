@@ -7,10 +7,9 @@ package com.opengamma.analytics.math.surface;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.Validate;
-
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.CurveShiftFunctionFactory;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Shifts an {@link InterpolatedFromCurvesSurfaceAdditiveShiftFunction}. If an <i>x</i> (<i>y</i>) shift does not coincide with the one of the <i>x</i> (<i>y</i>) values 
@@ -23,7 +22,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
    */
   @Override
   public InterpolatedFromCurvesDoublesSurface evaluate(final InterpolatedFromCurvesDoublesSurface surface, final double shift) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, shift, "PARALLEL_SHIFT_" + surface.getName());
   }
 
@@ -33,7 +32,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
   @SuppressWarnings("unchecked")
   @Override
   public InterpolatedFromCurvesDoublesSurface evaluate(final InterpolatedFromCurvesDoublesSurface surface, final double shift, final String newName) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     final boolean xzCurves = surface.isXZCurves();
     final double[] points = surface.getPoints();
     final Curve<Double, Double>[] curves = surface.getCurves();
@@ -53,7 +52,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
 
   @Override
   public InterpolatedFromCurvesDoublesSurface evaluate(final InterpolatedFromCurvesDoublesSurface surface, final double x, final double y, final double shift) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, x, y, shift, "SINGLE_SHIFT_" + surface.getName());
   }
 
@@ -64,7 +63,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
    */
   @Override
   public InterpolatedFromCurvesDoublesSurface evaluate(final InterpolatedFromCurvesDoublesSurface surface, final double x, final double y, final double shift, final String newName) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     final boolean xzCurves = surface.isXZCurves();
     final double[] points = surface.getPoints();
     if (xzCurves) {
@@ -94,7 +93,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
    */
   @Override
   public InterpolatedFromCurvesDoublesSurface evaluate(final InterpolatedFromCurvesDoublesSurface surface, final double[] xShift, final double[] yShift, final double[] shift) {
-    Validate.notNull(surface, "surface");
+    ArgChecker.notNull(surface, "surface");
     return evaluate(surface, xShift, yShift, shift, "MULTIPLE_SHIFT_" + surface.getName());
   }
 
@@ -105,15 +104,15 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
    */
   @Override
   public InterpolatedFromCurvesDoublesSurface evaluate(final InterpolatedFromCurvesDoublesSurface surface, final double[] xShift, final double[] yShift, final double[] shift, final String newName) {
-    Validate.notNull(surface, "surface");
-    Validate.notNull(xShift, "x shifts");
-    Validate.notNull(yShift, "y shifts");
-    Validate.notNull(shift, "shifts");
+    ArgChecker.notNull(surface, "surface");
+    ArgChecker.notNull(xShift, "x shifts");
+    ArgChecker.notNull(yShift, "y shifts");
+    ArgChecker.notNull(shift, "shifts");
     final int n = xShift.length;
     if (n == 0) {
       return InterpolatedFromCurvesDoublesSurface.from(surface.isXZCurves(), surface.getPoints(), surface.getCurves(), surface.getInterpolator(), newName);
     }
-    Validate.isTrue(n == yShift.length && n == shift.length);
+    ArgChecker.isTrue(n == yShift.length && n == shift.length);
     final boolean xzCurves = surface.isXZCurves();
     final double[] points = surface.getPoints();
     if (xzCurves) {

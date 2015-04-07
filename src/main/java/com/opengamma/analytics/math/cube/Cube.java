@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.cube;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import com.opengamma.strata.collect.tuple.Triple;
 
@@ -107,7 +106,7 @@ public abstract class Cube<S, T, U, V> {
       return false;
     }
     final Cube<?, ?, ?, ?> other = (Cube<?, ?, ?, ?>) obj;
-    return ObjectUtils.equals(_name, other._name);
+    return Objects.equals(_name, other._name);
   }
 
 }

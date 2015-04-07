@@ -15,7 +15,6 @@ import java.util.List;
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.apache.commons.lang.Validate;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -29,6 +28,7 @@ import com.opengamma.analytics.math.interpolation.PSplineFitter;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
+import com.opengamma.strata.collect.ArgChecker;
 
 
 /**
@@ -81,7 +81,7 @@ public class GeneralizedLeastSquareTest {
       final Function1D<DoubleMatrix1D, Double> func = new Function1D<DoubleMatrix1D, Double>() {
         @Override
         public Double evaluate(final DoubleMatrix1D x) {
-          Validate.isTrue(x.getNumberOfElements() == 2);
+          ArgChecker.isTrue(x.getNumberOfElements() == 2);
           return Math.sin((2 * k + 1) * x.getEntry(0)) * Math.cos((2 * k + 1) * x.getEntry(1));
         }
       };

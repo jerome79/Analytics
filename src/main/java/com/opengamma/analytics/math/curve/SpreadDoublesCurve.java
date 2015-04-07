@@ -8,10 +8,9 @@ package com.opengamma.analytics.math.curve;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.ObjectUtils;
 import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
@@ -214,7 +213,7 @@ public class SpreadDoublesCurve
 
   @Override
   public double getDyDx(final double x) {
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -253,7 +252,7 @@ public class SpreadDoublesCurve
     if (!Arrays.equals(_curves, other._curves)) {
       return false;
     }
-    return ObjectUtils.equals(_spreadFunction, other._spreadFunction);
+    return Objects.equals(_spreadFunction, other._spreadFunction);
   }
 
   @Override
