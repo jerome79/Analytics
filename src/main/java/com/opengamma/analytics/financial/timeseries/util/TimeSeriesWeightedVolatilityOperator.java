@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.timeseries.util;
 
-import static com.opengamma.strata.collect.ArgChecker.isInRangeExclusive;
 import static java.util.stream.Collectors.toList;
 
 import java.time.LocalDate;
@@ -49,9 +48,8 @@ public final class TimeSeriesWeightedVolatilityOperator implements UnaryOperator
       UnaryOperator<LocalDateDoubleTimeSeries> returnOperator,
       double lambda,
       int seedLength) {
-    ArgChecker.isTrue(isInRangeExclusive(0.0, 1.0, lambda), "Lambda should be between 0 and 1 exclusive");
     changeOperator = returnOperator;
-    this.lambda = lambda;
+    this.lambda = ArgChecker.inRangeExclusive(lambda, 0d, 1d, "lambda");
     this.seedLength = seedLength;
   }
   

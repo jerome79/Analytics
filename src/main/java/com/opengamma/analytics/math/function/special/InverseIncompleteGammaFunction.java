@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import static com.opengamma.strata.collect.ArgChecker.isInRangeExclusive;
-
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -22,7 +20,7 @@ public class InverseIncompleteGammaFunction extends Function2D<Double, Double> {
   @Override
   public Double evaluate(final Double a, final Double p) {
     ArgChecker.notNegativeOrZero(a, "a");
-    ArgChecker.isTrue(isInRangeExclusive(0, 1, p), "p must lie between 0 and 1: have " + p);
+    ArgChecker.inRangeExclusive(p, 0d, 1d, "p");
     double x;
     double err;
     double t;

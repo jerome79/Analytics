@@ -289,7 +289,7 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
     ArgChecker.notNull(endDate, "null endDate");
     ArgChecker.notNull(yieldCurve, "null yieldCurve");
     ArgChecker.notNull(hazardRateCurve, "null hazardRateCurve");
-    ArgChecker.isInRangeInclusive(0, 1.0, recoveryRate);
+    ArgChecker.inRangeInclusive(recoveryRate, 0d, 1d, "recoveryRate");
     ArgChecker.isFalse(valueDate.isBefore(today), "Require valueDate >= today");
     ArgChecker.isFalse(stepinDate.isBefore(today), "Require stepin >= today");
 

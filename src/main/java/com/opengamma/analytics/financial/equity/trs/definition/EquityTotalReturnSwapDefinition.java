@@ -47,8 +47,7 @@ public class EquityTotalReturnSwapDefinition extends TotalReturnSwapDefinition {
       final double notionalAmount, final Currency notionalCurrency, final double dividendPercentage) {
     super(effectiveDate, terminationDate, fundingLeg, equity);
     ArgChecker.notNull(notionalCurrency, "notionalCurrency");
-    ArgChecker.isTrue(ArgChecker.isInRangeInclusive(0, 1, dividendPercentage), "Dividend percentage must be >= 0 and <= 1 "
-        + "have {}", dividendPercentage);
+    ArgChecker.inRangeInclusive(dividendPercentage, 0d, 1d, "dividendPercentage");
     _dividendPercentage = dividendPercentage;
     _notionalAmount = notionalAmount;
     _notionalCurrency = notionalCurrency;

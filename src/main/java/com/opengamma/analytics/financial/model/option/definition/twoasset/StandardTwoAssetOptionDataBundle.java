@@ -42,9 +42,7 @@ public class StandardTwoAssetOptionDataBundle {
    */
   public StandardTwoAssetOptionDataBundle(final YieldAndDiscountCurve interestRateCurve, final double b1, final double b2, final VolatilitySurface volatilitySurface1,
       final VolatilitySurface volatilitySurface2, final double spot1, final double spot2, final double rho, final ZonedDateTime date) {
-    if (!ArgChecker.isInRangeInclusive(-1, 1, rho)) {
-      throw new IllegalArgumentException("Correlation must be between -1 and 1");
-    }
+    ArgChecker.inRangeInclusive(rho, -1d, 1d, "rho");
     _interestRateCurve = interestRateCurve;
     _b1 = b1;
     _b2 = b2;
@@ -252,9 +250,7 @@ public class StandardTwoAssetOptionDataBundle {
    * @throws IllegalArgumentException If $\rho < -1$ or $\rho > 1$ 
    */
   public StandardTwoAssetOptionDataBundle withCorrelation(final double correlation) {
-    if (!ArgChecker.isInRangeInclusive(-1, 1, correlation)) {
-      throw new IllegalArgumentException("Correlation must be between 0 and 1");
-    }
+    ArgChecker.inRangeInclusive(correlation, -1d, 1d, "correlation");
     return new StandardTwoAssetOptionDataBundle(getInterestRateCurve(), getFirstCostOfCarry(), getSecondCostOfCarry(), getFirstVolatilitySurface(), getSecondVolatilitySurface(), getFirstSpot(),
         getSecondSpot(), correlation, getDate());
   }

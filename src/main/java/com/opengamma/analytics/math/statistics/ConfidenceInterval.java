@@ -17,9 +17,7 @@ public class ConfidenceInterval {
   private final double _value;
 
   public ConfidenceInterval(final double value, final double lower, final double upper, final double confidenceLevel) {
-    if (!ArgChecker.isInRangeInclusive(0, 1, confidenceLevel)) {
-      throw new IllegalArgumentException("Confidence level must be in the range 0 <= x <= 1");
-    }
+    ArgChecker.inRangeInclusive(confidenceLevel, 0d, 1d, "confidenceLevel");
     if (lower >= upper) {
       throw new IllegalArgumentException("Lower bound must be less than upper bound");
     }

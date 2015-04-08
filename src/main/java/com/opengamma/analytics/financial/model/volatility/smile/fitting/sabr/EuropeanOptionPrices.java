@@ -60,8 +60,8 @@ public class EuropeanOptionPrices {
   }
 
   public EuropeanOptionPrices withBumpedPoint(final int expiryIndex, final int strikeIndex, final double amount) {
-    ArgChecker.isTrue(ArgChecker.isInRangeExcludingHigh(0, _nExpiries, expiryIndex), "Invalid index for expiry; {}", expiryIndex);
-    ArgChecker.isTrue(ArgChecker.isInRangeExcludingHigh(0, _strikes[expiryIndex].length, strikeIndex), "Invalid index for strike; {}", strikeIndex);
+    ArgChecker.inRange(expiryIndex, 0d, _nExpiries, "expiryIndex");
+    ArgChecker.inRange(strikeIndex, 0d, _strikes[expiryIndex].length, "strikeIndex");
 
     //end up making two copies of this array, once here and once in the constructor of the new object 
     double[] p = Arrays.copyOf(_otmPrices[expiryIndex], _otmPrices[expiryIndex].length);

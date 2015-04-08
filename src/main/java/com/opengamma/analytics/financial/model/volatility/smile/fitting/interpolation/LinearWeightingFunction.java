@@ -23,7 +23,7 @@ public final class LinearWeightingFunction extends WeightingFunction {
 
   @Override
   public double getWeight(final double y) {
-    ArgChecker.isInRangeInclusive(0, 1, y);
+    ArgChecker.inRangeInclusive(y, 0d, 1d, "y");
     return y;
   }
 

@@ -73,7 +73,7 @@ public class EquityVarianceSwapForwardPurePDE {
     ArgChecker.notNegativeOrZero(nTimeSteps, "number of time steps");
     ArgChecker.notNegativeOrZero(nSpaceSteps, "number of space steps");
     ArgChecker.notNegativeOrZero(minStepsBetweenDividends, "minimum number of steps between dividends");
-    ArgChecker.isInRangeInclusive(0, 1, theta);
+    ArgChecker.inRangeInclusive(theta, 0d, 1d, "theta");
     _nTimeSteps = nTimeSteps;
     _nSpaceSteps = nSpaceSteps;
     _minStepsBetweenDividends = minStepsBetweenDividends;

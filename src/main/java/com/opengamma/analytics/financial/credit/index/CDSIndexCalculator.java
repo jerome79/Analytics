@@ -460,7 +460,7 @@ public class CDSIndexCalculator {
    */
   public double expectedDefaultSettlementValue(final double timeToExpiry, final ISDACompliantCreditCurve indexCurve, final double lgd) {
     ArgChecker.notNull(indexCurve, "indexCurve");
-    ArgChecker.isInRangeInclusive(0, 1, lgd);
+    ArgChecker.inRangeInclusive(lgd, 0, 1, "lgd");
     final double q = indexCurve.getSurvivalProbability(timeToExpiry);
     final double d = lgd * (1 - q);
     return d;
@@ -485,8 +485,8 @@ public class CDSIndexCalculator {
     ArgChecker.isTrue(numDefaults >= 0, "negative numDefaults");
     ArgChecker.isTrue(numDefaults <= initialIndexSize, "More defaults ({}) than size of index ({})", numDefaults, initialIndexSize);
     final double defFrac = numDefaults / ((double) initialIndexSize);
-    ArgChecker.isInRangeInclusive(0, defFrac, initialDefaultSettlement); //this upper range is if all current defaults have zero recovery
-    ArgChecker.isInRangeInclusive(0, 1, lgd);
+    ArgChecker.inRangeInclusive(initialDefaultSettlement, 0, defFrac, "initialDefaultSettlement"); //this upper range is if all current defaults have zero recovery
+    ArgChecker.inRangeInclusive(lgd, 0, 1, "lgd");
 
     final double q = indexCurve.getSurvivalProbability(timeToExpiry);
     final double d = (1 - defFrac) * lgd * (1 - q) + initialDefaultSettlement;

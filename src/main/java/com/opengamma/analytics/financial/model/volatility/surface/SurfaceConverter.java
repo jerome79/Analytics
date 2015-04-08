@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import static com.opengamma.strata.collect.ArgChecker.isInRangeExclusive;
-
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function;
@@ -207,7 +205,7 @@ public final class SurfaceConverter {
 
   double getlogMoneynessForDelta(final double delta, final Surface<Double, Double, Double> logMoneynessSurface, final double t) {
 
-    ArgChecker.isTrue(isInRangeExclusive(0.0, 1.0, delta), "delta should be in range 0 - 1 exclusive");
+    ArgChecker.inRangeExclusive(delta, 0d, 1d, "delta");
     ArgChecker.notNull(logMoneynessSurface, "null surface");
     ArgChecker.isTrue(t > 0, "t must be possitive");
 

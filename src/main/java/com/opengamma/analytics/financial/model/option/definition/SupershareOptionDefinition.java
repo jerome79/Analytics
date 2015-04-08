@@ -33,7 +33,7 @@ public class SupershareOptionDefinition extends OptionDefinition {
     public double getPayoff(final StandardOptionDataBundle data, final Double optionPrice) {
       ArgChecker.notNull(data, "data");
       final double s = data.getSpot();
-      return ArgChecker.isInRangeExcludingHigh(_lowerBound, _upperBound, s) ? s / _lowerBound : 0;
+      return (_lowerBound <= s && s < _upperBound) ? s / _lowerBound : 0;
     }
   };
   private final double _lowerBound;

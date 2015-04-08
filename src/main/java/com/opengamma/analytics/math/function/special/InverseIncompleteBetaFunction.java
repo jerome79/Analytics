@@ -31,9 +31,7 @@ public class InverseIncompleteBetaFunction extends Function1D<Double, Double> {
 
   @Override
   public Double evaluate(final Double x) {
-    if (!ArgChecker.isInRangeInclusive(0, 1, x)) {
-      throw new IllegalArgumentException("x must lie in the range 0 to 1");
-    }
+    ArgChecker.inRangeInclusive(x, 0d, 1d, "x");
     double pp, p, t, h, w, lnA, lnB, u, a1 = _a - 1;
     final double b1 = _b - 1;
     if (_a >= 1 && _b >= 1) {

@@ -136,7 +136,7 @@ public class CDSAnalytic {
     ArgChecker.notNull(businessdayAdjustmentConvention, "businessdayAdjustmentConvention");
     ArgChecker.notNull(accrualDayCount, "accuralDayCount");
     ArgChecker.notNull(curveDayCount, "curveDayCount");
-    ArgChecker.isInRangeInclusive(0, 1, recoveryRate);
+    ArgChecker.inRangeInclusive(recoveryRate, 0d, 1d, "recoveryRate");
     ArgChecker.isFalse(valueDate.isBefore(tradeDate), "Require valueDate >= today");
     ArgChecker.isFalse(stepinDate.isBefore(tradeDate), "Require stepin >= today");
     //TODO should not allow the accrual start to be after the stepin (protection start), since this is 'free' protection. Currently some tests have this
@@ -293,7 +293,7 @@ public class CDSAnalytic {
    * @return a new CDS
    */
   public CDSAnalytic withRecoveryRate(final double recoveryRate) {
-    ArgChecker.isInRangeInclusive(0, 1, recoveryRate);
+    ArgChecker.inRangeInclusive(recoveryRate, 0d, 1d, "recoveryRate");
     return new CDSAnalytic(1 - recoveryRate, _coupons, _accStart, _effectiveProtectionStart, _protectionEnd, _cashSettlementTime, _payAccOnDefault, _accrued, _accruedDays);
   }
 

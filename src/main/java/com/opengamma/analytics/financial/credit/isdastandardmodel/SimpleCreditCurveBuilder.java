@@ -127,7 +127,7 @@ public class SimpleCreditCurveBuilder extends ISDACompliantCreditCurveBuilder {
     ArgChecker.notNull(tenor, "null tenor");
     ArgChecker.notNull(stubType, "null stubType");
     ArgChecker.notNull(yieldCurve, "null yieldCurve");
-    ArgChecker.isInRangeExcludingHigh(0, 1.0, recoveryRate);
+    ArgChecker.inRange(recoveryRate, 0d, 1d, "recoveryRate");
     ArgChecker.isFalse(valueDate.isBefore(today), "Require valueDate >= today");
     ArgChecker.isFalse(stepinDate.isBefore(today), "Require stepin >= today");
 

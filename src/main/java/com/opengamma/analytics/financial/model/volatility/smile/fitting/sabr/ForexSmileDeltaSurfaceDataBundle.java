@@ -159,9 +159,9 @@ public class ForexSmileDeltaSurfaceDataBundle extends SmileSurfaceDataBundle {
 
   @Override
   public SmileSurfaceDataBundle withBumpedPoint(final int expiryIndex, final int strikeIndex, final double amount) {
-    ArgChecker.isTrue(ArgChecker.isInRangeExcludingHigh(0, _nExpiries, expiryIndex), "Invalid index for expiry; {}", expiryIndex);
+    ArgChecker.inRange(expiryIndex, 0d, _nExpiries, "expiryIndex");
     final double[][] strikes = getStrikes();
-    ArgChecker.isTrue(ArgChecker.isInRangeExcludingHigh(0, strikes[expiryIndex].length, strikeIndex), "Invalid index for strike; {}", strikeIndex);
+    ArgChecker.inRange(strikeIndex, 0d, strikes[expiryIndex].length, "strikeIndex");
     final int nStrikes = strikes[expiryIndex].length;
     final double[][] vols = new double[_nExpiries][];
     for (int i = 0; i < _nExpiries; i++) {

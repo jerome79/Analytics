@@ -37,7 +37,7 @@ public class InitialMarginDefinition extends CollateralDefinition {
 
     // ----------------------------------------------------------------------------------------------------------------------------------------
 
-    ArgChecker.isInRangeInclusive(0.0, 1.0, confidenceLevel);
+    ArgChecker.inRangeInclusive(confidenceLevel, 0d, 1d, "confidenceLevel");
     ArgChecker.notNegative(liquidityHorizon, "Liquidity Horizon");
 
     // ----------------------------------------------------------------------------------------------------------------------------------------

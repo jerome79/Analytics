@@ -24,9 +24,7 @@ public class StudentTVaRParameters {
   public StudentTVaRParameters(final double horizon, final double periods, final double quantile, final double dof) {
     ArgChecker.isTrue(horizon > 0, "horizon");
     ArgChecker.isTrue(periods > 0, "periods");
-    if (!ArgChecker.isInRangeInclusive(0, 1, quantile)) {
-      throw new IllegalArgumentException("Quantile must be between 0 and 1");
-    }
+    ArgChecker.inRangeInclusive(quantile, 0d, 1d, "quantile");
     ArgChecker.isTrue(dof > 0, "degrees of freedom");
     _horizon = horizon;
     _periods = periods;

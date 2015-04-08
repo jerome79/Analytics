@@ -23,7 +23,7 @@ public final class CosineWeightingFunction extends WeightingFunction {
 
   @Override
   public double getWeight(final double y) {
-    ArgChecker.isInRangeInclusive(0, 1, y);
+    ArgChecker.inRangeInclusive(y, 0d, 1d, "y");
     final double cos = Math.cos(Math.PI / 6 * (2.0 * y * y + y - 3.0));
     return cos;
   }

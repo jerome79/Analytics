@@ -94,29 +94,25 @@ public class SmileInterpolatorSABR extends SmileInterpolator<SABRFormulaData> {
 
   public SmileInterpolatorSABR(final VolatilityFunctionProvider<SABRFormulaData> model, final double beta) {
     super(model);
-    ArgChecker.isTrue(ArgChecker.isInRangeInclusive(0.0, 1.0, beta), "beta value of {} not in range 0 to 1", beta);
-    _beta = beta;
+    _beta = ArgChecker.inRangeInclusive(beta, 0d, 1d, "beta");
     _externalBeta = true;
   }
 
   public SmileInterpolatorSABR(final int seed, final VolatilityFunctionProvider<SABRFormulaData> model, final double beta) {
     super(seed, model);
-    ArgChecker.isTrue(ArgChecker.isInRangeInclusive(0.0, 1.0, beta), "beta value of {} not in range 0 to 1", beta);
-    _beta = beta;
+    _beta = ArgChecker.inRangeInclusive(beta, 0d, 1d, "beta");
     _externalBeta = true;
   }
 
   public SmileInterpolatorSABR(final VolatilityFunctionProvider<SABRFormulaData> model, final double beta, final WeightingFunction weightFunction) {
     super(model, weightFunction);
-    ArgChecker.isTrue(ArgChecker.isInRangeInclusive(0.0, 1.0, beta), "beta value of {} not in range 0 to 1", beta);
-    _beta = beta;
+    _beta = ArgChecker.inRangeInclusive(beta, 0d, 1d, "beta");
     _externalBeta = true;
   }
 
   public SmileInterpolatorSABR(final int seed, final VolatilityFunctionProvider<SABRFormulaData> model, final double beta, final WeightingFunction weightFunction) {
     super(seed, model, weightFunction);
-    ArgChecker.isTrue(ArgChecker.isInRangeInclusive(0.0, 1.0, beta), "beta value of {} not in range 0 to 1", beta);
-    _beta = beta;
+    _beta = ArgChecker.inRangeInclusive(beta, 0d, 1d, "beta");
     _externalBeta = true;
   }
 

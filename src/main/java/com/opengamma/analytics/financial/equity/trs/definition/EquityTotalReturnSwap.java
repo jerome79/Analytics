@@ -44,8 +44,7 @@ public class EquityTotalReturnSwap extends TotalReturnSwap {
     super(effectiveTime, terminatioTime, fundingLeg);
     ArgChecker.notNull(equity, "equity");
     ArgChecker.notNull(notionalCurrency, "notionalCurrency");
-    ArgChecker.isTrue(ArgChecker.isInRangeInclusive(0, 1, dividendRatio), "Dividend ratio must be >= 0 and <= 1 "
-        + "have {}", dividendRatio);
+    ArgChecker.inRangeInclusive(dividendRatio, 0d, 1d, "dividendRatio");
     _equity = equity;
     _dividendRatio = dividendRatio;
     _notionalAmount = notionalAmount;

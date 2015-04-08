@@ -28,9 +28,7 @@ public class HullWhiteTwoFactorDataBundle extends StandardDiscountBondModelDataB
     super(shortRateCurve, volatilityCurve1, date);
     ArgChecker.notNull(volatilityCurve2, "second volatility curve");
     ArgChecker.notNull(forwardRateCurve, "forward rate curve");
-    if (!ArgChecker.isInRangeInclusive(-1, 1, correlation)) {
-      throw new IllegalArgumentException("Correlation must be >= -1 and <= 1");
-    }
+    ArgChecker.inRangeInclusive(correlation, -1d, 1d, "correlation");
     _reversionSpeed1 = reversionSpeed1;
     _reversionSpeed2 = reversionSpeed2;
     _meanReversionLevel = meanReversionLevel;

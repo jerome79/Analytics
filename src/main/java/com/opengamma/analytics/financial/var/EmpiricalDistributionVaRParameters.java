@@ -21,9 +21,7 @@ public class EmpiricalDistributionVaRParameters {
   public EmpiricalDistributionVaRParameters(final double horizon, final double periods, final double quantile) {
     ArgChecker.isTrue(horizon > 0, "horizon");
     ArgChecker.isTrue(periods > 0, "periods");
-    if (!ArgChecker.isInRangeInclusive(0, 1, quantile)) {
-      throw new IllegalArgumentException("Quantile must be between 0 and 1");
-    }
+    ArgChecker.inRangeInclusive(quantile, 0d, 1d, "quantile");
     _percentileCalculator = new PercentileCalculator(1 - quantile);
     _horizon = horizon;
     _periods = periods;
