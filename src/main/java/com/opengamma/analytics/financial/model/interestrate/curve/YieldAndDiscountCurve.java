@@ -64,6 +64,20 @@ public abstract class YieldAndDiscountCurve implements InterestRateModel<Double>
   public abstract double getForwardRate(final double t);
 
   /**
+   * Gets the forward rate between start and end times, applying simple compounding.
+   * <p>
+   * In this implementation, the rate is derived from the discount factor.
+   * 
+   * @param startTime  the start time
+   * @param endTime  the end time
+   * @param accrualFactor  the accrual factor
+   * @return the rate
+   */
+  public double getSimplyCompoundForwardRate(double startTime, double endTime, double accrualFactor) {
+    return (getDiscountFactor(startTime) / getDiscountFactor(endTime) - 1) / accrualFactor;
+  }
+
+  /**
    * Returns the interest rate in a given compounding per year at a given time.
    * @param t The time.
    * @param compoundingPeriodsPerYear The number of composition per year.
