@@ -16,7 +16,6 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Operator to calculate the ratio or relative return of a time series: ratio = (V(end) - V(start)) / V(start)
  * The ratio is taken between elements in the time series with a certain lag. 
@@ -52,20 +51,20 @@ public class TimeSeriesPercentageChangeOperator implements UnaryOperator<LocalDa
     ArgChecker.isTrue(ts.size() > lag, "time series length must be > lag");
 
     Stream<LocalDateDoublePoint> lagged = ts.stream().skip(lag);
-
     return zip(lagged, ts.stream())
         .map(this::calculateNewPoint)
         .collect(LocalDateDoubleTimeSeries.collector());
   }
 
+  // process the pair of the target against the original
   private LocalDateDoublePoint calculateNewPoint(Pair<LocalDateDoublePoint, LocalDateDoublePoint> pair) {
-    LocalDate offsetDate = pair.getFirst().getDate();
-    double offsetValue = pair.getFirst().getValue();
+    LocalDate targetDate = pair.getFirst().getDate();
+    double targetValue = pair.getFirst().getValue();
     LocalDate originalDate = pair.getSecond().getDate();
     double originalValue = pair.getSecond().getValue();
-    ArgChecker.isFalse(originalValue == 0.0d,
+    ArgChecker.isTrue(originalValue != 0.0d,
         "value equal to 0 at date {}, no relative change can be computed", originalDate);
-    return LocalDateDoublePoint.of(offsetDate, (offsetValue - originalValue) / originalValue);
+    return LocalDateDoublePoint.of(targetDate, (targetValue - originalValue) / originalValue);
   }
 
 }

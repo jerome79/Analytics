@@ -6,6 +6,7 @@
 package com.opengamma.analytics.financial.timeseries.util;
 
 import static com.opengamma.analytics.financial.timeseries.util.LocalDateDoubleTimeSeriesTestUtils.compareTimeseries;
+import static com.opengamma.strata.collect.TestHelper.assertThrowsIllegalArg;
 
 import java.time.LocalDate;
 
@@ -16,28 +17,27 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 /**
  * Tests {@link TimeSeriesPercentageChangeOperator}
  */
+@Test
 public class TimeSeriesPercentageChangeOperatorTest {
 
   private static final TimeSeriesPercentageChangeOperator OP_REL_1 = new TimeSeriesPercentageChangeOperator();
   private static final TimeSeriesPercentageChangeOperator OP_REL_2 = new TimeSeriesPercentageChangeOperator(2);
+  private static final TimeSeriesPercentageChangeOperator OP_REL_3 = new TimeSeriesPercentageChangeOperator(3);
 
   private static final double TOLERANCE_DIFF = 1.0E-10;
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullTsException() {
-    OP_REL_1.apply(null);
+    assertThrowsIllegalArg(() -> OP_REL_1.apply(null));
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
   public void tooShortTimeSeriesException() {
     LocalDateDoubleTimeSeries tooShortTs =
         LocalDateDoubleTimeSeries.builder()
             .put(LocalDate.of(2014, 1, 2), 1d)
             .build();
-    OP_REL_1.apply(tooShortTs);
+    assertThrowsIllegalArg(() -> OP_REL_1.apply(tooShortTs));
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
   public void zeroValue() {
     LocalDateDoubleTimeSeries zeroValueTs =
         LocalDateDoubleTimeSeries.builder()
@@ -45,11 +45,10 @@ public class TimeSeriesPercentageChangeOperatorTest {
             .put(LocalDate.of(2014, 1, 3), 0d)
             .put(LocalDate.of(2014, 1, 4), 1d)
             .build();
-    OP_REL_1.apply(zeroValueTs);
+    assertThrowsIllegalArg(() -> OP_REL_1.apply(zeroValueTs));
   }
 
   /** Test the relative change operator for a standard lag of 1 element. */
-  @Test
   public void relative1() {
 
     LocalDateDoubleTimeSeries ts =
@@ -77,7 +76,6 @@ public class TimeSeriesPercentageChangeOperatorTest {
   }
 
   /** Tests the relative change operator for a lag of 2 elements. */
-  @Test
   public void relative2() {
 
     LocalDateDoubleTimeSeries ts =
@@ -103,4 +101,54 @@ public class TimeSeriesPercentageChangeOperatorTest {
     compareTimeseries(returned, expected, TOLERANCE_DIFF);
   }
   
+  /** Tests the relative change operator for a lag of 4 elements. */
+  public void relative3dense() {
+
+    LocalDateDoubleTimeSeries ts =
+        LocalDateDoubleTimeSeries.builder()
+            .put(LocalDate.of(2014, 4, 17), 1d)
+            .put(LocalDate.of(2014, 4, 18), 2d)
+            .put(LocalDate.of(2014, 4, 20), 5d)
+            .put(LocalDate.of(2014, 4, 21), 4d)
+            .put(LocalDate.of(2014, 4, 23), 8d)
+            .put(LocalDate.of(2014, 4, 24), 2d)
+            .build();
+
+    LocalDateDoubleTimeSeries expected =
+        LocalDateDoubleTimeSeries.builder()
+            .put(LocalDate.of(2014, 4, 21), (4d - 1d) / 1d)
+            .put(LocalDate.of(2014, 4, 23), (8d - 2d) / 2d)
+            .put(LocalDate.of(2014, 4, 24), (2d - 5d) / 5d)
+            .build();
+
+    LocalDateDoubleTimeSeries returned = OP_REL_3.apply(ts);
+
+    compareTimeseries(returned, expected, TOLERANCE_DIFF);
+  }
+
+  /** Tests the relative change operator for a lag of 4 elements. */
+  public void relative3sparse() {
+
+    LocalDateDoubleTimeSeries ts =
+        LocalDateDoubleTimeSeries.builder()
+            .put(LocalDate.of(2014, 4, 1), 1d)
+            .put(LocalDate.of(2014, 5, 1), 2d)
+            .put(LocalDate.of(2014, 6, 1), 5d)
+            .put(LocalDate.of(2014, 7, 1), 4d)
+            .put(LocalDate.of(2014, 8, 1), 8d)
+            .put(LocalDate.of(2014, 9, 1), 2d)
+            .build();
+
+    LocalDateDoubleTimeSeries expected =
+        LocalDateDoubleTimeSeries.builder()
+            .put(LocalDate.of(2014, 7, 1), (4d - 1d) / 1d)
+            .put(LocalDate.of(2014, 8, 1), (8d - 2d) / 2d)
+            .put(LocalDate.of(2014, 9, 1), (2d - 5d) / 5d)
+            .build();
+
+    LocalDateDoubleTimeSeries returned = OP_REL_3.apply(ts);
+
+    compareTimeseries(returned, expected, TOLERANCE_DIFF);
+  }
+
 }
