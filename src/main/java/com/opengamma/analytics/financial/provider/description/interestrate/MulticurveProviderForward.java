@@ -310,7 +310,7 @@ public class MulticurveProviderForward implements MulticurveProviderInterface {
   @Override
   public double getSimplyCompoundForwardRate(final IndexON index, final double startTime, final double endTime, final double accrualFactor) {
     if (_forwardONCurves.containsKey(index)) {
-      return (_forwardONCurves.get(index).getDiscountFactor(startTime) / _forwardONCurves.get(index).getDiscountFactor(endTime) - 1) / accrualFactor;
+      return _forwardONCurves.get(index).getSimplyCompoundForwardRate(startTime, endTime, accrualFactor);
     }
     throw new IllegalArgumentException("Forward ON curve not found: " + index);
   }
