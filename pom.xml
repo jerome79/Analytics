@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.opengamma</groupId>
     <artifactId>corporate-parent</artifactId>
-    <version>2.0.0-RC2</version>
+    <version>2.0.0-RC3</version>
     <relativePath></relativePath>
   </parent>  
   <groupId>com.opengamma.analytics</groupId>
@@ -353,8 +353,7 @@
     <slf4j.version>1.7.12</slf4j.version>
     <opencsv.version>2.3</opencsv.version>
     <poi.version>3.9</poi.version>
-    <testng.version>6.8.13</testng.version>
-    <assertj.version>1.7.0</assertj.version>
+    <assertj.version>2.0.0</assertj.version>
     <!-- Properties for maven-joda-bean-plugin -->
     <joda.beans.prefix>_</joda.beans.prefix>
     <!-- Properties for maven-javadoc-plugin -->
