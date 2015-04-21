@@ -32,7 +32,7 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
   private static final BusinessDayConvention FOLLOWING = BusinessDayConventions.FOLLOWING;
   private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
 
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
   private static final DayCount ACT_360 = DayCounts.ACT_360;
 
   private final BusinessDayConvention _businessdayAdjustmentConvention;

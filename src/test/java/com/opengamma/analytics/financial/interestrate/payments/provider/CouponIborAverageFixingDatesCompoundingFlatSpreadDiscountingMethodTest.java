@@ -72,7 +72,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethodT
     }
   }
 
-  private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
   private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double[] ACCRUAL_FACTORS = new double[NUM_PRDS];
   static {

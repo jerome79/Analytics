@@ -143,7 +143,7 @@ public class EquityE2ETestMaster {
     int nDates = targetDates.length;
     double[] res = new double[nDates];
     for (int i = 0; i < nDates; ++i) {
-      res[i] = TimeCalculator.getTimeBetween(baseDate, targetDates[i], DayCounts.ACT_365);
+      res[i] = TimeCalculator.getTimeBetween(baseDate, targetDates[i], DayCounts.ACT_365F);
     }
     return res;
   }

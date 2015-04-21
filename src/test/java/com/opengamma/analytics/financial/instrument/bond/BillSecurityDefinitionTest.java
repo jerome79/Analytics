@@ -212,7 +212,7 @@ public class BillSecurityDefinitionTest {
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));
     modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, CALENDAR, YieldConventionFactory.INSTANCE.getYieldConvention("DISCOUNT"), ACT360, ISSUER_BEL_NAME);
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));
-    modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, CALENDAR, YIELD_CONVENTION, DayCounts.ACT_365, ISSUER_BEL_NAME);
+    modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, CALENDAR, YIELD_CONVENTION, DayCounts.ACT_365F, ISSUER_BEL_NAME);
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));
     modified = new BillSecurityDefinition(EUR, END_DATE, NOTIONAL, SETTLEMENT_DAYS, CALENDAR, YIELD_CONVENTION, ACT360, ISSUER_GER_NAME);
     assertFalse("Bill Security Definition: equal-hash code", BILL_SEC_DEFINITION1.equals(modified));

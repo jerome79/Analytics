@@ -37,7 +37,7 @@ public class ISDABaseTest {
 
   protected static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
   protected static final HolidayCalendar NO_HOLIDAY_CALENDAR = HolidayCalendars.NO_HOLIDAYS;
-  protected static final DayCount ACT365F = DayCounts.ACT_365;
+  protected static final DayCount ACT365F = DayCounts.ACT_365F;
   protected static final DayCount ACT360 = DayCounts.ACT_360;
   protected static final DayCount D30360 = DayCounts.THIRTY_U_360;
   protected static final DayCount ACT_ACT_ISDA = DayCounts.ACT_ACT_ISDA;

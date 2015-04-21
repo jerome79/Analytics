@@ -46,7 +46,7 @@ public class ISDACompliantPresentValueCreditDefaultSwapTest {
   private static final ISDACompliantDateYieldCurve YIELD_CURVE_ZERO_FLAT;
   private static final ISDACompliantDateYieldCurve YIELD_CURVE_5PC_FLAT;
 
-  private static final DayCount ACT365 = DayCounts.ACT_365;
+  private static final DayCount ACT365 = DayCounts.ACT_365F;
   // examples
   private static final ISDAModelDatasets.ISDA_Results[] EXAMPLE1 = ISDAModelDatasets.getExample1();
   private static final ISDAModelDatasets.ISDA_Results[] EXAMPLE3 = ISDAModelDatasets.getExample3();

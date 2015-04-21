@@ -69,7 +69,7 @@ public class PresentValueCouponSensitivityCalculatorTest {
 
   @Test
   public void testFRA() {
-    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365,
+    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true);
     final double paymentTime = 0.5;
     final double fixingPeriodStartTime = paymentTime - 2. / 365;

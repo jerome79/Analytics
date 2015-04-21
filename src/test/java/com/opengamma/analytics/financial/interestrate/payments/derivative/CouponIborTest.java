@@ -37,7 +37,7 @@ public class CouponIborTest {
   private static final IborIndex INDEX_EURIBOR3M = INDEX_IBOR_MASTER.getIndex("EURIBOR3M");
   private static final Currency EUR = INDEX_EURIBOR3M.getCurrency();
   // Coupon
-  private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365F;
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 8, 22);
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2011, 8, 24);

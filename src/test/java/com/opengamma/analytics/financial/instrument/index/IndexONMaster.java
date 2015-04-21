@@ -40,7 +40,7 @@ public final class IndexONMaster {
    */
   private IndexONMaster() {
     final DayCount act360 = DayCounts.ACT_360;
-    final DayCount act365 = DayCounts.ACT_365;
+    final DayCount act365 = DayCounts.ACT_365F;
     final DayCount Bus252 = DayCounts.BUSINESS_252;
     _on = new HashMap<>();
     _on.put("EONIA", new IndexON("EONIA", Currency.EUR, act360, 0));

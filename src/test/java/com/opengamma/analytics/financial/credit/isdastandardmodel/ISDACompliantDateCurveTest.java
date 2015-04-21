@@ -44,7 +44,7 @@ public class ISDACompliantDateCurveTest {
     final LocalDate[] dates = new LocalDate[] {LocalDate.of(2013, 5, 14), LocalDate.of(2013, 9, 13), LocalDate.of(2013, 9, 14), LocalDate.of(2014, 1, 23) };
     final double[] rates = new double[] {0.05, 0.06, 0.06, 0.04 };
     final int num = dates.length;
-    final DayCount dcc = DayCounts.ACT_365;
+    final DayCount dcc = DayCounts.ACT_365F;
 
     final ISDACompliantDateCurve curve365 = new ISDACompliantDateCurve(baseDate, dates, rates);
 

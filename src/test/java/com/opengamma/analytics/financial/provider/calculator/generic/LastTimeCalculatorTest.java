@@ -52,7 +52,7 @@ public class LastTimeCalculatorTest {
     final double fixingPeriodStartTime = paymentTime;
     final double fixingPeriodEndTime = 7. / 12;
     final double fixingYearFraction = 31. / 365;
-    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365,
+    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true, "Ibor");
     final ForwardRateAgreement fra = new ForwardRateAgreement(CUR,
                                                               paymentTime,
@@ -70,7 +70,7 @@ public class LastTimeCalculatorTest {
 
   @Test
   public void testFutures() {
-    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, DayCounts.ACT_365,
+    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true, "Ibor");
     final double lastTradingTime = 1.473;
     final double fixingPeriodStartTime = 1.467;

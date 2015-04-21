@@ -20,7 +20,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ISDACompliantScheduleGenerator {
 
-  private static final DayCount ACT365 = DayCounts.ACT_365;
+  private static final DayCount ACT365 = DayCounts.ACT_365F;
 
   /**
    * This mimics JpmcdsRiskyTimeLine from the ISDA model in c

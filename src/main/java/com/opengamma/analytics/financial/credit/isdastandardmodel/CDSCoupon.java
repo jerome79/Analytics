@@ -14,7 +14,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * This represents one payment period on the premium leg of a CDS
  */
 public class CDSCoupon {
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
   private static final DayCount ACT_360 = DayCounts.ACT_360;
   private static final boolean PROTECTION_FROM_START = true;
 

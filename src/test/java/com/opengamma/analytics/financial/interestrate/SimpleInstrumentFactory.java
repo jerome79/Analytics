@@ -31,7 +31,7 @@ public abstract class SimpleInstrumentFactory {
   /** Replaces rates */
   protected static final RateReplacingVisitor REPLACE_RATE = RateReplacingVisitor.getInstance();
   private static final Currency DUMMY_CUR = Currency.EUR;
-  private static final IborIndex DUMMY_INDEX = new IborIndex(DUMMY_CUR, Period.ofMonths(1), 2, DayCounts.ACT_365,
+  private static final IborIndex DUMMY_INDEX = new IborIndex(DUMMY_CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
       BusinessDayConventions.FOLLOWING, true, "Ibor");
 
   public static InstrumentDerivative makeCash(final double time, final double rate, final double notional) {

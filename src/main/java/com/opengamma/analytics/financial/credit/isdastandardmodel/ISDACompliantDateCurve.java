@@ -33,7 +33,7 @@ public class ISDACompliantDateCurve
   /**
    * The standard ACT/365 day count.
    */
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
 
   /**
    * The base date.

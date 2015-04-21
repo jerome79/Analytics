@@ -41,7 +41,7 @@ public class CouponIborAverageDiscountingMethodTest {
   private static final Currency EUR = EURIBOR3M.getCurrency();
   private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
-  private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365F;
   private static final double NOTIONAL = 1000000; //1m
   private static final ZonedDateTime FIXING_DATE = DateUtils.getUTCDate(2011, 5, 19);
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2011, 11, 22);

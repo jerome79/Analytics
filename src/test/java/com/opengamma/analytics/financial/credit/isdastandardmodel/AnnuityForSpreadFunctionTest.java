@@ -54,7 +54,7 @@ public class AnnuityForSpreadFunctionTest {
     }
 
     final ISDACompliantYieldCurveBuild builder = new ISDACompliantYieldCurveBuild(TRADE_DATE, TRADE_DATE.plusDays(2), instrumentTypes, tenors, DayCounts.ACT_360, DayCounts.THIRTY_U_360,
-        Period.ofYears(1), DayCounts.ACT_365, BusinessDayConventions.MODIFIED_FOLLOWING, CALENDAR);
+        Period.ofYears(1), DayCounts.ACT_365F, BusinessDayConventions.MODIFIED_FOLLOWING, CALENDAR);
     YIELD_CURVE = builder.build(YIELD_CURVE_RATES);
   }
 

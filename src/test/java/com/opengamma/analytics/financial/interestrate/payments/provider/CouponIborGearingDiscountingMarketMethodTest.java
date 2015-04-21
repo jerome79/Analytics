@@ -43,7 +43,7 @@ public class CouponIborGearingDiscountingMarketMethodTest {
   private static final IborIndex EURIBOR3M = IBOR_INDEXES[0];
   private static final HolidayCalendar CALENDAR_EUR = MulticurveProviderDiscountDataSets.getEURCalendar();
   private static final Currency EUR = EURIBOR3M.getCurrency();
-  private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365F;
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 8, 22);
   private static final double ACCRUAL_FACTOR = DAY_COUNT_COUPON.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);

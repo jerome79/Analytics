@@ -34,7 +34,7 @@ public class CDSAnalyticFactory {
   private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention FOLLOWING = BusinessDayConventions.FOLLOWING;
   /** Curve daycount generally fixed to Act/365 in ISDA */
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
   private static final DayCount ACT_360 = DayCounts.ACT_360;
 
   private final int _stepIn;

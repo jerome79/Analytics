@@ -53,7 +53,7 @@ public class AnnuityDefinitionBuilderTest {
   private static final IborIndex USDLIBOR6M = IBOR_MASTER.getIndex("USDLIBOR6M");
   private static final IndexON FED_FUND = IndexONMaster.getInstance().getIndex("FED FUND");
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
   private static final ActualActualICMA ACT_ACT_ICMA = (ActualActualICMA) DayCounts.ACT_ACT_ICMA;
   private static final BusinessDayConvention PRECEDING = BusinessDayConventions.PRECEDING;
 

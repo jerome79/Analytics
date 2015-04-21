@@ -30,7 +30,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public class UpfrontFlatTest {
   private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
 
-  private static final DayCount ACT365 = DayCounts.ACT_365;
+  private static final DayCount ACT365 = DayCounts.ACT_365F;
   private static final DayCount ACT360 = DayCounts.ACT_360;
   private static final double NOTIONAL = 1e7;
 

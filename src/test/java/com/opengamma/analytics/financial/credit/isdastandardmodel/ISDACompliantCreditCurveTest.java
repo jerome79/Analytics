@@ -122,7 +122,7 @@ public class ISDACompliantCreditCurveTest {
     final LocalDate baseDate = LocalDate.of(2012, 8, 8);
     final LocalDate[] dates = new LocalDate[] {LocalDate.of(2012, 12, 3), LocalDate.of(2013, 4, 29), LocalDate.of(2013, 11, 12), LocalDate.of(2014, 5, 18) };
     final double[] rates = new double[] {0.11, 0.22, 0.15, 0.09 };
-    final DayCount dcc = DayCounts.ACT_365;
+    final DayCount dcc = DayCounts.ACT_365F;
     final int num = dates.length;
 
     final ISDACompliantDateCreditCurve baseCurve = new ISDACompliantDateCreditCurve(baseDate, dates, rates);
@@ -190,7 +190,7 @@ public class ISDACompliantCreditCurveTest {
     assertTrue(!(baseCurve.equals(new ISDACompliantDateCreditCurve(baseDate.minusDays(1), dates, rates))));
     assertTrue(!(baseCurve.equals(new ISDACompliantDateCreditCurve(baseDate, new LocalDate[] {LocalDate.of(2012, 12, 3), LocalDate.of(2013, 4, 29), LocalDate.of(2013, 11, 12),
         LocalDate.of(2014, 5, 19) }, rates))));
-    assertTrue(!(baseCurve.equals(new ISDACompliantDateCreditCurve(baseDate, dates, rates, DayCounts.ACT_36525))));
+    assertTrue(!(baseCurve.equals(new ISDACompliantDateCreditCurve(baseDate, dates, rates, DayCounts.ACT_365_25))));
 
     assertTrue(baseCurve.equals(baseCurve));
 

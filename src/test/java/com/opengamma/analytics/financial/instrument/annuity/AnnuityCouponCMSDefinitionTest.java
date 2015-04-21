@@ -49,7 +49,7 @@ public class AnnuityCouponCMSDefinitionTest {
   private static final ZonedDateTime MATURITY_DATE = START_DATE.plus(ANNUITY_TENOR);
   private static final double NOTIONAL = 100000000; //100m
   private static final Period LEG_PAYMENT_PERIOD = Period.ofMonths(12);
-  private static final DayCount LEG_DAY_COUNT = DayCounts.ACT_365;
+  private static final DayCount LEG_DAY_COUNT = DayCounts.ACT_365F;
   private static final boolean IS_PAYER = true;
   private static final AnnuityCouponCMSDefinition CMS_LEG = AnnuityCouponCMSDefinition.from(START_DATE, MATURITY_DATE, NOTIONAL, CMS_INDEX, LEG_PAYMENT_PERIOD, LEG_DAY_COUNT, IS_PAYER, CALENDAR);
 

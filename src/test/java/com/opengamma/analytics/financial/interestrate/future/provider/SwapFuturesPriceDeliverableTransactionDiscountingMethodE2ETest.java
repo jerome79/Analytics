@@ -190,7 +190,7 @@ public class SwapFuturesPriceDeliverableTransactionDiscountingMethodE2ETest {
     boolean payer = true;
     LocalDate startDate = LocalDate.of(2014, 6, 18);
     LocalDate endDate = LocalDate.of(2019, 6, 18);
-    DayCount fixedDc = DayCounts.THIRTY_360;
+    DayCount fixedDc = DayCounts.THIRTY_U_360;
     BusinessDayAdjustment accrualPeriodParameters = BusinessDayAdjustment.of(
         INDEX_EUR.getBusinessDayConvention(), CALENDAR_EUR);
     DaysAdjustment paymentDateParameters = DaysAdjustment.ofBusinessDays(

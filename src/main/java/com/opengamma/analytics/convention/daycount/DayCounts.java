@@ -20,7 +20,7 @@ public final class DayCounts {
   /**
    * The 'Actual/365' day count.
    */
-  public static final DayCount ACT_365 = DayCountFactory.of("Actual/365");
+  public static final DayCount ACT_365F = DayCountFactory.of("Actual/365");
   /**
    * The 'Actual/Actual AFB' day count.
    */
@@ -40,7 +40,7 @@ public final class DayCounts {
   /**
    * The 'Actual/Actual ISDA' day count.
    */
-  public static final DayCount ACT_36525 = DayCountFactory.of("Actual/365.25");
+  public static final DayCount ACT_365_25 = DayCountFactory.of("Actual/365.25");
   /**
    * The '30U/360' day count.
    */
@@ -54,17 +54,9 @@ public final class DayCounts {
    */
   public static final DayCount THIRTY_E_360_ISDA = DayCountFactory.of("30E/360 ISDA");
   /**
-   * The '28/360' day count.
-   */
-  public static final DayCount TWENTY_EIGHT_360 = DayCountFactory.of("28/360");
-  /**
    * The 'Business/252' day count.
    */
   public static final DayCount BUSINESS_252 = DayCountFactory.of("Business/252");
-  /**
-   * The 30/360 day count.
-   */
-  public static final DayCount THIRTY_360 = DayCountFactory.of("30/360");
 
   /**
    * Restricted constructor.

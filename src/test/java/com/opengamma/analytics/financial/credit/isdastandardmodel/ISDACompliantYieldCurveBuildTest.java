@@ -30,7 +30,7 @@ import com.opengamma.strata.collect.ArgChecker;
 @Test
 public class ISDACompliantYieldCurveBuildTest {
 
-  private static final DayCount ACT365 = DayCounts.ACT_365;
+  private static final DayCount ACT365 = DayCounts.ACT_365F;
   private static final DayCount ACT360 = DayCounts.ACT_360;
   private static final DayCount D30360 = DayCounts.THIRTY_U_360;
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;

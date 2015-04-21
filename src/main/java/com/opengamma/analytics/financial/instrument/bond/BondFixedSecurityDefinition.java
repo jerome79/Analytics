@@ -728,7 +728,7 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
     final AnnuityPaymentFixed nominalStandard = nominal.trimBefore(settleTime);
     final double factor;
     if (getYieldConvention().equals(SimpleYieldConvention.AUSTRALIA_EX_DIVIDEND) && (couponStandard.getNumberOfPayments() == 1)) {
-      final DayCount dayCountDiscFactLastPeriod = DayCounts.ACT_365;
+      final DayCount dayCountDiscFactLastPeriod = DayCounts.ACT_365F;
       factor = dayCountDiscFactLastPeriod.getAccruedInterest(settlementDate, couponDefinition.getNthPayment(0).getAccrualEndDate(),
           couponDefinition.getNthPayment(0).getAccrualEndDate(), 1.0, _couponPerYear) * _couponPerYear;
     } else {

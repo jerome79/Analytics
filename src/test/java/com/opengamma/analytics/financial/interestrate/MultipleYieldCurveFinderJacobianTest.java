@@ -66,7 +66,7 @@ public class MultipleYieldCurveFinderJacobianTest {
   private static final int M = 5;
 
   static {
-    final IborIndex index = new IborIndex(CCY, Period.ofMonths(1), 0, DayCounts.ACT_365,
+    final IborIndex index = new IborIndex(CCY, Period.ofMonths(1), 0, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true);
     CASH = new ArrayList<>();
     FRA = new ArrayList<>();

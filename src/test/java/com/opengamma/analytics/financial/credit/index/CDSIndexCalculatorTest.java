@@ -207,7 +207,7 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
     refAvgSpread /= intrinsicDataWithDefaulted.getIndexFactor();
     assertEquals(refAvgSpread, resDefaultedAvgSpread, tol);
 
-    final double valTime = (DayCounts.ACT_365).getDayCountFraction(TRADE_DATE, BusinessDayDateUtils.addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR));
+    final double valTime = (DayCounts.ACT_365F).getDayCountFraction(TRADE_DATE, BusinessDayDateUtils.addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR));
     final double resWithValTime = INDEX_CAL.indexPV(cdx, indexCoupon, YIELD_CURVE, INTRINSIC_DATA, PriceType.CLEAN, valTime);
     assertEquals(res * INTRINSIC_DATA.getIndexFactor(), resWithValTime, tol);
 

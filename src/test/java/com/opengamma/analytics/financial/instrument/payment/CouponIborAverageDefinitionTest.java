@@ -58,7 +58,7 @@ public class CouponIborAverageDefinitionTest {
   private static final ZonedDateTime FIXING_END_DATE_1 = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR_1, BUSINESS_DAY, CALENDAR, IS_EOM);
   private static final ZonedDateTime FIXING_END_DATE_2 = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR_2, BUSINESS_DAY, CALENDAR, IS_EOM);
 
-  private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
   private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double ACCRUAL_FACTOR_FIXING_1 = DAY_COUNT_INDEX.getDayCountFraction(FIXING_START_DATE, FIXING_END_DATE_1);
   private static final double ACCRUAL_FACTOR_FIXING_2 = DAY_COUNT_INDEX.getDayCountFraction(FIXING_START_DATE, FIXING_END_DATE_2);

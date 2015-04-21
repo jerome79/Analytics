@@ -69,7 +69,7 @@ public class GeneratorDepositONTest {
     assertFalse("Generator Deposit: equal-hash", GENERATOR_DEPOSIT_ON_USD.equals(other));
     other = new GeneratorDepositON(NAME, CUR, HolidayCalendars.NO_HOLIDAYS, DAY_COUNT);
     assertFalse("Generator Deposit: equal-hash", GENERATOR_DEPOSIT_ON_USD.equals(other));
-    other = new GeneratorDepositON(NAME, CUR, CALENDAR, DayCounts.ACT_365);
+    other = new GeneratorDepositON(NAME, CUR, CALENDAR, DayCounts.ACT_365F);
     assertFalse("Generator Deposit: equal-hash", GENERATOR_DEPOSIT_ON_USD.equals(other));
   }
 

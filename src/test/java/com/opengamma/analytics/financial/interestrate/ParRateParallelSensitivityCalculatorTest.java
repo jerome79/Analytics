@@ -70,7 +70,7 @@ public class ParRateParallelSensitivityCalculatorTest {
 
   @Test
   public void testFRA() {
-    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365, BusinessDayConventions.FOLLOWING,
+    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F, BusinessDayConventions.FOLLOWING,
         true);
     final double paymentTime = 0.5;
     final double fixingTime = paymentTime - 2.0 / 365.0;

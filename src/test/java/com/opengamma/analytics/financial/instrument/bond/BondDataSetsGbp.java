@@ -128,7 +128,7 @@ public class BondDataSetsGbp {
 
   // Generic bill
   private static final YieldConvention YIELD_BILL_UK = YieldConventionFactory.INSTANCE.getYieldConvention("INTEREST@MTY");
-  private static final DayCount DAY_COUNT_BILL_UK = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_BILL_UK = DayCounts.ACT_365F;
   private static final int SPOT_LAG_BILL_UK = 1;
 
   /**

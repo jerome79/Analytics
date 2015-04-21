@@ -51,7 +51,7 @@ public class CapFloorIborDefinitionTest {
   private static final ZonedDateTime FIXING_START_DATE = ScheduleCalculator.getAdjustedDate(FIXING_DATE, SETTLEMENT_DAYS, CALENDAR);
   private static final ZonedDateTime FIXING_END_DATE = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR, BUSINESS_DAY, CALENDAR, IS_EOM);
 
-  private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
   private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double ACCRUAL_FACTOR_FIXING = DAY_COUNT_INDEX.getDayCountFraction(FIXING_START_DATE, FIXING_END_DATE);
   private static final double NOTIONAL = 1000000; //1m

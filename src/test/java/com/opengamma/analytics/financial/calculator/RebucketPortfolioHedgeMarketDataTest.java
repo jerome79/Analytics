@@ -135,7 +135,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
       0.665753425, 0.747945205, 0.832876712, 0.915068493, 1, 1.249315068, 1.498630137, 1.747945205, 2 };
   private static final double[] RATE_3 = new double[] {0.009985863, 0.010160715, 0.010139681, 0.010081142, 0.010005879, 0.0099771, 0.009989754, 0.009979469, 0.01000217, 0.009987489, 0.010019558,
       0.010045333, 0.010068335, 0.010104419, 0.010149039, 0.010176654, 0.010490242, 0.010806457, 0.011314748, 0.011837554 };
-  private static final IndexON INDEX_3 = new IndexON("CADCORRA", Currency.CAD, DayCounts.ACT_365, 0);
+  private static final IndexON INDEX_3 = new IndexON("CADCORRA", Currency.CAD, DayCounts.ACT_365F, 0);
   private static final String CAD_FWD_ON_NAME = "CAD CORRA";
   private static final YieldAndDiscountCurve CAD_FWD_ON = new YieldCurve(CAD_FWD_ON_NAME, new InterpolatedDoublesCurve(TIME_3, RATE_3, LINEAR_FLAT, true, CAD_FWD_ON_NAME));
   static {
@@ -252,7 +252,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
   private static final double[] TIME_12 = new double[] {0.002739726, 0.019178082, 0.082191781, 0.164383562, 0.249315068, 0.498630137, 0.747945205, 1, 1.498630137, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
   private static final double[] RATE_12 = new double[] {0.000678599, 0.001464279, 0.002144367, 0.003002577, 0.003752281, 0.005379177, 0.006952102, 0.00854122, 0.008220696, 0.007898412, 0.012113555,
       0.015904969, 0.018692774, 0.020629527, 0.022563949, 0.023783236, 0.024998583, 0.02621393 };
-  private static final IborIndex INDEX_12 = new IborIndex(Currency.HKD, Period.ofMonths(3), 0, DayCounts.ACT_365, BusinessDayConventions.MODIFIED_FOLLOWING, true, "HKDHIBOR3M");
+  private static final IborIndex INDEX_12 = new IborIndex(Currency.HKD, Period.ofMonths(3), 0, DayCounts.ACT_365F, BusinessDayConventions.MODIFIED_FOLLOWING, true, "HKDHIBOR3M");
   private static final String HKD_DSC_NAME = "HKD Dsc";
   private static final YieldAndDiscountCurve HKD_DSC = new YieldCurve(HKD_DSC_NAME, new InterpolatedDoublesCurve(TIME_12, RATE_12, LINEAR_FLAT, true, HKD_DSC_NAME));
   private static final String HKD_FWD_IBOR_NAME = "HKD HIBOR 3M";
@@ -307,7 +307,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
       20 };
   private static final double[] RATE_16 = new double[] {0.032998508, 0.033439275, 0.035123756, 0.035852658, 0.036414149, 0.037326362, 0.038212482, 0.039107931, 0.040542411, 0.041984772, 0.043974898,
       0.045366999, 0.046394015, 0.047169861, 0.047945021, 0.048431056, 0.048915498, 0.04939994, 0.050809529, 0.051595433, 0.052594629 };
-  private static final IborIndex INDEX_16 = new IborIndex(Currency.NZD, Period.ofMonths(3), 0, DayCounts.ACT_365, BusinessDayConventions.MODIFIED_FOLLOWING, true, "NZDBKBM3M");
+  private static final IborIndex INDEX_16 = new IborIndex(Currency.NZD, Period.ofMonths(3), 0, DayCounts.ACT_365F, BusinessDayConventions.MODIFIED_FOLLOWING, true, "NZDBKBM3M");
   private static final String NZD_DSC_NAME = "NZD Dsc";
   private static final YieldAndDiscountCurve NZD_DSC = new YieldCurve(NZD_DSC_NAME, new InterpolatedDoublesCurve(TIME_16, RATE_16, LINEAR_FLAT, true, NZD_DSC_NAME));
   private static final String NZD_FWD_IBOR_NAME = "NZD BKBM 3M";
@@ -335,7 +335,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
       20, 25, 30 };
   private static final double[] RATE_18 = new double[] {0.003092348, 0.00315426, 0.004069285, 0.004490861, 0.004579519, 0.004701814, 0.004736725, 0.004828856, 0.00527087, 0.006055598, 0.007830963,
       0.009714998, 0.011755211, 0.013734681, 0.015622406, 0.017314942, 0.018720076, 0.019897905, 0.021741736, 0.023725451, 0.025551037, 0.025825729, 0.02587991 };
-  private static final IborIndex INDEX_18 = new IborIndex(Currency.SEK, Period.ofMonths(6), 2, DayCounts.THIRTY_360, BusinessDayConventions.MODIFIED_FOLLOWING, true, "SEKSTIBOR6M");
+  private static final IborIndex INDEX_18 = new IborIndex(Currency.SEK, Period.ofMonths(6), 2, DayCounts.THIRTY_U_360, BusinessDayConventions.MODIFIED_FOLLOWING, true, "SEKSTIBOR6M");
   private static final String SEK_DSC_NAME = "SEK Dsc";
   private static final YieldAndDiscountCurve SEK_DSC = new YieldCurve(SEK_DSC_NAME, new InterpolatedDoublesCurve(TIME_18, RATE_18, LINEAR_FLAT, true, SEK_DSC_NAME));
   private static final String SEK_FWD_IBOR_NAME = "SEK STIBOR 6M";
@@ -348,7 +348,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
   private static final double[] TIME_19 = new double[] {0.002739726, 0.019178082, 0.082191781, 0.164383562, 0.249315068, 0.498630137, 0.747945205, 1, 1.498630137, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
   private static final double[] RATE_19 = new double[] {-0.0003474, -0.000173921, 0.001051807, 0.001613805, 0.002049592, 0.002902862, 0.003080563, 0.003221935, 0.00480019, 0.00641646, 0.010506873,
       0.014142919, 0.017187136, 0.019513716, 0.021834389, 0.023336123, 0.024826483, 0.026316843 };
-  private static final IborIndex INDEX_19 = new IborIndex(Currency.SGD, Period.ofMonths(6), 2, DayCounts.ACT_365, BusinessDayConventions.MODIFIED_FOLLOWING, true, "SGDSOR6M");
+  private static final IborIndex INDEX_19 = new IborIndex(Currency.SGD, Period.ofMonths(6), 2, DayCounts.ACT_365F, BusinessDayConventions.MODIFIED_FOLLOWING, true, "SGDSOR6M");
   private static final String SGD_DSC_NAME = "SGD Dsc";
   private static final YieldAndDiscountCurve SGD_DSC = new YieldCurve(SGD_DSC_NAME, new InterpolatedDoublesCurve(TIME_19, RATE_19, LINEAR_FLAT, true, SGD_DSC_NAME));
   private static final String SGD_FWD_IBOR_NAME = "SGD SOR 6M";
@@ -389,7 +389,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
       20, 25, 30 };
   private static final double[] RATE_22 = new double[] {0.052796181, 0.05360681, 0.056699014, 0.057435515, 0.05781431, 0.060037883, 0.061699248, 0.06333527, 0.065675951, 0.068029493, 0.071260211,
       0.073597713, 0.075684846, 0.077630339, 0.079073655, 0.080513126, 0.081848748, 0.083002396, 0.085451336, 0.087975085, 0.088502787, 0.086303293, 0.082951117 };
-  private static final IborIndex INDEX_22 = new IborIndex(Currency.ZAR, Period.ofMonths(3), 0, DayCounts.ACT_365, BusinessDayConventions.MODIFIED_FOLLOWING, true, "ZARJIBAR3M");
+  private static final IborIndex INDEX_22 = new IborIndex(Currency.ZAR, Period.ofMonths(3), 0, DayCounts.ACT_365F, BusinessDayConventions.MODIFIED_FOLLOWING, true, "ZARJIBAR3M");
   private static final String ZAR_DSC_NAME = "ZAR Dsc";
   private static final YieldAndDiscountCurve ZAR_DSC = new YieldCurve(ZAR_DSC_NAME, new InterpolatedDoublesCurve(TIME_22, RATE_22, LINEAR_FLAT, true, ZAR_DSC_NAME));
   private static final String ZAR_FWD_IBOR_NAME = "ZAR JIBAR 3M";
@@ -416,7 +416,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
         DateUtils.getUTCDate(2011, 3, 7) };
     int nFRA = fixingDates.length;
 
-    DayCount dayCountPayment = DayCounts.ACT_365;
+    DayCount dayCountPayment = DayCounts.ACT_365F;
     ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 10, 9);
     double notinal = 1000000; //1m
     ForwardRateAgreement[] FRAs = new ForwardRateAgreement[nFRA];
@@ -601,7 +601,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
     ZonedDateTime[] paymentDates = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 1, 7), DateUtils.getUTCDate(2011, 2, 7), DateUtils.getUTCDate(2011, 3, 7) };
     int nFRA = fixingDates.length;
 
-    DayCount dayCountPayment = DayCounts.ACT_365;
+    DayCount dayCountPayment = DayCounts.ACT_365F;
     ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 10, 9);
     ForwardRateAgreement[] FRAs = new ForwardRateAgreement[nFRA];
     MultipleCurrencyParameterSensitivity[] pvpsDepositExactFRAs = new MultipleCurrencyParameterSensitivity[nFRA];

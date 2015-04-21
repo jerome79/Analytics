@@ -150,7 +150,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     final ISDAPremiumLegSchedule schedule = new ISDAPremiumLegSchedule(startDate, endDate, couponPrd, stubTp, bdConv, cal, ProtStart);
     final BondAnalytic bond = new BondAnalytic(tradeDate, coupon, schedule, rr, ACT360);
     final CDSAnalytic cds = new CDSAnalytic(tradeDate, tradeDate.plusDays(1), tradeDate, startDate, endDate, false, couponPrd, stubTp,
-        ProtStart, 1. - rr, bdConv, cal, ACT360, DayCounts.ACT_365);
+        ProtStart, 1. - rr, bdConv, cal, ACT360, DayCounts.ACT_365F);
 
     final double resBond1 = bondPricer.bondPriceForHazardRate(bond, yc, hr, priceTp);
     final double resCDS1 = -cdsPricer.pv(cds, yc, cc, coupon, priceTp);
@@ -162,7 +162,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     rr = 0.3;
     ProtStart = true;
     final CDSAnalytic cds2 = new CDSAnalytic(tradeDate, tradeDate.plusDays(1), tradeDate, startDate, endDate, false, couponPrd, stubTp,
-        ProtStart, 1. - rr, bdConv, cal, ACT360, DayCounts.ACT_365);
+        ProtStart, 1. - rr, bdConv, cal, ACT360, DayCounts.ACT_365F);
     final BondAnalytic bond2 = new BondAnalytic(tradeDate, 0., schedule, rr, ACT360);
     final double resBond2 = bondPricer.bondPriceForHazardRate(bond2, yc, hr, priceTp);
     final double resCDS2 = cdsPricer.pv(cds2, yc, cc, 0., priceTp);

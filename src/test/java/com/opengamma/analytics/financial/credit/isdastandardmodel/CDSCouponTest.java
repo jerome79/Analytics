@@ -33,7 +33,7 @@ public class CDSCouponTest {
   @SuppressWarnings("unused")
   @Test
   public void yearFractionTest() {
-    final DayCount curveDcc = DayCounts.ACT_365;
+    final DayCount curveDcc = DayCounts.ACT_365F;
     final DayCount accrDcc = DayCounts.ACT_360;
     final HolidayCalendar calender = HolidayCalendars.SAT_SUN;
     final BusinessDayConvention following = BusinessDayConventions.FOLLOWING;

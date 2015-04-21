@@ -91,7 +91,7 @@ public class IborIndexTest {
     assertFalse(INDEX.equals(indexModified));
     indexModified = new IborIndex(CUR, TENOR, SETTLEMENT_DAYS + 1, DAY_COUNT, BUSINESS_DAY, IS_EOM, "Ibor");
     assertFalse(INDEX.equals(indexModified));
-    indexModified = new IborIndex(CUR, TENOR, SETTLEMENT_DAYS, DayCounts.ACT_365, BUSINESS_DAY, IS_EOM, "Ibor");
+    indexModified = new IborIndex(CUR, TENOR, SETTLEMENT_DAYS, DayCounts.ACT_365F, BUSINESS_DAY, IS_EOM, "Ibor");
     assertFalse(INDEX.equals(indexModified));
     indexModified = new IborIndex(CUR, TENOR, SETTLEMENT_DAYS, DAY_COUNT, BusinessDayConventions.FOLLOWING, IS_EOM, "Ibor");
     assertFalse(INDEX.equals(indexModified));

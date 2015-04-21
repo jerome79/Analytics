@@ -68,7 +68,7 @@ public class ParRateCalculatorTest {
     final double fixingPeriodStartTime = paymentTime;
     final double fixingPeriodEndTime = 7. / 12;
     final double fixingYearFraction = 31. / 365;
-    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365,
+    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true);
     ForwardRateAgreement fra = new ForwardRateAgreement(CUR, paymentTime, FIVE_PC_CURVE_NAME, paymentYearFraction, 1, index, fixingTime, fixingPeriodStartTime, fixingPeriodEndTime,
         fixingYearFraction, 0, FIVE_PC_CURVE_NAME);

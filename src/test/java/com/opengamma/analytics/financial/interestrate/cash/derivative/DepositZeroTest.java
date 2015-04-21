@@ -47,7 +47,7 @@ public class DepositZeroTest {
   private static final InterestRate RATE = new ContinuousInterestRate(RATE_FIGURE);
   private static final Period DEPOSIT_PERIOD = Period.ofMonths(6);
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
-  private static final DayCount DAY_COUNT = DayCounts.ACT_365;
+  private static final DayCount DAY_COUNT = DayCounts.ACT_365F;
   private static final double START_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, SPOT_DATE);
   private static final double END_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, END_DATE);
   private static final double DEPOSIT_AF = DAY_COUNT.getDayCountFraction(SPOT_DATE, END_DATE);

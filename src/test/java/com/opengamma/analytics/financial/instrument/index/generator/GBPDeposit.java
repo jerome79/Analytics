@@ -21,7 +21,7 @@ public class GBPDeposit extends GeneratorDeposit {
    * @param calendar A GBP calendar.
    */
   public GBPDeposit(final HolidayCalendar calendar) {
-    super("GBP Deposit", Currency.GBP, calendar, 0, DayCounts.ACT_365, BusinessDayConventions.MODIFIED_FOLLOWING, true);
+    super("GBP Deposit", Currency.GBP, calendar, 0, DayCounts.ACT_365F, BusinessDayConventions.MODIFIED_FOLLOWING, true);
   }
 
 }

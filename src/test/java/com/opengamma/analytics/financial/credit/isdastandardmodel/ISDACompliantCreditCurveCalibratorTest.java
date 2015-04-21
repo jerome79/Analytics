@@ -40,7 +40,7 @@ public class ISDACompliantCreditCurveCalibratorTest {
   private static final double[] DISCOUNT_FACT;
   private static final double[] YC_TIMES;
   private static final ISDACompliantDateYieldCurve YIELD_CURVE;
-  private static final DayCount ACT365 = DayCounts.ACT_365;
+  private static final DayCount ACT365 = DayCounts.ACT_365F;
 
   static {
     final int ycPoints = YC_DATES.length;

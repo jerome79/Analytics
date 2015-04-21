@@ -19,7 +19,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class BondAnalytic {
   private static final Logger LOG = LoggerFactory.getLogger(BondAnalytic.class);
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
 
   private final double[] _paymentTimes;
   private final double[] _paymentAmounts;

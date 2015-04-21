@@ -24,7 +24,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ISDACompliantCurveCalibrator {
 
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
 
   private static final BracketRoot BRACKER = new BracketRoot();
   private static final RealSingleRootFinder ROOTFINDER = new BrentSingleRootFinder();

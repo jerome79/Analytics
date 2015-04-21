@@ -91,7 +91,7 @@ public class PresentValueCalculatorTest {
     final String forwardCurveName = FIVE_PC_CURVE_NAME;
     double paymentYearFraction = fixingPeriodEnd - paymentTime;
     final double notional = 1;
-    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365,
+    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true);
     double fixingTime = paymentTime;
     final double fixingPeriodStart = paymentTime;

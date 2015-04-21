@@ -76,7 +76,7 @@ public class ConventionTest {
     assertEquals(CONVENTION.hashCode(), other.hashCode());
     other = new Convention(SETTLEMENT_DAYS + 1, DAY_COUNT, BUSINESS_DAY, CALENDAR, NAME);
     assertFalse(CONVENTION.equals(other));
-    other = new Convention(SETTLEMENT_DAYS, DayCounts.ACT_365, BUSINESS_DAY, CALENDAR, NAME);
+    other = new Convention(SETTLEMENT_DAYS, DayCounts.ACT_365F, BUSINESS_DAY, CALENDAR, NAME);
     assertFalse(CONVENTION.equals(other));
     other = new Convention(SETTLEMENT_DAYS, DAY_COUNT, BusinessDayConventions.NO_ADJUST, CALENDAR, NAME);
     assertFalse(CONVENTION.equals(other));

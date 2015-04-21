@@ -21,7 +21,7 @@ import com.opengamma.analytics.convention.daycount.DayCounts;
  */
 @Test
 public class ISDACompliantScheduleGeneratorTest {
-  private static final DayCount ACT = DayCounts.ACT_365;
+  private static final DayCount ACT = DayCounts.ACT_365F;
 
   private static final LocalDate START_DATE = LocalDate.of(2013, 2, 13);
   private static final LocalDate END_DATE = LocalDate.of(2015, 6, 30);

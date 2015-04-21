@@ -81,7 +81,7 @@ public class IndexONTest {
     assertFalse("OIS Index: equal/hash code", US_OIS.equals(modified));
     modified = new IndexON(US_OIS_NAME, EUR_CUR, US_DAY_COUNT, US_PUBLICATION_LAG);
     assertFalse("OIS Index: equal/hash code", US_OIS.equals(modified));
-    modified = new IndexON(US_OIS_NAME, US_CUR, DayCounts.ACT_365, US_PUBLICATION_LAG);
+    modified = new IndexON(US_OIS_NAME, US_CUR, DayCounts.ACT_365F, US_PUBLICATION_LAG);
     assertFalse("OIS Index: equal/hash code", US_OIS.equals(modified));
     modified = new IndexON(US_OIS_NAME, US_CUR, US_DAY_COUNT, 0);
     assertFalse("OIS Index: equal/hash code", US_OIS.equals(modified));

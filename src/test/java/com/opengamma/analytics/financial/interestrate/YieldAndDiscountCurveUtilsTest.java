@@ -81,7 +81,7 @@ public class YieldAndDiscountCurveUtilsTest {
     final ZonedDateTime paymentDate = DateUtils.getUTCDate(2013, 10, 28);
     final double timeCurve = TimeCalculator.getTimeBetween(CURVE_DATE, paymentDate);
     final double df = curve3M.getDiscountFactor(timeCurve);
-    final DayCount dc = DayCounts.ACT_365;
+    final DayCount dc = DayCounts.ACT_365F;
     final double timeDc = dc.getDayCountFraction(CURVE_DATE, paymentDate);
     final int paymentPerYear = 4;
     final double rateExpected = paymentPerYear * (Math.pow(df, -1.0 / (paymentPerYear * timeDc)) - 1.0);
@@ -95,7 +95,7 @@ public class YieldAndDiscountCurveUtilsTest {
     final ZonedDateTime paymentDate = DateUtils.getUTCDate(2013, 10, 28);
     final double timeCurve = TimeCalculator.getTimeBetween(CURVE_DATE, paymentDate);
     final double df = curve3M.getDiscountFactor(timeCurve);
-    final DayCount dc = DayCounts.ACT_365;
+    final DayCount dc = DayCounts.ACT_365F;
     final double timeDc = dc.getDayCountFraction(CURVE_DATE, paymentDate);
     final double rateExpected = -Math.log(df) / timeDc;
     final double rateComputed = YieldAndDiscountCurveUtils.zeroCouponRate(curve3M, CURVE_DATE, paymentDate, dc, 0);

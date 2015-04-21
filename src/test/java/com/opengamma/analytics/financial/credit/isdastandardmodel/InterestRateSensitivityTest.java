@@ -29,7 +29,7 @@ public class InterestRateSensitivityTest {
 
   private static final ISDACompliantCreditCurveBuilder BUILDER = new FastCreditCurveBuilder();
   private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
-  private static final DayCount ACT_365 = DayCounts.ACT_365;
+  private static final DayCount ACT_365 = DayCounts.ACT_365F;
   private static final DayCount ACT360 = DayCounts.ACT_360;
 
   private static final LocalDate TODAY = LocalDate.of(2011, 5, 11);

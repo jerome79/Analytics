@@ -29,7 +29,7 @@ public abstract class ISDAModelDatasets {
   protected static final ZoneId TIME_ZONE = ZoneId.of("Z");
 
   protected static final DayCount ACT360 = DayCounts.ACT_360;
-  protected static final DayCount ACT365 = DayCounts.ACT_365;
+  protected static final DayCount ACT365 = DayCounts.ACT_365F;
   protected static final double OFFSET = 0.0;// 1. / 365;
 
   protected static class ISDA_Results {

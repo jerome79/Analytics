@@ -157,17 +157,17 @@ public final class GeneratorSwapFixedIborMaster {
     _generatorSwap.put(GBP1YLIBOR3M,
                        new GeneratorSwapFixedIbor(GBP1YLIBOR3M,
                                                   Period.ofMonths(12),
-                                                  DayCounts.ACT_365,
+                                                  DayCounts.ACT_365F,
                                                   _iborIndexMaster.getIndex(IndexIborMaster.GBPLIBOR3M),
                                                   baseCalendar));
     _generatorSwap.put(GBP6MLIBOR6M,
                        new GeneratorSwapFixedIbor(GBP6MLIBOR6M,
                                                   Period.ofMonths(6),
-                                                  DayCounts.ACT_365,
+                                                  DayCounts.ACT_365F,
                                                   _iborIndexMaster.getIndex(IndexIborMaster.GBPLIBOR6M),
                                                   baseCalendar));
     _generatorSwap.put(GBP3MLIBOR3M, 
-        new GeneratorSwapFixedIbor(GBP3MLIBOR3M, Period.ofMonths(3), DayCounts.ACT_365, 
+        new GeneratorSwapFixedIbor(GBP3MLIBOR3M, Period.ofMonths(3), DayCounts.ACT_365F, 
             _iborIndexMaster.getIndex(IndexIborMaster.GBPLIBOR3M), baseCalendar));
     _generatorSwap.put(DKK1YCIBOR6M,
                        new GeneratorSwapFixedIbor(DKK1YCIBOR6M,
@@ -178,25 +178,25 @@ public final class GeneratorSwapFixedIborMaster {
     _generatorSwap.put(JPY6MLIBOR3M,
                        new GeneratorSwapFixedIbor(JPY6MLIBOR3M,
                                                   Period.ofMonths(6),
-                                                  DayCounts.ACT_365,
+                                                  DayCounts.ACT_365F,
                                                   _iborIndexMaster.getIndex(IndexIborMaster.JPYLIBOR3M),
                                                   baseCalendar));
     _generatorSwap.put(JPY6MLIBOR6M,
                        new GeneratorSwapFixedIbor(JPY6MLIBOR6M,
                                                   Period.ofMonths(6),
-                                                  DayCounts.ACT_365,
+                                                  DayCounts.ACT_365F,
                                                   _iborIndexMaster.getIndex(IndexIborMaster.JPYLIBOR6M),
                                                   baseCalendar));
     _generatorSwap.put(AUD3MBBSW3M,
                        new GeneratorSwapFixedIbor(AUD3MBBSW3M,
                                                   Period.ofMonths(3),
-                                                  DayCounts.ACT_365,
+                                                  DayCounts.ACT_365F,
                                                   _iborIndexMaster.getIndex(IndexIborMaster.AUDBB3M),
                                                   baseCalendar));
     _generatorSwap.put(AUD6MBBSW6M,
                        new GeneratorSwapFixedIbor(AUD6MBBSW6M,
                                                   Period.ofMonths(6),
-                                                  DayCounts.ACT_365,
+                                                  DayCounts.ACT_365F,
                                                   _iborIndexMaster.getIndex(IndexIborMaster.AUDBB6M),
                                                   baseCalendar));
   }

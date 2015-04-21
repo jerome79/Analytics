@@ -43,7 +43,7 @@ public class AnnuityCapFloorIborDefinitionTest {
   private static final ZonedDateTime MATURITY_DATE = START_DATE.plus(ANNUITY_TENOR);
   private static final double NOTIONAL = 100000000; //100m
   private static final Period LEG_PAYMENT_PERIOD = Period.ofMonths(12);
-  private static final DayCount LEG_DAY_COUNT = DayCounts.ACT_365;
+  private static final DayCount LEG_DAY_COUNT = DayCounts.ACT_365F;
   private static final boolean IS_PAYER = true;
   private static final double STRIKE = 0.04;
   private static final boolean IS_CAP = true;

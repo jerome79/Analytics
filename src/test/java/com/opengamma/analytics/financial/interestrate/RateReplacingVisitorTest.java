@@ -75,7 +75,7 @@ public class RateReplacingVisitorTest {
 
   @Test
   public void testFRA() {
-    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365,
+    final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true, "Ibor");
     final ForwardRateAgreement fra1 = new ForwardRateAgreement(CUR, 0.5, 0.5, 1, index, 0.5, 0.5, 1, 0.5, R1);
     final ForwardRateAgreement fra2 = new ForwardRateAgreement(CUR, 0.5, 0.5, 1, index, 0.5, 0.5, 1, 0.5, R2);
@@ -84,7 +84,7 @@ public class RateReplacingVisitorTest {
 
   @Test
   public void testIRFuture() {
-    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, DayCounts.ACT_365,
+    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true, "Ibor");
     final double lastTradingTime = 1.473;
     final double fixingPeriodStartTime = 1.467;

@@ -47,7 +47,7 @@ public final class GeneratorSwapFixedONMaster {
     final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     final HolidayCalendar londonBaseCalendar = HolidayCalendars.GBLO;
     final DayCount act360 = DayCounts.ACT_360;
-    final DayCount act365 = DayCounts.ACT_365;
+    final DayCount act365 = DayCounts.ACT_365F;
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;
     _generatorSwap = new HashMap<>();
     final IndexON fedFund = indexONMaster.getIndex("FED FUND");
