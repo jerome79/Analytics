@@ -8,7 +8,7 @@ package com.opengamma.analytics.financial.instrument.volatilityswap;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-import com.opengamma.analytics.convention.daycount.DayCountFactory;
+import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
 import com.opengamma.analytics.util.time.TimeCalculator;
@@ -93,9 +93,12 @@ public class FXVolatilitySwapDefinition extends VolatilitySwapDefinition {
   @Override
   public FXVolatilitySwap toDerivative(final ZonedDateTime date) {
     ArgChecker.notNull(date, "date");
-    final double timeToObservationStart = TimeCalculator.getTimeBetween(date, getObservationStartDate(), DayCountFactory.of("Business/252"), getCalendar());
-    final double timeToObservationEnd = TimeCalculator.getTimeBetween(date, getObservationEndDate(), DayCountFactory.of("Business/252"), getCalendar());
-    final double timeToMaturity = TimeCalculator.getTimeBetween(date, getMaturityDate(), DayCountFactory.of("Business/252"), getCalendar());
+    final double timeToObservationStart =
+        TimeCalculator.getTimeBetween(date, getObservationStartDate(), DayCounts.BUSINESS_252, getCalendar());
+    final double timeToObservationEnd =
+        TimeCalculator.getTimeBetween(date, getObservationEndDate(), DayCounts.BUSINESS_252, getCalendar());
+    final double timeToMaturity =
+        TimeCalculator.getTimeBetween(date, getMaturityDate(), DayCounts.BUSINESS_252, getCalendar());
     return new FXVolatilitySwap(timeToObservationStart, timeToObservationEnd, getObservationFrequency(), timeToMaturity,
         getVolatilityStrike(), getVolatilityNotional(), getCurrency(), _baseCurrency, _counterCurrency, getAnnualizationFactor());
   }

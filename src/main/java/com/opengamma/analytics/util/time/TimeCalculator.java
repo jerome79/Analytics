@@ -8,11 +8,8 @@ package com.opengamma.analytics.util.time;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
-import com.opengamma.analytics.convention.daycount.DayCountFactory;
 import com.opengamma.analytics.env.AnalyticsEnvironment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
@@ -22,31 +19,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * and typically represent the fraction of years between some date and the current one.
  */
 public final class TimeCalculator {
-  /**
-   * The day count used to convert to time.
-   * @deprecated Should use {@link AnalyticsEnvironment} in preference. Will be removed in a later version.
-   */
-  @Deprecated
-  private static final DayCount MODEL_DAYCOUNT;
-
-  static {
-    /*
-     * Initialise MODEL_DAYCOUNT to what is set in TimeCalculator.properties.
-     * Deprecated, maintained for backwards compatibility.
-     */
-    String modelDayCount = null;
-    try {
-      final ResourceBundle conventions = ResourceBundle.getBundle(TimeCalculator.class.getName());
-      modelDayCount = conventions.getString("MODEL_DAYCOUNT");
-    } catch (final MissingResourceException ex) {
-      // pass
-    }
-    if (modelDayCount != null && DayCountFactory.of(modelDayCount) != null) {
-      MODEL_DAYCOUNT = DayCountFactory.of(modelDayCount);
-    } else {
-      MODEL_DAYCOUNT = null;
-    }
-  }
 
   private TimeCalculator() {
   }
@@ -105,7 +77,7 @@ public final class TimeCalculator {
    * @return The time.
    */
   public static double getTimeBetween(final ZonedDateTime date1, final ZonedDateTime date2) {
-    final DayCount dayCount = MODEL_DAYCOUNT != null ? MODEL_DAYCOUNT : AnalyticsEnvironment.getInstance().getModelDayCount();
+    final DayCount dayCount = AnalyticsEnvironment.getInstance().getModelDayCount();
     return getTimeBetween(date1, date2, dayCount);
   }
 
