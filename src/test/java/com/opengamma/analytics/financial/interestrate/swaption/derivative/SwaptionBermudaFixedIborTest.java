@@ -76,9 +76,9 @@ public class SwaptionBermudaFixedIborTest {
   private static final SwapFixedCoupon<Coupon>[] EXPIRY_SWAP = new SwapFixedCoupon[NB_EXPIRY];
   static {
     for (int loopexp = 0; loopexp < NB_EXPIRY; loopexp++) {
-      EXPIRY_TIME[loopexp] = ACT_ACT.getDayCountFraction(REFERENCE_DATE, EXPIRY_DATE[loopexp]);
+      EXPIRY_TIME[loopexp] = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRY_DATE[loopexp]);
       EXPIRY_SWAP[loopexp] = EXPIRY_SWAP_DEFINITION[loopexp].toDerivative(REFERENCE_DATE);
-      SETTLE_TIME[loopexp] = ACT_ACT.getDayCountFraction(REFERENCE_DATE, EXPIRY_SWAP_DEFINITION[loopexp].getFixedLeg().getNthPayment(0).getAccrualStartDate());
+      SETTLE_TIME[loopexp] = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRY_SWAP_DEFINITION[loopexp].getFixedLeg().getNthPayment(0).getAccrualStartDate());
     }
   }
   private static final SwaptionBermudaFixedIbor BERMUDA_SWAPTION = new SwaptionBermudaFixedIbor(EXPIRY_SWAP, IS_LONG, EXPIRY_TIME, SETTLE_TIME);

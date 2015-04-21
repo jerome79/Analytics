@@ -20,7 +20,7 @@ public class ActualActualAFB extends ActualTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     testDates(firstDate, secondDate);
     final long daysBetween = ChronoUnit.DAYS.between(firstDate, secondDate);
     final LocalDate oneYear = firstDate.plusYears(1);
@@ -33,12 +33,12 @@ public class ActualActualAFB extends ActualTypeDayCount {
     if (d.isLeapYear() && d.getMonth() == Month.FEBRUARY && d.getDayOfMonth() == 28) {
       d = d.plusDays(1);
     }
-    return schedule.length - 1.0 + getDayCountFraction(firstDate, d);
+    return schedule.length - 1.0 + yearFraction(firstDate, d);
   }
 
   @Override
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
-    return coupon * getDayCountFraction(previousCouponDate, date);
+    return coupon * yearFraction(previousCouponDate, date);
   }
 
   @Override

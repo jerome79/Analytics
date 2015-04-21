@@ -38,7 +38,7 @@ public class CouponFixedDefinitionTest {
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 1, 5);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 4, 5);
   private static final DayCount DAY_COUNT = DayCounts.ACT_360;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DAY_COUNT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
   private static final double RATE = 0.04;
   private static final ZonedDateTime FAKE_DATE = DateUtils.getUTCDate(0, 1, 1);
@@ -67,7 +67,7 @@ public class CouponFixedDefinitionTest {
     final Period tenor = Period.ofMonths(3);
     final CouponFixedDefinition cpnFixed = CouponFixedDefinition.from(ACCRUAL_START_DATE, tenor, generator, NOTIONAL, RATE);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(ACCRUAL_START_DATE, tenor, generator.getBusinessDayConvention(), CALENDAR, generator.isEndOfMonth());
-    final double accrual = generator.getDayCount().getDayCountFraction(ACCRUAL_START_DATE, endDate);
+    final double accrual = generator.getDayCount().yearFraction(ACCRUAL_START_DATE, endDate);
     final CouponFixedDefinition cpnExpected = new CouponFixedDefinition(generator.getCurrency(), endDate, ACCRUAL_START_DATE, endDate, accrual, NOTIONAL, RATE);
     assertEquals("CouponFixedDefinition: from deposit generator", cpnExpected, cpnFixed);
   }
@@ -84,7 +84,7 @@ public class CouponFixedDefinitionTest {
   @Test
   public void testToDerivative() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double paymentTime = actAct.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE);
+    final double paymentTime = actAct.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
     final CouponFixed couponFixed = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE, FIXED_COUPON.getAccrualStartDate(), FIXED_COUPON.getAccrualEndDate());
     final CouponFixed convertedDefinition = FIXED_COUPON.toDerivative(REFERENCE_DATE);
     assertEquals(couponFixed, convertedDefinition);

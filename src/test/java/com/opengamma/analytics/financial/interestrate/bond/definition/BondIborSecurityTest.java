@@ -65,7 +65,7 @@ public class BondIborSecurityTest {
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 8, 18);
   private static final ZonedDateTime STANDARD_SETTLEMENT_DATE = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, SETTLEMENT_DAYS, CALENDAR);
-  private static final double STANDARD_SETTLEMENT_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, STANDARD_SETTLEMENT_DATE);
+  private static final double STANDARD_SETTLEMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, STANDARD_SETTLEMENT_DATE);
   private static final double FIRST_FIXING = 0.02;
 
   private static final AnnuityPaymentFixed NOMINAL = NOMINAL_DEFINITION.toDerivative(REFERENCE_DATE);

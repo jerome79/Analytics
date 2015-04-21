@@ -50,7 +50,7 @@ public class CouponONArithmeticAverageSpreadSimplifiedTest {
   private static final double PAYMENT_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, PAYMENT_DATE);
   private static final double ACCRUAL_START_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, ACCRUAL_START_DATE);
   private static final double ACCRUAL_END_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, ACCRUAL_END_DATE);
-  private static final double ACCRUAL_FACTOR = FEDFUND.getDayCount().getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = FEDFUND.getDayCount().yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
 
   private static final CouponONArithmeticAverageDefinition FEDFUND_CPN_3M_2_DEF = CouponONArithmeticAverageDefinition.from(FEDFUND, ACCRUAL_START_DATE, ACCRUAL_END_DATE, NOTIONAL, PAYMENT_LAG, NYC);
 

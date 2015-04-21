@@ -17,7 +17,7 @@ public class ThirtyEPlusThreeSixtyISDA extends ThirtyThreeSixtyTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     testDates(firstDate, secondDate);
     double d1 = firstDate.getDayOfMonth();
     double d2 = secondDate.getDayOfMonth();

@@ -53,7 +53,7 @@ public class ActualThreeSixtyFiveLongTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetDayCount() {
-    DC.getDayCountFraction(D1, D2);
+    DC.yearFraction(D1, D2);
   }
 
   @Test

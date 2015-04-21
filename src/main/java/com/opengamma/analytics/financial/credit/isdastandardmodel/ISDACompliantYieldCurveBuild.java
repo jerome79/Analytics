@@ -158,7 +158,7 @@ public class ISDACompliantYieldCurveBuild {
     _instrumentTypes = instrumentTypes;
     int nMM = 0;
     for (int i = 0; i < n; i++) {
-      _t[i] = curveDCC.getDayCountFraction(spotDate, adjMatDates[i]);
+      _t[i] = curveDCC.yearFraction(spotDate, adjMatDates[i]);
       if (_instrumentTypes[i] == ISDAInstrumentTypes.MoneyMarket) {
         nMM++;
       }
@@ -171,12 +171,12 @@ public class ISDACompliantYieldCurveBuild {
     for (int i = 0; i < n; i++) {
       if (instrumentTypes[i] == ISDAInstrumentTypes.MoneyMarket) {
         // TODO in ISDA code money market instruments of less than 21 days have special treatment
-        _mmYF[mmCount++] = moneyMarketDCC.getDayCountFraction(spotDate, adjMatDates[i]);
+        _mmYF[mmCount++] = moneyMarketDCC.yearFraction(spotDate, adjMatDates[i]);
       } else {
         _swaps[swapCount++] = new BasicFixedLeg(spotDate, matDates[i], swapInterval, swapDCC, curveDCC, convention, calendar);
       }
     }
-    _offset = cdsTradeDate.isAfter(spotDate) ? curveDCC.getDayCountFraction(spotDate, cdsTradeDate) : -curveDCC.getDayCountFraction(cdsTradeDate, spotDate);
+    _offset = cdsTradeDate.isAfter(spotDate) ? curveDCC.yearFraction(spotDate, cdsTradeDate) : -curveDCC.yearFraction(cdsTradeDate, spotDate);
   }
 
   /**
@@ -318,8 +318,8 @@ public class ISDACompliantYieldCurveBuild {
       for (int i = 0; i < _nPayments; i++, j--) {
         final LocalDate current = list.get(j);
         final LocalDate adjCurr = convention.adjust(current, calendar);
-        _yearFraction[i] = swapDCC.getDayCountFraction(prev, adjCurr);
-        _swapPaymentTimes[i] = curveDCC.getDayCountFraction(spotDate, adjCurr); // Payment times always good business days
+        _yearFraction[i] = swapDCC.yearFraction(prev, adjCurr);
+        _swapPaymentTimes[i] = curveDCC.yearFraction(spotDate, adjCurr); // Payment times always good business days
         prev = adjCurr;
       }
       //  _paymentAmounts[_nPayments - 1] += 1.0; // see Javadocs comment

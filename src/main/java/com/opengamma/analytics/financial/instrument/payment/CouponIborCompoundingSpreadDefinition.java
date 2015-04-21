@@ -281,7 +281,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
       paymentAccrualFactor += paymentAccrualFactors[loopsub];
       fixingDates[loopsub] = ScheduleCalculator.getAdjustedDate(accrualStartDates[loopsub], -index.getSpotLag(), calendar);
       fixingPeriodEndDates[loopsub] = ScheduleCalculator.getAdjustedDate(accrualStartDates[loopsub], index, calendar);
-      fixingPeriodAccrualFactors[loopsub] = index.getDayCount().getDayCountFraction(accrualStartDates[loopsub], fixingPeriodEndDates[loopsub], calendar);
+      fixingPeriodAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], fixingPeriodEndDates[loopsub], calendar);
     }
     return new CouponIborCompoundingSpreadDefinition(
         index.getCurrency(),
@@ -323,7 +323,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, nbSubPeriod - 1);
     final double[] paymentAccrualFactors = new double[nbSubPeriod];
     for (int loopsub = 0; loopsub < nbSubPeriod; loopsub++) {
-      paymentAccrualFactors[loopsub] = index.getDayCount().getDayCountFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
+      paymentAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
     }
     return from(accrualEndDates[nbSubPeriod - 1], notional, index, accrualStartDates, accrualEndDates, paymentAccrualFactors, spread, calendar);
   }
@@ -359,7 +359,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, nbSubPeriod - 1);
     final double[] paymentAccrualFactors = new double[nbSubPeriod];
     for (int loopsub = 0; loopsub < nbSubPeriod; loopsub++) {
-      paymentAccrualFactors[loopsub] = index.getDayCount().getDayCountFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
+      paymentAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
     }
     return from(accrualEndDates[nbSubPeriod - 1], notional, index, accrualStartDates, accrualEndDates, paymentAccrualFactors, spread, calendar);
   }
@@ -381,7 +381,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, nbSubPeriod - 1);
     final double[] paymentAccrualFactors = new double[nbSubPeriod];
     for (int loopsub = 0; loopsub < nbSubPeriod; loopsub++) {
-      paymentAccrualFactors[loopsub] = index.getDayCount().getDayCountFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
+      paymentAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
     }
     return from(accrualEndDates[nbSubPeriod - 1], notional, index, accrualStartDates, accrualEndDates, paymentAccrualFactors, spread, calendar);
   }
@@ -401,7 +401,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     boolean isEOM = true;
     
     ZonedDateTime paymentDate = DateRelativeTo.START == paymentRelativeTo ? accrualStartDate : accrualEndDate;
-    double paymentAccrualFactor = index.getDayCount().getDayCountFraction(accrualStartDate, paymentDate, accrualCalendar);
+    double paymentAccrualFactor = index.getDayCount().yearFraction(accrualStartDate, paymentDate, accrualCalendar);
     
     // TODO this should not be calculating adjusted payment date from unadjusted accrual dates
     paymentDate = BusinessDayDateUtils.applyConvention(accrualBusinessDayConvention, paymentDate, accrualCalendar);
@@ -422,7 +422,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     
     double[] paymentAccrualFactors = new double[accrualEndDates.length];
     for (int i = 0; i < paymentAccrualFactors.length; i++) {
-      paymentAccrualFactors[i] = index.getDayCount().getDayCountFraction(accrualStartDates[i], accrualEndDates[i], accrualCalendar);
+      paymentAccrualFactors[i] = index.getDayCount().yearFraction(accrualStartDates[i], accrualEndDates[i], accrualCalendar);
     }
     
     ZonedDateTime[] fixingStartDates = accrualStartDates;
@@ -438,7 +438,7 @@ public class CouponIborCompoundingSpreadDefinition extends CouponDefinition impl
     
     double[] fixingAccrualFactors = new double[accrualEndDates.length];
     for (int i = 0; i < fixingAccrualFactors.length; i++) {
-      fixingAccrualFactors[i] = index.getDayCount().getDayCountFraction(fixingStartDates[i], fixingEndDates[i], fixingCalendar);
+      fixingAccrualFactors[i] = index.getDayCount().yearFraction(fixingStartDates[i], fixingEndDates[i], fixingCalendar);
     }
 
     return new CouponIborCompoundingSpreadDefinition(

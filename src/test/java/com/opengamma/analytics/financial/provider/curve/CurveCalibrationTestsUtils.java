@@ -104,7 +104,7 @@ public class CurveCalibrationTestsUtils {
         startTime[loopdate] = TimeCalculator.getTimeBetween(calibrationDate, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, index, cal);
         final double endTime = TimeCalculator.getTimeBetween(calibrationDate, endDate);
-        final double accrualFactor = index.getDayCount().getDayCountFraction(startDate, endDate, cal);
+        final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate, cal);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(index, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, cal);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
@@ -126,7 +126,7 @@ public class CurveCalibrationTestsUtils {
         startTime[loopdate] = TimeCalculator.getTimeBetween(calibrationDate, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, cal);
         final double endTime = TimeCalculator.getTimeBetween(calibrationDate, endDate);
-        final double accrualFactor = index.getDayCount().getDayCountFraction(startDate, endDate);
+        final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(index, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, cal);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
@@ -148,7 +148,7 @@ public class CurveCalibrationTestsUtils {
         startTime[loopdate] = TimeCalculator.getTimeBetween(calibrationDate, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, cal);
         final double endTime = TimeCalculator.getTimeBetween(calibrationDate, endDate);
-        final double accrualFactor = index.getDayCount().getDayCountFraction(startDate, endDate);
+        final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(index, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, cal);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

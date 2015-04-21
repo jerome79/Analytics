@@ -146,7 +146,7 @@ public class ISDAModelDatasetsSheetReader extends ISDAModelDatasets {
     final double[] t = new double[nCurvePoints];
     final double[] r = new double[nCurvePoints];
     for (int j = 0; j < nCurvePoints; j++) {
-      t[j] = ACT365.getDayCountFraction(today, _parSpreadDates[j]);
+      t[j] = ACT365.yearFraction(today, _parSpreadDates[j]);
       r[j] = negLogP[j] / t[j];
     }
     return new ISDACompliantDateCreditCurve(today, _parSpreadDates, r, ACT365);

@@ -156,7 +156,7 @@ public class ISDACompliantScheduleGenerator {
     final int n = dates.length;
     final double[] res = new double[n];
     for (int i = 0; i < n; i++) {
-      res[i] = dayCount.getDayCountFraction(today, dates[i]);
+      res[i] = dayCount.yearFraction(today, dates[i]);
     }
 
     return res;

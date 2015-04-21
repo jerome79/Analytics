@@ -18,7 +18,7 @@ public class ActualThreeSixtyFive extends ActualTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     testDates(firstDate, secondDate);
     final long firstJulianDate = firstDate.getLong(JulianFields.MODIFIED_JULIAN_DAY);
     final long secondJulianDate = secondDate.getLong(JulianFields.MODIFIED_JULIAN_DAY);
@@ -27,7 +27,7 @@ public class ActualThreeSixtyFive extends ActualTypeDayCount {
 
   @Override
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
-    return getDayCountFraction(previousCouponDate, date) * coupon;
+    return yearFraction(previousCouponDate, date) * coupon;
   }
 
   @Override

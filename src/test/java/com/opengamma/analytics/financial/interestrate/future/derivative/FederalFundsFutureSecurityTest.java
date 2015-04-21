@@ -64,7 +64,7 @@ public class FederalFundsFutureSecurityTest {
   private static double FIXING_TOTAL_ACCURAL_FACTOR = 0.0;
   static {
     for (int loopfix = 0; loopfix < FIXING_DATE.length - 1; loopfix++) {
-      FIXING_ACCURAL_FACTOR[loopfix] = INDEX_FEDFUND.getDayCount().getDayCountFraction(FIXING_DATE[loopfix], FIXING_DATE[loopfix + 1]);
+      FIXING_ACCURAL_FACTOR[loopfix] = INDEX_FEDFUND.getDayCount().yearFraction(FIXING_DATE[loopfix], FIXING_DATE[loopfix + 1]);
       FIXING_TOTAL_ACCURAL_FACTOR += FIXING_ACCURAL_FACTOR[loopfix];
     }
     for (int loopfix = 0; loopfix < FIXING_DATE.length; loopfix++) {

@@ -229,7 +229,7 @@ public abstract class ISDAModelDatasets {
       final double[] t = new double[nCurvePoints];
       final double[] r = new double[nCurvePoints];
       for (int j = 0; j < nCurvePoints; j++) {
-        t[j] = ACT365.getDayCountFraction(temp.today, parSpreadDates[j]);
+        t[j] = ACT365.yearFraction(temp.today, parSpreadDates[j]);
         r[j] = -Math.log(surProb[j]) / t[j];
 
       }
@@ -531,7 +531,7 @@ public abstract class ISDAModelDatasets {
       final double[] t = new double[nCurvePoints];
       final double[] r = new double[nCurvePoints];
       for (int j = 0; j < nCurvePoints; j++) {
-        t[j] = ACT365.getDayCountFraction(temp.today, parSpreadDates[j]);
+        t[j] = ACT365.yearFraction(temp.today, parSpreadDates[j]);
         r[j] = -Math.log(surProb[j]) / t[j];
 
       }

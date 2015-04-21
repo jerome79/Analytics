@@ -454,7 +454,7 @@ public class CDSPaperExamples extends ISDABaseTest {
     CDSAnalytic[] cds = CDS_FACTORY.makeCDS(TRADE_DATE, STARTDATE, IMM_DATES);
     System.out.println("Year fraction\tSpread (bps)");
     for (int i = 0; i < nMat; i++) {
-      double t = ACT365F.getDayCountFraction(TRADE_DATE, IMM_DATES[i]);
+      double t = ACT365F.yearFraction(TRADE_DATE, IMM_DATES[i]);
       double s = PRICER_OG_FIX.parSpread(cds[i], YIELD_CURVE, flat);
       System.out.println(t + "\t" + s * TEN_THOUSAND);
     }

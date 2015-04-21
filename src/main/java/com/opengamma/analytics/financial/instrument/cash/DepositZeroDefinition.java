@@ -106,7 +106,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
   public static DepositZeroDefinition from(final Currency currency, final ZonedDateTime startDate, final ZonedDateTime endDate, final DayCount daycount, final InterestRate rate,
       final HolidayCalendar calendar, final DayCount dayCount) {
     ArgChecker.notNull(daycount, "day count");
-    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.getDayCountFraction(startDate, endDate, calendar), rate, calendar, dayCount);
+    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.yearFraction(startDate, endDate, calendar), rate, calendar, dayCount);
   }
 
   /**
@@ -124,12 +124,12 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
     ArgChecker.notNull(daycount, "day count");
     double adjustedRate;
     if (currency.equals(Currency.BRL)) {
-      adjustedRate = rate.getRate() * daycount.getDayCountFraction(startDate, endDate, calendar) / TimeCalculator.getTimeBetween(startDate, endDate);
+      adjustedRate = rate.getRate() * daycount.yearFraction(startDate, endDate, calendar) / TimeCalculator.getTimeBetween(startDate, endDate);
     } else {
       adjustedRate = rate.getRate();
     }
     final InterestRate adjustedInterestRate = new PeriodicInterestRate(adjustedRate, 1);
-    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.getDayCountFraction(startDate, endDate, calendar), adjustedInterestRate, calendar, daycount);
+    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.yearFraction(startDate, endDate, calendar), adjustedInterestRate, calendar, daycount);
   }
 
   /**
@@ -198,13 +198,13 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
     ArgChecker.isTrue(!date.isAfter(_endDate), "date is after end date");
     double startTime;
     if (date.toLocalDate().isBefore(_startDate.toLocalDate())) {
-      startTime = _dayCount.getDayCountFraction(date.toLocalDate(), _startDate.toLocalDate(), _calendar);
+      startTime = _dayCount.yearFraction(date.toLocalDate(), _startDate.toLocalDate(), _calendar);
     } else if (date.toLocalDate().equals(_startDate.toLocalDate())) {
       startTime = 0;
     } else {
-      startTime = _dayCount.getDayCountFraction(_startDate.toLocalDate(), date.toLocalDate(), _calendar);
+      startTime = _dayCount.yearFraction(_startDate.toLocalDate(), date.toLocalDate(), _calendar);
     }
-    final double endTime = _dayCount.getDayCountFraction(date.toLocalDate(), _endDate.toLocalDate(), _calendar);
+    final double endTime = _dayCount.yearFraction(date.toLocalDate(), _endDate.toLocalDate(), _calendar);
     if (startTime < 0) {
       return new DepositZero(_currency, 0, endTime, 0, _notional, _paymentAccrualFactor, _rate, _interestAmount);
     }

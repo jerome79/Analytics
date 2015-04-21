@@ -56,18 +56,18 @@ public class CouponInflationYearOnYearInterpolationTest {
 
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 7, 29);
-  private static final double PAYMENT_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE);
-  private static final double NATURAL_PAYMENT_START_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE.minusMonths(12));
-  private static final double NATURAL_PAYMENT_END_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE);
+  private static final double PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
+  private static final double NATURAL_PAYMENT_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE.minusMonths(12));
+  private static final double NATURAL_PAYMENT_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
   private static final double[] REFERENCE_START_TIME = new double[2];
   static {
-    REFERENCE_START_TIME[0] = ACT_ACT.getDayCountFraction(REFERENCE_DATE, REFERENCE_END_DATE[0]);
-    REFERENCE_START_TIME[1] = ACT_ACT.getDayCountFraction(REFERENCE_DATE, REFERENCE_END_DATE[1]);
+    REFERENCE_START_TIME[0] = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_END_DATE[0]);
+    REFERENCE_START_TIME[1] = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_END_DATE[1]);
   }
   private static final double[] REFERENCE_END_TIME = new double[2];
   static {
-    REFERENCE_END_TIME[0] = ACT_ACT.getDayCountFraction(REFERENCE_DATE, REFERENCE_END_DATE[0]);
-    REFERENCE_END_TIME[1] = ACT_ACT.getDayCountFraction(REFERENCE_DATE, REFERENCE_END_DATE[1]);
+    REFERENCE_END_TIME[0] = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_END_DATE[0]);
+    REFERENCE_END_TIME[1] = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_END_DATE[1]);
   }
 
   private static final double WEIGHT_START = 1.0 - (PAYMENT_DATE.getDayOfMonth() - 1) / PAYMENT_DATE.toLocalDate().lengthOfMonth();

@@ -86,7 +86,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
   private static final ZonedDateTime ACCRUAL_END_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_START_DATE, FIXED_PAYMENT_PERIOD, BUSINESS_DAY, CALENDAR);
   private static final ZonedDateTime PAYMENT_DATE = ACCRUAL_END_DATE;
   private static final DayCount PAYMENT_DAY_COUNT = DayCounts.ACT_360;
-  private static final double ACCRUAL_FACTOR = PAYMENT_DAY_COUNT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = PAYMENT_DAY_COUNT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 10000000; //10m
   private static final CouponCMSDefinition CMS_COUPON_RECEIVER_DEFINITION = CouponCMSDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE,
       SWAP_DEFINITION, CMS_INDEX);

@@ -64,11 +64,11 @@ public class BondAnalytic {
     _paymentTimes = new double[_nPayments];
     _paymentAmounts = new double[_nPayments];
     for (int i = 0; i < _nPayments; i++) {
-      _paymentAmounts[i] = coupon * accrualDCC.getDayCountFraction(schedule.getAccStartDate(i), schedule.getAccEndDate(i));
-      _paymentTimes[i] = curveDCC.getDayCountFraction(today, schedule.getPaymentDate(i));
+      _paymentAmounts[i] = coupon * accrualDCC.yearFraction(schedule.getAccStartDate(i), schedule.getAccEndDate(i));
+      _paymentTimes[i] = curveDCC.yearFraction(today, schedule.getPaymentDate(i));
     }
     _paymentAmounts[_nPayments - 1] += 1.0;
-    _accuredInterest = coupon * accrualDCC.getDayCountFraction(schedule.getAccStartDate(0), today);
+    _accuredInterest = coupon * accrualDCC.yearFraction(schedule.getAccStartDate(0), today);
     _recoveryRate = recoveryRate;
   }
 

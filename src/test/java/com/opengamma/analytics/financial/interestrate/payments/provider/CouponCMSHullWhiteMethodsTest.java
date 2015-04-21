@@ -69,7 +69,7 @@ public class CouponCMSHullWhiteMethodsTest {
   private static final ZonedDateTime PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(START_DATE, TENOR_COUPON, GENERATOR_EUR1YEURIBOR6M.getBusinessDayConvention(), TARGET,
       GENERATOR_EUR1YEURIBOR6M.isEndOfMonth());
   private static final double NOTIONAL = 100000000; //100m
-  private static final double ACCRUAL_FACTOR = ACT360.getDayCountFraction(START_DATE, PAYMENT_DATE);
+  private static final double ACCRUAL_FACTOR = ACT360.yearFraction(START_DATE, PAYMENT_DATE);
   private static final CouponCMSDefinition CPN_CMS_DEFINITION = CouponCMSDefinition.from(PAYMENT_DATE, START_DATE, PAYMENT_DATE, ACCRUAL_FACTOR, NOTIONAL, SWAP_EUR10Y, TARGET);
 
   private static final CouponCMS CPN_CMS = (CouponCMS) CPN_CMS_DEFINITION.toDerivative(REFERENCE_DATE);

@@ -62,7 +62,7 @@ public class FederalFundsFutureSecurityDefinitionTest {
   private static final double[] FIXING_ACCURAL_FACTOR = new double[FIXING_DATE.length - 1];
   static {
     for (int loopfix = 0; loopfix < FIXING_DATE.length - 1; loopfix++) {
-      FIXING_ACCURAL_FACTOR[loopfix] = INDEX_FEDFUND.getDayCount().getDayCountFraction(FIXING_DATE[loopfix], FIXING_DATE[loopfix + 1]);
+      FIXING_ACCURAL_FACTOR[loopfix] = INDEX_FEDFUND.getDayCount().yearFraction(FIXING_DATE[loopfix], FIXING_DATE[loopfix + 1]);
     }
   }
   private static final double NOTIONAL = 5000000;

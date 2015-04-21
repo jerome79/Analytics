@@ -46,11 +46,11 @@ public class CDSCouponTest {
       final LocalDate settle = accEnd;
       final boolean protectStart = true;
 
-      final double toStart = -curveDcc.getDayCountFraction(accStart.minusDays(1), tradeDate);
-      final double toEnd = curveDcc.getDayCountFraction(tradeDate, accEnd.minusDays(1));
-      final double toSettle = curveDcc.getDayCountFraction(tradeDate, settle);
-      final double fromStartToEnd = accrDcc.getDayCountFraction(accStart, accEnd);
-      final double yFracRatio = fromStartToEnd / curveDcc.getDayCountFraction(accStart, accEnd);
+      final double toStart = -curveDcc.yearFraction(accStart.minusDays(1), tradeDate);
+      final double toEnd = curveDcc.yearFraction(tradeDate, accEnd.minusDays(1));
+      final double toSettle = curveDcc.yearFraction(tradeDate, settle);
+      final double fromStartToEnd = accrDcc.yearFraction(accStart, accEnd);
+      final double yFracRatio = fromStartToEnd / curveDcc.yearFraction(accStart, accEnd);
 
       final CDSCoupon cp = new CDSCoupon(tradeDate, accStart, accEnd, settle, protectStart);
       assertEquals(toStart, cp.getEffStart());
@@ -121,11 +121,11 @@ public class CDSCouponTest {
       final LocalDate settle = accEnd;
       final boolean protectStart = false;
 
-      final double toStart = curveDcc.getDayCountFraction(tradeDate, accStart);
-      final double toEnd = curveDcc.getDayCountFraction(tradeDate, accEnd);
-      final double toSettle = curveDcc.getDayCountFraction(tradeDate, settle);
-      final double fromStartToEnd = accrDcc.getDayCountFraction(accStart, accEnd);
-      final double yFracRatio = fromStartToEnd / curveDcc.getDayCountFraction(accStart, accEnd);
+      final double toStart = curveDcc.yearFraction(tradeDate, accStart);
+      final double toEnd = curveDcc.yearFraction(tradeDate, accEnd);
+      final double toSettle = curveDcc.yearFraction(tradeDate, settle);
+      final double fromStartToEnd = accrDcc.yearFraction(accStart, accEnd);
+      final double yFracRatio = fromStartToEnd / curveDcc.yearFraction(accStart, accEnd);
 
       final CDSCoupon cp = new CDSCoupon(tradeDate, accStart, accEnd, settle, protectStart);
       assertEquals(toStart, cp.getEffStart());

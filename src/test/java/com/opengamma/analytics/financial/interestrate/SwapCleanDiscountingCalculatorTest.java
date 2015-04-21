@@ -148,7 +148,7 @@ public class SwapCleanDiscountingCalculatorTest {
               listFloating.toArray(new CouponIborDefinition[listFloating.size()]), index, calendarFloating);
           Annuity<? extends Coupon> floatingLegDerivative = trimedFloatingLeg
               .toDerivative(valuationDate, TS_USDLIBOR3M);
-          double accruedYearFractionFloating = dayCountFloating.getDayCountFraction(trimedFloatingLeg.getNthPayment(0)
+          double accruedYearFractionFloating = dayCountFloating.yearFraction(trimedFloatingLeg.getNthPayment(0)
               .getAccrualStartDate(), valuationDate, calendarFloating);
           double dirtyFloatingPV = floatingLegDerivative.accept(PVDC, multicurve).getAmount(
               floatingLegDerivative.getCurrency()).getAmount() * Math.signum(floatingLegDerivative.getNthPayment(0).getNotional());
@@ -168,7 +168,7 @@ public class SwapCleanDiscountingCalculatorTest {
           }
           AnnuityCouponFixedDefinition trimedFixedLeg = new AnnuityCouponFixedDefinition(
               listFixed.toArray(new CouponFixedDefinition[listFixed.size()]), calendarFixed);
-          double accruedYearFractionFixed = dayCountFixed.getDayCountFraction(trimedFixedLeg.getNthPayment(0)
+          double accruedYearFractionFixed = dayCountFixed.yearFraction(trimedFixedLeg.getNthPayment(0)
               .getAccrualStartDate(), valuationDate, calendarFixed);
           AnnuityCouponFixed fixedLegDerivative = trimedFixedLeg.toDerivative(valuationDate);
           SwapFixedCoupon<?> fixedCouponSwap = new SwapFixedCoupon<>(fixedLegDerivative, floatingLegDerivative);
@@ -228,7 +228,7 @@ public class SwapCleanDiscountingCalculatorTest {
     DayCount dcIbor = index.getDayCount();
     CouponIborDefinition[] ibor = new CouponIborDefinition[nPaymentsIbor];
     for (int i = 0; i < nPaymentsIbor; ++i) {
-      double paymentYearFraction = dcIbor.getDayCountFraction(accStartDatesIbor[i], accEndDatesIbor[i], NYC);
+      double paymentYearFraction = dcIbor.yearFraction(accStartDatesIbor[i], accEndDatesIbor[i], NYC);
       ibor[i] = new CouponIborDefinition(usd, paymentDatesIbor[i], accStartDatesIbor[i], accEndDatesIbor[i],
           paymentYearFraction, -NOTIONAL, FixingDatesIbor[i], index, NYC);
     }
@@ -244,7 +244,7 @@ public class SwapCleanDiscountingCalculatorTest {
     CouponFixedDefinition[] fixed = new CouponFixedDefinition[nPaymentsFixed];
     DayCount dcFixed = USD6MLIBOR3M.getFixedLegDayCount();
     for (int i = 0; i < nPaymentsFixed; ++i) {
-      double paymentYearFraction = dcFixed.getDayCountFraction(accStartDatesFixed[i], accEndDatesFixed[i], calendar);
+      double paymentYearFraction = dcFixed.yearFraction(accStartDatesFixed[i], accEndDatesFixed[i], calendar);
       fixed[i] = new CouponFixedDefinition(usd, paymentDatesFixed[i], accStartDatesFixed[i], accEndDatesFixed[i],
           paymentYearFraction, NOTIONAL, FIXED_RATE_3M_S);
     }
@@ -261,21 +261,21 @@ public class SwapCleanDiscountingCalculatorTest {
 
     /* Compute accrued amounts manually */
     int pIbor = 1;
-    double accYFIbor = dcIbor.getDayCountFraction(accStartDatesIbor[pIbor], valuationDate, calendar);
+    double accYFIbor = dcIbor.yearFraction(accStartDatesIbor[pIbor], valuationDate, calendar);
     double indexRate = timeSeries.getValue(ibor[pIbor].getFixingDate());
     double notionalIbor = ibor[pIbor].getNotional();
     double accIbor = accYFIbor * indexRate * notionalIbor;
     ++pIbor;
-    accYFIbor = dcIbor.getDayCountFraction(accStartDatesIbor[pIbor], valuationDate, calendar);
+    accYFIbor = dcIbor.yearFraction(accStartDatesIbor[pIbor], valuationDate, calendar);
     indexRate = timeSeries.getValue(ibor[pIbor].getFixingDate());
     notionalIbor = ibor[pIbor].getNotional();
     accIbor += accYFIbor * indexRate * notionalIbor;
     int pFixed = 0;
-    double accYFFixed = dcFixed.getDayCountFraction(accStartDatesFixed[pFixed], valuationDate, calendar);
+    double accYFFixed = dcFixed.yearFraction(accStartDatesFixed[pFixed], valuationDate, calendar);
     double notionalFixed = fixed[pFixed].getNotional();
     double accFixed = accYFFixed * notionalFixed;
     ++pFixed;
-    accYFFixed = dcFixed.getDayCountFraction(accStartDatesFixed[pFixed], valuationDate, calendar);
+    accYFFixed = dcFixed.yearFraction(accStartDatesFixed[pFixed], valuationDate, calendar);
     notionalFixed = fixed[pFixed].getNotional();
     accFixed += accYFFixed * notionalFixed;
     double refAccInterest = accIbor + FIXED_RATE_3M_S * accFixed;
@@ -371,7 +371,7 @@ public class SwapCleanDiscountingCalculatorTest {
     DayCount dcIbor = USD6MLIBOR3M.getFixedLegDayCount();
     CouponIborDefinition[] ibor = new CouponIborDefinition[nPaymentsIbor];
     for (int i = 0; i < nPaymentsIbor; ++i) {
-      double paymentYearFraction = dcIbor.getDayCountFraction(accStartDatesIbor[i], accEndDatesIbor[i], NYC);
+      double paymentYearFraction = dcIbor.yearFraction(accStartDatesIbor[i], accEndDatesIbor[i], NYC);
       ibor[i] = new CouponIborDefinition(usd, paymentDatesIbor[i], accStartDatesIbor[i], accEndDatesIbor[i],
           paymentYearFraction, -NOTIONAL, FixingDatesIbor[i], index, NYC);
     }
@@ -387,7 +387,7 @@ public class SwapCleanDiscountingCalculatorTest {
     CouponFixedDefinition[] fixed = new CouponFixedDefinition[nPaymentsFixed];
     DayCount dcFixed = USD6MLIBOR3M.getFixedLegDayCount();
     for (int i = 0; i < nPaymentsFixed; ++i) {
-      double paymentYearFraction = dcFixed.getDayCountFraction(accStartDatesFixed[i], accEndDatesFixed[i], calendar);
+      double paymentYearFraction = dcFixed.yearFraction(accStartDatesFixed[i], accEndDatesFixed[i], calendar);
       fixed[i] = new CouponFixedDefinition(usd, paymentDatesFixed[i], accStartDatesFixed[i], accEndDatesFixed[i],
           paymentYearFraction, NOTIONAL, FIXED_RATE_3M_S);
     }

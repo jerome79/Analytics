@@ -132,7 +132,7 @@ public class ISDACompliantDateCreditCurve
 
   @Override
   public double getZeroRate(final LocalDate date) {
-    final double t = dayCount.getDayCountFraction(baseDate, date);
+    final double t = dayCount.yearFraction(baseDate, date);
     return getZeroRate(t);
   }
 

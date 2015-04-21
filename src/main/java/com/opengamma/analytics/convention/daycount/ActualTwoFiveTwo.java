@@ -21,23 +21,23 @@ public class ActualTwoFiveTwo extends StatelessDayCount {
   private static final DayCount DC = DayCounts.BUSINESS_252;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
-    return DC.getDayCountFraction(firstDate, secondDate);
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
+    return DC.yearFraction(firstDate, secondDate);
   }
 
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
-    return DC.getDayCountFraction(firstDate, secondDate);
+  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
+    return DC.yearFraction(firstDate, secondDate);
   }
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
-    return DC.getDayCountFraction(firstDate, secondDate, calendar);
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
+    return DC.yearFraction(firstDate, secondDate, calendar);
   }
 
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
-    return DC.getDayCountFraction(firstDate, secondDate, calendar);
+  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
+    return DC.yearFraction(firstDate, secondDate, calendar);
   }
 
   @Override

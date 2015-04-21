@@ -73,10 +73,10 @@ public class AnnuityCouponIborRatchetDefinition extends AnnuityCouponDefinition<
     final CouponDefinition[] coupons = new CouponDefinition[paymentDates.length];
     final double notionalSign = notional * (isPayer ? -1.0 : 1.0);
     coupons[0] = new CouponFixedDefinition(index.getCurrency(), paymentDates[0], settlementDate, paymentDates[0],
-        index.getDayCount().getDayCountFraction(settlementDate, paymentDates[0], calendar), notionalSign, firstCouponFixedRate);
+        index.getDayCount().yearFraction(settlementDate, paymentDates[0], calendar), notionalSign, firstCouponFixedRate);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = new CouponIborRatchetDefinition(index.getCurrency(), paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          index.getDayCount().getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), notionalSign,
+          index.getDayCount().yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), notionalSign,
           ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -index.getSpotLag(), calendar), index, mainCoefficients, floorCoefficients,
           capCoefficients, calendar);
     }
@@ -103,11 +103,11 @@ public class AnnuityCouponIborRatchetDefinition extends AnnuityCouponDefinition<
         index.isEndOfMonth());
     final CouponDefinition[] coupons = new CouponDefinition[paymentDates.length];
     final double notionalSign = notional * (isPayer ? -1.0 : 1.0);
-    coupons[0] = CouponIborGearingDefinition.from(settlementDate, paymentDates[0], index.getDayCount().getDayCountFraction(settlementDate, paymentDates[0], calendar),
+    coupons[0] = CouponIborGearingDefinition.from(settlementDate, paymentDates[0], index.getDayCount().yearFraction(settlementDate, paymentDates[0], calendar),
         notionalSign, index, mainCoefficients[2], mainCoefficients[1], calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = new CouponIborRatchetDefinition(index.getCurrency(), paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          index.getDayCount().getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), notionalSign,
+          index.getDayCount().yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), notionalSign,
           ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -index.getSpotLag(), calendar), index, mainCoefficients, floorCoefficients, capCoefficients, calendar);
     }
     return new AnnuityCouponIborRatchetDefinition(coupons, calendar);

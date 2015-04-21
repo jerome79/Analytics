@@ -141,7 +141,7 @@ public class LiborMarketModelDisplacedDiffusionParameters {
     for (int loopcf = 0; loopcf < nbPeriod; loopcf++) {
       iborDate[loopcf + 1] = annuity.getNthPayment(loopcf).getPaymentDate();
       iborTime[loopcf + 1] = TimeCalculator.getTimeBetween(modelDate, iborDate[loopcf + 1]);
-      accrualFactor[loopcf] = dayCount.getDayCountFraction(iborDate[loopcf], iborDate[loopcf + 1], annuity.getCalendar());
+      accrualFactor[loopcf] = dayCount.yearFraction(iborDate[loopcf], iborDate[loopcf + 1], annuity.getCalendar());
       d[loopcf] = displacement;
       //TODO: better conversion to double[]
       final Double[] tmp2 = volatilityFunction.evaluate(iborTime[loopcf]);

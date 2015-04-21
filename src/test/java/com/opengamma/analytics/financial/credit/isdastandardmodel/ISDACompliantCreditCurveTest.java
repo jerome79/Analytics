@@ -143,7 +143,7 @@ public class ISDACompliantCreditCurveTest {
       if (i == modPosition) {
         assertEquals(rates[i] * 1.5, curveWithRate.getZeroRateAtIndex(i));
       }
-      t[i] = dcc.getDayCountFraction(baseDate, dates[i]);
+      t[i] = dcc.yearFraction(baseDate, dates[i]);
       rt[i] = t[i] * rates[i];
     }
 
@@ -152,7 +152,7 @@ public class ISDACompliantCreditCurveTest {
     final double[] sampleRates = new double[nSampleDates];
     final double[] fracs = new double[nSampleDates];
     for (int i = 0; i < nSampleDates; ++i) {
-      fracs[i] = dcc.getDayCountFraction(baseDate, sampleDates[i]);
+      fracs[i] = dcc.yearFraction(baseDate, sampleDates[i]);
       sampleRates[i] = baseCurve.getZeroRate(sampleDates[i]);
     }
     assertEquals(rates[0], sampleRates[0]);

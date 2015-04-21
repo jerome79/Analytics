@@ -48,7 +48,7 @@ public class DepositZeroDefinitionTest {
   private static final Period DEPOSIT_PERIOD = Period.ofMonths(6);
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
   private static final DayCount DAY_COUNT = DayCounts.ACT_365F;
-  private static final double DEPOSIT_AF = DAY_COUNT.getDayCountFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = DAY_COUNT.yearFraction(SPOT_DATE, END_DATE);
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DepositZeroDefinition DEPOSIT_DEFINITION = new DepositZeroDefinition(EUR, SPOT_DATE, END_DATE, NOTIONAL, DEPOSIT_AF, RATE, CALENDAR, DAY_COUNT);
   private static final String CURVE_NAME = "Curve";
@@ -134,8 +134,8 @@ public class DepositZeroDefinitionTest {
   public void toDerivativeTrade() {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 12, 12);
     final DepositZero converted = DEPOSIT_DEFINITION.toDerivative(referenceDate);
-    final double startTime = DAY_COUNT.getDayCountFraction(referenceDate, SPOT_DATE, CALENDAR);
-    final double endTime = DAY_COUNT.getDayCountFraction(referenceDate, END_DATE, CALENDAR);
+    final double startTime = DAY_COUNT.yearFraction(referenceDate, SPOT_DATE, CALENDAR);
+    final double endTime = DAY_COUNT.yearFraction(referenceDate, END_DATE, CALENDAR);
     final DepositZero expected = new DepositZero(EUR, startTime, endTime, NOTIONAL, NOTIONAL, DEPOSIT_AF, RATE, DEPOSIT_DEFINITION.getInterestAmount());
     assertEquals("DepositZeroDefinition: toDerivative", expected, converted);
   }
@@ -147,8 +147,8 @@ public class DepositZeroDefinitionTest {
   public void toDerivativeBetweenTradeAndSettle() {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 12, 13);
     final DepositZero converted = DEPOSIT_DEFINITION.toDerivative(referenceDate);
-    final double startTime = DAY_COUNT.getDayCountFraction(referenceDate, SPOT_DATE, CALENDAR);
-    final double endTime = DAY_COUNT.getDayCountFraction(referenceDate, END_DATE, CALENDAR);
+    final double startTime = DAY_COUNT.yearFraction(referenceDate, SPOT_DATE, CALENDAR);
+    final double endTime = DAY_COUNT.yearFraction(referenceDate, END_DATE, CALENDAR);
     final DepositZero expected = new DepositZero(EUR, startTime, endTime, NOTIONAL, NOTIONAL, DEPOSIT_AF, RATE, DEPOSIT_DEFINITION.getInterestAmount());
     assertEquals("DepositZeroDefinition: toDerivative", expected, converted);
   }
@@ -160,8 +160,8 @@ public class DepositZeroDefinitionTest {
   public void toDerivativeSettle() {
     final ZonedDateTime referenceDate = SPOT_DATE;
     final DepositZero converted = DEPOSIT_DEFINITION.toDerivative(referenceDate);
-    final double startTime = DAY_COUNT.getDayCountFraction(referenceDate, SPOT_DATE, CALENDAR);
-    final double endTime = DAY_COUNT.getDayCountFraction(referenceDate, END_DATE, CALENDAR);
+    final double startTime = DAY_COUNT.yearFraction(referenceDate, SPOT_DATE, CALENDAR);
+    final double endTime = DAY_COUNT.yearFraction(referenceDate, END_DATE, CALENDAR);
     final DepositZero expected = new DepositZero(EUR, startTime, endTime, NOTIONAL, NOTIONAL, DEPOSIT_AF, RATE, DEPOSIT_DEFINITION.getInterestAmount());
     assertEquals("DepositZeroDefinition: toDerivative", expected, converted);
   }
@@ -173,8 +173,8 @@ public class DepositZeroDefinitionTest {
   public void toDerivativeBetweenSettleMaturity() {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 12, 20);
     final DepositZero converted = DEPOSIT_DEFINITION.toDerivative(referenceDate);
-    final double startTime = DAY_COUNT.getDayCountFraction(SPOT_DATE, referenceDate, CALENDAR);
-    final double endTime = DAY_COUNT.getDayCountFraction(referenceDate, END_DATE, CALENDAR);
+    final double startTime = DAY_COUNT.yearFraction(SPOT_DATE, referenceDate, CALENDAR);
+    final double endTime = DAY_COUNT.yearFraction(referenceDate, END_DATE, CALENDAR);
     final DepositZero expected = new DepositZero(EUR, startTime, endTime, NOTIONAL, NOTIONAL, DEPOSIT_AF, RATE, DEPOSIT_DEFINITION.getInterestAmount());
     assertEquals("DepositZeroDefinition: toDerivative", expected, converted);
   }
@@ -186,8 +186,8 @@ public class DepositZeroDefinitionTest {
   public void toDerivativeMaturity() {
     final ZonedDateTime referenceDate = END_DATE;
     final DepositZero converted = DEPOSIT_DEFINITION.toDerivative(referenceDate);
-    final double startTime = DAY_COUNT.getDayCountFraction(SPOT_DATE, referenceDate, CALENDAR);
-    final double endTime = DAY_COUNT.getDayCountFraction(referenceDate, END_DATE, CALENDAR);
+    final double startTime = DAY_COUNT.yearFraction(SPOT_DATE, referenceDate, CALENDAR);
+    final double endTime = DAY_COUNT.yearFraction(referenceDate, END_DATE, CALENDAR);
     final DepositZero expected = new DepositZero(EUR, startTime, endTime, NOTIONAL, NOTIONAL, DEPOSIT_AF, RATE, DEPOSIT_DEFINITION.getInterestAmount());
     assertEquals("DepositZeroDefinition: toDerivative", expected, converted);
   }

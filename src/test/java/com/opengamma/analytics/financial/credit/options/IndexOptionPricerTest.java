@@ -124,7 +124,7 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
 
-    final double expiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double expiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final double atmFwd = INDEX_CAL.defaultAdjustedForwardIndexValue(fwdStartingCDS, expiry, YIELD_CURVE, INDEX_COUPON, creditCurve);
 
     final IndexOptionPricer pricer = new IndexOptionPricer(fwdCDS, expiry, YIELD_CURVE, INDEX_COUPON);
@@ -153,7 +153,7 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
 
-    final double expiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double expiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final double atmFwd = -0.02;
 
     final IndexOptionPricer pricer = new IndexOptionPricer(fwdCDS, expiry, YIELD_CURVE, INDEX_COUPON);
@@ -187,7 +187,7 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     final IntrinsicIndexDataBundle adjCurves = PSA.adjustCurves(indexPrice, spotCDS, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1); //option expiry/(effective) start of protection is in 1 month
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdStartCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final IndexOptionPricer pricerISDA = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, true);//this uses to ISDA model to compute annuity 
@@ -242,7 +242,7 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     final IntrinsicIndexDataBundle adjCurves = PSA.adjustCurves(indexPrice, spotCDS, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1); //option expiry/(effective) start of protection is in 1 month
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdStartCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final IndexOptionPricer pricerISDA = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, true);//this uses to ISDA model to compute annuity 
@@ -287,7 +287,7 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     final IntrinsicIndexDataBundle adjCurves = PSA.adjustCurves(indexPrice, spotCDS, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1); //option expiry/(effective) start of protection is in 1 month
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdStartCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final IndexOptionPricer pricerISDA = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, true);//this uses to ISDA model to compute annuity 

@@ -115,7 +115,7 @@ public class CouponIborFxResetDefinitionTest {
 
     CouponIborFxResetDefinition cpnRe = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE,
         ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE, expFixingPeriodStartDate, expFixingPeriodEndDate,
-        INDEX.getDayCount().getDayCountFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX,
+        INDEX.getDayCount().yearFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX,
         SPREAD, CALENDAR, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
     assertEquals(cpnRe, CPN_SAME_FIXING_DATES);
 
@@ -129,7 +129,7 @@ public class CouponIborFxResetDefinitionTest {
 
     assertEquals(expFixingPeriodStartDate, CPN_SAME_FIXING_DATES.getIborIndexFixingPeriodStartDate());
     assertEquals(expFixingPeriodEndDate, CPN_SAME_FIXING_DATES.getIborIndexFixingPeriodEndDate());
-    assertEquals(INDEX.getDayCount().getDayCountFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR),
+    assertEquals(INDEX.getDayCount().yearFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR),
         CPN_SAME_FIXING_DATES.getIborIndexFixingPeriodAccrualFactor());
     assertEquals(CUR_REF, CPN_SAME_FIXING_DATES.getReferenceCurrency());
     assertEquals(FX_FIXING_DATE, CPN_SAME_FIXING_DATES.getFxFixingDate());
@@ -536,7 +536,7 @@ public class CouponIborFxResetDefinitionTest {
 
     CouponIborFxResetDefinition cpnRe = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE,
         ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE, expFixingPeriodStartDate, expFixingPeriodEndDate,
-        INDEX.getDayCount().getDayCountFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX,
+        INDEX.getDayCount().yearFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX,
         SPREAD, CALENDAR, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
 
     assertFalse(cpnRe.hashCode() == CPN_FX_FIXED_FIRST.hashCode());
@@ -549,55 +549,55 @@ public class CouponIborFxResetDefinitionTest {
 
     CouponIborFxResetDefinition cpn2 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE,
         ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE, expFixingPeriodStartDate, expFixingPeriodEndDate,
-        INDEX.getDayCount().getDayCountFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX,
+        INDEX.getDayCount().yearFraction(expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX,
         SPREAD, CALENDAR, Currency.JPY, FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn3 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE.plusDays(1),
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE, expFixingPeriodStartDate,
-        expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(expFixingPeriodStartDate,
+        expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(expFixingPeriodStartDate,
             expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn4 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE.plusDays(1), ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn5 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE.plusDays(1), ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn6 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR + 0.01, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn7 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL * 0.1, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn8 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE.plusDays(1),
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn9 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate.plusDays(1), expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate.plusDays(1), expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn10 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate.plusDays(1), INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate.plusDays(1), INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn11 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR) + 0.01, INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn12 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD + 0.01,
         HolidayCalendars.SAT_SUN, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
@@ -605,17 +605,17 @@ public class CouponIborFxResetDefinitionTest {
         false, "Deprecated");
     CouponIborFxResetDefinition cpn13 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), index, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn14 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE.plusDays(1), FX_DELIVERY_DATE);
     CouponIborFxResetDefinition cpn15 = new CouponIborFxResetDefinition(CUR_PAY, PAYMENT_DATE,
         ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_DATE,
-        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().getDayCountFraction(
+        expFixingPeriodStartDate, expFixingPeriodEndDate, INDEX.getDayCount().yearFraction(
             expFixingPeriodStartDate, expFixingPeriodEndDate, CALENDAR), INDEX, SPREAD, CALENDAR, CUR_REF,
         FX_FIXING_DATE, FX_DELIVERY_DATE.plusDays(1));
 

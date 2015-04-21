@@ -97,7 +97,7 @@ public class CouponFixedDefinition extends CouponDefinition {
       final double fixedRate) {
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, tenor, generator.getBusinessDayConvention(), generator.getCalendar(),
         generator.isEndOfMonth());
-    final double paymentYearFraction = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double paymentYearFraction = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new CouponFixedDefinition(generator.getCurrency(), endDate, startDate, endDate, paymentYearFraction, notional, fixedRate);
   }
 

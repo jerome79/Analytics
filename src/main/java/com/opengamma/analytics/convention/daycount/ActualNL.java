@@ -17,11 +17,11 @@ public class ActualNL extends ActualTypeDayCount {
 
   @Override
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
-    return getDayCountFraction(previousCouponDate, date) * coupon;
+    return yearFraction(previousCouponDate, date) * coupon;
   }
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     testDates(firstDate, secondDate);
     long actualDays = secondDate.toEpochDay() - firstDate.toEpochDay();
     int numberOfLeapDays = 0;

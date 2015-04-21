@@ -94,8 +94,8 @@ public class ItraxxXoverTest extends ISDABaseTest {
   //(enabled = false)
   public void putCallTest() {
     if (PRINT) {
-      final double tE = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
-      final double tES = ACT365F.getDayCountFraction(TRADE_DATE, EXERCISE_SETTLE);
+      final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
+      final double tES = ACT365F.yearFraction(TRADE_DATE, EXERCISE_SETTLE);
       //build an index curve treating the index spreads and single name par spreads 
       final ISDACompliantCreditCurve cc = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDX, PILLAR_PAR_SPREADS, YIELD_CURVE);
       final double indexPV = PRICER.pv(SPOT_CDX, YIELD_CURVE, cc, COUPON, PriceType.CLEAN, 0.0);
@@ -129,7 +129,7 @@ public class ItraxxXoverTest extends ISDABaseTest {
     final double expFwdSpread = 331.649277309528 * ONE_BP;
     final double expATMFwdSpread = 327.38630192687924 * ONE_BP;
 
-    final double tE = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
+    final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
 
     //build credit curve by first converting the quoted spreads to PUF  
     final ISDACompliantCreditCurve cc = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDX, PILLAR_QUOTED_SPREADS, YIELD_CURVE);
@@ -157,8 +157,8 @@ public class ItraxxXoverTest extends ISDABaseTest {
     final double[] expOTMprices = new double[] {6.1327369003985E-231, 5647.51524217555, 38556.0028211884, 158651.691867189, 443955.180447323, 583250.500215998, 479498.475809142, 343550.920743509,
       135711.32921182, 45670.1459990407, 13236.2006801549, 3348.89825017615, 750.312519414825, 4.65015781997449, 7.92961638482859E-14 };
 
-    final double tE = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
-    final double tES = ACT365F.getDayCountFraction(TRADE_DATE, EXERCISE_SETTLE);
+    final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
+    final double tES = ACT365F.yearFraction(TRADE_DATE, EXERCISE_SETTLE);
     final double df = YIELD_CURVE.getDiscountFactor(tES);
     final double vol = 0.3;
     //  final BloombergIndexOptionPricer pricer = new BloombergIndexOptionPricer(TRADE_DATE, EXPIRY, EXPIRY.plusDays(1), EXERCISE_SETTLE, ACC_START, MATURITY, YIELD_CURVE, RECOVERY_RATE);

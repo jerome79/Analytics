@@ -64,7 +64,7 @@ public class CS01TestGrids extends ISDABaseTest {
     for (int i = 0; i < 10; i++) {
       final int year = 2014 + i;
       final LocalDate mat = LocalDate.of(year, month, day);
-      final double t = ACT365F.getDayCountFraction(tradeDate, mat);
+      final double t = ACT365F.yearFraction(tradeDate, mat);
       final double df = yieldCurve.getDiscountFactor(t);
       System.out.println(mat + "\t" + t + "\t" + df);
     }

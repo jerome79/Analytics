@@ -109,8 +109,8 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
   @Test
   public void forwardPriceTest() {
 
-    final double tE = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
-    final double tCS = ACT365F.getDayCountFraction(TRADE_DATE, CASH_SETTLEMENT_DATE);
+    final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
+    final double tCS = ACT365F.yearFraction(TRADE_DATE, CASH_SETTLEMENT_DATE);
     final double dealSpread = 175 * ONE_BP;
 
     //The CDS 'seen' at expiry 
@@ -154,7 +154,7 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
    */
   @Test(enabled = false)
   public void blackOptionTest() {
-    final double tEAlt = ACT_ACT_ISDA.getDayCountFraction(TRADE_DATE, EXPIRY);
+    final double tEAlt = ACT_ACT_ISDA.yearFraction(TRADE_DATE, EXPIRY);
     System.out.println("time-to-expiry: " + tEAlt);
     final double vol = 0.4;
     final int n = STRIKES.length;
@@ -173,7 +173,7 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
    */
   @Test
   public void blackOptionTest2() {
-    final double tEAlt = ACT_ACT_ISDA.getDayCountFraction(TRADE_DATE, EXPIRY);
+    final double tEAlt = ACT_ACT_ISDA.yearFraction(TRADE_DATE, EXPIRY);
     //The CDS 'seen' at expiry 
     final CDSAnalytic fwdCDS = FACTORY.makeCDS(TRADE_DATE, EXPIRY.plusDays(1), EXPIRY.plusDays(1), EXPIRY.plusDays(1), MATURITY);
 

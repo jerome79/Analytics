@@ -423,7 +423,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
     MultipleCurrencyParameterSensitivity[] pvpsDepositExact = new MultipleCurrencyParameterSensitivity[nFRA];
     IborIndex index = INDEX_10;
     for (int i = 0; i < nFRA; ++i) {
-      double paymentAccFactor = dayCountPayment.getDayCountFraction(accStartDates[i], accEndDates[i]);
+      double paymentAccFactor = dayCountPayment.yearFraction(accStartDates[i], accEndDates[i]);
       double rate = 0.05;
       ForwardRateAgreementDefinition fraDef = new ForwardRateAgreementDefinition(index.getCurrency(), paymentDates[i], accStartDates[i], accEndDates[i], paymentAccFactor, notinal,
           fixingDates[i], index, rate, CALENDAR_GBP);
@@ -607,7 +607,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
     MultipleCurrencyParameterSensitivity[] pvpsDepositExactFRAs = new MultipleCurrencyParameterSensitivity[nFRA];
     IborIndex index = INDEX_10;
     for (int i = 0; i < nFRA; ++i) {
-      double paymentAccFactor = dayCountPayment.getDayCountFraction(accStartDates[i], accEndDates[i]);
+      double paymentAccFactor = dayCountPayment.yearFraction(accStartDates[i], accEndDates[i]);
       double rate = 0.05;
       ForwardRateAgreementDefinition fraDef = new ForwardRateAgreementDefinition(index.getCurrency(), paymentDates[i], accStartDates[i], accEndDates[i], paymentAccFactor, notinal,
           fixingDates[i], index, rate, CALENDAR_GBP);

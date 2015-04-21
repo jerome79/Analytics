@@ -27,7 +27,7 @@ public abstract class AbstractDayCount implements DayCount {
    * @return the day count fraction
    */
   @Override
-  public abstract double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate);
+  public abstract double yearFraction(final LocalDate firstDate, final LocalDate secondDate);
 
   /**
    * Gets the day count between the specified dates using the supplied calendar to provide business days
@@ -41,8 +41,8 @@ public abstract class AbstractDayCount implements DayCount {
    * @return the day count fraction
    */
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
-    return getDayCountFraction(firstDate, secondDate);
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
+    return yearFraction(firstDate, secondDate);
   }
 
   /**
@@ -56,10 +56,10 @@ public abstract class AbstractDayCount implements DayCount {
    * @return the day count fraction
    */
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
+  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
-    return getDayCountFraction(firstDate.toLocalDate(), secondDate.toLocalDate());
+    return yearFraction(firstDate.toLocalDate(), secondDate.toLocalDate());
   }
 
   /**
@@ -74,10 +74,10 @@ public abstract class AbstractDayCount implements DayCount {
    * @return the day count fraction
    */
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
+  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
-    return getDayCountFraction(firstDate.toLocalDate(), secondDate.toLocalDate());
+    return yearFraction(firstDate.toLocalDate(), secondDate.toLocalDate());
   }
 
   /**

@@ -101,11 +101,11 @@ public class AnnuityCouponIborSpreadDefinition extends AnnuityCouponDefinition<C
     final CouponIborSpreadDefinition[] coupons = new CouponIborSpreadDefinition[paymentDates.length];
     ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(settlementDate, -index.getSpotLag(), calendar);
     coupons[0] = new CouponIborSpreadDefinition(index.getCurrency(), paymentDates[0], settlementDate, paymentDates[0],
-        dayCount.getDayCountFraction(settlementDate, paymentDates[0], calendar), sign * notional, fixingDate, index, spread, calendar);
+        dayCount.yearFraction(settlementDate, paymentDates[0], calendar), sign * notional, fixingDate, index, spread, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       fixingDate = ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -index.getSpotLag(), calendar);
       coupons[loopcpn] = new CouponIborSpreadDefinition(index.getCurrency(), paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          dayCount.getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, fixingDate, index, spread, calendar);
+          dayCount.yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, fixingDate, index, spread, calendar);
     }
     return new AnnuityCouponIborSpreadDefinition(coupons, calendar);
   }
@@ -144,11 +144,11 @@ public class AnnuityCouponIborSpreadDefinition extends AnnuityCouponDefinition<C
     final CouponIborSpreadDefinition[] coupons = new CouponIborSpreadDefinition[paymentDates.length];
     ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(settlementDate, -index.getSpotLag(), calendar);
     coupons[0] = new CouponIborSpreadDefinition(index.getCurrency(), paymentDates[0], settlementDate, paymentDates[0],
-        dayCount.getDayCountFraction(settlementDate, paymentDates[0], calendar), sign * notional, fixingDate, index, spread, calendar);
+        dayCount.yearFraction(settlementDate, paymentDates[0], calendar), sign * notional, fixingDate, index, spread, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       fixingDate = ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -index.getSpotLag(), calendar);
       coupons[loopcpn] = new CouponIborSpreadDefinition(index.getCurrency(), paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          dayCount.getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, fixingDate, index, spread, calendar);
+          dayCount.yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, fixingDate, index, spread, calendar);
     }
     return new AnnuityCouponIborSpreadDefinition(coupons, calendar);
   }

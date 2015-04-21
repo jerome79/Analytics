@@ -83,7 +83,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
     ArgChecker.notNull(calendar, "calendar");
     _fixingPeriodStartDate = fixingPeriodStartDate;
     _fixingPeriodEndDate = fixingPeriodEndDate;
-    _fixingPeriodAccrualFactor = iborIndex.getDayCount().getDayCountFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = iborIndex.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _iborIndex = iborIndex;
     _notional = notional;
     _paymentAccrualFactor = paymentAccrualFactor;
@@ -110,7 +110,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(lastTradingDate, _iborIndex.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator
         .getAdjustedDate(_fixingPeriodStartDate, _iborIndex.getTenor(), _iborIndex.getBusinessDayConvention(), calendar, _iborIndex.isEndOfMonth());
-    _fixingPeriodAccrualFactor = _iborIndex.getDayCount().getDayCountFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = _iborIndex.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _notional = notional;
     _paymentAccrualFactor = paymentAccrualFactor;
     _name = name;

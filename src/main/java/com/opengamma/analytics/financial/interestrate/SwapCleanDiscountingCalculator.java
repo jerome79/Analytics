@@ -140,7 +140,7 @@ public class SwapCleanDiscountingCalculator {
   }
 
   private double getAccrued(DayCount dayCount, HolidayCalendar calendar, ZonedDateTime valuationDate, CouponDefinition coupon) {
-    double accruedYearFraction = dayCount.getDayCountFraction(coupon.getAccrualStartDate(), valuationDate, calendar);
+    double accruedYearFraction = dayCount.yearFraction(coupon.getAccrualStartDate(), valuationDate, calendar);
     return accruedYearFraction * coupon.getNotional();
   }
 

@@ -48,7 +48,7 @@ public class BillSecurityTest {
   private final static ZonedDateTime SETTLE_DATE = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, SETTLEMENT_DAYS, CALENDAR);
   private final static double SETTLE_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, SETTLE_DATE);
   private final static double END_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, END_DATE);
-  private final static double ACCRUAL_FACTOR = ACT360.getDayCountFraction(SETTLE_DATE, END_DATE);
+  private final static double ACCRUAL_FACTOR = ACT360.yearFraction(SETTLE_DATE, END_DATE);
   private final static BillSecurity BILL_SEC = new BillSecurity(EUR, SETTLE_TIME, END_TIME, NOTIONAL, YIELD_CONVENTION, ACCRUAL_FACTOR, ISSUER_BEL);
 
   @Test(expectedExceptions = IllegalArgumentException.class)

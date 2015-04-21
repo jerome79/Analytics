@@ -317,7 +317,7 @@ public class SwapVariationMarginE2ETest {
     double pvPrev = irsPrev.accept(PVDC, MULTICURVES_USD1).getAmount(USD).getAmount();
     // Year fraction should be calculated based on day count of ON index
     double pai = -pvPrev * FF_RATE1 *
-        FEDFUND.getDayCount().getDayCountFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
+        FEDFUND.getDayCount().yearFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
     double vm = pvToday - pvPrev + pai;
     double expected = -4193.340074307651;
     assertRelative("IBOR3M vs FIXED, USD", expected, vm, EPS);
@@ -338,7 +338,7 @@ public class SwapVariationMarginE2ETest {
     double pvPrev = irsPrev.accept(PVDC, MULTICURVES_USD2).getAmount(USD).getAmount();
     // Year fraction should be calculated based on day count of ON index
     double pai = -pvPrev * FF_RATE2 *
-        FEDFUND.getDayCount().getDayCountFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
+        FEDFUND.getDayCount().yearFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
     double vm = pvToday - pvPrev + pai;
     double expected = -60462.62116159937;
     assertRelative("IBOR3M vs FIXED, USD", expected, vm, EPS);
@@ -362,7 +362,7 @@ public class SwapVariationMarginE2ETest {
     double pvPrev = irsPrev.accept(PVDC, MULTICURVES_USD1).getAmount(USD).getAmount();
     // Year fraction should be calculated based on day count of ON index
     double pai = -pvPrev * FF_RATE1 *
-        FEDFUND.getDayCount().getDayCountFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
+        FEDFUND.getDayCount().yearFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
     double vmFixed = pvTodayFixed - pvPrev + pai;
     double vm = pvToday - pvPrev + pai;
     double expectedFixed = -6685.816097728809;
@@ -387,7 +387,7 @@ public class SwapVariationMarginE2ETest {
     double pvPrev = irsPrev.accept(PVDC, MULTICURVES_USD1).getAmount(USD).getAmount();
     // Year fraction should be calculated based on day count of ON index
     double pai = -pvPrev * FF_RATE1 *
-        FEDFUND.getDayCount().getDayCountFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
+        FEDFUND.getDayCount().yearFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
     double vm = pvToday - pvPrev + pai;
     double expected = 8439.829471025056;
     assertRelative("IBOR3M vs FIXED, USD", expected, vm, EPS);
@@ -578,7 +578,7 @@ public class SwapVariationMarginE2ETest {
     double pvPrev = irsPrev.accept(PVDC, MULTICURVES_GBP1).getAmount(GBP).getAmount();
     // Year fraction should be calculated based on day count of ON index
     double pai = -pvPrev * SN_RATE1 *
-        SONIA.getDayCount().getDayCountFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
+        SONIA.getDayCount().yearFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
     double vm = pvToday - pvPrev + pai;
     double expected = -6279.180878941443;
     assertRelative("IBOR3M vs FIXED, GBP", expected, vm, EPS);
@@ -599,7 +599,7 @@ public class SwapVariationMarginE2ETest {
     double pvPrev = irsPrev.accept(PVDC, MULTICURVES_GBP2).getAmount(GBP).getAmount();
     // Year fraction should be calculated based on day count of ON index
     double pai = -pvPrev * SN_RATE2 *
-        SONIA.getDayCount().getDayCountFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
+        SONIA.getDayCount().yearFraction(prevDate.toLocalDate(), tradeDate.toLocalDate());
     double vm = pvToday - pvPrev + pai;
     double expected = -121763.86446903751;
     assertRelative("IBOR3M vs FIXED, GBP", expected, vm, EPS);

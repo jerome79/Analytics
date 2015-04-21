@@ -90,12 +90,12 @@ public class MultiCDSAnalytic {
     }
     _payAccOnDefault = payAccOnDefault;
 
-    _accStart = accStartDate.isBefore(tradeDate) ? -curveDayCount.getDayCountFraction(accStartDate, tradeDate) : curveDayCount.getDayCountFraction(tradeDate, accStartDate);
+    _accStart = accStartDate.isBefore(tradeDate) ? -curveDayCount.yearFraction(accStartDate, tradeDate) : curveDayCount.yearFraction(tradeDate, accStartDate);
     final LocalDate temp = stepinDate.isAfter(accStartDate) ? stepinDate : accStartDate;
     final LocalDate effectiveStartDate = protectStart ? temp.minusDays(1) : temp;
 
-    _cashSettlementTime = curveDayCount.getDayCountFraction(tradeDate, cashSettlementDate);
-    _effectiveProtectionStart = curveDayCount.getDayCountFraction(tradeDate, effectiveStartDate);
+    _cashSettlementTime = curveDayCount.yearFraction(tradeDate, cashSettlementDate);
+    _effectiveProtectionStart = curveDayCount.yearFraction(tradeDate, effectiveStartDate);
     _lgd = 1 - recoveryRate;
 
     final LocalDate[] maturities = new LocalDate[_nMaturities];
@@ -104,7 +104,7 @@ public class MultiCDSAnalytic {
     for (int i = 0; i < _nMaturities; i++) {
       final Period tStep = period.multipliedBy(maturityIndexes[i]);
       maturities[i] = maturityReferanceDate.plus(tStep);
-      _protectionEnd[i] = curveDayCount.getDayCountFraction(tradeDate, maturities[i]);
+      _protectionEnd[i] = curveDayCount.yearFraction(tradeDate, maturities[i]);
     }
 
     final ISDAPremiumLegSchedule fullPaymentSchedule = new ISDAPremiumLegSchedule(accStartDate, maturities[_nMaturities - 1], period, stubType, businessdayAdjustmentConvention, calendar, protectStart);
@@ -137,7 +137,7 @@ public class MultiCDSAnalytic {
       final LocalDate tDate2 = _matIndexToPayments[i] < 0 ? fullPaymentSchedule.getAccStartDate(couponOffset - 1) : paymentSchedule.getAccStartDate(0);
       final long firstJulianDate = tDate2.getLong(JulianFields.MODIFIED_JULIAN_DAY);
       _accruedDays[i] = secondJulianDate > firstJulianDate ? (int) (secondJulianDate - firstJulianDate) : 0;
-      _accrued[i] = tDate2.isBefore(stepinDate) ? accrualDayCount.getDayCountFraction(tDate2, stepinDate) : 0.0;
+      _accrued[i] = tDate2.isBefore(stepinDate) ? accrualDayCount.yearFraction(tDate2, stepinDate) : 0.0;
     }
   }
 

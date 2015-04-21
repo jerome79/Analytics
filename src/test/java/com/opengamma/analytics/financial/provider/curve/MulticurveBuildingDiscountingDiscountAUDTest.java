@@ -364,7 +364,7 @@ public class MulticurveBuildingDiscountingDiscountAUDTest {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, AUDBB3M, SYD);
         final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = AUDBB3M.getDayCount().getDayCountFraction(startDate, endDate);
+        final double accrualFactor = AUDBB3M.getDayCount().yearFraction(startDate, endDate);
         rateDsc[loopdate] = marketDsc.getSimplyCompoundForwardRate(AUDBB3M, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, SYD);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

@@ -19,7 +19,7 @@ public class ThirtyEThreeSixtyISDA extends ThirtyThreeSixtyTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     throw new UnsupportedOperationException("Need to know whether the second date is the maturity");
   }
 

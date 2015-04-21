@@ -56,7 +56,7 @@ public class ISDACompliantCurveCalibrator {
     final double lgd = 1 - recoveryRate;
     for (int i = 0; i < n; i++) {
       guess[i] = couponRates[i] / lgd;
-      t[i] = ACT_365.getDayCountFraction(today, endDates[i]);
+      t[i] = ACT_365.yearFraction(today, endDates[i]);
     }
 
     // HazardRateCurve hazardCurve = new HazardRateCurve(toZoneDateTime(endDates), t, guess, 0.0);

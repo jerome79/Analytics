@@ -197,7 +197,7 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeSpreadTest {
     dfExo[0] = 1.0;
     for (int loopdate = 0; loopdate < startExoDates.length; loopdate++) {
       dfExo[loopdate + 1] = dfExo[loopdate] *
-          1.0 / (1 + EONIA.getDayCount().getDayCountFraction(startExoDates[loopdate], endExoDates[loopdate]) * spreadExo[loopdate]);
+          1.0 / (1 + EONIA.getDayCount().yearFraction(startExoDates[loopdate], endExoDates[loopdate]) * spreadExo[loopdate]);
       times[2 * loopdate] = TimeCalculator.getTimeBetween(CALIBRATION_DATE, startExoDates[loopdate]);
       times[2 * loopdate + 1] = TimeCalculator.getTimeBetween(CALIBRATION_DATE, endExoDates[loopdate]);
       df[2 * loopdate] = dfExo[loopdate];

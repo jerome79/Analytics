@@ -254,7 +254,7 @@ public class CapFloorInflationZeroCouponInterpolationDefinitiontest {
             DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1)},
         new double[]{127.23, 127.43, 128.23, 128.43});
     final Coupon zeroCouponConverted = ZERO_COUPON_CAP_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, Math.max(
         (WEIGHT * 128.23 + (1 - WEIGHT) * 128.43) / INDEX_START_VALUE - 1.0 - Math.pow(1 + STRIKE, MATURITY), 0.0));
     assertEquals("Inflation zero-coupon: toDerivative", zeroCoupon, zeroCouponConverted);

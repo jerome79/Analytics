@@ -87,11 +87,11 @@ public class CDSAnalyticsDemo extends ISDABaseTest {
 
     //check the shifted and unshifted curves are equivalent - po is the discount factor between the CDS trade date and
     //the spot date of the yield curve instruments 
-    final double p0 = yc_shifted.getDiscountFactor(ACT365F.getDayCountFraction(TRADE_DATE, spotDate));
+    final double p0 = yc_shifted.getDiscountFactor(ACT365F.yearFraction(TRADE_DATE, spotDate));
     final int n = TEST_DATES.length;
     for (int i = 0; i < n; i++) {
-      final double t1 = ACT365F.getDayCountFraction(TRADE_DATE, TEST_DATES[i]);
-      final double t2 = ACT365F.getDayCountFraction(spotDate, TEST_DATES[i]);
+      final double t1 = ACT365F.yearFraction(TRADE_DATE, TEST_DATES[i]);
+      final double t2 = ACT365F.yearFraction(spotDate, TEST_DATES[i]);
       final double df1 = YIELD_CURVE.getDiscountFactor(t1);
       final double df2 = p0 * yc_unshifted.getDiscountFactor(t2);
       assertEquals(df1, df2, 1e-15);
@@ -230,7 +230,7 @@ public class CDSAnalyticsDemo extends ISDABaseTest {
 
     //The market value is the value of the CDS on the trade date
     final LocalDate cashSettleDate = addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR); // 3-Jul-2014
-    final double df = YIELD_CURVE.getDiscountFactor(ACT365F.getDayCountFraction(TRADE_DATE, cashSettleDate));
+    final double df = YIELD_CURVE.getDiscountFactor(ACT365F.yearFraction(TRADE_DATE, cashSettleDate));
     final double marketValue = df * cashSettlement;
     System.out.format("Market value: %.2f\n", marketValue);
 

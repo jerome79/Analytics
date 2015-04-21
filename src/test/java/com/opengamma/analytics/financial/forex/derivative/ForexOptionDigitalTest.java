@@ -39,7 +39,7 @@ public class ForexOptionDigitalTest {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 8);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final Forex FX = FX_DEFINITION.toDerivative(REFERENCE_DATE);
-  private static final double EXPIRATION_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, EXPIRATION_DATE);
+  private static final double EXPIRATION_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRATION_DATE);
   private static final ForexOptionDigital FX_OPTION = new ForexOptionDigital(FX, EXPIRATION_TIME, IS_CALL, IS_LONG, true);
 
   @Test(expectedExceptions = IllegalArgumentException.class)

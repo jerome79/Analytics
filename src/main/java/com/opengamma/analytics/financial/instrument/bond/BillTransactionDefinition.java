@@ -68,7 +68,7 @@ public class BillTransactionDefinition implements InstrumentDefinition<BillTrans
       final HolidayCalendar calendar) {
     ArgChecker.notNull(underlying, "Underlying");
     ArgChecker.notNull(settlementDate, "Settlement date");
-    final double accrualFactor = underlying.getDayCount().getDayCountFraction(settlementDate, underlying.getEndDate(), calendar);
+    final double accrualFactor = underlying.getDayCount().yearFraction(settlementDate, underlying.getEndDate(), calendar);
     final double settlementAmount = -quantity * underlying.getNotional() * PriceFromYieldCalculator.priceFromYield(underlying.getYieldConvention(), yield, accrualFactor);
     return new BillTransactionDefinition(underlying, quantity, settlementDate, settlementAmount);
   }

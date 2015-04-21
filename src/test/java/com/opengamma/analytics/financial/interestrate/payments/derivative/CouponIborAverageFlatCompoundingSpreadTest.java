@@ -61,7 +61,7 @@ public class CouponIborAverageFlatCompoundingSpreadTest {
   }
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double[] ACCRUAL_FACTORS = new double[NUM_PRDS];
   static {
     Arrays.fill(ACCRUAL_FACTORS, ACCRUAL_FACTOR / NUM_PRDS);
@@ -96,7 +96,7 @@ public class CouponIborAverageFlatCompoundingSpreadTest {
     }
     for (int i = 0; i < NUM_OBS; ++i) {
       for (int j = 0; j < NUM_PRDS; ++j) {
-        FIX_ACC_FACTORS[j][i] = INDEX.getDayCount().getDayCountFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
+        FIX_ACC_FACTORS[j][i] = INDEX.getDayCount().yearFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
       }
     }
   }

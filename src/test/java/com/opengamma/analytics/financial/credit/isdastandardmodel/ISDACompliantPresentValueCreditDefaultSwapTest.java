@@ -62,7 +62,7 @@ public class ISDACompliantPresentValueCreditDefaultSwapTest {
     Arrays.fill(DISCOUNT_FACT, 1.0);
     YC_TIMES = new double[ycPoints];
     for (int i = 0; i < ycPoints; i++) {
-      YC_TIMES[i] = ACT365.getDayCountFraction(BASE_DATE, YC_DATES[i]);
+      YC_TIMES[i] = ACT365.yearFraction(BASE_DATE, YC_DATES[i]);
     }
     // YIELD_CURVE_ZERO_FLAT = new ISDADateCurve("ISDA", BASE_DATE, YC_DATES, zeros, OFFSET); // Remake: this constructor assumes ACT/365
     // YIELD_CURVE_5PC_FLAT = new ISDADateCurve("ISDA", BASE_DATE, YC_DATES, fivePC, OFFSET);

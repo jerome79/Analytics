@@ -61,7 +61,7 @@ public class ActualActualICMATest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetDayCount1() {
-    DC1.getDayCountFraction(D1, D2);
+    DC1.yearFraction(D1, D2);
   }
 
   @Test
@@ -107,7 +107,7 @@ public class ActualActualICMATest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetDayCount2() {
-    DC2.getDayCountFraction(D1, D2);
+    DC2.yearFraction(D1, D2);
   }
 
   @Test

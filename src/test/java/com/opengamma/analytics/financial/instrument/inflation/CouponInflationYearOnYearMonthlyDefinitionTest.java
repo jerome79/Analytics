@@ -166,11 +166,11 @@ public class CouponInflationYearOnYearMonthlyDefinitionTest {
   public void toDerivativesNoData() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2011, 7, 29);
     final Coupon yearOnYearCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
-    final double referenceStartTime = ACT_ACT.getDayCountFraction(pricingDate, REFERENCE_START_DATE);
-    final double referenceEndTime = ACT_ACT.getDayCountFraction(pricingDate, REFERENCE_END_DATE);
-    final double naturalPaymentStartPaymentTime = ACT_ACT.getDayCountFraction(pricingDate, ACCRUAL_START_DATE);
-    final double naturalPaymentEndPaymentTime = ACT_ACT.getDayCountFraction(pricingDate, ACCRUAL_END_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
+    final double referenceStartTime = ACT_ACT.yearFraction(pricingDate, REFERENCE_START_DATE);
+    final double referenceEndTime = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE);
+    final double naturalPaymentStartPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_START_DATE);
+    final double naturalPaymentEndPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_END_DATE);
     final CouponInflationYearOnYearMonthly yearOnYearCoupon = new CouponInflationYearOnYearMonthly(CUR, paymentTime, 1.0, NOTIONAL, PRICE_INDEX, referenceStartTime,
         naturalPaymentStartPaymentTime, referenceEndTime, naturalPaymentEndPaymentTime, false);
     assertEquals("Inflation zero-coupon: toDerivative", yearOnYearCouponConverted, yearOnYearCoupon);
@@ -184,11 +184,11 @@ public class CouponInflationYearOnYearMonthlyDefinitionTest {
         new double[]{
             127.23, 127.43, 128.23, 128.43});
     final Coupon yearOnYearCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
-    final double referenceStartTime = ACT_ACT.getDayCountFraction(pricingDate, REFERENCE_START_DATE);
-    final double referenceEndTime = ACT_ACT.getDayCountFraction(pricingDate, REFERENCE_END_DATE);
-    final double naturalPaymentStartPaymentTime = ACT_ACT.getDayCountFraction(pricingDate, ACCRUAL_START_DATE);
-    final double naturalPaymentEndPaymentTime = ACT_ACT.getDayCountFraction(pricingDate, ACCRUAL_END_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
+    final double referenceStartTime = ACT_ACT.yearFraction(pricingDate, REFERENCE_START_DATE);
+    final double referenceEndTime = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE);
+    final double naturalPaymentStartPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_START_DATE);
+    final double naturalPaymentEndPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_END_DATE);
     final CouponInflationYearOnYearMonthly yearOnYearCoupon = new CouponInflationYearOnYearMonthly(CUR, paymentTime, 1.0, NOTIONAL, PRICE_INDEX, referenceStartTime,
         naturalPaymentStartPaymentTime, referenceEndTime, naturalPaymentEndPaymentTime, false);
     assertEquals("Inflation zero-coupon: toDerivative", yearOnYearCoupon, yearOnYearCouponConverted);
@@ -202,7 +202,7 @@ public class CouponInflationYearOnYearMonthlyDefinitionTest {
         new double[] {
           127.23, 127.43, 128.23, 128.43 });
     final Coupon zeroCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, 128.23 / 127.23 - 1.0);
     assertEquals("Inflation zero-coupon: toDerivative", zeroCoupon, zeroCouponConverted);
   }

@@ -71,7 +71,7 @@ public class PaymentFixedDefinitionTest {
   public void testToDerivative() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
     final ZonedDateTime zonedDate = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE.toLocalDate(), LocalTime.MIDNIGHT), ZoneOffset.UTC);
-    final double paymentTime = actAct.getDayCountFraction(zonedDate, PAYMENT_DATE);
+    final double paymentTime = actAct.yearFraction(zonedDate, PAYMENT_DATE);
     final PaymentFixed paymentFixed = new PaymentFixed(CUR, paymentTime, AMOUNT);
     final PaymentFixed convertedDefinition = FIXED_PAYMENT.toDerivative(REFERENCE_DATE);
     assertEquals(paymentFixed, convertedDefinition);

@@ -422,8 +422,8 @@ public class AnnuityDefinitionBuilderTest {
       assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", cpn.getFixingPeriodEndDate(),
           ScheduleCalculator.getAdjustedDate(cpn.getFixingPeriodStartDate(), USDLIBOR6M, NYC));
       assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", NOTIONAL, -cpn.getNotional()); // Payer
-      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", ACT_365.getDayCountFraction(cpn.getAccrualStartDate(), cpn.getAccrualEndDate()), cpn.getPaymentYearFraction());
-      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", USDLIBOR6M.getDayCount().getDayCountFraction(cpn.getFixingPeriodStartDate(), cpn.getFixingPeriodEndDate()),
+      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", ACT_365.yearFraction(cpn.getAccrualStartDate(), cpn.getAccrualEndDate()), cpn.getPaymentYearFraction());
+      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", USDLIBOR6M.getDayCount().yearFraction(cpn.getFixingPeriodStartDate(), cpn.getFixingPeriodEndDate()),
           cpn.getFixingPeriodAccrualFactor());
     }
   }
@@ -791,8 +791,8 @@ public class AnnuityDefinitionBuilderTest {
           ScheduleCalculator.getAdjustedDate(cpn.getFixingPeriodStartDate(), USDLIBOR6M, NYC));
       assertEquals("AnnuityDefinitionBuilder: Coupon Ibor Spread", NOTIONAL, -cpn.getNotional()); // Payer
       assertEquals("AnnuityDefinitionBuilder: Coupon Ibor Spread", SPREAD, cpn.getSpread());
-      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", ACT_365.getDayCountFraction(cpn.getAccrualStartDate(), cpn.getAccrualEndDate()), cpn.getPaymentYearFraction());
-      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", USDLIBOR6M.getDayCount().getDayCountFraction(cpn.getFixingPeriodStartDate(), cpn.getFixingPeriodEndDate()),
+      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", ACT_365.yearFraction(cpn.getAccrualStartDate(), cpn.getAccrualEndDate()), cpn.getPaymentYearFraction());
+      assertEquals("AnnuityDefinitionBuilder: Coupon Ibor", USDLIBOR6M.getDayCount().yearFraction(cpn.getFixingPeriodStartDate(), cpn.getFixingPeriodEndDate()),
           cpn.getFixingPeriodAccrualFactor());
     }
   }

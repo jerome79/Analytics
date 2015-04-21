@@ -57,7 +57,7 @@ public class InterestRateFutureOptionMarginSecuritySABRMethodTest {
   // Option
   private static final ZonedDateTime EXPIRATION_DATE = DateUtils.getUTCDate(2011, 9, 16);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
-  private static final double EXPIRATION_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, EXPIRATION_DATE);
+  private static final double EXPIRATION_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRATION_DATE);
   private static final boolean IS_CALL = true;
   private static final InterestRateFutureOptionMarginSecurity OPTION_EDU2 = new InterestRateFutureOptionMarginSecurity(EDU2, EXPIRATION_TIME, STRIKE, IS_CALL);
 
@@ -85,7 +85,7 @@ public class InterestRateFutureOptionMarginSecuritySABRMethodTest {
    * Test the option price from the future price. Standard option.
    */
   public void priceFromFuturePriceStandard() {
-    final double expirationTime = ACT_ACT.getDayCountFraction(REFERENCE_DATE, LAST_TRADING_DATE);
+    final double expirationTime = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_TRADING_DATE);
     final InterestRateFutureOptionMarginSecurity optionEDU2Standard = new InterestRateFutureOptionMarginSecurity(EDU2, expirationTime, STRIKE, IS_CALL);
     final double priceFuture = 0.9905;
     final double priceOption = METHOD_OPT_FUT_SEC_SABR.priceFromFuturePrice(optionEDU2Standard, SABR_MULTICURVES, priceFuture);
@@ -103,7 +103,7 @@ public class InterestRateFutureOptionMarginSecuritySABRMethodTest {
    * Test the option price from the future price. Standard option.
    */
   public void priceStandard() {
-    final double expirationTime = ACT_ACT.getDayCountFraction(REFERENCE_DATE, LAST_TRADING_DATE);
+    final double expirationTime = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_TRADING_DATE);
     final InterestRateFutureOptionMarginSecurity optionEDU2Standard = new InterestRateFutureOptionMarginSecurity(EDU2, expirationTime, STRIKE, IS_CALL);
     final double priceOption = METHOD_OPT_FUT_SEC_SABR.price(optionEDU2Standard, SABR_MULTICURVES);
     final double priceFuture = METHOD_DSC_FUT.price(EDU2, MULTICURVES);

@@ -59,11 +59,11 @@ public class AnnuityCapFloorCMSSpreadDefinition extends AnnuityDefinition<CapFlo
         false);
     final double sign = isPayer ? -1.0 : 1.0;
     final CapFloorCMSSpreadDefinition[] coupons = new CapFloorCMSSpreadDefinition[paymentDates.length];
-    coupons[0] = CapFloorCMSSpreadDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.getDayCountFraction(settlementDate, paymentDates[0], calendar1),
+    coupons[0] = CapFloorCMSSpreadDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.yearFraction(settlementDate, paymentDates[0], calendar1),
         sign * notional, index1, index2, strike, isCap, calendar1, calendar2);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = CapFloorCMSSpreadDefinition.from(paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          dayCount.getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar1), sign * notional, index1, index2, strike, isCap, calendar1, calendar2);
+          dayCount.yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar1), sign * notional, index1, index2, strike, isCap, calendar1, calendar2);
     }
     return new AnnuityCapFloorCMSSpreadDefinition(coupons, calendar1);
   }

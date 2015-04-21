@@ -104,7 +104,7 @@ public class ForexOptionVanillaDefinitionTest {
     final InstrumentDerivative optionConverted = FX_OPTION_DEFINITION.toDerivative(referenceDate);
     final Forex fx = FX_DEFINITION.toDerivative(referenceDate);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double expirationTime = actAct.getDayCountFraction(referenceDate, EXPIRATION_DATE);
+    final double expirationTime = actAct.yearFraction(referenceDate, EXPIRATION_DATE);
     final ForexOptionVanilla optionConstructed = new ForexOptionVanilla(fx, expirationTime, IS_CALL, IS_LONG);
     assertEquals("Convertion to derivative", optionConstructed, optionConverted);
   }

@@ -76,7 +76,7 @@ public class SwapFixedOISDefinitionTest {
           EONIA_GENERATOR
               .getIndex()
               .getDayCount()
-              .getDayCountFraction(EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(),
+              .yearFraction(EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(),
                   EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
       assertFalse("Swap OIS definition: constructor",
           EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentDate().equals(EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()));
@@ -134,7 +134,7 @@ public class SwapFixedOISDefinitionTest {
           RBAON_GENERATOR
               .getIndex()
               .getDayCount()
-              .getDayCountFraction(RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(),
+              .yearFraction(RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(),
                   RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
       assertEquals("Swap OIS definition: constructor", RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentDate(), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn)
           .getAccrualEndDate());

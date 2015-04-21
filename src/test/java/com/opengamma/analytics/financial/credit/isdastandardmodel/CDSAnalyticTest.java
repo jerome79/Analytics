@@ -79,7 +79,7 @@ public class CDSAnalyticTest extends ISDABaseTest {
     final Period term = Period.ofYears(5);
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(expiry, term);
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingIMMCDS(tradeDate, expiry, term);
-    final double tE = ACT365F.getDayCountFraction(tradeDate, expiry);
+    final double tE = ACT365F.yearFraction(tradeDate, expiry);
     final CDSAnalytic fwdStartingCDS2 = fwdCDS.withOffset(tE);
     assertEquals(fwdStartingCDS.getAccruedYearFraction(), fwdStartingCDS2.getAccruedYearFraction());
     assertEquals(fwdStartingCDS.getLGD(), fwdStartingCDS2.getLGD());

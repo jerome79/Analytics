@@ -280,11 +280,11 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
     final LocalDate startTOY = LocalDate.of(2011, 12, 30);
     final LocalDate endTOY = LocalDate.of(2012, 1, 2);
     final double spreadTOY = 0.0025; // 25bps
-    final double dfTOY = 1.0 / (1 + USDLIBOR3M.getDayCount().getDayCountFraction(startTOY, endTOY) * spreadTOY);
+    final double dfTOY = 1.0 / (1 + USDLIBOR3M.getDayCount().yearFraction(startTOY, endTOY) * spreadTOY);
     final LocalDate startTOQ = LocalDate.of(2012, 3, 30);
     final LocalDate endTOQ = LocalDate.of(2012, 4, 2);
     final double spreadTOQ = 0.0010; // 25bps
-    final double dfTOQ = 1.0 / (1 + USDLIBOR3M.getDayCount().getDayCountFraction(startTOQ, endTOQ) * spreadTOQ);
+    final double dfTOQ = 1.0 / (1 + USDLIBOR3M.getDayCount().yearFraction(startTOQ, endTOQ) * spreadTOQ);
     final double[] times = {TimeCalculator.getTimeBetween(NOW, startTOY), TimeCalculator.getTimeBetween(NOW, endTOY), TimeCalculator.getTimeBetween(NOW, startTOQ),
       TimeCalculator.getTimeBetween(NOW, endTOQ) };
     final double[] df = {1.0, dfTOY, dfTOY, dfTOY * dfTOQ };
@@ -472,7 +472,7 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, USDLIBOR3M, NYC);
         final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = USDLIBOR3M.getDayCount().getDayCountFraction(startDate, endDate);
+        final double accrualFactor = USDLIBOR3M.getDayCount().yearFraction(startDate, endDate);
         rateDsc[loopdate] = marketDsc.getSimplyCompoundForwardRate(USDLIBOR3M, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, NYC);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

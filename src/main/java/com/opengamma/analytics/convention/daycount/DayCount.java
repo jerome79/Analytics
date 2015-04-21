@@ -30,7 +30,7 @@ public interface DayCount extends NamedInstance {
    * @param secondDate  the later date, not null
    * @return the day count fraction
    */
-  double getDayCountFraction(LocalDate firstDate, LocalDate secondDate);
+  double yearFraction(LocalDate firstDate, LocalDate secondDate);
 
   /**
    * Gets the day count between the specified dates using the supplied calendar to provide business days
@@ -43,7 +43,7 @@ public interface DayCount extends NamedInstance {
    * @param calendar  a calendar
    * @return the day count fraction
    */
-  double getDayCountFraction(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar);
+  double yearFraction(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar);
 
   /**
    * Gets the day count between the specified dates.
@@ -55,7 +55,7 @@ public interface DayCount extends NamedInstance {
    * @param secondDate  the later date, not null
    * @return the day count fraction
    */
-  double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate);
+  double yearFraction(ZonedDateTime firstDate, ZonedDateTime secondDate);
 
   /**
    * Gets the day count between the specified dates using the supplied calendar to provide business days
@@ -68,7 +68,7 @@ public interface DayCount extends NamedInstance {
    * @param calendar  a calendar
    * @return the day count fraction
    */
-  double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar);
+  double yearFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar);
 
   /**
    * Calculates the accrued interest for the coupon according to the convention.

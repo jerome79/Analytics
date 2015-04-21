@@ -71,7 +71,7 @@ public class BlackIndexOptionPricerTest extends ISDABaseTest {
     final double tol = 1.e-12;
 
     final LocalDate optionExpiry = getNextIMMDate(TRADE_DATE).minusDays(1);
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdCDX = FACTORY.makeCDX(optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDX = fwdCDX.withOffset(timeToExpiry);
     //  final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
@@ -132,7 +132,7 @@ public class BlackIndexOptionPricerTest extends ISDABaseTest {
   @Test
   public void limitTest() {
     final LocalDate optionExpiry = getNextIMMDate(TRADE_DATE).minusDays(1);
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdCDX = FACTORY.makeCDX(optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDX = fwdCDX.withOffset(timeToExpiry);
 

@@ -143,7 +143,7 @@ public class InstrumentTestHelper {
     }
 
     @Override
-    public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+    public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
       return 0.5;
     }
 
@@ -166,7 +166,7 @@ public class InstrumentTestHelper {
     }
 
     @Override
-    public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+    public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
       return 0.25;
     }
 

@@ -80,7 +80,7 @@ public class CouponONDefinition extends CouponDefinition implements InstrumentDe
     while (currentDate.isBefore(fixingPeriodEndDate)) {
       nextDate = ScheduleCalculator.getAdjustedDate(currentDate, 1, calendar);
       fixingDateList.add(nextDate);
-      fixingAccrualFactorList.add(index.getDayCount().getDayCountFraction(currentDate, nextDate, calendar));
+      fixingAccrualFactorList.add(index.getDayCount().yearFraction(currentDate, nextDate, calendar));
       currentDate = nextDate;
     }
     _fixingPeriodDate = fixingDateList.toArray(new ZonedDateTime[fixingDateList.size()]);
@@ -120,7 +120,7 @@ public class CouponONDefinition extends CouponDefinition implements InstrumentDe
   public static CouponONDefinition from(final IndexON index, final ZonedDateTime settlementDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
       final int settlementDays, final HolidayCalendar calendar) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + settlementDays, calendar);
-    final double paymentYearFraction = index.getDayCount().getDayCountFraction(settlementDate, fixingPeriodEndDate, calendar);
+    final double paymentYearFraction = index.getDayCount().yearFraction(settlementDate, fixingPeriodEndDate, calendar);
     return new CouponONDefinition(index.getCurrency(), paymentDate, settlementDate, fixingPeriodEndDate, paymentYearFraction, notional, index, settlementDate,
         fixingPeriodEndDate, calendar);
   }

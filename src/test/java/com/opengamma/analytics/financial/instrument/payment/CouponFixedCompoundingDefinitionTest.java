@@ -52,7 +52,7 @@ public class CouponFixedCompoundingDefinitionTest {
     }
     double af = 0.0;
     for (int loopsub = 0; loopsub < NB_SUB_PERIOD; loopsub++) {
-      PAYMENT_ACCRUAL_FACTORS[loopsub] = USDLIBOR1M.getDayCount().getDayCountFraction(ACCRUAL_START_DATES[loopsub], ACCRUAL_END_DATES[loopsub]);
+      PAYMENT_ACCRUAL_FACTORS[loopsub] = USDLIBOR1M.getDayCount().yearFraction(ACCRUAL_START_DATES[loopsub], ACCRUAL_END_DATES[loopsub]);
       af += PAYMENT_ACCRUAL_FACTORS[loopsub];
     }
     PAYMENT_ACCRUAL_FACTOR = af;
@@ -61,7 +61,7 @@ public class CouponFixedCompoundingDefinitionTest {
   private static final double[] FIXING_ACCRUAL_FACTORS = new double[NB_SUB_PERIOD];
   static {
     for (int loopsub = 0; loopsub < NB_SUB_PERIOD; loopsub++) {
-      FIXING_ACCRUAL_FACTORS[loopsub] = USDLIBOR1M.getDayCount().getDayCountFraction(ACCRUAL_START_DATES[loopsub], FIXING_PERIOD_END_DATES[loopsub]);
+      FIXING_ACCRUAL_FACTORS[loopsub] = USDLIBOR1M.getDayCount().yearFraction(ACCRUAL_START_DATES[loopsub], FIXING_PERIOD_END_DATES[loopsub]);
     }
   }
   private static final ZonedDateTime PAYMENT_DATE = ACCRUAL_END_DATES[NB_SUB_PERIOD - 1];

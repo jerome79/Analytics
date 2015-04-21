@@ -62,7 +62,7 @@ public class InterestRateFutureSecurityDiscountingMethodTest {
   private static final double LAST_TRADING_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE_ZONED, LAST_TRADING_DATE);
   private static final double FIXING_START_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE_ZONED, SPOT_LAST_TRADING_DATE);
   private static final double FIXING_END_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE_ZONED, FIXING_END_DATE);
-  private static final double FIXING_ACCRUAL = DAY_COUNT_INDEX.getDayCountFraction(SPOT_LAST_TRADING_DATE, FIXING_END_DATE);
+  private static final double FIXING_ACCRUAL = DAY_COUNT_INDEX.yearFraction(SPOT_LAST_TRADING_DATE, FIXING_END_DATE);
   private static final InterestRateFutureSecurity ERU2 = new InterestRateFutureSecurity(LAST_TRADING_TIME, EURIBOR3M, FIXING_START_TIME, FIXING_END_TIME, FIXING_ACCRUAL, NOTIONAL, FUTURE_FACTOR,
       NAME);
 

@@ -57,7 +57,7 @@ public class CapFloorCMSSpreadG2ppMethodTest {
   private static final ZonedDateTime ACCRUAL_END_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_START_DATE, Period.ofMonths(6), GEN_EUR_DEPOSIT);
   private static final ZonedDateTime PAYMENT_DATE = ACCRUAL_END_DATE;
   private static final DayCount PAYMENT_DAY_COUNT = DayCounts.ACT_360;
-  private static final double PAYMENT_ACCRUAL_FACTOR = PAYMENT_DAY_COUNT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double PAYMENT_ACCRUAL_FACTOR = PAYMENT_DAY_COUNT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double STRIKE = 0.0010; // 10 bps
   private static final boolean IS_CAP = true;
   private static final CapFloorCMSSpreadDefinition CMS_SPREAD_DEFINITION = CapFloorCMSSpreadDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, PAYMENT_ACCRUAL_FACTOR, NOTIONAL,

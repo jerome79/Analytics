@@ -78,7 +78,7 @@ public class CapFloorIborDefinition extends CouponFloatingDefinition implements 
     _index = index;
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(fixingDate, _index.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate, index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _fixingPeriodAccrualFactor = index.getDayCount().getDayCountFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = index.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _strike = strike;
     _isCap = isCap;
     _calendar = calendar;

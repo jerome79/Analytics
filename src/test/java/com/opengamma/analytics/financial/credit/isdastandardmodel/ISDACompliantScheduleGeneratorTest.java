@@ -82,7 +82,7 @@ public class ISDACompliantScheduleGeneratorTest {
     final int n = expectedDates.length;
     final double[] expected = new double[n];
     for (int i = 0; i < n; ++i) {
-      expected[i] = ACT.getDayCountFraction(today, expectedDates[i]);
+      expected[i] = ACT.yearFraction(today, expectedDates[i]);
     }
 
     final double[] res = ISDACompliantScheduleGenerator.getIntegrationNodesAsTimes(today, START_DATE, END_DATE, DISCOUNT_CURVE_DATES, SPREAD_CURVE_DATES);

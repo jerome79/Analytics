@@ -74,7 +74,7 @@ public class CDSCouponDes {
     _accStart = accStart;
     _accEnd = accEnd;
     _paymentDate = paymentDate;
-    _yearFrac = accrualDCC.getDayCountFraction(accStart, accEnd);
+    _yearFrac = accrualDCC.yearFraction(accStart, accEnd);
   }
 
   /**

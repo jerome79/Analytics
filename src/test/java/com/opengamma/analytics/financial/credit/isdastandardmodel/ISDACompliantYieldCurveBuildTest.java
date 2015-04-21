@@ -185,10 +185,10 @@ public class ISDACompliantYieldCurveBuildTest {
     final double[] times = new double[nSamplePoints];
     times[0] = 0.0;
     LocalDate tDate = tradeDate.plusDays(1);
-    times[1] = curveDCC.getDayCountFraction(tradeDate, tDate);
+    times[1] = curveDCC.yearFraction(tradeDate, tDate);
     for (int i = 2; i < nSamplePoints; i++) {
       tDate = tradeDate.plusDays(25 * (i - 1) + 1);
-      times[i] = curveDCC.getDayCountFraction(tradeDate, tDate);
+      times[i] = curveDCC.yearFraction(tradeDate, tDate);
     }
 
     if (print) {

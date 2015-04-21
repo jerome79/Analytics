@@ -111,7 +111,7 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
         calendar);
     _iborIndexFixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_iborIndexFixingPeriodStartDate,
         index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _iborIndexFixingPeriodAccrualFactor = index.getDayCount().getDayCountFraction(_iborIndexFixingPeriodStartDate,
+    _iborIndexFixingPeriodAccrualFactor = index.getDayCount().yearFraction(_iborIndexFixingPeriodStartDate,
         _iborIndexFixingPeriodEndDate, calendar);
     _spread = spread;
     _calendar = calendar;

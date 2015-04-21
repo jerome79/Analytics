@@ -56,7 +56,7 @@ public class DepositIborDefinition extends CashDefinition {
    */
   public static DepositIborDefinition fromStart(final ZonedDateTime startDate, final double notional, final double rate, final IborIndex index, final HolidayCalendar calendar) {
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, index, calendar);
-    final double accrualFactor = index.getDayCount().getDayCountFraction(startDate, endDate, calendar);
+    final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate, calendar);
     return new DepositIborDefinition(index.getCurrency(), startDate, endDate, notional, rate, accrualFactor, index);
   }
 
@@ -72,7 +72,7 @@ public class DepositIborDefinition extends CashDefinition {
   public static DepositIborDefinition fromTrade(final ZonedDateTime tradeDate, final double notional, final double rate, final IborIndex index, final HolidayCalendar calendar) {
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(tradeDate, index.getSpotLag(), calendar);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, index, calendar);
-    final double accrualFactor = index.getDayCount().getDayCountFraction(startDate, endDate, calendar);
+    final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate, calendar);
     return new DepositIborDefinition(index.getCurrency(), startDate, endDate, notional, rate, accrualFactor, index);
   }
 

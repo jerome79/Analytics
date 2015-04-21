@@ -68,11 +68,11 @@ public class BondFutureSecurityTest {
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 20);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
-  private static final double LAST_TRADING_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, LAST_TRADING_DATE);
-  private static final double FIRST_NOTICE_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, FIRST_NOTICE_DATE);
-  private static final double LAST_NOTICE_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, LAST_NOTICE_DATE);
-  private static final double FIRST_DELIVERY_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, FIRST_DELIVERY_DATE);
-  private static final double LAST_DELIVERY_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, LAST_DELIVERY_DATE);
+  private static final double LAST_TRADING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_TRADING_DATE);
+  private static final double FIRST_NOTICE_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIRST_NOTICE_DATE);
+  private static final double LAST_NOTICE_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_NOTICE_DATE);
+  private static final double FIRST_DELIVERY_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIRST_DELIVERY_DATE);
+  private static final double LAST_DELIVERY_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_DELIVERY_DATE);
   private static final BondFixedSecurity[] BASKET_AT_DELIVERY = new BondFixedSecurity[NB_BOND];
   private static final BondFixedSecurity[] BASKET_AT_SPOT = new BondFixedSecurity[NB_BOND];
   static {

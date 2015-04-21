@@ -71,7 +71,7 @@ public class PriceIndexCurveTest {
     ZonedDateTime[] indexKnownDate = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 5, 1), DateUtils.getUTCDate(2011, 6, 1)};
     double[] nodeTimeKnown = new double[indexKnownDate.length];
     for (int loopmonth = 0; loopmonth < indexKnownDate.length; loopmonth++) {
-      nodeTimeKnown[loopmonth] = -ACT_ACT.getDayCountFraction(indexKnownDate[loopmonth], constructionDate);
+      nodeTimeKnown[loopmonth] = -ACT_ACT.yearFraction(indexKnownDate[loopmonth], constructionDate);
     }
     int[] swapTenor = new int[] {1, 2, 3, 4, 5, 7, 10, 15, 20, 30};
     double[] swapRate = new double[] {0.02, 0.021, 0.02, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025};
@@ -82,7 +82,7 @@ public class PriceIndexCurveTest {
     for (int loopswap = 0; loopswap < swapTenor.length; loopswap++) {
       ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(constructionDate, Period.ofYears(swapTenor[loopswap]), BUSINESS_DAY, CALENDAR);
       referenceDate[loopswap] = paymentDate.minusMonths(monthLag).withDayOfMonth(1);
-      nodeTimeOther[loopswap] = ACT_ACT.getDayCountFraction(constructionDate, referenceDate[loopswap]);
+      nodeTimeOther[loopswap] = ACT_ACT.yearFraction(constructionDate, referenceDate[loopswap]);
     }
     PriceIndexCurveSimple priceIndexCurve = PriceIndexCurveSimple.fromStartOfMonth(nodeTimeKnown, indexKnown, nodeTimeOther, swapRate);
     for (int loopswap = 0; loopswap < swapTenor.length; loopswap++) {

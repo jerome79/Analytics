@@ -129,7 +129,7 @@ public class SwapFixedCouponDiscountingMethod {
     }
     double pvbp = 0;
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
-      pvbp += dayCount.getDayCountFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate(), calendar)
+      pvbp += dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate(), calendar)
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()) * discountingCurve.getDiscountFactor(annuityFixed.getNthPayment(loopcpn).getPaymentTime());
     }
     return pvbp;
@@ -152,7 +152,7 @@ public class SwapFixedCouponDiscountingMethod {
     }
     double pvbp = 0;
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
-      pvbp += dayCount.getDayCountFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+      pvbp += dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()) * discountingCurve.getDiscountFactor(annuityFixed.getNthPayment(loopcpn).getPaymentTime());
     }
     return pvbp;
@@ -235,7 +235,7 @@ public class SwapFixedCouponDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, -time * discountingCurve.getDiscountFactor(time)
-          * dayCount.getDayCountFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate(), calendar)
+          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate(), calendar)
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }
@@ -257,7 +257,7 @@ public class SwapFixedCouponDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, -time * discountingCurve.getDiscountFactor(time)
-          * dayCount.getDayCountFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }

@@ -63,7 +63,7 @@ public class BondFixedSecurityTest {
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE_1 = DateUtils.getUTCDate(2011, 8, 18);
   private static final ZonedDateTime SPOT_1 = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE_1, SETTLEMENT_DAYS, CALENDAR);
-  private static final double SETTLEMENT_TIME_1 = ACT_ACT.getDayCountFraction(REFERENCE_DATE_1, SPOT_1);
+  private static final double SETTLEMENT_TIME_1 = ACT_ACT.yearFraction(REFERENCE_DATE_1, SPOT_1);
   private static final AnnuityCouponFixedDefinition COUPON_DEFINITION_TRIM_1 = COUPON_DEFINITION.trimBefore(SPOT_1);
   private static final AnnuityCouponFixed COUPON_1 = COUPON_DEFINITION.toDerivative(REFERENCE_DATE_1);
   private static final AnnuityPaymentFixed NOMINAL_1 = NOMINAL_DEFINITION.toDerivative(REFERENCE_DATE_1);
@@ -78,7 +78,7 @@ public class BondFixedSecurityTest {
   // to derivatives: second coupon
   private static final ZonedDateTime REFERENCE_DATE_2 = DateUtils.getUTCDate(2012, 2, 16);
   private static final ZonedDateTime SPOT_2 = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE_2, SETTLEMENT_DAYS, CALENDAR);
-  private static final double SETTLEMENT_TIME_2 = ACT_ACT.getDayCountFraction(REFERENCE_DATE_2, SPOT_2);
+  private static final double SETTLEMENT_TIME_2 = ACT_ACT.yearFraction(REFERENCE_DATE_2, SPOT_2);
   private static final AnnuityCouponFixedDefinition COUPON_DEFINITION_TRIM_2 = COUPON_DEFINITION.trimBefore(SPOT_2);
   private static final AnnuityCouponFixed COUPON_2 = COUPON_DEFINITION.toDerivative(REFERENCE_DATE_2);
   private static final AnnuityPaymentFixed NOMINAL_2 = NOMINAL_DEFINITION.toDerivative(REFERENCE_DATE_2);

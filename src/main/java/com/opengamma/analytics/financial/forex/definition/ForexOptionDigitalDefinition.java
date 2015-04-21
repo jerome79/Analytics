@@ -133,7 +133,7 @@ public class ForexOptionDigitalDefinition implements InstrumentDefinition<Instru
     ArgChecker.notNull(date, "date");
     final Forex fx = _underlyingForex.toDerivative(date);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double expirationTime = actAct.getDayCountFraction(date, _expirationDate);
+    final double expirationTime = actAct.yearFraction(date, _expirationDate);
     return new ForexOptionDigital(fx, expirationTime, _isCall, _isLong, _payDomestic);
   }
 

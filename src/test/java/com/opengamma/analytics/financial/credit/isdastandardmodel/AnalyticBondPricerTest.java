@@ -96,7 +96,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
     final LocalDate startDate = LocalDate.of(2013, 9, 20);
     final LocalDate endDate = LocalDate.of(2019, 3, 20);
     final LocalDate tradeDate = LocalDate.of(2014, 2, 5);
-    final double exp = ACT365F.getDayCountFraction(tradeDate, endDate);
+    final double exp = ACT365F.yearFraction(tradeDate, endDate);
 
     final CDSAnalytic protectionLegCDS = factory.makeCDS(tradeDate, startDate, endDate);
     final CDSAnalytic annuityCDS = factory.withProtectionStart(false).makeCDS(tradeDate, startDate, endDate);

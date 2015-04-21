@@ -96,12 +96,12 @@ public class AnnuityCapFloorIborDefinition extends AnnuityDefinition<CapFloorIbo
     final CapFloorIborDefinition[] coupons = new CapFloorIborDefinition[paymentDates.length];
     //First coupon uses settlement date
     ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(settlementDate, -index.getSpotLag(), calendar);
-    coupons[0] = CapFloorIborDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.getDayCountFraction(settlementDate, paymentDates[0], calendar),
+    coupons[0] = CapFloorIborDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.yearFraction(settlementDate, paymentDates[0], calendar),
         sign * notional, fixingDate, index, strike, isCap, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       fixingDate = ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -index.getSpotLag(), calendar);
       coupons[loopcpn] = CapFloorIborDefinition.from(paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          dayCount.getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, fixingDate, index, strike, isCap, calendar);
+          dayCount.yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, fixingDate, index, strike, isCap, calendar);
     }
     return new AnnuityCapFloorIborDefinition(coupons, calendar);
   }

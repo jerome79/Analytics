@@ -89,7 +89,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDefinition extends
         _fixingPeriodStartDates[i][j] = ScheduleCalculator.getAdjustedDate(fixingDates[i][j], index.getSpotLag(), iborCalendar);
         _fixingPeriodEndDates[i][j] = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDates[i][j], index.getTenor(),
             index.getBusinessDayConvention(), iborCalendar, index.isEndOfMonth());
-        _fixingPeriodAccrualFactors[i][j] = index.getDayCount().getDayCountFraction(_fixingPeriodStartDates[i][j], _fixingPeriodEndDates[i][j], iborCalendar);
+        _fixingPeriodAccrualFactors[i][j] = index.getDayCount().yearFraction(_fixingPeriodStartDates[i][j], _fixingPeriodEndDates[i][j], iborCalendar);
       }
     }
     _spread = spread;

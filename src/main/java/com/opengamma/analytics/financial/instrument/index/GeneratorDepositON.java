@@ -87,7 +87,7 @@ public class GeneratorDepositON extends GeneratorInstrument<GeneratorAttributeIR
     ArgChecker.notNull(date, "Reference date");
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(date, attribute.getStartPeriod(), _calendar);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, _calendar);
-    final double accrualFactor = _dayCount.getDayCountFraction(startDate, endDate, _calendar);
+    final double accrualFactor = _dayCount.yearFraction(startDate, endDate, _calendar);
     return new CashDefinition(_currency, startDate, endDate, notional, rate, accrualFactor);
   }
 

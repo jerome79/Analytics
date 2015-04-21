@@ -18,7 +18,7 @@ public abstract class ThirtyThreeSixtyTypeDayCount extends StatelessDayCount {
 
   @Override
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
-    return coupon * getDayCountFraction(previousCouponDate, date);
+    return coupon * yearFraction(previousCouponDate, date);
   }
 
   /**

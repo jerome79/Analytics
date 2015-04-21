@@ -90,7 +90,7 @@ public class CashDefinition implements InstrumentDefinition<Cash> {
     ArgChecker.notNull(tenor, "Tenor");
     ArgChecker.notNull(generator, "Generator");
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, tenor, generator);
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new CashDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor);
   }
 
@@ -106,7 +106,7 @@ public class CashDefinition implements InstrumentDefinition<Cash> {
     ArgChecker.notNull(startDate, "Start date");
     ArgChecker.notNull(generator, "Generator");
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, generator.getCalendar());
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new CashDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor);
   }
 
@@ -125,7 +125,7 @@ public class CashDefinition implements InstrumentDefinition<Cash> {
     ArgChecker.notNull(generator, "Generator");
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(tradeDate, generator.getSpotLag(), generator.getCalendar());
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, tenor, generator);
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new CashDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor);
   }
 
@@ -143,7 +143,7 @@ public class CashDefinition implements InstrumentDefinition<Cash> {
     ArgChecker.notNull(generator, "Generator");
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(tradeDate, start, generator.getCalendar());
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, generator.getCalendar());
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new CashDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor);
   }
 

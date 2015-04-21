@@ -40,52 +40,52 @@ public class BusinessTwoFiveTwoTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFirstDate1() {
-    DC.getDayCountFraction(null, D2, WEEKEND_CALENDAR);
+    DC.yearFraction(null, D2, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSecondDate1() {
-    DC.getDayCountFraction(D1, null, WEEKEND_CALENDAR);
+    DC.yearFraction(D1, null, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongOrder1() {
-    DC.getDayCountFraction(D2, D1, WEEKEND_CALENDAR);
+    DC.yearFraction(D2, D1, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFirstDate2() {
-    DC.getDayCountFraction(null, D5, WEEKEND_CALENDAR);
+    DC.yearFraction(null, D5, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSecondDate2() {
-    DC.getDayCountFraction(D4, null, WEEKEND_CALENDAR);
+    DC.yearFraction(D4, null, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongOrder2() {
-    DC.getDayCountFraction(D5, D4, WEEKEND_CALENDAR);
+    DC.yearFraction(D5, D4, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoCalendar1() {
-    DC.getDayCountFraction(D4, D5);
+    DC.yearFraction(D4, D5);
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoCalendar2() {
-    DC.getDayCountFraction(D1, D3);
+    DC.yearFraction(D1, D3);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCalendar1() {
-    DC.getDayCountFraction(D4, D5, null);
+    DC.yearFraction(D4, D5, null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCalendar2() {
-    DC.getDayCountFraction(D1, D2, null);
+    DC.yearFraction(D1, D2, null);
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
@@ -103,24 +103,24 @@ public class BusinessTwoFiveTwoTest {
     final LocalDate d5 = LocalDate.of(2012, 7, 29);
     final LocalDate d6 = LocalDate.of(2012, 7, 14);
     final LocalDate d7 = LocalDate.of(2012, 7, 26);
-    assertEquals(1. / 252, DC.getDayCountFraction(d1, d2, WEEKEND_CALENDAR), 0);
-    assertEquals(1. / 252, DC.getDayCountFraction(d1, d2, HOLIDAY_CALENDAR), 0);
-    assertEquals(5. / 252, DC.getDayCountFraction(d1, d3, WEEKEND_CALENDAR), 0);
-    assertEquals(4. / 252, DC.getDayCountFraction(d1, d3, HOLIDAY_CALENDAR), 0);
-    assertEquals(11. / 252, DC.getDayCountFraction(d1, d4, WEEKEND_CALENDAR), 0);
-    assertEquals(9. / 252, DC.getDayCountFraction(d1, d4, HOLIDAY_CALENDAR), 0);
-    assertEquals(10. / 252, DC.getDayCountFraction(d1, d5, WEEKEND_CALENDAR), 0);
-    assertEquals(8. / 252, DC.getDayCountFraction(d1, d5, HOLIDAY_CALENDAR), 0);
-    assertEquals(1. / 252, DC.getDayCountFraction(d6, d2, WEEKEND_CALENDAR), 0);
-    assertEquals(1. / 252, DC.getDayCountFraction(d6, d2, HOLIDAY_CALENDAR), 0);
-    assertEquals(5. / 252, DC.getDayCountFraction(d6, d3, WEEKEND_CALENDAR), 0);
-    assertEquals(4. / 252, DC.getDayCountFraction(d6, d3, HOLIDAY_CALENDAR), 0);
-    assertEquals(11. / 252, DC.getDayCountFraction(d6, d4, WEEKEND_CALENDAR), 0);
-    assertEquals(9. / 252, DC.getDayCountFraction(d6, d4, HOLIDAY_CALENDAR), 0);
-    assertEquals(10. / 252, DC.getDayCountFraction(d6, d5, WEEKEND_CALENDAR), 0);
-    assertEquals(8. / 252, DC.getDayCountFraction(d6, d5, HOLIDAY_CALENDAR), 0);
-    assertEquals(8. / 252, DC.getDayCountFraction(d1, d7, WEEKEND_CALENDAR), 0);
-    assertEquals(7. / 252, DC.getDayCountFraction(d1, d7, HOLIDAY_CALENDAR), 0);
+    assertEquals(1. / 252, DC.yearFraction(d1, d2, WEEKEND_CALENDAR), 0);
+    assertEquals(1. / 252, DC.yearFraction(d1, d2, HOLIDAY_CALENDAR), 0);
+    assertEquals(5. / 252, DC.yearFraction(d1, d3, WEEKEND_CALENDAR), 0);
+    assertEquals(4. / 252, DC.yearFraction(d1, d3, HOLIDAY_CALENDAR), 0);
+    assertEquals(11. / 252, DC.yearFraction(d1, d4, WEEKEND_CALENDAR), 0);
+    assertEquals(9. / 252, DC.yearFraction(d1, d4, HOLIDAY_CALENDAR), 0);
+    assertEquals(10. / 252, DC.yearFraction(d1, d5, WEEKEND_CALENDAR), 0);
+    assertEquals(8. / 252, DC.yearFraction(d1, d5, HOLIDAY_CALENDAR), 0);
+    assertEquals(1. / 252, DC.yearFraction(d6, d2, WEEKEND_CALENDAR), 0);
+    assertEquals(1. / 252, DC.yearFraction(d6, d2, HOLIDAY_CALENDAR), 0);
+    assertEquals(5. / 252, DC.yearFraction(d6, d3, WEEKEND_CALENDAR), 0);
+    assertEquals(4. / 252, DC.yearFraction(d6, d3, HOLIDAY_CALENDAR), 0);
+    assertEquals(11. / 252, DC.yearFraction(d6, d4, WEEKEND_CALENDAR), 0);
+    assertEquals(9. / 252, DC.yearFraction(d6, d4, HOLIDAY_CALENDAR), 0);
+    assertEquals(10. / 252, DC.yearFraction(d6, d5, WEEKEND_CALENDAR), 0);
+    assertEquals(8. / 252, DC.yearFraction(d6, d5, HOLIDAY_CALENDAR), 0);
+    assertEquals(8. / 252, DC.yearFraction(d1, d7, WEEKEND_CALENDAR), 0);
+    assertEquals(7. / 252, DC.yearFraction(d1, d7, HOLIDAY_CALENDAR), 0);
   }
 
   /**
@@ -132,10 +132,10 @@ public class BusinessTwoFiveTwoTest {
     LocalDate d1 = LocalDate.of(2014, 7, 16);
     LocalDate d2 = LocalDate.of(2014, 8, 17);
 
-    double yf = DC.getDayCountFraction(d1, d2, WEEKEND_CALENDAR);
+    double yf = DC.yearFraction(d1, d2, WEEKEND_CALENDAR);
     LocalDate d = d1;
     while (!d.isAfter(d2)) {
-      assertEquals(yf, DC.getDayCountFraction(d1, d, WEEKEND_CALENDAR) + DC.getDayCountFraction(d, d2, WEEKEND_CALENDAR), 1e-15);
+      assertEquals(yf, DC.yearFraction(d1, d, WEEKEND_CALENDAR) + DC.yearFraction(d, d2, WEEKEND_CALENDAR), 1e-15);
       d = d.plusDays(1);
     }
   }

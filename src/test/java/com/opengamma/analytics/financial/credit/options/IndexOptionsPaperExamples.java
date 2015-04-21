@@ -151,7 +151,7 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
     final double weight = 0.01; //index size 100, equal weighting 
     final double k = 0.012; //strike of 120bps
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1);
-    final double time2Expiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double time2Expiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final ISDACompliantYieldCurve fwdYC = YIELD_CURVE.withOffset(time2Expiry);
     //this is the 5Y cds on the option expiry date (14/2/2014) - since we havn't crossed a IMM date, this is the same CDS as 
     //the 5Y CDS today (14/1/2014)
@@ -213,7 +213,7 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1); //option expiry/(effective) start of protection is in 1 month
 
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingCDX(TRADE_DATE, optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdCDS = FACTORY.makeCDX(optionExpiry, Period.ofYears(5));
     final IndexOptionPricer pricerISDA = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, true);//this uses to ISDA model to compute annuity
@@ -247,7 +247,7 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
     final IntrinsicIndexDataBundle adjCurves = PSA.adjustCurves(indexPrice, CDS_5Y, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1); //option expiry/(effective) start of protection is in 1 month
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdCDS = FACTORY.makeCDX(optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingCDX(TRADE_DATE, optionExpiry, Period.ofYears(5));
     final IndexOptionPricer pricerISDA = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, true);//this uses to ISDA model to compute annuity
@@ -301,7 +301,7 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1);
     final CDSAnalytic fwdCDS = FACTORY.makeCDX(optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingCDX(TRADE_DATE, optionExpiry, Period.ofYears(5));
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, optionExpiry);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
 
     final double df = YIELD_CURVE.getDiscountFactor(fwdStartingCDS.getCashSettleTime());
     final IndexOptionPricer iop = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON);

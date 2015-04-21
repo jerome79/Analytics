@@ -49,12 +49,12 @@ public class BondIborTransactionDefinition extends BondTransactionDefinition<Pay
     ArgChecker.notNull(date, "date");
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getUnderlyingBond().getSettlementDays(), getUnderlyingBond().getCalendar());
-    final double spotTime = actAct.getDayCountFraction(date, spot, getUnderlyingBond().getCalendar());
+    final double spotTime = actAct.yearFraction(date, spot, getUnderlyingBond().getCalendar());
     final double settlementTime;
     if (getSettlementDate().isBefore(date)) {
       settlementTime = 0;
     } else {
-      settlementTime = actAct.getDayCountFraction(date, getSettlementDate(), getUnderlyingBond().getCalendar());
+      settlementTime = actAct.yearFraction(date, getSettlementDate(), getUnderlyingBond().getCalendar());
     }
     final AnnuityPaymentFixed nominal = (AnnuityPaymentFixed) getUnderlyingBond().getNominal().toDerivative(date);
     final Annuity<Coupon> coupon = (Annuity<Coupon>) getUnderlyingBond().getCoupons().toDerivative(date);
@@ -83,12 +83,12 @@ public class BondIborTransactionDefinition extends BondTransactionDefinition<Pay
     ArgChecker.notNull(indexFixingTS, "index fixing time series");
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getUnderlyingBond().getSettlementDays(), getUnderlyingBond().getCalendar());
-    final double spotTime = actAct.getDayCountFraction(date, spot, getUnderlyingBond().getCalendar());
+    final double spotTime = actAct.yearFraction(date, spot, getUnderlyingBond().getCalendar());
     final double settlementTime;
     if (getSettlementDate().isBefore(date)) {
       settlementTime = 0;
     } else {
-      settlementTime = actAct.getDayCountFraction(date, getSettlementDate(), getUnderlyingBond().getCalendar());
+      settlementTime = actAct.yearFraction(date, getSettlementDate(), getUnderlyingBond().getCalendar());
     }
     final AnnuityPaymentFixed nominal = (AnnuityPaymentFixed) getUnderlyingBond().getNominal().toDerivative(date);
     final Annuity<Coupon> coupon = (Annuity<Coupon>) getUnderlyingBond().getCoupons().toDerivative(date, indexFixingTS);

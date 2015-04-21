@@ -61,7 +61,7 @@ public class DepositCounterpartDefinition extends CashDefinition {
     ArgChecker.notNull(generator, "Generator");
     ArgChecker.notNull(name, "Name");
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, tenor, generator);
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new DepositCounterpartDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor, name);
   }
 
@@ -79,7 +79,7 @@ public class DepositCounterpartDefinition extends CashDefinition {
     ArgChecker.notNull(generator, "Generator");
     ArgChecker.notNull(name, "Name");
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, generator.getCalendar());
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new DepositCounterpartDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor, name);
   }
 
@@ -101,7 +101,7 @@ public class DepositCounterpartDefinition extends CashDefinition {
     ArgChecker.notNull(name, "Name");
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(tradeDate, generator.getSpotLag(), generator.getCalendar());
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, tenor, generator);
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new DepositCounterpartDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor, name);
   }
 
@@ -121,7 +121,7 @@ public class DepositCounterpartDefinition extends CashDefinition {
     ArgChecker.notNull(name, "Name");
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(tradeDate, start, generator.getCalendar());
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, generator.getCalendar());
-    final double accrualFactor = generator.getDayCount().getDayCountFraction(startDate, endDate, generator.getCalendar());
+    final double accrualFactor = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
     return new DepositCounterpartDefinition(generator.getCurrency(), startDate, endDate, notional, rate, accrualFactor, name);
   }
 

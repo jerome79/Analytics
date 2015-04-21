@@ -149,11 +149,11 @@ public class CDSAnalytic {
     final LocalDate startDate = stepinDate.isAfter(accStartDate) ? stepinDate : accStartDate;
     final LocalDate effectiveStartDate = isProtectStart ? startDate.minusDays(1) : startDate;
 
-    _accStart = accStartDate.isBefore(tradeDate) ? -curveDayCount.getDayCountFraction(accStartDate, tradeDate) : curveDayCount.getDayCountFraction(tradeDate, accStartDate);
-    _cashSettlementTime = curveDayCount.getDayCountFraction(tradeDate, valueDate);
-    _effectiveProtectionStart = effectiveStartDate.isBefore(tradeDate) ? -curveDayCount.getDayCountFraction(effectiveStartDate, tradeDate) : curveDayCount.getDayCountFraction(tradeDate,
+    _accStart = accStartDate.isBefore(tradeDate) ? -curveDayCount.yearFraction(accStartDate, tradeDate) : curveDayCount.yearFraction(tradeDate, accStartDate);
+    _cashSettlementTime = curveDayCount.yearFraction(tradeDate, valueDate);
+    _effectiveProtectionStart = effectiveStartDate.isBefore(tradeDate) ? -curveDayCount.yearFraction(effectiveStartDate, tradeDate) : curveDayCount.yearFraction(tradeDate,
         effectiveStartDate);
-    _protectionEnd = curveDayCount.getDayCountFraction(tradeDate, endDate);
+    _protectionEnd = curveDayCount.yearFraction(tradeDate, endDate);
     _lgd = 1 - recoveryRate;
 
     final ISDAPremiumLegSchedule fullPaymentSchedule = new ISDAPremiumLegSchedule(accStartDate, endDate, paymentInterval, stubType, businessdayAdjustmentConvention, calendar, isProtectStart);
@@ -164,7 +164,7 @@ public class CDSAnalytic {
     final long firstJulianDate = accStart.getLong(JulianFields.MODIFIED_JULIAN_DAY);
     final long secondJulianDate = stepinDate.getLong(JulianFields.MODIFIED_JULIAN_DAY);
     _accruedDays = secondJulianDate > firstJulianDate ? (int) (secondJulianDate - firstJulianDate) : 0;
-    _accrued = accStart.isBefore(stepinDate) ? accrualDayCount.getDayCountFraction(accStart, stepinDate) : 0.0;
+    _accrued = accStart.isBefore(stepinDate) ? accrualDayCount.yearFraction(accStart, stepinDate) : 0.0;
   }
 
   public int getNumPayments() {

@@ -103,11 +103,11 @@ public class CouponIborAverageIndexDefinition extends CouponFloatingDefinition {
     _fixingPeriodStartDate1 = ScheduleCalculator.getAdjustedDate(fixingDate, _index1.getSpotLag(), iborCalendar1);
     _fixingPeriodEndDate1 = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate1, index1.getTenor(), index1.getBusinessDayConvention(), iborCalendar1,
         index1.isEndOfMonth());
-    _fixingPeriodAccrualFactor1 = index1.getDayCount().getDayCountFraction(_fixingPeriodStartDate1, _fixingPeriodEndDate1, iborCalendar1);
+    _fixingPeriodAccrualFactor1 = index1.getDayCount().yearFraction(_fixingPeriodStartDate1, _fixingPeriodEndDate1, iborCalendar1);
     _fixingPeriodStartDate2 = ScheduleCalculator.getAdjustedDate(fixingDate, _index2.getSpotLag(), iborCalendar2);
     _fixingPeriodEndDate2 = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate2, index2.getTenor(), index2.getBusinessDayConvention(), iborCalendar2,
         index2.isEndOfMonth());
-    _fixingPeriodAccrualFactor2 = index2.getDayCount().getDayCountFraction(_fixingPeriodStartDate2, _fixingPeriodEndDate2, iborCalendar2);
+    _fixingPeriodAccrualFactor2 = index2.getDayCount().yearFraction(_fixingPeriodStartDate2, _fixingPeriodEndDate2, iborCalendar2);
   }
 
   /**

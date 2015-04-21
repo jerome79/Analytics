@@ -17,7 +17,7 @@ public class ActualActualISDA extends ActualTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     testDates(firstDate, secondDate);
     final int y1 = firstDate.getYear();
     final int y2 = secondDate.getYear();
@@ -38,7 +38,7 @@ public class ActualActualISDA extends ActualTypeDayCount {
 
   @Override
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
-    return getDayCountFraction(previousCouponDate, date) * coupon;
+    return yearFraction(previousCouponDate, date) * coupon;
   }
 
   @Override

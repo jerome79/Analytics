@@ -48,13 +48,13 @@ public class CouponIborAverageDiscountingMethodTest {
 
   private static final ZonedDateTime ACCRUAL_START_DATE_1 = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE_1 = DateUtils.getUTCDate(2011, 8, 22);
-  private static final double ACCRUAL_FACTOR_1 = DAY_COUNT_COUPON.getDayCountFraction(ACCRUAL_START_DATE_1, ACCRUAL_END_DATE_1);
+  private static final double ACCRUAL_FACTOR_1 = DAY_COUNT_COUPON.yearFraction(ACCRUAL_START_DATE_1, ACCRUAL_END_DATE_1);
   private static final CouponIborDefinition CPN_IBOR_DEFINITION_1 = CouponIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE_1, ACCRUAL_END_DATE_1, ACCRUAL_FACTOR_1, NOTIONAL, FIXING_DATE,
       EURIBOR3M, CALENDAR);
 
   private static final ZonedDateTime ACCRUAL_START_DATE_2 = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE_2 = DateUtils.getUTCDate(2011, 11, 22);
-  private static final double ACCRUAL_FACTOR_2 = DAY_COUNT_COUPON.getDayCountFraction(ACCRUAL_START_DATE_2, ACCRUAL_END_DATE_2);
+  private static final double ACCRUAL_FACTOR_2 = DAY_COUNT_COUPON.yearFraction(ACCRUAL_START_DATE_2, ACCRUAL_END_DATE_2);
   private static final CouponIborDefinition CPN_IBOR_DEFINITION_2 = CouponIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE_2, ACCRUAL_END_DATE_2, ACCRUAL_FACTOR_2, NOTIONAL, FIXING_DATE,
       EURIBOR6M, CALENDAR);
 

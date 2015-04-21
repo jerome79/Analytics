@@ -218,7 +218,7 @@ public class CouponInflationZeroCouponMonthlyDefinitionTest {
             DateUtils.getUTCDate(2018, 6, 30)},
         new double[]{108.23, 128.23, 128.43});
     final Coupon zeroCouponConverted = ZERO_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, 128.23 / INDEX_APRIL_2008 - 1.0);
     assertEquals("Inflation zero-coupon: toDerivative", zeroCoupon, zeroCouponConverted);
   }

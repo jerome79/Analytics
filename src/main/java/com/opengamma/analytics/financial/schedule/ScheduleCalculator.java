@@ -1168,9 +1168,9 @@ public final class ScheduleCalculator {
     double yearFrac;
     for (int i = 0; i < (n); i++) {
       if (dates[i].isAfter(fromDate)) {
-        yearFrac = dayCount.getDayCountFraction(fromDate, dates[i]);
+        yearFrac = dayCount.yearFraction(fromDate, dates[i]);
       } else {
-        yearFrac = -dayCount.getDayCountFraction(dates[i], fromDate);
+        yearFrac = -dayCount.yearFraction(dates[i], fromDate);
       }
       result[i] = yearFrac;
     }
@@ -1202,9 +1202,9 @@ public final class ScheduleCalculator {
     ArgChecker.notNull(fromDate, "from date");
     int n = dates.length;
     double[] result = new double[n];
-    result[0] = dayCount.getDayCountFraction(fromDate, dates[0]);
+    result[0] = dayCount.yearFraction(fromDate, dates[0]);
     for (int i = 1; i < n; i++) {
-      result[i] = dayCount.getDayCountFraction(dates[i - 1], dates[i]);
+      result[i] = dayCount.yearFraction(dates[i - 1], dates[i]);
     }
     return result;
   }

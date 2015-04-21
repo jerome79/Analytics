@@ -55,8 +55,8 @@ public class CouponIborDefinitionTest {
   private static final ZonedDateTime FIXING_END_DATE = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR, BUSINESS_DAY, CALENDAR, IS_EOM);
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
-  private static final double ACCRUAL_FACTOR_FIXING = DAY_COUNT_INDEX.getDayCountFraction(FIXING_START_DATE, FIXING_END_DATE);
+  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR_FIXING = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
 
   // Coupon with specific payment and accrual dates.
@@ -180,10 +180,10 @@ public class CouponIborDefinitionTest {
   @Test
   public void testToDerivativeBeforeFixing() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double paymentTime = actAct.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE);
-    final double fixingTime = actAct.getDayCountFraction(REFERENCE_DATE, FIXING_DATE);
-    final double fixingPeriodStartTime = actAct.getDayCountFraction(REFERENCE_DATE, IBOR_COUPON_DEFINITION.getFixingPeriodStartDate());
-    final double fixingPeriodEndTime = actAct.getDayCountFraction(REFERENCE_DATE, IBOR_COUPON_DEFINITION.getFixingPeriodEndDate());
+    final double paymentTime = actAct.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
+    final double fixingTime = actAct.yearFraction(REFERENCE_DATE, FIXING_DATE);
+    final double fixingPeriodStartTime = actAct.yearFraction(REFERENCE_DATE, IBOR_COUPON_DEFINITION.getFixingPeriodStartDate());
+    final double fixingPeriodEndTime = actAct.yearFraction(REFERENCE_DATE, IBOR_COUPON_DEFINITION.getFixingPeriodEndDate());
     final CouponIbor couponIbor = new CouponIbor(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, fixingTime, INDEX, fixingPeriodStartTime, fixingPeriodEndTime, ACCRUAL_FACTOR_FIXING);
     CouponIbor convertedDefinition = (CouponIbor) IBOR_COUPON_DEFINITION.toDerivative(REFERENCE_DATE);
     assertEquals(couponIbor, convertedDefinition);

@@ -128,9 +128,9 @@ public class SwaptionBermudaFixedIborDefinitionTest {
     @SuppressWarnings("unchecked")
     final SwapFixedCoupon<Coupon>[] underlyingSwap = new SwapFixedCoupon[NB_EXPIRY];
     for (int loopexp = 0; loopexp < NB_EXPIRY; loopexp++) {
-      expiryTime[loopexp] = actAct.getDayCountFraction(REFERENCE_DATE, EXPIRY_DATE[loopexp]);
+      expiryTime[loopexp] = actAct.yearFraction(REFERENCE_DATE, EXPIRY_DATE[loopexp]);
       underlyingSwap[loopexp] = EXPIRY_SWAP_DEFINITION[loopexp].toDerivative(REFERENCE_DATE);
-      settleTime[loopexp] = actAct.getDayCountFraction(REFERENCE_DATE, EXPIRY_SWAP_DEFINITION[loopexp].getFixedLeg().getNthPayment(0).getAccrualStartDate());
+      settleTime[loopexp] = actAct.yearFraction(REFERENCE_DATE, EXPIRY_SWAP_DEFINITION[loopexp].getFixedLeg().getNthPayment(0).getAccrualStartDate());
     }
     final SwaptionBermudaFixedIbor swaptionBermuda = new SwaptionBermudaFixedIbor(underlyingSwap, IS_LONG, expiryTime, settleTime);
     assertEquals("Swaption Bermuda: to derivatives", swaptionBermuda, BERMUDA_SWAPTION_DEFINITION.toDerivative(REFERENCE_DATE));

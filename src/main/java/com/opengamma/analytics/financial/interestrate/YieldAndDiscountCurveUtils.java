@@ -41,7 +41,7 @@ public class YieldAndDiscountCurveUtils {
     final double fixingPeriodStartTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodStartDate);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingDate, index, cal);
     final double fixingPeriodEndTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodEndDate);
-    final double accrualFixing = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate);
+    final double accrualFixing = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate);
     final double dfStart = curve.getDiscountFactor(fixingPeriodStartTime);
     final double dfEnd = curve.getDiscountFactor(fixingPeriodEndTime);
     final double forwardRate = (dfStart / dfEnd - 1.0d) / accrualFixing;
@@ -68,7 +68,7 @@ public class YieldAndDiscountCurveUtils {
     final double fixingPeriodStartTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodStartDate);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingDate, index, cal);
     final double fixingPeriodEndTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodEndDate);
-    final double accrualFixing = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate);
+    final double accrualFixing = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate);
     final double forwardRate = multicurve.getSimplyCompoundForwardRate(index, fixingPeriodStartTime, fixingPeriodEndTime, accrualFixing);
     return forwardRate;
   }
@@ -89,7 +89,7 @@ public class YieldAndDiscountCurveUtils {
     ArgChecker.notNull(dc, "dayCount");
     final double timeCurve = TimeCalculator.getTimeBetween(curveDate, payDate);
     final double df = curve.getDiscountFactor(timeCurve);
-    final double timeDc = dc.getDayCountFraction(curveDate, payDate);
+    final double timeDc = dc.yearFraction(curveDate, payDate);
     if (paymentPerYear > 0) {
       final double rate = paymentPerYear * (Math.pow(df, -1.0 / (paymentPerYear * timeDc)) - 1.0);
       return rate;

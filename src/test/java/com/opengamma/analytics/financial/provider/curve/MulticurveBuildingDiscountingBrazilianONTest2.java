@@ -224,11 +224,11 @@ public class MulticurveBuildingDiscountingBrazilianONTest2 {
       final FileWriter writer = new FileWriter("fwd-dsc.csv");
       for (int loopdate = 0; loopdate < nbDate; loopdate++) {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
-        startTime2[loopdate] = INDEX_ON_BRL.getDayCount().getDayCountFraction(NOW, startDate, NYC);
+        startTime2[loopdate] = INDEX_ON_BRL.getDayCount().yearFraction(NOW, startDate, NYC);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, INDEX_ON_BRL.getPublicationLag(), NYC);
         final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double endTime2 = INDEX_ON_BRL.getDayCount().getDayCountFraction(NOW, endDate, NYC);
-        accrualFactor[loopdate] = INDEX_ON_BRL.getDayCount().getDayCountFraction(startDate, endDate, NYC);
+        final double endTime2 = INDEX_ON_BRL.getDayCount().yearFraction(NOW, endDate, NYC);
+        accrualFactor[loopdate] = INDEX_ON_BRL.getDayCount().yearFraction(startDate, endDate, NYC);
         accrualFactorActAct[loopdate] = TimeCalculator.getTimeBetween(startDate, endDate);
         dscstart[loopdate] = marketDsc.getDiscountFactor(BRL, startTime2[loopdate]);
         dscend[loopdate] = marketDsc.getDiscountFactor(BRL, endTime2);

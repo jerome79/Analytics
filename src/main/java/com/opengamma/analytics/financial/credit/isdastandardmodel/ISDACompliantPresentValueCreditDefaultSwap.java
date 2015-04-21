@@ -127,7 +127,7 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
     }
 
     // Compute the discount factor discounting the upfront payment made on the cash settlement date back to the valuation date
-    final double t = _curveDayCount.getDayCountFraction(today, valueDate);
+    final double t = _curveDayCount.yearFraction(today, valueDate);
     final double df = yieldCurve.getDiscountFactor(t);
     rpv01 /= df;
 
@@ -153,9 +153,9 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
   private double[] calculateSinglePeriodRPV01(final LocalDate today, final LocalDate accStartDate, final LocalDate accEndDate, final LocalDate paymentDate, final int obsOffset,
       final ISDACompliantDateYieldCurve yieldCurve, final ISDACompliantDateCreditCurve hazardRateCurve) {
 
-    final double accTime = _accuralDayCount.getDayCountFraction(accStartDate, accEndDate);
-    double t = _curveDayCount.getDayCountFraction(today, paymentDate);
-    double tObsOffset = _curveDayCount.getDayCountFraction(today, accEndDate.plusDays(obsOffset));
+    final double accTime = _accuralDayCount.yearFraction(accStartDate, accEndDate);
+    double t = _curveDayCount.yearFraction(today, paymentDate);
+    double tObsOffset = _curveDayCount.yearFraction(today, accEndDate.plusDays(obsOffset));
 
     // TODO Do we need this?
     // Compensate Java shortcoming
@@ -193,9 +193,9 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
     // max(offsetStepinDate,offsetAccStartDate)
     LocalDate subStartDate = offsetStepinDate.isAfter(offsetAccStartDate) ? offsetStepinDate : offsetAccStartDate;
 
-    final double tAcc = ACT_365.getDayCountFraction(offsetAccStartDate, offsetAccEndDate); // This is hardcoded to ACT/365 in ISDA code
+    final double tAcc = ACT_365.yearFraction(offsetAccStartDate, offsetAccEndDate); // This is hardcoded to ACT/365 in ISDA code
     final double accRate = accTime / tAcc;
-    double t = ACT_365.getDayCountFraction(today, subStartDate);
+    double t = ACT_365.yearFraction(today, subStartDate);
 
     // Compensate Java shortcoming
     if (Double.compare(t, -0.0) == 0) {
@@ -212,12 +212,12 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
       }
 
       double thisAccPV = 0.0;
-      t = ACT_365.getDayCountFraction(today, truncatedDateList[j]);
+      t = ACT_365.yearFraction(today, truncatedDateList[j]);
       final double s1 = hazardRateCurve.getSurvivalProbability(t);
       final double df1 = yieldCurve.getDiscountFactor(t);
 
-      final double t0 = ACT_365.getDayCountFraction(offsetAccStartDate, subStartDate) + 1 / 730.; // add on half a day
-      final double t1 = ACT_365.getDayCountFraction(offsetAccStartDate, truncatedDateList[j]) + 1 / 730.;
+      final double t0 = ACT_365.yearFraction(offsetAccStartDate, subStartDate) + 1 / 730.; // add on half a day
+      final double t1 = ACT_365.yearFraction(offsetAccStartDate, truncatedDateList[j]) + 1 / 730.;
       t = t1 - t0; // t repurposed
 
       // TODO check for s0 == s1 -> zero prob of default (and thus zero PV contribution) from this section
@@ -263,7 +263,7 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
       throw new MathException("Error in calculateAccruedInterest - check logic"); // this should never be hit
     }
 
-    return _accuralDayCount.getDayCountFraction(premiumLegSchedule.getAccStartDate(index - 1), stepinDate);
+    return _accuralDayCount.yearFraction(premiumLegSchedule.getAccStartDate(index - 1), stepinDate);
   }
 
   /**
@@ -358,7 +358,7 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
     pv *= 1.0 - recoveryRate;
 
     // Compute the discount factor discounting the upfront payment made on the cash settlement date back to the valuation date
-    final double t = _curveDayCount.getDayCountFraction(today, valueDate);
+    final double t = _curveDayCount.yearFraction(today, valueDate);
     final double df = yieldCurve.getDiscountFactor(t);
     pv /= df;
 

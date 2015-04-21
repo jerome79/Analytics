@@ -59,7 +59,7 @@ public class GeneratorDepositIbor extends GeneratorInstrument<GeneratorAttribute
     } else {
       endDate = ScheduleCalculator.getAdjustedDate(startDate, attribute.getEndPeriod(), _index, _calendar);
     }
-    final double accrualFactor = _index.getDayCount().getDayCountFraction(startDate, endDate, _calendar);
+    final double accrualFactor = _index.getDayCount().yearFraction(startDate, endDate, _calendar);
     return new DepositIborDefinition(_index.getCurrency(), startDate, endDate, notional, marketQuote, accrualFactor, _index);
   }
 

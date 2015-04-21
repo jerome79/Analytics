@@ -199,9 +199,9 @@ public class CapFloorInflationZeroCouponMonthlyDefinitionTest {
     final Coupon zeroCouponConverted = ZERO_COUPON_CAP_DEFINITION.toDerivative(pricingDate, priceIndexTS);
     //lastKnownFixingTime could be negatif so we don't use the dayfraction
     final double lastKnownFixingTime = TimeCalculator.getTimeBetween(pricingDate, LAST_KNOWN_FIXING_DATE);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
-    final double referenceEndTime = ACT_ACT.getDayCountFraction(pricingDate, REFERENCE_END_DATE);
-    final double naturalPaymentPaymentTime = ACT_ACT.getDayCountFraction(pricingDate, ACCRUAL_END_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
+    final double referenceEndTime = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE);
+    final double naturalPaymentPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_END_DATE);
 
     final CapFloorInflationZeroCouponMonthly zeroCoupon = new CapFloorInflationZeroCouponMonthly(CUR, paymentTime, 1.0, NOTIONAL, PRICE_INDEX, lastKnownFixingTime,
         INDEX_START_VALUE, referenceEndTime, naturalPaymentPaymentTime, MATURITY, STRIKE, IS_CAP);
@@ -234,7 +234,7 @@ public class CapFloorInflationZeroCouponMonthlyDefinitionTest {
     final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2008, 4, 30), DateUtils.getUTCDate(2008, 5, 31),
       DateUtils.getUTCDate(2018, 4, 30), DateUtils.getUTCDate(2018, 5, 31) }, new double[] {108.23, 108.64, 128.23, 128.43 });
     final Coupon zeroCouponConverted = ZERO_COUPON_CAP_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.getDayCountFraction(pricingDate, PAYMENT_DATE);
+    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, Math.max(128.23 /
         INDEX_START_VALUE - 1.0 - Math.pow(1 + STRIKE, MATURITY), 0.0));
     assertEquals("Inflation zero-coupon: toDerivative", zeroCoupon, zeroCouponConverted);

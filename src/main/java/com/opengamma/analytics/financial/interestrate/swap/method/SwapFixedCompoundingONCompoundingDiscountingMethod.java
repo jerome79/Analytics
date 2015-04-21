@@ -202,7 +202,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
     double pvbp = 0;
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       final CouponFixedAccruedCompounding coupon = (CouponFixedAccruedCompounding) annuityFixed.getNthPayment(loopcpn);
-      pvbp += dayCount.getDayCountFraction(coupon.getAccrualStartDate(), coupon.getAccrualEndDate(), calendar)
+      pvbp += dayCount.yearFraction(coupon.getAccrualStartDate(), coupon.getAccrualEndDate(), calendar)
           * Math.abs(coupon.getNotional()) * discountingCurve.getDiscountFactor(annuityFixed.getNthPayment(loopcpn).getPaymentTime());
     }
     return pvbp;
@@ -272,7 +272,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, -time * discountingCurve.getDiscountFactor(time)
-          * dayCount.getDayCountFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate(), calendar)
+          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate(), calendar)
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }
@@ -294,7 +294,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, -time * discountingCurve.getDiscountFactor(time)
-          * dayCount.getDayCountFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }

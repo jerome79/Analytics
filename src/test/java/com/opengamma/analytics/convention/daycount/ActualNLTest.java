@@ -73,7 +73,7 @@ public class ActualNLTest {
 
   @Test(dataProvider = "nl365")
   public void testDifferentYearLeapDays2(LocalDate start, LocalDate end, double expected) {
-    assertEquals(ACTUAL_NL.getDayCountFraction(start, end), expected, EPS);
+    assertEquals(ACTUAL_NL.yearFraction(start, end), expected, EPS);
   }
 
 }

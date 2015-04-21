@@ -51,19 +51,19 @@ public class ForwardRateAgreementTest {
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2011, 1, 7);
   private static final ZonedDateTime FIXING_START_DATE = ScheduleCalculator.getAdjustedDate(FIXING_DATE, SETTLEMENT_DAYS, CALENDAR);
   private static final ZonedDateTime FIXING_END_DATE = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR, BUSINESS_DAY, CALENDAR, IS_EOM);
-  private static final double ACCRUAL_FACTOR_FIXING = DAY_COUNT_INDEX.getDayCountFraction(FIXING_START_DATE, FIXING_END_DATE);
+  private static final double ACCRUAL_FACTOR_FIXING = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE);
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR_PAYMENT = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR_PAYMENT = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double FRA_RATE = 0.05;
   private static final double NOTIONAL = 1000000; //1m
   // To derivatives
   private static final LocalDate REFERENCE_DATE = LocalDate.of(2010, 12, 27);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE_ZONED = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE, LocalTime.MIDNIGHT), ZoneOffset.UTC);
-  private static final double PAYMENT_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, PAYMENT_DATE);
-  private static final double FIXING_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, FIXING_DATE);
-  private static final double FIXING_PERIOD_START_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, FIXING_START_DATE);
-  private static final double FIXING_PERIOD_END_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, FIXING_END_DATE);
+  private static final double PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, PAYMENT_DATE);
+  private static final double FIXING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_DATE);
+  private static final double FIXING_PERIOD_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_START_DATE);
+  private static final double FIXING_PERIOD_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_END_DATE);
   private static final ForwardRateAgreement FRA = new ForwardRateAgreement(CUR, PAYMENT_TIME, ACCRUAL_FACTOR_PAYMENT, NOTIONAL, INDEX, FIXING_TIME, FIXING_PERIOD_START_TIME,
       FIXING_PERIOD_END_TIME, ACCRUAL_FACTOR_FIXING, FRA_RATE);
 

@@ -63,9 +63,9 @@ public class CouponONCompoundedDefinitionTest {
   private static final ZonedDateTime EUR_LAST_FIXING_DATE = ScheduleCalculator.getAdjustedDate(EUR_END_ACCRUAL_DATE, -1, EUR_CALENDAR); // Overnight
   private static final ZonedDateTime EUR_LAST_PUBLICATION_DATE = ScheduleCalculator.getAdjustedDate(EUR_LAST_FIXING_DATE, EUR_PUBLICATION_LAG, EUR_CALENDAR); // Lag
   private static final ZonedDateTime EUR_PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(EUR_LAST_PUBLICATION_DATE, EUR_SETTLEMENT_DAYS, EUR_CALENDAR); // Payment is wrt last publication date
-  private static final double EUR_PAYMENT_YEAR_FRACTION = EUR_DAY_COUNT.getDayCountFraction(START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE, EUR_CALENDAR);
+  private static final double EUR_PAYMENT_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE, EUR_CALENDAR);
   private static final double NOTIONAL = 100000000;
-  private static final double EUR_FIXING_YEAR_FRACTION = EUR_DAY_COUNT.getDayCountFraction(START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE, EUR_CALENDAR);
+  private static final double EUR_FIXING_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE, EUR_CALENDAR);
 
   private static final CouponONCompoundedDefinition ON_COMPOUNDED_COUPON_DEFINITION = new CouponONCompoundedDefinition(EUR_CUR, EUR_PAYMENT_DATE, START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE,
       EUR_PAYMENT_YEAR_FRACTION, NOTIONAL,
@@ -125,14 +125,14 @@ public class CouponONCompoundedDefinitionTest {
    */
   public void toDerivativeNoFixing() {
     final CouponONCompounded cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(TRADE_DATE);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(TRADE_DATE, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(TRADE_DATE, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double[] FIXING_PERIOD_START_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_END_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1; i++) {
-      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(TRADE_DATE, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
-      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(TRADE_DATE, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.getDayCountFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
+      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.yearFraction(TRADE_DATE, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
+      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.yearFraction(TRADE_DATE, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.yearFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
           EUR_CALENDAR);
     }
     final CouponONCompounded cpnExpected = new CouponONCompounded(EUR_CUR, paymentTime, EUR_PAYMENT_YEAR_FRACTION, NOTIONAL, EUR_OIS, FIXING_PERIOD_START_TIMES,
@@ -149,14 +149,14 @@ public class CouponONCompoundedDefinitionTest {
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(TRADE_DATE, 1, EUR_CALENDAR);
     final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 7)}, new double[]{0.01});
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double[] FIXING_PERIOD_START_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_END_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1; i++) {
-      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
-      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.getDayCountFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
+      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
+      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.yearFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
           EUR_CALENDAR);
 
     }
@@ -176,15 +176,15 @@ public class CouponONCompoundedDefinitionTest {
           0.01,
           0.01 });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double[] FIXING_PERIOD_START_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_END_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1; i++) {
-      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
-      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.getDayCountFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
+      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
+      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.yearFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
           EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1]);
     }
@@ -203,16 +203,16 @@ public class CouponONCompoundedDefinitionTest {
     final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 7), DateUtils.getUTCDate(2011, 9, 8),
       DateUtils.getUTCDate(2011, 9, 9) }, new double[] {fixingRate, fixingRate, fixingRate });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double notionalAccrued = NOTIONAL * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[0]);
     final double[] FIXING_PERIOD_START_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 2];
     final double[] FIXING_PERIOD_END_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 2];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 2];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 2];
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 2; i++) {
-      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.getDayCountFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2],
+      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.yearFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2],
           EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
           ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2]);
@@ -232,7 +232,7 @@ public class CouponONCompoundedDefinitionTest {
     final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 7), DateUtils.getUTCDate(2011, 9, 8),
       DateUtils.getUTCDate(2011, 9, 9), DateUtils.getUTCDate(2011, 9, 12) }, new double[] {fixingRate, fixingRate, fixingRate, fixingRate });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double notionalAccrued = NOTIONAL * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[0]) *
         Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[1]);
     final double[] FIXING_PERIOD_START_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 3];
@@ -240,9 +240,9 @@ public class CouponONCompoundedDefinitionTest {
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 3];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 3];
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 3; i++) {
-      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
-      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.getDayCountFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3],
+      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
+      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.yearFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3],
           EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2],
           ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3]);
@@ -262,7 +262,7 @@ public class CouponONCompoundedDefinitionTest {
     final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 7), DateUtils.getUTCDate(2011, 9, 8),
       DateUtils.getUTCDate(2011, 9, 9), DateUtils.getUTCDate(2011, 9, 12), DateUtils.getUTCDate(2011, 9, 13) }, new double[] {fixingRate, fixingRate, fixingRate, fixingRate, fixingRate });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double notionalAccrued = NOTIONAL * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[0]) *
         Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[1])
         * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[2]);
@@ -271,9 +271,9 @@ public class CouponONCompoundedDefinitionTest {
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 4];
     final double[] FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 4];
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 4; i++) {
-      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
-      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.getDayCountFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.getDayCountFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4],
+      FIXING_PERIOD_START_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
+      FIXING_PERIOD_END_TIMES[i] = EUR_DAY_COUNT.yearFraction(referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = EUR_DAY_COUNT.yearFraction(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4],
           EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3],
           ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4]);
@@ -294,7 +294,7 @@ public class CouponONCompoundedDefinitionTest {
       DateUtils.getUTCDate(2011, 9, 9), DateUtils.getUTCDate(2011, 9, 12), DateUtils.getUTCDate(2011, 9, 13), DateUtils.getUTCDate(2011, 9, 14), DateUtils.getUTCDate(2011, 9, 15) }, new double[] {
       fixingRate, fixingRate, fixingRate, fixingRate, fixingRate, fixingRate, fixingRate });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double notionalAccrued = NOTIONAL * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[0]) *
         Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[1]) * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[2]) *
         Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[3]) * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[4]);
@@ -313,7 +313,7 @@ public class CouponONCompoundedDefinitionTest {
       DateUtils.getUTCDate(2011, 9, 9), DateUtils.getUTCDate(2011, 9, 12), DateUtils.getUTCDate(2011, 9, 13), DateUtils.getUTCDate(2011, 9, 14), DateUtils.getUTCDate(2011, 9, 15) }, new double[] {
       fixingRate, fixingRate, fixingRate, fixingRate, fixingRate, fixingRate, fixingRate });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
-    final double paymentTime = EUR_DAY_COUNT.getDayCountFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
+    final double paymentTime = EUR_DAY_COUNT.yearFraction(referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double notionalAccrued = NOTIONAL * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[0]) *
         Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[1]) * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[2]) *
         Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[3]) * Math.pow(1 + fixingRate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodAccrualFactors()[4]);

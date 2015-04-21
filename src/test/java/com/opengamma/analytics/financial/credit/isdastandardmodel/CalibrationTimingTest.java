@@ -84,7 +84,7 @@ public class CalibrationTimingTest extends ISDABaseTest {
     final double[] ycMatTimes = new double[NUM_YIELD_CURVE_POINTS];
     for (int i = 0; i < NUM_YIELD_CURVE_POINTS; i++) {
       ycMatDates[i] = SPOTDATE.plus(YC_INST_TENOR[i]);
-      ycMatTimes[i] = ACT365F.getDayCountFraction(SPOTDATE, ycMatDates[i]);
+      ycMatTimes[i] = ACT365F.yearFraction(SPOTDATE, ycMatDates[i]);
     }
 
     final double ycDecorrelation = -0.2;
@@ -117,7 +117,7 @@ public class CalibrationTimingTest extends ISDABaseTest {
 
     final double[] ccMatTimes = new double[NUM_CREDIT_CURVE_POINTS];
     for (int i = 0; i < NUM_CREDIT_CURVE_POINTS; i++) {
-      ccMatTimes[i] = ACT365F.getDayCountFraction(TODAY, CC_DATES[i]);
+      ccMatTimes[i] = ACT365F.yearFraction(TODAY, CC_DATES[i]);
     }
     final double ccDecorrelation = -0.01;
     final double ccVar = 1 / 50.;

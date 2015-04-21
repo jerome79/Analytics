@@ -90,7 +90,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
     while (currentDate.isBefore(fixingPeriodEndDate)) {
       nextDate = ScheduleCalculator.getAdjustedDate(currentDate, 1, calendar);
       fixingDateList.add(nextDate);
-      final double af = index.getDayCount().getDayCountFraction(currentDate, nextDate, calendar);
+      final double af = index.getDayCount().yearFraction(currentDate, nextDate, calendar);
       fixingAccrualFactorList.add(af);
       currentDate = nextDate;
     }
@@ -135,7 +135,7 @@ public class CouponONArithmeticAverageSpreadDefinition extends CouponDefinition 
   public static CouponONArithmeticAverageSpreadDefinition from(final IndexON index, final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
       final int paymentLag, final double spread, final HolidayCalendar calendar) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
-    final double paymentYearFraction = index.getDayCount().getDayCountFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
+    final double paymentYearFraction = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
     return new CouponONArithmeticAverageSpreadDefinition(index.getCurrency(), paymentDate, fixingPeriodStartDate, fixingPeriodEndDate, paymentYearFraction, notional, index, fixingPeriodStartDate,
         fixingPeriodEndDate, spread, calendar);
   }

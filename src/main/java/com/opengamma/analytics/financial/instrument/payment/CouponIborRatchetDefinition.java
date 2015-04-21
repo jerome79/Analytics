@@ -105,7 +105,7 @@ public class CouponIborRatchetDefinition extends CouponFloatingDefinition {
     _index = index;
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(fixingDate, _index.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate, index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _fixingPeriodAccrualFactor = index.getDayCount().getDayCountFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = index.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _mainCoefficients = mainCoefficients;
     _floorCoefficients = floorCoefficients;
     _capCoefficients = capCoefficients;

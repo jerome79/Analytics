@@ -54,13 +54,13 @@ public class InterestRateFutureOptionPremiumTransactionTest {
   // Option
   private static final ZonedDateTime EXPIRATION_DATE = DateUtils.getUTCDate(2011, 9, 16);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
-  private static final double EXPIRATION_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, EXPIRATION_DATE);
+  private static final double EXPIRATION_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRATION_DATE);
   private static final boolean IS_CALL = true;
   private static final InterestRateFutureOptionPremiumSecurity OPTION_EDU2 = new InterestRateFutureOptionPremiumSecurity(EDU2, EXPIRATION_TIME, STRIKE, IS_CALL);
   // Transaction
   private static final int QUANTITY = -123;
   private static final ZonedDateTime PREMIUM_DATE = DateUtils.getUTCDate(2011, 5, 12);
-  private static final double PREMIUM_TIME = ACT_ACT.getDayCountFraction(PREMIUM_DATE, EXPIRATION_DATE);
+  private static final double PREMIUM_TIME = ACT_ACT.yearFraction(PREMIUM_DATE, EXPIRATION_DATE);
   private static final double TRADE_PRICE = 0.0050;
   private static final InterestRateFutureOptionPremiumTransaction OPTION_TRANSACTION = new InterestRateFutureOptionPremiumTransaction(OPTION_EDU2, QUANTITY, PREMIUM_TIME, TRADE_PRICE);
 

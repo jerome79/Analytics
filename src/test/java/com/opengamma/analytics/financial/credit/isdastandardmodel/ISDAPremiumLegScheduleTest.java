@@ -207,7 +207,7 @@ public class ISDAPremiumLegScheduleTest {
       final long secondJulianDate = end.getLong(JulianFields.MODIFIED_JULIAN_DAY);
       final int days = (int) (secondJulianDate - firstJulianDate);
       System.out.print(days + " & ");
-      final double premium = notional * coupon * ACT360.getDayCountFraction(start, end);
+      final double premium = notional * coupon * ACT360.yearFraction(start, end);
       System.out.format("%.2f" + " \\\\" + "\n", premium);
     }
     System.out.println("\\hline");

@@ -125,11 +125,11 @@ public class CDSCoupon {
     final LocalDate effStart = protectionFromStartOfDay ? coupon.getAccStart().minusDays(1) : coupon.getAccStart();
     final LocalDate effEnd = protectionFromStartOfDay ? coupon.getAccEnd().minusDays(1) : coupon.getAccEnd();
 
-    _effStart = effStart.isBefore(tradeDate) ? -curveDCC.getDayCountFraction(effStart, tradeDate) : curveDCC.getDayCountFraction(tradeDate, effStart);
-    _effEnd = curveDCC.getDayCountFraction(tradeDate, effEnd);
-    _paymentTime = curveDCC.getDayCountFraction(tradeDate, coupon.getPaymentDate());
+    _effStart = effStart.isBefore(tradeDate) ? -curveDCC.yearFraction(effStart, tradeDate) : curveDCC.yearFraction(tradeDate, effStart);
+    _effEnd = curveDCC.yearFraction(tradeDate, effEnd);
+    _paymentTime = curveDCC.yearFraction(tradeDate, coupon.getPaymentDate());
     _yearFrac = coupon.getYearFrac();
-    _ycRatio = _yearFrac / curveDCC.getDayCountFraction(coupon.getAccStart(), coupon.getAccEnd());
+    _ycRatio = _yearFrac / curveDCC.yearFraction(coupon.getAccStart(), coupon.getAccEnd());
   }
 
   /**
@@ -220,11 +220,11 @@ public class CDSCoupon {
     final LocalDate effEnd = protectionFromStartOfDay ? accEnd.minusDays(1) : accEnd;
 
     final double[] res = new double[5];
-    res[0] = effStart.isBefore(tradeDate) ? -curveDCC.getDayCountFraction(effStart, tradeDate) : curveDCC.getDayCountFraction(tradeDate, effStart);
-    res[1] = curveDCC.getDayCountFraction(tradeDate, effEnd);
-    res[2] = curveDCC.getDayCountFraction(tradeDate, paymentDate);
-    res[3] = accrualDCC.getDayCountFraction(accStart, accEnd);
-    res[4] = res[3] / curveDCC.getDayCountFraction(accStart, accEnd);
+    res[0] = effStart.isBefore(tradeDate) ? -curveDCC.yearFraction(effStart, tradeDate) : curveDCC.yearFraction(tradeDate, effStart);
+    res[1] = curveDCC.yearFraction(tradeDate, effEnd);
+    res[2] = curveDCC.yearFraction(tradeDate, paymentDate);
+    res[3] = accrualDCC.yearFraction(accStart, accEnd);
+    res[4] = res[3] / curveDCC.yearFraction(accStart, accEnd);
     return res;
   }
 

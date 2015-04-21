@@ -62,16 +62,16 @@ public class ISDACompliantDateCurveTest {
       } else {
         assertEquals(rates[i], rateModCurve.getYData()[i]);
       }
-      tt[i] = dcc.getDayCountFraction(baseDate, dates[i]);
+      tt[i] = dcc.yearFraction(baseDate, dates[i]);
       rtt[i] = tt[i] * rates[i];
     }
     assertNotSame(clonedDates, dates);
 
     final LocalDate[] sampleDates = new LocalDate[] {LocalDate.of(2013, 2, 13), LocalDate.of(2013, 11, 19), LocalDate.of(2014, 1, 23) };
     assertEquals(rates[0], curve365.getZeroRate(sampleDates[0]));
-    final double t = dcc.getDayCountFraction(baseDate, sampleDates[1]);
-    final double refT2 = dcc.getDayCountFraction(baseDate, dates[2]);
-    final double refT3 = dcc.getDayCountFraction(baseDate, dates[3]);
+    final double t = dcc.yearFraction(baseDate, sampleDates[1]);
+    final double refT2 = dcc.yearFraction(baseDate, dates[2]);
+    final double refT3 = dcc.yearFraction(baseDate, dates[3]);
     assertEquals((rates[2] * refT2 * (refT3 - t) + rates[3] * refT3 * (t - refT2)) / (refT3 - refT2) / t, curve365.getZeroRate(sampleDates[1]), tol);
     assertEquals(rates[3], curve365.getZeroRate(sampleDates[2]));
 

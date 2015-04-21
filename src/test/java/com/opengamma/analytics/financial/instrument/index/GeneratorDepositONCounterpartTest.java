@@ -79,7 +79,7 @@ public class GeneratorDepositONCounterpartTest {
     final DepositCounterpartDefinition insGenerated = GENERATOR_DEPOSIT_ON_USD.generateInstrument(referenceDate, rate, notional, attribute);
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(referenceDate, tenor, CALENDAR);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, CALENDAR);
-    final double accrualFactor = DAY_COUNT.getDayCountFraction(startDate, endDate);
+    final double accrualFactor = DAY_COUNT.yearFraction(startDate, endDate);
     final DepositCounterpartDefinition insExpected = new DepositCounterpartDefinition(CUR, startDate, endDate, notional, rate, accrualFactor, NAME_COUNTERPART);
     assertEquals("Generator Deposit Counterpart: generate instrument", insExpected, insGenerated);
   }

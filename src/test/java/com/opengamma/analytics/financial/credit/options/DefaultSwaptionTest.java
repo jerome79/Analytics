@@ -56,7 +56,7 @@ public class DefaultSwaptionTest extends ISDABaseTest {
     CREDIT_CURVE = calibrator.calibrate(spreads);
 
     CDS = factory.makeForwardStartingCDS(tradeDate, expiry, LocalDate.of(2019, 3, 20));
-    T = ACT365F.getDayCountFraction(tradeDate, expiry);
+    T = ACT365F.yearFraction(tradeDate, expiry);
   }
 
   /**
@@ -108,7 +108,7 @@ public class DefaultSwaptionTest extends ISDABaseTest {
       pillarParSpreads[i] = spreads[i] * ONE_BP;
     }
 
-    final double tEAlt = ACT_ACT_ISDA.getDayCountFraction(tradeDate, expiry);
+    final double tEAlt = ACT_ACT_ISDA.yearFraction(tradeDate, expiry);
     final CDSAnalytic fwdCDS = factory.makeCDS(tradeDate, expiry.plusDays(1), expiry.plusDays(1), expiry.plusDays(1), maturity);
     final ISDACompliantCreditCurve cc = CREDIT_CURVE_BUILDER.calibrateCreditCurve(pillarCDS, pillarParSpreads, YIELD_CURVE);
 

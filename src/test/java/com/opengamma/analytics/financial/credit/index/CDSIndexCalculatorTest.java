@@ -207,7 +207,7 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
     refAvgSpread /= intrinsicDataWithDefaulted.getIndexFactor();
     assertEquals(refAvgSpread, resDefaultedAvgSpread, tol);
 
-    final double valTime = (DayCounts.ACT_365F).getDayCountFraction(TRADE_DATE, BusinessDayDateUtils.addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR));
+    final double valTime = (DayCounts.ACT_365F).yearFraction(TRADE_DATE, BusinessDayDateUtils.addWorkDays(TRADE_DATE, 3, DEFAULT_CALENDAR));
     final double resWithValTime = INDEX_CAL.indexPV(cdx, indexCoupon, YIELD_CURVE, INTRINSIC_DATA, PriceType.CLEAN, valTime);
     assertEquals(res * INTRINSIC_DATA.getIndexFactor(), resWithValTime, tol);
 
@@ -256,7 +256,7 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
    * Default adjusted index with intrinsic data
    */
   public void forwardIntrinsicTest() {
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
 
     /**
      * Test expected default settlement
@@ -368,7 +368,7 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
    * Default adjusted index with homogeneous pool
    */
   public void forwardHomogeneousTest() {
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
 
     final ISDACompliantCreditCurve indexCurve = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDX, PILLAR_PUF, YIELD_CURVE);
     final double res = INDEX_CAL.defaultAdjustedForwardIndexValue(FWD_START_CDX, timeToExpiry, YIELD_CURVE, INDEX_COUPON, indexCurve);
@@ -446,7 +446,7 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
    * 
    */
   public void forwardHomogeneousDefaultTest() {
-    final double timeToExpiry = ACT365F.getDayCountFraction(TRADE_DATE, EXPIRY);
+    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
 
     final int initialIndexSize = INTRINSIC_DATA.getIndexSize();
     final ISDACompliantCreditCurve indexCurve = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDX, PILLAR_PUF, YIELD_CURVE);

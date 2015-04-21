@@ -45,11 +45,11 @@ public class CouponInflationYearOnYearMonthlyTest {
   private static final ZonedDateTime REFERENCE_END_DATE = PAYMENT_DATE.minusMonths(MONTH_LAG).withDayOfMonth(1);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 7, 29);
-  private static final double PAYMENT_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE);
-  private static final double NATURAL_PAYMENT_START_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE.minusMonths(12));
-  private static final double NATURAL_PAYMENT_END_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, PAYMENT_DATE);
-  private static final double REFERENCE_START_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, REFERENCE_START_DATE);
-  private static final double REFERENCE_END_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE, REFERENCE_END_DATE);
+  private static final double PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
+  private static final double NATURAL_PAYMENT_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE.minusMonths(12));
+  private static final double NATURAL_PAYMENT_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
+  private static final double REFERENCE_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_START_DATE);
+  private static final double REFERENCE_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_END_DATE);
   private static final CouponInflationYearOnYearMonthly YoY_COUPON = new CouponInflationYearOnYearMonthly(CUR, PAYMENT_TIME, 1.0, NOTIONAL, PRICE_INDEX, REFERENCE_START_TIME,
       NATURAL_PAYMENT_START_TIME,
       REFERENCE_END_TIME, NATURAL_PAYMENT_END_TIME, false);

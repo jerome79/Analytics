@@ -86,7 +86,7 @@ public class CouponONDiscountingMethodTest {
         0.0010, fixing});
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(EFFECTIVE_DATE, 1, TARGET);
     final CouponON cpnOISStarted = (CouponON) CPN_OIS_DEFINITION.toDerivative(referenceDate, TS_ON);
-    final double notionalAccrued = NOTIONAL * (1 + fixing * EONIA.getDayCount().getDayCountFraction(EFFECTIVE_DATE, referenceDate));
+    final double notionalAccrued = NOTIONAL * (1 + fixing * EONIA.getDayCount().yearFraction(EFFECTIVE_DATE, referenceDate));
     assertEquals("CouponOISDiscountingMarketMethod: present value", notionalAccrued, cpnOISStarted.getNotionalAccrued(), TOLERANCE_PV);
     final MultiCurrencyAmount pvComputed = METHOD_CPN_OIS.presentValue(cpnOISStarted, MULTICURVES);
     final double forward = MULTICURVES.getSimplyCompoundForwardRate(EONIA, cpnOISStarted.getFixingPeriodStartTime(), cpnOISStarted.getFixingPeriodEndTime(), cpnOISStarted.getFixingPeriodAccrualFactor());

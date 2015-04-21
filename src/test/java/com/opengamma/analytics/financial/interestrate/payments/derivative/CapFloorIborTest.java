@@ -55,16 +55,16 @@ public class CapFloorIborTest {
   private static final ZonedDateTime FIXING_START_DATE = ScheduleCalculator.getAdjustedDate(FIXING_DATE, SETTLEMENT_DAYS, CALENDAR);
   private static final ZonedDateTime FIXING_END_DATE = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR, BUSINESS_DAY, CALENDAR);
   private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365F;
-  private static final double PAYMENT_YEAR_FRACTION = DAY_COUNT_COUPON.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
-  private static final double FIXING_YEAR_FRACTION = DAY_COUNT_INDEX.getDayCountFraction(FIXING_START_DATE, FIXING_END_DATE);
+  private static final double PAYMENT_YEAR_FRACTION = DAY_COUNT_COUPON.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double FIXING_YEAR_FRACTION = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE);
   // Reference date and time.
   private static final LocalDate REFERENCE_DATE = LocalDate.of(2010, 12, 27); //For conversion to derivative
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE_ZONED = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE, LocalTime.MIDNIGHT), ZoneOffset.UTC);
-  private static final double PAYMENT_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, PAYMENT_DATE);
-  private static final double FIXING_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, FIXING_DATE);
-  private static final double FIXING_START_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, FIXING_START_DATE);
-  private static final double FIXING_END_TIME = ACT_ACT.getDayCountFraction(REFERENCE_DATE_ZONED, FIXING_END_DATE);
+  private static final double PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, PAYMENT_DATE);
+  private static final double FIXING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_DATE);
+  private static final double FIXING_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_START_DATE);
+  private static final double FIXING_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_END_DATE);
 
   private static final CapFloorIbor CAP = new CapFloorIbor(CUR, PAYMENT_TIME, PAYMENT_YEAR_FRACTION, NOTIONAL, FIXING_TIME, INDEX, FIXING_START_TIME, FIXING_END_TIME,
       FIXING_YEAR_FRACTION, STRIKE, IS_CAP);

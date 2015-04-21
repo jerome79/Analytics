@@ -21,7 +21,7 @@ public class ActualActualICMANormal extends ActualTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     throw new UnsupportedOperationException("Cannot get daycount fraction; need information about the coupon and payment frequency");
   }
 

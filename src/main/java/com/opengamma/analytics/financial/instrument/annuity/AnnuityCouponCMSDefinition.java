@@ -53,11 +53,11 @@ public class AnnuityCouponCMSDefinition extends AnnuityDefinition<CouponCMSDefin
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(paymentDatesUnadjusted, index.getIborIndex().getBusinessDayConvention(), calendar, false);
     final double sign = isPayer ? -1.0 : 1.0;
     final CouponCMSDefinition[] coupons = new CouponCMSDefinition[paymentDates.length];
-    coupons[0] = CouponCMSDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.getDayCountFraction(settlementDate, paymentDates[0], calendar),
+    coupons[0] = CouponCMSDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.yearFraction(settlementDate, paymentDates[0], calendar),
         sign * notional, index, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = CouponCMSDefinition.from(paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          dayCount.getDayCountFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, index, calendar);
+          dayCount.yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar), sign * notional, index, calendar);
     }
     return new AnnuityCouponCMSDefinition(coupons, calendar);
   }

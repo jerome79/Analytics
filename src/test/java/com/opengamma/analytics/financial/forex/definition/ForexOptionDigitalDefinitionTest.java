@@ -116,7 +116,7 @@ public class ForexOptionDigitalDefinitionTest {
     final InstrumentDerivative optionConverted = FX_OPTION_DEFINITION.toDerivative(referenceDate);
     final Forex fx = FX_DEFINITION.toDerivative(referenceDate);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double expirationTime = actAct.getDayCountFraction(referenceDate, EXPIRATION_DATE);
+    final double expirationTime = actAct.yearFraction(referenceDate, EXPIRATION_DATE);
     final ForexOptionDigital optionConstructed = new ForexOptionDigital(fx, expirationTime, IS_CALL, IS_LONG, PAY_DOM);
     assertEquals("Convertion to derivative", optionConstructed, optionConverted);
   }

@@ -101,7 +101,7 @@ public class InterestRateFuturesTransactionDefinitionTest {
     final double lastTradingTime = TimeCalculator.getTimeBetween(REFERENCE_DATE, LAST_TRADING_DATE);
     final double fixingStartTime = TimeCalculator.getTimeBetween(REFERENCE_DATE, SPOT_LAST_TRADING_DATE);
     final double fixingEndTime = TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_END_DATE);
-    final double fixingAccrual = IBOR_INDEX.getDayCount().getDayCountFraction(SPOT_LAST_TRADING_DATE, FIXING_END_DATE);
+    final double fixingAccrual = IBOR_INDEX.getDayCount().yearFraction(SPOT_LAST_TRADING_DATE, FIXING_END_DATE);
     final InterestRateFutureSecurity ERU2 = new InterestRateFutureSecurity(lastTradingTime, IBOR_INDEX, fixingStartTime, fixingEndTime, fixingAccrual, NOTIONAL, FUTURE_FACTOR, NAME);
     final InterestRateFutureTransaction ERU2_TRA = new InterestRateFutureTransaction(ERU2, TRADE_PRICE, QUANTITY);
     final InterestRateFutureTransaction convertedERU2 = ERU2_TRA_DEFINITION.toDerivative(REFERENCE_DATE, TRADE_PRICE);

@@ -61,15 +61,15 @@ public class SwapRiskAnalysisAug21Usd {
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
                     dateFractions[i])) + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
-                    DayCounts.ACT_360.getDayCountFraction(evalDate, UsdDatasetAug21.s_endDates[i]))) + "," +
+                    DayCounts.ACT_360.yearFraction(evalDate, UsdDatasetAug21.s_endDates[i]))) + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
-                    DayCounts.ACT_360.getDayCountFraction(evalDate, UsdDatasetAug21.s_startDates[i].plusMonths(6)))) + "," +
+                    DayCounts.ACT_360.yearFraction(evalDate, UsdDatasetAug21.s_startDates[i].plusMonths(6)))) + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
-                    DayCounts.ACT_360.getDayCountFraction(evalDate, UsdDatasetAug21.s_startDates[i]))));
+                    DayCounts.ACT_360.yearFraction(evalDate, UsdDatasetAug21.s_startDates[i]))));
       }
       
-      double t1 = DayCounts.ACT_360.getDayCountFraction(evalDate, DateUtils.getUTCDate(2015, 7, 9));
-      double t2 = DayCounts.ACT_360.getDayCountFraction(evalDate, DateUtils.getUTCDate(2016, 1, 9));
+      double t1 = DayCounts.ACT_360.yearFraction(evalDate, DateUtils.getUTCDate(2015, 7, 9));
+      double t2 = DayCounts.ACT_360.yearFraction(evalDate, DateUtils.getUTCDate(2016, 1, 9));
       System.out.println("t1,t2,forward");
       System.out.println(String.valueOf(t1) + "," + String.valueOf(t2) + "," + String.valueOf(yieldAndDiscountCurve.getForwardRate(t1) * 100));
     }

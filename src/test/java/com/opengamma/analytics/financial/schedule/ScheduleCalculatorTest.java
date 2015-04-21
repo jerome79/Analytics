@@ -706,7 +706,7 @@ public class ScheduleCalculatorTest {
     final DayCount daycount = new DayCount() {
 
       @Override
-      public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
+      public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
         return ((double) (secondDate.getMonthValue() - firstDate.getMonthValue())) / 12;
       }
 
@@ -716,7 +716,7 @@ public class ScheduleCalculatorTest {
       }
 
       @Override
-      public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+      public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
         return ((double) (secondDate.getMonthValue() - firstDate.getMonthValue())) / 12;
       }
 
@@ -726,12 +726,12 @@ public class ScheduleCalculatorTest {
       }
 
       @Override
-      public double getDayCountFraction(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar) {
+      public double yearFraction(LocalDate firstDate, LocalDate secondDate, HolidayCalendar calendar) {
         return 0;
       }
 
       @Override
-      public double getDayCountFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar) {
+      public double yearFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar) {
         return 0;
       }
 

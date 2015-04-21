@@ -42,9 +42,9 @@ public final class TimeCalculator {
     final boolean timeIsNegative = date1.isAfter(rebasedDate2); // date1 >= date2
 
     if (!timeIsNegative) {
-      return dayCount.getDayCountFraction(date1, rebasedDate2, calendar);
+      return dayCount.yearFraction(date1, rebasedDate2, calendar);
     }
-    return -1.0 * dayCount.getDayCountFraction(rebasedDate2, date1, calendar);
+    return -1.0 * dayCount.yearFraction(rebasedDate2, date1, calendar);
   }
 
   /**
@@ -65,9 +65,9 @@ public final class TimeCalculator {
     final boolean timeIsNegative = date1.isAfter(rebasedDate2); // date1 >= date2
 
     if (!timeIsNegative) {
-      return dayCount.getDayCountFraction(date1, rebasedDate2);
+      return dayCount.yearFraction(date1, rebasedDate2);
     }
-    return -1.0 * dayCount.getDayCountFraction(rebasedDate2, date1);
+    return -1.0 * dayCount.yearFraction(rebasedDate2, date1);
   }
 
   /**

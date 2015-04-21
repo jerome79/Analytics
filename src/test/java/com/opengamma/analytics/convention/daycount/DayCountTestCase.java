@@ -32,17 +32,17 @@ public abstract class DayCountTestCase {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFirstDate1() {
-    getDayCount().getDayCountFraction(null, D2);
+    getDayCount().yearFraction(null, D2);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSecondDate1() {
-    getDayCount().getDayCountFraction(D1, null);
+    getDayCount().yearFraction(D1, null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongOrder1() {
-    getDayCount().getDayCountFraction(D2, D1);
+    getDayCount().yearFraction(D2, D1);
   }
 
   @Test
@@ -52,17 +52,17 @@ public abstract class DayCountTestCase {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFirstDate2() {
-    getDayCount().getDayCountFraction(null, D5);
+    getDayCount().yearFraction(null, D5);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSecondDate2() {
-    getDayCount().getDayCountFraction(D4, null);
+    getDayCount().yearFraction(D4, null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongOrder2() {
-    getDayCount().getDayCountFraction(D5, D4);
+    getDayCount().yearFraction(D5, D4);
   }
 
   @Test

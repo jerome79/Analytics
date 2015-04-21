@@ -353,7 +353,7 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeTest {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, TARGET);
         final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = EONIA.getDayCount().getDayCountFraction(startDate, endDate);
+        final double accrualFactor = EONIA.getDayCount().yearFraction(startDate, endDate);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(EONIA, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, TARGET);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

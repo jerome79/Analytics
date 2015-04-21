@@ -71,7 +71,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDefinitionTest {
   }
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.getDayCountFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double[] ACCRUAL_FACTORS = new double[NUM_PRDS];
   static {
     Arrays.fill(ACCRUAL_FACTORS, ACCRUAL_FACTOR / NUM_PRDS);
@@ -92,7 +92,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDefinitionTest {
       for (int j = 0; j < NUM_PRDS; ++j) {
         EXP_START_DATES[j][i] = ScheduleCalculator.getAdjustedDate(FIXING_DATES[j][i], INDEX.getSpotLag(), CALENDAR);
         EXP_END_DATES[j][i] = ScheduleCalculator.getAdjustedDate(EXP_START_DATES[j][i], INDEX.getTenor(), INDEX.getBusinessDayConvention(), CALENDAR, INDEX.isEndOfMonth());
-        FIX_ACC_FACTORS[j][i] = INDEX.getDayCount().getDayCountFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
+        FIX_ACC_FACTORS[j][i] = INDEX.getDayCount().yearFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
       }
     }
   }
@@ -122,7 +122,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDefinitionTest {
       }
       FIXING_DATES_3[loopsub] = listDates.toArray(new ZonedDateTime[0]);
       WEIGHTS_3[loopsub] = new double[FIXING_DATES_3[loopsub].length];
-      ACCRUAL_FACTORS_3[loopsub] = DAY_COUNT_INDEX.getDayCountFraction(ACCRUAL_START_DATE_SUB_3[loopsub], ACCRUAL_START_DATE_SUB_3[loopsub + 1]);
+      ACCRUAL_FACTORS_3[loopsub] = DAY_COUNT_INDEX.yearFraction(ACCRUAL_START_DATE_SUB_3[loopsub], ACCRUAL_START_DATE_SUB_3[loopsub + 1]);
       for (int loopf = 0; loopf < FIXING_DATES_3[loopsub].length; loopf++) {
         WEIGHTS_3[loopsub][loopf] = 1.0d / FIXING_DATES_3[loopsub].length;
       }

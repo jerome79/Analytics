@@ -59,7 +59,7 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethodTest {
       Period.ofYears(9), EURIBOR6M, CALENDAR);
   private static final ZonedDateTime END_ACCRUAL_DATE = ScheduleCalculator.getAdjustedDate(START_ACCRUAL_DATE,
       EURIBOR6M, CALENDAR);
-  private static final double ACCRUAL_FACTOR = EURIBOR6M.getDayCount().getDayCountFraction(START_ACCRUAL_DATE,
+  private static final double ACCRUAL_FACTOR = EURIBOR6M.getDayCount().yearFraction(START_ACCRUAL_DATE,
       END_ACCRUAL_DATE, CALENDAR);
   private static final ZonedDateTime FIXING_DATE = ScheduleCalculator.getAdjustedDate(END_ACCRUAL_DATE,
       -EURIBOR6M.getSpotLag(), CALENDAR);

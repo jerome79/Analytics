@@ -123,7 +123,7 @@ public class BillTransactionDefinitionTest {
   @Test
   public void fromYield() {
     final double yield = 0.0020;
-    final double accrualFactor = ACT360.getDayCountFraction(SETTLE_DATE, END_DATE);
+    final double accrualFactor = ACT360.yearFraction(SETTLE_DATE, END_DATE);
     final double price = METHOD_BILL_SECURITY.priceFromYield(YIELD_CONVENTION, yield, accrualFactor);
     final double settlementAmount = -QUANTITY * price * NOTIONAL;
     final BillTransactionDefinition from = BillTransactionDefinition.fromYield(BILL_SEC_DEFINITION, QUANTITY, SETTLE_DATE, yield, CALENDAR);

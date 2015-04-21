@@ -266,7 +266,7 @@ public class UsdDatasetJuly16 {
     /** Forward 3M curve **/
     /** Instruments 0 */
     InstrumentDefinition<?> dep0Definitions = new DepositIborDefinition(USD, calibrationDate, immDates[0], NOTIONAL, 0.0d,
-        USDLIBOR3M.getDayCount().getDayCountFraction(calibrationDate, immDates[0]), USDLIBOR3M);
+        USDLIBOR3M.getDayCount().yearFraction(calibrationDate, immDates[0]), USDLIBOR3M);
     InstrumentDefinition<?>[] swp0Definitions = 
         ComputedDataSetsMulticurveImmUsd.generateImmIrs(immDates, new double[nbImmSwaps]);
     InstrumentDerivative[] fwd3m0 = new InstrumentDerivative[nbImmSwaps + 1];
@@ -283,7 +283,7 @@ public class UsdDatasetJuly16 {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[NB_UNITS][][];
     InstrumentDefinition<?>[] fwd3Definitions = new InstrumentDefinition<?>[nbImmSwaps + 1];
     fwd3Definitions[0] = new DepositIborDefinition(USD, calibrationDate, immDates[0], NOTIONAL,
-        marketQuoteFwd3m[0], USDLIBOR3M.getDayCount().getDayCountFraction(calibrationDate, immDates[0]), USDLIBOR3M);
+        marketQuoteFwd3m[0], USDLIBOR3M.getDayCount().yearFraction(calibrationDate, immDates[0]), USDLIBOR3M);
     double[] parRateSwp = Arrays.copyOfRange(marketQuoteFwd3m, 1, nbImmSwaps + 1);
     InstrumentDefinition<?>[] swpDefinition = ComputedDataSetsMulticurveImmUsd.generateImmIrs(immDates, parRateSwp);
     for (int loopimm = 0; loopimm < nbImmSwaps; loopimm++) {
@@ -292,7 +292,7 @@ public class UsdDatasetJuly16 {
     /** Dsc curve */
     /** Instruments 0 */
     InstrumentDefinition<?> dep0DscDefinitions = new CashDefinition(USD, calibrationDate, immDates[0], NOTIONAL, 0.0d,
-        USDFEDFUND.getDayCount().getDayCountFraction(calibrationDate, immDates[0]));
+        USDFEDFUND.getDayCount().yearFraction(calibrationDate, immDates[0]));
     InstrumentDefinition<?>[] ois0Definitions = 
         ComputedDataSetsMulticurveImmUsd.generateImmOis(immDates, new double[nbImmSwaps]);
     InstrumentDerivative[] dsc0 = new InstrumentDerivative[nbImmSwaps + 1];
@@ -308,7 +308,7 @@ public class UsdDatasetJuly16 {
     /** Instruments ATM */
     InstrumentDefinition<?>[] dscDefinitions = new InstrumentDefinition<?>[nbImmSwaps + 1];
     dscDefinitions[0] = new CashDefinition(USD, calibrationDate, immDates[0], NOTIONAL,
-        marketQuoteDsc[0], USDFEDFUND.getDayCount().getDayCountFraction(calibrationDate, immDates[0]));
+        marketQuoteDsc[0], USDFEDFUND.getDayCount().yearFraction(calibrationDate, immDates[0]));
     InstrumentDefinition<?>[] oisDefinition = 
         ComputedDataSetsMulticurveImmUsd.generateImmOis(immDates, Arrays.copyOfRange(marketQuoteDsc, 1, nbImmSwaps + 1));
     for (int loopimm = 0; loopimm < nbImmSwaps; loopimm++) {

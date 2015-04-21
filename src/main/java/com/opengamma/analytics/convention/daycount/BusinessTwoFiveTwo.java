@@ -22,26 +22,26 @@ public class BusinessTwoFiveTwo extends StatelessDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     throw new UnsupportedOperationException("Must supply a calendar to calculate the day-count fraction");
   }
 
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
+  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
     throw new UnsupportedOperationException("Must supply a calendar to calculate the day-count fraction");
   }
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
     // Arguments are checked in BusinessDays
     return getDaysBetween(firstDate, secondDate, calendar) / TWO_FIVE_TWO;
   }
 
   @Override
-  public double getDayCountFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
+  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate, final HolidayCalendar calendar) {
     ArgChecker.notNull(firstDate, "first date");
     ArgChecker.notNull(secondDate, "second date");
-    return getDayCountFraction(firstDate.toLocalDate(), secondDate.toLocalDate(), calendar);
+    return yearFraction(firstDate.toLocalDate(), secondDate.toLocalDate(), calendar);
   }
 
   @Override

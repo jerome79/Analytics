@@ -43,7 +43,7 @@ public class CashDefinitionTest {
   private static final double RATE = 0.0250;
   private static final Period DEPOSIT_PERIOD = Period.ofMonths(6);
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
-  private static final double DEPOSIT_AF = GENERATOR.getDayCount().getDayCountFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = GENERATOR.getDayCount().yearFraction(SPOT_DATE, END_DATE);
   private static final CashDefinition DEPOSIT_DEFINITION = new CashDefinition(EUR, SPOT_DATE, END_DATE, NOTIONAL, RATE, DEPOSIT_AF);
 
   private static final String CURVE_NAME = "Curve";
@@ -113,7 +113,7 @@ public class CashDefinitionTest {
     final int start = 1;
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(TRADE_DATE, start, TARGET);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, TARGET);
-    final double af = GENERATOR.getDayCount().getDayCountFraction(startDate, endDate);
+    final double af = GENERATOR.getDayCount().yearFraction(startDate, endDate);
     final CashDefinition on = new CashDefinition(EUR, startDate, endDate, NOTIONAL, RATE, af);
     final CashDefinition fromTradeON = CashDefinition.fromTrade(TRADE_DATE, start, NOTIONAL, RATE, GENERATOR);
     assertEquals("CashDefinition: from", on, fromTradeON);

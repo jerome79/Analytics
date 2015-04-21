@@ -165,11 +165,11 @@ public class BondFutureDefinitionTest {
     final ZonedDateTime lastDeliveryDate = ScheduleCalculator.getAdjustedDate(LAST_NOTICE_DATE, SETTLEMENT_DAYS, CALENDAR);
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 6, 17);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double lastTradingTime = actAct.getDayCountFraction(referenceDate, LAST_TRADING_DATE);
-    final double firstNoticeTime = actAct.getDayCountFraction(referenceDate, FIRST_NOTICE_DATE);
-    final double lastNoticeTime = actAct.getDayCountFraction(referenceDate, LAST_NOTICE_DATE);
-    final double firstDeliveryTime = actAct.getDayCountFraction(referenceDate, firstDeliveryDate);
-    final double lastDeliveryTime = actAct.getDayCountFraction(referenceDate, lastDeliveryDate);
+    final double lastTradingTime = actAct.yearFraction(referenceDate, LAST_TRADING_DATE);
+    final double firstNoticeTime = actAct.yearFraction(referenceDate, FIRST_NOTICE_DATE);
+    final double lastNoticeTime = actAct.yearFraction(referenceDate, LAST_NOTICE_DATE);
+    final double firstDeliveryTime = actAct.yearFraction(referenceDate, firstDeliveryDate);
+    final double lastDeliveryTime = actAct.yearFraction(referenceDate, lastDeliveryDate);
     final BondFixedSecurity[] basket = new BondFixedSecurity[NB_BOND];
     for (int loopbasket = 0; loopbasket < NB_BOND; loopbasket++) {
       basket[loopbasket] = BASKET_DEFINITION[loopbasket].toDerivative(referenceDate, lastDeliveryDate);

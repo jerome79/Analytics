@@ -129,7 +129,7 @@ public class ISDACompliantDateCurve
     ArgChecker.isTrue(rates.length == n, "rates and dates different lengths");
     final double[] t = new double[n];
     for (int i = 0; i < n; i++) {
-      t[i] = dayCount.getDayCountFraction(baseDate, dates[i]);
+      t[i] = dayCount.yearFraction(baseDate, dates[i]);
       if (i > 0) {
         ArgChecker.isTrue(t[i] > t[i - 1], "dates are not ascending");
       }
@@ -139,7 +139,7 @@ public class ISDACompliantDateCurve
 
   @Override
   public double getZeroRate(LocalDate date) {
-    double t = dayCount.getDayCountFraction(baseDate, date);
+    double t = dayCount.yearFraction(baseDate, date);
     return getZeroRate(t);
   }
 

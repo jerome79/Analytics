@@ -20,7 +20,7 @@ public class ActualThreeSixtyFiveLong extends ActualTypeDayCount {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public double getDayCountFraction(final LocalDate firstDate, final LocalDate secondDate) {
+  public double yearFraction(final LocalDate firstDate, final LocalDate secondDate) {
     throw new UnsupportedOperationException("Need information on payment frequency to get day count");
   }
 

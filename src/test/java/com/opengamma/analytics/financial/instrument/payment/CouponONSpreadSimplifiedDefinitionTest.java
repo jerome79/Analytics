@@ -54,10 +54,10 @@ public class CouponONSpreadSimplifiedDefinitionTest {
     LAST_FIXING_DATE = ScheduleCalculator.getAdjustedDate(LAST_FIXING_DATE, EUR_PUBLICATION_LAG, EUR_CALENDAR); // Lag
   }
   private static final ZonedDateTime PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(LAST_FIXING_DATE, EUR_SETTLEMENT_DAYS, EUR_CALENDAR);
-  private static final double PAYMENT_ACCRUAL_FACTOR = EUR_DAY_COUNT.getDayCountFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
+  private static final double PAYMENT_ACCRUAL_FACTOR = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
   private static final double NOTIONAL = 100000000;
   private static final double SPREAD = 0.0010;
-  private static final double FIXING_YEAR_FRACTION = EUR_DAY_COUNT.getDayCountFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
+  private static final double FIXING_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
   private static final CouponONSpreadSimplifiedDefinition EONIA_COUPON_DEFINITION = new CouponONSpreadSimplifiedDefinition(EUR_CUR, PAYMENT_DATE, START_ACCRUAL_DATE, END_ACCRUAL_DATE,
       PAYMENT_ACCRUAL_FACTOR,
       NOTIONAL, EUR_OIS, START_ACCRUAL_DATE, END_ACCRUAL_DATE, FIXING_YEAR_FRACTION, SPREAD);
