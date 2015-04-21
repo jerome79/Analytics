@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -49,14 +50,14 @@ public class CouponIborGearingDefinitionTest {
   private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365F;
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 8, 22);
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_COUPON.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_COUPON, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
   private static final double FACTOR = 2.0;
   private static final double SPREAD = 0.0050;
   private static final ZonedDateTime FIXING_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_START_DATE, -SETTLEMENT_DAYS, CALENDAR);
   private static final ZonedDateTime FIXING_START_DATE = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime FIXING_END_DATE = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR, BUSINESS_DAY, CALENDAR);
-  private static final double FIXING_ACCRUAL_FACTOR = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE);
+  private static final double FIXING_ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_INDEX, FIXING_START_DATE, FIXING_END_DATE);
   private static final CouponIborGearingDefinition COUPON_DEFINITION = new CouponIborGearingDefinition(CUR, ACCRUAL_END_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL,
       FIXING_DATE, INDEX, SPREAD, FACTOR, CALENDAR);
 

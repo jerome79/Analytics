@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -43,7 +44,7 @@ public class CouponIborGearingTest {
   private static final DayCount DAY_COUNT_COUPON = DayCounts.ACT_365F;
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 5, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 8, 22);
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_COUPON.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_COUPON, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
   private static final double FACTOR = 2.0;
   private static final double SPREAD = 0.0050;
@@ -53,11 +54,11 @@ public class CouponIborGearingTest {
   // Time
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 12, 27);
-  private static final double ACCRUAL_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, ACCRUAL_END_DATE);
-  private static final double FIXING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIXING_DATE);
-  private static final double FIXING_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIXING_START_DATE);
-  private static final double FIXING_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIXING_END_DATE);
-  private static final double FIXING_ACCRUAL_FACTOR = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE);
+  private static final double ACCRUAL_END_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, ACCRUAL_END_DATE);
+  private static final double FIXING_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, FIXING_DATE);
+  private static final double FIXING_START_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, FIXING_START_DATE);
+  private static final double FIXING_END_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, FIXING_END_DATE);
+  private static final double FIXING_ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_INDEX, FIXING_START_DATE, FIXING_END_DATE);
   private static final CouponIborGearing COUPON = new CouponIborGearing(CUR, ACCRUAL_END_TIME, ACCRUAL_FACTOR, NOTIONAL, FIXING_TIME, INDEX, FIXING_START_TIME,
       FIXING_END_TIME, FIXING_ACCRUAL_FACTOR, SPREAD, FACTOR);
 

@@ -11,6 +11,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
@@ -78,9 +79,9 @@ public final class TimeCalculatorBUS252 {
     final boolean timeIsNegative = date1.isAfter(rebasedDate2); // date1 >= date2
 
     if (!timeIsNegative) {
-      return dayCount.yearFraction(date1, rebasedDate2);
+      return DayCountUtils.yearFraction(dayCount, date1, rebasedDate2);
     }
-    return -1.0 * dayCount.yearFraction(rebasedDate2, date1);
+    return -1.0 * DayCountUtils.yearFraction(dayCount, rebasedDate2, date1);
   }
 
   /**

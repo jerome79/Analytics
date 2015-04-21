@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.rolldate.EndOfMonthRollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
@@ -1168,9 +1169,9 @@ public final class ScheduleCalculator {
     double yearFrac;
     for (int i = 0; i < (n); i++) {
       if (dates[i].isAfter(fromDate)) {
-        yearFrac = dayCount.yearFraction(fromDate, dates[i]);
+        yearFrac = DayCountUtils.yearFraction(dayCount, fromDate, dates[i]);
       } else {
-        yearFrac = -dayCount.yearFraction(dates[i], fromDate);
+        yearFrac = -DayCountUtils.yearFraction(dayCount, dates[i], fromDate);
       }
       result[i] = yearFrac;
     }
@@ -1202,9 +1203,9 @@ public final class ScheduleCalculator {
     ArgChecker.notNull(fromDate, "from date");
     int n = dates.length;
     double[] result = new double[n];
-    result[0] = dayCount.yearFraction(fromDate, dates[0]);
+    result[0] = DayCountUtils.yearFraction(dayCount, fromDate, dates[0]);
     for (int i = 1; i < n; i++) {
-      result[i] = dayCount.yearFraction(dates[i - 1], dates[i]);
+      result[i] = DayCountUtils.yearFraction(dayCount, dates[i - 1], dates[i]);
     }
     return result;
   }

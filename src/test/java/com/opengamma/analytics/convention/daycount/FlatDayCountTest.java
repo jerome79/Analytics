@@ -25,7 +25,7 @@ public class FlatDayCountTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testYearFraction() {
-    DC.yearFraction(D1, D2);
+    DayCountUtils.yearFraction(DC, D1, D2);
   }
 
   @Test

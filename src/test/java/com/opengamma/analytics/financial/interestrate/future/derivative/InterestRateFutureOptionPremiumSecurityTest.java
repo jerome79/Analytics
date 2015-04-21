@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.future.InterestRateFutureSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -54,7 +55,7 @@ public class InterestRateFutureOptionPremiumSecurityTest {
   // Option
   private static final ZonedDateTime EXPIRATION_DATE = DateUtils.getUTCDate(2011, 9, 16);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
-  private static final double EXPIRATION_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRATION_DATE);
+  private static final double EXPIRATION_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, EXPIRATION_DATE);
   private static final boolean IS_CALL = true;
   private static final InterestRateFutureOptionMarginSecurity OPTION_EDU2 = new InterestRateFutureOptionMarginSecurity(EDU2, EXPIRATION_TIME, STRIKE, IS_CALL);
 

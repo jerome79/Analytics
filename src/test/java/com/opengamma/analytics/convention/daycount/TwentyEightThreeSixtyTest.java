@@ -28,7 +28,7 @@ public class TwentyEightThreeSixtyTest extends DayCountTestCase {
 
   @Test
   public void test() {
-    assertEquals(COUPON * DC.yearFraction(D1, D2), DC.getAccruedInterest(D1, D2, D3, COUPON, PAYMENTS), 0);
+    assertEquals(COUPON * DayCountUtils.yearFraction(DC, D1, D2), DC.getAccruedInterest(D1, D2, D3, COUPON, PAYMENTS), 0);
     assertEquals(DC.getName(), "28/360");
     final LocalDate d1 = LocalDate.of(2012, 7, 2);
     final LocalDate d2 = LocalDate.of(2012, 7, 28);

@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.model.interestrate.curve.DiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -61,15 +62,15 @@ public class SwapRiskAnalysisAug21Usd {
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
                     dateFractions[i])) + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
-                    DayCounts.ACT_360.yearFraction(evalDate, UsdDatasetAug21.s_endDates[i]))) + "," +
+                    DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, UsdDatasetAug21.s_endDates[i]))) + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
-                    DayCounts.ACT_360.yearFraction(evalDate, UsdDatasetAug21.s_startDates[i].plusMonths(6)))) + "," +
+                    DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, UsdDatasetAug21.s_startDates[i].plusMonths(6)))) + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
-                    DayCounts.ACT_360.yearFraction(evalDate, UsdDatasetAug21.s_startDates[i]))));
+                    DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, UsdDatasetAug21.s_startDates[i]))));
       }
       
-      double t1 = DayCounts.ACT_360.yearFraction(evalDate, DateUtils.getUTCDate(2015, 7, 9));
-      double t2 = DayCounts.ACT_360.yearFraction(evalDate, DateUtils.getUTCDate(2016, 1, 9));
+      double t1 = DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, DateUtils.getUTCDate(2015, 7, 9));
+      double t2 = DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, DateUtils.getUTCDate(2016, 1, 9));
       System.out.println("t1,t2,forward");
       System.out.println(String.valueOf(t1) + "," + String.valueOf(t2) + "," + String.valueOf(yieldAndDiscountCurve.getForwardRate(t1) * 100));
     }

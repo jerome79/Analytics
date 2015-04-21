@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -65,7 +66,7 @@ public class CouponIborAverageFixingDatesDefinitionTest {
   }
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_PAYMENT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000;
 
   private static final CouponIborAverageFixingDatesDefinition DFN1 = new CouponIborAverageFixingDatesDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL,

@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -59,11 +60,11 @@ public class CouponONArithmeticAverageDefinitionTest {
   private static final int PAYMENT_LAG = 2;
 
   private static final ZonedDateTime ACCRUAL_END_DATE_3M = ScheduleCalculator.getAdjustedDate(EFFECTIVE_DATE, TENOR_3M, USDLIBOR3M, NYC);
-  private static final double ACCURAL_FACTOR_3M = USDLIBOR3M.getDayCount().yearFraction(EFFECTIVE_DATE, ACCRUAL_END_DATE_3M);
+  private static final double ACCURAL_FACTOR_3M = DayCountUtils.yearFraction(USDLIBOR3M.getDayCount(), EFFECTIVE_DATE, ACCRUAL_END_DATE_3M);
   private static final ZonedDateTime PAYMENT_DATE_3M = ScheduleCalculator.getAdjustedDate(ACCRUAL_END_DATE_3M, -1 + FEDFUND.getPublicationLag() + PAYMENT_LAG, NYC);
 
   private static final ZonedDateTime ACCRUAL_END_DATE_7D = ScheduleCalculator.getAdjustedDate(EFFECTIVE_DATE, TENOR_7D, USDLIBOR3M, NYC);
-  private static final double ACCURAL_FACTOR_7D = USDLIBOR3M.getDayCount().yearFraction(EFFECTIVE_DATE, ACCRUAL_END_DATE_7D);
+  private static final double ACCURAL_FACTOR_7D = DayCountUtils.yearFraction(USDLIBOR3M.getDayCount(), EFFECTIVE_DATE, ACCRUAL_END_DATE_7D);
   private static final ZonedDateTime PAYMENT_DATE_7D = ScheduleCalculator.getAdjustedDate(ACCRUAL_END_DATE_3M, -1 + FEDFUND.getPublicationLag() + PAYMENT_LAG, NYC);
 
   private static final CouponONArithmeticAverageDefinition FEDFUND_CPN_3M_DEF = CouponONArithmeticAverageDefinition.from(FEDFUND, EFFECTIVE_DATE, TENOR_3M, NOTIONAL, PAYMENT_LAG,

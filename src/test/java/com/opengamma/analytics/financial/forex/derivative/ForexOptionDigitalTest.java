@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.util.time.DateUtils;
@@ -39,7 +40,7 @@ public class ForexOptionDigitalTest {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 8);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final Forex FX = FX_DEFINITION.toDerivative(REFERENCE_DATE);
-  private static final double EXPIRATION_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRATION_DATE);
+  private static final double EXPIRATION_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, EXPIRATION_DATE);
   private static final ForexOptionDigital FX_OPTION = new ForexOptionDigital(FX, EXPIRATION_TIME, IS_CALL, IS_LONG, true);
 
   @Test(expectedExceptions = IllegalArgumentException.class)

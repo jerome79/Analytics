@@ -706,11 +706,6 @@ public class ScheduleCalculatorTest {
     final DayCount daycount = new DayCount() {
 
       @Override
-      public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
-        return ((double) (secondDate.getMonthValue() - firstDate.getMonthValue())) / 12;
-      }
-
-      @Override
       public double getAccruedInterest(final ZonedDateTime previousCouponDate, final ZonedDateTime date, final ZonedDateTime nextCouponDate, final double coupon, final double paymentsPerYear) {
         return 0;
       }

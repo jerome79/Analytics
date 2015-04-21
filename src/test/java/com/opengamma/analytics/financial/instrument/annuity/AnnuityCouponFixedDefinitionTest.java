@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
@@ -58,10 +59,9 @@ public class AnnuityCouponFixedDefinitionTest {
     final CouponFixedDefinition[] coupons = new CouponFixedDefinition[PAYMENT_DATES.length];
     //First coupon uses settlement date
     final double sign = IS_PAYER ? -1.0 : 1.0;
-    coupons[0] = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]), sign * NOTIONAL, RATE);
+    coupons[0] = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]), sign * NOTIONAL, RATE);
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      coupons[loopcpn] = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), sign * NOTIONAL, RATE);
+      coupons[loopcpn] = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), sign * NOTIONAL, RATE);
     }
     final AnnuityCouponFixedDefinition fixedAnnuity = new AnnuityCouponFixedDefinition(coupons, CALENDAR);
 
@@ -80,10 +80,9 @@ public class AnnuityCouponFixedDefinitionTest {
   public void testEqualHash() {
     final double sign = IS_PAYER ? -1.0 : 1.0;
     final CouponFixedDefinition[] coupons = new CouponFixedDefinition[PAYMENT_DATES.length];
-    coupons[0] = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]), sign * NOTIONAL, RATE);
+    coupons[0] = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]), sign * NOTIONAL, RATE);
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      coupons[loopcpn] = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), sign * NOTIONAL, RATE);
+      coupons[loopcpn] = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), sign * NOTIONAL, RATE);
     }
     final AnnuityCouponFixedDefinition fixedAnnuity = new AnnuityCouponFixedDefinition(coupons, CALENDAR);
     final AnnuityCouponFixedDefinition fixedAnnuity2 = AnnuityCouponFixedDefinition.from(CUR, SETTLEMENT_DATE, ANNUITY_TENOR, PAYMENT_TENOR, CALENDAR, DAY_COUNT, BUSINESS_DAY, IS_EOM, NOTIONAL, RATE,
@@ -142,10 +141,9 @@ public class AnnuityCouponFixedDefinitionTest {
     final double sign = IS_PAYER ? -1.0 : 1.0;
     final CouponFixedDefinition[] coupons = new CouponFixedDefinition[PAYMENT_DATES.length];
     //First coupon uses settlement date
-    coupons[0] = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]), sign * NOTIONAL, RATE);
+    coupons[0] = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]), sign * NOTIONAL, RATE);
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      coupons[loopcpn] = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), sign * NOTIONAL, RATE);
+      coupons[loopcpn] = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), sign * NOTIONAL, RATE);
     }
     final AnnuityCouponFixedDefinition fixedAnnuity = new AnnuityCouponFixedDefinition(coupons, CALENDAR);
     final CouponFixed[] couponFixedConverted = new CouponFixed[PAYMENT_DATES.length];

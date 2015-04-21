@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
@@ -71,7 +72,7 @@ public class PriceIndexCurveTest {
     ZonedDateTime[] indexKnownDate = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 5, 1), DateUtils.getUTCDate(2011, 6, 1)};
     double[] nodeTimeKnown = new double[indexKnownDate.length];
     for (int loopmonth = 0; loopmonth < indexKnownDate.length; loopmonth++) {
-      nodeTimeKnown[loopmonth] = -ACT_ACT.yearFraction(indexKnownDate[loopmonth], constructionDate);
+      nodeTimeKnown[loopmonth] = -DayCountUtils.yearFraction(ACT_ACT, indexKnownDate[loopmonth], constructionDate);
     }
     int[] swapTenor = new int[] {1, 2, 3, 4, 5, 7, 10, 15, 20, 30};
     double[] swapRate = new double[] {0.02, 0.021, 0.02, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025};
@@ -82,7 +83,7 @@ public class PriceIndexCurveTest {
     for (int loopswap = 0; loopswap < swapTenor.length; loopswap++) {
       ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(constructionDate, Period.ofYears(swapTenor[loopswap]), BUSINESS_DAY, CALENDAR);
       referenceDate[loopswap] = paymentDate.minusMonths(monthLag).withDayOfMonth(1);
-      nodeTimeOther[loopswap] = ACT_ACT.yearFraction(constructionDate, referenceDate[loopswap]);
+      nodeTimeOther[loopswap] = DayCountUtils.yearFraction(ACT_ACT, constructionDate, referenceDate[loopswap]);
     }
     PriceIndexCurveSimple priceIndexCurve = PriceIndexCurveSimple.fromStartOfMonth(nodeTimeKnown, indexKnown, nodeTimeOther, swapRate);
     for (int loopswap = 0; loopswap < swapTenor.length; loopswap++) {

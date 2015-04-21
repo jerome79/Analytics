@@ -15,6 +15,7 @@ import java.time.temporal.TemporalAdjusters;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationYearOnYearInterpolation;
@@ -187,13 +188,13 @@ public class CouponInflationYearOnYearInterpolationDefinitionTest {
   public void toDerivativesNoData() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2011, 7, 29);
     final Coupon yearOnYearCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate);
-    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
-    final double referenceStartTime0 = ACT_ACT.yearFraction(pricingDate, REFERENCE_START_DATE[0]);
-    final double referenceEndTime0 = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE[0]);
-    final double referenceStartTime1 = ACT_ACT.yearFraction(pricingDate, REFERENCE_START_DATE[1]);
-    final double referenceEndTime1 = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE[1]);
-    final double naturalPaymentStartPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_START_DATE);
-    final double naturalPaymentEndPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_END_DATE);
+    final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
+    final double referenceStartTime0 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_START_DATE[0]);
+    final double referenceEndTime0 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_END_DATE[0]);
+    final double referenceStartTime1 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_START_DATE[1]);
+    final double referenceEndTime1 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_END_DATE[1]);
+    final double naturalPaymentStartPaymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, ACCRUAL_START_DATE);
+    final double naturalPaymentEndPaymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, ACCRUAL_END_DATE);
     final double[] referenceStartTime = new double[2];
     final double[] referenceEndTime = new double[2];
     referenceStartTime[0] = referenceStartTime0;
@@ -213,13 +214,13 @@ public class CouponInflationYearOnYearInterpolationDefinitionTest {
         new double[]{
             127.23, 127.43, 128.23, 128.43});
     final Coupon yearOnYearCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
-    final double referenceStartTime0 = ACT_ACT.yearFraction(pricingDate, REFERENCE_START_DATE[0]);
-    final double referenceEndTime0 = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE[0]);
-    final double referenceStartTime1 = ACT_ACT.yearFraction(pricingDate, REFERENCE_START_DATE[1]);
-    final double referenceEndTime1 = ACT_ACT.yearFraction(pricingDate, REFERENCE_END_DATE[1]);
-    final double naturalPaymentStartPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_START_DATE);
-    final double naturalPaymentEndPaymentTime = ACT_ACT.yearFraction(pricingDate, ACCRUAL_END_DATE);
+    final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
+    final double referenceStartTime0 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_START_DATE[0]);
+    final double referenceEndTime0 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_END_DATE[0]);
+    final double referenceStartTime1 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_START_DATE[1]);
+    final double referenceEndTime1 = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_END_DATE[1]);
+    final double naturalPaymentStartPaymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, ACCRUAL_START_DATE);
+    final double naturalPaymentEndPaymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, ACCRUAL_END_DATE);
     final double[] referenceStartTime = new double[2];
     final double[] referenceEndTime = new double[2];
     referenceStartTime[0] = referenceStartTime0;
@@ -239,7 +240,7 @@ public class CouponInflationYearOnYearInterpolationDefinitionTest {
         new double[] {
           127.23, 127.43, 128.23, 128.43 });
     final Coupon zeroCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
+    final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, (WEIGHT_END * 128.23 + (1 - WEIGHT_END) * 128.43) /
         (WEIGHT_START * 127.23 + (1 - WEIGHT_START) * 127.43) - 1.0);
     assertEquals("Inflation zero-coupon: toDerivative", zeroCoupon, zeroCouponConverted);

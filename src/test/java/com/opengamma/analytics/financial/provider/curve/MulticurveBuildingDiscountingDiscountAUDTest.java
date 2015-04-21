@@ -20,6 +20,7 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -364,7 +365,7 @@ public class MulticurveBuildingDiscountingDiscountAUDTest {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, AUDBB3M, SYD);
         final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = AUDBB3M.getDayCount().yearFraction(startDate, endDate);
+        final double accrualFactor = DayCountUtils.yearFraction(AUDBB3M.getDayCount(), startDate, endDate);
         rateDsc[loopdate] = marketDsc.getSimplyCompoundForwardRate(AUDBB3M, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, SYD);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

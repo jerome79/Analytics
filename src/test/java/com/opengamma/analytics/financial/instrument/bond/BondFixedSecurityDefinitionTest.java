@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.convention.daycount.ActualActualICMA;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConvention;
@@ -182,7 +183,7 @@ public class BondFixedSecurityDefinitionTest {
 
     final AnnuityPaymentFixed nominal = nominalDefinition.toDerivative(REFERENCE_DATE_1);
     final AnnuityCouponFixed coupon = couponDefinition.toDerivative(REFERENCE_DATE_1);
-    final double spotTime1 = ACT_ACT.yearFraction(REFERENCE_DATE_1, spotDate1);
+    final double spotTime1 = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_1, spotDate1);
     final double accruedInterest = DAY_COUNT.getAccruedInterest(couponDefinition.getNthPayment(0).getAccrualStartDate(), spotDate1, couponDefinition.getNthPayment(0)
         .getAccrualEndDate(), RATE, COUPON_PER_YEAR)
         * NOTIONAL;
@@ -241,7 +242,7 @@ public class BondFixedSecurityDefinitionTest {
 
     final AnnuityPaymentFixed nominal = nominalDefinition.toDerivative(REFERENCE_DATE_1);
     final AnnuityCouponFixed coupon = couponDefinition.toDerivative(REFERENCE_DATE_1);
-    final double spotTime1 = ACT_ACT.yearFraction(REFERENCE_DATE_1, spotDate1);
+    final double spotTime1 = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_1, spotDate1);
     final double accruedInterest = DAY_COUNT_G.getAccruedInterest(couponDefinition.getNthPayment(0).getAccrualStartDate(), spotDate1, couponDefinition.getNthPayment(0)
         .getAccrualEndDate(), RATE_G, COUPON_PER_YEAR_G)
         * NOTIONAL_G;
@@ -272,7 +273,7 @@ public class BondFixedSecurityDefinitionTest {
     final AnnuityCouponFixedDefinition couponDefinitionEx = new AnnuityCouponFixedDefinition(couponDefinitionExArray, CALENDAR_G);
     final AnnuityPaymentFixed nominal = nominalDefinition.toDerivative(referenceDate2);
     final AnnuityCouponFixed coupon = couponDefinitionEx.toDerivative(referenceDate2);
-    final double spotTime = ACT_ACT.yearFraction(referenceDate2, spotDate);
+    final double spotTime = DayCountUtils.yearFraction(ACT_ACT, referenceDate2, spotDate);
     final double accruedInterest = (DAY_COUNT_G.getAccruedInterest(couponDefinition.getNthPayment(0).getAccrualStartDate(), spotDate, couponDefinition.getNthPayment(0)
         .getAccrualEndDate(), RATE_G, COUPON_PER_YEAR_G) - RATE_G / COUPON_PER_YEAR_G)
         * NOTIONAL_G;

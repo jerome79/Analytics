@@ -14,6 +14,7 @@ import java.util.LinkedHashSet;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
@@ -423,7 +424,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
     MultipleCurrencyParameterSensitivity[] pvpsDepositExact = new MultipleCurrencyParameterSensitivity[nFRA];
     IborIndex index = INDEX_10;
     for (int i = 0; i < nFRA; ++i) {
-      double paymentAccFactor = dayCountPayment.yearFraction(accStartDates[i], accEndDates[i]);
+      double paymentAccFactor = DayCountUtils.yearFraction(dayCountPayment, accStartDates[i], accEndDates[i]);
       double rate = 0.05;
       ForwardRateAgreementDefinition fraDef = new ForwardRateAgreementDefinition(index.getCurrency(), paymentDates[i], accStartDates[i], accEndDates[i], paymentAccFactor, notinal,
           fixingDates[i], index, rate, CALENDAR_GBP);
@@ -607,7 +608,7 @@ public class RebucketPortfolioHedgeMarketDataTest {
     MultipleCurrencyParameterSensitivity[] pvpsDepositExactFRAs = new MultipleCurrencyParameterSensitivity[nFRA];
     IborIndex index = INDEX_10;
     for (int i = 0; i < nFRA; ++i) {
-      double paymentAccFactor = dayCountPayment.yearFraction(accStartDates[i], accEndDates[i]);
+      double paymentAccFactor = DayCountUtils.yearFraction(dayCountPayment, accStartDates[i], accEndDates[i]);
       double rate = 0.05;
       ForwardRateAgreementDefinition fraDef = new ForwardRateAgreementDefinition(index.getCurrency(), paymentDates[i], accStartDates[i], accEndDates[i], paymentAccFactor, notinal,
           fixingDates[i], index, rate, CALENDAR_GBP);

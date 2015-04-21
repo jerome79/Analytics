@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedONMaster;
@@ -65,9 +66,9 @@ public class CouponONDefinitionTest {
   private static final ZonedDateTime EUR_LAST_FIXING_DATE = ScheduleCalculator.getAdjustedDate(EUR_END_ACCRUAL_DATE, -1, EUR_CALENDAR); // Overnight
   private static final ZonedDateTime EUR_LAST_PUBLICATION_DATE = ScheduleCalculator.getAdjustedDate(EUR_LAST_FIXING_DATE, EUR_PUBLICATION_LAG, EUR_CALENDAR); // Lag
   private static final ZonedDateTime EUR_PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(EUR_LAST_PUBLICATION_DATE, EUR_SETTLEMENT_DAYS, EUR_CALENDAR); // Payment is wrt last publication date
-  private static final double EUR_PAYMENT_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE);
+  private static final double EUR_PAYMENT_YEAR_FRACTION = DayCountUtils.yearFraction(EUR_DAY_COUNT, START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE);
   private static final double NOTIONAL = 100000000;
-  private static final double EUR_FIXING_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE);
+  private static final double EUR_FIXING_YEAR_FRACTION = DayCountUtils.yearFraction(EUR_DAY_COUNT, START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE);
 
   private static final CouponONDefinition EONIA_COUPON_DEFINITION = new CouponONDefinition(EUR_CUR, EUR_PAYMENT_DATE, START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE, EUR_PAYMENT_YEAR_FRACTION, NOTIONAL,
       EUR_OIS, START_ACCRUAL_DATE, EUR_END_ACCRUAL_DATE, EUR_CALENDAR);
@@ -359,8 +360,8 @@ public class CouponONDefinitionTest {
     USD_LAST_FIXING_DATE = ScheduleCalculator.getAdjustedDate(USD_LAST_FIXING_DATE, USD_GENERATOR.getIndex().getPublicationLag(), NYC); // Lag
   }
   private static final ZonedDateTime USD_PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(USD_LAST_FIXING_DATE, USD_GENERATOR.getSpotLag(), NYC);
-  private static final double USD_PAYMENT_YEAR_FRACTION = USD_GENERATOR.getFixedLegDayCount().yearFraction(START_ACCRUAL_DATE, USD_END_ACCRUAL_DATE);
-  private static final double USD_FIXING_YEAR_FRACTION = USD_GENERATOR.getFixedLegDayCount().yearFraction(START_ACCRUAL_DATE, USD_END_ACCRUAL_DATE);
+  private static final double USD_PAYMENT_YEAR_FRACTION = DayCountUtils.yearFraction(USD_GENERATOR.getFixedLegDayCount(), START_ACCRUAL_DATE, USD_END_ACCRUAL_DATE);
+  private static final double USD_FIXING_YEAR_FRACTION = DayCountUtils.yearFraction(USD_GENERATOR.getFixedLegDayCount(), START_ACCRUAL_DATE, USD_END_ACCRUAL_DATE);
 
   private static final CouponONDefinition OIS_COUPON_DEFINITION = new CouponONDefinition(USD_FEDFUND.getCurrency(), USD_PAYMENT_DATE, START_ACCRUAL_DATE, USD_END_ACCRUAL_DATE,
       USD_PAYMENT_YEAR_FRACTION, NOTIONAL, USD_FEDFUND, START_ACCRUAL_DATE, USD_END_ACCRUAL_DATE, EUR_CALENDAR);

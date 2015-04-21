@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.financial.instrument.payment.CouponONSpreadSimplifiedDefinition;
@@ -53,11 +54,11 @@ public class CouponONSpreadTest {
     LAST_FIXING_DATE = ScheduleCalculator.getAdjustedDate(LAST_FIXING_DATE, EONIA.getPublicationLag(), EUR_CALENDAR); // Lag
   }
   private static final ZonedDateTime PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(LAST_FIXING_DATE, EUR_SETTLEMENT_DAYS, EUR_CALENDAR);
-  private static final double PAYMENT_ACCRUAL_FACTOR = EONIA.getDayCount().yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
+  private static final double PAYMENT_ACCRUAL_FACTOR = DayCountUtils.yearFraction(EONIA.getDayCount(), START_ACCRUAL_DATE, END_ACCRUAL_DATE);
   private static final double NOTIONAL = 100000000;
   private static final double SPREAD = 0.0010;
   private static final double SPREAD_AMOUNT = SPREAD * NOTIONAL * PAYMENT_ACCRUAL_FACTOR;
-  private static final double FIXING_YEAR_FRACTION = EONIA.getDayCount().yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
+  private static final double FIXING_YEAR_FRACTION = DayCountUtils.yearFraction(EONIA.getDayCount(), START_ACCRUAL_DATE, END_ACCRUAL_DATE);
   private static final CouponONSpreadSimplifiedDefinition EONIA_COUPON_DEFINITION = new CouponONSpreadSimplifiedDefinition(EUR, PAYMENT_DATE, START_ACCRUAL_DATE, END_ACCRUAL_DATE,
       PAYMENT_ACCRUAL_FACTOR, NOTIONAL, EONIA, START_ACCRUAL_DATE, END_ACCRUAL_DATE, FIXING_YEAR_FRACTION, SPREAD);
 
@@ -73,7 +74,7 @@ public class CouponONSpreadTest {
   private static final double PAYMENT_TIME_2 = TimeCalculator.getTimeBetween(REFERENCE_DATE_2, PAYMENT_DATE);
   private static final double START_FIXING_TIME_2 = TimeCalculator.getTimeBetween(REFERENCE_DATE_2, NEXT_FIXING_DATE_2);
   private static final double END_FIXING_TIME_2 = TimeCalculator.getTimeBetween(REFERENCE_DATE_2, END_ACCRUAL_DATE);
-  private static final double FIXING_YEAR_FRACTION_2 = EONIA.getDayCount().yearFraction(NEXT_FIXING_DATE_2, END_ACCRUAL_DATE);
+  private static final double FIXING_YEAR_FRACTION_2 = DayCountUtils.yearFraction(EONIA.getDayCount(), NEXT_FIXING_DATE_2, END_ACCRUAL_DATE);
   private static final double NOTIONAL_WITH_ACCRUED = NOTIONAL * (1.0 + 0.01 / 12); // 1% over a month (roughly)
   private static final CouponONSpread EONIA_COUPON_STARTED = new CouponONSpread(EUR, PAYMENT_TIME_2, PAYMENT_ACCRUAL_FACTOR, NOTIONAL, EONIA, START_FIXING_TIME_2, END_FIXING_TIME_2,
       FIXING_YEAR_FRACTION_2, NOTIONAL_WITH_ACCRUED, SPREAD_AMOUNT);

@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
@@ -128,9 +129,9 @@ public class SwaptionBermudaFixedIborDefinitionTest {
     @SuppressWarnings("unchecked")
     final SwapFixedCoupon<Coupon>[] underlyingSwap = new SwapFixedCoupon[NB_EXPIRY];
     for (int loopexp = 0; loopexp < NB_EXPIRY; loopexp++) {
-      expiryTime[loopexp] = actAct.yearFraction(REFERENCE_DATE, EXPIRY_DATE[loopexp]);
+      expiryTime[loopexp] = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, EXPIRY_DATE[loopexp]);
       underlyingSwap[loopexp] = EXPIRY_SWAP_DEFINITION[loopexp].toDerivative(REFERENCE_DATE);
-      settleTime[loopexp] = actAct.yearFraction(REFERENCE_DATE, EXPIRY_SWAP_DEFINITION[loopexp].getFixedLeg().getNthPayment(0).getAccrualStartDate());
+      settleTime[loopexp] = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, EXPIRY_SWAP_DEFINITION[loopexp].getFixedLeg().getNthPayment(0).getAccrualStartDate());
     }
     final SwaptionBermudaFixedIbor swaptionBermuda = new SwaptionBermudaFixedIbor(underlyingSwap, IS_LONG, expiryTime, settleTime);
     assertEquals("Swaption Bermuda: to derivatives", swaptionBermuda, BERMUDA_SWAPTION_DEFINITION.toDerivative(REFERENCE_DATE));

@@ -37,7 +37,7 @@ public class ThirtyEThreeSixtyISDATest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoMaturityValue2() {
-    DC.yearFraction(D1, D2);
+    DayCountUtils.yearFraction(DC, D1, D2);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

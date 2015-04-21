@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.cash.CashDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -83,7 +84,7 @@ public class GeneratorDepositONTest {
     final CashDefinition insGenerated = GENERATOR_DEPOSIT_ON_USD.generateInstrument(referenceDate, rate, notional, attribute);
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(referenceDate, tenor, CALENDAR);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, CALENDAR);
-    final double accrualFactor = DAY_COUNT.yearFraction(startDate, endDate);
+    final double accrualFactor = DayCountUtils.yearFraction(DAY_COUNT, startDate, endDate);
     final CashDefinition insExpected = new CashDefinition(CUR, startDate, endDate, notional, rate, accrualFactor);
     assertEquals("Generator Deposit Counterpart: generate instrument", insExpected, insGenerated);
   }

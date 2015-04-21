@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
@@ -65,11 +66,11 @@ public class BondFutureOptionPremiumSecurityBlackSurfaceMethodTest {
   private static final double REF_PRICE = 0.0;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 20);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
-  private static final double LAST_TRADING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_TRADING_DATE);
-  private static final double FIRST_NOTICE_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIRST_NOTICE_DATE);
-  private static final double LAST_NOTICE_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_NOTICE_DATE);
-  private static final double FIRST_DELIVERY_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, FIRST_DELIVERY_DATE);
-  private static final double LAST_DELIVERY_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, LAST_DELIVERY_DATE);
+  private static final double LAST_TRADING_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, LAST_TRADING_DATE);
+  private static final double FIRST_NOTICE_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, FIRST_NOTICE_DATE);
+  private static final double LAST_NOTICE_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, LAST_NOTICE_DATE);
+  private static final double FIRST_DELIVERY_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, FIRST_DELIVERY_DATE);
+  private static final double LAST_DELIVERY_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, LAST_DELIVERY_DATE);
 
   private static final BondFixedSecurityDefinition[] BASKET_DEFINITION = new BondFixedSecurityDefinition[NB_BOND];
   private static final Currency USD = Currency.USD;

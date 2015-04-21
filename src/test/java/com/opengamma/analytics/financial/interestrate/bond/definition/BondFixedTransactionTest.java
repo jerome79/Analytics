@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
@@ -60,9 +61,9 @@ public class BondFixedTransactionTest {
   // Transaction
   private static final double PRICE = 0.90;
   private static final ZonedDateTime BOND_SETTLEMENT_DATE = DateUtils.getUTCDate(2011, 8, 24);
-  private static final double BOND_SETTLEMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_Z_1, BOND_SETTLEMENT_DATE);
+  private static final double BOND_SETTLEMENT_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_Z_1, BOND_SETTLEMENT_DATE);
   private static final ZonedDateTime STANDARD_SETTLEMENT_DATE = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE_Z_1, SETTLEMENT_DAYS, CALENDAR);
-  private static final double STANDARD_SETTLEMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_Z_1, STANDARD_SETTLEMENT_DATE);
+  private static final double STANDARD_SETTLEMENT_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_Z_1, STANDARD_SETTLEMENT_DATE);
   private static final double QUANTITY = 100000000; //100m
   private static final AnnuityCouponFixedDefinition COUPON_DEFINITION = BOND_SECURITY_DEFINITION.getCoupons();
   private static final AnnuityCouponFixedDefinition COUPON_DEFINITION_TRIM = COUPON_DEFINITION.trimBefore(STANDARD_SETTLEMENT_DATE);

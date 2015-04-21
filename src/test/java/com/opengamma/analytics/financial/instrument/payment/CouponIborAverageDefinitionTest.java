@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -59,9 +60,9 @@ public class CouponIborAverageDefinitionTest {
   private static final ZonedDateTime FIXING_END_DATE_2 = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR_2, BUSINESS_DAY, CALENDAR, IS_EOM);
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
-  private static final double ACCRUAL_FACTOR_FIXING_1 = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE_1);
-  private static final double ACCRUAL_FACTOR_FIXING_2 = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE_2);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_PAYMENT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR_FIXING_1 = DayCountUtils.yearFraction(DAY_COUNT_INDEX, FIXING_START_DATE, FIXING_END_DATE_1);
+  private static final double ACCRUAL_FACTOR_FIXING_2 = DayCountUtils.yearFraction(DAY_COUNT_INDEX, FIXING_START_DATE, FIXING_END_DATE_2);
   private static final double NOTIONAL = 1000000; //1m
   private static final double WEIGHT_1 = 23;
   private static final double WEIGHT_2 = -.03;
@@ -193,12 +194,12 @@ public class CouponIborAverageDefinitionTest {
   @Test
   public void testToDerivativeBeforeFixing() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double paymentTime = actAct.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
-    final double fixingTime = actAct.yearFraction(REFERENCE_DATE, FIXING_DATE);
-    final double fixingPeriodStartTime1 = actAct.yearFraction(REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodStartDate1());
-    final double fixingPeriodEndTime1 = actAct.yearFraction(REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodEndDate1());
-    final double fixingPeriodStartTime2 = actAct.yearFraction(REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodStartDate2());
-    final double fixingPeriodEndTime2 = actAct.yearFraction(REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodEndDate2());
+    final double paymentTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, PAYMENT_DATE);
+    final double fixingTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, FIXING_DATE);
+    final double fixingPeriodStartTime1 = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodStartDate1());
+    final double fixingPeriodEndTime1 = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodEndDate1());
+    final double fixingPeriodStartTime2 = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodStartDate2());
+    final double fixingPeriodEndTime2 = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, IBOR_AVERAGE_COUPON_DEFINITION_1.getFixingPeriodEndDate2());
     final CouponIborAverage couponIborAverage = new CouponIborAverage(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, fixingTime, INDEX_1, fixingPeriodStartTime1, fixingPeriodEndTime1,
         ACCRUAL_FACTOR_FIXING_1,
         INDEX_2, fixingPeriodStartTime2, fixingPeriodEndTime2, ACCRUAL_FACTOR_FIXING_2, WEIGHT_1, WEIGHT_2);

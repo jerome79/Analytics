@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.forex.derivative.ForexOptionDigital;
@@ -133,7 +134,7 @@ public class ForexOptionDigitalDefinition implements InstrumentDefinition<Instru
     ArgChecker.notNull(date, "date");
     final Forex fx = _underlyingForex.toDerivative(date);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double expirationTime = actAct.yearFraction(date, _expirationDate);
+    final double expirationTime = DayCountUtils.yearFraction(actAct, date, _expirationDate);
     return new ForexOptionDigital(fx, expirationTime, _isCall, _isLong, _payDomestic);
   }
 

@@ -13,6 +13,7 @@ import java.util.List;
 import com.opengamma.analytics.convention.daycount.ActualActualICMA;
 import com.opengamma.analytics.convention.daycount.ActualActualICMANormal;
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.ThirtyEThreeSixtyISDA;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjuster;
 import com.opengamma.analytics.convention.rolldate.RollDateAdjusterUtils;
@@ -254,7 +255,7 @@ public class AnnuityDefinitionBuilder {
     final CouponFixedDefinition[] coupons = new CouponFixedDefinition[nbCpn];
     for (int loopcpn = 0; loopcpn < nbCpn; loopcpn++) {
       final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(legDates.get(loopcpn + 1), paymentLag, calendar);
-      final double accrualFactor = dayCount.yearFraction(legDates.get(loopcpn), legDates.get(loopcpn + 1));
+      final double accrualFactor = DayCountUtils.yearFraction(dayCount, legDates.get(loopcpn), legDates.get(loopcpn + 1));
       coupons[loopcpn] = new CouponFixedDefinition(currency, paymentDate, legDates.get(loopcpn), legDates.get(loopcpn + 1), accrualFactor, notional * sign, rate);
     }
     return new AnnuityDefinition<>(coupons, calendar);
@@ -1237,11 +1238,11 @@ public class AnnuityDefinitionBuilder {
     final ZonedDateTime[] paymentDateSchedule = ScheduleCalculator.getAdjustedDate(adjustedDateSchedule, paymentLag, calendar);
     final double signedNotional = isPayer ? -notional : notional;
     final CouponONSpreadSimplifiedDefinition[] coupons = new CouponONSpreadSimplifiedDefinition[adjustedDateSchedule.length];
-    double af = index.getDayCount().yearFraction(settlementDate, adjustedDateSchedule[0]);
+    double af = DayCountUtils.yearFraction(index.getDayCount(), settlementDate, adjustedDateSchedule[0]);
     coupons[0] = new CouponONSpreadSimplifiedDefinition(index.getCurrency(), paymentDateSchedule[0], settlementDate, adjustedDateSchedule[0], af, signedNotional,
         index, settlementDate, adjustedDateSchedule[0], af, spread);
     for (int loopcpn = 1; loopcpn < adjustedDateSchedule.length; loopcpn++) {
-      af = index.getDayCount().yearFraction(adjustedDateSchedule[loopcpn - 1], adjustedDateSchedule[loopcpn]);
+      af = DayCountUtils.yearFraction(index.getDayCount(), adjustedDateSchedule[loopcpn - 1], adjustedDateSchedule[loopcpn]);
       coupons[loopcpn] = new CouponONSpreadSimplifiedDefinition(index.getCurrency(), paymentDateSchedule[loopcpn], adjustedDateSchedule[loopcpn - 1], adjustedDateSchedule[loopcpn],
           af, signedNotional, index, adjustedDateSchedule[loopcpn - 1], adjustedDateSchedule[loopcpn], af, spread);
     }
@@ -1282,7 +1283,7 @@ public class AnnuityDefinitionBuilder {
     final DayCount dayCount = index.getDayCount();
     final CouponONSpreadSimplifiedDefinition[] coupons = new CouponONSpreadSimplifiedDefinition[nbCpn];
     for (int loopcpn = 0; loopcpn < nbCpn; loopcpn++) {
-      final double accrualFactor = dayCount.yearFraction(legDates.get(loopcpn), legDates.get(loopcpn + 1));
+      final double accrualFactor = DayCountUtils.yearFraction(dayCount, legDates.get(loopcpn), legDates.get(loopcpn + 1));
       final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(legDates.get(loopcpn + 1), paymentLag, calendar);
       coupons[loopcpn] = new CouponONSpreadSimplifiedDefinition(index.getCurrency(), paymentDate, legDates.get(loopcpn), legDates.get(loopcpn + 1), accrualFactor,
           notional * sign, index, legDates.get(loopcpn), legDates.get(loopcpn + 1), accrualFactor, spread);
@@ -1318,11 +1319,11 @@ public class AnnuityDefinitionBuilder {
         businessDayConvention, calendar, endOfMonth);
     final double signedNotional = isPayer ? -notional : notional;
     final CouponONArithmeticAverageSpreadSimplifiedDefinition[] coupons = new CouponONArithmeticAverageSpreadSimplifiedDefinition[adjustedDateSchedule.length];
-    double af = index.getDayCount().yearFraction(settlementDate, adjustedDateSchedule[0]);
+    double af = DayCountUtils.yearFraction(index.getDayCount(), settlementDate, adjustedDateSchedule[0]);
     coupons[0] = new CouponONArithmeticAverageSpreadSimplifiedDefinition(index.getCurrency(), adjustedDateSchedule[0], settlementDate, adjustedDateSchedule[0],
         af, signedNotional, index, spread);
     for (int loopcpn = 1; loopcpn < adjustedDateSchedule.length; loopcpn++) {
-      af = index.getDayCount().yearFraction(adjustedDateSchedule[loopcpn - 1], adjustedDateSchedule[loopcpn]);
+      af = DayCountUtils.yearFraction(index.getDayCount(), adjustedDateSchedule[loopcpn - 1], adjustedDateSchedule[loopcpn]);
       coupons[loopcpn] = new CouponONArithmeticAverageSpreadSimplifiedDefinition(index.getCurrency(), adjustedDateSchedule[loopcpn], adjustedDateSchedule[loopcpn - 1],
           adjustedDateSchedule[loopcpn], af, signedNotional, index, spread);
     }

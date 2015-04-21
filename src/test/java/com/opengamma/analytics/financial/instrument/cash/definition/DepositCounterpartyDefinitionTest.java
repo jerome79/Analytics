@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.cash.DepositCounterpartDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.generator.EURDeposit;
@@ -42,7 +43,7 @@ public class DepositCounterpartyDefinitionTest {
   private static final double RATE = 0.0250;
   private static final Period DEPOSIT_PERIOD = Period.ofMonths(6);
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
-  private static final double DEPOSIT_AF = GENERATOR.getDayCount().yearFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = DayCountUtils.yearFraction(GENERATOR.getDayCount(), SPOT_DATE, END_DATE);
   private static final String COUNTERPART = "Ctp";
 
   private static final DepositCounterpartDefinition DEPOSIT_CTP_DEFINITION = new DepositCounterpartDefinition(EUR, SPOT_DATE, END_DATE, NOTIONAL, RATE, DEPOSIT_AF, COUNTERPART);
@@ -86,7 +87,7 @@ public class DepositCounterpartyDefinitionTest {
     final int start = 1;
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(TRADE_DATE, start, TARGET);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, TARGET);
-    final double af = GENERATOR.getDayCount().yearFraction(startDate, endDate);
+    final double af = DayCountUtils.yearFraction(GENERATOR.getDayCount(), startDate, endDate);
     final DepositCounterpartDefinition on = new DepositCounterpartDefinition(EUR, startDate, endDate, NOTIONAL, RATE, af, COUNTERPART);
     final DepositCounterpartDefinition fromTradeON = DepositCounterpartDefinition.fromTrade(TRADE_DATE, start, NOTIONAL, RATE, GENERATOR, COUNTERPART);
     assertEquals("DepositDefinition: from", on, fromTradeON);

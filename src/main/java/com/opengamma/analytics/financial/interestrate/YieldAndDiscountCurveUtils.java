@@ -9,6 +9,7 @@ package com.opengamma.analytics.financial.interestrate;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
@@ -41,7 +42,7 @@ public class YieldAndDiscountCurveUtils {
     final double fixingPeriodStartTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodStartDate);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingDate, index, cal);
     final double fixingPeriodEndTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodEndDate);
-    final double accrualFixing = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate);
+    final double accrualFixing = DayCountUtils.yearFraction(index.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate);
     final double dfStart = curve.getDiscountFactor(fixingPeriodStartTime);
     final double dfEnd = curve.getDiscountFactor(fixingPeriodEndTime);
     final double forwardRate = (dfStart / dfEnd - 1.0d) / accrualFixing;
@@ -68,7 +69,7 @@ public class YieldAndDiscountCurveUtils {
     final double fixingPeriodStartTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodStartDate);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingDate, index, cal);
     final double fixingPeriodEndTime = TimeCalculator.getTimeBetween(curveDate, fixingPeriodEndDate);
-    final double accrualFixing = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate);
+    final double accrualFixing = DayCountUtils.yearFraction(index.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate);
     final double forwardRate = multicurve.getSimplyCompoundForwardRate(index, fixingPeriodStartTime, fixingPeriodEndTime, accrualFixing);
     return forwardRate;
   }
@@ -89,7 +90,7 @@ public class YieldAndDiscountCurveUtils {
     ArgChecker.notNull(dc, "dayCount");
     final double timeCurve = TimeCalculator.getTimeBetween(curveDate, payDate);
     final double df = curve.getDiscountFactor(timeCurve);
-    final double timeDc = dc.yearFraction(curveDate, payDate);
+    final double timeDc = DayCountUtils.yearFraction(dc, curveDate, payDate);
     if (paymentPerYear > 0) {
       final double rate = paymentPerYear * (Math.pow(df, -1.0 / (paymentPerYear * timeDc)) - 1.0);
       return rate;

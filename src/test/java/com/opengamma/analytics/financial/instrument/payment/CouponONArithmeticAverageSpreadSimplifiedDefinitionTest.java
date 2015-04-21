@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -42,7 +43,7 @@ public class CouponONArithmeticAverageSpreadSimplifiedDefinitionTest {
   private static final double SPREAD = 0.0010; // 10 bps
   private static final int PAYMENT_LAG = 2;
   private static final ZonedDateTime ACCRUAL_END_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_START_DATE, TENOR_3M, USDLIBOR3M, NYC);
-  private static final double ACCURAL_FACTOR = USDLIBOR3M.getDayCount().yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCURAL_FACTOR = DayCountUtils.yearFraction(USDLIBOR3M.getDayCount(), ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final ZonedDateTime PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_END_DATE, -1 + FEDFUND.getPublicationLag() + PAYMENT_LAG, NYC);
   private static final CouponONArithmeticAverageSpreadSimplifiedDefinition FEDFUND_CPN_3M_DEF = new CouponONArithmeticAverageSpreadSimplifiedDefinition(Currency.USD, PAYMENT_DATE, ACCRUAL_START_DATE,
       ACCRUAL_END_DATE, ACCURAL_FACTOR, NOTIONAL, FEDFUND, SPREAD);

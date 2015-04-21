@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponON;
@@ -54,9 +55,9 @@ public class CouponONSimplifiedDefinitionTest {
     LAST_FIXING_DATE = ScheduleCalculator.getAdjustedDate(LAST_FIXING_DATE, EUR_PUBLICATION_LAG, EUR_CALENDAR); // Lag
   }
   private static final ZonedDateTime PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(LAST_FIXING_DATE, EUR_SETTLEMENT_DAYS, EUR_CALENDAR);
-  private static final double PAYMENT_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
+  private static final double PAYMENT_YEAR_FRACTION = DayCountUtils.yearFraction(EUR_DAY_COUNT, START_ACCRUAL_DATE, END_ACCRUAL_DATE);
   private static final double NOTIONAL = 100000000;
-  private static final double FIXING_YEAR_FRACTION = EUR_DAY_COUNT.yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE);
+  private static final double FIXING_YEAR_FRACTION = DayCountUtils.yearFraction(EUR_DAY_COUNT, START_ACCRUAL_DATE, END_ACCRUAL_DATE);
   private static final CouponONSimplifiedDefinition EONIA_COUPON_DEFINITION = new CouponONSimplifiedDefinition(EUR_CUR, PAYMENT_DATE, START_ACCRUAL_DATE, END_ACCRUAL_DATE, PAYMENT_YEAR_FRACTION,
       NOTIONAL, EUR_OIS, START_ACCRUAL_DATE, END_ACCRUAL_DATE, FIXING_YEAR_FRACTION);
 

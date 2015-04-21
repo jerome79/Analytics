@@ -46,23 +46,6 @@ public abstract class AbstractDayCount implements DayCount {
   }
 
   /**
-   * Gets the day count between the specified dates.
-   * <p>
-   * Given two dates, this method returns the fraction of a year between these dates
-   * according to the convention.
-   *
-   * @param firstDate  the earlier date, not null
-   * @param secondDate  the later date, not null
-   * @return the day count fraction
-   */
-  @Override
-  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
-    ArgChecker.notNull(firstDate, "first date");
-    ArgChecker.notNull(secondDate, "second date");
-    return yearFraction(firstDate.toLocalDate(), secondDate.toLocalDate());
-  }
-
-  /**
    * Gets the day count between the specified dates using the supplied calendar to provide business days
    * <p>
    * Given two dates, this method returns the fraction of a year between these dates

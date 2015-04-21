@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
@@ -165,11 +166,11 @@ public class BondFutureDefinitionTest {
     final ZonedDateTime lastDeliveryDate = ScheduleCalculator.getAdjustedDate(LAST_NOTICE_DATE, SETTLEMENT_DAYS, CALENDAR);
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 6, 17);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double lastTradingTime = actAct.yearFraction(referenceDate, LAST_TRADING_DATE);
-    final double firstNoticeTime = actAct.yearFraction(referenceDate, FIRST_NOTICE_DATE);
-    final double lastNoticeTime = actAct.yearFraction(referenceDate, LAST_NOTICE_DATE);
-    final double firstDeliveryTime = actAct.yearFraction(referenceDate, firstDeliveryDate);
-    final double lastDeliveryTime = actAct.yearFraction(referenceDate, lastDeliveryDate);
+    final double lastTradingTime = DayCountUtils.yearFraction(actAct, referenceDate, LAST_TRADING_DATE);
+    final double firstNoticeTime = DayCountUtils.yearFraction(actAct, referenceDate, FIRST_NOTICE_DATE);
+    final double lastNoticeTime = DayCountUtils.yearFraction(actAct, referenceDate, LAST_NOTICE_DATE);
+    final double firstDeliveryTime = DayCountUtils.yearFraction(actAct, referenceDate, firstDeliveryDate);
+    final double lastDeliveryTime = DayCountUtils.yearFraction(actAct, referenceDate, lastDeliveryDate);
     final BondFixedSecurity[] basket = new BondFixedSecurity[NB_BOND];
     for (int loopbasket = 0; loopbasket < NB_BOND; loopbasket++) {
       basket[loopbasket] = BASKET_DEFINITION[loopbasket].toDerivative(referenceDate, lastDeliveryDate);

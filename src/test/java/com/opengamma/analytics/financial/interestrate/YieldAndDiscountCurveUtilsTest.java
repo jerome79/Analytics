@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -51,7 +52,7 @@ public class YieldAndDiscountCurveUtilsTest {
     final double fixingPeriodStartTime = TimeCalculator.getTimeBetween(CURVE_DATE, fixingPeriodStartDate);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingDate, USDLIBOR6M, NYC);
     final double fixingPeriodEndTime = TimeCalculator.getTimeBetween(CURVE_DATE, fixingPeriodEndDate);
-    final double accrualFixing = USDLIBOR6M.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate);
+    final double accrualFixing = DayCountUtils.yearFraction(USDLIBOR6M.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate);
     final double dfStart = curve3M.getDiscountFactor(fixingPeriodStartTime);
     final double dfEnd = curve3M.getDiscountFactor(fixingPeriodEndTime);
     final double forwardExpected = (dfStart / dfEnd - 1.0d) / accrualFixing;
@@ -67,7 +68,7 @@ public class YieldAndDiscountCurveUtilsTest {
     final double fixingPeriodStartTime = TimeCalculator.getTimeBetween(CURVE_DATE, fixingPeriodStartDate);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingDate, USDLIBOR3M, NYC);
     final double fixingPeriodEndTime = TimeCalculator.getTimeBetween(CURVE_DATE, fixingPeriodEndDate);
-    final double accrualFixing = USDLIBOR3M.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate);
+    final double accrualFixing = DayCountUtils.yearFraction(USDLIBOR3M.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate);
     final double dfStart = curve3M.getDiscountFactor(fixingPeriodStartTime);
     final double dfEnd = curve3M.getDiscountFactor(fixingPeriodEndTime);
     final double forwardExpected = (dfStart / dfEnd - 1.0d) / accrualFixing;
@@ -82,7 +83,7 @@ public class YieldAndDiscountCurveUtilsTest {
     final double timeCurve = TimeCalculator.getTimeBetween(CURVE_DATE, paymentDate);
     final double df = curve3M.getDiscountFactor(timeCurve);
     final DayCount dc = DayCounts.ACT_365F;
-    final double timeDc = dc.yearFraction(CURVE_DATE, paymentDate);
+    final double timeDc = DayCountUtils.yearFraction(dc, CURVE_DATE, paymentDate);
     final int paymentPerYear = 4;
     final double rateExpected = paymentPerYear * (Math.pow(df, -1.0 / (paymentPerYear * timeDc)) - 1.0);
     final double rateComputed = YieldAndDiscountCurveUtils.zeroCouponRate(curve3M, CURVE_DATE, paymentDate, dc, paymentPerYear);
@@ -96,7 +97,7 @@ public class YieldAndDiscountCurveUtilsTest {
     final double timeCurve = TimeCalculator.getTimeBetween(CURVE_DATE, paymentDate);
     final double df = curve3M.getDiscountFactor(timeCurve);
     final DayCount dc = DayCounts.ACT_365F;
-    final double timeDc = dc.yearFraction(CURVE_DATE, paymentDate);
+    final double timeDc = DayCountUtils.yearFraction(dc, CURVE_DATE, paymentDate);
     final double rateExpected = -Math.log(df) / timeDc;
     final double rateComputed = YieldAndDiscountCurveUtils.zeroCouponRate(curve3M, CURVE_DATE, paymentDate, dc, 0);
     assertEquals("zeroCouponRatePeriodic", rateExpected, rateComputed, TOLERANCE_RATE);

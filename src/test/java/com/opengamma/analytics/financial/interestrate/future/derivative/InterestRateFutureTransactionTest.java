@@ -19,6 +19,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -58,10 +59,10 @@ public class InterestRateFutureTransactionTest {
   private static final LocalDate REFERENCE_DATE = LocalDate.of(2010, 8, 18);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE_ZONED = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE, LocalTime.MIDNIGHT), ZoneOffset.UTC);
-  private static final double LAST_TRADING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, LAST_TRADING_DATE);
-  private static final double FIXING_START_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, SPOT_LAST_TRADING_DATE);
-  private static final double FIXING_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_END_DATE);
-  private static final double FIXING_ACCRUAL = DAY_COUNT_INDEX.yearFraction(SPOT_LAST_TRADING_DATE, FIXING_END_DATE);
+  private static final double LAST_TRADING_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_ZONED, LAST_TRADING_DATE);
+  private static final double FIXING_START_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_ZONED, SPOT_LAST_TRADING_DATE);
+  private static final double FIXING_END_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_ZONED, FIXING_END_DATE);
+  private static final double FIXING_ACCRUAL = DayCountUtils.yearFraction(DAY_COUNT_INDEX, SPOT_LAST_TRADING_DATE, FIXING_END_DATE);
   private static final InterestRateFutureSecurity ERU2 = new InterestRateFutureSecurity(LAST_TRADING_TIME, IBOR_INDEX, FIXING_START_TIME,
       FIXING_END_TIME, FIXING_ACCRUAL, NOTIONAL, FUTURE_FACTOR, NAME);
   private static final InterestRateFutureTransaction ERU2_TRA = new InterestRateFutureTransaction(ERU2, REFERENCE_PRICE, QUANTITY);

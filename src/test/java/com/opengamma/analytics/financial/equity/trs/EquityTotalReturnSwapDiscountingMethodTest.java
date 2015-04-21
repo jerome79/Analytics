@@ -17,6 +17,7 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.Sets;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.equity.EquityDefinition;
@@ -110,7 +111,7 @@ public class EquityTotalReturnSwapDiscountingMethodTest {
   private static final IndexON GBPSONIA = IndexONMaster.getInstance().getIndex("SONIA");
   private static final double SPREAD_GBP = 0.0010;
   private static final CouponONSpreadDefinition FUNDING_ON_CPN_REC_DEFINITION = new CouponONSpreadDefinition(GBP, TERMINATION_DATE_1, EFFECTIVE_DATE_1, TERMINATION_DATE_1,
-      GBPSONIA.getDayCount().yearFraction(EFFECTIVE_DATE_1, TERMINATION_DATE_1), NOTIONAL_TRS_GBP, GBPSONIA, EFFECTIVE_DATE_1, TERMINATION_DATE_1, LON, SPREAD_GBP);
+      DayCountUtils.yearFraction(GBPSONIA.getDayCount(), EFFECTIVE_DATE_1, TERMINATION_DATE_1), NOTIONAL_TRS_GBP, GBPSONIA, EFFECTIVE_DATE_1, TERMINATION_DATE_1, LON, SPREAD_GBP);
   private static final AnnuityDefinition<? extends PaymentDefinition> FUNDING_LEG_ON_REC_DEFINITION =
       new AnnuityDefinition<>(new PaymentDefinition[] {FUNDING_ON_CPN_REC_DEFINITION }, LON);
   private static final Annuity<? extends Payment> FUNDING_LEG_ON_REC_1 = FUNDING_LEG_ON_REC_DEFINITION.toDerivative(REFERENCE_DATE_1, FIXING_TS_GBPSONIA);
@@ -121,7 +122,7 @@ public class EquityTotalReturnSwapDiscountingMethodTest {
       -NOTIONAL_TRS_GBP, GBP, DIVIDEND_RATIO);
   // Funding: unique ON coupon in GBP: pay TRS bond, receive funding
   private static final CouponONSpreadDefinition FUNDING_ON_CPN_PAY_DEFINITION = new CouponONSpreadDefinition(GBP, TERMINATION_DATE_1, EFFECTIVE_DATE_1, TERMINATION_DATE_1,
-      GBPSONIA.getDayCount().yearFraction(EFFECTIVE_DATE_1, TERMINATION_DATE_1), -NOTIONAL_TRS_GBP, GBPSONIA, EFFECTIVE_DATE_1, TERMINATION_DATE_1, LON, SPREAD_GBP);
+      DayCountUtils.yearFraction(GBPSONIA.getDayCount(), EFFECTIVE_DATE_1, TERMINATION_DATE_1), -NOTIONAL_TRS_GBP, GBPSONIA, EFFECTIVE_DATE_1, TERMINATION_DATE_1, LON, SPREAD_GBP);
   private static final AnnuityDefinition<? extends PaymentDefinition> FUNDING_LEG_ON_PAY_DEFINITION =
       new AnnuityDefinition<>(new PaymentDefinition[] {FUNDING_ON_CPN_PAY_DEFINITION }, LON);
   private static final Annuity<? extends Payment> FUNDING_LEG_ON_PAY_1 = FUNDING_LEG_ON_PAY_DEFINITION.toDerivative(REFERENCE_DATE_1, FIXING_TS_GBPSONIA);

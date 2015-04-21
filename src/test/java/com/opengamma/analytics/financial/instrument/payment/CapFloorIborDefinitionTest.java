@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -52,8 +53,8 @@ public class CapFloorIborDefinitionTest {
   private static final ZonedDateTime FIXING_END_DATE = ScheduleCalculator.getAdjustedDate(FIXING_START_DATE, TENOR, BUSINESS_DAY, CALENDAR, IS_EOM);
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
-  private static final double ACCRUAL_FACTOR_FIXING = DAY_COUNT_INDEX.yearFraction(FIXING_START_DATE, FIXING_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_PAYMENT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR_FIXING = DayCountUtils.yearFraction(DAY_COUNT_INDEX, FIXING_START_DATE, FIXING_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
 
   private static final double STRIKE = 0.02;
@@ -149,10 +150,10 @@ public class CapFloorIborDefinitionTest {
   @Test
   public void testToDerivativeBeforeFixing() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double paymentTime = actAct.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
-    final double fixingTime = actAct.yearFraction(REFERENCE_DATE, FIXING_DATE);
-    final double fixingPeriodStartTime = actAct.yearFraction(REFERENCE_DATE, IBOR_CAP.getFixingPeriodStartDate());
-    final double fixingPeriodEndTime = actAct.yearFraction(REFERENCE_DATE, IBOR_CAP.getFixingPeriodEndDate());
+    final double paymentTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, PAYMENT_DATE);
+    final double fixingTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, FIXING_DATE);
+    final double fixingPeriodStartTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, IBOR_CAP.getFixingPeriodStartDate());
+    final double fixingPeriodEndTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, IBOR_CAP.getFixingPeriodEndDate());
     final CapFloorIbor expectedCapIbor = new CapFloorIbor(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, fixingTime, INDEX, fixingPeriodStartTime, fixingPeriodEndTime,
         ACCRUAL_FACTOR_FIXING, STRIKE, IS_CAP);
     final CapFloorIbor convertedCapIborDefinition = (CapFloorIbor) IBOR_CAP.toDerivative(REFERENCE_DATE);
@@ -164,7 +165,7 @@ public class CapFloorIborDefinitionTest {
   public void testToDerivativeAfterFixing() {
     final ZonedDateTime date = FIXING_DATE.plusDays(3);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    double paymentTime = actAct.yearFraction(date, PAYMENT_DATE);
+    double paymentTime = DayCountUtils.yearFraction(actAct, date, PAYMENT_DATE);
     CouponFixed expectedFixedCoupon = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, HIGH_FIXING_RATE - STRIKE);
     assertEquals(expectedFixedCoupon, IBOR_CAP.toDerivative(date, HIGH_FIXING_TS));
     expectedFixedCoupon = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, 0);
@@ -173,7 +174,7 @@ public class CapFloorIborDefinitionTest {
     assertEquals(expectedFixedCoupon, IBOR_FLOOR.toDerivative(date, HIGH_FIXING_TS));
     expectedFixedCoupon = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, STRIKE - LOW_FIXING_RATE);
     assertEquals(expectedFixedCoupon, IBOR_FLOOR.toDerivative(date, LOW_FIXING_TS));
-    paymentTime = actAct.yearFraction(FIXING_DATE, PAYMENT_DATE);
+    paymentTime = DayCountUtils.yearFraction(actAct, FIXING_DATE, PAYMENT_DATE);
     expectedFixedCoupon = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, HIGH_FIXING_RATE - STRIKE);
     assertEquals(expectedFixedCoupon, IBOR_CAP.toDerivative(FIXING_DATE, HIGH_FIXING_TS));
     expectedFixedCoupon = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, 0);

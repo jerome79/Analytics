@@ -20,6 +20,7 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -380,7 +381,7 @@ public class MulticurveBuildingHullWhiteDiscountFuturesEUR3Test {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, EURIBOR3M, TARGET);
         final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = EURIBOR3M.getDayCount().yearFraction(startDate, endDate);
+        final double accrualFactor = DayCountUtils.yearFraction(EURIBOR3M.getDayCount(), startDate, endDate);
         rateDsc[loopdate] = marketDsc.getMulticurveProvider().getSimplyCompoundForwardRate(EURIBOR3M, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, TARGET);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

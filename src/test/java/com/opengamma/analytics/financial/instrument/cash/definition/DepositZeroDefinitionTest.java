@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.cash.DepositZeroDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
@@ -48,7 +49,7 @@ public class DepositZeroDefinitionTest {
   private static final Period DEPOSIT_PERIOD = Period.ofMonths(6);
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
   private static final DayCount DAY_COUNT = DayCounts.ACT_365F;
-  private static final double DEPOSIT_AF = DAY_COUNT.yearFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = DayCountUtils.yearFraction(DAY_COUNT, SPOT_DATE, END_DATE);
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final DepositZeroDefinition DEPOSIT_DEFINITION = new DepositZeroDefinition(EUR, SPOT_DATE, END_DATE, NOTIONAL, DEPOSIT_AF, RATE, CALENDAR, DAY_COUNT);
   private static final String CURVE_NAME = "Curve";

@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.common.collect.LinkedListMultimap;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurve;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -126,7 +127,7 @@ public class CurveCalibrationTestsUtils {
         startTime[loopdate] = TimeCalculator.getTimeBetween(calibrationDate, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, cal);
         final double endTime = TimeCalculator.getTimeBetween(calibrationDate, endDate);
-        final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate);
+        final double accrualFactor = DayCountUtils.yearFraction(index.getDayCount(), startDate, endDate);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(index, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, cal);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
@@ -148,7 +149,7 @@ public class CurveCalibrationTestsUtils {
         startTime[loopdate] = TimeCalculator.getTimeBetween(calibrationDate, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, cal);
         final double endTime = TimeCalculator.getTimeBetween(calibrationDate, endDate);
-        final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate);
+        final double accrualFactor = DayCountUtils.yearFraction(index.getDayCount(), startDate, endDate);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(index, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, cal);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

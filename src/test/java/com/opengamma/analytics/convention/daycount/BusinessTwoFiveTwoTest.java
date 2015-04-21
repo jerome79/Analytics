@@ -75,7 +75,7 @@ public class BusinessTwoFiveTwoTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testNoCalendar2() {
-    DC.yearFraction(D1, D3);
+    DayCountUtils.yearFraction(DC, D1, D3);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -15,6 +15,7 @@ import java.time.temporal.TemporalAdjusters;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -218,7 +219,7 @@ public class CouponInflationZeroCouponMonthlyDefinitionTest {
             DateUtils.getUTCDate(2018, 6, 30)},
         new double[]{108.23, 128.23, 128.43});
     final Coupon zeroCouponConverted = ZERO_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
-    final double paymentTime = ACT_ACT.yearFraction(pricingDate, PAYMENT_DATE);
+    final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, 128.23 / INDEX_APRIL_2008 - 1.0);
     assertEquals("Inflation zero-coupon: toDerivative", zeroCoupon, zeroCouponConverted);
   }

@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponIborAverageFixingDates;
@@ -60,7 +61,7 @@ public class CouponIborAverageFixingDatesDiscountingMethodTest {
   }
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_PAYMENT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000;
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 12, 27);
@@ -81,7 +82,7 @@ public class CouponIborAverageFixingDatesDiscountingMethodTest {
   private static final double[] FIX_ACC_FACTORS = new double[NUM_OBS];
   static {
     for (int i = 0; i < NUM_OBS; ++i) {
-      FIX_ACC_FACTORS[i] = INDEX.getDayCount().yearFraction(EXP_START_DATES[i], EXP_END_DATES[i]);
+      FIX_ACC_FACTORS[i] = DayCountUtils.yearFraction(INDEX.getDayCount(), EXP_START_DATES[i], EXP_END_DATES[i]);
     }
   }
 

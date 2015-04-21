@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -40,7 +41,7 @@ public class DepositIborTest {
   private static final double NOTIONAL = 100000000;
   private static final double RATE = 0.0250;
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, INDEX, TARGET);
-  private static final double DEPOSIT_AF = INDEX.getDayCount().yearFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = DayCountUtils.yearFraction(INDEX.getDayCount(), SPOT_DATE, END_DATE);
   private static final double SPOT_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, SPOT_DATE);
   private static final double END_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, END_DATE);
 

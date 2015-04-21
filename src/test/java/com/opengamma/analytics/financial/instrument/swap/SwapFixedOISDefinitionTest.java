@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedONMaster;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -73,11 +74,9 @@ public class SwapFixedOISDefinitionTest {
           .getAccrualEndDate());
       assertEquals(
           "Swap OIS definition: constructor",
-          EONIA_GENERATOR
-              .getIndex()
-              .getDayCount()
-              .yearFraction(EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(),
-                  EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
+          DayCountUtils.yearFraction(EONIA_GENERATOR
+          .getIndex()
+          .getDayCount(), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
       assertFalse("Swap OIS definition: constructor",
           EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentDate().equals(EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()));
       // In EUR the payment date and the end accrual date are one day apart.
@@ -131,11 +130,9 @@ public class SwapFixedOISDefinitionTest {
           .getAccrualEndDate());
       assertEquals(
           "Swap OIS definition: constructor",
-          RBAON_GENERATOR
-              .getIndex()
-              .getDayCount()
-              .yearFraction(RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(),
-                  RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
+          DayCountUtils.yearFraction(RBAON_GENERATOR
+          .getIndex()
+          .getDayCount(), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
       assertEquals("Swap OIS definition: constructor", RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentDate(), RBAON_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn)
           .getAccrualEndDate());
       // In AUD the payment date and the end accrual date are equal.

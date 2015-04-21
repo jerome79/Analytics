@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
@@ -294,7 +295,7 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, -time * discountingCurve.getDiscountFactor(time)
-          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+          * DayCountUtils.yearFraction(dayCount, annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }

@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
@@ -67,7 +68,7 @@ public class CouponCMSDefinitionTest {
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 1, 5);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 4, 5);
   private static final DayCount PAYMENT_DAY_COUNT = DayCounts.ACT_360;
-  private static final double ACCRUAL_FACTOR = PAYMENT_DAY_COUNT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(PAYMENT_DAY_COUNT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
   private static final ZonedDateTime FAKE_DATE = DateUtils.getUTCDate(0, 1, 1);
   private static final CouponFloatingDefinition COUPON = new CouponIborDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FAKE_DATE, IBOR_INDEX, CALENDAR);
@@ -159,9 +160,9 @@ public class CouponCMSDefinitionTest {
   @Test
   public void testToDerivativeBeforeFixing() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    final double paymentTime = actAct.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
-    final double fixingTime = actAct.yearFraction(REFERENCE_DATE, FIXING_DATE);
-    final double settlementTime = actAct.yearFraction(REFERENCE_DATE, SWAP_DEFINITION.getFixedLeg().getNthPayment(0).getAccrualStartDate());
+    final double paymentTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, PAYMENT_DATE);
+    final double fixingTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, FIXING_DATE);
+    final double settlementTime = DayCountUtils.yearFraction(actAct, REFERENCE_DATE, SWAP_DEFINITION.getFixedLeg().getNthPayment(0).getAccrualStartDate());
     final SwapFixedCoupon<? extends Payment> convertedSwap = SWAP_DEFINITION.toDerivative(REFERENCE_DATE);
     final CouponCMS couponCMS = new CouponCMS(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, fixingTime, convertedSwap, settlementTime);
     assertEquals(couponCMS, CMS_COUPON_DEFINITION.toDerivative(REFERENCE_DATE));
@@ -172,10 +173,10 @@ public class CouponCMSDefinitionTest {
   public void testToDerivativeAfterFixing() {
     final ZonedDateTime date = FIXING_DATE.plusDays(2);
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
-    double paymentTime = actAct.yearFraction(date, PAYMENT_DATE);
+    double paymentTime = DayCountUtils.yearFraction(actAct, date, PAYMENT_DATE);
     CouponFixed couponFixed = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, FIXING_RATE);
     assertEquals(couponFixed, CMS_COUPON_DEFINITION.toDerivative(date, FIXING_TS));
-    paymentTime = actAct.yearFraction(FIXING_DATE, PAYMENT_DATE);
+    paymentTime = DayCountUtils.yearFraction(actAct, FIXING_DATE, PAYMENT_DATE);
     couponFixed = new CouponFixed(CUR, paymentTime, ACCRUAL_FACTOR, NOTIONAL, FIXING_RATE);
     assertEquals(couponFixed, CMS_COUPON_DEFINITION.toDerivative(FIXING_DATE, FIXING_TS));
   }

@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -98,7 +99,7 @@ public class InterestRateFutureOptionPremiumSecurityDefinitionTest {
   public void toDerivative() {
     final InterestRateFutureOptionPremiumSecurity optionEDU2Converted = OPTION_EDU2_DEFINITION.toDerivative(REFERENCE_DATE);
     final InterestRateFutureSecurity future = EDU2_DEFINITION.toDerivative(REFERENCE_DATE);
-    final double expirationTime = ACT_ACT.yearFraction(REFERENCE_DATE, EXPIRATION_DATE);
+    final double expirationTime = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, EXPIRATION_DATE);
     final InterestRateFutureOptionPremiumSecurity optionEDU2 = new InterestRateFutureOptionPremiumSecurity(future, expirationTime, STRIKE, IS_CALL);
     assertEquals("Option on future: to derivative", optionEDU2, optionEDU2Converted);
   }

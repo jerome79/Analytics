@@ -26,11 +26,6 @@ public class ActualTwoFiveTwo extends StatelessDayCount {
   }
 
   @Override
-  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
-    return DC.yearFraction(firstDate, secondDate);
-  }
-
-  @Override
   public double yearFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
     return DC.yearFraction(firstDate, secondDate, calendar);
   }

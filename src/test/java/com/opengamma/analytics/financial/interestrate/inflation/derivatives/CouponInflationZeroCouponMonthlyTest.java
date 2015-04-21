@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthly;
@@ -45,9 +46,9 @@ public class CouponInflationZeroCouponMonthlyTest {
   private static final ZonedDateTime REFERENCE_END_DATE = PAYMENT_DATE.minusMonths(MONTH_LAG).withDayOfMonth(1);
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 7, 29);
-  private static final double PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
-  private static final double NATURAL_PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, PAYMENT_DATE);
-  private static final double REFERENCE_END_TIME = ACT_ACT.yearFraction(REFERENCE_DATE, REFERENCE_END_DATE);
+  private static final double PAYMENT_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, PAYMENT_DATE);
+  private static final double NATURAL_PAYMENT_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, PAYMENT_DATE);
+  private static final double REFERENCE_END_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, REFERENCE_END_DATE);
   private static final CouponInflationZeroCouponMonthly ZERO_COUPON = new CouponInflationZeroCouponMonthly(CUR, PAYMENT_TIME, 1.0, NOTIONAL, PRICE_INDEX, INDEX_APRIL_2008, REFERENCE_END_TIME,
       NATURAL_PAYMENT_TIME, false);
 

@@ -18,6 +18,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
@@ -106,7 +107,7 @@ public class SwaptionCashFixedIborDefinitionTest {
   public void testToDerivative() {
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
     final ZonedDateTime zonedDate = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE.toLocalDate(), LocalTime.MIDNIGHT), ZoneOffset.UTC);
-    final double expiryTime = actAct.yearFraction(zonedDate, EXPIRY_DATE);
+    final double expiryTime = DayCountUtils.yearFraction(actAct, zonedDate, EXPIRY_DATE);
     SwaptionCashFixedIbor convertedSwaption = SWAPTION_DEPRECATED.toDerivative(REFERENCE_DATE);
     assertEquals(expiryTime, convertedSwaption.getTimeToExpiry(), 1E-10);
     assertEquals(SWAPTION_DEPRECATED.getUnderlyingSwap().toDerivative(REFERENCE_DATE), convertedSwaption.getUnderlyingSwap());

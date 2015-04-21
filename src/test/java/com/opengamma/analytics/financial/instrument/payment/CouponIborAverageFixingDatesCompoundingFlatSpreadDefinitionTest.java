@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -71,7 +72,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDefinitionTest {
   }
 
   private static final DayCount DAY_COUNT_PAYMENT = DayCounts.ACT_365F;
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_PAYMENT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_PAYMENT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double[] ACCRUAL_FACTORS = new double[NUM_PRDS];
   static {
     Arrays.fill(ACCRUAL_FACTORS, ACCRUAL_FACTOR / NUM_PRDS);
@@ -122,7 +123,7 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDefinitionTest {
       }
       FIXING_DATES_3[loopsub] = listDates.toArray(new ZonedDateTime[0]);
       WEIGHTS_3[loopsub] = new double[FIXING_DATES_3[loopsub].length];
-      ACCRUAL_FACTORS_3[loopsub] = DAY_COUNT_INDEX.yearFraction(ACCRUAL_START_DATE_SUB_3[loopsub], ACCRUAL_START_DATE_SUB_3[loopsub + 1]);
+      ACCRUAL_FACTORS_3[loopsub] = DayCountUtils.yearFraction(DAY_COUNT_INDEX, ACCRUAL_START_DATE_SUB_3[loopsub], ACCRUAL_START_DATE_SUB_3[loopsub + 1]);
       for (int loopf = 0; loopf < FIXING_DATES_3[loopsub].length; loopf++) {
         WEIGHTS_3[loopsub][loopf] = 1.0d / FIXING_DATES_3[loopsub].length;
       }

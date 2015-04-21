@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -61,7 +62,7 @@ public class CapFloorCMSHullWhiteMethodsTest {
   private static final ZonedDateTime PAYMENT_DATE = ScheduleCalculator.getAdjustedDate(START_DATE, TENOR_COUPON, GENERATOR_EUR1YEURIBOR6M.getBusinessDayConvention(), TARGET,
       GENERATOR_EUR1YEURIBOR6M.isEndOfMonth());
   private static final double NOTIONAL = 100000000; //100m
-  private static final double ACCRUAL_FACTOR = ACT360.yearFraction(START_DATE, PAYMENT_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(ACT360, START_DATE, PAYMENT_DATE);
   private static final double[] STRIKE = new double[] {0.00, 0.01, 0.02, 0.03 };
   private static final int NB_STRIKE = STRIKE.length;
 

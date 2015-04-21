@@ -16,6 +16,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.instrument.index.IndexONMaster;
 import com.opengamma.analytics.util.time.DateUtils;
@@ -64,7 +65,7 @@ public class FederalFundsFutureSecurityTest {
   private static double FIXING_TOTAL_ACCURAL_FACTOR = 0.0;
   static {
     for (int loopfix = 0; loopfix < FIXING_DATE.length - 1; loopfix++) {
-      FIXING_ACCURAL_FACTOR[loopfix] = INDEX_FEDFUND.getDayCount().yearFraction(FIXING_DATE[loopfix], FIXING_DATE[loopfix + 1]);
+      FIXING_ACCURAL_FACTOR[loopfix] = DayCountUtils.yearFraction(INDEX_FEDFUND.getDayCount(), FIXING_DATE[loopfix], FIXING_DATE[loopfix + 1]);
       FIXING_TOTAL_ACCURAL_FACTOR += FIXING_ACCURAL_FACTOR[loopfix];
     }
     for (int loopfix = 0; loopfix < FIXING_DATE.length; loopfix++) {

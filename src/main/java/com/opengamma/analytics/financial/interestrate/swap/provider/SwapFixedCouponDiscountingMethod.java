@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.annuity.provider.AnnuityDiscountingMethod;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
@@ -127,7 +128,7 @@ public class SwapFixedCouponDiscountingMethod {
     final AnnuityCouponFixed annuityFixed = fixedCouponSwap.getFixedLeg();
     double pvbp = 0;
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
-      pvbp += dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+      pvbp += DayCountUtils.yearFraction(dayCount, annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional())
           * multicurves.getDiscountFactor(annuityFixed.getNthPayment(loopcpn).getCurrency(), annuityFixed.getNthPayment(loopcpn).getPaymentTime());
     }
@@ -250,7 +251,7 @@ public class SwapFixedCouponDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, -time * multicurves.getDiscountFactor(ccy, time)
-          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+          * DayCountUtils.yearFraction(dayCount, annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }
@@ -276,7 +277,7 @@ public class SwapFixedCouponDiscountingMethod {
     for (int loopcpn = 0; loopcpn < annuityFixed.getPayments().length; loopcpn++) {
       time = annuityFixed.getNthPayment(loopcpn).getPaymentTime();
       final DoublesPair s = DoublesPair.of(time, time * time * multicurves.getDiscountFactor(ccy, time)
-          * dayCount.yearFraction(annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
+          * DayCountUtils.yearFraction(dayCount, annuityFixed.getNthPayment(loopcpn).getAccrualStartDate(), annuityFixed.getNthPayment(loopcpn).getAccrualEndDate())
           * Math.abs(annuityFixed.getNthPayment(loopcpn).getNotional()));
       list.add(s);
     }

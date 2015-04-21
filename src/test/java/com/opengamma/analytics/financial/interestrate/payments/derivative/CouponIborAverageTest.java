@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -42,7 +43,7 @@ public class CouponIborAverageTest {
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 2, 23);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 8, 22);
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2011, 8, 24);
-  private static final double ACCRUAL_FACTOR = DAY_COUNT_COUPON.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT_COUPON, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double NOTIONAL = 1000000; //1m
   private static final ZonedDateTime FIXING_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_END_DATE, -INDEX_EURIBOR3M.getSpotLag(), TARGET); // In arrears
   private static final ZonedDateTime FIXING_START_DATE_1 = ACCRUAL_END_DATE;
@@ -54,10 +55,10 @@ public class CouponIborAverageTest {
   private static final double FIXING_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_DATE);
   private static final double FIXING_START_TIME_1 = TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_START_DATE_1);
   private static final double FIXING_END_TIME_1 = TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_END_DATE_1);
-  private static final double FIXING_ACCRUAL_FACTOR_1 = INDEX_EURIBOR3M.getDayCount().yearFraction(FIXING_START_DATE_1, FIXING_END_DATE_1);
+  private static final double FIXING_ACCRUAL_FACTOR_1 = DayCountUtils.yearFraction(INDEX_EURIBOR3M.getDayCount(), FIXING_START_DATE_1, FIXING_END_DATE_1);
   private static final double FIXING_START_TIME_2 = TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_START_DATE_2);
   private static final double FIXING_END_TIME_2 = TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_END_DATE_2);
-  private static final double FIXING_ACCRUAL_FACTOR_2 = INDEX_EURIBOR3M.getDayCount().yearFraction(FIXING_START_DATE_2, FIXING_END_DATE_2);
+  private static final double FIXING_ACCRUAL_FACTOR_2 = DayCountUtils.yearFraction(INDEX_EURIBOR3M.getDayCount(), FIXING_START_DATE_2, FIXING_END_DATE_2);
 
   private static double WEIGHT_1 = 4.2;
   private static double WEIGHT_2 = -.003;

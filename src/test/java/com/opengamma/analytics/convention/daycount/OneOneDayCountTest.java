@@ -25,7 +25,7 @@ public class OneOneDayCountTest {
 
   @Test
   public void test() {
-    assertEquals(DC.yearFraction(D1, D2), 1, 0);
+    assertEquals(DayCountUtils.yearFraction(DC, D1, D2), 1, 0);
     final double coupon = 0.04;
     final int paymentsPerYear = 4;
     assertEquals(DC.getAccruedInterest(D1, D2, D2, coupon, paymentsPerYear), coupon / paymentsPerYear, 0);

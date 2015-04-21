@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.generator.EURDeposit;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
@@ -43,7 +44,7 @@ public class DepositCounterpartTest {
   private static final double RATE = 0.0250;
   private static final Period DEPOSIT_PERIOD = Period.ofMonths(6);
   private static final ZonedDateTime END_DATE = ScheduleCalculator.getAdjustedDate(SPOT_DATE, DEPOSIT_PERIOD, GENERATOR);
-  private static final double DEPOSIT_AF = GENERATOR.getDayCount().yearFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = DayCountUtils.yearFraction(GENERATOR.getDayCount(), SPOT_DATE, END_DATE);
   private static final String COUNTERPART_NAME = "Ctp";
   private static final LegalEntity COUNTERPARTY = new LegalEntity(null, COUNTERPART_NAME, null, null, null);
   private static final double SPOT_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, SPOT_DATE);

@@ -14,6 +14,7 @@ import java.util.Collections;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
@@ -235,7 +236,7 @@ public class BillSecurityDefinitionTest {
     final BillSecurity securityConverted1 = BILL_SEC_DEFINITION1.toDerivative(REFERENCE_DATE, standardSettlementDate);
     final double standardSettlementTime = TimeCalculator.getTimeBetween(REFERENCE_DATE, standardSettlementDate);
     final double endTime = TimeCalculator.getTimeBetween(REFERENCE_DATE, END_DATE);
-    final double accrualFactorStandard = ACT360.yearFraction(standardSettlementDate, END_DATE);
+    final double accrualFactorStandard = DayCountUtils.yearFraction(ACT360, standardSettlementDate, END_DATE);
     final BillSecurity securityExpected1 = new BillSecurity(EUR, standardSettlementTime, endTime, NOTIONAL, YIELD_CONVENTION, accrualFactorStandard, ISSUER_BEL_NAME);
     assertEquals("Bill Security Definition: toDerivative", securityExpected1, securityConverted1);
     final BillSecurity securityConverted2 = BILL_SEC_DEFINITION1.toDerivative(REFERENCE_DATE);
@@ -243,7 +244,7 @@ public class BillSecurityDefinitionTest {
     final ZonedDateTime otherSettlementDate = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, SETTLEMENT_DAYS + 1, CALENDAR);
     final BillSecurity securityConverted3 = BILL_SEC_DEFINITION1.toDerivative(REFERENCE_DATE, otherSettlementDate);
     final double otherSettlementTime = TimeCalculator.getTimeBetween(REFERENCE_DATE, otherSettlementDate);
-    final double accrualFactorOther = ACT360.yearFraction(otherSettlementDate, END_DATE);
+    final double accrualFactorOther = DayCountUtils.yearFraction(ACT360, otherSettlementDate, END_DATE);
     final BillSecurity securityExpected3 = new BillSecurity(EUR, otherSettlementTime, endTime, NOTIONAL, YIELD_CONVENTION, accrualFactorOther, ISSUER_BEL_NAME);
     assertEquals("Bill Security Definition: toDerivative", securityExpected3, securityConverted3);
   }

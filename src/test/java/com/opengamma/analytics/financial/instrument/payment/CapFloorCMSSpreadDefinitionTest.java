@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
@@ -66,7 +67,7 @@ public class CapFloorCMSSpreadDefinitionTest {
   private static final ZonedDateTime ACCRUAL_START_DATE = DateUtils.getUTCDate(2011, 1, 5);
   private static final ZonedDateTime ACCRUAL_END_DATE = DateUtils.getUTCDate(2011, 4, 5);
   private static final DayCount PAYMENT_DAY_COUNT = DayCounts.ACT_360;
-  private static final double PAYMENT_ACCRUAL_FACTOR = PAYMENT_DAY_COUNT.yearFraction(ACCRUAL_START_DATE, ACCRUAL_END_DATE);
+  private static final double PAYMENT_ACCRUAL_FACTOR = DayCountUtils.yearFraction(PAYMENT_DAY_COUNT, ACCRUAL_START_DATE, ACCRUAL_END_DATE);
   private static final double STRIKE = 0.0050; // 50 bps
   private static final boolean IS_CAP = true;
   private static final CapFloorCMSSpreadDefinition CMS_SPREAD_DEFINITION = new CapFloorCMSSpreadDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, PAYMENT_ACCRUAL_FACTOR, NOTIONAL,
@@ -79,9 +80,9 @@ public class CapFloorCMSSpreadDefinitionTest {
   private static final String[] CURVES_2_NAME = {FUNDING_CURVE_NAME, FORWARD_CURVE_1_NAME };
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final ZonedDateTime REFERENCE_DATE_ZONED = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE.toLocalDate(), LocalTime.MIDNIGHT), ZoneOffset.UTC);
-  private static final double PAYMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, PAYMENT_DATE);
-  private static final double FIXING_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, FIXING_DATE);
-  private static final double SETTLEMENT_TIME = ACT_ACT.yearFraction(REFERENCE_DATE_ZONED, SWAP_DEFINITION_1.getFixedLeg().getNthPayment(0).getAccrualStartDate());
+  private static final double PAYMENT_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_ZONED, PAYMENT_DATE);
+  private static final double FIXING_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_ZONED, FIXING_DATE);
+  private static final double SETTLEMENT_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE_ZONED, SWAP_DEFINITION_1.getFixedLeg().getNthPayment(0).getAccrualStartDate());
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurrency() {

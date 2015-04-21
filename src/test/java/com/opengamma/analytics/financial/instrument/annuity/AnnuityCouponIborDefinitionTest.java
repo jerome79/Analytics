@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CouponFixedDefinition;
@@ -81,13 +82,12 @@ public class AnnuityCouponIborDefinitionTest {
     final CouponIborDefinition[] coupons = new CouponIborDefinition[PAYMENT_DATES.length];
     final double sign = IS_PAYER ? -1.0 : 1.0;
     //First coupon uses settlement date
-    CouponFixedDefinition coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]), sign
+    CouponFixedDefinition coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]), sign
         * NOTIONAL, 0.0);
     ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(SETTLEMENT_DATE, -SETTLEMENT_DAYS, CALENDAR);
     coupons[0] = CouponIborDefinition.from(coupon, fixingDate, INDEX, CALENDAR);
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), sign * NOTIONAL, 0.0);
+      coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), sign * NOTIONAL, 0.0);
       fixingDate = ScheduleCalculator.getAdjustedDate(PAYMENT_DATES[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR);
       coupons[loopcpn] = CouponIborDefinition.from(coupon, fixingDate, INDEX, CALENDAR);
     }
@@ -116,12 +116,11 @@ public class AnnuityCouponIborDefinitionTest {
   public void testOneNullPayment() {
     final CouponIborDefinition[] coupons = new CouponIborDefinition[PAYMENT_DATES.length];
     //First coupon uses settlement date
-    CouponFixedDefinition coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]), NOTIONAL, 0.0);
+    CouponFixedDefinition coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]), NOTIONAL, 0.0);
     ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(SETTLEMENT_DATE, -SETTLEMENT_DAYS, CALENDAR);
     coupons[0] = null;
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), NOTIONAL, 0.0);
+      coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), NOTIONAL, 0.0);
       fixingDate = ScheduleCalculator.getAdjustedDate(PAYMENT_DATES[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR);
       coupons[loopcpn] = CouponIborDefinition.from(coupon, fixingDate, INDEX, CALENDAR);
     }
@@ -155,12 +154,11 @@ public class AnnuityCouponIborDefinitionTest {
   public void testEqualHash() {
     final CouponIborDefinition[] coupons = new CouponIborDefinition[PAYMENT_DATES.length];
     //First coupon uses settlement date
-    CouponFixedDefinition coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]), NOTIONAL, 0.0);
+    CouponFixedDefinition coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]), NOTIONAL, 0.0);
     ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(SETTLEMENT_DATE, -SETTLEMENT_DAYS, CALENDAR);
     coupons[0] = CouponIborDefinition.from(coupon, fixingDate, INDEX, CALENDAR);
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), NOTIONAL, 0.0);
+      coupon = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), NOTIONAL, 0.0);
       fixingDate = ScheduleCalculator.getAdjustedDate(PAYMENT_DATES[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR);
       coupons[loopcpn] = CouponIborDefinition.from(coupon, fixingDate, INDEX, CALENDAR);
     }
@@ -171,13 +169,12 @@ public class AnnuityCouponIborDefinitionTest {
     AnnuityCouponIborDefinition modifiedIborAnnuity = AnnuityCouponIborDefinition.from(SETTLEMENT_DATE, ANNUITY_TENOR, NOTIONAL, INDEX, IS_PAYER, CALENDAR);
     assertFalse(iborAnnuity.equals(modifiedIborAnnuity));
     final CouponIborDefinition[] couponsModified = new CouponIborDefinition[PAYMENT_DATES.length];
-    CouponFixedDefinition couponModified = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DAY_COUNT.yearFraction(SETTLEMENT_DATE, PAYMENT_DATES[0]),
+    CouponFixedDefinition couponModified = new CouponFixedDefinition(CUR, PAYMENT_DATES[0], SETTLEMENT_DATE, PAYMENT_DATES[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, PAYMENT_DATES[0]),
         NOTIONAL, 0.0);
     fixingDate = ScheduleCalculator.getAdjustedDate(SETTLEMENT_DATE, -SETTLEMENT_DAYS, CALENDAR);
     couponsModified[0] = CouponIborDefinition.from(couponModified, fixingDate, INDEX, CALENDAR);
     for (int loopcpn = 1; loopcpn < PAYMENT_DATES.length; loopcpn++) {
-      couponModified = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DAY_COUNT.yearFraction(PAYMENT_DATES[loopcpn - 1],
-          PAYMENT_DATES[loopcpn]), NOTIONAL + 5.0, 0.0);
+      couponModified = new CouponFixedDefinition(CUR, PAYMENT_DATES[loopcpn], PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, PAYMENT_DATES[loopcpn - 1], PAYMENT_DATES[loopcpn]), NOTIONAL + 5.0, 0.0);
       fixingDate = ScheduleCalculator.getAdjustedDate(PAYMENT_DATES[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR);
       couponsModified[loopcpn] = CouponIborDefinition.from(couponModified, fixingDate, INDEX, CALENDAR);
     }

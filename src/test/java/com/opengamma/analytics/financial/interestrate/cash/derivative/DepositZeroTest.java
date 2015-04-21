@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.instrument.index.generator.EURDeposit;
@@ -50,7 +51,7 @@ public class DepositZeroTest {
   private static final DayCount DAY_COUNT = DayCounts.ACT_365F;
   private static final double START_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, SPOT_DATE);
   private static final double END_TIME = TimeCalculator.getTimeBetween(TRADE_DATE, END_DATE);
-  private static final double DEPOSIT_AF = DAY_COUNT.yearFraction(SPOT_DATE, END_DATE);
+  private static final double DEPOSIT_AF = DayCountUtils.yearFraction(DAY_COUNT, SPOT_DATE, END_DATE);
   private static final double INTEREST_AMOUNT = 1.0 / RATE.getDiscountFactor(DEPOSIT_AF) * NOTIONAL;
 
   private static final DepositZero DEPOSIT = new DepositZero(EUR, START_TIME, END_TIME, NOTIONAL, NOTIONAL, DEPOSIT_AF, RATE, INTEREST_AMOUNT);

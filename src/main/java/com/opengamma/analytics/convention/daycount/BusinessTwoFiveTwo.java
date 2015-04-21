@@ -27,11 +27,6 @@ public class BusinessTwoFiveTwo extends StatelessDayCount {
   }
 
   @Override
-  public double yearFraction(final ZonedDateTime firstDate, final ZonedDateTime secondDate) {
-    throw new UnsupportedOperationException("Must supply a calendar to calculate the day-count fraction");
-  }
-
-  @Override
   public double yearFraction(final LocalDate firstDate, final LocalDate secondDate, final HolidayCalendar calendar) {
     // Arguments are checked in BusinessDays
     return getDaysBetween(firstDate, secondDate, calendar) / TWO_FIVE_TWO;
