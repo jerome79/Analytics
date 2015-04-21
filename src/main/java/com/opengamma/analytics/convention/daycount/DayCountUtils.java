@@ -50,7 +50,7 @@ public final class DayCountUtils {
    */
   public static double yearFraction(
       DayCount dayCount, ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar) {
-    return dayCount.yearFraction(firstDate.toLocalDate(), secondDate.toLocalDate());
+    return dayCount.yearFraction(firstDate.toLocalDate(), secondDate.toLocalDate(), calendar);
   }
 
 }
