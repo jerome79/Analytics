@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -91,7 +92,7 @@ public class CouponInArrearsCalculationTest {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2013, 6, 7);
   private static final ZonedDateTime START_ACCRUAL_DATE = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, Period.ofYears(9), USDLIBOR3M, CALENDAR);
   private static final ZonedDateTime END_ACCRUAL_DATE = ScheduleCalculator.getAdjustedDate(START_ACCRUAL_DATE, USDLIBOR3M, CALENDAR);
-  private static final double ACCRUAL_FACTOR = USDLIBOR3M.getDayCount().yearFraction(START_ACCRUAL_DATE, END_ACCRUAL_DATE, CALENDAR);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(USDLIBOR3M.getDayCount(), START_ACCRUAL_DATE, END_ACCRUAL_DATE, CALENDAR);
   private static final ZonedDateTime FIXING_DATE = ScheduleCalculator.getAdjustedDate(END_ACCRUAL_DATE, -USDLIBOR3M.getSpotLag(), CALENDAR);
   private static final double NOTIONAL = 100000000; // 100m
   private static final double STRIKE = 0.01;

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
@@ -140,7 +141,7 @@ public class SwapCleanDiscountingCalculator {
   }
 
   private double getAccrued(DayCount dayCount, HolidayCalendar calendar, ZonedDateTime valuationDate, CouponDefinition coupon) {
-    double accruedYearFraction = dayCount.yearFraction(coupon.getAccrualStartDate(), valuationDate, calendar);
+    double accruedYearFraction = DayCountUtils.yearFraction(dayCount, coupon.getAccrualStartDate(), valuationDate, calendar);
     return accruedYearFraction * coupon.getNotional();
   }
 

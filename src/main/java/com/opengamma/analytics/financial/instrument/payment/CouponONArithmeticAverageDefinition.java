@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 import com.google.common.primitives.Doubles;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -117,7 +118,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
       nextDate = ScheduleCalculator.getAdjustedDate(currentDate, 1, calendar);
       fixingStartDateList.add(nextDate);
       fixingEndDateList.add(nextDate);
-      fixingAccrualFactorList.add(index.getDayCount().yearFraction(currentDate, nextDate, calendar));
+      fixingAccrualFactorList.add(DayCountUtils.yearFraction(index.getDayCount(), currentDate, nextDate, calendar));
       currentDate = nextDate;
     }
     fixingStartDateList.remove(fixingPeriodEndDate);
@@ -165,7 +166,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
       nextDate = ScheduleCalculator.getAdjustedDate(currentDate, 1, calendar);
       fixingStartDateList.add(nextDate);
       fixingEndDateList.add(nextDate);
-      fixingAccrualFactorList.add(index.getDayCount().yearFraction(currentDate, nextDate, calendar));
+      fixingAccrualFactorList.add(DayCountUtils.yearFraction(index.getDayCount(), currentDate, nextDate, calendar));
       currentDate = nextDate;
     }
     fixingStartDateList.remove(fixingPeriodEndDateMinusRateCutOff);
@@ -215,7 +216,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
       final int paymentLag, final HolidayCalendar calendar) {
     ArgChecker.notNull(fixingPeriodEndDate, "Fixing Period End Date");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
-    final double paymentAccrualFactor = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
+    final double paymentAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate, calendar);
     return new CouponONArithmeticAverageDefinition(index.getCurrency(), paymentDate, fixingPeriodStartDate, fixingPeriodEndDate, paymentAccrualFactor,
         notional, index, fixingPeriodStartDate, fixingPeriodEndDate, calendar);
   }
@@ -258,7 +259,7 @@ public final class CouponONArithmeticAverageDefinition extends CouponDefinition 
       final int paymentLag, final HolidayCalendar calendar, final int rateCutOff) {
     ArgChecker.notNull(fixingPeriodEndDate, "Fixing Period End Date");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + paymentLag, calendar);
-    final double paymentAccrualFactor = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
+    final double paymentAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate, calendar);
     return withRateCutOff(index.getCurrency(), paymentDate, fixingPeriodStartDate, fixingPeriodEndDate, paymentAccrualFactor,
         notional, index, fixingPeriodStartDate, fixingPeriodEndDate, calendar, rateCutOff);
   }

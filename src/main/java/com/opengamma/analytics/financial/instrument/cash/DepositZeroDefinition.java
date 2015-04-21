@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.interestrate.InterestRate;
@@ -106,7 +107,7 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
   public static DepositZeroDefinition from(final Currency currency, final ZonedDateTime startDate, final ZonedDateTime endDate, final DayCount daycount, final InterestRate rate,
       final HolidayCalendar calendar, final DayCount dayCount) {
     ArgChecker.notNull(daycount, "day count");
-    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.yearFraction(startDate, endDate, calendar), rate, calendar, dayCount);
+    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, DayCountUtils.yearFraction(daycount, startDate, endDate, calendar), rate, calendar, dayCount);
   }
 
   /**
@@ -124,12 +125,12 @@ public class DepositZeroDefinition implements InstrumentDefinition<DepositZero> 
     ArgChecker.notNull(daycount, "day count");
     double adjustedRate;
     if (currency.equals(Currency.BRL)) {
-      adjustedRate = rate.getRate() * daycount.yearFraction(startDate, endDate, calendar) / TimeCalculator.getTimeBetween(startDate, endDate);
+      adjustedRate = rate.getRate() * DayCountUtils.yearFraction(daycount, startDate, endDate, calendar) / TimeCalculator.getTimeBetween(startDate, endDate);
     } else {
       adjustedRate = rate.getRate();
     }
     final InterestRate adjustedInterestRate = new PeriodicInterestRate(adjustedRate, 1);
-    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, daycount.yearFraction(startDate, endDate, calendar), adjustedInterestRate, calendar, daycount);
+    return new DepositZeroDefinition(currency, startDate, endDate, 1.0, DayCountUtils.yearFraction(daycount, startDate, endDate, calendar), adjustedInterestRate, calendar, daycount);
   }
 
   /**

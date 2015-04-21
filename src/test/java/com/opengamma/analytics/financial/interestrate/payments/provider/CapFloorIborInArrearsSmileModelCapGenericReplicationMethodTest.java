@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CapFloorIborDefinition;
 import com.opengamma.analytics.financial.instrument.payment.CouponIborDefinition;
@@ -59,8 +60,7 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethodTest {
       Period.ofYears(9), EURIBOR6M, CALENDAR);
   private static final ZonedDateTime END_ACCRUAL_DATE = ScheduleCalculator.getAdjustedDate(START_ACCRUAL_DATE,
       EURIBOR6M, CALENDAR);
-  private static final double ACCRUAL_FACTOR = EURIBOR6M.getDayCount().yearFraction(START_ACCRUAL_DATE,
-      END_ACCRUAL_DATE, CALENDAR);
+  private static final double ACCRUAL_FACTOR = DayCountUtils.yearFraction(EURIBOR6M.getDayCount(), START_ACCRUAL_DATE, END_ACCRUAL_DATE, CALENDAR);
   private static final ZonedDateTime FIXING_DATE = ScheduleCalculator.getAdjustedDate(END_ACCRUAL_DATE,
       -EURIBOR6M.getSpotLag(), CALENDAR);
   private static final double NOTIONAL = 100000000; //100m

@@ -84,7 +84,7 @@ public class CouponIborAverageFixingDatesDefinitionTest {
     for (int i = 0; i < NUM_OBS; ++i) {
       EXP_START_DATES[i] = ScheduleCalculator.getAdjustedDate(FIXING_DATES[i], INDEX.getSpotLag(), CALENDAR);
       EXP_END_DATES[i] = ScheduleCalculator.getAdjustedDate(EXP_START_DATES[i], INDEX.getTenor(), INDEX.getBusinessDayConvention(), CALENDAR, INDEX.isEndOfMonth());
-      FIX_ACC_FACTORS[i] = INDEX.getDayCount().yearFraction(EXP_START_DATES[i], EXP_END_DATES[i], CALENDAR);
+      FIX_ACC_FACTORS[i] = DayCountUtils.yearFraction(INDEX.getDayCount(), EXP_START_DATES[i], EXP_END_DATES[i], CALENDAR);
     }
   }
   private static final CouponIborAverageFixingDatesDefinition DFN2 = new CouponIborAverageFixingDatesDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL,

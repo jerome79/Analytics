@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -218,7 +219,7 @@ public class CouponIborCompoundingSimpleSpreadDefinition extends CouponDefinitio
       paymentAccrualFactor += paymentAccrualFactors[loopsub];
       fixingDates[loopsub] = ScheduleCalculator.getAdjustedDate(accrualStartDates[loopsub], -index.getSpotLag(), calendar);
       fixingPeriodEndDates[loopsub] = ScheduleCalculator.getAdjustedDate(accrualStartDates[loopsub], index, calendar);
-      fixingPeriodAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], fixingPeriodEndDates[loopsub], calendar);
+      fixingPeriodAccrualFactors[loopsub] = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDates[loopsub], fixingPeriodEndDates[loopsub], calendar);
     }
     return new CouponIborCompoundingSimpleSpreadDefinition(
         index.getCurrency(),
@@ -261,7 +262,7 @@ public class CouponIborCompoundingSimpleSpreadDefinition extends CouponDefinitio
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, nbSubPeriod - 1);
     final double[] paymentAccrualFactors = new double[nbSubPeriod];
     for (int loopsub = 0; loopsub < nbSubPeriod; loopsub++) {
-      paymentAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
+      paymentAccrualFactors[loopsub] = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
     }
     return from(accrualEndDates[nbSubPeriod - 1], notional, index, accrualStartDates, accrualEndDates, paymentAccrualFactors, spread, calendar);
   }

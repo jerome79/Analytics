@@ -263,7 +263,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
       paymentAccrualFactor += paymentAccrualFactors[loopsub];
       fixingDates[loopsub] = ScheduleCalculator.getAdjustedDate(accrualStartDates[loopsub], -index.getSpotLag(), calendar);
       fixingPeriodEndDates[loopsub] = ScheduleCalculator.getAdjustedDate(accrualStartDates[loopsub], index, calendar);
-      fixingPeriodAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], fixingPeriodEndDates[loopsub], calendar);
+      fixingPeriodAccrualFactors[loopsub] = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDates[loopsub], fixingPeriodEndDates[loopsub], calendar);
     }
     return new CouponIborCompoundingDefinition(
         index.getCurrency(),
@@ -302,7 +302,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, nbSubPeriod - 1);
     final double[] paymentAccrualFactors = new double[nbSubPeriod];
     for (int loopsub = 0; loopsub < nbSubPeriod; loopsub++) {
-      paymentAccrualFactors[loopsub] = index.getDayCount().yearFraction(accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
+      paymentAccrualFactors[loopsub] = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDates[loopsub], accrualEndDates[loopsub], calendar);
     }
     return from(accrualEndDates[nbSubPeriod - 1], notional, index, accrualStartDates, accrualEndDates, paymentAccrualFactors, calendar);
   }

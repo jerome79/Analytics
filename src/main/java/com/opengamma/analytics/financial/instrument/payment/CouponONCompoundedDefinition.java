@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalDouble;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompounded;
@@ -94,7 +95,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
     while (currentDate.isBefore(fixingPeriodEndDate)) {
       nextDate = ScheduleCalculator.getAdjustedDate(currentDate, 1, calendar);
       fixingDateList.add(nextDate);
-      fixingAccrualFactorList.add(index.getDayCount().yearFraction(currentDate, nextDate, calendar));
+      fixingAccrualFactorList.add(DayCountUtils.yearFraction(index.getDayCount(), currentDate, nextDate, calendar));
       currentDate = nextDate;
     }
     _fixingPeriodDates = fixingDateList.toArray(new ZonedDateTime[fixingDateList.size()]);
@@ -138,7 +139,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
   public static CouponONCompoundedDefinition from(final IndexON index, final ZonedDateTime settlementDate, final ZonedDateTime fixingPeriodEndDate, final double notional,
       final int settlementDays, final HolidayCalendar calendar) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + index.getPublicationLag() + settlementDays, calendar);
-    final double paymentYearFraction = index.getDayCount().yearFraction(settlementDate, fixingPeriodEndDate, calendar);
+    final double paymentYearFraction = DayCountUtils.yearFraction(index.getDayCount(), settlementDate, fixingPeriodEndDate, calendar);
     return new CouponONCompoundedDefinition(index.getCurrency(), paymentDate, settlementDate, fixingPeriodEndDate, paymentYearFraction, notional, index, settlementDate,
         fixingPeriodEndDate, calendar);
   }
@@ -172,7 +173,7 @@ public class CouponONCompoundedDefinition extends CouponDefinition implements In
   public static CouponONCompoundedDefinition from(final GeneratorSwapFixedCompoundedONCompounded generator, final ZonedDateTime settlementDate, final ZonedDateTime fixingPeriodEndDate,
       final double notional) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, -1 + generator.getIndex().getPublicationLag() + generator.getSpotLag(), generator.getOvernightCalendar());
-    final double paymentYearFraction = generator.getIndex().getDayCount().yearFraction(settlementDate, fixingPeriodEndDate, generator.getOvernightCalendar());
+    final double paymentYearFraction = DayCountUtils.yearFraction(generator.getIndex().getDayCount(), settlementDate, fixingPeriodEndDate, generator.getOvernightCalendar());
     return new CouponONCompoundedDefinition(generator.getIndex().getCurrency(), paymentDate, settlementDate, fixingPeriodEndDate, paymentYearFraction, notional, generator.getIndex(), settlementDate,
         fixingPeriodEndDate, generator.getOvernightCalendar());
   }

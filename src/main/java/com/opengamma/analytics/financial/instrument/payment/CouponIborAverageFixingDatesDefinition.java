@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -81,7 +82,7 @@ public class CouponIborAverageFixingDatesDefinition extends CouponDefinition imp
     for (int i = 0; i < nDates; ++i) {
       _fixingPeriodStartDate[i] = ScheduleCalculator.getAdjustedDate(fixingDate[i], index.getSpotLag(), iborCalendar);
       _fixingPeriodEndDate[i] = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate[i], index.getTenor(), index.getBusinessDayConvention(), iborCalendar, index.isEndOfMonth());
-      _fixingPeriodAccrualFactor[i] = index.getDayCount().yearFraction(_fixingPeriodStartDate[i], _fixingPeriodEndDate[i], iborCalendar);
+      _fixingPeriodAccrualFactor[i] = DayCountUtils.yearFraction(index.getDayCount(), _fixingPeriodStartDate[i], _fixingPeriodEndDate[i], iborCalendar);
     }
   }
 

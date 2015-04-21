@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
@@ -45,7 +46,7 @@ public class CouponFixedAccruedCompoundingTest {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2012, 8, 17);
 
   private static final double PAYMENT_TIME = TimeCalculator.getTimeBetween(REFERENCE_DATE, ACCRUAL_END_DATE);
-  private static final double PAYMENT_ACCRUAL_FACTOR = DAY_COUNT.yearFraction(REFERENCE_DATE, ACCRUAL_END_DATE, NYC);
+  private static final double PAYMENT_ACCRUAL_FACTOR = DayCountUtils.yearFraction(DAY_COUNT, REFERENCE_DATE, ACCRUAL_END_DATE, NYC);
   private static final double FIXED_RATE = .02;
 
   private static final CouponFixedAccruedCompounding CPN = new CouponFixedAccruedCompounding(USDLIBOR1M.getCurrency(), PAYMENT_TIME, PAYMENT_ACCRUAL_FACTOR, NOTIONAL, FIXED_RATE);

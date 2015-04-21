@@ -10,6 +10,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -111,8 +112,7 @@ public class CouponIborFxResetDefinition extends CouponDefinition implements
         calendar);
     _iborIndexFixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_iborIndexFixingPeriodStartDate,
         index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _iborIndexFixingPeriodAccrualFactor = index.getDayCount().yearFraction(_iborIndexFixingPeriodStartDate,
-        _iborIndexFixingPeriodEndDate, calendar);
+    _iborIndexFixingPeriodAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), _iborIndexFixingPeriodStartDate, _iborIndexFixingPeriodEndDate, calendar);
     _spread = spread;
     _calendar = calendar;
     _referenceCurrency = referenceCurrency;

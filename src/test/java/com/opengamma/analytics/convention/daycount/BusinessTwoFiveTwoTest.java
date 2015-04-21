@@ -40,17 +40,17 @@ public class BusinessTwoFiveTwoTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFirstDate1() {
-    DC.yearFraction(null, D2, WEEKEND_CALENDAR);
+    DayCountUtils.yearFraction(DC, null, D2, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSecondDate1() {
-    DC.yearFraction(D1, null, WEEKEND_CALENDAR);
+    DayCountUtils.yearFraction(DC, D1, null, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongOrder1() {
-    DC.yearFraction(D2, D1, WEEKEND_CALENDAR);
+    DayCountUtils.yearFraction(DC, D2, D1, WEEKEND_CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -85,7 +85,7 @@ public class BusinessTwoFiveTwoTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCalendar2() {
-    DC.yearFraction(D1, D2, null);
+    DayCountUtils.yearFraction(DC, D1, D2, null);
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)

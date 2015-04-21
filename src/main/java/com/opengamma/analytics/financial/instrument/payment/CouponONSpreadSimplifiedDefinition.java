@@ -9,6 +9,7 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponONSpread;
@@ -117,7 +118,7 @@ public class CouponONSpreadSimplifiedDefinition extends CouponDefinition {
     ZonedDateTime lastFixingDate = ScheduleCalculator.getAdjustedDate(endFixingPeriodDate, -1, calendar); // Overnight
     lastFixingDate = ScheduleCalculator.getAdjustedDate(lastFixingDate, index.getPublicationLag(), calendar); // Lag
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(lastFixingDate, settlementDays, calendar);
-    final double payementAccrualFactor = index.getDayCount().yearFraction(settlementDate, endFixingPeriodDate, calendar);
+    final double payementAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), settlementDate, endFixingPeriodDate, calendar);
     return new CouponONSpreadSimplifiedDefinition(index.getCurrency(), paymentDate, settlementDate, endFixingPeriodDate, payementAccrualFactor, notional, index,
         settlementDate, endFixingPeriodDate, payementAccrualFactor, spread);
   }

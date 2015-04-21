@@ -726,11 +726,6 @@ public class ScheduleCalculatorTest {
       }
 
       @Override
-      public double yearFraction(ZonedDateTime firstDate, ZonedDateTime secondDate, HolidayCalendar calendar) {
-        return 0;
-      }
-
-      @Override
       public String getName() {
         return "";
       }

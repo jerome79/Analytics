@@ -10,6 +10,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -79,7 +80,7 @@ public class CouponIborSpreadDefinition extends CouponFloatingDefinition {
     _index = index;
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(fixingDate, _index.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate, index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _fixingPeriodAccrualFactor = index.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), _fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _spread = spread;
     _spreadAmount = spread * getNotional() * getPaymentYearFraction();
     _calendar = calendar;

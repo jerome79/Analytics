@@ -96,7 +96,7 @@ public class CouponIborAverageCompoundingTest {
     }
     for (int i = 0; i < NUM_OBS; ++i) {
       for (int j = 0; j < NUM_PRDS; ++j) {
-        FIX_ACC_FACTORS[j][i] = INDEX.getDayCount().yearFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
+        FIX_ACC_FACTORS[j][i] = DayCountUtils.yearFraction(INDEX.getDayCount(), EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
       }
     }
   }

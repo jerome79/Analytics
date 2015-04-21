@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -78,7 +79,7 @@ public class CapFloorIborDefinition extends CouponFloatingDefinition implements 
     _index = index;
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(fixingDate, _index.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate, index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _fixingPeriodAccrualFactor = index.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), _fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _strike = strike;
     _isCap = isCap;
     _calendar = calendar;

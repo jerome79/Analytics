@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -131,7 +132,7 @@ public class FederalFundsFutureSecurityDefinition extends FuturesSecurityDefinit
     final ZonedDateTime[] fixingDate = fixingList.toArray(new ZonedDateTime[fixingList.size()]);
     final double[] fixingAccrualFactor = new double[fixingDate.length - 1];
     for (int loopfix = 0; loopfix < fixingDate.length - 1; loopfix++) {
-      fixingAccrualFactor[loopfix] = index.getDayCount().yearFraction(fixingDate[loopfix], fixingDate[loopfix + 1], calendar);
+      fixingAccrualFactor[loopfix] = DayCountUtils.yearFraction(index.getDayCount(), fixingDate[loopfix], fixingDate[loopfix + 1], calendar);
     }
     return new FederalFundsFutureSecurityDefinition(last, index, fixingDate, fixingAccrualFactor, notional, paymentAccrualFactor, name);
   }

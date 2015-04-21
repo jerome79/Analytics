@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.instrument.cash;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.cash.derivative.DepositIbor;
@@ -56,7 +57,7 @@ public class DepositIborDefinition extends CashDefinition {
    */
   public static DepositIborDefinition fromStart(final ZonedDateTime startDate, final double notional, final double rate, final IborIndex index, final HolidayCalendar calendar) {
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, index, calendar);
-    final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate, calendar);
+    final double accrualFactor = DayCountUtils.yearFraction(index.getDayCount(), startDate, endDate, calendar);
     return new DepositIborDefinition(index.getCurrency(), startDate, endDate, notional, rate, accrualFactor, index);
   }
 
@@ -72,7 +73,7 @@ public class DepositIborDefinition extends CashDefinition {
   public static DepositIborDefinition fromTrade(final ZonedDateTime tradeDate, final double notional, final double rate, final IborIndex index, final HolidayCalendar calendar) {
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(tradeDate, index.getSpotLag(), calendar);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, index, calendar);
-    final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate, calendar);
+    final double accrualFactor = DayCountUtils.yearFraction(index.getDayCount(), startDate, endDate, calendar);
     return new DepositIborDefinition(index.getCurrency(), startDate, endDate, notional, rate, accrualFactor, index);
   }
 

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.OptionalDouble;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.index.IndexON;
@@ -87,7 +88,7 @@ public class CouponONSpreadDefinition extends CouponDefinition
     while (currentDate.isBefore(fixingPeriodEndDate)) {
       nextDate = ScheduleCalculator.getAdjustedDate(currentDate, 1, calendar);
       fixingDateList.add(nextDate);
-      fixingAccrualFactorList.add(index.getDayCount().yearFraction(currentDate, nextDate, calendar));
+      fixingAccrualFactorList.add(DayCountUtils.yearFraction(index.getDayCount(), currentDate, nextDate, calendar));
       currentDate = nextDate;
     }
     _fixingPeriodDate = fixingDateList.toArray(new ZonedDateTime[fixingDateList.size()]);
@@ -137,7 +138,7 @@ public class CouponONSpreadDefinition extends CouponDefinition
       final double spread) {
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(fixingPeriodEndDate, 
         -1 + index.getPublicationLag() + settlementDays, calendar);
-    final double paymentYearFraction = index.getDayCount().yearFraction(settlementDate, fixingPeriodEndDate, calendar);
+    final double paymentYearFraction = DayCountUtils.yearFraction(index.getDayCount(), settlementDate, fixingPeriodEndDate, calendar);
     return new CouponONSpreadDefinition(index.getCurrency(), paymentDate, settlementDate, fixingPeriodEndDate, 
         paymentYearFraction, notional, index, settlementDate, fixingPeriodEndDate, calendar, spread);
   }

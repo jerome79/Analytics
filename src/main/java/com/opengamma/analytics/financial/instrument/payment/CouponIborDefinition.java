@@ -10,6 +10,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -70,7 +71,7 @@ public class CouponIborDefinition extends CouponFloatingDefinition {
     _index = index;
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(fixingDate, _index.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(_fixingPeriodStartDate, index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    _fixingPeriodAccrualFactor = index.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), _fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _calendar = calendar;
   }
 
@@ -150,7 +151,7 @@ public class CouponIborDefinition extends CouponFloatingDefinition {
   public static CouponIborDefinition from(final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final double notional, final IborIndex index,
       final HolidayCalendar calendar) {
     final ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(accrualStartDate, -index.getSpotLag(), calendar);
-    final double accrualFactor = index.getDayCount().yearFraction(accrualStartDate, accrualEndDate, calendar);
+    final double accrualFactor = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDate, accrualEndDate, calendar);
     return new CouponIborDefinition(index.getCurrency(), accrualEndDate, accrualStartDate, accrualEndDate, accrualFactor, notional, fixingDate, index, calendar);
   }
 
@@ -167,7 +168,7 @@ public class CouponIborDefinition extends CouponFloatingDefinition {
     ArgChecker.notNull(index, "index");
     final ZonedDateTime fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(fixingDate, index.getSpotLag(), calendar);
     final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, index.getTenor(), index.getBusinessDayConvention(), calendar, index.isEndOfMonth());
-    final double fixingPeriodAccrualFactor = index.getDayCount().yearFraction(fixingPeriodStartDate, fixingPeriodEndDate, calendar);
+    final double fixingPeriodAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), fixingPeriodStartDate, fixingPeriodEndDate, calendar);
     return new CouponIborDefinition(index.getCurrency(), fixingPeriodEndDate, fixingPeriodStartDate, fixingPeriodEndDate, fixingPeriodAccrualFactor, notional, fixingDate, index,
         calendar);
   }

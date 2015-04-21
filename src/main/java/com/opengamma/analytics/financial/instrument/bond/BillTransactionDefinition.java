@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.instrument.bond;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.interestrate.bond.calculator.PriceFromYieldCalculator;
@@ -68,7 +69,7 @@ public class BillTransactionDefinition implements InstrumentDefinition<BillTrans
       final HolidayCalendar calendar) {
     ArgChecker.notNull(underlying, "Underlying");
     ArgChecker.notNull(settlementDate, "Settlement date");
-    final double accrualFactor = underlying.getDayCount().yearFraction(settlementDate, underlying.getEndDate(), calendar);
+    final double accrualFactor = DayCountUtils.yearFraction(underlying.getDayCount(), settlementDate, underlying.getEndDate(), calendar);
     final double settlementAmount = -quantity * underlying.getNotional() * PriceFromYieldCalculator.priceFromYield(underlying.getYieldConvention(), yield, accrualFactor);
     return new BillTransactionDefinition(underlying, quantity, settlementDate, settlementAmount);
   }

@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.instrument.payment;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorDeposit;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
@@ -97,7 +98,7 @@ public class CouponFixedDefinition extends CouponDefinition {
       final double fixedRate) {
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, tenor, generator.getBusinessDayConvention(), generator.getCalendar(),
         generator.isEndOfMonth());
-    final double paymentYearFraction = generator.getDayCount().yearFraction(startDate, endDate, generator.getCalendar());
+    final double paymentYearFraction = DayCountUtils.yearFraction(generator.getDayCount(), startDate, endDate, generator.getCalendar());
     return new CouponFixedDefinition(generator.getCurrency(), endDate, startDate, endDate, paymentYearFraction, notional, fixedRate);
   }
 

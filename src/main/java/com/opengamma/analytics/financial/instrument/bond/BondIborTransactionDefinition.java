@@ -9,6 +9,7 @@ package com.opengamma.analytics.financial.instrument.bond;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -49,12 +50,12 @@ public class BondIborTransactionDefinition extends BondTransactionDefinition<Pay
     ArgChecker.notNull(date, "date");
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getUnderlyingBond().getSettlementDays(), getUnderlyingBond().getCalendar());
-    final double spotTime = actAct.yearFraction(date, spot, getUnderlyingBond().getCalendar());
+    final double spotTime = DayCountUtils.yearFraction(actAct, date, spot, getUnderlyingBond().getCalendar());
     final double settlementTime;
     if (getSettlementDate().isBefore(date)) {
       settlementTime = 0;
     } else {
-      settlementTime = actAct.yearFraction(date, getSettlementDate(), getUnderlyingBond().getCalendar());
+      settlementTime = DayCountUtils.yearFraction(actAct, date, getSettlementDate(), getUnderlyingBond().getCalendar());
     }
     final AnnuityPaymentFixed nominal = (AnnuityPaymentFixed) getUnderlyingBond().getNominal().toDerivative(date);
     final Annuity<Coupon> coupon = (Annuity<Coupon>) getUnderlyingBond().getCoupons().toDerivative(date);
@@ -83,12 +84,12 @@ public class BondIborTransactionDefinition extends BondTransactionDefinition<Pay
     ArgChecker.notNull(indexFixingTS, "index fixing time series");
     final DayCount actAct = DayCounts.ACT_ACT_ISDA;
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getUnderlyingBond().getSettlementDays(), getUnderlyingBond().getCalendar());
-    final double spotTime = actAct.yearFraction(date, spot, getUnderlyingBond().getCalendar());
+    final double spotTime = DayCountUtils.yearFraction(actAct, date, spot, getUnderlyingBond().getCalendar());
     final double settlementTime;
     if (getSettlementDate().isBefore(date)) {
       settlementTime = 0;
     } else {
-      settlementTime = actAct.yearFraction(date, getSettlementDate(), getUnderlyingBond().getCalendar());
+      settlementTime = DayCountUtils.yearFraction(actAct, date, getSettlementDate(), getUnderlyingBond().getCalendar());
     }
     final AnnuityPaymentFixed nominal = (AnnuityPaymentFixed) getUnderlyingBond().getNominal().toDerivative(date);
     final Annuity<Coupon> coupon = (Annuity<Coupon>) getUnderlyingBond().getCoupons().toDerivative(date, indexFixingTS);

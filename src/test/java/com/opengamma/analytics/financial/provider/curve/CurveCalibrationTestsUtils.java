@@ -105,7 +105,7 @@ public class CurveCalibrationTestsUtils {
         startTime[loopdate] = TimeCalculator.getTimeBetween(calibrationDate, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, index, cal);
         final double endTime = TimeCalculator.getTimeBetween(calibrationDate, endDate);
-        final double accrualFactor = index.getDayCount().yearFraction(startDate, endDate, cal);
+        final double accrualFactor = DayCountUtils.yearFraction(index.getDayCount(), startDate, endDate, cal);
         rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(index, startTime[loopdate], endTime, accrualFactor);
         startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, cal);
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");

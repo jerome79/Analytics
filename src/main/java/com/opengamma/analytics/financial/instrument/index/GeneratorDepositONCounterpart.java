@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.cash.DepositCounterpartDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.currency.Currency;
@@ -102,7 +103,7 @@ public class GeneratorDepositONCounterpart extends GeneratorInstrument<Generator
     ArgChecker.notNull(date, "Reference date");
     final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(date, attribute.getStartPeriod(), _calendar);
     final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, _calendar);
-    final double accrualFactor = _dayCount.yearFraction(startDate, endDate, _calendar);
+    final double accrualFactor = DayCountUtils.yearFraction(_dayCount, startDate, endDate, _calendar);
     return new DepositCounterpartDefinition(_currency, startDate, endDate, notional, rate, accrualFactor, _nameCounterpart);
   }
 

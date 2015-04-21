@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.ExpiredException;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -83,7 +84,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
     ArgChecker.notNull(calendar, "calendar");
     _fixingPeriodStartDate = fixingPeriodStartDate;
     _fixingPeriodEndDate = fixingPeriodEndDate;
-    _fixingPeriodAccrualFactor = iborIndex.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = DayCountUtils.yearFraction(iborIndex.getDayCount(), _fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _iborIndex = iborIndex;
     _notional = notional;
     _paymentAccrualFactor = paymentAccrualFactor;
@@ -110,7 +111,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
     _fixingPeriodStartDate = ScheduleCalculator.getAdjustedDate(lastTradingDate, _iborIndex.getSpotLag(), calendar);
     _fixingPeriodEndDate = ScheduleCalculator
         .getAdjustedDate(_fixingPeriodStartDate, _iborIndex.getTenor(), _iborIndex.getBusinessDayConvention(), calendar, _iborIndex.isEndOfMonth());
-    _fixingPeriodAccrualFactor = _iborIndex.getDayCount().yearFraction(_fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
+    _fixingPeriodAccrualFactor = DayCountUtils.yearFraction(_iborIndex.getDayCount(), _fixingPeriodStartDate, _fixingPeriodEndDate, calendar);
     _notional = notional;
     _paymentAccrualFactor = paymentAccrualFactor;
     _name = name;

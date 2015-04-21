@@ -9,6 +9,7 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
+import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.instrument.index.IndexSwap;
 import com.opengamma.analytics.financial.instrument.payment.CapFloorCMSSpreadDefinition;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -59,11 +60,11 @@ public class AnnuityCapFloorCMSSpreadDefinition extends AnnuityDefinition<CapFlo
         false);
     final double sign = isPayer ? -1.0 : 1.0;
     final CapFloorCMSSpreadDefinition[] coupons = new CapFloorCMSSpreadDefinition[paymentDates.length];
-    coupons[0] = CapFloorCMSSpreadDefinition.from(paymentDates[0], settlementDate, paymentDates[0], dayCount.yearFraction(settlementDate, paymentDates[0], calendar1),
+    coupons[0] = CapFloorCMSSpreadDefinition.from(paymentDates[0], settlementDate, paymentDates[0], DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar1),
         sign * notional, index1, index2, strike, isCap, calendar1, calendar2);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = CapFloorCMSSpreadDefinition.from(paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
-          dayCount.yearFraction(paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar1), sign * notional, index1, index2, strike, isCap, calendar1, calendar2);
+          DayCountUtils.yearFraction(dayCount, paymentDates[loopcpn - 1], paymentDates[loopcpn], calendar1), sign * notional, index1, index2, strike, isCap, calendar1, calendar2);
     }
     return new AnnuityCapFloorCMSSpreadDefinition(coupons, calendar1);
   }

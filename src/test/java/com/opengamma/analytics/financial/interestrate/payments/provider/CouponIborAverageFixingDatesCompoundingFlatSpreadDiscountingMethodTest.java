@@ -124,8 +124,8 @@ public class CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethodT
     }
     for (int i = 0; i < NUM_OBS; ++i) {
       for (int j = 0; j < NUM_PRDS; ++j) {
-        FIX_ACC_FACTORS[j][i] = IBOR_INDEXES[0].getDayCount().yearFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
-        FIX_ACC_FACTORS_ORG[j][i] = IBOR_INDEXES[2].getDayCount().yearFraction(EXP_START_DATES_ORG[j][i], EXP_END_DATES_ORG[j][i], CALENDAR);
+        FIX_ACC_FACTORS[j][i] = DayCountUtils.yearFraction(IBOR_INDEXES[0].getDayCount(), EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
+        FIX_ACC_FACTORS_ORG[j][i] = DayCountUtils.yearFraction(IBOR_INDEXES[2].getDayCount(), EXP_START_DATES_ORG[j][i], EXP_END_DATES_ORG[j][i], CALENDAR);
       }
     }
   }

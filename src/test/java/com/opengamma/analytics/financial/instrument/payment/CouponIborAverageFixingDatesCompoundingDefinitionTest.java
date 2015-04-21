@@ -93,7 +93,7 @@ public class CouponIborAverageFixingDatesCompoundingDefinitionTest {
         EXP_START_DATES[j][i] = ScheduleCalculator.getAdjustedDate(FIXING_DATES[j][i], INDEX.getSpotLag(), CALENDAR);
         EXP_END_DATES[j][i] = ScheduleCalculator.getAdjustedDate(EXP_START_DATES[j][i], INDEX.getTenor(),
             INDEX.getBusinessDayConvention(), CALENDAR, INDEX.isEndOfMonth());
-        FIX_ACC_FACTORS[j][i] = INDEX.getDayCount().yearFraction(EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
+        FIX_ACC_FACTORS[j][i] = DayCountUtils.yearFraction(INDEX.getDayCount(), EXP_START_DATES[j][i], EXP_END_DATES[j][i], CALENDAR);
       }
     }
   }
