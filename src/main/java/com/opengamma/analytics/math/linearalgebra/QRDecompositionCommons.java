@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.math.linear.QRDecomposition;
-import org.apache.commons.math.linear.QRDecompositionImpl;
-import org.apache.commons.math.linear.RealMatrix;
+import org.apache.commons.math3.linear.QRDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
@@ -26,7 +25,7 @@ public class QRDecompositionCommons extends Decomposition<QRDecompositionResult>
   public QRDecompositionResult evaluate(final DoubleMatrix2D x) {
     ArgChecker.notNull(x, "x");
     final RealMatrix temp = CommonsMathWrapper.wrap(x);
-    final QRDecomposition qr = new QRDecompositionImpl(temp);
+    final QRDecomposition qr = new QRDecomposition(temp);
     return new QRDecompositionCommonsResult(qr);
   }
 

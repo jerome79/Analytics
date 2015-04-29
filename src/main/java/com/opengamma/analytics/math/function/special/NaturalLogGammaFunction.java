@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.math.special.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -14,7 +14,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  * The natural logarithm of the Gamma function {@link GammaFunction}.
  * <p>
- * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/special/Gamma.html">Commons Math library implementation</a> 
+ * This class is a wrapper for the <a href="http://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/special/Gamma.html">Commons Math library implementation</a> 
  * of the log-Gamma function
  */
 public class NaturalLogGammaFunction extends Function1D<Double, Double> {

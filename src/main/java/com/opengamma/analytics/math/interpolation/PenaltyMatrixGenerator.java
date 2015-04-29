@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import static org.apache.commons.math.util.MathUtils.binomialCoefficient;
+import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficient;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;

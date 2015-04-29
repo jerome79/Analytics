@@ -5,7 +5,8 @@
  */
 package com.opengamma.analytics.math.statistics.distribution;
 
-import org.apache.commons.math.special.Gamma;
+import org.apache.commons.math3.exception.MaxCountExceededException;
+import org.apache.commons.math3.special.Gamma;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.special.GammaFunction;
@@ -83,7 +84,7 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
     final double logX = Math.log(halfX);
     try {
       regGammaStart = Gamma.regularizedGammaP(_dofOverTwo + _k, halfX);
-    } catch (final org.apache.commons.math.MathException ex) {
+    } catch (final MaxCountExceededException ex) {
       throw new MathException(ex);
     }
 

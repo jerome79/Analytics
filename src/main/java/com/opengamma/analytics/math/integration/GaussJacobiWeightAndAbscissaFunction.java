@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.integration;
 
 import java.util.function.DoubleUnaryOperator;
 
-import org.apache.commons.math.util.MathUtils;
+import org.apache.commons.math3.util.CombinatoricsUtils;
 
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 import com.opengamma.analytics.math.function.special.GammaFunction;
@@ -74,7 +74,7 @@ public class GaussJacobiWeightAndAbscissaFunction implements QuadratureWeightAnd
       root = getInitialRootGuess(root, i, n, x);
       root = ROOT_FINDER.getRoot(function, derivative, root);
       x[i] = root;
-      w[i] = GAMMA_FUNCTION.applyAsDouble(_alpha + n) * GAMMA_FUNCTION.applyAsDouble(_beta + n) / MathUtils.factorialDouble(n) / GAMMA_FUNCTION.applyAsDouble(n + _c + 1) * d * Math.pow(2, _c)
+      w[i] = GAMMA_FUNCTION.applyAsDouble(_alpha + n) * GAMMA_FUNCTION.applyAsDouble(_beta + n) / CombinatoricsUtils.factorialDouble(n) / GAMMA_FUNCTION.applyAsDouble(n + _c + 1) * d * Math.pow(2, _c)
           / (derivative.evaluate(root) * previous.evaluate(root));
     }
     return new GaussianQuadratureData(x, w);

@@ -8,9 +8,9 @@ package com.opengamma.analytics.math.rootfinding;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.solvers.LaguerreSolver;
-import org.apache.commons.math.complex.Complex;
+import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
+import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.exception.TooManyEvaluationsException;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
@@ -35,7 +35,7 @@ public class LaguerrePolynomialRealRootFinder implements Polynomial1DRootFinder<
   public Double[] getRoots(final RealPolynomialFunction1D function) {
     ArgChecker.notNull(function, "function");
     try {
-      final Complex[] roots = ROOT_FINDER.solveAll(function.getCoefficients(), 0);
+      final Complex[] roots = ROOT_FINDER.solveAllComplex(function.getCoefficients(), 0);
       final List<Double> realRoots = new ArrayList<>();
       for (final Complex c : roots) {
         if (CompareUtils.closeEquals(c.getImaginary(), 0, EPS)) {
@@ -46,7 +46,7 @@ public class LaguerrePolynomialRealRootFinder implements Polynomial1DRootFinder<
         throw new MathException("Could not find any real roots");
       }
       return realRoots.toArray(new Double[realRoots.size()]);
-    } catch (final FunctionEvaluationException | org.apache.commons.math.ConvergenceException e) {
+    } catch (final TooManyEvaluationsException e) {
       throw new MathException(e);
     }
   }

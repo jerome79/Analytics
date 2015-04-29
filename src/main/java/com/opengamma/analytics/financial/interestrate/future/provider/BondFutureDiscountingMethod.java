@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.provider;
 
-import org.apache.commons.math.stat.descriptive.rank.Min;
+import org.apache.commons.math3.stat.descriptive.rank.Min;
 
 import com.opengamma.analytics.financial.interestrate.bond.provider.BondSecurityDiscountingMethod;
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuture;

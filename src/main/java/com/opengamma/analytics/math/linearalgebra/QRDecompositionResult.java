@@ -36,14 +36,4 @@ public interface QRDecompositionResult extends DecompositionResult {
    */
   DoubleMatrix2D getQT();
 
-  /**
-   * Returns the Householder reflector vectors.
-   * <p>
-   * $\mathbf{H}$ is a lower trapezoidal matrix whose columns represent
-   * each successive Householder reflector vector. This matrix is used
-   * to compute $\mathbf{Q}$.
-   * @return a matrix containing the Householder reflector vectors
-   */
-  DoubleMatrix2D getH();
-
 }

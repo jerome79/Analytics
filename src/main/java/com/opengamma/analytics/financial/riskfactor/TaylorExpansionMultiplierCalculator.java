@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.riskfactor;
 
 import java.util.Map;
 
-import org.apache.commons.math.util.MathUtils;
+import static org.apache.commons.math3.util.CombinatoricsUtils.factorial;
 
 import com.opengamma.analytics.financial.greeks.MixedOrderUnderlying;
 import com.opengamma.analytics.financial.greeks.NthOrderUnderlying;
@@ -30,7 +30,7 @@ public class TaylorExpansionMultiplierCalculator {
       if (n == 0) {
         return 1;
       }
-      return 1. / MathUtils.factorial(n);
+      return 1. / factorial(n);
     } else if (underlying instanceof MixedOrderUnderlying) {
       final MixedOrderUnderlying mixedOrder = (MixedOrderUnderlying) underlying;
       double result = 1;

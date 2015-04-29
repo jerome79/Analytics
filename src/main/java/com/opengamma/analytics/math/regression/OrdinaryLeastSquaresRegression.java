@@ -5,17 +5,15 @@
  */
 package com.opengamma.analytics.math.regression;
 
+import org.apache.commons.math3.distribution.TDistribution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cern.colt.matrix.DoubleFactory1D;
 import cern.colt.matrix.DoubleFactory2D;
 import cern.colt.matrix.DoubleMatrix1D;
 import cern.colt.matrix.DoubleMatrix2D;
 import cern.colt.matrix.linalg.Algebra;
-import org.apache.commons.math.distribution.ContinuousDistribution;
-import org.apache.commons.math.distribution.TDistributionImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.opengamma.analytics.math.MathException;
 
 /**
  * 
@@ -73,17 +71,13 @@ public class OrdinaryLeastSquaresRegression extends LeastSquaresRegression {
     final double rSquared = regressionSumOfSquares / totalSumOfSquares;
     final double adjustedRSquared = 1. - (1 - rSquared) * (n - 1.) / (n - k);
     final double meanSquareError = errorSumOfSquares / (n - k);
-    final ContinuousDistribution studentT = new TDistributionImpl(n - k);
+    final TDistribution studentT = new TDistribution(n - k);
     // final ProbabilityDistribution<Double> studentT = new
     // StudentTDistribution(n - k);
     for (int i = 0; i < k; i++) {
       stdErrorBetas[i] = Math.sqrt(meanSquareError * covarianceBetas[i][i]);
       tStats[i] = betas[i] / stdErrorBetas[i];
-      try {
-        pValues[i] = 1 - studentT.cumulativeProbability(Math.abs(tStats[i]));
-      } catch (final org.apache.commons.math.MathException e) {
-        throw new MathException(e);
-      }
+      pValues[i] = 1 - studentT.cumulativeProbability(Math.abs(tStats[i]));
     }
     return new LeastSquaresRegressionResult(betas, residuals, meanSquareError, stdErrorBetas, rSquared, adjustedRSquared, tStats, pValues, useIntercept);
   }

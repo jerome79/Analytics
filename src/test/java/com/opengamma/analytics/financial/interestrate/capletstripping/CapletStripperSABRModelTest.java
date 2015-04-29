@@ -178,7 +178,7 @@ public class CapletStripperSABRModelTest extends CapletStrippingSetup {
     CapletStripper stripper = new CapletStripperSABRModel(pricer, dvfp);
     CapletStrippingResult res = stripper.solve(vols, MarketDataType.VOL, START);
 
-    double expectedChi2 = 0.009363800283928515; // this corresponds to a RMS errors of about 93bps
+    double expectedChi2 = 0.009363800271681311; // this corresponds to a RMS errors of about 93bps
     assertEquals(expectedChi2, res.getChiSqr(), 1e-9 * expectedChi2);
   }
 }
