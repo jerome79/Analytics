@@ -5,7 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.math.special.Gamma;
+import org.apache.commons.math3.exception.MaxCountExceededException;
+import org.apache.commons.math3.special.Gamma;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
@@ -51,7 +52,7 @@ public class IncompleteGammaFunction extends Function1D<Double, Double> {
   public Double evaluate(final Double x) {
     try {
       return Gamma.regularizedGammaP(_a, x, _eps, _maxIter);
-    } catch (final org.apache.commons.math.MathException e) {
+    } catch (final MaxCountExceededException e) {
       throw new MathException(e);
     }
   }
