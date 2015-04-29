@@ -10,10 +10,10 @@ import org.apache.commons.math.analysis.DifferentiableUnivariateRealFunction;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math.complex.Complex;
-import org.apache.commons.math.linear.Array2DRowRealMatrix;
-import org.apache.commons.math.linear.ArrayRealVector;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealVector;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math.optimization.RealPointValuePair;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -118,7 +118,7 @@ public final class CommonsMathWrapper {
    */
   public static DoubleMatrix1D unwrap(final RealVector x) {
     ArgChecker.notNull(x, "x");
-    return new DoubleMatrix1D(x.getData());
+    return new DoubleMatrix1D(x.toArray());
   }
 
   /**

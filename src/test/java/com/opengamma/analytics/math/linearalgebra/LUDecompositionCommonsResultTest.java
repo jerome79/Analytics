@@ -5,145 +5,90 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Arrays;
 
-import org.apache.commons.math.linear.Array2DRowRealMatrix;
-import org.apache.commons.math.linear.ArrayRealVector;
-import org.apache.commons.math.linear.DecompositionSolver;
-import org.apache.commons.math.linear.InvalidMatrixException;
-import org.apache.commons.math.linear.LUDecomposition;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealVector;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.math.FuzzyEquals;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
- * Test.
+ * Tests the LUDecompositionCommonsResult class with well conditioned data and 
+ * poorly conditioned data.
  */
 @Test
 public class LUDecompositionCommonsResultTest {
-  static final double DETERMINANT = 3;
-  static final int[] PIVOT = new int[] {1, 2, 3};
-  static final RealMatrix L = new Array2DRowRealMatrix(new double[][] {new double[] {1, 2, 3}, new double[] {4, 5, 6}, new double[] {7, 8, 9}});
-  static final RealMatrix U = new Array2DRowRealMatrix(new double[][] {new double[] {10, 11, 12}, new double[] {13, 14, 15}, new double[] {16, 17, 18}});
-  static final RealMatrix P = new Array2DRowRealMatrix(new double[][] {new double[] {19, 20, 21}, new double[] {22, 23, 24}, new double[] {25, 26, 27}});
-  static final RealMatrix RESULT_2D = new Array2DRowRealMatrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}});
-  static final RealVector RESULT_1D = new ArrayRealVector(new double[] {1, 2});
-  static final DecompositionSolver SOLVER = new MyDecompositionSolver();
-  private static final LUDecompositionResult LU = new LUDecompositionCommonsResult(new MyLUDecomposition());
+
+  static double[][] rawAok = new double[][] { {100.0000000000000000, 9.0000000000000000, 10.0000000000000000, 1.0000000000000000 },
+    {9.0000000000000000, 50.0000000000000000, 19.0000000000000000, 15.0000000000000000 }, {10.0000000000000000, 11.0000000000000000, 29.0000000000000000, 21.0000000000000000 },
+    {8.0000000000000000, 10.0000000000000000, 20.0000000000000000, 28.0000000000000000 } };
+  static double[][] rawAsingular = new double[][] { {1000000.0000000000000000, 2.0000000000000000, 3.0000000000000000 }, {1000000.0000000000000000, 2.0000000000000000, 3.0000000000000000 },
+    {4.0000000000000000, 5.0000000000000000, 6.0000000000000000 } };
+  static double[] rawRHSvect = new double[] {1, 2, 3, 4 };
+  static double[][] rawRHSmat = new double[][] { {1, 2 }, {3, 4 }, {5, 6 }, {7, 8 } };
+
+  RealMatrix condok = new Array2DRowRealMatrix(rawAok);
+  LUDecomposition decomp = new LUDecomposition(condok);
+  LUDecompositionCommonsResult result = new LUDecompositionCommonsResult(decomp);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullQR() {
-    new QRDecompositionCommonsResult(null);
-  }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullArray() {
-    LU.solve((double[]) null);
+  public void checkThrowOnNull() {
+    new LUDecompositionCommonsResult(null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullVector() {
-    LU.solve((DoubleMatrix1D) null);
+  public void checkThrowOnSingular() {
+    new LUDecompositionCommonsResult(new LUDecomposition(new Array2DRowRealMatrix(rawAsingular)));
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullMatrix() {
-    LU.solve((DoubleMatrix2D) null);
+  public void testGetL() {
+    double[][] expectedRaw = new double[][] { {1.0000000000000000, 0.0000000000000000, 0.0000000000000000, 0.0000000000000000 },
+      {0.0900000000000000, 1.0000000000000000, 0.0000000000000000, 0.0000000000000000 }, {0.1000000000000000, 0.2053262858304534, 1.0000000000000000, 0.0000000000000000 },
+      {0.0800000000000000, 0.1886562309412482, 0.6500406024227509, 1.0000000000000000 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getL().getData(), expectedRaw));
   }
 
-  @Test
-  public void testGetters() {
-    assertRealMatrixEquals(L, LU.getL());
-    assertRealMatrixEquals(U, LU.getU());
-    assertRealMatrixEquals(P, LU.getP());
-    assertEquals(DETERMINANT, LU.getDeterminant(), 0);
-    assertTrue(Arrays.equals(PIVOT, LU.getPivot()));
+  public void testGetU() {
+    double[][] expectedRaw = new double[][] { {100.0000000000000000, 9.0000000000000000, 10.0000000000000000, 1.0000000000000000 },
+      {0.0000000000000000, 49.1899999999999977, 18.1000000000000014, 14.9100000000000001 }, {0.0000000000000000, 0.0000000000000000, 24.2835942264687930, 17.8385850782679398 },
+      {0.0000000000000000, 0.0000000000000000, 0.0000000000000000, 13.5113310060192049 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getU().getData(), expectedRaw));
   }
 
-  @Test
-  public void testSolvers() {
-    assertTrue(Arrays.equals(RESULT_1D.getData(), LU.solve(RESULT_1D.getData())));
-    assertTrue(Arrays.equals(RESULT_1D.getData(), LU.solve(new DoubleMatrix1D(RESULT_1D.getData())).getData()));
-    assertRealMatrixEquals(RESULT_2D, LU.solve(new DoubleMatrix2D(RESULT_2D.getData())));
+  public void testGetDeterminant() {
+    assertTrue(FuzzyEquals.SingleValueFuzzyEquals(result.getDeterminant(), 1613942.00000000));
   }
 
-  private void assertRealMatrixEquals(final RealMatrix m1, final DoubleMatrix2D m2) {
-    final int m = m1.getRowDimension();
-    final int n = m1.getColumnDimension();
-    assertEquals(m, m2.getNumberOfRows());
-    assertEquals(n, m2.getNumberOfColumns());
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        assertEquals(m1.getEntry(i, j), m2.getEntry(i, j), 0);
-      }
-    }
+  public void testGetP() {
+    double[][] expectedRaw = new double[][] { {1.0000000000000000, 0.0000000000000000, 0.0000000000000000, 0.0000000000000000 },
+      {0.0000000000000000, 1.0000000000000000, 0.0000000000000000, 0.0000000000000000 }, {0.0000000000000000, 0.0000000000000000, 1.0000000000000000, 0.0000000000000000 },
+      {0.0000000000000000, 0.0000000000000000, 0.0000000000000000, 1.0000000000000000 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getP().getData(), expectedRaw));
   }
 
-  protected static class MyLUDecomposition implements LUDecomposition {
-
-    @Override
-    public double getDeterminant() {
-      return DETERMINANT;
-    }
-
-    @Override
-    public RealMatrix getL() {
-      return L;
-    }
-
-    @Override
-    public RealMatrix getP() {
-      return P;
-    }
-
-    @Override
-    public int[] getPivot() {
-      return PIVOT;
-    }
-
-    @Override
-    public DecompositionSolver getSolver() {
-      return SOLVER;
-    }
-
-    @Override
-    public RealMatrix getU() {
-      return U;
-    }
-
+  public void testGetPivot() {
+    int[] expectedRaw = new int[] {0, 1, 2, 3 };
+    assertTrue(Arrays.equals(result.getPivot(), expectedRaw));
   }
 
-  protected static class MyDecompositionSolver implements DecompositionSolver {
-    @Override
-    public RealMatrix getInverse() throws InvalidMatrixException {
-      return null;
-    }
+  public void testSolveForVector() {
+    double[] expectedRaw = new double[] {0.0090821107573878, -0.0038563963265099, -0.0016307897061976, 0.1428043882617839 };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(rawRHSvect), expectedRaw));
 
-    @Override
-    public boolean isNonSingular() {
-      return false;
-    }
-
-    @Override
-    public double[] solve(final double[] b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_1D.toArray();
-    }
-
-    @Override
-    public RealVector solve(final RealVector b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_1D;
-    }
-
-    @Override
-    public RealMatrix solve(final RealMatrix b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_2D;
-    }
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(new DoubleMatrix1D(rawRHSvect)).getData(), expectedRaw));
   }
+
+  public void testSolveForMatrix() {
+    double[][] expectedRaw = new double[][] { {0.0103938059732010, 0.0181642215147756 }, {-0.0147149030138629, -0.0077127926530197 }, {-0.0171480759531631, -0.0032615794123952 },
+      {0.2645342893362958, 0.2856087765235678 } };
+
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(new DoubleMatrix2D(rawRHSmat)).getData(), expectedRaw));
+  }
+
 }

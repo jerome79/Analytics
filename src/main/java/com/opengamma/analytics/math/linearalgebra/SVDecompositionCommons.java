@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.SingularValueDecomposition;
-import org.apache.commons.math.linear.SingularValueDecompositionImpl;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.SingularValueDecomposition;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
@@ -27,7 +26,7 @@ public class SVDecompositionCommons extends Decomposition<SVDecompositionResult>
     ArgChecker.notNull(x, "x");
     MatrixValidate.notNaNOrInfinite(x);
     RealMatrix commonsMatrix = CommonsMathWrapper.wrap(x);
-    SingularValueDecomposition svd = new SingularValueDecompositionImpl(commonsMatrix);
+    SingularValueDecomposition svd = new SingularValueDecomposition(commonsMatrix);
     return new SVDecompositionCommonsResult(svd);
   }
 

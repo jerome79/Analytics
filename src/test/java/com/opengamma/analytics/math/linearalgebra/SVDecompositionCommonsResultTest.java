@@ -5,190 +5,101 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
-import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import java.util.Arrays;
-
-import org.apache.commons.math.linear.Array2DRowRealMatrix;
-import org.apache.commons.math.linear.ArrayRealVector;
-import org.apache.commons.math.linear.DecompositionSolver;
-import org.apache.commons.math.linear.InvalidMatrixException;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealVector;
-import org.apache.commons.math.linear.SingularValueDecomposition;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.SingularValueDecomposition;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.math.FuzzyEquals;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
- * Test.
+ * Tests the SVD decomposition result
  */
 @Test
 public class SVDecompositionCommonsResultTest {
-  static final double CONDITION = 0.5;
-  static final double NORM = 0.2;
-  static final int RANK = 6;
-  static final RealMatrix S = new Array2DRowRealMatrix(new double[][] {new double[] {0.1, 0.2}, new double[] {0.3, 0.4}});
-  static final RealMatrix U = new Array2DRowRealMatrix(new double[][] {new double[] {1.1, 1.2}, new double[] {1.3, 1.4}});
-  static final RealMatrix UT = new Array2DRowRealMatrix(new double[][] {new double[] {1.1, 1.3}, new double[] {1.2, 1.4}});
-  static final RealMatrix V = new Array2DRowRealMatrix(new double[][] {new double[] {2.1, 2.2}, new double[] {2.3, 2.4}});
-  static final RealMatrix VT = new Array2DRowRealMatrix(new double[][] {new double[] {2.1, 2.3}, new double[] {2.2, 2.4}});
-  static final RealMatrix M = new Array2DRowRealMatrix(new double[][] {new double[] {3.1, 3.2}, new double[] {3.3, 3.4}});
-  static final double[] SINGULAR_VALUES = new double[] {6, 7};
-  static final RealMatrix RESULT_2D = new Array2DRowRealMatrix(new double[][] {new double[] {3.5, 4.5}, new double[] {5.5, 6.5}});
-  static final RealVector RESULT_1D = new ArrayRealVector(new double[] {7.5, 8.5});
-  static final DecompositionSolver SOLVER = new MyDecompositionSolver();
-  private static final SVDecompositionResult SVD = new SVDecompositionCommonsResult(new MySingularValueDecomposition());
-  private static final double EPS = 1e-15;
+  static double[][] rawAok = new double[][] { {100.0000000000000000, 9.0000000000000000, 10.0000000000000000, 1.0000000000000000 },
+    {9.0000000000000000, 50.0000000000000000, 19.0000000000000000, 15.0000000000000000 }, {10.0000000000000000, 11.0000000000000000, 29.0000000000000000, 21.0000000000000000 },
+    {8.0000000000000000, 10.0000000000000000, 20.0000000000000000, 28.0000000000000000 } };
+  static double[] rawRHSvect = new double[] {1, 2, 3, 4 };
+  static double[][] rawRHSmat = new double[][] { {1, 2 }, {3, 4 }, {5, 6 }, {7, 8 } };
+
+  RealMatrix condok = new Array2DRowRealMatrix(rawAok);
+  SingularValueDecomposition svd = new SingularValueDecomposition(condok);
+  SVDecompositionCommonsResult result = new SVDecompositionCommonsResult(svd);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullSVD() {
+  public void testThrowOnNull() {
     new SVDecompositionCommonsResult(null);
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullArray() {
-    SVD.solve((double[]) null);
+  public void testgetConditionNumber() {
+    assertTrue(FuzzyEquals.SingleValueFuzzyEquals(result.getConditionNumber(), 13.3945104660836));
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullVector() {
-    SVD.solve((DoubleMatrix1D) null);
+  public void testGetRank() {
+    assertTrue(result.getRank() == 4);
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullMatrix() {
-    SVD.solve((DoubleMatrix2D) null);
+  public void testGetNorm() {
+    assertTrue(FuzzyEquals.SingleValueFuzzyEquals(result.getNorm(), 105.381175990066));
   }
 
-  @Test
-  public void testGetters() {
-    assertEquals(CONDITION, SVD.getConditionNumber(), 0);
-    assertEquals(RANK, SVD.getRank());
-    assertEquals(NORM, SVD.getNorm(), 0);
-    assertRealMatrixEquals(S, SVD.getS());
-    assertRealMatrixEquals(U, SVD.getU());
-    assertRealMatrixEquals(UT, SVD.getUT());
-    assertRealMatrixEquals(V, SVD.getV());
-    assertRealMatrixEquals(VT, SVD.getVT());
-    assertArrayEquals(SINGULAR_VALUES, SVD.getSingularValues(), 1e-12);
+  public void testGetU() {
+    double[][] expectedRaw = new double[][] { {0.9320471908445913, -0.3602912226875036, 0.0345478327447140, -0.0168735338827667 },
+      {0.2498760786359523, 0.7104436117020503, 0.6575672695227724, -0.0209070794141986 }, {0.2000644169325719, 0.4343672993809221, -0.5228856286213198, 0.7056131359939679 },
+      {0.1697769373079140, 0.4204582722157035, -0.5412969173072171, -0.7080877630614966 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getU().getData(), expectedRaw));
   }
 
-  @Test
-  public void testSolvers() {
-    assertTrue(Arrays.equals(RESULT_1D.getData(), SVD.solve(new double[] {0.1, 0.2})));
-    assertRealVectorEquals(RESULT_1D, SVD.solve(new DoubleMatrix1D(new double[] {0.1, 0.2})));
-    assertRealMatrixEquals(RESULT_2D, SVD.solve(new DoubleMatrix2D(new double[][] {new double[] {0.1, 0.2}, new double[] {0.1, 0.2}})));
+  public void testGetUT() {
+    double[][] expectedRaw = new double[][] { {0.9320471908445913, 0.2498760786359523, 0.2000644169325719, 0.1697769373079140 },
+      {-0.3602912226875036, 0.7104436117020503, 0.4343672993809221, 0.4204582722157035 }, {0.0345478327447140, 0.6575672695227724, -0.5228856286213198, -0.5412969173072171 },
+      {-0.0168735338827667, -0.0209070794141986, 0.7056131359939679, -0.7080877630614966 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getUT().getData(), expectedRaw));
   }
 
-  private void assertRealVectorEquals(final RealVector v1, final DoubleMatrix1D v2) {
-    final int n = v1.getDimension();
-    assertEquals(n, v2.getNumberOfElements());
-    for (int i = 0; i < n; i++) {
-      assertEquals(v1.getEntry(i), v2.getEntry(i), EPS);
-    }
+  public void testGetS() {
+    double[][] expectedRaw = new double[][] { {105.3811759900660974, 0.0000000000000000, 0.0000000000000000, 0.0000000000000000 },
+      {0.0000000000000000, 64.1183348155958299, 0.0000000000000000, 0.0000000000000000 }, {0.0000000000000000, 0.0000000000000000, 30.3603275655027289, 0.0000000000000000 },
+      {0.0000000000000000, 0.0000000000000000, 0.0000000000000000, 7.8674899136406147 } };
+
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getS().getData(), expectedRaw));
   }
 
-  private void assertRealMatrixEquals(final RealMatrix m1, final DoubleMatrix2D m2) {
-    final int m = m1.getRowDimension();
-    final int n = m1.getColumnDimension();
-    assertEquals(m, m2.getNumberOfRows());
-    assertEquals(n, m2.getNumberOfColumns());
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        assertEquals(m1.getEntry(i, j), m2.getEntry(i, j), EPS);
-      }
-    }
+  public void testGetSingularValues() {
+    double[] expectedRaw = new double[] {105.3811759900660974, 64.1183348155958299, 30.3603275655027289, 7.8674899136406147 };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getSingularValues(), expectedRaw));
   }
 
-  protected static class MySingularValueDecomposition implements SingularValueDecomposition {
-
-    @Override
-    public double getConditionNumber() {
-      return CONDITION;
-    }
-
-    @Override
-    public RealMatrix getCovariance(final double minSingularValue) throws IllegalArgumentException {
-      return null;
-    }
-
-    @Override
-    public double getNorm() {
-      return NORM;
-    }
-
-    @Override
-    public int getRank() {
-      return RANK;
-    }
-
-    @Override
-    public RealMatrix getS() {
-      return S;
-    }
-
-    @Override
-    public double[] getSingularValues() {
-      return SINGULAR_VALUES;
-    }
-
-    @Override
-    public DecompositionSolver getSolver() {
-      return SOLVER;
-    }
-
-    @Override
-    public RealMatrix getU() {
-      return U;
-    }
-
-    @Override
-    public RealMatrix getUT() {
-      return UT;
-    }
-
-    @Override
-    public RealMatrix getV() {
-      return V;
-    }
-
-    @Override
-    public RealMatrix getVT() {
-      return VT;
-    }
+  public void testGetV() {
+    double[][] expectedRaw = new double[][] { {0.9376671168414974, -0.3419893959342725, -0.0061377112645623, -0.0615301516583371 },
+      {0.2351530657721294, 0.6435317248168104, 0.7254395669946609, -0.0656307050919645 }, {0.2207749536020079, 0.4819422340068079, -0.4331430581376550, 0.7289562360867203 },
+      {0.1293902373216524, 0.4864584826101194, -0.5348708763114625, -0.6786232068359547 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getV().getData(), expectedRaw));
   }
 
-  protected static class MyDecompositionSolver implements DecompositionSolver {
+  public void testGetVT() {
+    double[][] expectedRaw = new double[][] { {0.9376671168414974, 0.2351530657721294, 0.2207749536020079, 0.1293902373216524 },
+      {-0.3419893959342725, 0.6435317248168104, 0.4819422340068079, 0.4864584826101194 }, {-0.0061377112645623, 0.7254395669946609, -0.4331430581376550, -0.5348708763114625 },
+      {-0.0615301516583371, -0.0656307050919645, 0.7289562360867203, -0.6786232068359547 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getVT().getData(), expectedRaw));
+  }
 
-    @Override
-    public RealMatrix getInverse() throws InvalidMatrixException {
-      return null;
-    }
+  public void testSolveForVector() {
+    double[] expectedRaw = new double[] {0.0090821107573878, -0.0038563963265099, -0.0016307897061976, 0.1428043882617839 };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(rawRHSvect), expectedRaw));
 
-    @Override
-    public boolean isNonSingular() {
-      return false;
-    }
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(new DoubleMatrix1D(rawRHSvect)).getData(), expectedRaw));
+  }
 
-    @Override
-    public double[] solve(final double[] b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_1D.toArray();
-    }
+  public void testSolveForMatrix() {
+    double[][] expectedRaw = new double[][] { {0.0103938059732010, 0.0181642215147756 }, {-0.0147149030138629, -0.0077127926530197 }, {-0.0171480759531631, -0.0032615794123952 },
+      {0.2645342893362958, 0.2856087765235678 } };
 
-    @Override
-    public RealVector solve(final RealVector b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_1D;
-    }
-
-    @Override
-    public RealMatrix solve(final RealMatrix b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_2D;
-    }
-
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(new DoubleMatrix2D(rawRHSmat)).getData(), expectedRaw));
   }
 }

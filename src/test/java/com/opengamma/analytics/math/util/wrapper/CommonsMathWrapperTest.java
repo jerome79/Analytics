@@ -13,8 +13,8 @@ import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math.complex.Complex;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealVector;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math.optimization.RealPointValuePair;
 import org.testng.annotations.Test;
 

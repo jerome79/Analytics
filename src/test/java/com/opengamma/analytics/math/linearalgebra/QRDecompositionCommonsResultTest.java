@@ -5,137 +5,69 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-import java.util.Arrays;
-
-import org.apache.commons.math.linear.Array2DRowRealMatrix;
-import org.apache.commons.math.linear.ArrayRealVector;
-import org.apache.commons.math.linear.DecompositionSolver;
-import org.apache.commons.math.linear.InvalidMatrixException;
-import org.apache.commons.math.linear.QRDecomposition;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealVector;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.QRDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.testng.annotations.Test;
 
+import com.opengamma.analytics.math.FuzzyEquals;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
- * Test.
+ * Tests the QR decomposition result
  */
 @Test
 public class QRDecompositionCommonsResultTest {
-  protected static final RealMatrix H = new Array2DRowRealMatrix(new double[][] {new double[] {11, 12}, new double[] {13, 14}});
-  protected static final RealMatrix Q = new Array2DRowRealMatrix(new double[][] {new double[] {15, 16}, new double[] {17, 18}});
-  protected static final RealMatrix R = new Array2DRowRealMatrix(new double[][] {new double[] {19, 20}, new double[] {21, 22}});
-  protected static final RealMatrix Q_T = new Array2DRowRealMatrix(new double[][] {new double[] {15, 17}, new double[] {16, 18}});
-  protected static final RealMatrix RESULT_2D = new Array2DRowRealMatrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}});
-  protected static final RealVector RESULT_1D = new ArrayRealVector(new double[] {1, 2});
-  protected static final DecompositionSolver SOLVER = new MyDecompositionSolver();
-  private static final QRDecompositionResult QR = new QRDecompositionCommonsResult(new MyQRDecomposition());
+  static double[][] rawAok = new double[][] { {100.0000000000000000, 9.0000000000000000, 10.0000000000000000, 1.0000000000000000 },
+    {9.0000000000000000, 50.0000000000000000, 19.0000000000000000, 15.0000000000000000 }, {10.0000000000000000, 11.0000000000000000, 29.0000000000000000, 21.0000000000000000 },
+    {8.0000000000000000, 10.0000000000000000, 20.0000000000000000, 28.0000000000000000 } };
+  static double[] rawRHSvect = new double[] {1, 2, 3, 4 };
+  static double[][] rawRHSmat = new double[][] { {1, 2 }, {3, 4 }, {5, 6 }, {7, 8 } };
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullQR() {
+  RealMatrix condok = new Array2DRowRealMatrix(rawAok);
+  QRDecomposition qr = new QRDecomposition(condok);
+  QRDecompositionCommonsResult result = new QRDecompositionCommonsResult(qr);
+
+  @Test(expectedExceptions=IllegalArgumentException.class)
+  public void testThrowOnNull() {
     new QRDecompositionCommonsResult(null);
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullArray() {
-    QR.solve((double[]) null);
+  
+  public void testGetQ() {
+    double[][] expectedRaw = new double[][] { {-0.9879705944808324, 0.1189683945357854, 0.0984381737009301, 0.0083994941034602 },
+      {-0.0889173535032749, -0.9595057553635415, 0.2632608647546777, 0.0462182513606091 }, {-0.0987970594480833, -0.1873133740004731, -0.8116464267094188, 0.5444106161481449 },
+      {-0.0790376475584666, -0.1735192394127411, -0.5120876107238650, -0.8375024792591188 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getQ().getData(), expectedRaw));
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullVector() {
-    QR.solve((DoubleMatrix1D) null);
+  public void testGetR() {
+    double[][] expectedRaw = new double[][] { {-101.2175874045612574, -15.2147471550048152, -16.0150033365342956, -6.6095232770767698 },
+      {0.0000000000000000, -50.7002117254876197, -25.9433980408179785, -23.0657374934840220 }, {0.0000000000000000, 0.0000000000000000, -27.7931604217022681, -27.3356769161449193 },
+      {0.0000000000000000, 0.0000000000000000, 0.0000000000000000, -11.3157732156316868 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getR().getData(), expectedRaw));
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullMatrix() {
-    QR.solve((DoubleMatrix2D) null);
+  public void testGetQT() {
+    double[][] expectedRaw = new double[][] { {-0.9879705944808324, -0.0889173535032749, -0.0987970594480833, -0.0790376475584666 },
+      {0.1189683945357854, -0.9595057553635415, -0.1873133740004731, -0.1735192394127411 }, {0.0984381737009301, 0.2632608647546777, -0.8116464267094188, -0.5120876107238650 },
+      {0.0083994941034602, 0.0462182513606091, 0.5444106161481449, -0.8375024792591188 } };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.getQT().getData(), expectedRaw));
   }
 
-  @Test
-  public void testGetters() {
-    assertRealMatrixEquals(H, QR.getH());
-    assertRealMatrixEquals(Q, QR.getQ());
-    assertRealMatrixEquals(R, QR.getR());
-    assertRealMatrixEquals(Q_T, QR.getQT());
+  public void testSolveForVector() {
+    double[] expectedRaw = new double[] {0.0090821107573878, -0.0038563963265099, -0.0016307897061976, 0.1428043882617839 };
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(rawRHSvect), expectedRaw));
+
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(new DoubleMatrix1D(rawRHSvect)).getData(), expectedRaw));
   }
 
-  @Test
-  public void testSolvers() {
-    assertTrue(Arrays.equals(RESULT_1D.getData(), QR.solve(RESULT_1D.getData())));
-    assertTrue(Arrays.equals(RESULT_1D.getData(), QR.solve(new DoubleMatrix1D(RESULT_1D.getData())).getData()));
-    assertRealMatrixEquals(RESULT_2D, QR.solve(new DoubleMatrix2D(RESULT_2D.getData())));
-  }
+  public void testSolveForMatrix() {
+    double[][] expectedRaw = new double[][] { {0.0103938059732010, 0.0181642215147756 }, {-0.0147149030138629, -0.0077127926530197 }, {-0.0171480759531631, -0.0032615794123952 },
+      {0.2645342893362958, 0.2856087765235678 } };
 
-  private void assertRealMatrixEquals(final RealMatrix m1, final DoubleMatrix2D m2) {
-    final int m = m1.getRowDimension();
-    final int n = m1.getColumnDimension();
-    assertEquals(m, m2.getNumberOfRows());
-    assertEquals(n, m2.getNumberOfColumns());
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        assertEquals(m1.getEntry(i, j), m2.getEntry(i, j), 0);
-      }
-    }
-  }
-
-  protected static class MyQRDecomposition implements QRDecomposition {
-
-    @Override
-    public RealMatrix getH() {
-      return H;
-    }
-
-    @Override
-    public RealMatrix getQ() {
-      return Q;
-    }
-
-    @Override
-    public RealMatrix getQT() {
-      return Q_T;
-    }
-
-    @Override
-    public RealMatrix getR() {
-      return R;
-    }
-
-    @Override
-    public DecompositionSolver getSolver() {
-      return SOLVER;
-    }
-  }
-
-  protected static class MyDecompositionSolver implements DecompositionSolver {
-    @Override
-    public RealMatrix getInverse() throws InvalidMatrixException {
-      return null;
-    }
-
-    @Override
-    public boolean isNonSingular() {
-      return false;
-    }
-
-    @Override
-    public double[] solve(final double[] b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_1D.toArray();
-    }
-
-    @Override
-    public RealVector solve(final RealVector b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_1D;
-    }
-
-    @Override
-    public RealMatrix solve(final RealMatrix b) throws IllegalArgumentException, InvalidMatrixException {
-      return RESULT_2D;
-    }
+    assertTrue(FuzzyEquals.ArrayFuzzyEquals(result.solve(new DoubleMatrix2D(rawRHSmat)).getData(), expectedRaw));
   }
 }
