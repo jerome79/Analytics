@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.opengamma.analytics.MathsException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.DistanceCalculator;
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
@@ -115,8 +116,7 @@ public class KrigingInterpolatorDataBundle extends InterpolatorNDDataBundle {
     try {
       res = solve(v, y, _decomp);
     } catch (final IllegalArgumentException e) {
-      final Decomposition<?> decomp = DecompositionFactory.SV_COMMONS;
-      res = solve(v, y, decomp);
+      throw new MathsException(e.getMessage());
     }
 
     return res;
