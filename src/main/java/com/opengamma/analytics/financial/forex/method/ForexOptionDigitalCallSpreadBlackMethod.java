@@ -128,7 +128,7 @@ public class ForexOptionDigitalCallSpreadBlackMethod extends ForexOptionDigitalC
     ArgChecker.isTrue(smile.checkCurrencies(optionDigital.getCurrency1(), optionDigital.getCurrency2()), "Option currencies not compatible with smile data");
     final PresentValueForexBlackVolatilitySensitivity pointSensitivity = presentValueBlackVolatilitySensitivity(optionDigital, smile); // In ccy2
     final double df = smile.getCurve(optionDigital.getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(optionDigital.getUnderlyingForex().getPaymentTime());
-    final double spot = smile.getFxRates().rate(optionDigital.getCurrency1(), optionDigital.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionDigital.getCurrency1(), optionDigital.getCurrency2());
     final double forward = spot * smile.getCurve(optionDigital.getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(optionDigital.getUnderlyingForex().getPaymentTime())
         / df;
     final SmileDeltaTermStructureParametersStrikeInterpolation volatilityModel = smile.getVolatilityModel();

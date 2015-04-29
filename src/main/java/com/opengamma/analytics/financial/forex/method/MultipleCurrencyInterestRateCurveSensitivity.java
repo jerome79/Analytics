@@ -158,7 +158,7 @@ public final class MultipleCurrencyInterestRateCurveSensitivity {
   public MultipleCurrencyInterestRateCurveSensitivity converted(final Currency ccy, final FxMatrix fx) {
     InterestRateCurveSensitivity sensi = new InterestRateCurveSensitivity();
     for (final Currency c : _sensitivity.keySet()) {
-      final double rate = fx.rate(c, ccy);
+      final double rate = fx.fxRate(c, ccy);
       sensi = sensi.plus(_sensitivity.get(c).multipliedBy(rate));
     }
     return of(ccy, sensi);

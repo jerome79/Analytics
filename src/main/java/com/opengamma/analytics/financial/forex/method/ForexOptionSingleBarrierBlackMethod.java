@@ -82,7 +82,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
         .getInterestRate(payTime);
     final double dfDomestic = Math.exp(-rateDomestic * payTime);
     final double dfForeign = Math.exp(-rateForeign * payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfForeign / dfDomestic;
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -118,7 +118,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
         payTime);
     final double rateForeign = smile.getCurve(optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getFundingCurveName())
         .getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -162,7 +162,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     // Forward sweep
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
@@ -222,7 +222,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -267,7 +267,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final SmileDeltaTermStructureParametersStrikeInterpolation volatilityModel = smile.getVolatilityModel();
     final double df = smile.getCurve(optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency2().getFundingCurveName()).getDiscountFactor(
         optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime());
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot
         * smile.getCurve(optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getFundingCurveName()).getDiscountFactor(
             optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime()) / df;
@@ -301,7 +301,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double volatility = FXVolatilityUtils.getVolatility(smile, optionForex.getCurrency1(), optionForex.getCurrency2(), optionForex.getUnderlyingOption()
         .getTimeToExpiry(), optionForex.getUnderlyingOption().getStrike(), forward);
@@ -327,7 +327,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = underlyingOption.getUnderlyingForex().getPaymentTime();
     final double dfForeign = smile.getCurve(foreignCurveName).getDiscountFactor(payTime);
     final double dfDomestic = smile.getCurve(domesticCurveName).getDiscountFactor(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfForeign / dfDomestic;
     final double volatility = FXVolatilityUtils.getVolatility(smile, optionForex.getCurrency1(), optionForex.getCurrency2(), timeToExpiry, strike, forward);
     final double sign = (underlyingOption.isLong() ? 1.0 : -1.0);
@@ -394,7 +394,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = underlyingOption.getUnderlyingForex().getPaymentTime();
     final double dfForeign = smile.getCurve(foreignCurveName).getDiscountFactor(payTime);
     final double dfDomestic = smile.getCurve(domesticCurveName).getDiscountFactor(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfForeign / dfDomestic;
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
@@ -425,7 +425,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -464,7 +464,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final PaymentFixed paymentCurrency2 = underlyingOption.getUnderlyingForex().getPaymentCurrency2();
     final double sign = (optionForex.getUnderlyingOption().isLong() ? 1.0 : -1.0);
     final double gammaDirect = gammaFd(optionForex, smile).getAmount() * sign;
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     if (directQuote) {
       return CurrencyAmount.of(paymentCurrency2.getCurrency(), gammaDirect);
     }
@@ -513,7 +513,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = underlyingOption.getUnderlyingForex().getPaymentTime();
     final double dfForeign = smile.getCurve(foreignCurveName).getDiscountFactor(payTime);
     final double dfDomestic = smile.getCurve(domesticCurveName).getDiscountFactor(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfForeign / dfDomestic;
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
@@ -551,7 +551,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = underlyingOption.getUnderlyingForex().getPaymentTime();
     final double dfForeign = smile.getCurve(foreignCurveName).getDiscountFactor(payTime);
     final double dfDomestic = smile.getCurve(domesticCurveName).getDiscountFactor(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfForeign / dfDomestic;
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
@@ -586,7 +586,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = underlyingOption.getUnderlyingForex().getPaymentTime();
     final double dfForeign = smile.getCurve(foreignCurveName).getDiscountFactor(payTime);
     final double dfDomestic = smile.getCurve(domesticCurveName).getDiscountFactor(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * dfForeign / dfDomestic;
     final double foreignAmount = underlyingOption.getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -618,7 +618,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -717,7 +717,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -757,7 +757,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -798,7 +798,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
     final double costOfCarry = rateDomestic - rateForeign;
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -841,7 +841,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
     final double costOfCarry = rateDomestic - rateForeign;
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -913,7 +913,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);
@@ -946,7 +946,7 @@ public final class ForexOptionSingleBarrierBlackMethod implements ForexPricingMe
     final double payTime = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentTime();
     final double rateDomestic = smile.getCurve(domesticCurveName).getInterestRate(payTime);
     final double rateForeign = smile.getCurve(foreignCurveName).getInterestRate(payTime);
-    final double spot = smile.getFxRates().rate(optionForex.getCurrency1(), optionForex.getCurrency2());
+    final double spot = smile.getFxRates().fxRate(optionForex.getCurrency1(), optionForex.getCurrency2());
     final double forward = spot * Math.exp(-rateForeign * payTime) / Math.exp(-rateDomestic * payTime);
     final double foreignAmount = optionForex.getUnderlyingOption().getUnderlyingForex().getPaymentCurrency1().getAmount();
     final double rebateByForeignUnit = optionForex.getRebate() / Math.abs(foreignAmount);

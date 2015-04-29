@@ -154,7 +154,7 @@ public final class PresentValueBasisPointCalculator extends InstrumentDerivative
   public Double visitForexSwap(final ForexSwap derivative, final YieldCurveBundle curves) {
     final YieldAndDiscountCurve dsc2 = curves.getCurve(derivative.getFarLeg().getPaymentCurrency2().getFundingCurveName());
     final double pvPtCcy2 = dsc2.getDiscountFactor(derivative.getFarLeg().getPaymentTime()) * -derivative.getFarLeg().getPaymentCurrency1().getAmount();
-    return curves.getFxRates().rate(derivative.getFarLeg().getCurrency2(), derivative.getFarLeg().getCurrency1()) * pvPtCcy2;
+    return curves.getFxRates().fxRate(derivative.getFarLeg().getCurrency2(), derivative.getFarLeg().getCurrency1()) * pvPtCcy2;
   }
 
 }

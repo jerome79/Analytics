@@ -491,7 +491,7 @@ public class MulticurveProviderForward implements MulticurveProviderInterface {
 
   @Override
   public double getFxRate(final Currency ccy1, final Currency ccy2) {
-    return _fxMatrix.rate(ccy1, ccy2);
+    return _fxMatrix.fxRate(ccy1, ccy2);
   }
 
   /**

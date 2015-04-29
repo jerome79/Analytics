@@ -175,7 +175,7 @@ public class MultipleCurrencyInflationSensitivity {
   public MultipleCurrencyInflationSensitivity converted(final Currency ccy, final FxMatrix fx) {
     InflationSensitivity sensi = new InflationSensitivity();
     for (final Currency c : _sensitivity.keySet()) {
-      final double rate = fx.rate(c, ccy);
+      final double rate = fx.fxRate(c, ccy);
       sensi = sensi.plus(_sensitivity.get(c).multipliedBy(rate));
     }
     return of(ccy, sensi);

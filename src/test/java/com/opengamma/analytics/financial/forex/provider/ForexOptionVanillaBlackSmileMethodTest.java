@@ -67,7 +67,7 @@ public class ForexOptionVanillaBlackSmileMethodTest {
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountForexDataSets.createMulticurvesForex();
 
   private static final FxMatrix FX_MATRIX = MULTICURVES.getFxRates();
-  private static final double SPOT = FX_MATRIX.rate(EUR, USD);
+  private static final double SPOT = FX_MATRIX.fxRate(EUR, USD);
   // General
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
@@ -465,7 +465,7 @@ public class ForexOptionVanillaBlackSmileMethodTest {
     final double deltaFlat = METHOD_OPTION.deltaRelativeSpot(forexOption, SMILE_FLAT_MULTICURVES, true);
     assertEquals(
         "Forex: relative delta",
-        (pvP.getAmount(USD).getAmount() - pvM.getAmount(USD).getAmount()) / (2 * SHIFT) * FX_MATRIX.rate(EUR, USD),
+        (pvP.getAmount(USD).getAmount() - pvM.getAmount(USD).getAmount()) / (2 * SHIFT) * FX_MATRIX.fxRate(EUR, USD),
         deltaFlat,
         TOLERANCE_RELATIVE);
   }

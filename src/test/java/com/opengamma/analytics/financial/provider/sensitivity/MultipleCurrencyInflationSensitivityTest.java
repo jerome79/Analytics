@@ -121,7 +121,7 @@ public class MultipleCurrencyInflationSensitivityTest {
     final InflationSensitivity cs = InflationSensitivity.of(SENSI_11, SENSI_FWD_11, SENSI_33);
     final MultipleCurrencyInflationSensitivity mcs = MultipleCurrencyInflationSensitivity.of(ccy1, cs);
     final MultipleCurrencyInflationSensitivity mcsConverted = mcs.converted(ccy2, fxMatrix);
-    final MultipleCurrencyInflationSensitivity mcsExpected = MultipleCurrencyInflationSensitivity.of(ccy2, cs.multipliedBy(fxMatrix.rate(ccy1, ccy2)));
+    final MultipleCurrencyInflationSensitivity mcsExpected = MultipleCurrencyInflationSensitivity.of(ccy2, cs.multipliedBy(fxMatrix.fxRate(ccy1, ccy2)));
     AssertSensitivityObjects.assertEquals("MultipleCurrencyCurveSensitivityMarket: converted", mcsExpected.cleaned(), mcsConverted.cleaned(), TOLERANCE);
   }
 

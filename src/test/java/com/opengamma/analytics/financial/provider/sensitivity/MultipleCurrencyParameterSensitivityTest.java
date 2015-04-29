@@ -199,8 +199,8 @@ public class MultipleCurrencyParameterSensitivityTest {
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_1_USD, SENSITIVITY_1_1);
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_1_USD,
                                                          (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_1_2,
-                                                                                       fxMatrix.rate(EUR, USD)));
-    sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_2_USD, (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_2_1, fxMatrix.rate(EUR, USD)));
+                                                                                       fxMatrix.fxRate(EUR, USD)));
+    sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_2_USD, (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_2_1, fxMatrix.fxRate(EUR, USD)));
     assertTrue("Test convert: ",
                AssertSensitivityObjects.assertEquals("ParameterSensitivity: convert",
                                                    sensitivityUSDExpected,

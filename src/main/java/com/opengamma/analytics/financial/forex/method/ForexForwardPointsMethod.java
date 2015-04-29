@@ -50,7 +50,7 @@ public final class ForexForwardPointsMethod {
    * @return The multi-currency present value (in currency 2).
    */
   public MultiCurrencyAmount presentValue(final Forex fx, final YieldCurveBundle curves, final DoublesCurve forwardPoints) {
-    final double fxRate = curves.getFxRates().rate(fx.getCurrency1(), fx.getCurrency2());
+    final double fxRate = curves.getFxRates().fxRate(fx.getCurrency1(), fx.getCurrency2());
     final double payTime = fx.getPaymentTime();
     final double fwdPts = forwardPoints.getYValue(payTime);
     final double amount1 = fx.getPaymentCurrency1().getAmount();
@@ -68,7 +68,7 @@ public final class ForexForwardPointsMethod {
    * @return The multi-currency present value (in currency 2).
    */
   public MultiCurrencyAmount currencyExposure(final Forex fx, final YieldCurveBundle curves, final DoublesCurve forwardPoints) {
-    final double fxRate = curves.getFxRates().rate(fx.getCurrency1(), fx.getCurrency2());
+    final double fxRate = curves.getFxRates().fxRate(fx.getCurrency1(), fx.getCurrency2());
     final double payTime = fx.getPaymentTime();
     final double fwdPts = forwardPoints.getYValue(payTime);
     final double amount1 = fx.getPaymentCurrency1().getAmount();
@@ -90,7 +90,7 @@ public final class ForexForwardPointsMethod {
    * @return The sensitivity.
    */
   public MultipleCurrencyInterestRateCurveSensitivity presentValueCurveSensitivity(final Forex fx, final YieldCurveBundle curves, final DoublesCurve forwardPoints) {
-    final double fxRate = curves.getFxRates().rate(fx.getCurrency1(), fx.getCurrency2());
+    final double fxRate = curves.getFxRates().fxRate(fx.getCurrency1(), fx.getCurrency2());
     final double payTime = fx.getPaymentTime();
     final double fwdPts = forwardPoints.getYValue(payTime);
     final double amount1 = fx.getPaymentCurrency1().getAmount();

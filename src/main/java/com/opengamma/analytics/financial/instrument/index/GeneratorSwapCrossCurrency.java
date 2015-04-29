@@ -63,7 +63,7 @@ public class GeneratorSwapCrossCurrency extends GeneratorInstrument<GeneratorAtt
       GeneratorAttributeFX attribute) {
     GeneratorAttributeIR attributeIr = new GeneratorAttributeIR(attribute.getStartPeriod(), attribute.getEndPeriod());
     AnnuityDefinition<?> leg1 = _leg1.generateInstrument(date, marketQuote, notional, attributeIr);
-    final double fx = attribute.getFxMatrix().rate(_leg1.getCurrency(), _leg2.getCurrency());
+    final double fx = attribute.getFxMatrix().fxRate(_leg1.getCurrency(), _leg2.getCurrency());
     AnnuityDefinition<?> leg2 = _leg2.generateInstrument(date, 0.0, -fx * notional, attributeIr);
     return new SwapDefinition(leg1, leg2);
   }
