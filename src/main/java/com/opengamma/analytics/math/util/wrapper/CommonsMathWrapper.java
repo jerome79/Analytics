@@ -9,13 +9,16 @@ import org.apache.commons.math.FunctionEvaluationException;
 import org.apache.commons.math.analysis.DifferentiableUnivariateRealFunction;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
-import org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math.complex.Complex;
 import org.apache.commons.math.linear.Array2DRowRealMatrix;
 import org.apache.commons.math.linear.ArrayRealVector;
 import org.apache.commons.math.linear.RealMatrix;
 import org.apache.commons.math.linear.RealVector;
 import org.apache.commons.math.optimization.RealPointValuePair;
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
+import org.apache.commons.math3.exception.DimensionMismatchException;
+import org.apache.commons.math3.exception.NonMonotonicSequenceException;
+import org.apache.commons.math3.exception.NumberIsTooSmallException;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -139,7 +142,7 @@ public final class CommonsMathWrapper {
       public Double evaluate(final Double x) {
         try {
           return lagrange.value(x);
-        } catch (final org.apache.commons.math.MathException e) {
+        } catch (DimensionMismatchException | NonMonotonicSequenceException | NumberIsTooSmallException e) {
           throw new MathException(e);
         }
       }
