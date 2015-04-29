@@ -5,7 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
-import org.apache.commons.math.special.Beta;
+import org.apache.commons.math3.exception.MaxCountExceededException;
+import org.apache.commons.math3.special.Beta;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
@@ -67,7 +68,7 @@ public class IncompleteBetaFunction extends Function1D<Double, Double> {
     ArgChecker.isTrue(x >= 0 && x <= 1, "x must be in the range 0 to 1");
     try {
       return Beta.regularizedBeta(x, _a, _b, _eps, _maxIter);
-    } catch (final org.apache.commons.math.MathException e) {
+    } catch (MaxCountExceededException e) {
       throw new MathException(e);
     }
   }
