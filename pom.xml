@@ -192,11 +192,16 @@
       <artifactId>commons-math</artifactId>
       <version>${commons-math.version}</version>
     </dependency>
+        <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>${commons-math3.version}</version>
+    </dependency>
     <dependency>
       <groupId>colt</groupId>
       <artifactId>colt</artifactId>
       <version>${colt.version}</version>
-    </dependency>
+    </dependency>  
     <dependency>
       <groupId>net.sourceforge.jtransforms</groupId>
       <artifactId>jtransforms</artifactId>
@@ -344,6 +349,7 @@
     <guava.version>18.0</guava.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-math.version>2.1</commons-math.version>
+    <commons-math3.version>3.5</commons-math3.version>
     <joda-convert.version>1.7</joda-convert.version>
     <joda-beans.version>1.5.1</joda-beans.version>
     <findbugs.version>1.3.9</findbugs.version>
