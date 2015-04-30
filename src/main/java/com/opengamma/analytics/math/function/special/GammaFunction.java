@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.function.special;
 
 import java.util.function.DoubleUnaryOperator;
 
-import org.apache.commons.math.special.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * 
@@ -26,7 +26,7 @@ import org.apache.commons.math.special.Gamma;
  * $$
  * It is analytic everywhere but $z=0, -1, -2, \ldots$
  * <p>
- * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/special/Gamma.html">Commons Math library implementation</a> 
+ * This class is a wrapper for the <a href="http://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/special/Gamma.html">Commons Math library implementation</a> 
  * of the Gamma function.
  * 
  */
