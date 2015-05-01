@@ -65,7 +65,7 @@ public class CommonsMathWrapperTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull1DFunction() {
-    CommonsMathWrapper.wrapUnivariate((Function1D<Double, Double>) null);
+    CommonsMathWrapper.wrapUnivariateLegacy((Function1D<Double, Double>) null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -114,7 +114,7 @@ public class CommonsMathWrapperTest {
 
   @Test
   public void test1DFunction() throws FunctionEvaluationException {
-    final UnivariateRealFunction commons = CommonsMathWrapper.wrapUnivariate(OG_FUNCTION_1D);
+    final UnivariateRealFunction commons = CommonsMathWrapper.wrapUnivariateLegacy(OG_FUNCTION_1D);
     for (int i = 0; i < 100; i++) {
       assertEquals(OG_FUNCTION_1D.evaluate((double) i), commons.value(i), 1e-15);
     }

@@ -44,10 +44,10 @@ public class ExtendedTrapezoidIntegrator1D extends Integrator1D<Double, Double> 
     ArgChecker.notNull(upper, "upper");
     try {
       if (lower < upper) {
-        return INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariate(f), lower, upper);
+        return INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariateLegacy(f), lower, upper);
       }
       s_logger.info("Upper bound was less than lower bound; swapping bounds and negating result");
-      return -INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariate(f), upper, lower);
+      return -INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariateLegacy(f), upper, lower);
     } catch (final FunctionEvaluationException e) {
       throw new MathException(e);
     } catch (final org.apache.commons.math.ConvergenceException e) {

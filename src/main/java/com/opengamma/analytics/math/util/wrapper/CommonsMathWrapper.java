@@ -10,15 +10,16 @@ import org.apache.commons.math.analysis.DifferentiableUnivariateRealFunction;
 import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math.complex.Complex;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math.optimization.RealPointValuePair;
+import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NonMonotonicSequenceException;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -41,11 +42,20 @@ public final class CommonsMathWrapper {
    * @param f An OG 1-D function mapping doubles onto doubles, not null 
    * @return A Commons univariate real function
    */
-  public static UnivariateRealFunction wrapUnivariate(final Function1D<Double, Double> f) {
+  public static UnivariateRealFunction wrapUnivariateLegacy(final Function1D<Double, Double> f) {
     ArgChecker.notNull(f, "f");
     return f::evaluate;
   }
 
+  /**
+   * @param f An OG 1-D function mapping doubles onto doubles, not null 
+   * @return A Commons univariate real function
+   */
+  public static UnivariateFunction wrapUnivariate(final Function1D<Double, Double> f) {
+    ArgChecker.notNull(f, "f");
+    return f::evaluate;
+  }
+  
   /**
    * @param f An OG 1-D function mapping vectors of doubles onto doubles, not null
    * @return A Commons multivariate real function
@@ -174,7 +184,7 @@ public final class CommonsMathWrapper {
 
       @Override
       public UnivariateRealFunction derivative() {
-        return wrapUnivariate(f.derivative());
+        return wrapUnivariateLegacy(f.derivative());
       }
     };
   }

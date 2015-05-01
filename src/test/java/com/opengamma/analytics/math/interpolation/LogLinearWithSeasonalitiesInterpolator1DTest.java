@@ -90,7 +90,7 @@ public class LogLinearWithSeasonalitiesInterpolator1DTest {
     final double initialGuess = Math.pow(y2 / y1, 1 / 12.0) - 1.0;
 
     // We solve the equation define by the function and use the result to calculate values, nodes are also calculates.
-    final UnivariateRealFunction f = CommonsMathWrapper.wrapUnivariate(function);
+    final UnivariateRealFunction f = CommonsMathWrapper.wrapUnivariateLegacy(function);
     double growth;
     try {
       growth = solver.solve(f, -.5, .5, initialGuess);
