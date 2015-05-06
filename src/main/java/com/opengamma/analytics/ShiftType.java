@@ -21,8 +21,8 @@ public enum ShiftType {
    */
   RELATIVE("Relative") {
     @Override
-    public double applyShift(double value, double shift) {
-      return value * (1 + shift);
+    public double applyShift(double value, double shiftAmount) {
+      return value * (1 + shiftAmount);
     }
   },
 
@@ -33,8 +33,8 @@ public enum ShiftType {
    */
   ABSOLUTE("Absolute") {
     @Override
-    public double applyShift(double value, double shift) {
-      return value + shift;
+    public double applyShift(double value, double shiftAmount) {
+      return value + shiftAmount;
     }
   };
 
@@ -42,10 +42,10 @@ public enum ShiftType {
    * Applies the shift to the value using appropriate logic for the shift type.
    *
    * @param value the value to shift
-   * @param shift the shift to apply
+   * @param shiftAmount the shift to apply
    * @return the shifted value
    */
-  public abstract double applyShift(double value, double shift);
+  public abstract double applyShift(double value, double shiftAmount);
 
   /** The name of the shift type. */
   private String name;
