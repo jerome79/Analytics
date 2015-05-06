@@ -5,9 +5,10 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.integration.SimpsonIntegrator;
-import org.apache.commons.math.analysis.integration.UnivariateRealIntegrator;
+import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
+import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
+import org.apache.commons.math3.exception.NumberIsTooSmallException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +28,13 @@ import com.opengamma.strata.collect.ArgChecker;
  * \end{align*}
  * $$
  * <p> 
- * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/analysis/integration/SimpsonIntegrator.html">Commons Math library implementation</a> 
+ * This class is a wrapper for the <a href="http://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/analysis/integration/SimpsonIntegrator.html">Commons Math library implementation</a> 
  * of Simpson integration.
  */
 public class SimpsonIntegrator1D extends Integrator1D<Double, Double> {
   private static final Logger s_logger = LoggerFactory.getLogger(SimpsonIntegrator1D.class);
-  private final UnivariateRealIntegrator _integrator = new SimpsonIntegrator();
+  private final UnivariateIntegrator _integrator = new SimpsonIntegrator();
+  private static final int MAX_EVAL = SimpsonIntegrator.SIMPSON_MAX_ITERATIONS_COUNT;
 
   /**
    * Simpson's integration method. Note that the Commons implementation fails if the lower bound is larger than the upper - 
@@ -49,13 +51,11 @@ public class SimpsonIntegrator1D extends Integrator1D<Double, Double> {
     ArgChecker.notNull(upper, "upper bound");
     try {
       if (lower < upper) {
-        return _integrator.integrate(CommonsMathWrapper.wrapUnivariateLegacy(f), lower, upper);
+        return _integrator.integrate(MAX_EVAL, CommonsMathWrapper.wrapUnivariate(f), lower, upper);
       }
       s_logger.info("Upper bound was less than lower bound; swapping bounds and negating result");
-      return -_integrator.integrate(CommonsMathWrapper.wrapUnivariateLegacy(f), upper, lower);
-    } catch (final FunctionEvaluationException e) {
-      throw new MathException(e);
-    } catch (final org.apache.commons.math.ConvergenceException e) {
+      return -_integrator.integrate(MAX_EVAL, CommonsMathWrapper.wrapUnivariate(f), upper, lower);
+    } catch (NumberIsTooSmallException | NumberIsTooLargeException e) {
       throw new MathException(e);
     }
   }

@@ -5,9 +5,10 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.integration.RombergIntegrator;
-import org.apache.commons.math.analysis.integration.UnivariateRealIntegrator;
+import org.apache.commons.math3.analysis.integration.RombergIntegrator;
+import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
+import org.apache.commons.math3.exception.MathIllegalArgumentException;
+import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,12 +22,13 @@ import com.opengamma.strata.collect.ArgChecker;
  * Romberg's method estimates an integral by repeatedly using <a href="http://en.wikipedia.org/wiki/Richardson_extrapolation">Richardson extrapolation</a> 
  * on the extended trapezium rule {@link ExtendedTrapezoidIntegrator1D}. 
  * <p>
- * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/analysis/integration/RombergIntegrator.html">Commons Math library implementation</a> 
+ * This class is a wrapper for the <a href="http://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/analysis/integration/RombergIntegrator.html">Commons Math library implementation</a> 
  * of Romberg integration.
  */
 public class RombergIntegrator1D extends Integrator1D<Double, Double> {
   private static final Logger s_logger = LoggerFactory.getLogger(RombergIntegrator1D.class);
-  private final UnivariateRealIntegrator _integrator = new RombergIntegrator();
+  private final UnivariateIntegrator _integrator = new RombergIntegrator();
+  private static final int MAX_EVAL = RombergIntegrator.ROMBERG_MAX_ITERATIONS_COUNT;
 
   /**
    * Romberg integration method. Note that the Commons implementation fails if the lower bound is larger than the upper - 
@@ -41,16 +43,16 @@ public class RombergIntegrator1D extends Integrator1D<Double, Double> {
     ArgChecker.notNull(f, "f");
     ArgChecker.notNull(lower, "lower bound");
     ArgChecker.notNull(upper, "upper bound");
+
     try {
       if (lower < upper) {
-        return _integrator.integrate(CommonsMathWrapper.wrapUnivariateLegacy(f), lower, upper);
+        return _integrator.integrate(MAX_EVAL, CommonsMathWrapper.wrapUnivariate(f), lower, upper);
       }
       s_logger.info("Upper bound was less than lower bound; swapping bounds and negating result");
-      return -_integrator.integrate(CommonsMathWrapper.wrapUnivariateLegacy(f), upper, lower);
-    } catch (final FunctionEvaluationException e) {
-      throw new MathException(e);
-    } catch (final org.apache.commons.math.ConvergenceException e) {
+      return -_integrator.integrate(MAX_EVAL, CommonsMathWrapper.wrapUnivariate(f), upper, lower);
+    } catch (MaxCountExceededException | MathIllegalArgumentException e) {
       throw new MathException(e);
     }
+
   }
 }
