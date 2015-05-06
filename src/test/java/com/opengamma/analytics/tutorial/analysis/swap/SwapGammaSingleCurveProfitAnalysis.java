@@ -182,7 +182,7 @@ public class SwapGammaSingleCurveProfitAnalysis {
    * Uses historical data to estimate the difference between diagonal Gamma, sum of column gamma,
    * parallel gamma and full cross-gamma.
    * The result file is exported in the root directory of OG-Analytics.
-   * @throws IOException
+   * @throws IOException for file
    */
   @Test(enabled = false)
   public void crossGammaDiagonalCompGbpHts() throws IOException {
@@ -257,7 +257,7 @@ public class SwapGammaSingleCurveProfitAnalysis {
     startTime = System.currentTimeMillis();
     for (int looptest = 0; looptest < nbTest2; looptest++) {
       String name = SINGLECURVE_GBP.getAllNames().iterator().next();
-      Currency ccy = SINGLECURVE_GBP.getCurrencyForName(name);
+      Currency ccy = SINGLECURVE_GBP.getCurrencyForName(name).get(0);
       YieldAndDiscountCurve curve = SINGLECURVE_GBP.getCurve(name);
       ArgChecker.isTrue(curve instanceof YieldCurve, "curve should be YieldCurve");
       YieldCurve yieldCurve = (YieldCurve) curve;
