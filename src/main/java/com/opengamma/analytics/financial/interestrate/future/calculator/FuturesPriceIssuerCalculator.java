@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.calculator;
 
-import org.apache.commons.math.stat.descriptive.moment.Mean;
+import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.rank.Min;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
