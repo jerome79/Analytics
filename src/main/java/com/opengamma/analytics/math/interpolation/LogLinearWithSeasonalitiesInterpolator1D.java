@@ -5,10 +5,11 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.MaxIterationsExceededException;
-import org.apache.commons.math.analysis.UnivariateRealFunction;
-import org.apache.commons.math.analysis.solvers.BrentSolver;
+import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.apache.commons.math3.analysis.solvers.BrentSolver;
+import org.apache.commons.math3.exception.NoBracketingException;
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
+import org.apache.commons.math3.exception.TooManyEvaluationsException;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
@@ -96,21 +97,19 @@ public class LogLinearWithSeasonalitiesInterpolator1D extends Interpolator1D {
     final double initialGuess = Math.pow(y2 / y1, 1 / 12.0) - 1.0;
 
     // We solve the equation define by the function and use the result to calculate values, nodes are also calculates.
-    final UnivariateRealFunction f = CommonsMathWrapper.wrapUnivariateLegacy(function);
+    final UnivariateFunction f = CommonsMathWrapper.wrapUnivariate(function);
     double growth;
     try {
-      growth = solver.solve(f, -.5, .5, initialGuess);
+      int MAX_EVAL = 10000;
+      growth = solver.solve(MAX_EVAL, f, -.5, .5, initialGuess);
 
       for (int loopmonth = 1; loopmonth < NB_MONTH; loopmonth++) {
         nodes[loopmonth] = x1 + loopmonth * (x2 - x1) / 12.0;
         values[loopmonth] = values[loopmonth - 1] * (1 + growth + _seasonalValues[loopmonth]);
       }
-    } catch (final MaxIterationsExceededException ex) {
-      // TODO Auto-generated catch block
+    } catch (NoBracketingException | TooManyEvaluationsException | NumberIsTooLargeException ex) {
       ex.printStackTrace();
-    } catch (final FunctionEvaluationException ex) {
-      // TODO Auto-generated catch block
-      ex.printStackTrace();
+      throw (ex);
     }
 
     final Interpolator1DDataBundle dataBundle = getDataBundleFromSortedArrays(nodes, values);

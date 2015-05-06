@@ -9,17 +9,14 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.TreeMap;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.MaxIterationsExceededException;
-import org.apache.commons.math.analysis.UnivariateRealFunction;
-import org.apache.commons.math.analysis.solvers.BrentSolver;
+import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.apache.commons.math3.analysis.solvers.BrentSolver;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
-
 
 /**
  * Test.
@@ -90,22 +87,19 @@ public class LogLinearWithSeasonalitiesInterpolator1DTest {
     final double initialGuess = Math.pow(y2 / y1, 1 / 12.0) - 1.0;
 
     // We solve the equation define by the function and use the result to calculate values, nodes are also calculates.
-    final UnivariateRealFunction f = CommonsMathWrapper.wrapUnivariateLegacy(function);
+    final UnivariateFunction f = CommonsMathWrapper.wrapUnivariate(function);
     double growth;
     try {
-      growth = solver.solve(f, -.5, .5, initialGuess);
+      growth = solver.solve(10000, f, -.5, .5, initialGuess);
 
       for (int loopmonth = 1; loopmonth < NB_MONTH; loopmonth++) {
         values[loopmonth] = values[loopmonth - 1] * (1 + growth + seasonalValues[loopmonth]);
         nodes[loopmonth] = x1 + loopmonth * (x2 - x1) / NB_MONTH;
         transformedData.put(nodes[loopmonth], values[loopmonth]);
       }
-    } catch (final MaxIterationsExceededException ex) {
-      // TODO Auto-generated catch block
+    } catch (Exception ex) {
       ex.printStackTrace();
-    } catch (final FunctionEvaluationException ex) {
-      // TODO Auto-generated catch block`
-      ex.printStackTrace();
+      throw (ex);
     }
 
     TRANSFORMED_MODEL = INTERPOLATOR.getDataBundle(transformedData);
