@@ -33,7 +33,7 @@ public class NelderMeadDownhillSimplexMinimizer implements Minimizer<Function1D<
     ArgChecker.notNull(function, "function");
     ArgChecker.notNull(startPosition, "start position");
     final MultivariateRealOptimizer optimizer = new NelderMead();
-    final MultivariateRealFunction commonsFunction = CommonsMathWrapper.wrapMultivariate(function);
+    final MultivariateRealFunction commonsFunction = CommonsMathWrapper.wrapMultivariateVector(function);
     try {
       return new DoubleMatrix1D(CommonsMathWrapper.unwrap(optimizer.optimize(commonsFunction, MINIMIZER, startPosition.getData())));
     } catch (final ConvergenceException e) {

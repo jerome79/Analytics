@@ -33,7 +33,7 @@ public class MultiDirectionalSimplexMinimizer implements Minimizer<Function1D<Do
     ArgChecker.notNull(f, "function");
     ArgChecker.notNull(initialPoint, "initial point");
     final MultivariateRealOptimizer optimizer = new MultiDirectional();
-    final MultivariateRealFunction commons = CommonsMathWrapper.wrapMultivariate(f);
+    final MultivariateRealFunction commons = CommonsMathWrapper.wrapMultivariateVector(f);
     try {
       return new DoubleMatrix1D(CommonsMathWrapper.unwrap(optimizer.optimize(commons, MINIMIZER, initialPoint.getData())));
     } catch (final ConvergenceException e) {

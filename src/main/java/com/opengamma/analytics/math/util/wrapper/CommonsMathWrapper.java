@@ -11,6 +11,7 @@ import org.apache.commons.math.analysis.MultivariateRealFunction;
 import org.apache.commons.math.analysis.UnivariateRealFunction;
 import org.apache.commons.math.complex.Complex;
 import org.apache.commons.math.optimization.RealPointValuePair;
+import org.apache.commons.math3.analysis.MultivariateFunction;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -55,12 +56,28 @@ public final class CommonsMathWrapper {
     ArgChecker.notNull(f, "f");
     return f::evaluate;
   }
-  
+
+  /**
+   * @param f An OG 1-D function mapping doubles onto doubles, not null 
+   * @return A Commons univariate real function
+   */
+  public static MultivariateFunction wrapMultivariate(final Function1D<Double, Double> f) {
+    ArgChecker.notNull(f, "f");
+    return point -> {
+      final int n = point.length;
+      final Double[] coordinate = new Double[n];
+      for (int i = 0; i < n; i++) {
+        coordinate[i] = point[i];
+      }
+      return f.evaluate(coordinate);
+    };
+  }
+
   /**
    * @param f An OG 1-D function mapping vectors of doubles onto doubles, not null
    * @return A Commons multivariate real function
    */
-  public static MultivariateRealFunction wrapMultivariate(final Function1D<DoubleMatrix1D, Double> f) {
+  public static MultivariateRealFunction wrapMultivariateVector(final Function1D<DoubleMatrix1D, Double> f) {
     ArgChecker.notNull(f, "f");
     return point -> f.evaluate(new DoubleMatrix1D(point));
   }
