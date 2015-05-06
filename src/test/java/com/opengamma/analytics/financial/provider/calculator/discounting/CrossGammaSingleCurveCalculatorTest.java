@@ -81,7 +81,7 @@ public class CrossGammaSingleCurveCalculatorTest {
 
   private void checkCrossGamma(SwapFixedCoupon<Coupon> swap, boolean isZc, MulticurveProviderDiscount singleCurve) {
     String name = singleCurve.getAllNames().iterator().next();
-    Currency ccy = singleCurve.getCurrencyForName(name);
+    Currency ccy = singleCurve.getCurrencyForName(name).get(0);
     YieldAndDiscountCurve curve = singleCurve.getCurve(name);
     if (isZc) {
       ArgChecker.isTrue(curve instanceof YieldCurve, "curve should be YieldCurve");
