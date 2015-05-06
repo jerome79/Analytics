@@ -8,14 +8,13 @@ package com.opengamma.analytics.math.util.wrapper;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.MultivariateRealFunction;
-import org.apache.commons.math.analysis.UnivariateRealFunction;
+import org.apache.commons.math3.analysis.MultivariateFunction;
+import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
-import org.apache.commons.math.complex.Complex;
+import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
-import org.apache.commons.math.optimization.RealPointValuePair;
+import org.apache.commons.math3.optim.PointValuePair;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -25,15 +24,14 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.number.ComplexNumber;
 
-
 /**
  * Test.
  */
 @Test
 public class CommonsMathWrapperTest {
-  private static final DoubleMatrix1D OG_VECTOR = new DoubleMatrix1D(new double[] {1, 2, 3});
-  private static final DoubleMatrix2D OG_MATRIX = new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3},
-      new double[] {4, 5, 6}, new double[] {7, 8, 9}});
+  private static final DoubleMatrix1D OG_VECTOR = new DoubleMatrix1D(new double[] {1, 2, 3 });
+  private static final DoubleMatrix2D OG_MATRIX = new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3 },
+    new double[] {4, 5, 6 }, new double[] {7, 8, 9 } });
   private static final Function1D<Double, Double> OG_FUNCTION_1D = new Function1D<Double, Double>() {
 
     @Override
@@ -51,7 +49,7 @@ public class CommonsMathWrapperTest {
     }
   };
   private static final RealPolynomialFunction1D OG_POLYNOMIAL = new RealPolynomialFunction1D(new double[] {3, 4, -1, 5,
-      -3});
+    -3 });
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull1DMatrix() {
@@ -65,7 +63,7 @@ public class CommonsMathWrapperTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull1DFunction() {
-    CommonsMathWrapper.wrapUnivariateLegacy((Function1D<Double, Double>) null);
+    CommonsMathWrapper.wrapUnivariate((Function1D<Double, Double>) null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -94,8 +92,8 @@ public class CommonsMathWrapperTest {
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullRealPointVectorPair() {
-    CommonsMathWrapper.unwrap((RealPointValuePair) null);
+  public void testNullPointVectorPair() {
+    CommonsMathWrapper.unwrap((PointValuePair) null);
   }
 
   @Test
@@ -113,18 +111,18 @@ public class CommonsMathWrapperTest {
   }
 
   @Test
-  public void test1DFunction() throws FunctionEvaluationException {
-    final UnivariateRealFunction commons = CommonsMathWrapper.wrapUnivariateLegacy(OG_FUNCTION_1D);
+  public void test1DFunction() {
+    final UnivariateFunction commons = CommonsMathWrapper.wrapUnivariate(OG_FUNCTION_1D);
     for (int i = 0; i < 100; i++) {
       assertEquals(OG_FUNCTION_1D.evaluate((double) i), commons.value(i), 1e-15);
     }
   }
 
   @Test
-  public void testNDFunction() throws FunctionEvaluationException {
+  public void testNDFunction() {
     final Double[] x1 = new Double[4];
     final double[] x2 = new double[4];
-    final MultivariateRealFunction commons = CommonsMathWrapper.wrap(OG_FUNCTION_ND);
+    final MultivariateFunction commons = CommonsMathWrapper.wrap(OG_FUNCTION_ND);
     for (int i = 0; i < 100; i++) {
       for (int j = 0; j < 4; j++) {
         x1[j] = (double) i;
@@ -169,9 +167,9 @@ public class CommonsMathWrapperTest {
   }
 
   @Test
-  public void testRealPointValuePair() {
-    final double[] x = new double[] {1, 2, 3};
-    final double[] y = CommonsMathWrapper.unwrap(new RealPointValuePair(x, 0));
+  public void testPointValuePair() {
+    final double[] x = new double[] {1, 2, 3 };
+    final double[] y = CommonsMathWrapper.unwrap(new PointValuePair(x, 0));
     assertArrayEquals(x, y, 0);
   }
 }

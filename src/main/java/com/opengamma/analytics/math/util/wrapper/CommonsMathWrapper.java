@@ -5,15 +5,12 @@
  */
 package com.opengamma.analytics.math.util.wrapper;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.DifferentiableUnivariateRealFunction;
-import org.apache.commons.math.analysis.MultivariateRealFunction;
-import org.apache.commons.math.analysis.UnivariateRealFunction;
-import org.apache.commons.math.complex.Complex;
-import org.apache.commons.math.optimization.RealPointValuePair;
 import org.apache.commons.math3.analysis.MultivariateFunction;
 import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.apache.commons.math3.analysis.differentiation.DerivativeStructure;
+import org.apache.commons.math3.analysis.differentiation.UnivariateDifferentiableFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
+import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NonMonotonicSequenceException;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
@@ -21,6 +18,8 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.optim.PointValuePair;
+import org.apache.poi.ss.formula.eval.NotImplementedException;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -37,15 +36,6 @@ import com.opengamma.strata.collect.ArgChecker;
 public final class CommonsMathWrapper {
 
   private CommonsMathWrapper() {
-  }
-
-  /**
-   * @param f An OG 1-D function mapping doubles onto doubles, not null 
-   * @return A Commons univariate real function
-   */
-  public static UnivariateRealFunction wrapUnivariateLegacy(final Function1D<Double, Double> f) {
-    ArgChecker.notNull(f, "f");
-    return f::evaluate;
   }
 
   /**
@@ -77,7 +67,7 @@ public final class CommonsMathWrapper {
    * @param f An OG 1-D function mapping vectors of doubles onto doubles, not null
    * @return A Commons multivariate real function
    */
-  public static MultivariateRealFunction wrapMultivariateVector(final Function1D<DoubleMatrix1D, Double> f) {
+  public static MultivariateFunction wrapMultivariateVector(final Function1D<DoubleMatrix1D, Double> f) {
     ArgChecker.notNull(f, "f");
     return point -> f.evaluate(new DoubleMatrix1D(point));
   }
@@ -86,7 +76,7 @@ public final class CommonsMathWrapper {
    * @param f An OG n-D function mapping doubles onto doubles, not null
    * @return A Commons multivariate real function
    */
-  public static MultivariateRealFunction wrap(final FunctionND<Double, Double> f) {
+  public static MultivariateFunction wrap(final FunctionND<Double, Double> f) {
     ArgChecker.notNull(f, "f");
     return point -> {
       final int n = point.length;
@@ -181,7 +171,7 @@ public final class CommonsMathWrapper {
    * @param x A Commons pair of <i>(x, f(x))</i>, not null
    * @return A matrix of double with the <i>x</i> as the first element and <i>f(x)</i> the second
    */
-  public static double[] unwrap(final RealPointValuePair x) {
+  public static double[] unwrap(final PointValuePair x) {
     ArgChecker.notNull(x, "x");
     return x.getPoint();
   }
@@ -190,18 +180,18 @@ public final class CommonsMathWrapper {
    * @param f An OG 1-D function mapping doubles to doubles, not null
    * @return A Commons differentiable univariate real function
    */
-  public static DifferentiableUnivariateRealFunction wrapDifferentiable(final DoubleFunction1D f) {
+  public static UnivariateDifferentiableFunction wrapDifferentiable(final DoubleFunction1D f) {
     ArgChecker.notNull(f, "f");
-    return new DifferentiableUnivariateRealFunction() {
+    return new UnivariateDifferentiableFunction() {
 
       @Override
-      public double value(final double x) throws FunctionEvaluationException {
+      public double value(final double x) {
         return f.evaluate(x);
       }
 
       @Override
-      public UnivariateRealFunction derivative() {
-        return wrapUnivariateLegacy(f.derivative());
+      public DerivativeStructure value(DerivativeStructure t) throws DimensionMismatchException {
+        throw new NotImplementedException("Not implemented yet");
       }
     };
   }
