@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.function.special;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.apache.commons.math.util.MathUtils;
+import org.apache.commons.math3.util.CombinatoricsUtils;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -34,7 +34,7 @@ public class OrthonormalHermitePolynomialFunctionTest {
     final DoubleFunction1D[] f2 = ORTHONORMAL.getPolynomials(n);
     final double x = 3.4;
     for (int i = 0; i < f1.length; i++) {
-      assertEquals(f1[i].evaluate(x) / Math.sqrt(MathUtils.factorialDouble(i) * Math.pow(2, i) * Math.sqrt(Math.PI)), f2[i].evaluate(x), EPS);
+      assertEquals(f1[i].evaluate(x) / Math.sqrt(CombinatoricsUtils.factorialDouble(i) * Math.pow(2, i) * Math.sqrt(Math.PI)), f2[i].evaluate(x), EPS);
     }
   }
 
