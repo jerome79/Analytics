@@ -81,7 +81,6 @@ public class SwaptionCashFixedIborG2ppMethodTest {
 
   private static final double TOLERANCE_PV = 1.0E-2;
 
-  @Test(enabled = true)
   /**
    * Tests the present value vs a physical delivery swaption.
    */
@@ -91,7 +90,6 @@ public class SwaptionCashFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - hard coded value", pvPhys.getAmount(EUR).getAmount(), pvCash.getAmount(EUR).getAmount(), 2.0E+5);
   }
 
-  @Test(enabled = true)
   /**
    * Test the present value vs a hard-coded value.
    */
@@ -101,7 +99,6 @@ public class SwaptionCashFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - hard coded value", pvExpected, pv.getAmount(EUR).getAmount(), 1E-2);
   }
 
-  @Test
   /**
    * Tests long/short parity.
    */
@@ -112,27 +109,6 @@ public class SwaptionCashFixedIborG2ppMethodTest {
     final MultiCurrencyAmount pvReceiverLong = METHOD_G2PP_NI.presentValue(SWAPTION_LONG_RECEIVER, G2PP_MULTICURVES);
     final MultiCurrencyAmount pvReceiverShort = METHOD_G2PP_NI.presentValue(SWAPTION_SHORT_RECEIVER, G2PP_MULTICURVES);
     assertEquals("Swaption physical - G2++ - present value - long/short parity", pvReceiverLong.getAmount(EUR).getAmount(), -pvReceiverShort.getAmount(EUR).getAmount(), TOLERANCE_PV);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    final MultiCurrencyAmount[] pvPayerLongNI = new MultiCurrencyAmount[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongNI[looptest] = METHOD_G2PP_NI.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption cash G2++ numerical integration method: " + (endTime - startTime) + " ms");
-    // Performance note: G2++ price: 20-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 650 ms for 100 swaptions.
-
-    System.out.println("G2++ numerical integration - present value: " + pvPayerLongNI[0]);
   }
 
 }

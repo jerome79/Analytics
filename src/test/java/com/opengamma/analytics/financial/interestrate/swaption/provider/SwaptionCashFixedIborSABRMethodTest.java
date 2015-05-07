@@ -123,7 +123,7 @@ public class SwaptionCashFixedIborSABRMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E+0; //Testing note: Sensitivity is for a movement of 1. 1E+2 = 1 cent for a 1 bp move.
 
-  @Test
+
   public void presentValue() {
     // Swaption pricing.
     final MultiCurrencyAmount priceLongPayer = SWAPTION_LONG_PAYER.accept(PVSSC, SABR_MULTICURVES);
@@ -149,7 +149,7 @@ public class SwaptionCashFixedIborSABRMethodTest {
     // No payer/Receiver parity for cash-settled swaptions.
   }
 
-  @Test
+
   /**
    * Test the present value calculator with an array of derivative: one for the premium payment and one for the actual swaption.
    */
@@ -172,7 +172,7 @@ public class SwaptionCashFixedIborSABRMethodTest {
     SWAPTION_LONG_PAYER.accept(PVSSSSC, sabr2);
   }
 
-  @Test
+
   /**
    * Tests present value curve sensitivity when the valuation date is on trade date.
    */
@@ -182,7 +182,7 @@ public class SwaptionCashFixedIborSABRMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   public void presentValueSABRSensitivity() {
     // Swaption sensitivity
     final PresentValueSABRSensitivityDataBundle pvsLongPayer = METHOD_SWPT_CASH.presentValueSABRSensitivity(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
@@ -220,7 +220,7 @@ public class SwaptionCashFixedIborSABRMethodTest {
     assertEquals("Nu sensitivity value", pvsLongPayer.getNu().getMap().get(expectedExpiryTenor), expectedNuSensi, 1E+3);
   }
 
-  @Test
+
   /**
    * Tests the present value SABR parameters sensitivity: Method vs Calculator.
    */
@@ -228,25 +228,6 @@ public class SwaptionCashFixedIborSABRMethodTest {
     final PresentValueSABRSensitivityDataBundle pvssMethod = METHOD_SWPT_CASH.presentValueSABRSensitivity(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
     final PresentValueSABRSensitivityDataBundle pvssCalculator = SWAPTION_LONG_PAYER.accept(PVSSSSC, SABR_MULTICURVES);
     assertEquals("Swaption Cash SABR: Present value SABR sensitivity: method vs calculator", pvssMethod, pvssCalculator);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Test of performance. In normal testing, "enabled = false".
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      SWAPTION_LONG_PAYER.accept(PVSSC, SABR_MULTICURVES);
-      SWAPTION_LONG_PAYER.accept(PVCSSSC, SABR_MULTICURVES);
-      SWAPTION_LONG_PAYER.accept(PVSSSSC, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " cash swaptions SABR (price+delta+vega): " + (endTime - startTime) + " ms");
-    // Performance note: price+delta+vega: 11-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 145 ms for 1000 swaptions.
   }
 
 }
