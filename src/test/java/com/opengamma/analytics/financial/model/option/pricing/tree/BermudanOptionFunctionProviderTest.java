@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 
-
 /**
  * Test.
  */
@@ -36,10 +35,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void priceBinomialTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new TianLatticeSpecification() };
+      new TianLatticeSpecification() };
 
     final double time = 5.;
     final double[] exerciseTimes = new double[] {0.1, 1., 13. / 12., 1.6, 2.5, 3.1, 10. / 3., 11. / 3., 5.0 };
@@ -67,10 +65,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void greeksBinomialTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new TianLatticeSpecification() };
+      new TianLatticeSpecification() };
 
     final double time = 5.;
     final double[] exerciseTimes = new double[] {0.1, 1., 13. / 12., 1.6, 2.5, 3.1, 10. / 3., 11. / 3., 5.0 };
@@ -101,10 +98,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * the exercise times agree with nodes. Then the option price is the same as the American vanilla option
    */
-  @Test
   public void reduceToAmericanPriceTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     final double time = 5.;
     final double[] exerciseTimes = new double[] {0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
@@ -132,10 +128,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * European =< Bermudan =< American should hold
    */
-  @Test
   public void betweenEuropeanAndAmericanPriceTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
 
     final double time = 5.;
     final double[] exerciseTimes = new double[] {0.1, 1.4, 1.5, 1.6, 2.5, 3.1, 10. / 3., 4.0, 5.0 };
@@ -166,10 +161,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * the exercise times agree with nodes. Then the option price is the same as the American vanilla option
    */
-  @Test
   public void reduceToAmericanGreeksTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     final double time = 5.;
     final double[] exerciseTimes = new double[] {0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
@@ -200,10 +194,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void reduceToEuropeanGreeksTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
 
     final double[] exerciseTimes = new double[] {4.2 };
     final int steps = 37;
@@ -234,10 +227,9 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void binomialTrinomialDiscreteDividendTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new TianLatticeSpecification() };
+      new TianLatticeSpecification() };
 
     final double time = 5.;
     final double[] exerciseTimes = new double[] {0.1, 1., 13. / 12., 1.6, 2.5, 3.1, 10. / 3., 11. / 3., 5.0 };
@@ -280,7 +272,6 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void timeVaryingVolTest() {
     final LatticeSpecification lattice1 = new TimeVaryingLatticeSpecification();
     final double[] time_set = new double[] {0.5, 1.2 };
@@ -344,7 +335,6 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void getExerciseTimesTest() {
     final int steps = 1253;
     final double dt = TIME / steps;
@@ -366,7 +356,7 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void tooManyTimesTest() {
     final int steps = 5;
@@ -377,7 +367,7 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void coincideStepsTest() {
     final int steps = 12;
@@ -388,7 +378,7 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void negativeTimesTest() {
     final int steps = 55;
@@ -399,7 +389,7 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void largeTimesTest() {
     final int steps = 95;
@@ -410,14 +400,13 @@ public class BermudanOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider1D ref = new BermudanOptionFunctionProvider(100., 5., 50, true, new double[] {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 });
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref,
-        new BermudanOptionFunctionProvider(100., 5., 50, true, new double[] {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 }),
-        new BermudanOptionFunctionProvider(100., 5., 50, true, new double[] {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.4, 4.5 }),
-        new BermudanOptionFunctionProvider(100., 10., 50, true, new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9. }),
-        new AmericanVanillaOptionFunctionProvider(100., 5., 50, true), null };
+      new BermudanOptionFunctionProvider(100., 5., 50, true, new double[] {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 }),
+      new BermudanOptionFunctionProvider(100., 5., 50, true, new double[] {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.4, 4.5 }),
+      new BermudanOptionFunctionProvider(100., 10., 50, true, new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9. }),
+      new AmericanVanillaOptionFunctionProvider(100., 5., 50, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {
@@ -430,36 +419,4 @@ public class BermudanOptionFunctionProviderTest {
     assertFalse(ref.equals(new EuropeanSpreadOptionFunctionProvider(110., 1., 53, true)));
   }
 
-  /**
-   * Test below is for debugging
-   */
-  @Test(enabled = false)
-  public void sampleDataPrintTest() {
-    final double spot = 100.;
-    final double strike = 100.;
-    final double time = 5.;
-    final double[] exerciseTimes = new double[] {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
-    final double[] vols = new double[] {0.05, 0.3, 0.8 };
-    final double interest = 0.05;
-    final double[] divs = new double[] {0.02, 0.10 };
-    final int steps = 416;
-
-    //    new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-    //    new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification()
-
-    final LatticeSpecification lattice = new CoxRossRubinsteinLatticeSpecification();
-
-    for (final double dividend : divs) {
-      for (final double vol : vols) {
-        final boolean[] tfSet = new boolean[] {true, false };
-        for (final boolean isCall : tfSet) {
-          final OptionFunctionProvider1D function = new BermudanOptionFunctionProvider(strike, time, steps, isCall, exerciseTimes);
-          final OptionFunctionProvider1D functionAm = new AmericanVanillaOptionFunctionProvider(strike, time, steps, isCall);
-          final double res = _model.getPrice(lattice, function, spot, vol, interest, dividend);
-          final double resAm = _model.getPrice(lattice, functionAm, spot, vol, interest, dividend);
-          System.out.println(res + "\t" + resAm);
-        }
-      }
-    }
-  }
 }
