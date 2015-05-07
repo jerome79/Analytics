@@ -32,7 +32,6 @@ public class HestonCharacteristicExponentTest {
   private static final HestonCharacteristicExponent EXPONENT = new HestonCharacteristicExponent(KAPPA, THETA, VOL0, OMEGA, RHO);
   private RandomEngine RANDOM = new cern.jet.random.engine.MersenneTwister(123);
 
-  @Test
   public void test() {
     assertEquals(EXPONENT.getKappa(), KAPPA, 0);
     assertEquals(EXPONENT.getOmega(), OMEGA, 0);
@@ -54,22 +53,18 @@ public class HestonCharacteristicExponentTest {
     assertFalse(other.equals(EXPONENT));
   }
 
-  @Test
   public void testSensitivities() {
     testSensitivitiesAtRandomPoints(EXPONENT);
   }
 
-  @Test
   public void testKappaZero() {
     testSensitivitiesAtRandomPoints(EXPONENT.withKappa(0));
   }
 
-  @Test
   public void testThetaZero() {
     testSensitivitiesAtRandomPoints(EXPONENT.withTheta(0.0));
   }
 
-  @Test
   public void testVol0Zero() {
     testSensitivitiesAtRandomPoints(EXPONENT.withVol0(0.0));
   }
@@ -80,17 +75,14 @@ public class HestonCharacteristicExponentTest {
     testSensitivitiesAtRandomPoints(EXPONENT.withOmega(0));
   }
 
-  @Test
   public void testRhoMinusOne() {
     testSensitivitiesAtRandomPoints(EXPONENT.withRho(-1));
   }
 
-  @Test
   public void testRhoZero() {
     testSensitivitiesAtRandomPoints(EXPONENT.withRho(0));
   }
 
-  @Test
   public void testRhoPlusOne() {
     testSensitivitiesAtRandomPoints(EXPONENT.withRho(1));
   }
@@ -119,7 +111,6 @@ public class HestonCharacteristicExponentTest {
     }
   }
 
-  @Test
   public void testSensitivities2() {
     double t = 2.5;
     ComplexNumber z = new ComplexNumber(2.3, -0.6);
@@ -127,7 +118,6 @@ public class HestonCharacteristicExponentTest {
     ComplexNumber[] sense = EXPONENT.getCharacteristicExponentAdjointDebug(z, t);
     ComplexNumber[] senseConj = EXPONENT.getCharacteristicExponentAdjointDebug(multiply(-1.0, conjugate(z)), t);
     for (int i = 0; i < 6; i++) {
-      //      System.out.println(fdSense[i] + "\t" + sense[i] + "\t"+senseConj[i]);
       assertEquals("real: " + i, fdSense[i].getReal(), sense[i].getReal(), 1e-9);
       assertEquals("im: " + i, fdSense[i].getImaginary(), sense[i].getImaginary(), 1e-9);
       //check symmetry property

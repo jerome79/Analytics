@@ -103,7 +103,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Check call price against the pre-computed values and put price via call-put parity
    */
-  @Test
   public void priceTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -113,7 +112,6 @@ public class BlackScholesFormulaRepositoryTest {
       for (int j = 0; j < nVols; ++j) {
         for (int k = 0; k < nInt; ++k) {
           final double price = BlackScholesFormulaRepository.price(SPOT, STRIKES_INPUT[i], TIME_TO_EXPIRY, VOLS[j], INTEREST_RATES[k], COST_OF_CARRY, true);
-          //          System.out.println(SPOT + "\t" + STRIKES_INPUT[i] + "\t" + TIME_TO_EXPIRY + "\t" + VOLS[j] + "\t" + INTEREST_RATES[k] + "\t" + COST_OF_CARRY);
           assertEquals(PrecomputedCallPrice[i][j][k], price, Math.max(PrecomputedCallPrice[i][j][k] * EPS, EPS));
         }
       }
@@ -134,7 +132,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Test all of the greeks by the finite difference method
    */
-  @Test
   public void greeksFiniteDiffTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -169,7 +166,7 @@ public class BlackScholesFormulaRepositoryTest {
     for (int i = 0; i < nStrikes; ++i) {
       for (int j = 0; j < nVols; ++j) {
         for (int k = 0; k < nInt; ++k) {
-          //          System.out.println(SPOT + "\t" + STRIKES_INPUT[i] + "\t" + TIME_TO_EXPIRY + "\t" + VOLS[j] + "\t" + INTEREST_RATES[k] + "\t" + COST_OF_CARRY);
+
 
           final double finDeltaC = (BlackScholesFormulaRepository.price(upSpot, STRIKES_INPUT[i], TIME_TO_EXPIRY, VOLS[j], INTEREST_RATES[k], COST_OF_CARRY, true) - BlackScholesFormulaRepository
               .price(dwSpot, STRIKES_INPUT[i], TIME_TO_EXPIRY, VOLS[j], INTEREST_RATES[k], COST_OF_CARRY,
@@ -300,7 +297,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void strikeForDeltaRecoveryTest() {
 
     final int nStrikes = STRIKES_INPUT.length;
@@ -332,7 +328,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for price
    */
-  @Test
   public void exPriceTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -358,7 +353,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -432,7 +427,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -468,7 +463,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -508,7 +503,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -550,7 +545,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -593,10 +588,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.price(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.price(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
                 assertTrue(resC1 >= 0.);
@@ -612,7 +607,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for delta
    */
-  @Test
   public void exDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -638,7 +632,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -712,7 +706,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -748,7 +742,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -788,7 +782,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -830,7 +824,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -873,10 +867,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.delta(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.delta(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
                 assertTrue(resC1 >= 0.);
@@ -892,7 +886,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for dualDelta
    */
-  @Test
   public void exDualDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -918,7 +911,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -992,7 +985,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -1028,7 +1021,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1068,7 +1061,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1110,7 +1103,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -1155,8 +1148,8 @@ public class BlackScholesFormulaRepositoryTest {
                 final double cost = COST_OF_CARRY_EX[ii];
                 final double resC1 = BlackScholesFormulaRepository.dualDelta(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.dualDelta(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
                 assertTrue(resC1 <= 0.);
@@ -1172,7 +1165,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for gamma
    */
-  @Test
   public void exGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1194,7 +1186,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -1260,7 +1252,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -1292,8 +1284,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1327,7 +1319,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1363,7 +1355,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -1406,9 +1398,9 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.gamma(spot, strike, time, vol, rate, cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(resC1 >= 0.);
               }
@@ -1422,7 +1414,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for DualGamma
    */
-  @Test
   public void exDualGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1444,7 +1435,6 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -1510,7 +1500,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -1542,8 +1532,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1577,7 +1567,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1613,7 +1603,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -1657,8 +1647,8 @@ public class BlackScholesFormulaRepositoryTest {
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
                 final double resC1 = BlackScholesFormulaRepository.dualGamma(spot, strike, time, vol, rate, cost);
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(resC1 >= 0.);
               }
@@ -1672,7 +1662,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for crossGamma
    */
-  @Test
   public void excrossGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1694,7 +1683,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -1760,7 +1749,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -1792,8 +1781,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1827,7 +1816,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1863,7 +1852,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -1907,8 +1896,8 @@ public class BlackScholesFormulaRepositoryTest {
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
                 final double resC1 = BlackScholesFormulaRepository.crossGamma(spot, strike, time, vol, rate, cost);
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(resC1 <= 0.);
               }
@@ -1922,7 +1911,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for theta
    */
-  @Test
   public void exthetaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1948,7 +1936,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -1985,7 +1973,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (rate != 0.) {
               if (refVec[k] > 1.e10) {
                 assertTrue(resVec[k] > 1.e10);
@@ -2025,7 +2013,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2061,7 +2049,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (rate != 0.) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
@@ -2103,7 +2091,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -2145,7 +2133,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2188,10 +2176,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.theta(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.theta(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
               }
@@ -2205,7 +2193,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for charm
    */
-  @Test
   public void excharmTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2231,7 +2218,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2268,7 +2255,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (rate != 0.) {
               if (refVec[k] > 1.e10) {
                 assertTrue(resVec[k] > 1.e10);
@@ -2308,7 +2295,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2344,7 +2331,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (rate != 0.) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
@@ -2386,7 +2373,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -2428,7 +2415,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2471,10 +2458,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.charm(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.charm(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
               }
@@ -2488,7 +2475,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for dualCharm
    */
-  @Test
   public void exdualCharmTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2514,7 +2500,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2551,7 +2537,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (rate != 0.) {
               if (refVec[k] > 1.e10) {
                 assertTrue(resVec[k] > 1.e10);
@@ -2591,7 +2577,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -2627,7 +2613,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (rate != 0.) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
@@ -2669,7 +2655,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -2711,7 +2697,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -2754,10 +2740,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.dualCharm(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.dualCharm(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
               }
@@ -2771,7 +2757,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for vega
    */
-  @Test
   public void exVegaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2793,7 +2778,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -2859,7 +2844,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -2891,8 +2876,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -2926,7 +2911,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -2962,7 +2947,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -3005,9 +2990,9 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.vega(spot, strike, time, vol, rate, cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(resC1 >= 0.);
               }
@@ -3021,7 +3006,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for vanna
    */
-  @Test
   public void exVannaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3043,7 +3027,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -3109,7 +3093,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -3141,8 +3125,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -3176,7 +3160,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3212,7 +3196,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -3255,9 +3239,9 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.vanna(spot, strike, time, vol, rate, cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 //                assertTrue(resC1 <= 0.);
               }
@@ -3271,7 +3255,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for dualVanna
    */
-  @Test
   public void exDualVannaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3293,7 +3276,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -3359,7 +3342,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -3391,8 +3374,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -3426,7 +3409,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3462,7 +3445,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -3505,9 +3488,9 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.dualVanna(spot, strike, time, vol, rate, cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 //                assertTrue(resC1 <= 0.);
               }
@@ -3521,7 +3504,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for vomma
    */
-  @Test
   public void exvommaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3543,7 +3525,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -3609,7 +3591,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -3641,8 +3623,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -3676,7 +3658,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3712,7 +3694,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -3755,9 +3737,9 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.vomma(spot, strike, time, vol, rate, cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 //                assertTrue(resC1 <= 0.);
               }
@@ -3771,7 +3753,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for vegaBleed
    */
-  @Test
   public void exVegaBleedTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3793,7 +3774,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -3859,7 +3840,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2 };
 
           for (int k = 0; k < 2; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -3891,8 +3872,8 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          //          System.out.println(SPOT + "\t" + strike + "\t" + TIME_TO_EXPIRY + "\t" + 1.e-12 + "\t" + rate + "\t" + COST_OF_CARRY);
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -3926,7 +3907,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3 };
 
         for (int k = 0; k < 3; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3962,7 +3943,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refC2, refC3 };
 
           for (int k = 0; k < 3; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -4005,9 +3986,9 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.vegaBleed(spot, strike, time, vol, rate, cost);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 //                assertTrue(resC1 <= 0.);
               }
@@ -4021,7 +4002,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for rho
    */
-  @Test
   public void exRhoTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -4047,7 +4027,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e12);
             } else {
@@ -4084,7 +4064,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -4122,7 +4102,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -4158,7 +4138,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -4198,7 +4178,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -4240,7 +4220,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -4283,10 +4263,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.rho(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.rho(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
                 assertTrue(resC1 >= 0.);
@@ -4302,7 +4282,6 @@ public class BlackScholesFormulaRepositoryTest {
   /**
    * Large/small values for carryRho
    */
-  @Test
   public void excarryRhoTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -4328,7 +4307,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -4365,7 +4344,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e9);
             } else {
@@ -4403,7 +4382,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
           for (int k = 0; k < 4; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -4439,7 +4418,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -4479,7 +4458,7 @@ public class BlackScholesFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          //          System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -4521,7 +4500,7 @@ public class BlackScholesFormulaRepositoryTest {
           final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
           for (int k = 0; k < 6; ++k) {
-            //            System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
+
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
             } else {
@@ -4564,10 +4543,10 @@ public class BlackScholesFormulaRepositoryTest {
               final double rate = INTEREST_RATES_EX[n];
               for (int ii = 0; ii < nCst; ++ii) {
                 final double cost = COST_OF_CARRY_EX[ii];
-                //                System.out.println(spot + ",\t" + strike + ",\t" + time + ",\t" + vol + ",\t" + rate + ",\t" + cost);
+
                 final double resC1 = BlackScholesFormulaRepository.carryRho(spot, strike, time, vol, rate, cost, true);
                 final double resP1 = BlackScholesFormulaRepository.carryRho(spot, strike, time, vol, rate, cost, false);
-                //                System.out.println(resC1 + "\t" + resP1);
+
                 assertTrue(!(Double.isNaN(resC1)));
                 assertTrue(!(Double.isNaN(resP1)));
                 assertTrue(resC1 >= 0.);
@@ -5411,79 +5390,4 @@ public class BlackScholesFormulaRepositoryTest {
     BlackScholesFormulaRepository.carryRho(SPOT, STRIKES_INPUT[1], TIME_TO_EXPIRY, VOLS[1], INTEREST_RATES[1], NAN, true);
   }
 
-  /*
-   *
-   * Tests below are for debugging
-   *
-   *
-   */
-  /**
-   *
-   */
-  @Test
-      (enabled = false)
-      public void eTest() {
-    final int nStrikes = STRIKES_INPUT.length;
-    final int nVols = VOLS.length;
-    final int nInt = INTEREST_RATES.length;
-    final double inf = Double.POSITIVE_INFINITY;
-
-    //    final int i = 0;
-    //    final int j = 0;
-    //    final int l = 0;
-    //    final double rate = INTEREST_RATES[l];
-    //    final double strike = STRIKES_INPUT[i];
-    //    final double vol = VOLS[j];
-    //
-    //    final double resP4 = BlackScholesFormulaRepository.price(SPOT, 1.e12, 1.e24, vol, rate, COST_OF_CARRY, false);
-    //    final double refP4 = BlackScholesFormulaRepository.price(SPOT, inf, inf, vol, rate, COST_OF_CARRY, false);
-    //    //    System.out.println(SPOT + "\t" + strike + "\t" + 1e12 + "\t" + vol + "\t" + rate + "\t" + COST_OF_CARRY);
-    //    System.out.println(i + "\t" + j + "\t" + l + "\t" + resP4 + "\t" + refP4);
-
-    final int i = 0;
-    final int j = 0;
-    final int l = 2;
-    final double rate = INTEREST_RATES[l];
-    final double strike = STRIKES_INPUT[i];
-    final double vol = VOLS[j];
-    final double resP2 = BlackScholesFormulaRepository.theta(SPOT, 1.e24 * SPOT, TIME_TO_EXPIRY, vol, rate, COST_OF_CARRY, false);
-    final double refP2 = BlackScholesFormulaRepository.theta(SPOT, inf, TIME_TO_EXPIRY, vol, rate, COST_OF_CARRY, false);
-    System.out.println(SPOT + "\t" + strike + "\t" + 1e12 + "\t" + vol + "\t" + rate + "\t" + COST_OF_CARRY);
-    System.out.println(i + "\t" + j + "\t" + l + "\t" + resP2 + "\t" + refP2);
-    //
-    //    for (int i = 0; i < nStrikes; ++i) {
-    //      for (int j = 0; j < nVols; ++j) {
-    //        for (int l = 0; l < nInt; ++l) {
-    //          final double rate = INTEREST_RATES[l];
-    //          final double SPOT = STRIKES_INPUT[i];
-    //          final double vol = VOLS[j];
-    //          final double resP2 = BlackScholesFormulaRepository.theta(SPOT, 1.e12 * SPOT, TIME_TO_EXPIRY, vol, rate, COST_OF_CARRY, false);
-    //          final double refP2 = BlackScholesFormulaRepository.theta(SPOT, inf, TIME_TO_EXPIRY, vol, rate, COST_OF_CARRY, false);
-    //          System.out.println(i + "\t" + j + "\t" + l + "\t" + resP2 + "\t" + refP2);
-    //        }
-    //      }
-    //    }
-
-  }
-
-  /**
-   *
-   */
-  @Test
-      (enabled = false)
-      public void inftest() {
-    System.out.println(BlackScholesFormulaRepository.dualGamma(100, 100, 0., 0., 0.1, 0.1));
-    System.out.println(BlackScholesFormulaRepository.dualGamma(100. * (1. + 1.e-13), 100, 1.e-10, 1.e-5, 0.05, 0.03));
-    System.out.println(BlackScholesFormulaRepository.gamma(100, 100, 0., 0., 0.1, 0.1));
-    System.out.println(BlackScholesFormulaRepository.gamma(100. * (1. + 1.e-13), 100, 1.e-10, 1.e-5, 0.05, 0.03));
-  }
-
-  /**
-   *
-   */
-  @Test
-      (enabled = false)
-      public void atest() {
-    System.out.println(BlackScholesFormulaRepository.gamma(300, 100, 1., 0., 0.03, -Math.log(300 / 100) / 1.));
-  }
 }

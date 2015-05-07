@@ -27,7 +27,6 @@ public class HestonFFTPricerTest {
   private static final BlackImpliedVolatilityFormula BLACK_IMPLIED_VOL = new BlackImpliedVolatilityFormula();
   private static final FFTPricer PRICER = new FFTPricer();
 
-  @Test
   public void testLowVolOfVol() {
     final double sigma = 0.36;
 
@@ -51,13 +50,12 @@ public class HestonFFTPricerTest {
       final double price = strikeNprice[i][1];
 
       final double impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(new BlackFunctionData(FORWARD, DF, 0.0), new EuropeanVanillaOption(k, T, true), price);
-      //System.out.println(k + "\t" + impVol);
+
       assertEquals(sigma, impVol, 1e-3);
     }
   }
   
   
-  @Test
   public void testHestonModelGreeks() {
 
     FFTModelGreeks modelGreekFFT = new FFTModelGreeks();
@@ -96,13 +94,13 @@ public class HestonFFTPricerTest {
       final EuropeanVanillaOption option = new EuropeanVanillaOption(k, t, isCall);
       double[] senseFourier = modelGreekFourier.getGreeks(data, option, heston, alpha, 1e-12);
 
-  //    System.out.print(k);
+
       for(int j=0;j<size;j++) {
         double senseFFT = interpolator.interpolate(db[j], k);
-    //    System.out.print("\t"+senseFourier[j]+"\t"+senseFFT);
+
         assertEquals(senseFourier[j],senseFFT,1e-5);
       }
-    //  System.out.print("\n");
+
           
     }
     
