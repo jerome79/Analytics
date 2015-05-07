@@ -47,7 +47,7 @@ public class SuccessiveRootFinderHullWhiteCalibrationObjective extends Successiv
     _ccyHW = ccy;
     setMinimumParameter(1.0E-6);
     setMaximumParameter(1.0);
-    setFunctionValueAccuracy(1.0E-4);
+    setFunctionValueAccuracy(1.0E-6);
     setVariableAbsoluteAccuracy(1.0E-9);
   }
 
