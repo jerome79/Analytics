@@ -77,8 +77,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  * the price is determined from the smile extrapolation.</li>
  * </ul>
  */
-@Test
-public class CouponInArrearsCalculationTest {
+@Test(enabled=false)
+public class CouponInArrearsCalculationDemo {
 
   private static final MulticurveProviderDiscount CURVES = CapletStrippingSetup.getYieldCurves();
 
@@ -201,7 +201,6 @@ public class CouponInArrearsCalculationTest {
   /**
    * Minimal consistency test for subsequent demos
    */
-  @Test
   public void consistencyCapCouponTest() {
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
@@ -265,7 +264,6 @@ public class CouponInArrearsCalculationTest {
   /**
    * BDK can not be used if forward is outside strike range
    */
-  @Test
   public void consistencySwapTest() {
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();

@@ -40,6 +40,7 @@ import com.opengamma.analytics.math.minimization.SingleRangeLimitTransform;
  * all the cap values. The result is a very smooth caplet volatility surface (apart from the low expiry-strike corner)
  * that only recovers cap volatilities to around 100bps.
  */
+@Test(enabled = false)
 public class SABRInterpolatedTermStructureDemo extends CapletStrippingSetup {
 
   private static int NUM_SABR_PARMS = 4;
@@ -100,7 +101,7 @@ public class SABRInterpolatedTermStructureDemo extends CapletStrippingSetup {
    * <p>
    * The output is this surface sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot (or imported into some other visualisation tool).
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled = false)
   public void test() {
 
     final MulticurveProviderDiscount yc = getYieldCurves();
