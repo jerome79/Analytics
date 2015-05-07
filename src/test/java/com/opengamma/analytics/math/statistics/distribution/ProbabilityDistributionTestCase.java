@@ -13,8 +13,6 @@ import cern.jet.random.engine.RandomEngine;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-
 /**
  * Abstract test.
  */

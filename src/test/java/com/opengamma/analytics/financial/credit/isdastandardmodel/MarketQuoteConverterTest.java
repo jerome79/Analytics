@@ -23,7 +23,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -45,7 +44,7 @@ public class MarketQuoteConverterTest {
   private static final LocalDate END_DATE = LocalDate.of(2015, Month.DECEMBER, 20);
 
   private static final LocalDate[] MATURITIES = new LocalDate[] {LocalDate.of(2008, Month.DECEMBER, 20), LocalDate.of(2009, Month.JUNE, 20), LocalDate.of(2010, Month.JUNE, 20),
-      LocalDate.of(2011, Month.JUNE, 20), LocalDate.of(2012, Month.JUNE, 20), LocalDate.of(2014, Month.JUNE, 20), LocalDate.of(2017, Month.JUNE, 20) };
+    LocalDate.of(2011, Month.JUNE, 20), LocalDate.of(2012, Month.JUNE, 20), LocalDate.of(2014, Month.JUNE, 20), LocalDate.of(2017, Month.JUNE, 20) };
 
   // yield curve
   private static final LocalDate SPOT_DATE = addWorkDays(TODAY, 2, DEFAULT_CALENDAR);
@@ -74,7 +73,7 @@ public class MarketQuoteConverterTest {
     }
 
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
 
     final DayCount moneyMarketDCC = ACT360;
     final DayCount swapDCC = ACT360;
@@ -84,7 +83,6 @@ public class MarketQuoteConverterTest {
     YIELD_CURVE = ISDACompliantYieldCurveBuild.build(TODAY, SPOT_DATE, types, tenors, rates, moneyMarketDCC, swapDCC, swapInterval, curveDCC, FOLLOWING);
   }
 
-  @Test
   public void SingleCDSTest() {
     final Period tenor = Period.ofMonths(3);
     final boolean payAccOnDefault = true;
@@ -104,7 +102,6 @@ public class MarketQuoteConverterTest {
 
   }
 
-  @Test
   public void SingleCDSTest2() {
     final Period tenor = Period.ofMonths(6);
     final boolean payAccOnDefault = true;
@@ -124,7 +121,6 @@ public class MarketQuoteConverterTest {
 
   }
 
-  @Test
   public void MultiCDSTest() {
     final Period tenor = Period.ofMonths(3);
     final boolean payAccOnDefault = true;
@@ -145,10 +141,6 @@ public class MarketQuoteConverterTest {
     final double[] quotedSpreads = PUF.pufToQuotedSpreads(cds, permium, YIELD_CURVE, pointsUpFront);
     final double[] parSpreads = PUF.pufToParSpreads(cds, permium, YIELD_CURVE, pointsUpFront);
 
-    //    for (int i = 0; i < n; i++) {
-    //      System.out.println(quotedSpreads[i] * 10000 + "\t" + parSpreads[i] * 10000);
-    //    }
-
     final double[] derivedPUF = PUF.quotedSpreadsToPUF(cds, permium, YIELD_CURVE, quotedSpreads);
     final double[] derivedPUF2 = PUF.parSpreadsToPUF(cds, permium, YIELD_CURVE, parSpreads);
     for (int i = 0; i < n; i++) {
@@ -161,7 +153,6 @@ public class MarketQuoteConverterTest {
   /**
    * 
    */
-  @Test
   public void consistencyTest() {
     final double tol = 1.e-13;
 
@@ -257,12 +248,12 @@ public class MarketQuoteConverterTest {
     final ISDACompliantCreditCurve cCurveCol1 = builder.calibrateCreditCurve(new CDSAnalytic[] {cds, cds1 }, sps, YIELD_CURVE);
     final double[] tmpPufs = new double[] {pricer.pv(cds, YIELD_CURVE, cCurveCol1, coupon, PriceType.CLEAN), pricer.pv(cds1, YIELD_CURVE, cCurveCol1, coupon, PriceType.CLEAN) };
     final double[] qSpFromPSp1Exp = new double[] {pricer.parSpread(cds, YIELD_CURVE, builder.calibrateCreditCurve(cds, coupon, YIELD_CURVE, tmpPufs[0])),
-        pricer.parSpread(cds1, YIELD_CURVE, builder.calibrateCreditCurve(cds1, coupon, YIELD_CURVE, tmpPufs[1])) };
+      pricer.parSpread(cds1, YIELD_CURVE, builder.calibrateCreditCurve(cds1, coupon, YIELD_CURVE, tmpPufs[1])) };
     assertEquals(qSpFromPSp1Exp[0], qSpFromPSp1[0], tol);
     assertEquals(qSpFromPSp1Exp[1], qSpFromPSp1[1], tol);
     final double[] qSpFromPSp2 = localConv.parSpreadsToQuotedSpreads(new CDSAnalytic[] {cds, cds1 }, new double[] {coupon, coupon1 }, YIELD_CURVE, new double[] {spread, spread1 });
     final double[] qSpFromPSp2Exp = new double[] {pricer.parSpread(cds, YIELD_CURVE, builder.calibrateCreditCurve(cds, coupon, YIELD_CURVE, pufs1[0])),
-        pricer.parSpread(cds1, YIELD_CURVE, builder.calibrateCreditCurve(cds1, coupon1, YIELD_CURVE, pufs1[1])) };
+      pricer.parSpread(cds1, YIELD_CURVE, builder.calibrateCreditCurve(cds1, coupon1, YIELD_CURVE, pufs1[1])) };
     assertEquals(qSpFromPSp2Exp[0], qSpFromPSp2[0], tol);
     assertEquals(qSpFromPSp2Exp[1], qSpFromPSp2[1], tol);
 

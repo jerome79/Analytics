@@ -85,7 +85,8 @@ public class CapFloorCMSHullWhiteMethodsTest {
     for (int loopstrike = 0; loopstrike < NB_STRIKE; loopstrike++) {
       final MultiCurrencyAmount pvNumericalIntegration = METHOD_NI.presentValue(CAP_CMS[loopstrike], HW_MULTICURVES);
       final MultiCurrencyAmount pvApproximation = METHOD_APP.presentValue(CAP_CMS[loopstrike], HW_MULTICURVES);
-      assertEquals("Cap floor CMS - Hull-White - present value - approximation - strike: " + STRIKE[loopstrike], pvNumericalIntegration.getAmount(EUR).getAmount(), pvApproximation.getAmount(EUR).getAmount(), NOTIONAL
+      assertEquals("Cap floor CMS - Hull-White - present value - approximation - strike: " + STRIKE[loopstrike], pvNumericalIntegration.getAmount(EUR).getAmount(), pvApproximation.getAmount(EUR)
+          .getAmount(), NOTIONAL
           * ACCRUAL_FACTOR * BP1);
       // Error of less than 1.0bp in rate
     }

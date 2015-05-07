@@ -105,9 +105,7 @@ public class SVINonLinearLeastSquareFitter extends LeastSquareSmileFitter {
     final DoubleMatrix1D fp = transforms.transform(new DoubleMatrix1D(initialFitParameters));
     final LeastSquareResults lsRes = errors == null ? _solver.solve(new DoubleMatrix1D(strikes), new DoubleMatrix1D(blackVols), function, fp) : _solver.solve(new DoubleMatrix1D(strikes),
         new DoubleMatrix1D(blackVols), new DoubleMatrix1D(errors), function, fp);
-    // final DoubleMatrix1D mp = transforms.inverseTransform(lsRes.getFitParameters());
     return new LeastSquareResultsWithTransform(lsRes, transforms);
-    // return new LeastSquareResults(lsRes.getChiSq(), mp, new DoubleMatrix2D(new double[N_PARAMETERS][N_PARAMETERS]));
 
   }
 }

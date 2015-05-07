@@ -58,7 +58,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
    * The calculator and methods.
    */
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
-  private static final ParRateCurveSensitivityDiscountingCalculator PRCSDC = 
+  private static final ParRateCurveSensitivityDiscountingCalculator PRCSDC =
       ParRateCurveSensitivityDiscountingCalculator.getInstance();
   private static final SwapFixedCouponDiscountingMethod METHOD_SWAP = SwapFixedCouponDiscountingMethod.getInstance();
 
@@ -81,7 +81,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
     double forwardModified = PRDC.visitFixedCouponSwap(swaption.getUnderlyingSwap(), dayCountModification, multicurve);
     double strikeModified = METHOD_SWAP.couponEquivalent(swaption.getUnderlyingSwap(), pvbpModified, multicurve);
     double expiry = swaption.getTimeToExpiry();
-    double volatility = multicurveParameters.getVolatility(expiry, swaption.getMaturityTime(), strikeModified, 
+    double volatility = multicurveParameters.getVolatility(expiry, swaption.getMaturityTime(), strikeModified,
         forwardModified);
     NormalFunctionData normalData = new NormalFunctionData(forwardModified, pvbpModified, volatility);
     EuropeanVanillaOption option = new EuropeanVanillaOption(strikeModified, expiry, swaption.isCall());
@@ -98,7 +98,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
    * @param multicurveParameters Normal volatility for swaption and multi-curve provider.
    * @return The implied volatility.
    */
-  public double impliedVolatility(final SwaptionPhysicalFixedIbor swaption, 
+  public double impliedVolatility(final SwaptionPhysicalFixedIbor swaption,
       final NormalSwaptionProviderInterface multicurveParameters) {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(multicurveParameters, "normal volatility for swaption and multicurve");
@@ -111,7 +111,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
     double forwardModified = PRDC.visitFixedCouponSwap(swaption.getUnderlyingSwap(), dayCountModification, multicurve);
     double strikeModified = METHOD_SWAP.couponEquivalent(swaption.getUnderlyingSwap(), pvbpModified, multicurve);
     double expiry = swaption.getTimeToExpiry();
-    double volatility = multicurveParameters.getVolatility(expiry, swaption.getMaturityTime(), strikeModified, 
+    double volatility = multicurveParameters.getVolatility(expiry, swaption.getMaturityTime(), strikeModified,
         forwardModified);
     return volatility;
   }
@@ -122,7 +122,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
    * @param multicurveParameters Normal volatility for swaption and multi-curve provider.
    * @return The present value curve sensitivity.
    */
-  public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final SwaptionPhysicalFixedIbor swaption, 
+  public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final SwaptionPhysicalFixedIbor swaption,
       final NormalSwaptionProviderInterface multicurveParameters) {
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(multicurveParameters, "normal volatility for swaption and multicurve");
@@ -135,7 +135,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
     double forwardModified = PRDC.visitFixedCouponSwap(swaption.getUnderlyingSwap(), dayCountModification, multicurve);
     double strikeModified = METHOD_SWAP.couponEquivalent(swaption.getUnderlyingSwap(), pvbpModified, multicurve);
     double expiry = swaption.getTimeToExpiry();
-    double volatility = multicurveParameters.getVolatility(expiry, swaption.getMaturityTime(), strikeModified, 
+    double volatility = multicurveParameters.getVolatility(expiry, swaption.getMaturityTime(), strikeModified,
         forwardModified);
     NormalFunctionData normalData = new NormalFunctionData(forwardModified, 1.0, volatility);
     EuropeanVanillaOption option = new EuropeanVanillaOption(strikeModified, expiry, swaption.isCall());
@@ -143,7 +143,7 @@ public final class SwaptionPhysicalFixedIborNormalMethod {
     // Option required to pass the strike (in case the swap has non-constant coupon).
     NormalPriceFunction normalFunction = new NormalPriceFunction();
     // Derivative of the forward and pvbp with respect to the rates.
-    MulticurveSensitivity forwardModifiedDr = PRCSDC.visitFixedCouponSwap(swaption.getUnderlyingSwap(), 
+    MulticurveSensitivity forwardModifiedDr = PRCSDC.visitFixedCouponSwap(swaption.getUnderlyingSwap(),
         dayCountModification, multicurve);
     MulticurveSensitivity pvbpModifiedDr = METHOD_SWAP.presentValueBasisPointCurveSensitivity(
         swaption.getUnderlyingSwap(), dayCountModification, calendar, multicurve);

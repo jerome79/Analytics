@@ -87,12 +87,12 @@ public class CouponFixingYearFractionVisitor extends InstrumentDefinitionVisitor
   public Double visitCouponFixedDefinition(final CouponFixedDefinition payment) {
     return null;
   }
-  
+
   @Override
   public Double visitCouponIborAverageDefinition(CouponIborAverageIndexDefinition payment) {
     return payment.getFixingPeriodAccrualFactor1();
   }
-  
+
   @Override
   public Double visitCouponIborCompoundingSimpleSpreadDefinition(CouponIborCompoundingSimpleSpreadDefinition payment) {
     double total = 0.0;
@@ -110,7 +110,7 @@ public class CouponFixingYearFractionVisitor extends InstrumentDefinitionVisitor
     }
     return total;
   }
-  
+
   @Override
   public Double visitCouponArithmeticAverageONDefinition(CouponONArithmeticAverageDefinition payment) {
     double total = 0.0;
@@ -119,7 +119,7 @@ public class CouponFixingYearFractionVisitor extends InstrumentDefinitionVisitor
     }
     return total;
   }
-  
+
   @Override
   public Double visitCouponArithmeticAverageONSpreadSimplifiedDefinition(
       CouponONArithmeticAverageSpreadSimplifiedDefinition payment) {

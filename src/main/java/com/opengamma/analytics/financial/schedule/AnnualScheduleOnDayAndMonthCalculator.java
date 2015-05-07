@@ -14,8 +14,6 @@ import java.util.List;
 
 import com.opengamma.strata.collect.ArgChecker;
 
-
-
 /**
  * 
  */
@@ -47,7 +45,7 @@ public class AnnualScheduleOnDayAndMonthCalculator extends Schedule {
     ArgChecker.isTrue(startDate.isBefore(endDate) || startDate.equals(endDate));
     if (startDate.equals(endDate)) {
       if (MonthDay.from(startDate).equals(_monthDay)) {
-        return new LocalDate[] {startDate};
+        return new LocalDate[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but the day of month and month of year were not those required");
     }
@@ -74,7 +72,7 @@ public class AnnualScheduleOnDayAndMonthCalculator extends Schedule {
     ArgChecker.isTrue(startDate.isBefore(endDate) || startDate.equals(endDate));
     if (startDate.equals(endDate)) {
       if (MonthDay.from(startDate).equals(_monthDay)) {
-        return new ZonedDateTime[] {startDate};
+        return new ZonedDateTime[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but the day of month and month of year were not those required");
     }

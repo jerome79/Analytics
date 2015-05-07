@@ -24,9 +24,6 @@ public class NewtonDefaultVectorRootFinder extends NewtonVectorRootFinder {
     this(absoluteTol, relativeTol, maxSteps, new LUDecompositionCommons());
   }
 
-  // final NewtonRootFinderDirectionFunction directionFunction,
-  // final NewtonRootFinderMatrixInitializationFunction initializationFunction, final NewtonRootFinderMatrixUpdateFunction updateFunction
-
   public NewtonDefaultVectorRootFinder(final double absoluteTol, final double relativeTol, final int maxSteps, final Decomposition<?> decomp) {
     super(absoluteTol, relativeTol, maxSteps, new JacobianDirectionFunction(decomp), new JacobianEstimateInitializationFunction(), new NewtonDefaultUpdateFunction());
   }

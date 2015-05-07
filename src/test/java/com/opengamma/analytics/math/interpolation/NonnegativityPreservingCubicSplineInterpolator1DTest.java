@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test interpolateWithSensitivity method via PiecewisePolynomialInterpolator1D
  */
@@ -410,7 +409,7 @@ public class NonnegativityPreservingCubicSplineInterpolator1DTest {
     final double[] xKeys = new double[10 * nData];
     xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10. };
     yValues1 = new double[][] { {4.0, 1.0, 4.0, 1.0, 1.0, 4.0, 1.0, 0.0, 0.0, 0.0 }, {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 4.0, 1.0, 4.0 }, {1.0, 4.0, 9.0, 16.0, 16.0, 9.0, 1.0, 4.0, 9.0, 1.0 },
-        {1.0, 3.0, 3.0, 2.0, 3.0, 3.0, 2.0, 3.0, 3.0, 1.0 } };
+      {1.0, 3.0, 3.0, 2.0, 3.0, 3.0, 2.0, 3.0, 3.0, 1.0 } };
     final int dim = yValues1.length;
 
     for (int k = 0; k < dim; ++k) {

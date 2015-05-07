@@ -11,16 +11,14 @@ import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
 @Test
 public class Interpolator2DDataBundleTest {
-  private static final double[] X = new double[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  private static final double[] Y = new double[] {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
-  private static final double[] Z = new double[] {20, 21, 22, 23, 24, 25, 26, 27, 28, 29};
+  private static final double[] X = new double[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  private static final double[] Y = new double[] {10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+  private static final double[] Z = new double[] {20, 21, 22, 23, 24, 25, 26, 27, 28, 29 };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullX() {
@@ -39,12 +37,12 @@ public class Interpolator2DDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthY() {
-    new Interpolator2DDataBundle(X, new double[] {1, 2, 3}, Z);
+    new Interpolator2DDataBundle(X, new double[] {1, 2, 3 }, Z);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthZ() {
-    new Interpolator2DDataBundle(X, Y, new double[] {1, 2, 3});
+    new Interpolator2DDataBundle(X, Y, new double[] {1, 2, 3 });
   }
 
   @Test

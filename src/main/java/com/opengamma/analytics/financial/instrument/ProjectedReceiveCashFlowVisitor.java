@@ -36,7 +36,6 @@ public final class ProjectedReceiveCashFlowVisitor extends InstrumentDerivativeV
   }
 
   private ProjectedReceiveCashFlowVisitor() {
-    //    super(Collections.<MultiCurrencyAmount>emptyList());
   }
 
   /**

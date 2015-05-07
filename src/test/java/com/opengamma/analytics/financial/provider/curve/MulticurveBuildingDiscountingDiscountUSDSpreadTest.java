@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.provider.curve;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
@@ -19,7 +17,6 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYield;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYieldExisiting;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYieldFixed;
@@ -59,10 +56,8 @@ import com.opengamma.analytics.financial.provider.calculator.discounting.Present
 import com.opengamma.analytics.financial.provider.calculator.generic.LastTimeCalculator;
 import com.opengamma.analytics.financial.provider.curve.multicurve.MulticurveDiscountBuildingRepository;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
-import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
-import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
@@ -113,8 +108,8 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2011, 9, 28);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_USD_WITH_TODAY };
@@ -366,79 +361,13 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
     }
   }
 
-  //  @Test
-  //  public void comparison1Unit2Units() {
-  //    MulticurveProviderDiscount[] units = new MulticurveProviderDiscount[2];
-  //    CurveBuildingBlockBundle[] bb = new CurveBuildingBlockBundle[2];
-  //    YieldAndDiscountCurve[] curveDsc = new YieldAndDiscountCurve[2];
-  //    YieldAndDiscountCurve[] curveFwd = new YieldAndDiscountCurve[2];
-  //    for (int loopblock = 0; loopblock < 2; loopblock++) {
-  //      units[loopblock] = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst();
-  //      bb[loopblock] = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getSecond();
-  //      curveDsc[loopblock] = units[loopblock].getCurve(USD);
-  //      curveFwd[loopblock] = units[loopblock].getCurve(USDLIBOR3M);
-  //    }
-  //    assertEquals("Curve construction: 1 unit / 2 units ", curveDsc[0].getNumberOfParameters(), curveDsc[1].getNumberOfParameters());
-  //    assertEquals("Curve construction: 1 unit / 2 units ", curveFwd[0].getNumberOfParameters(), curveFwd[1].getNumberOfParameters());
-  //    assertArrayEquals("Curve construction: 1 unit / 2 units ", ArrayUtils.toPrimitive(((YieldCurve) curveDsc[0]).getCurve().getXData()),
-  //        ArrayUtils.toPrimitive(((YieldCurve) curveDsc[1]).getCurve().getXData()), TOLERANCE_CAL);
-  //    assertArrayEquals("Curve construction: 1 unit / 2 units ", ArrayUtils.toPrimitive(((YieldCurve) curveDsc[0]).getCurve().getYData()),
-  //        ArrayUtils.toPrimitive(((YieldCurve) curveDsc[1]).getCurve().getYData()), TOLERANCE_CAL);
-  //    assertArrayEquals("Curve construction: 1 unit / 2 units ", ArrayUtils.toPrimitive(((YieldCurve) curveFwd[0]).getCurve().getXData()),
-  //        ArrayUtils.toPrimitive(((YieldCurve) curveFwd[1]).getCurve().getXData()), TOLERANCE_CAL);
-  //    assertArrayEquals("Curve construction: 1 unit / 2 units ", ArrayUtils.toPrimitive(((YieldCurve) curveFwd[0]).getCurve().getYData()),
-  //        ArrayUtils.toPrimitive(((YieldCurve) curveFwd[1]).getCurve().getYData()), TOLERANCE_CAL);
-  //
-  //    assertEquals("Curve construction: 1 unit / 2 units ", bb[0].getBlock(CURVE_NAME_FWD3_USD).getFirst(), bb[1].getBlock(CURVE_NAME_FWD3_USD).getFirst());
-  //    // Test note: the discounting curve building blocks are not the same; in one case both curves are build together in the other one after the other.
-  //    int nbLineDsc = bb[0].getBlock(CURVE_NAME_DSC_USD).getSecond().getNumberOfRows();
-  //    int nbLineFwd = bb[0].getBlock(CURVE_NAME_FWD3_USD).getSecond().getNumberOfRows();
-  //    assertEquals("Curve construction: 1 unit / 2 units ", bb[1].getBlock(CURVE_NAME_DSC_USD).getSecond().getNumberOfRows(), nbLineDsc);
-  //    assertEquals("Curve construction: 1 unit / 2 units ", bb[1].getBlock(CURVE_NAME_FWD3_USD).getSecond().getNumberOfRows(), nbLineFwd);
-  //    for (int loopline = 0; loopline < nbLineFwd; loopline++) {
-  //      assertArrayEquals("Curve construction: 1 unit / 2 units ", bb[0].getBlock(CURVE_NAME_FWD3_USD).getSecond().getRowVector(loopline).getData(), bb[1].getBlock(CURVE_NAME_FWD3_USD).getSecond()
-  //          .getRowVector(loopline).getData(), TOLERANCE_CAL);
-  //      for (int loopcol = 0; loopcol < nbLineDsc; loopcol++) { // Test rely on dsc being first
-  //        assertEquals("Curve construction: 1 unit / 2 units ", bb[0].getBlock(CURVE_NAME_FWD3_USD).getSecond().getRowVector(loopline).getData()[loopcol], bb[1].getBlock(CURVE_NAME_FWD3_USD)
-  //            .getSecond().getRowVector(loopline).getData()[loopcol], TOLERANCE_CAL);
-  //      }
-  //      for (int loopcol = 0; loopcol < nbLineFwd - nbLineDsc; loopcol++) { // Test rely on dsc being first
-  //        assertEquals("Curve construction: 1 unit / 2 units ", 0, bb[1].getBlock(CURVE_NAME_FWD3_USD).getSecond().getRowVector(loopline).getData()[loopcol + nbLineDsc], TOLERANCE_CAL);
-  //      }
-  //    }
-  //  }
-
   //TODO: test on the correctness of the Jacobian matrix in the CurveBuildingBlock's.
-
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / x units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 2 units: 02-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 270 (no Jac)/430 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], KNOWN_DATA, PSMQC, PSMQCSC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / x unit: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 unit: 02-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 315 (no Jac)/440 ms for 10 sets.
-
-  }
 
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final MulticurveProviderDiscount curves, final boolean withToday, final int block) {
     final int nbBlocks = definitions.length;
@@ -455,37 +384,6 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
     }
   }
 
-  @Test(enabled = false)
-  /**
-   * Analyzes the shape of the forward curve.
-   */
-  public void forwardAnalysis() {
-    final MulticurveProviderInterface marketDsc = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getFirst();
-    final int jump = 1;
-    final int startIndex = 0;
-    final int nbDate = 2750;
-    ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(NOW, USDLIBOR3M.getSpotLag() + startIndex * jump, NYC);
-    final double[] rateDsc = new double[nbDate];
-    final double[] startTime = new double[nbDate];
-    try {
-      final FileWriter writer = new FileWriter("fwd-dsc.csv");
-      for (int loopdate = 0; loopdate < nbDate; loopdate++) {
-        startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
-        final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, USDLIBOR3M, NYC);
-        final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = DayCountUtils.yearFraction(USDLIBOR3M.getDayCount(), startDate, endDate);
-        rateDsc[loopdate] = marketDsc.getSimplyCompoundForwardRate(USDLIBOR3M, startTime[loopdate], endTime, accrualFactor);
-        startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, NYC);
-        writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
-      }
-      writer.flush();
-      writer.close();
-    } catch (final IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Test(enabled = true)
   public void jacobianMatrixFor1Curve() {
     final double toleranceDelta = 1.0E-6;
     final double shift = 1.0E-4;
@@ -519,12 +417,10 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
         parameterDeltaFDDsc[loopdsc] = (parametersDscDscP[loopdsc] - parametersDscDscM[loopdsc]) / (2 * shift);
         assertEquals("MulticurveBuildingDiscounting Jacobian - Dsc-Dsc - " + loopdsc, pdscDm[loopdsc][blockDsc.getStart(CURVE_NAME_DSC_USD) + loopnodedsc], parameterDeltaFDDsc[loopdsc],
             toleranceDelta);
-        //        System.out.println(loopdsc + " " + loopnodedsc + " difference " + (pdscDm[loopdsc][blockDsc.getStart(CURVE_NAME_DSC_USD) + loopnodedsc] - parameterDeltaFDDsc[loopdsc]));
       }
     }
   }
 
-  @Test(enabled = true)
   public void jacobianMatrixFor2Curves() {
     final double toleranceDelta = 1.0E-6;
     final double shift = 1.0E-6;
@@ -557,7 +453,6 @@ public class MulticurveBuildingDiscountingDiscountUSDSpreadTest {
       final Double[] parametersDscDscP = ((YieldCurve) ((YieldAndDiscountAddZeroSpreadCurve) curveBlockP.getFirst().getCurve(CURVE_NAME_DSC_USD)).getCurves()[1]).getCurve().getYData();
       final Double[] parametersDscFwd3P = ((YieldCurve) curveBlockP.getFirst().getCurve(CURVE_NAME_FWD3_USD)).getCurve().getYData();
       // Finite Difference
-      //      final double[] parameterDeltaFDDsc = new double[nbParamDsc];
       for (int loopdsc = 0; loopdsc < nbParamDsc; loopdsc++) {
         parameterDeltaFDDsc[loopdsc][blockDsc.getStart(CURVE_NAME_DSC_USD) + loopnodedsc] = (parametersDscDscP[loopdsc] - parametersDscDscM[loopdsc]) / (2 * shift);
         assertEquals("MulticurveBuildingDiscounting Jacobian - Dsc-Dsc: " + loopnodedsc + " - " + loopdsc, pdscDm[loopdsc][blockDsc.getStart(CURVE_NAME_DSC_USD) + loopnodedsc],

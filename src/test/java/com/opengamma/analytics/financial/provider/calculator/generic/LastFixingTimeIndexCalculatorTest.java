@@ -27,7 +27,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test related to the last time calculator for the times related to a specific index.
  */

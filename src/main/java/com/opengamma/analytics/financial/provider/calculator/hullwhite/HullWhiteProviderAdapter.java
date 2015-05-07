@@ -15,9 +15,9 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
  * 
  * @param <RESULT_TYPE> The result-type for the provider.
  */
-public class HullWhiteProviderAdapter<RESULT_TYPE> 
-  extends InstrumentDerivativeVisitorSameMethodAdapter<HullWhiteOneFactorProviderInterface, RESULT_TYPE> {
-    
+public class HullWhiteProviderAdapter<RESULT_TYPE>
+    extends InstrumentDerivativeVisitorSameMethodAdapter<HullWhiteOneFactorProviderInterface, RESULT_TYPE> {
+
   private final InstrumentDerivativeVisitor<ParameterProviderInterface, RESULT_TYPE> _visitor;
 
   public HullWhiteProviderAdapter(final InstrumentDerivativeVisitor<ParameterProviderInterface, RESULT_TYPE> visitor) {

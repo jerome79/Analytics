@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -123,10 +122,10 @@ public class LeastSquareResultsTest {
     ls2 = new LeastSquareResults(1.1, PARAMS, COVAR);
     assertFalse(ls1.equals(ls2));
     ls2 = new LeastSquareResults(1.0, new DoubleMatrix1D(new double[] {1.1, 2.0 }), new DoubleMatrix2D(new double[][] {
-        {0.1, 0.2 }, {0.2, 0.3 } }));
+      {0.1, 0.2 }, {0.2, 0.3 } }));
     assertFalse(ls1.equals(ls2));
     ls2 = new LeastSquareResults(1.0, new DoubleMatrix1D(new double[] {1.0, 2.0 }), new DoubleMatrix2D(new double[][] {
-        {0.1, 0.2 }, {0.2, 0.4 } }));
+      {0.1, 0.2 }, {0.2, 0.4 } }));
     assertFalse(ls1.equals(ls2));
     ls2 = new LeastSquareResults(1.0, PARAMS, COVAR, INV_JAC);
     assertFalse(ls1.equals(ls2));

@@ -55,12 +55,12 @@ public final class AccruedInterestFromCleanPriceCalculator extends InstrumentDer
     ArgChecker.notNull(cleanPrice, "cleanPrice");
     return METHOD_BOND_SECURITY.accruedInterestFromCleanPrice(bond, cleanPrice) * 100;
   }
-  
+
   @Override
   public Double visitBondFixedTransaction(BondFixedTransaction bond, Double cleanPrice) {
     return visitBondFixedSecurity(bond.getBondTransaction(), cleanPrice);
   }
-  
+
   @Override
   public Double visitBondCapitalIndexedSecurity(BondCapitalIndexedSecurity<?> bond, Double cleanRealPrice) {
     ArgChecker.notNull(bond, "bond");

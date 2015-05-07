@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.util.timeseries.zdt;
 
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;

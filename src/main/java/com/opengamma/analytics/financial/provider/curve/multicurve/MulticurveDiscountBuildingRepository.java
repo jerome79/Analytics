@@ -95,7 +95,7 @@ public class MulticurveDiscountBuildingRepository {
    * @param sensitivityCalculator The parameter sensitivity calculator.
    * @return The new curves and the calibrated parameters.
    */
-  private MulticurveProviderDiscount makeUnit(final InstrumentDerivative[] instruments, final double[] initGuess, 
+  private MulticurveProviderDiscount makeUnit(final InstrumentDerivative[] instruments, final double[] initGuess,
       final MulticurveProviderDiscount knownData,
       final LinkedHashMap<String, Currency> discountingMap, final LinkedHashMap<String, IborIndex[]> forwardIborMap,
       final LinkedHashMap<String, IndexON[]> forwardONMap,
@@ -299,7 +299,7 @@ public class MulticurveDiscountBuildingRepository {
     }
 
     return makeCurvesFromDerivatives(curveBundles, knownData, new CurveBuildingBlockBundle(), discountingMap,
-                                     forwardIborMap, forwardONMap, calculator, sensitivityCalculator);
+        forwardIborMap, forwardONMap, calculator, sensitivityCalculator);
   }
 
   /**

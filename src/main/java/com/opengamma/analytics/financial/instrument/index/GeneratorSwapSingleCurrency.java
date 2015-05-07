@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.swap.SwapDefinition;
@@ -55,7 +54,7 @@ public class GeneratorSwapSingleCurrency extends GeneratorInstrument<GeneratorAt
   @Override
   public SwapDefinition generateInstrument(ZonedDateTime date, double marketQuote, double notional,
       GeneratorAttributeIR attribute) {
-    return new SwapDefinition(_leg1.generateInstrument(date, marketQuote, notional, attribute), 
+    return new SwapDefinition(_leg1.generateInstrument(date, marketQuote, notional, attribute),
         _leg2.generateInstrument(date, 0.0, -notional, attribute));
   }
 

@@ -15,17 +15,17 @@ import com.opengamma.strata.basics.currency.Currency;
  * @param <I> The index type.
  */
 public interface DepositIndexCoupon<I extends IndexDeposit> {
-  
+
   Currency getCurrency();
-  
+
   double getNotional();
-  
+
   double getPaymentTime();
-  
+
   double getPaymentYearFraction();
-  
+
   I getIndex();
-  
+
   <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data);
 
   <T> T accept(final InstrumentDerivativeVisitor<?, T> visitor);

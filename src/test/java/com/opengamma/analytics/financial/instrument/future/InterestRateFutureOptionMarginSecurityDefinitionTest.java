@@ -28,8 +28,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Tests the interest rate future option with margin security description.
  */
@@ -59,7 +57,7 @@ public class InterestRateFutureOptionMarginSecurityDefinitionTest {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 8, 18);
   private static final String DISCOUNTING_CURVE_NAME = "Funding";
   private static final String FORWARD_CURVE_NAME = "Forward";
-  private static final String[] CURVES_NAMES = {DISCOUNTING_CURVE_NAME, FORWARD_CURVE_NAME};
+  private static final String[] CURVES_NAMES = {DISCOUNTING_CURVE_NAME, FORWARD_CURVE_NAME };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullUnderlying() {

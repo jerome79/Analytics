@@ -117,5 +117,4 @@ public class SVIFormulaData implements SmileModelData {
     return "SVIFormulaData [a=" + getA() + ", b=" + getB() + ", rho=" + getRho() + ", nu=" + getNu() + ", m=" + getM() + "]";
   }
 
-
 }

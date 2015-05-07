@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -25,7 +24,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov2ptsTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[] yValues = new double[] {6., 1. };
@@ -58,7 +56,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov4ptsTest() {
     final double[] xValues = new double[] {1., 2., 4., 7. };
     final double[] yValues = new double[] {6., 1., 8., -2. };
@@ -212,7 +209,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov2ptsMultiTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[][] yValues = new double[][] { {6., 1. }, {2., 5. } };
@@ -245,7 +241,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov4ptsMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4 };
     final double[][] yValues = new double[][] { {6., 1., 8., -2. }, {1., 1. / 3., 2. / 11., 1. / 7. } };
@@ -399,14 +394,13 @@ public class LinearInterpolatorTest {
   /**
    * Derive value of the underlying cubic spline function at the value of xKey
    */
-  @Test
   public void InterpolantsTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {6., 25. / 6., 10. / 3., 4. }, {6., 1., 0., 0. } };
     final double[][] xKey = new double[][] { {-1., 0.5, 1.5 }, {2.5, 3.5, 4.5 } };
 
     final double[][][] resultValuesExpected = new double[][][] { { {29. / 3., 15. / 4. }, {16., 1. / 2. } }, { {83. / 12., 11. / 3. }, {17. / 2., 0. } },
-        { {61. / 12., 13. / 3. }, {7. / 2., 0. } } };
+      { {61. / 12., 13. / 3. }, {7. / 2., 0. } } };
 
     final int yDim = yValues.length;
     final int keyLength = xKey[0].length;
@@ -512,7 +506,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -529,7 +522,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -546,7 +538,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -563,7 +554,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -576,10 +566,6 @@ public class LinearInterpolatorTest {
 
     PiecewisePolynomialInterpolator interpPos = new LinearInterpolator();
     interpPos.interpolate(xValues, yValues);
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1. - EPS)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1.)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1. + .00000000001)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[2]));
   }
 
   /**

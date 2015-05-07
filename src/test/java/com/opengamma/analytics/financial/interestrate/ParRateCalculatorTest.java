@@ -26,7 +26,6 @@ import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 
-
 /**
  * @deprecated This class tests deprecated functionality.
  */
@@ -78,29 +77,6 @@ public class ParRateCalculatorTest {
     assertEquals(0.0, fra.accept(PVC, CURVES), 1e-12);
   }
 
-  //  @Test
-  //  public void testFutures() {
-  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, HolidayCalendars.SAT_SUN, DayCounts.ACT_360,
-  //        BusinessDayConventions.FOLLOWING, true);
-  //    final double lastTradingTime = 1.453;
-  //    final double fixingPeriodStartTime = lastTradingTime;
-  //    final double fixingPeriodEndTime = 1.75;
-  //    final double fixingPeriodAccrualFactor = 0.267;
-  //    final double notional = 1000000;
-  //    final double paymentAccrualFactor = 0.25;
-  //    final int quantity = 123;
-  //    final double referencePrice = 0.0; // TODO CASE - Future refactor - referencePrice = 0.0
-  //    final String name = "name";
-  //    final InterestRateFutureTransaction ir = new InterestRateFutureTransaction(lastTradingTime, iborIndex, fixingPeriodStartTime, fixingPeriodEndTime, fixingPeriodAccrualFactor, referencePrice, notional,
-  //        paymentAccrualFactor, quantity, name, FIVE_PC_CURVE_NAME, FIVE_PC_CURVE_NAME);
-  //    final double rate = ir.accept(PRC, CURVES);
-  //    final double price = 1 - rate;
-  //    //final InterestRateFutureTransaction traded = new InterestRateFutureTransaction(ir, 1, price);
-  //    final double pvExpected = price * notional * paymentAccrualFactor * quantity;
-  //    final double pv = ir.accept(PVC, CURVES);
-  //    assertEquals(pvExpected, pv, 1e-12);
-  //  }
-
   @Test
   public void testBond() {
     final int n = 20;
@@ -112,11 +88,11 @@ public class ParRateCalculatorTest {
       paymentTimes[i] = tau * (i + 1);
       yearFracs[i] = yearFrac;
     }
-    final AnnuityPaymentFixed nominal = new AnnuityPaymentFixed(new PaymentFixed[] {new PaymentFixed(CUR, 11, 1, FIVE_PC_CURVE_NAME)});
-    AnnuityCouponFixed coupon = new AnnuityCouponFixed(CUR, new double[] {0.5, 1}, 0.03, FIVE_PC_CURVE_NAME, false);
+    final AnnuityPaymentFixed nominal = new AnnuityPaymentFixed(new PaymentFixed[] {new PaymentFixed(CUR, 11, 1, FIVE_PC_CURVE_NAME) });
+    AnnuityCouponFixed coupon = new AnnuityCouponFixed(CUR, new double[] {0.5, 1 }, 0.03, FIVE_PC_CURVE_NAME, false);
     BondFixedSecurity bond = new BondFixedSecurity(nominal, coupon, 0, 0, 0.5, SimpleYieldConvention.TRUE, 2, FIVE_PC_CURVE_NAME, "S");
     final double rate = bond.accept(PRC, CURVES);
-    coupon = new AnnuityCouponFixed(CUR, new double[] {0.5, 1}, rate, FIVE_PC_CURVE_NAME, false);
+    coupon = new AnnuityCouponFixed(CUR, new double[] {0.5, 1 }, rate, FIVE_PC_CURVE_NAME, false);
     bond = new BondFixedSecurity(nominal, coupon, 0, 0, 0.5, SimpleYieldConvention.TRUE, 2, FIVE_PC_CURVE_NAME, "S");
     assertEquals(1.0, bond.accept(PVC, CURVES), 1e-12);
   }

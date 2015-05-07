@@ -142,19 +142,6 @@ public class UncoupledParameterTransforms implements NonLinearParameterTransform
    * @return  matrix of partial derivative of function parameter with respect to fitting parameters
    */
   // TODO not tested
-  //  @Override
-  //  public DoubleMatrix2D inverseJacobian(final DoubleMatrix1D fittingParameters) {
-  //    ArgChecker.notNull(fittingParameters, "fitting parameters");
-  //    ArgChecker.isTrue(fittingParameters.getNumberOfElements() == _nFP, "fitting parameters wrong dimension");
-  //    final double[][] jac = new double[_nMP][_nFP];
-  //    for (int i = 0, j = 0; i < _nMP; i++) {
-  //      if (_fixed[i]) {
-  //        jac[i][j] = _transforms[i].inverseTransformGradient(fittingParameters.getEntry(j));
-  //        j++;
-  //      }
-  //    }
-  //    return DoubleMatrix2D.noCopy(jac);
-  //  }
 
   @SuppressWarnings("deprecation")
   @Override

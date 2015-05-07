@@ -24,62 +24,67 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
  */
 public interface DoubleTimeSeries<T> extends TimeSeries<T, Double> {
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   DoubleTimeSeries<T> subSeries(T startTime, boolean includeStart, T endTime, boolean includeEnd);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   DoubleTimeSeries<T> subSeries(T startTime, T endTime);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   DoubleTimeSeries<T> head(int numItems);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   DoubleTimeSeries<T> tail(int numItems);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   DoubleTimeSeries<T> lag(int lagCount);
 
-//  //-------------------------------------------------------------------------
-//  /**
-//   * Gets the {@code double} value at the date-time specified.
-//   * <p>
-//   * This method provides {@code Map} style lookup of values.
-//   * The date/time is matched exactly, thus care must be taken with precision in times.
-//   * If there is no entry at the date-time, then null is returned.
-//   * 
-//   * @param dateTime  the date-time to retrieve, not null
-//   * @return the value at the date-time, null if date-time not present or
-//   *  if the implementation permits nulls
-//   */
-//  double getValueDouble(T dateTime);
-//
-//  /**
-//   * Gets the {@code double} value at the index specified.
-//   * <p>
-//   * This method provides {@code List} style lookup of values.
-//   * It is not guaranteed that the lookup is O(1), thus it should be avoided in loops.
-//   * 
-//   * @param index  the zero-based index to retrieve
-//   * @return the value at the index, null if the implementation permits nulls
-//   * @throws IndexOutOfBoundsException if the index is invalid
-//   */
-//  double getValueDoubleAtIndex(int index);
-//
-//  /**
-//   * Gets the {@code double} value at the latest date-time in the series.
-//   * 
-//   * @return the value at the latest date-time
-//   * @throws NoSuchElementException if empty
-//   */
-//  double getLatestValueDouble();
-//
-//  /**
-//   * Gets the {@code double} value at the earliest date-time in the series.
-//   * 
-//   * @return the value at the earliest date-time
-//   * @throws NoSuchElementException if empty
-//   */
-//  double getEarliestValueDouble();
+  //  //-------------------------------------------------------------------------
+  //  /**
+  //   * Gets the {@code double} value at the date-time specified.
+  //   * <p>
+  //   * This method provides {@code Map} style lookup of values.
+  //   * The date/time is matched exactly, thus care must be taken with precision in times.
+  //   * If there is no entry at the date-time, then null is returned.
+  //   * 
+  //   * @param dateTime  the date-time to retrieve, not null
+  //   * @return the value at the date-time, null if date-time not present or
+  //   *  if the implementation permits nulls
+  //   */
+  //  double getValueDouble(T dateTime);
+  //
+  //  /**
+  //   * Gets the {@code double} value at the index specified.
+  //   * <p>
+  //   * This method provides {@code List} style lookup of values.
+  //   * It is not guaranteed that the lookup is O(1), thus it should be avoided in loops.
+  //   * 
+  //   * @param index  the zero-based index to retrieve
+  //   * @return the value at the index, null if the implementation permits nulls
+  //   * @throws IndexOutOfBoundsException if the index is invalid
+  //   */
+  //  double getValueDoubleAtIndex(int index);
+  //
+  //  /**
+  //   * Gets the {@code double} value at the latest date-time in the series.
+  //   * 
+  //   * @return the value at the latest date-time
+  //   * @throws NoSuchElementException if empty
+  //   */
+  //  double getLatestValueDouble();
+  //
+  //  /**
+  //   * Gets the {@code double} value at the earliest date-time in the series.
+  //   * 
+  //   * @return the value at the earliest date-time
+  //   * @throws NoSuchElementException if empty
+  //   */
+  //  double getEarliestValueDouble();
 
   //-------------------------------------------------------------------------
   /**
@@ -486,7 +491,8 @@ public interface DoubleTimeSeries<T> extends TimeSeries<T, Double> {
    * @return the new time-series, not null
    * @throws RuntimeException if the array sizes differ or the instance cannot be created
    */
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   DoubleTimeSeries<T> newInstance(T[] dateTimes, Double[] values);
 
   /**

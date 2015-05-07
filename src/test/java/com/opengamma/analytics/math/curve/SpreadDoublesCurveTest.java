@@ -18,15 +18,14 @@ import com.google.common.collect.Sets;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
 @Test
 public class SpreadDoublesCurveTest {
-  private static final double[] X = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
-  private static final double[] Y1 = new double[] {2, 4, 6, 8, 10, 12, 14, 16, 18};
-  private static final double[] Y2 = new double[] {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1};
+  private static final double[] X = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  private static final double[] Y1 = new double[] {2, 4, 6, 8, 10, 12, 14, 16, 18 };
+  private static final double[] Y2 = new double[] {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1 };
   private static final InterpolatedDoublesCurve INTERPOLATED1 = InterpolatedDoublesCurve.from(X, Y1, new LinearInterpolator1D(), "a");
   private static final InterpolatedDoublesCurve INTERPOLATED2 = InterpolatedDoublesCurve.from(X, Y2, new LinearInterpolator1D(), "b");
   private static final FunctionalDoublesCurve FUNCTIONAL1 = FunctionalDoublesCurve.from(new Function1D<Double, Double>() {
@@ -43,11 +42,11 @@ public class SpreadDoublesCurveTest {
   private static final String NAME1 = "X";
   private static final String NAME2 = "Y";
   private static final String NAME3 = "Z";
-  private static final DoublesCurve[] CURVES1 = new DoublesCurve[] {INTERPOLATED1, INTERPOLATED2};
+  private static final DoublesCurve[] CURVES1 = new DoublesCurve[] {INTERPOLATED1, INTERPOLATED2 };
   private static final SpreadDoublesCurve SPREAD1 = SpreadDoublesCurve.from(ADD, NAME1, CURVES1);
-  private static final DoublesCurve[] CURVES2 = new DoublesCurve[] {SPREAD1, INTERPOLATED1};
+  private static final DoublesCurve[] CURVES2 = new DoublesCurve[] {SPREAD1, INTERPOLATED1 };
   private static final SpreadDoublesCurve SPREAD2 = SpreadDoublesCurve.from(SUBTRACT, NAME2, CURVES2);
-  private static final DoublesCurve[] CURVES3 = new DoublesCurve[] {INTERPOLATED1, INTERPOLATED1, INTERPOLATED1};
+  private static final DoublesCurve[] CURVES3 = new DoublesCurve[] {INTERPOLATED1, INTERPOLATED1, INTERPOLATED1 };
   private static final SpreadDoublesCurve SPREAD3 = SpreadDoublesCurve.from(ADD, NAME3, CURVES3);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -57,7 +56,7 @@ public class SpreadDoublesCurveTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testTooFewCurves1() {
-    new SpreadDoublesCurve(ADD, new DoublesCurve[] {INTERPOLATED1});
+    new SpreadDoublesCurve(ADD, new DoublesCurve[] {INTERPOLATED1 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -72,7 +71,7 @@ public class SpreadDoublesCurveTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testTooFewCurves2() {
-    new SpreadDoublesCurve(ADD, NAME1, new DoublesCurve[] {INTERPOLATED1});
+    new SpreadDoublesCurve(ADD, NAME1, new DoublesCurve[] {INTERPOLATED1 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -118,7 +117,7 @@ public class SpreadDoublesCurveTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testGetSize() {
-    SpreadDoublesCurve.from(ADD, new DoublesCurve[] {FUNCTIONAL1, CONSTANT1}).size();
+    SpreadDoublesCurve.from(ADD, new DoublesCurve[] {FUNCTIONAL1, CONSTANT1 }).size();
   }
 
   @Test
@@ -159,9 +158,9 @@ public class SpreadDoublesCurveTest {
   @Test
   public void testSize() {
     assertEquals(INTERPOLATED1.size() + INTERPOLATED2.size(), SPREAD1.size());
-    assertEquals(INTERPOLATED1.size() + 2 * INTERPOLATED2.size(), SpreadDoublesCurve.from(ADD, new DoublesCurve[] {INTERPOLATED1, SPREAD1}).size());
-    assertEquals(INTERPOLATED1.size() + INTERPOLATED2.size(), SpreadDoublesCurve.from(ADD, new DoublesCurve[] {CONSTANT1, SPREAD1}).size());
-    assertEquals(INTERPOLATED1.size() + INTERPOLATED2.size(), SpreadDoublesCurve.from(ADD, new DoublesCurve[] {CONSTANT1, SPREAD1}).size());
+    assertEquals(INTERPOLATED1.size() + 2 * INTERPOLATED2.size(), SpreadDoublesCurve.from(ADD, new DoublesCurve[] {INTERPOLATED1, SPREAD1 }).size());
+    assertEquals(INTERPOLATED1.size() + INTERPOLATED2.size(), SpreadDoublesCurve.from(ADD, new DoublesCurve[] {CONSTANT1, SPREAD1 }).size());
+    assertEquals(INTERPOLATED1.size() + INTERPOLATED2.size(), SpreadDoublesCurve.from(ADD, new DoublesCurve[] {CONSTANT1, SPREAD1 }).size());
   }
 
   @Test

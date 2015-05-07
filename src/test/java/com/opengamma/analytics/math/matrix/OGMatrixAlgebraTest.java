@@ -14,7 +14,6 @@ import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * Test.
  */

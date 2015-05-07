@@ -147,7 +147,8 @@ public class CouponFixedAccruedCompoundingDiscountingMethodTest {
     final double pvPayExpected = CPN_PAY_WITH_ACCRUAL_DATES.getAmount() * MULTICURVES.getDiscountFactor(CPN_PAY_WITH_ACCRUAL_DATES.getCurrency(), CPN_PAY_WITH_ACCRUAL_DATES.getPaymentTime());
     assertEquals("CouponFixedAccruedCompounding: Present value by discounting", pvPayExpected, -pvRecComputed.getAmount(CPN_REC_WITH_ACCRUAL_DATES.getCurrency()).getAmount(), TOLERANCE_PV);
     final CurrencyAmount pvPosPayComputed = METHOD.presentValuePositiveNotional(CPN_REC_WITH_ACCRUAL_DATES, MULTICURVES);
-    assertEquals("CouponFixedAccruedCompounding: Present value by discounting", pvRecComputed.getAmount(CPN_REC_WITH_ACCRUAL_DATES.getCurrency()).getAmount(), pvPosPayComputed.getAmount(), TOLERANCE_PV);
+    assertEquals("CouponFixedAccruedCompounding: Present value by discounting", pvRecComputed.getAmount(CPN_REC_WITH_ACCRUAL_DATES.getCurrency()).getAmount(), pvPosPayComputed.getAmount(),
+        TOLERANCE_PV);
   }
 
   @Test

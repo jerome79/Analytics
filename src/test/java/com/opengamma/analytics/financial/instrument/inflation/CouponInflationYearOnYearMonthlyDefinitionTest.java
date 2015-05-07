@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the year on year inflation constructors.
  */
@@ -180,10 +179,10 @@ public class CouponInflationYearOnYearMonthlyDefinitionTest {
   @Test
   public void toDerivativesStartMonthNotknown() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2011, 7, 29);
-    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2017, 4, 30),
-            DateUtils.getUTCDate(2017, 5, 31), DateUtils.getUTCDate(2018, 4, 30), DateUtils.getUTCDate(2018, 5, 31)},
-        new double[]{
-            127.23, 127.43, 128.23, 128.43});
+    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2017, 4, 30),
+      DateUtils.getUTCDate(2017, 5, 31), DateUtils.getUTCDate(2018, 4, 30), DateUtils.getUTCDate(2018, 5, 31) },
+        new double[] {
+          127.23, 127.43, 128.23, 128.43 });
     final Coupon yearOnYearCouponConverted = YoY_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
     final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
     final double referenceStartTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, REFERENCE_START_DATE);

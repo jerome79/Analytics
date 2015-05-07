@@ -36,7 +36,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -60,7 +59,7 @@ public class BondIborSecurityTest {
   private static final AnnuityCouponIborDefinition COUPON_DEFINITION = AnnuityCouponIborDefinition.fromAccrualUnadjusted(START_ACCRUAL_DATE, MATURITY_DATE, 1.0, IBOR_INDEX, false, CALENDAR);
   private static final AnnuityPaymentFixedDefinition NOMINAL_DEFINITION = new AnnuityPaymentFixedDefinition(
       new PaymentFixedDefinition[] {
-          new PaymentFixedDefinition(CUR, BusinessDayDateUtils.applyConvention(BUSINESS_DAY, MATURITY_DATE, CALENDAR), 1.0)},
+        new PaymentFixedDefinition(CUR, BusinessDayDateUtils.applyConvention(BUSINESS_DAY, MATURITY_DATE, CALENDAR), 1.0) },
       CALENDAR);
   // to derivatives
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;

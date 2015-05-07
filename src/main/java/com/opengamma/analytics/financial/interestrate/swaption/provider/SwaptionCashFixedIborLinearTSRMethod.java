@@ -190,7 +190,7 @@ public class SwaptionCashFixedIborLinearTSRMethod {
       }
       final double kp = _linear[0] * g + (_linear[0] * x + _linear[1]) * gp;
       final double kpp = 2 * _linear[0] * gp + (_linear[0] * x + _linear[1]) * gpp;
-      return new double[] {kp, kpp};
+      return new double[] {kp, kpp };
     }
 
     /**

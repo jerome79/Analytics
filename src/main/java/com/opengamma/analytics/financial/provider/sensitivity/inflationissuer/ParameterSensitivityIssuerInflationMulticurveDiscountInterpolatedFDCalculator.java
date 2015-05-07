@@ -30,7 +30,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * For an instrument, computes the sensitivity of a multiple currency amount (often the present value) to the parameters used in the curve including inflation curve.
  * The computation is done by shifting each node point in each curve; the curves must be interpolated yield curves for discounting and forward curves.

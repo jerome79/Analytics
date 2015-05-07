@@ -35,7 +35,7 @@ public class WeeklyScheduleOnDayCalculator extends Schedule {
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
       if (startDate.getDayOfWeek() == _dayOfWeek) {
-        return new LocalDate[] {startDate};
+        return new LocalDate[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but their day of week was not the same as that required");
     }
@@ -60,7 +60,7 @@ public class WeeklyScheduleOnDayCalculator extends Schedule {
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
       if (startDate.getDayOfWeek() == _dayOfWeek) {
-        return new ZonedDateTime[] {startDate};
+        return new ZonedDateTime[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but their day of week was not the same as that required");
     }

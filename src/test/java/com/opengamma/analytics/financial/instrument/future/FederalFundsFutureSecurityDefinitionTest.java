@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the construction of Federal Fund future.
  */
@@ -165,7 +164,6 @@ public class FederalFundsFutureSecurityDefinitionTest {
     final FederalFundsFutureSecurityDefinition fromFF = FederalFundsFutureSecurityDefinition.fromFedFund(MARCH_1, INDEX_FEDFUND, NYC);
     assertEquals("Fed fund future security definition: builder", from, fromFF);
   }
-
 
   @Test
   /**

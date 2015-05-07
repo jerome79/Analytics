@@ -13,7 +13,6 @@ import com.opengamma.analytics.financial.commodity.multicurvecommodity.curve.Com
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */

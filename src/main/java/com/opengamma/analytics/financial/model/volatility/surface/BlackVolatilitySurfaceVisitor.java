@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-
 /**
  * @param <S> Type of the arguments
  * @param <T> Return type of the function

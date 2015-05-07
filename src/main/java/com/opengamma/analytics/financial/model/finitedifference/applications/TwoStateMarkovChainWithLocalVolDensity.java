@@ -36,8 +36,6 @@ public class TwoStateMarkovChainWithLocalVolDensity {
     ArgChecker.notNull(forward, "null forward");
     ArgChecker.notNull(data, "null data");
     ArgChecker.notNull(localVolOverlay, "null localVolOverlay");
-    //    _data1 = getCoupledPDEDataBundle(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getP0(), data.getBeta1(), localVol);
-    //    _data2 = getCoupledPDEDataBundle(forward, data.getVol2(), data.getLambda21(), data.getLambda12(), 1.0 - data.getP0(), data.getBeta2(), localVol);
     _data1 = getExtendedCoupledPDEDataBundle(forward, data.getVol1(), data.getLambda12(), data.getLambda21(), data.getP0(), data.getBeta1(), localVolOverlay);
     _data2 = getExtendedCoupledPDEDataBundle(forward, data.getVol2(), data.getLambda21(), data.getLambda12(), 1.0 - data.getP0(), data.getBeta2(), localVolOverlay);
   }
@@ -45,7 +43,6 @@ public class TwoStateMarkovChainWithLocalVolDensity {
   PDEFullResults1D[] solve(final PDEGrid1D grid) {
 
     final BoundaryCondition lower = new NeumannBoundaryCondition(0.0, grid.getSpaceNode(0), true);
-    //BoundaryCondition lower = new DirichletBoundaryCondition(0.0, 0.0);//TODO for beta < 0.5 zero is accessible and thus there will be non-zero
     //density there
     final BoundaryCondition upper = new DirichletBoundaryCondition(0.0, grid.getSpaceNode(grid.getNumSpaceNodes() - 1));
 

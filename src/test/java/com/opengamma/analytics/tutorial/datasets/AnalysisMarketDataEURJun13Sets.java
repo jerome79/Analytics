@@ -88,8 +88,8 @@ public class AnalysisMarketDataEURJun13Sets {
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2013, 8, 9);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2013, 8, 7),
-      DateUtils.getUTCDate(2013, 8, 8)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2013, 8, 7),
+    DateUtils.getUTCDate(2013, 8, 8) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_EUR_WITHOUT_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_EUR_WITHOUT_TODAY };
   private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_EUR3M_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2013, 8, 8) },
       new double[] {0.0022 });
@@ -343,55 +343,12 @@ public class AnalysisMarketDataEURJun13Sets {
     }
     return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(curveBundles, knownData, dscMap, iborMap, onMap, calculator,
         sensitivityCalculator);
-    //    final int nbUnits = curveGenerators.length;
-    //    final double[][] parametersGuess = new double[nbUnits][];
-    //    final GeneratorYDCurve[][] generatorFinal = new GeneratorYDCurve[nbUnits][];
-    //    final InstrumentDerivative[][][] instruments = new InstrumentDerivative[nbUnits][][];
-    //    for (int loopunit = 0; loopunit < nbUnits; loopunit++) {
-    //      generatorFinal[loopunit] = new GeneratorYDCurve[curveGenerators[loopunit].length];
-    //      int nbInsUnit = 0;
-    //      for (int loopcurve = 0; loopcurve < curveGenerators[loopunit].length; loopcurve++) {
-    //        nbInsUnit += definitions[loopunit][loopcurve].length;
-    //      }
-    //      parametersGuess[loopunit] = new double[nbInsUnit];
     //      int startCurve = 0; // First parameter index of the curve in the unit.
-    //      instruments[loopunit] = convert(definitions[loopunit], loopunit, withToday);
-    //      for (int loopcurve = 0; loopcurve < curveGenerators[loopunit].length; loopcurve++) {
-    //        generatorFinal[loopunit][loopcurve] = curveGenerators[loopunit][loopcurve].finalGenerator(instruments[loopunit][loopcurve]);
-    //        final double[] guessCurve = generatorFinal[loopunit][loopcurve].initialGuess(initialGuess(definitions[loopunit][loopcurve]));
-    //        System.arraycopy(guessCurve, 0, parametersGuess[loopunit], startCurve, instruments[loopunit][loopcurve].length);
-    //        startCurve += instruments[loopunit][loopcurve].length;
-    //      }
-    //    }
     //    return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(instruments, generatorFinal, curveNames, parametersGuess, knownData, DSC_MAP, FWD_IBOR_MAP, FWD_ON_MAP, calculator,
-    //        sensitivityCalculator);
   }
 
-  //  private static InstrumentDerivative[][] convert(final InstrumentDefinition<?>[][] definitions, final int unit, final boolean withToday) {
-  //    //    int nbDef = 0;
   //    //    for (final InstrumentDefinition<?>[] definition : definitions) {
-  //    //      nbDef += definition.length;
   //    //    }
-  //    final InstrumentDerivative[][] instruments = new InstrumentDerivative[definitions.length][];
-  //    for (int loopcurve = 0; loopcurve < definitions.length; loopcurve++) {
-  //      instruments[loopcurve] = new InstrumentDerivative[definitions[loopcurve].length];
-  //      int loopins = 0;
-  //      for (final InstrumentDefinition<?> instrument : definitions[loopcurve]) {
-  //        InstrumentDerivative ird;
-  //        if (instrument instanceof SwapFixedONDefinition) {
-  //          ird = ((SwapFixedONDefinition) instrument).toDerivative(NOW, getTSSwapFixedON(unit));
-  //        } else {
-  //          if (instrument instanceof SwapFixedIborDefinition) {
-  //            ird = ((SwapFixedIborDefinition) instrument).toDerivative(NOW, getTSSwapFixedIbor(unit));
-  //          } else {
-  //            ird = instrument.toDerivative(NOW);
-  //          }
-  //        }
-  //        instruments[loopcurve][loopins++] = ird;
-  //      }
-  //    }
-  //    return instruments;
-  //  }
 
   private static InstrumentDerivative convert(final InstrumentDefinition<?> definition, final int unit, final boolean withToday) {
     InstrumentDerivative ird;
@@ -427,15 +384,6 @@ public class AnalysisMarketDataEURJun13Sets {
     }
   }
 
-  //  private static double[] initialGuess(final InstrumentDefinition<?>[] definitions) {
-  //    final double[] result = new double[definitions.length];
-  //    int loopr = 0;
-  //    for (final InstrumentDefinition<?> definition : definitions) {
-  //      result[loopr++] = initialGuess(definition);
-  //    }
-  //    return result;
-  //  }
-
   private static double initialGuess(final InstrumentDefinition<?> instrument) {
     if (instrument instanceof SwapFixedONDefinition) {
       return ((SwapFixedONDefinition) instrument).getFixedLeg().getNthPayment(0).getRate();
@@ -452,25 +400,6 @@ public class AnalysisMarketDataEURJun13Sets {
     return 0.01;
   }
 
-  //  /**
-  //   * The linear interpolator/ flat extrapolator.
-  //   */
-  //  private static final Interpolator1D LINEAR_FLAT = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
-  //      Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  //  private static final GridInterpolator2D INTERPOLATOR_2D = new GridInterpolator2D(LINEAR_FLAT, LINEAR_FLAT);
-  //
-  //  /** Data date: 19-Jun-2013 **/
-  //  private static final InterpolatedDoublesSurface BLACK_SURFACE_EXP_TEN = InterpolatedDoublesSurface.from(
-  //      new double[] {0.25, 0.5, 1.0, 0.25, 0.5, 1.0, 0.25, 0.5, 1.0, 0.25, 0.5, 1.0 },
-  //      new double[] {2, 2, 2, 5, 5, 5, 10, 10, 10, 30, 30, 30 },
-  //      new double[] {0.685, 0.661, 0.631, 0.509, 0.479, 0.438, 0.351, 0.339, 0.325, 0.256, 0.251, 0.252 },
-  //      INTERPOLATOR_2D);
-  //  private static final BlackFlatSwaptionParameters BLACK_SWAPTION_USD3 = new BlackFlatSwaptionParameters(BLACK_SURFACE_EXP_TEN, EUR1YEURIBOR3M);
-  //
   //  // Normal: 35.6, x, 50.6, 73.6, x5, x5, x10, 88.5, x10, x30, x30, 86.4
-  //
-  //  public static BlackFlatSwaptionParameters createBlackSwaptionUSD3() {
-  //    return BLACK_SWAPTION_USD3;
-  //  }
 
 }

@@ -78,7 +78,8 @@ public class PV01CurveParametersCalculatorTest {
   /** The PV01 calculator */
   private static final PV01CurveParametersCalculator<ParameterProviderInterface> PV01 = new PV01CurveParametersCalculator<>(PresentValueCurveSensitivityDiscountingCalculator.getInstance());
   /** The gamma PV01 calculator */
-  private static final GammaPV01CurveParametersCalculator<ParameterProviderInterface> GAMMA_PV01 = new GammaPV01CurveParametersCalculator<>(PresentValueCurveSensitivityDiscountingCalculator.getInstance());
+  private static final GammaPV01CurveParametersCalculator<ParameterProviderInterface> GAMMA_PV01 = new GammaPV01CurveParametersCalculator<>(
+      PresentValueCurveSensitivityDiscountingCalculator.getInstance());
   /** One basis point */
   private static final double BP = 0.0001;
   /** Relative accuracy for calculations */

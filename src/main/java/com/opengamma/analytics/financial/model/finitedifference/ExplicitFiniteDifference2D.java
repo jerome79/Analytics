@@ -139,7 +139,6 @@ public class ExplicitFiniteDifference2D implements ConvectionDiffusionPDESolver2
       }
 
       // //average to find corners
-      // vNew[0][0] = (vNew[0][1]+vNew[1][0])/2;
 
       // TODO American payoff
       t += dt;

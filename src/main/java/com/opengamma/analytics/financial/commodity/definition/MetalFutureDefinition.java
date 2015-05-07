@@ -142,5 +142,4 @@ public class MetalFutureDefinition extends CommodityFutureDefinition<MetalFuture
     return super.equals(obj);
   }
 
-
 }

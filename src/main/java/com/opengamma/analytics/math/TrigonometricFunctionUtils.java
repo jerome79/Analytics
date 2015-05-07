@@ -78,10 +78,10 @@ public class TrigonometricFunctionUtils {
   }
 
   //TODO R White 21/07/2011 not sure why this was used over the equivalent below 
-//  public static ComplexNumber atanh(final ComplexNumber z) {
-//    ArgChecker.notNull(z, "z");
-//    return ComplexMathUtils.log(ComplexMathUtils.divide(ComplexMathUtils.sqrt(ComplexMathUtils.subtract(1, ComplexMathUtils.multiply(z, z))), ComplexMathUtils.subtract(1, z)));
-//  }
+  //  public static ComplexNumber atanh(final ComplexNumber z) {
+  //    ArgChecker.notNull(z, "z");
+  //    return ComplexMathUtils.log(ComplexMathUtils.divide(ComplexMathUtils.sqrt(ComplexMathUtils.subtract(1, ComplexMathUtils.multiply(z, z))), ComplexMathUtils.subtract(1, z)));
+  //  }
 
   public static ComplexNumber atanh(final ComplexNumber z) {
     ArgChecker.notNull(z, "z");

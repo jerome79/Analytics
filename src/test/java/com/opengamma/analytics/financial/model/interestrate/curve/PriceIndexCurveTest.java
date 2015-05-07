@@ -24,15 +24,14 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
 @Test
 public class PriceIndexCurveTest {
 
-  private static double[] INDEX_VALUE = new double[] {108.23, 108.64, 111.0, 115.0};
-  private static double[] TIME_VALUE = new double[] {-3.0 / 12.0, -2.0 / 12.0, 9.0 / 12.0, 2.0 + 9.0 / 12.0};
+  private static double[] INDEX_VALUE = new double[] {108.23, 108.64, 111.0, 115.0 };
+  private static double[] TIME_VALUE = new double[] {-3.0 / 12.0, -2.0 / 12.0, 9.0 / 12.0, 2.0 + 9.0 / 12.0 };
   private static final InterpolatedDoublesCurve CURVE = InterpolatedDoublesCurve.from(TIME_VALUE, INDEX_VALUE, new LinearInterpolator1D());
   private static final PriceIndexCurveSimple PRICE_INDEX_CURVE = new PriceIndexCurveSimple(CURVE);
 
@@ -69,14 +68,14 @@ public class PriceIndexCurveTest {
    */
   public void fromStartOfMonth() {
     ZonedDateTime constructionDate = DateUtils.getUTCDate(2011, 8, 18);
-    ZonedDateTime[] indexKnownDate = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 5, 1), DateUtils.getUTCDate(2011, 6, 1)};
+    ZonedDateTime[] indexKnownDate = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 5, 1), DateUtils.getUTCDate(2011, 6, 1) };
     double[] nodeTimeKnown = new double[indexKnownDate.length];
     for (int loopmonth = 0; loopmonth < indexKnownDate.length; loopmonth++) {
       nodeTimeKnown[loopmonth] = -DayCountUtils.yearFraction(ACT_ACT, indexKnownDate[loopmonth], constructionDate);
     }
-    int[] swapTenor = new int[] {1, 2, 3, 4, 5, 7, 10, 15, 20, 30};
-    double[] swapRate = new double[] {0.02, 0.021, 0.02, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025};
-    double[] indexKnown = new double[] {113.11, 113.10}; // May / June 2011.
+    int[] swapTenor = new int[] {1, 2, 3, 4, 5, 7, 10, 15, 20, 30 };
+    double[] swapRate = new double[] {0.02, 0.021, 0.02, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025 };
+    double[] indexKnown = new double[] {113.11, 113.10 }; // May / June 2011.
     int monthLag = 3;
     double[] nodeTimeOther = new double[swapTenor.length];
     ZonedDateTime[] referenceDate = new ZonedDateTime[swapTenor.length];

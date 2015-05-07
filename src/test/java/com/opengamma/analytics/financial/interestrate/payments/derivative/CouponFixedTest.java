@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test of fixed coupon class.
  */

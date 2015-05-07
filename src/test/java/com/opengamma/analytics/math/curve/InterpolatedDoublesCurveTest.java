@@ -16,7 +16,6 @@ import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 import com.opengamma.analytics.math.interpolation.PCHIPInterpolator1D;
 import com.opengamma.analytics.math.interpolation.StepInterpolator1D;
 
-
 /**
  * Test.
  */

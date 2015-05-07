@@ -76,7 +76,7 @@ public abstract class CashSettledFuture implements InstrumentDerivative {
   public double getReferencePrice() {
     return _referencePrice;
   }
-  
+
   /**
    * Gets the point value.
    * @return the point value

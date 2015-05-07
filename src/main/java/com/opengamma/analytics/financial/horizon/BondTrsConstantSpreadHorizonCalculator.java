@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.horizon;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.bond.BondTotalReturnSwapDefinition;
@@ -54,8 +53,8 @@ public final class BondTrsConstantSpreadHorizonCalculator extends HorizonCalcula
 
   @Override
   public MultiCurrencyAmount getTheta(final BondTotalReturnSwapDefinition definition, final ZonedDateTime date,
-                                         final IssuerProviderInterface data, final int daysForward, final HolidayCalendar calendar, 
-                                         final ZonedDateTimeDoubleTimeSeries fixingSeries) {
+      final IssuerProviderInterface data, final int daysForward, final HolidayCalendar calendar,
+      final ZonedDateTimeDoubleTimeSeries fixingSeries) {
     ArgChecker.notNull(definition, "definition");
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(data, "data");

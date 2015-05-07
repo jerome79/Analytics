@@ -10,7 +10,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
 /**
  * Interface generalizing both inflation and issuer providers.
  */
-public interface ParameterInflationIssuerProviderInterface extends 
-  ParameterInflationProviderInterface, ParameterIssuerProviderInterface {
+public interface ParameterInflationIssuerProviderInterface extends
+    ParameterInflationProviderInterface, ParameterIssuerProviderInterface {
 
 }

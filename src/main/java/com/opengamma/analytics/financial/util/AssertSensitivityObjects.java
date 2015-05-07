@@ -217,7 +217,7 @@ public class AssertSensitivityObjects {
           cmp = false;
         }
       } else {
-        if (entry.getValue().getNumberOfElements() !=  map2.get(nameCcy).getNumberOfElements()) {
+        if (entry.getValue().getNumberOfElements() != map2.get(nameCcy).getNumberOfElements()) {
           cmp = false;
         } else {
           if (algebra.getNormInfinity(algebra.add(entry.getValue(), algebra.scale(map2.get(nameCcy), -1.0))) > tolerance) {
@@ -233,7 +233,7 @@ public class AssertSensitivityObjects {
           cmp = false;
         }
       } else {
-        if (entry.getValue().getNumberOfElements() !=  map1.get(nameCcy).getNumberOfElements()) {
+        if (entry.getValue().getNumberOfElements() != map1.get(nameCcy).getNumberOfElements()) {
           cmp = false;
         } else {
           if (algebra.getNormInfinity(algebra.add(entry.getValue(), algebra.scale(map1.get(nameCcy), -1.0))) > tolerance) {

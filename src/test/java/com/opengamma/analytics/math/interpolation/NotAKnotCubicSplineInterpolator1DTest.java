@@ -13,14 +13,12 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test interpolateWithSensitivity method via PiecewisePolynomialInterpolator1D
  */
 @Test
 public class NotAKnotCubicSplineInterpolator1DTest {
 
-  //  private static final Random randObj = new Random();
   private static final CubicSplineInterpolator INTERP = new CubicSplineInterpolator();
   private static final NotAKnotCubicSplineInterpolator1D INTERP1D = new NotAKnotCubicSplineInterpolator1D();
 

@@ -43,7 +43,7 @@ public class ShiftedLogNormalTailExtrapolationFitter {
   static {
     final ParameterLimitsTransform b = new SingleRangeLimitTransform(0.0, LimitType.GREATER_THAN);
     DoubleRangeLimitTransform a = new DoubleRangeLimitTransform(-40.0, 40.0);
-    TRANSFORMS = new UncoupledParameterTransforms(new DoubleMatrix1D(0.0, 1.0), new ParameterLimitsTransform[] {a, b}, new BitSet());
+    TRANSFORMS = new UncoupledParameterTransforms(new DoubleMatrix1D(0.0, 1.0), new ParameterLimitsTransform[] {a, b }, new BitSet());
   }
 
   /**
@@ -335,7 +335,7 @@ public class ShiftedLogNormalTailExtrapolationFitter {
         final double j21 = BlackFormulaRepository.delta(fStar, strike[1], timeToExpiry, theta, isCall) * fStar / prices[1];
         final double j22 = BlackFormulaRepository.vega(fStar, strike[1], timeToExpiry, theta) / prices[1];
 
-        final DoubleMatrix2D modelParmJac = new DoubleMatrix2D(new double[][] {{j11, j12}, {j21, j22}});
+        final DoubleMatrix2D modelParmJac = new DoubleMatrix2D(new double[][] { {j11, j12 }, {j21, j22 } });
         return modelParmJac;
       }
     };
@@ -380,7 +380,7 @@ public class ShiftedLogNormalTailExtrapolationFitter {
         final double j21 = BlackFormulaRepository.delta(fStar, strike[1], timeToExpiry, theta, isCall) * fStar / vega2;
         final double j22 = BlackFormulaRepository.vega(fStar, strike[1], timeToExpiry, theta) / vega2;
 
-        return new DoubleMatrix2D(new double[][] {{j11, j12}, {j21, j22}});
+        return new DoubleMatrix2D(new double[][] { {j11, j12 }, {j21, j22 } });
       }
     };
   }
@@ -419,7 +419,7 @@ public class ShiftedLogNormalTailExtrapolationFitter {
         final double j21 = scale2 * BlackFormulaRepository.crossGamma(fStar, strike, expiry, theta) * fStar;
         final double j22 = scale2 * BlackFormulaRepository.dualVanna(fStar, strike, expiry, theta);
 
-        return new DoubleMatrix2D(new double[][] {{j11, j12}, {j21, j22}});
+        return new DoubleMatrix2D(new double[][] { {j11, j12 }, {j21, j22 } });
       }
     };
 

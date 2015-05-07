@@ -24,7 +24,6 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver {
   private static final Decomposition<?> DCOMP = new LUDecompositionCommons();
-  // private static final DEFAULT
   private final double _theta;
   private final boolean _showFullResults;
 
@@ -212,12 +211,10 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
           final double b = _coeff.getB(t, x);
           final double c = _coeff.getC(t, x);
           //debug - fitting par
-          //a = getFittingParameter(a, b, ii);
           cDag[ii] = _x2nd[ii][1] * a + _x1st[ii][1] * b + c;
           lDag[ii] = _x2nd[ii][0] * a + _x1st[ii][0] * b;
           uDag[ii] = _x2nd[ii][2] * a + _x1st[ii][2] * b;
         }
-
 
         for (int ii = 1; ii < _nNodesX - 1; ii++) {
           d[ii] = 1 + _theta * dt * cDag[ii - 1];
@@ -294,21 +291,17 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
 
       while (count < maxInt && maxErr > 1e-8) {
         temp = Math.max(minVal[0], (1 - omega) * x[0] + omega * invD[0] * (b[0] - u[0] * x[1]));
-        // errSqr = (temp - x[0]) * (temp - x[0]);
         maxErr = Math.abs(temp - x[0]) / (Math.abs(x[0]) + small);
         x[0] = temp;
         for (int ii = 1; ii < n - 1; ii++) {
           temp = Math.max(minVal[ii], (1 - omega) * x[ii] + omega * invD[ii] * (b[ii] - l[ii - 1] * x[ii - 1] - u[ii] * x[ii + 1]));
-          // errSqr += (temp - x[ii]) * (temp - x[ii]);
           maxErr = Math.max(Math.abs(temp - x[ii]) / (Math.abs(x[ii]) + small), maxErr);
           x[ii] = temp;
         }
         temp = Math.max(minVal[n - 1], (1 - omega) * x[n - 1] + omega * invD[n - 1] * (b[n - 1] - l[n - 2] * x[n - 2]));
         maxErr = Math.max(Math.abs(temp - x[n - 1]) / (Math.abs(x[n - 1]) + small), maxErr);
-        //errSqr += (temp - x[n - 1]) * (temp - x[n - 1]);
         x[n - 1] = temp;
 
-        //   errSqr = Math.sqrt(errSqr);
         count++;
       }
 
@@ -362,7 +355,6 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
    */
   @Deprecated
   class SolverImplDeprecated {
-    // private final ConvectionDiffusionPDEDataBundle _pdeData;
     private final ConvectionDiffusionPDE1DStandardCoefficients _coefficients;
     private final double[] _initialCondition;
     private final PDEGrid1D _grid;
@@ -529,26 +521,13 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
         setB(i - 1, _coefficients.getB(getT2(), x));
         setC(i - 1, _coefficients.getC(getT2(), x));
         //TODO R White 19/09/2012 change this back debug
-        //setRho(i - 1, getA(i - 1));
         setRho(i - 1, getFittingParameter(getGrid(), getA(i - 1), getB(i - 1), i));
       }
     }
 
     private void solveMatrixSystem() {
-      //   @SuppressWarnings("unused")
       //NOTE get this working again with dynamic omega
-      //final int count = solveBySOR(omega);
       solveByLU();
-      //      if (oldCount > 0) {
-      //        if ((omegaIncrease && count > oldCount) || (!omegaIncrease && count < oldCount)) {
-      //          omega = Math.max(1.0, omega * 0.9);
-      //          omegaIncrease = false;
-      //        } else {
-      //          omega = 1.1 * omega;
-      //          omegaIncrease = true;
-      //        }
-      //      }
-      //      oldCount = count;
 
     }
 
@@ -711,7 +690,6 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
 
   private class ExtendedSolverImpl extends SolverImplDeprecated {
 
-    //private final ExtendedConvectionDiffusionPDEDataBundle _pdeData;
     private final ConvectionDiffusionPDE1DFullCoefficients _coeff;
     private final double[] _alpha;
     private final double[] _beta;
@@ -724,22 +702,6 @@ public class ThetaMethodFiniteDifference implements ConvectionDiffusionPDESolver
       _alpha = new double[xNodes];
       _beta = new double[xNodes];
     }
-
-    /**
-     * @param pdeData
-     * @param grid
-     * @param lowerBoundary
-     * @param upperBoundary
-     * @param freeBoundary
-     */
-    //    public ExtendedSolverImpl(ExtendedConvectionDiffusionPDEDataBundle pdeData, PDEGrid1D grid, BoundaryCondition lowerBoundary, BoundaryCondition upperBoundary,
-    //        Surface<Double, Double, Double> freeBoundary) {
-    //      super(pdeData, grid, lowerBoundary, upperBoundary, freeBoundary);
-    //      _pdeData = pdeData;
-    //      final int xNodes = grid.getNumSpaceNodes();
-    //      _alpha = new double[xNodes];
-    //      _beta = new double[xNodes];
-    //    }
 
     @Override
     void initialise() {

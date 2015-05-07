@@ -89,12 +89,12 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethodTest {
 
   // Extracted Sample data
   private static final double[] STRIKES = new double[] {0.005, 0.01, 0.014844615790478254, 0.015, 0.02, 0.025, 0.03,
-      0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12 };
+    0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12 };
   private static final double[] VOLS = new double[] {0.7358548700933457, 0.5523841305358348, 0.4657877918377955,
-      0.4638783367475177, 0.4224312896268929, 0.40717031545963184, 0.4045852433505948,
-      0.40746426050271956, 0.41252053623278173, 0.4183168373948183, 0.42422257685856807, 0.4299622516488387,
-      0.4354215920678454, 0.4453783030412607, 0.45410005682243837, 0.4617460214027164,
-      0.4684858081353601, 0.4744669985423348, 0.47981106357536796 };
+    0.4638783367475177, 0.4224312896268929, 0.40717031545963184, 0.4045852433505948,
+    0.40746426050271956, 0.41252053623278173, 0.4183168373948183, 0.42422257685856807, 0.4299622516488387,
+    0.4354215920678454, 0.4453783030412607, 0.45410005682243837, 0.4617460214027164,
+    0.4684858081353601, 0.4744669985423348, 0.47981106357536796 };
   private static final double FORWARD = 0.014844615790478254;
 
   /**
@@ -125,7 +125,6 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethodTest {
         sampleVolatilities[i] = SABR_PARAMETER.getVolatility(derivative.getFixingTime(), maturity, sampleStrikes[i],
             forward);
       }
-
 
       /*
        * With extrapolation
@@ -278,9 +277,9 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethodTest {
     SmileExtrapolationFunctionSABRProvider provider = new ShiftedLogNormalExtrapolationFunctionProvider("Quiet");
 
     SmileExtrapolationFunctionSABRProvider[] providers1 = new SmileExtrapolationFunctionSABRProvider[] {provider1,
-        provider };
+      provider };
     SmileExtrapolationFunctionSABRProvider[] providers2 = new SmileExtrapolationFunctionSABRProvider[] {provider2,
-        provider };
+      provider };
 
     for (int i = 0; i < 2; ++i) {
       SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(providers1[i]);

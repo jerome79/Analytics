@@ -48,7 +48,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Tests the constant spread horizon calculator for bonds.
  */
@@ -105,7 +104,8 @@ public class BondConstantSpreadHorizonCalculatorTest {
     final Map<IborIndex, YieldAndDiscountCurve> ibor = Collections.emptyMap();
     final Map<IndexON, YieldAndDiscountCurve> on = Collections.emptyMap();
     final Pair<Object, LegalEntityFilter<LegalEntity>> issuerKey = Pair.of(US_GOVT, new LegalEntityShortName());
-    final Map<Pair<Object, LegalEntityFilter<LegalEntity>>, YieldAndDiscountCurve> issuer = Collections.<Pair<Object, LegalEntityFilter<LegalEntity>>, YieldAndDiscountCurve>singletonMap(issuerKey, flatIssuer);
+    final Map<Pair<Object, LegalEntityFilter<LegalEntity>>, YieldAndDiscountCurve> issuer = Collections.<Pair<Object, LegalEntityFilter<LegalEntity>>, YieldAndDiscountCurve>singletonMap(issuerKey,
+        flatIssuer);
     FLAT_ISSUER_MULTICURVES = new IssuerProviderDiscount(discounting, ibor, on, issuer, FxMatrix.empty());
   }
 

@@ -344,62 +344,9 @@ public class ForexOptionSingleBarrierBlackMethodTest {
     assertEquals("Forex present value curve sensitivity: Method vs Calculator", pvvsMethod, pvvsCalculator);
   }
 
-  //  @Test
-  //  /**
-  //   * Tests present value volatility node sensitivity.
-  //   */
-  //  public void volatilityNodeSensitivity() {
-  //    final PresentValueForexBlackVolatilityNodeSensitivityDataBundle sensi = METHOD_BARRIER.presentValueBlackVolatilityNodeSensitivity(OPTION_BARRIER, SMILE_MULTICURVES);
-  //    assertEquals("Forex vanilla option: vega node size", NB_EXP + 1, sensi.getVega().getData().length);
-  //    assertEquals("Forex vanilla option: vega node size", NB_STRIKE, sensi.getVega().getData()[0].length);
-  //    final Pair<Currency, Currency> currencyPair = Pair.of(EUR, USD);
-  //    assertEquals("Forex vanilla option: vega", currencyPair, sensi.getCurrencyPair());
-  //    final PresentValueForexBlackVolatilitySensitivity pointSensitivity = METHOD_BARRIER.presentValueBlackVolatilitySensitivity(OPTION_BARRIER, SMILE_MULTICURVES);
-  //    final double df = MULTICURVES.getDiscountFactor(USD, TimeCalculator.getTimeBetween(REFERENCE_DATE, OPTION_PAY_DATE));
-  //    final double forward = SPOT * MULTICURVES.getDiscountFactor(EUR, TimeCalculator.getTimeBetween(REFERENCE_DATE, OPTION_PAY_DATE)) / df;
-  //    final VolatilityAndBucketedSensitivities volAndSensitivities = SMILE_TERM.getVolatilityAndSensitivities(OPTION_BARRIER.getUnderlyingOption().getTimeToExpiry(), STRIKE, forward);
-  //    final double[][] nodeWeight = volAndSensitivities.getBucketedSensitivities();
-  //    final DoublesPair point = DoublesPair.of(OPTION_BARRIER.getUnderlyingOption().getTimeToExpiry(), STRIKE);
-  //    for (int loopexp = 0; loopexp < NB_EXP; loopexp++) {
-  //      for (int loopstrike = 0; loopstrike < NB_STRIKE; loopstrike++) {
-  //        assertEquals("Forex vanilla option: vega node", nodeWeight[loopexp][loopstrike] * pointSensitivity.getVega().getMap().get(point), sensi.getVega().getData()[loopexp][loopstrike]);
-  //      }
-  //    }
-  //  }
-
-  //  @Test
-  //  /**
-  //   * Tests present value volatility quote sensitivity.
-  //   */
-  //  public void volatilityQuoteSensitivity() {
-  //    final PresentValueForexBlackVolatilityNodeSensitivityDataBundle sensiStrike = METHOD_BARRIER.presentValueBlackVolatilityNodeSensitivity(OPTION_BARRIER, SMILE_MULTICURVES);
-  //    final double[][] sensiQuote = METHOD_BARRIER.presentValueBlackVolatilityNodeSensitivity(OPTION_BARRIER, SMILE_MULTICURVES).quoteSensitivity().getVega();
-  //    final double[][] sensiStrikeData = sensiStrike.getVega().getData();
-  //    final double[] atm = new double[sensiQuote.length];
-  //    for (int loopexp = 0; loopexp < sensiQuote.length; loopexp++) {
-  //      for (int loopdelta = 0; loopdelta < DELTA.length; loopdelta++) {
   //        assertEquals("Forex vanilla option: vega quote - RR", sensiQuote[loopexp][1 + loopdelta], -0.5 * sensiStrikeData[loopexp][loopdelta] + 0.5
-  //            * sensiStrikeData[loopexp][2 * DELTA.length - loopdelta], 1.0E-10);
   //        assertEquals("Forex vanilla option: vega quote - Strangle", sensiQuote[loopexp][DELTA.length + 1 + loopdelta], sensiStrikeData[loopexp][loopdelta]
-  //            + sensiStrikeData[loopexp][2 * DELTA.length - loopdelta], 1.0E-10);
-  //        atm[loopexp] += sensiStrikeData[loopexp][loopdelta] + sensiStrikeData[loopexp][2 * DELTA.length - loopdelta];
-  //      }
-  //      atm[loopexp] += sensiStrikeData[loopexp][DELTA.length];
   //      assertEquals("Forex vanilla option: vega quote", sensiQuote[loopexp][0], atm[loopexp], 1.0E-10); // ATM
-  //    }
-  //  }
-
-  //  @Test
-  //  /**
-  //   * Tests present value volatility quote sensitivity: method vs calculator.
-  //   */
-  //  public void volatilityQuoteSensitivityMethodVsCalculator() {
-  //    final double[][] sensiMethod = METHOD_BARRIER.presentValueBlackVolatilityNodeSensitivity(OPTION_BARRIER, SMILE_MULTICURVES).quoteSensitivity().getVega();
-  //    final double[][] sensiCalculator = PresentValueBlackVolatilityQuoteSensitivityForexCalculator.getInstance().visit(OPTION_BARRIER, SMILE_MULTICURVES).getVega();
-  //    for (int loopexp = 0; loopexp < NB_EXP; loopexp++) {
-  //      ArrayAsserts.assertArrayEquals("Forex option - quote sensitivity", sensiMethod[loopexp], sensiCalculator[loopexp], 1.0E-10);
-  //    }
-  //  }
 
   @Test
   public void gammaAgainstVanilla() {
@@ -468,20 +415,6 @@ public class ForexOptionSingleBarrierBlackMethodTest {
     assertEquals("Vanna of KO Barrier with unreachable barrier doesn't match underlying Vanilla's", vannaBarrier_10.getAmount(), vannaBarrier_100.getAmount(),
         1e-3 * NOTIONAL);
   }
-
-  //  @Test
-  //  /**
-  //   * Compares the methods for computing Vanna. Unfortunately, the different techniques for computing the cross derivative produce wildly different results!
-  //   */
-  //  public void vannaComparison() {
-  //    final double tenbp = 0.001;
-  //    final double dVdS = METHOD_BARRIER.dVegaDSpotFD(OPTION_BARRIER, SMILE_MULTICURVES, tenbp).getAmount();
-  //    final double dDdsig = METHOD_BARRIER.dDeltaDVolFD(OPTION_BARRIER, SMILE_MULTICURVES, tenbp).getAmount();
-  //    final double d2PdSdsig10 = METHOD_BARRIER.d2PriceDSpotDVolFD(BARRIER_SHORT, SMILE_MULTICURVES, tenbp).getAmount();
-  //    final double d2PdSdsig100 = METHOD_BARRIER.d2PriceDSpotDVolFD(BARRIER_SHORT, SMILE_MULTICURVES, 0.01).getAmount();
-  //    final double d2PdSdsig1 = METHOD_BARRIER.d2PriceDSpotDVolFD(BARRIER_SHORT, SMILE_MULTICURVES, 0.0001).getAmount();
-  //    assertTrue(true);
-  //  }
 
   @Test
   /**

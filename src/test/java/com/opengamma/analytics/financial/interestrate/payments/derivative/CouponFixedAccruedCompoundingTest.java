@@ -24,8 +24,6 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Test of fixed accrued compounding coupon class.
  */

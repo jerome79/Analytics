@@ -73,7 +73,8 @@ public class CouponIborAverageDiscountingMethodTest {
 
   private static final double WEIGHT_1 = 17;
   private static final double WEIGHT_2 = -0.06;
-  private static final CouponIborAverageIndexDefinition CPN_IBOR__AVERAGE_DEFINITION = CouponIborAverageIndexDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE_2, ACCRUAL_END_DATE_2, ACCRUAL_FACTOR_2, NOTIONAL,
+  private static final CouponIborAverageIndexDefinition CPN_IBOR__AVERAGE_DEFINITION = CouponIborAverageIndexDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE_2, ACCRUAL_END_DATE_2, ACCRUAL_FACTOR_2,
+      NOTIONAL,
       FIXING_DATE, EURIBOR3M, EURIBOR6M, WEIGHT_1, WEIGHT_2, CALENDAR, CALENDAR);
   private static final CouponIborAverage CPN_IBOR__AVERAGE = (CouponIborAverage) CPN_IBOR__AVERAGE_DEFINITION.toDerivative(REFERENCE_DATE);
   private static final CouponIborAverageDiscountingMethod METHOD_CPN_IBOR__AVERAGE = CouponIborAverageDiscountingMethod.getInstance();

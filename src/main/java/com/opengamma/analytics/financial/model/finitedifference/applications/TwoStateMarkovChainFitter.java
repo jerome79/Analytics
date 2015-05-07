@@ -42,7 +42,6 @@ import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * 
  */
@@ -240,7 +239,7 @@ public class TwoStateMarkovChainFitter {
             final EuropeanVanillaOption option = new EuropeanVanillaOption(k, t, true);
             try {
               final double impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, option, price);
-              final Pair<double[], Double> pair = Pair.of(new double[] {prices.getTimeValue(i), prices.getSpaceValue(j)}, impVol);
+              final Pair<double[], Double> pair = Pair.of(new double[] {prices.getTimeValue(i), prices.getSpaceValue(j) }, impVol);
               out.add(pair);
             } catch (final Exception e) {
               s_logger.error("can't find vol for strike: " + prices.getSpaceValue(j) + " and expiry " + prices.getTimeValue(i) + " . Not added to data set");

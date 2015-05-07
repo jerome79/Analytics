@@ -8,13 +8,9 @@ package com.opengamma.analytics.math.interpolation;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-import java.util.Random;
-
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
-import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
-
 
 /**
  * Test.
@@ -27,7 +23,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void positivityClampedTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5. };
     final double[] yValues = new double[] {0., 0.1, 1., 1., 20., 5., 0. };
@@ -48,7 +43,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
     for (int i = 0; i < 101; ++i) {
       final double key = 1. + 4. / (nPts - 1) * i;
       assertTrue(function.evaluate(resultPos, key).getData()[0] >= 0.);
-      //      assertTrue(interpPos.interpolate(xValues, yValues, key) >= 0.);
     }
 
     final int nData = xValues.length;
@@ -65,7 +59,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void positivityClampedMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5. };
     final double[][] yValues = new double[][] { {0., 0.1, 1., 1., 20., 5., 0. }, {-10., 0.1, 1., 1., 20., 5., 0. } };
@@ -106,7 +99,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void positivityNotAKnotTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5. };
     final double[] yValues = new double[] {0.1, 1., 1., 20., 5. };
@@ -143,7 +135,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void positivityEndIntervalsTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final double[][] yValues = new double[][] { {0.01, 0.01, 0.01, 10., 20., 1. }, {0.01, 0.01, 10., 10., 0.01, 0.01 } };
@@ -184,7 +175,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void flipTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final double[] yValues = new double[] {3., 0.1, 0.01, 0.01, 0.1, 3. };
@@ -207,7 +197,7 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
     final int nPts = 101;
     for (int i = 0; i < 101; ++i) {
       final double key = 2. + 3. / (nPts - 1) * i;
-      //      System.out.println(key + "\t" + function.evaluate(resultPos, key).getData()[0]);
+
       assertTrue(function.evaluate(resultPos, key).getData()[0] >= 0.);
     }
 
@@ -221,7 +211,6 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void flipMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final double[][] yValues = new double[][] { {3., 0.1, 0.01, 0.01, 0.1, 3. }, {3., 0.1, 0.01, 0.001, 2., 3. } };
@@ -525,142 +514,4 @@ public class NonnegativityPreservingQuinticSplineInterpolatorTest {
     interpPos.interpolate(xValues, yValues);
   }
 
-  /*
-   * Tests below are for debugging
-   */
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void randomTest() {
-    final double[] xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8. };
-    final int nData = xValues.length;
-    final double[] yValues = new double[nData];
-
-    Random rand = new Random();
-    int k = 0;
-
-    while (k < 100000) {
-      for (int i = 0; i < nData; ++i) {
-        yValues[i] = rand.nextDouble() * rand.nextDouble() * rand.nextDouble() * 10.;
-      }
-      System.out.println(new DoubleMatrix1D(yValues));
-
-      PiecewisePolynomialInterpolator interp = new CubicSplineInterpolator();
-      //      PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-      PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-      PiecewisePolynomialInterpolator interpPos = new NonnegativityPreservingQuinticSplineInterpolator(interp);
-      PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-
-      final int nKeys = 71;
-      for (int i = 0; i < nKeys; ++i) {
-        final double key = 1. + 7. / (nKeys - 1) * i;
-        //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-        assertTrue(function.evaluate(resultPos, key).getData()[0] >= 0.);
-      }
-      ++k;
-    }
-  }
-
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void printRandomTest() {
-    final double[] xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8. };
-    final double[] yValues = new double[] {0.012598960388297975, 4.4655977279739466E-5, 0.0058461054208919115, 0.0982676726884143, 0.010511366539896105, 0.034394933538855234, 0.017604600122254878,
-        0.028345715312802666 };
-
-    PiecewisePolynomialInterpolator interp = new CubicSplineInterpolator();
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-    PiecewisePolynomialInterpolator interpPos = new NonnegativityPreservingQuinticSplineInterpolator(interp);
-    PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-
-    final int nKeys = 71;
-    for (int i = 0; i < nKeys; ++i) {
-      final double key = 1. + 7. / (nKeys - 1) * i;
-      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-    }
-  }
-
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void printTest() {
-    final double[] xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8. };
-    final double[] yValues = new double[] {1., 0.01, 0.01, 10., 10., 0.01, 0.01, 1. };
-
-    PiecewisePolynomialInterpolator interp = new CubicSplineInterpolator();
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-    PiecewisePolynomialInterpolator interpPos = new NonnegativityPreservingQuinticSplineInterpolator(interp);
-    PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-
-    final int nKeys = 71;
-    for (int i = 0; i < nKeys; ++i) {
-      final double key = 1. + 7. / (nKeys - 1) * i;
-      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-    }
-  }
-
-  /**
-  * 
-  */
-  @Test
-      (enabled = false)
-      public void print1Test() {
-    final double[] xValues = new double[] {1., 2., 5., 4., 3. };
-    final double[][] yValues = new double[][] {{0.1, 1., 5., 20., 1. } };
-
-    PiecewisePolynomialInterpolator interp = new NaturalSplineInterpolator();
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-    PiecewisePolynomialInterpolator interpPos = new NonnegativityPreservingQuinticSplineInterpolator(interp);
-    PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-    System.out.println(resultPos.getCoefMatrix());
-
-    final int nKeys = 101;
-    for (int i = 0; i < nKeys; ++i) {
-      final double key = 1. + 4. / (nKeys - 1) * i;
-      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-    }
-  }
-
-  /**
-  * 
-  */
-  @Test
-      (enabled = false)
-      public void print2Test() {
-    final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
-    final double[] yValues = new double[] {0.01, 0.01, 10., 10., 0.01, 0.01 };
-
-    PiecewisePolynomialInterpolator interp = new NaturalSplineInterpolator();
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-    PiecewisePolynomialInterpolator interpPos = new NonnegativityPreservingQuinticSplineInterpolator(interp);
-    PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-    System.out.println(resultPos.getCoefMatrix());
-
-    final int nKeys = 101;
-    for (int i = 0; i < nKeys; ++i) {
-      final double key = 1. + 5. / (nKeys - 1) * i;
-      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-    }
-  }
 }

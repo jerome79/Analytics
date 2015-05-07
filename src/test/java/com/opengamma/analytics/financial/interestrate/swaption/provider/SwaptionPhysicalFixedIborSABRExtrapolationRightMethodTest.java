@@ -90,12 +90,12 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
   private static final SwapFixedCoupon<Coupon> SWAP_PAYER_HIGH = SWAP_PAYER_HIGH_DEFINITION.toDerivative(REFERENCE_DATE);
   private static final SwaptionPhysicalFixedIborDefinition SWAPTION_LONG_PAYER_HIGH_DEFINITION = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, SWAP_PAYER_HIGH_DEFINITION, true, IS_LONG);
   private static final SwaptionPhysicalFixedIborDefinition SWAPTION_SHORT_PAYER_HIGH_DEFINITION = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, SWAP_PAYER_HIGH_DEFINITION, true, !IS_LONG);
-  private static final SwaptionPhysicalFixedIborDefinition SWAPTION_LONG_RECEIVER_HIGH_DEFINITION = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, SWAP_RECEIVER_HIGH_DEFINITION, false, IS_LONG);
+  private static final SwaptionPhysicalFixedIborDefinition SWAPTION_LONG_RECEIVER_HIGH_DEFINITION = SwaptionPhysicalFixedIborDefinition
+      .from(EXPIRY_DATE, SWAP_RECEIVER_HIGH_DEFINITION, false, IS_LONG);
   private static final SwaptionPhysicalFixedIbor SWAPTION_LONG_PAYER_HIGH = SWAPTION_LONG_PAYER_HIGH_DEFINITION.toDerivative(REFERENCE_DATE);
   private static final SwaptionPhysicalFixedIbor SWAPTION_SHORT_PAYER_HIGH = SWAPTION_SHORT_PAYER_HIGH_DEFINITION.toDerivative(REFERENCE_DATE);
   private static final SwaptionPhysicalFixedIbor SWAPTION_LONG_RECEIVER_HIGH = SWAPTION_LONG_RECEIVER_HIGH_DEFINITION.toDerivative(REFERENCE_DATE);
   // Extrapolation
-  private static final SwaptionPhysicalFixedIborSABRMethod METHOD_SABR = SwaptionPhysicalFixedIborSABRMethod.getInstance();
   private static final double CUT_OFF_STRIKE = 0.08;
   private static final double MU = 10.0;
   private static final SwaptionPhysicalFixedIborSABRExtrapolationRightMethod METHOD_SABR_EXTRAPOLATION = new SwaptionPhysicalFixedIborSABRExtrapolationRightMethod(CUT_OFF_STRIKE, MU);
@@ -115,7 +115,7 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
   /**
    * Tests present value in the region where there is no extrapolation. Tests long/short parity.
    */
-  @Test
+
   public void presentValueNoExtra() {
     final MultiCurrencyAmount priceLongPayer = METHOD_SABR_EXTRAPOLATION.presentValue(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
     final MultiCurrencyAmount priceShortPayer = METHOD_SABR_EXTRAPOLATION.presentValue(SWAPTION_SHORT_PAYER, SABR_MULTICURVES);
@@ -136,7 +136,7 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
   /**
    * Tests present value at the limit of extrapolation. Tests long/short parity.
    */
-  @Test
+
   public void presentValueLimit() {
     final double highStrike = 0.0801;
     final SwapFixedIborDefinition swapPayerHighStrike = SwapFixedIborDefinition.from(SETTLEMENT_DATE, ANNUITY_TENOR, EUR1YEURIBOR6M, NOTIONAL, highStrike, FIXED_IS_PAYER);
@@ -160,7 +160,7 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
   /**
    * Tests present value in the region where there is extrapolation. Test a hard-coded value. Tests long/short parity. Test payer/receiver/swap parity.
    */
-  @Test
+
   public void presentValueExtra() {
     final MultiCurrencyAmount priceLongPayer = METHOD_SABR_EXTRAPOLATION.presentValue(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
     final MultiCurrencyAmount priceShortPayer = METHOD_SABR_EXTRAPOLATION.presentValue(SWAPTION_SHORT_PAYER_HIGH, SABR_MULTICURVES);
@@ -171,10 +171,10 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
     assertEquals("Swaption SABR extrapolation: fixed value", priceLongPayerExpected, priceLongPayer.getAmount(EUR).getAmount(), TOLERANCE_PV);
     assertEquals("Swaption SABR extrapolation: fixed value", priceLongReceiverExpected, priceLongReceiver.getAmount(EUR).getAmount(), TOLERANCE_PV);
     assertEquals("Swaption SABR extrapolation: long/short parity", priceLongPayer.getAmount(EUR).getAmount(), -priceShortPayer.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("Swaption SABR extrapolation: payer/receiver/swap parity", pricePayer.getAmount(EUR).getAmount(), priceLongPayer.getAmount(EUR).getAmount() - priceLongReceiver.getAmount(EUR).getAmount(), TOLERANCE_PV);
+    assertEquals("Swaption SABR extrapolation: payer/receiver/swap parity", pricePayer.getAmount(EUR).getAmount(), priceLongPayer.getAmount(EUR).getAmount() -
+        priceLongReceiver.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Test the present value sensitivity for a swaption with strike above the cut-off strike.
    */
@@ -184,7 +184,6 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Test the present value sensitivity for a swaption with strike above the cut-off strike.
    */
@@ -194,7 +193,6 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Test the present value sensitivity for a swaption with strike above the cut-off strike.
    */
@@ -204,7 +202,6 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Test the present value sensitivity to SABR parameters for a swaption with strike above the cut-off strike.
    */
@@ -251,36 +248,6 @@ public class SwaptionPhysicalFixedIborSABRExtrapolationRightMethodTest {
     assertEquals("Number of nu sensitivity", pvsLongPayer.getNu().getMap().keySet().size(), 1);
     assertEquals("Nu sensitivity expiry/tenor", pvsLongPayer.getNu().getMap().keySet().contains(expectedExpiryTenor), true);
     assertEquals("Nu sensitivity value", expectedNuSensi, pvsLongPayer.getNu().getMap().get(expectedExpiryTenor), 5.0E+1);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_SABR_EXTRAPOLATION.presentValue(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
-      METHOD_SABR_EXTRAPOLATION.presentValueCurveSensitivity(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
-      METHOD_SABR_EXTRAPOLATION.presentValueSABRSensitivity(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " swaption payer price+delta+vega with SABR extrapolation: " + (endTime - startTime) + " ms");
-    // Performance note: price+delta+vega payer extrapolation: 12-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 155 ms for 1000 swaptions.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_SABR.presentValue(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
-      METHOD_SABR.presentValueCurveSensitivity(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
-      METHOD_SABR.presentValueSABRSensitivity(SWAPTION_LONG_PAYER_HIGH, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " swaption payer price+delta+vega with standard SABR: " + (endTime - startTime) + " ms");
-    // Performance note: price+delta+vega payer standard: 12-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 95 ms for 1000 swaptions.
   }
 
 }

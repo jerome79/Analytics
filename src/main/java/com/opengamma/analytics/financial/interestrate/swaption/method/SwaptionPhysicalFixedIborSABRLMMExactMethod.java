@@ -74,8 +74,9 @@ public class SwaptionPhysicalFixedIborSABRLMMExactMethod implements PricingMetho
     ArgChecker.notNull(swaption, "swaption");
     ArgChecker.notNull(curves, "curves");
     //TODO: Create a way to chose the LMM base parameters (displacement, mean reversion, volatility).
-    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION, new VolatilityLMMAngle(
-        DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
+    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION,
+        new VolatilityLMMAngle(
+            DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective objective = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective(lmmParameters);
     final SuccessiveRootFinderCalibrationEngine calibrationEngine = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine(objective);
     //TODO: Create a way to chose the calibration type.
@@ -104,8 +105,9 @@ public class SwaptionPhysicalFixedIborSABRLMMExactMethod implements PricingMetho
     ArgChecker.notNull(swaption, "swaption");
     ArgChecker.notNull(curves, "curves");
     //TODO: Create a way to chose the LMM base parameters (displacement, mean reversion, volatility).
-    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION, new VolatilityLMMAngle(
-        DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
+    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION,
+        new VolatilityLMMAngle(
+            DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective objective = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective(lmmParameters);
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine calibrationEngine = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine(objective);
     //TODO: Create a way to chose the calibration type.
@@ -192,8 +194,9 @@ public class SwaptionPhysicalFixedIborSABRLMMExactMethod implements PricingMetho
     ArgChecker.notNull(swaption, "swaption");
     ArgChecker.notNull(curves, "curves");
     //TODO: Create a way to chose the LMM base parameters (displacement, mean reversion, volatility).
-    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION, new VolatilityLMMAngle(
-        DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
+    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION,
+        new VolatilityLMMAngle(
+            DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective objective = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective(lmmParameters);
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine calibrationEngine = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine(objective);
     final SwaptionPhysicalFixedIbor[] swaptionCalibration = METHOD_BASKET.calibrationBasketFixedLegPeriod(swaption);
@@ -297,8 +300,9 @@ public class SwaptionPhysicalFixedIborSABRLMMExactMethod implements PricingMetho
     ArgChecker.notNull(swaption, "swaption");
     ArgChecker.notNull(curves, "curves");
     //TODO: Create a way to chose the LMM base parameters (displacement, mean reversion, volatility).
-    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION, new VolatilityLMMAngle(
-        DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
+    final LiborMarketModelDisplacedDiffusionParameters lmmParameters = LiborMarketModelDisplacedDiffusionParameters.from(swaption, DEFAULT_DISPLACEMENT, DEFAULT_MEAN_REVERSION,
+        new VolatilityLMMAngle(
+            DEFAULT_ANGLE, DEFAULT_DISPLACEMENT));
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective objective = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationObjective(lmmParameters);
     final SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine calibrationEngine = new SwaptionPhysicalLMMDDSuccessiveRootFinderCalibrationEngine(objective);
     final SwaptionPhysicalFixedIbor[] swaptionCalibration = METHOD_BASKET.calibrationBasketFixedLegPeriod(swaption);

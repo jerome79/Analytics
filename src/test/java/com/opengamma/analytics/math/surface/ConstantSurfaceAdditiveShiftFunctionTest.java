@@ -10,8 +10,6 @@ import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -33,12 +31,12 @@ public class ConstantSurfaceAdditiveShiftFunctionTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void test3() {
-    F.evaluate(SURFACE, new double[] {2}, new double[] {1}, new double[] {3});
+    F.evaluate(SURFACE, new double[] {2 }, new double[] {1 }, new double[] {3 });
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void test4() {
-    F.evaluate(SURFACE, new double[] {2}, new double[] {1}, new double[] {3.}, "A");
+    F.evaluate(SURFACE, new double[] {2 }, new double[] {1 }, new double[] {3. }, "A");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -55,11 +53,11 @@ public class ConstantSurfaceAdditiveShiftFunctionTest {
   public void test() {
     final double shift = 0.34;
     ConstantDoublesSurface shifted = F.evaluate(SURFACE, shift);
-    assertArrayEquals(shifted.getZData(), new Double[] {Z + shift});
+    assertArrayEquals(shifted.getZData(), new Double[] {Z + shift });
     assertEquals(shifted.getName(), "PARALLEL_SHIFT_X");
     final String newName = "Y";
     shifted = F.evaluate(SURFACE, shift, newName);
-    assertArrayEquals(shifted.getZData(), new Double[] {Z + shift});
+    assertArrayEquals(shifted.getZData(), new Double[] {Z + shift });
     assertEquals(shifted.getName(), newName);
   }
 

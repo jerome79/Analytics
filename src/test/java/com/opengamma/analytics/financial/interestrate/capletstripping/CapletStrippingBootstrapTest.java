@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 
-
 /**
  * 
  */

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.credit.creditdefaultswap;
 
-
 /**
  * Enumerate the types of quoting conventions in the marketplace for standard (post big-bang) CDS's
  */

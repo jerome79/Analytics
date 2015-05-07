@@ -31,8 +31,7 @@ public class StudentTLinearVaRCalculator<T> implements VaRCalculator<StudentTVaR
     ArgChecker.notNull(parameters, "parameters");
     ArgChecker.notNull(data, "data");
     final Double value = parameters.getMult() * _stdCalculator.evaluate(data) - parameters.getScale() * _meanCalculator.evaluate(data);
-    // REVIEW kirk 2012-06-22 -- Is the "stdCalculator" a standard deviation calculator
-    // that we can use for the result?
+    // Is the "stdCalculator" a standard deviation calculator that we can use for the result?
     return new VaRCalculationResult(value, null);
   }
 

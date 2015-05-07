@@ -130,7 +130,6 @@ public class InflationDiscountBuildingRepositoryWithDiscount {
     // Sensitivity calculator
     final ParameterSensitivityInflationUnderlyingMatrixCalculator parameterSensitivityCalculator = new ParameterSensitivityInflationUnderlyingMatrixCalculator(sensitivityCalculator);
     int loopc;
-    //    CurveBuildingBlock blockOut = new CurveBuildingBlock(blockIn.getData());
     final LinkedHashMap<String, Pair<Integer, Integer>> mapBlockOut = new LinkedHashMap<>();
     // Curve names manipulation
     final Set<String> allCurveName1 = inflationProvider.getAllNames();

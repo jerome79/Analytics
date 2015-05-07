@@ -59,7 +59,6 @@ public class ISDACompliantCurveCalibrator {
       t[i] = ACT_365.yearFraction(today, endDates[i]);
     }
 
-    // HazardRateCurve hazardCurve = new HazardRateCurve(toZoneDateTime(endDates), t, guess, 0.0);
     ISDACompliantDateCreditCurve hazardCurve = new ISDACompliantDateCreditCurve(today, endDates, guess);
     for (int i = 0; i < n; i++) {
       final CDSPricer func = new CDSPricer(i, today, stepinDate, valueDate, startDate, endDates[i], couponRates[i], protectStart, payAccOnDefault,

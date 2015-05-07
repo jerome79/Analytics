@@ -9,7 +9,6 @@ import com.opengamma.analytics.math.function.DoubleFunction1D;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * 
  */

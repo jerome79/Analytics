@@ -229,7 +229,6 @@ public final class SwaptionCashFixedIborBlackMethod implements PricingMethod {
     return CurrencyAmount.of(swaption.getCurrency(), forwardThetaTheoretical(swaption, curveBlack) * sign * annuityFixed.getNthPayment(0).getAmount());
   }
 
-
   /**
    * Compute first derivative of present value with respect to forward rate
    * @param swaption The swaption.

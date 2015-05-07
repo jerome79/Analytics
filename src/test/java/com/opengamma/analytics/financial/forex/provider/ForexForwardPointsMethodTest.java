@@ -39,7 +39,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Test related to the method for Forex transaction by discounting on each payment.
  */
@@ -105,7 +104,6 @@ public class ForexForwardPointsMethodTest {
    * Tests the present value computation.
    */
   public void presentValueDirectOrder() {
-    //    final double fxRate = MULTICURVES.getFxRate(CUR_1, CUR_2);
     final double payTime = FX.getPaymentTime();
     final double fwdRate = FWD_RATES.getYValue(payTime);
     final double amount1 = NOMINAL_1;

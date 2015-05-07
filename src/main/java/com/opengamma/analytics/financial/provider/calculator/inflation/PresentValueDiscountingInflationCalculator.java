@@ -35,8 +35,8 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * Calculates the present value of an inflation instruments by discounting for a given MarketBundle
  */
-public final class PresentValueDiscountingInflationCalculator extends 
-  InstrumentDerivativeVisitorDelegate<ParameterInflationProviderInterface, MultiCurrencyAmount> {
+public final class PresentValueDiscountingInflationCalculator extends
+    InstrumentDerivativeVisitorDelegate<ParameterInflationProviderInterface, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.

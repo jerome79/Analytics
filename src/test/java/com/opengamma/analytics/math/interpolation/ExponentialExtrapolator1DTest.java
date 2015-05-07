@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test related to the exponential extrapolator.
  */
@@ -21,8 +20,8 @@ public class ExponentialExtrapolator1DTest {
   private static final Interpolator1D INTERPOLATOR = new LinearInterpolator1D();
   private static final ExponentialExtrapolator1D EXP_EXTRAPOLATOR = new ExponentialExtrapolator1D();
 
-  private static final double[] X_DATA = new double[] {0.01, 1.0, 5.0, 10.0};
-  private static final double[] Y_DATA = new double[] {0.99, 0.98, 0.90, 0.80};
+  private static final double[] X_DATA = new double[] {0.01, 1.0, 5.0, 10.0 };
+  private static final double[] Y_DATA = new double[] {0.99, 0.98, 0.90, 0.80 };
 
   private static final Interpolator1DDataBundle DATA;
   static {

@@ -12,7 +12,6 @@ import java.time.temporal.TemporalAdjuster;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -34,7 +33,7 @@ public class QuarterlyIMMRollDateAdjusterTest {
   public void testSecondQuarter() {
     LocalDate date = LocalDate.of(2013, 3, 21);
     final LocalDate immDate = LocalDate.of(2013, 6, 19);
-    while(!date.isAfter(immDate)) {
+    while (!date.isAfter(immDate)) {
       assertEquals(immDate, ADJUSTER.adjustInto(date));
       date = date.plusDays(1);
     }
@@ -44,7 +43,7 @@ public class QuarterlyIMMRollDateAdjusterTest {
   public void testThirdQuarterBefore() {
     LocalDate date = LocalDate.of(2013, 6, 20);
     final LocalDate immDate = LocalDate.of(2013, 9, 18);
-    while(!date.isAfter(immDate)) {
+    while (!date.isAfter(immDate)) {
       assertEquals(immDate, ADJUSTER.adjustInto(date));
       date = date.plusDays(1);
     }
@@ -54,7 +53,7 @@ public class QuarterlyIMMRollDateAdjusterTest {
   public void testFourthQuarter() {
     LocalDate date = LocalDate.of(2013, 9, 19);
     final LocalDate immDate = LocalDate.of(2013, 12, 18);
-    while(!date.isAfter(immDate)) {
+    while (!date.isAfter(immDate)) {
       assertEquals(immDate, ADJUSTER.adjustInto(date));
       date = date.plusDays(1);
     }
@@ -65,7 +64,7 @@ public class QuarterlyIMMRollDateAdjusterTest {
     LocalDate date = LocalDate.of(2013, 12, 19);
     final LocalDate endOfYear = LocalDate.of(2013, 12, 31);
     final LocalDate immDate = LocalDate.of(2014, 3, 19);
-    while(!date.isAfter(endOfYear)) {
+    while (!date.isAfter(endOfYear)) {
       assertEquals(immDate, ADJUSTER.adjustInto(date));
       date = date.plusDays(1);
     }

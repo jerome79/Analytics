@@ -77,8 +77,8 @@ public class InflationBuildingCurveSimpleTestUS {
 
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2012, 9, 28);
 
-  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 30),
-      DateUtils.getUTCDate(2011, 9, 30), DateUtils.getUTCDate(2012, 6, 30), DateUtils.getUTCDate(2012, 7, 31)}, new double[]{200, 200, 200, 200});
+  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 30),
+    DateUtils.getUTCDate(2011, 9, 30), DateUtils.getUTCDate(2012, 6, 30), DateUtils.getUTCDate(2012, 7, 31) }, new double[] {200, 200, 200, 200 });
   private static final String CURVE_NAME_DSC_USD = "USD Dsc";
   private static final String CURVE_NAME_CPI_USD = "USD CPI";
   private static final String[] CURVE_NAMES = {CURVE_NAME_DSC_USD, CURVE_NAME_CPI_USD };
@@ -187,21 +187,6 @@ public class InflationBuildingCurveSimpleTestUS {
     }
   }
 
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_CURVES, KNOWN_BUNDLE, PSIMQC, PSIMQCSC);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("InflationBuildingCurveSimpleTestUSD - " + nbTest + " curve construction Price index USD 1 units: " + (endTime - startTime) + " ms");
-    // Performance note: curve construction Price index USD 1 units: 27-Mar-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 2816 ms for 1000 sets.
-  }
-
-  @Test
   public void curveConstructionGeneratorOtherBlocks() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), loopblock);
@@ -247,7 +232,7 @@ public class InflationBuildingCurveSimpleTestUS {
       }
       curveBundles[i] = new MultiCurveBundle<>(singleCurves);
     }
-    return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(curveBundles, knownData, knownBundle,  
+    return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(curveBundles, knownData, knownBundle,
         USD_HICP_MAP, calculator, sensitivityCalculator);
   }
 

@@ -16,12 +16,12 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * Computes the price for different types of futures. Calculator using a multi-curve and issuer provider.
  */
-public final class FuturesPriceBlackBondFuturesCalculator 
+public final class FuturesPriceBlackBondFuturesCalculator
     extends InstrumentDerivativeVisitorAdapter<BlackBondFuturesProviderInterface, Double> {
 
   /** The default instance of the calculator. */
   private static final FuturesPriceBlackBondFuturesCalculator DEFAULT = new FuturesPriceBlackBondFuturesCalculator();
-  
+
   /** The method used to compute futures option */
   private final BondFutureOptionMarginSecurityBlackSmileMethod _methodFuturesOption;
 
@@ -58,7 +58,7 @@ public final class FuturesPriceBlackBondFuturesCalculator
     ArgChecker.notNull(black, "black");
     return _methodFuturesOption.price(security, black);
   }
-  
+
   @Override
   public Double visitBondFuturesOptionMarginTransaction(BondFuturesOptionMarginTransaction option,
       BlackBondFuturesProviderInterface data) {

@@ -18,7 +18,6 @@ import com.google.common.collect.Sets;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.location.Country;
 
-
 /**
  * Tests the obligor object.
  */

@@ -14,7 +14,6 @@ import com.opengamma.analytics.math.ComplexMathUtils;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
 
-
 /**
  * Test.
  */

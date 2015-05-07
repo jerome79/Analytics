@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
@@ -17,10 +16,10 @@ import com.opengamma.strata.collect.ArgChecker;
  * Abstract class.
  */
 public abstract class GeneratorLeg extends GeneratorInstrument<GeneratorAttributeIR> {
-  
+
   /** The leg generator currency. */
   private final Currency _ccy;
-  
+
   /** 
    * Constructor.
    * @param name The generator name.
@@ -31,7 +30,7 @@ public abstract class GeneratorLeg extends GeneratorInstrument<GeneratorAttribut
     ArgChecker.notNull(ccy, "currency");
     _ccy = ccy;
   }
-  
+
   /**
    * Returns the leg generator currency.
    * @return The currency.
@@ -39,7 +38,7 @@ public abstract class GeneratorLeg extends GeneratorInstrument<GeneratorAttribut
   public Currency getCurrency() {
     return _ccy;
   }
-  
+
   @Override
   /**
    * The leg generated is a receiver leg. To obtain a payer leg, use a negative notional.

@@ -42,6 +42,7 @@ import com.opengamma.analytics.math.rootfinding.newton.BroydenVectorRootFinder;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
+
 /**
  * Functions to build curves.
  */
@@ -306,7 +307,7 @@ public class IssuerDiscountBuildingRepository {
     }
 
     return makeCurvesFromDerivatives(curveBundles, knownData, new CurveBuildingBlockBundle(), discountingMap,
-                                     forwardIborMap, forwardONMap, issuerMap, calculator, sensitivityCalculator);
+        forwardIborMap, forwardONMap, issuerMap, calculator, sensitivityCalculator);
   }
 
   /**

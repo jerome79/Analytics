@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test DayCount accrued interest.
  */

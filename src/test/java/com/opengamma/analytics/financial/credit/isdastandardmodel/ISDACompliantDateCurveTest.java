@@ -22,7 +22,6 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantDateCurve.Meta;
 
-
 /**
  *
  */
@@ -32,6 +31,7 @@ public class ISDACompliantDateCurveTest {
   @Test
   public void test() {
   }
+
   /**
    *
    */

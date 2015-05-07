@@ -202,8 +202,6 @@ public final class ForexOptionSingleBarrierBlackMethod {
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volatility, priceDerivatives);
     final double volatilitySensitivityValue = priceDerivatives[4] * Math.abs(foreignAmount) * sign;
     final DoublesPair point = DoublesPair.of(optionForex.getUnderlyingOption().getTimeToExpiry(), optionForex.getUnderlyingOption().getStrike());
-    //    Map<DoublesPair, Double> result = new HashMap<DoublesPair, Double>();
-    //    result.put(point, volatilitySensitivityValue);
     final SurfaceValue result = SurfaceValue.from(point, volatilitySensitivityValue);
     final PresentValueForexBlackVolatilitySensitivity sensi = new PresentValueForexBlackVolatilitySensitivity(optionForex.getUnderlyingOption().getUnderlyingForex().getCurrency1(), optionForex
         .getUnderlyingOption().getUnderlyingForex().getCurrency2(), result);

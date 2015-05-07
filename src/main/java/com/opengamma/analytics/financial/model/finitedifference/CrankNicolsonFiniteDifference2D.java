@@ -102,20 +102,9 @@ public class CrankNicolsonFiniteDifference2D implements ConvectionDiffusionPDESo
             sum -= e * dtdxdy / 4 * (u[index + xSteps + 2] + u[index - xSteps - 2] - u[index - xSteps] - u[index + xSteps]);
             sum -= f * dtdy / 2 * (u[index + xSteps + 1] - u[index - xSteps - 1]);
 
-            // sum += dtdxdy * e / 4.0 * u[index - xSteps - 2];
-            // sum += (dtdy2 * d - 0.5 * dtdy * f) * u[index - xSteps - 1];
-            // sum += -dtdxdy * e / 4.0 * u[index - xSteps];
-            // sum += (dtdx2 * a - 0.5 * dtdx * b) * u[index - 1];
-            // sum += -(2 * dtdx2 * a - dt * c) - (2 * dtdy2 * d) * u[index];
-            // sum += (dtdx2 * a + 0.5 * dtdx * b) * u[index + 1];
-            // sum += -dtdxdy * e / 4.0 * u[index + xSteps];
-            // sum += (dtdy2 * d + 0.5 * dtdy * f) * u[index + xSteps + 1];
-            // sum += dtdxdy * e / 4.0 * u[index + xSteps + 2];
             sum *= (1 - _theta);
           }
           sum += u[index];
-
-          // sum = v[i][j];
 
           q[index] = sum;
 
@@ -207,9 +196,6 @@ public class CrankNicolsonFiniteDifference2D implements ConvectionDiffusionPDESo
             sum += w[l][8] * u[l + xSteps + 2];
 
             final double correction = omega / w[l][4] * (q[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             u[l] += correction;
             scale += u[l] * u[l];
@@ -481,9 +467,6 @@ public class CrankNicolsonFiniteDifference2D implements ConvectionDiffusionPDESo
             sum += w[l][8] * u[l + xNodes + 1];
 
             final double correction = omega / w[l][4] * (q[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             u[l] += correction;
             scale += u[l] * u[l];

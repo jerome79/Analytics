@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
 /**
  * 
  */
@@ -27,8 +26,6 @@ public class CarrLeeNewlyIssuedSyntheticVolatilitySwapCalculatorTest {
   public void sampleData1Test() {
     final double timeToExpiry = 1.5;
     final double spot = 49.;
-    //    final double forward = 102.;
-    //    final double interestRate = Math.log(forward / spot) / timeToExpiry;
     final double interestRate = -0.05;
     final double dividend = -0.01;
     final double forward = spot * Math.exp((interestRate - dividend) * timeToExpiry);
@@ -137,8 +134,6 @@ public class CarrLeeNewlyIssuedSyntheticVolatilitySwapCalculatorTest {
   public void sampleData2Test() {
     final double timeToExpiry = 0.5;
     final double spot = 100.;
-    //    final double forward = 102.;
-    //    final double interestRate = Math.log(forward / spot) / timeToExpiry;
     final double interestRate = 0.04;
     final double forward = spot * Math.exp(interestRate * timeToExpiry);
     final double[] callStrikes = new double[] {105., 110., 115., 120., 125., 130. };
@@ -191,8 +186,6 @@ public class CarrLeeNewlyIssuedSyntheticVolatilitySwapCalculatorTest {
   public void errorTest() {
     final double timeToExpiry = 1.2;
     final double spot = 45.;
-    //    final double forward = 102.;
-    //    final double interestRate = Math.log(forward / spot) / timeToExpiry;
     final double interestRate = 0.01;
     final double dividend = 0.005;
     final double forward = spot * Math.exp(interestRate * timeToExpiry);

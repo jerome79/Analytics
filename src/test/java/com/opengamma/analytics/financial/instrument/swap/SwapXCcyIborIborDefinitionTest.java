@@ -21,7 +21,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test the swap Ibor+spread to Ibor+spread constructor and to derivative.
  */

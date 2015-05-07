@@ -15,9 +15,7 @@ import com.opengamma.strata.collect.ArgChecker;
 @SuppressWarnings("deprecation")
 public class OperatorSplittingFiniteDifference2D implements ConvectionDiffusionPDESolver2D {
 
-  // private static final Decomposition<?> DCOMP = new LUDecompositionCommons();
   // Theta = 0 - explicit
-  // private static final double THETA = 0.5;
   private static final int SOR_MAX = 5000;
 
   @Override
@@ -135,14 +133,10 @@ public class OperatorSplittingFiniteDifference2D implements ConvectionDiffusionP
             min = (l == xSteps ? 0 : Math.max(0, l - 1));
             max = (l == 0 ? xSteps : Math.min(xSteps, l + 1));
             sum = 0;
-            // for (int k = 0; k <= xSteps; k++) {
             for (int k = min; k <= max; k++) { // mx is tri-diagonal so only need 3 steps here
               sum += mx[l][k] * vt[k][j];
             }
             final double correction = omega / mx[l][l] * (q[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             vt[l][j] += correction;
             scale += vt[l][j] * vt[l][j];
@@ -214,14 +208,10 @@ public class OperatorSplittingFiniteDifference2D implements ConvectionDiffusionP
             min = (l == ySteps ? 0 : Math.max(0, l - 1));
             max = (l == 0 ? ySteps : Math.min(ySteps, l + 1));
             sum = 0;
-            // for (int k = 0; k <= ySteps; k++) {
             for (int k = min; k <= max; k++) {
               sum += my[l][k] * v[i][k];
             }
             final double correction = omega / my[l][l] * (r[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             v[i][l] += correction;
             scale += v[i][l] * v[i][l];
@@ -236,5 +226,4 @@ public class OperatorSplittingFiniteDifference2D implements ConvectionDiffusionP
 
   }
 
-  // private double[][] solveSOR(double[][] m, double[][] v)
 }

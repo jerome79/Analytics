@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -69,13 +68,15 @@ public class HullWhiteStochasticVolatilityModelDataBundle extends StandardOption
 
   @Override
   public HullWhiteStochasticVolatilityModelDataBundle withCostOfCarry(final double b) {
-    return new HullWhiteStochasticVolatilityModelDataBundle(getInterestRateCurve(), b, getVolatilitySurface(), getSpot(), getDate(), getHalfLife(), getLongRunVolatility(), getVolatilityOfVolatility(),
+    return new HullWhiteStochasticVolatilityModelDataBundle(getInterestRateCurve(), b, getVolatilitySurface(), getSpot(), getDate(), getHalfLife(), getLongRunVolatility(),
+        getVolatilityOfVolatility(),
         getCorrelation());
   }
 
   @Override
   public HullWhiteStochasticVolatilityModelDataBundle withVolatilitySurface(final VolatilitySurface surface) {
-    return new HullWhiteStochasticVolatilityModelDataBundle(getInterestRateCurve(), getCostOfCarry(), surface, getSpot(), getDate(), getHalfLife(), getLongRunVolatility(), getVolatilityOfVolatility(),
+    return new HullWhiteStochasticVolatilityModelDataBundle(getInterestRateCurve(), getCostOfCarry(), surface, getSpot(), getDate(), getHalfLife(), getLongRunVolatility(),
+        getVolatilityOfVolatility(),
         getCorrelation());
   }
 

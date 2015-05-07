@@ -142,7 +142,7 @@ public class BlackScholesMertonPDEPricer {
     final double sMax = Math.max(1.25 * k, s0 * mult);
 
     // set up a near-uniform mesh that includes spot and strike
-    final double[] fixedPoints = k == 0.0 ? new double[] {s0} : new double[] {s0, k};
+    final double[] fixedPoints = k == 0.0 ? new double[] {s0 } : new double[] {s0, k };
     final MeshingFunction xMesh = new ExponentialMeshing(sMin, sMax, spaceNodes, 0.0, fixedPoints);
 
     PDEGrid1D[] grid;
@@ -161,12 +161,12 @@ public class BlackScholesMertonPDEPricer {
       grid = new PDEGrid1D[2];
       grid[0] = new PDEGrid1D(tBurnMesh, xMesh);
       grid[1] = new PDEGrid1D(tMesh, xMesh);
-      theta = new double[] {_burninTheta, _mainRunTheta};
+      theta = new double[] {_burninTheta, _mainRunTheta };
     } else {
       grid = new PDEGrid1D[1];
       final MeshingFunction tMesh = new ExponentialMeshing(0, t, timeNodes, 0.0);
       grid[0] = new PDEGrid1D(tMesh, xMesh);
-      theta = new double[] {_mainRunTheta};
+      theta = new double[] {_mainRunTheta };
     }
 
     return price(s0, k, r, b, t, sigma, isCall, isAmerican, grid, theta);
@@ -206,7 +206,7 @@ public class BlackScholesMertonPDEPricer {
     }
 
     // centre the nodes around the spot
-    final double[] fixedPoints = k == 0.0 ? new double[] {s0} : new double[] {s0, k};
+    final double[] fixedPoints = k == 0.0 ? new double[] {s0 } : new double[] {s0, k };
     final MeshingFunction xMesh = new HyperbolicMeshing(sMin, sMax, s0, spaceNodes, beta, fixedPoints);
 
     MeshingFunction tMesh = new ExponentialMeshing(0, t, timeNodes, lambda);
@@ -222,11 +222,11 @@ public class BlackScholesMertonPDEPricer {
       grid = new PDEGrid1D[2];
       grid[0] = new PDEGrid1D(tBurnMesh, xMesh);
       grid[1] = new PDEGrid1D(tMesh, xMesh);
-      theta = new double[] {_burninTheta, _mainRunTheta};
+      theta = new double[] {_burninTheta, _mainRunTheta };
     } else {
       grid = new PDEGrid1D[1];
       grid[0] = new PDEGrid1D(tMesh, xMesh);
-      theta = new double[] {_mainRunTheta};
+      theta = new double[] {_mainRunTheta };
     }
 
     return price(s0, k, r, b, t, sigma, isCall, isAmerican, grid, theta);

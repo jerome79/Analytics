@@ -14,7 +14,6 @@ import java.util.Map;
 import org.joda.beans.impl.flexi.FlexiBean;
 import org.testng.annotations.Test;
 
-
 /**
  * Tests the sector object.
  */

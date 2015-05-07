@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.BondFutu
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuturesOptionMarginTransaction;
 import com.opengamma.analytics.util.time.DateUtils;
 
-
 /**
  * Tests related to bond futures option security Definition construction.
  */

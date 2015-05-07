@@ -27,8 +27,6 @@ public class CapletStrippingBootstrap {
   private final double[] _intrinsicValues;
   private final double[] _endTimes;
 
-  // private final List<CapFloorPricer> _capPricers;
-
   /**
    * Simple caplet bootstrapping
    * @param caps All caps must have same start time and strike

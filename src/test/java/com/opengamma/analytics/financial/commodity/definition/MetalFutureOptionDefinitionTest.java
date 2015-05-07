@@ -19,7 +19,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.id.StandardId;
 
-
 /**
  * Test.
  */

@@ -13,7 +13,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -86,7 +85,6 @@ public class ISDABaseTest {
         throw new IllegalArgumentException("cannot parse " + temp);
       }
     }
-    // return ISDACompliantYieldCurveBuild.build(today, spotDate, types, tenors, rates, moneyMarketDCC, swapDCC, swapInterval, curveDCC, MOD_FOLLOWING);
     final ISDACompliantYieldCurveBuild builder = new ISDACompliantYieldCurveBuild(today, spotDate, types, tenors, moneyMarketDCC, swapDCC, swapInterval, curveDCC, MOD_FOLLOWING, calendar);
     return builder;
   }

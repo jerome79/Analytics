@@ -63,7 +63,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    * @param interpolator The interpolator, not null
    * @param name The name of the cube
    * @return An interpolated cube 
-   */  
+   */
   public static InterpolatedDoublesCube from(double[] xData, double[] yData, double[] zData, double[] values, InterpolatorND interpolator, String name) {
     return new InterpolatedDoublesCube(xData, yData, zData, values, interpolator, name);
   }
@@ -76,7 +76,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    * @param interpolator The interpolator, not null
    * @param name The name of the cube
    * @return An interpolated cube 
-   */ 
+   */
   public static InterpolatedDoublesCube from(Double[] xData, Double[] yData, Double[] zData, Double[] values, InterpolatorND interpolator, String name) {
     return new InterpolatedDoublesCube(xData, yData, zData, values, interpolator, name);
   }
@@ -89,7 +89,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    * @param interpolator The interpolator, not null
    * @param name The name of the cube
    * @return An interpolated cube 
-   */ 
+   */
   public static InterpolatedDoublesCube from(List<Double> xData, List<Double> yData, List<Double> zData, List<Double> values, InterpolatorND interpolator,
       String name) {
     return new InterpolatedDoublesCube(xData, yData, zData, values, interpolator, name);
@@ -147,7 +147,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    * @param values An array containing <i>value</i> data, not null, must be the same length as the <i>x</i> array
    * @param interpolator The interpolator, not null
    * @param name The name of the cube
-   */  
+   */
   public InterpolatedDoublesCube(double[] xData, double[] yData, double[] zData, double[] values, InterpolatorND interpolator, String name) {
     super(xData, yData, zData, values, name);
     ArgChecker.notNull(interpolator, "interpolator");
@@ -162,7 +162,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    * @param values An array containing <i>value</i> data, not null, must be the same length as the <i>x</i> array
    * @param interpolator The interpolator, not null
    * @param name The name of the cube
-   */ 
+   */
   public InterpolatedDoublesCube(Double[] xData, Double[] yData, Double[] zData, Double[] values, InterpolatorND interpolator, String name) {
     super(xData, yData, zData, values, name);
     ArgChecker.notNull(interpolator, "interpolator");
@@ -177,7 +177,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
    * @param values A list containing <i>value</i> data, not null, must be the same length as the <i>x</i> list
    * @param interpolator The interpolator, not null
    * @param name The name of the cube
-   */ 
+   */
   public InterpolatedDoublesCube(List<Double> xData, List<Double> yData, List<Double> zData, List<Double> values, InterpolatorND interpolator, String name) {
     super(xData, yData, zData, values, name);
     ArgChecker.notNull(interpolator, "interpolator");
@@ -194,7 +194,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
     ArgChecker.notNull(x, "x");
     ArgChecker.notNull(y, "y");
     ArgChecker.notNull(z, "z");
-    return _interpolator.interpolate(_dataBundle, new double[] {x, y, z});
+    return _interpolator.interpolate(_dataBundle, new double[] {x, y, z });
   }
 
   @Override
@@ -206,7 +206,7 @@ public class InterpolatedDoublesCube extends DoublesCube {
     ArgChecker.notNull(y, "y");
     Double z = xyz.getThird();
     ArgChecker.notNull(z, "z");
-    return _interpolator.interpolate(_dataBundle, new double[] {x, y, z});
+    return _interpolator.interpolate(_dataBundle, new double[] {x, y, z });
   }
 
   public InterpolatorND getInterpolator() {

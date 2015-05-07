@@ -31,25 +31,24 @@ public class SwapZeroCouponInflationUsdAnalysis {
 
   private static final ZonedDateTime CAlIBRATION_DATE = DateUtils.getUTCDate(2014, 10, 9);
   private static final Currency USD = Currency.USD;
-  private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_ZCINFLATION_US = 
+  private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_ZCINFLATION_US =
       GeneratorSwapFixedInflationMaster.getInstance().getGenerator("USCPI");
   private static final IndexPrice US_CPI = GENERATOR_ZCINFLATION_US.getIndexPrice();
-  
+
   /** Curves */
-  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_1_PAIR = 
+  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_1_PAIR =
       StandardDataSetsInflationUSD.getCurvesUsdOisUsCpi(CAlIBRATION_DATE);
   private static final InflationProviderDiscount MULTICURVE_INFL_1 = MULTICURVE_INFL_1_PAIR.getFirst();
-  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_2_PAIR = 
+  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_2_PAIR =
       StandardDataSetsInflationUSD.getCurvesUsdOisUsCpiSeasonality(CAlIBRATION_DATE);
   private static final InflationProviderDiscount MULTICURVE_INFL_2 = MULTICURVE_INFL_2_PAIR.getFirst();
-  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_3_PAIR = 
+  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_3_PAIR =
       StandardDataSetsInflationUSD.getCurvesUsdOisUsCpiCurrent(CAlIBRATION_DATE);
   private static final InflationProviderDiscount MULTICURVE_INFL_3 = MULTICURVE_INFL_3_PAIR.getFirst();
-  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_4_PAIR = 
+  private static final Pair<InflationProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_INFL_4_PAIR =
       StandardDataSetsInflationUSD.getCurvesUsdOisUsCpiCurrentSeasonality(CAlIBRATION_DATE);
   private static final InflationProviderDiscount MULTICURVE_INFL_4 = MULTICURVE_INFL_4_PAIR.getFirst();
-  
-  
+
   @Test(enabled = false)
   public void graphCurves() {
     int nbYear = 30;
@@ -64,11 +63,10 @@ public class SwapZeroCouponInflationUsdAnalysis {
     CurveCalibrationTestsUtils.exportInflationCurve(CAlIBRATION_DATE, calibrationMinusEom, MULTICURVE_INFL_4, US_CPI,
         new File("demo-test-inflation-4.csv"), nbStep, 1);
   }
-  
 
   @Test(enabled = false)
   public void exportCurves() {
     ExportUtils.exportInflationProviderDiscount(MULTICURVE_INFL_1, "infl_1.csv");
   }
-  
+
 }

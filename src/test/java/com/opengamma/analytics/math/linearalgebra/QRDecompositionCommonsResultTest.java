@@ -31,11 +31,11 @@ public class QRDecompositionCommonsResultTest {
   QRDecomposition qr = new QRDecomposition(condok);
   QRDecompositionCommonsResult result = new QRDecompositionCommonsResult(qr);
 
-  @Test(expectedExceptions=IllegalArgumentException.class)
+  @Test(expectedExceptions = IllegalArgumentException.class)
   public void testThrowOnNull() {
     new QRDecompositionCommonsResult(null);
   }
-  
+
   public void testGetQ() {
     double[][] expectedRaw = new double[][] { {-0.9879705944808324, 0.1189683945357854, 0.0984381737009301, 0.0083994941034602 },
       {-0.0889173535032749, -0.9595057553635415, 0.2632608647546777, 0.0462182513606091 }, {-0.0987970594480833, -0.1873133740004731, -0.8116464267094188, 0.5444106161481449 },

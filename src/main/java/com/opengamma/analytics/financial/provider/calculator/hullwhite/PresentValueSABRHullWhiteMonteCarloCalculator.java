@@ -67,7 +67,7 @@ public final class PresentValueSABRHullWhiteMonteCarloCalculator extends Instrum
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(sabrData, "SABR swaption provider");
     final Currency ccy = swaption.getCurrency();
-    final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(DEFAULT_MEAN_REVERSION, new double[] {0.01}, new double[0]);
+    final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(DEFAULT_MEAN_REVERSION, new double[] {0.01 }, new double[0]);
     final SuccessiveRootFinderHullWhiteCalibrationObjective objective = new SuccessiveRootFinderHullWhiteCalibrationObjective(hwParameters, ccy);
     final SuccessiveRootFinderHullWhiteCalibrationEngine<SABRSwaptionProviderInterface> calibrationEngine = new SuccessiveRootFinderHullWhiteCalibrationEngine<>(objective);
     // Calibration instruments

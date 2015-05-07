@@ -13,7 +13,6 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */
@@ -44,7 +43,7 @@ public class YieldSensitivityCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNegativeOrder() {
-    YSC.calculateNthOrderSensitivity(new AnnuityCouponFixed(new CouponFixed[] {new CouponFixed(CUR, 2, 2, 0.4)}), 1, -1);
+    YSC.calculateNthOrderSensitivity(new AnnuityCouponFixed(new CouponFixed[] {new CouponFixed(CUR, 2, 2, 0.4) }), 1, -1);
   }
 
   @Test
@@ -52,7 +51,6 @@ public class YieldSensitivityCalculatorTest {
     final int n = 10;
     final double pv = 0.875;
     final CouponFixed[] payments = new CouponFixed[n];
-    //    final PaymentFixed[] payments = new PaymentFixed[n];
     final double tau = 0.5;
     for (int i = 0; i < n - 1; i++) {
       payments[i] = new CouponFixed(CUR, (i + 1) * tau, tau, 0.0);

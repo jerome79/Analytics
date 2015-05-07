@@ -38,10 +38,10 @@ public class SensitivityPnLCalculatorTest {
   private static final double VOMMA_VALUE = 500.;
   private static final ValueGreekSensitivity RHO = new ValueGreekSensitivity(new ValueGreek(Greek.RHO), "A");
   private static final double RHO_VALUE = 600.;
-  private static final long[] TIMES = new long[] {400, 401};
-  private static final double[] TS_SPOT_DATA = new double[] {0.4, 0.45};
-  private static final double[] TS_IR_DATA = new double[] {0.3, 0.35};
-  private static final double[] TS_IMP_VOL_DATA = new double[] {0.7, 0.75};
+  private static final long[] TIMES = new long[] {400, 401 };
+  private static final double[] TS_SPOT_DATA = new double[] {0.4, 0.45 };
+  private static final double[] TS_IR_DATA = new double[] {0.3, 0.35 };
+  private static final double[] TS_IMP_VOL_DATA = new double[] {0.7, 0.75 };
   private static final DoubleTimeSeries<?> TS_SPOT = ImmutableZonedDateTimeDoubleTimeSeries.of(TIMES, TS_SPOT_DATA, UTC);
   private static final DoubleTimeSeries<?> TS_IR = ImmutableZonedDateTimeDoubleTimeSeries.of(TIMES, TS_IR_DATA, UTC);
   private static final DoubleTimeSeries<?> TS_IMP_VOL = ImmutableZonedDateTimeDoubleTimeSeries.of(TIMES, TS_IMP_VOL_DATA, UTC);

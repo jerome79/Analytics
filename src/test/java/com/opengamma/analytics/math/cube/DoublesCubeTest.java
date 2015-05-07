@@ -109,22 +109,22 @@ public class DoublesCubeTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength1() {
-    new DummyCube(new double[] {2}, Y_PRIMITIVE, Z_PRIMITIVE, DATA_PRIMITIVE);
+    new DummyCube(new double[] {2 }, Y_PRIMITIVE, Z_PRIMITIVE, DATA_PRIMITIVE);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength2() {
-    new DummyCube(X_PRIMITIVE, new double[] {2}, Z_PRIMITIVE, DATA_PRIMITIVE);
+    new DummyCube(X_PRIMITIVE, new double[] {2 }, Z_PRIMITIVE, DATA_PRIMITIVE);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength3() {
-    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, new double[] {2}, DATA_PRIMITIVE);
+    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, new double[] {2 }, DATA_PRIMITIVE);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength4() {
-    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, Z_PRIMITIVE, new double[] {2});
+    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, Z_PRIMITIVE, new double[] {2 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -149,22 +149,22 @@ public class DoublesCubeTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength5() {
-    new DummyCube(new double[] {2}, Y_PRIMITIVE, Z_PRIMITIVE, DATA_PRIMITIVE, NAME);
+    new DummyCube(new double[] {2 }, Y_PRIMITIVE, Z_PRIMITIVE, DATA_PRIMITIVE, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength6() {
-    new DummyCube(X_PRIMITIVE, new double[] {2}, Z_PRIMITIVE, DATA_PRIMITIVE, NAME);
+    new DummyCube(X_PRIMITIVE, new double[] {2 }, Z_PRIMITIVE, DATA_PRIMITIVE, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength7() {
-    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, new double[] {2}, DATA_PRIMITIVE, NAME);
+    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, new double[] {2 }, DATA_PRIMITIVE, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength8() {
-    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, Z_PRIMITIVE, new double[] {2}, NAME);
+    new DummyCube(X_PRIMITIVE, Y_PRIMITIVE, Z_PRIMITIVE, new double[] {2 }, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -189,22 +189,22 @@ public class DoublesCubeTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength9() {
-    new DummyCube(new Double[] {2.}, Y_OBJECT, Z_OBJECT, DATA_OBJECT);
+    new DummyCube(new Double[] {2. }, Y_OBJECT, Z_OBJECT, DATA_OBJECT);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength10() {
-    new DummyCube(X_OBJECT, new Double[] {2.}, Z_OBJECT, DATA_OBJECT);
+    new DummyCube(X_OBJECT, new Double[] {2. }, Z_OBJECT, DATA_OBJECT);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength11() {
-    new DummyCube(X_OBJECT, Y_OBJECT, new Double[] {2.}, DATA_OBJECT);
+    new DummyCube(X_OBJECT, Y_OBJECT, new Double[] {2. }, DATA_OBJECT);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength12() {
-    new DummyCube(X_OBJECT, Y_OBJECT, Z_OBJECT, new Double[] {2.});
+    new DummyCube(X_OBJECT, Y_OBJECT, Z_OBJECT, new Double[] {2. });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -229,22 +229,22 @@ public class DoublesCubeTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength13() {
-    new DummyCube(new Double[] {2.}, Y_OBJECT, Z_OBJECT, DATA_OBJECT, NAME);
+    new DummyCube(new Double[] {2. }, Y_OBJECT, Z_OBJECT, DATA_OBJECT, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength14() {
-    new DummyCube(X_OBJECT, new Double[] {2.}, Z_OBJECT, DATA_OBJECT, NAME);
+    new DummyCube(X_OBJECT, new Double[] {2. }, Z_OBJECT, DATA_OBJECT, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength15() {
-    new DummyCube(X_OBJECT, Y_OBJECT, new Double[] {2.}, DATA_OBJECT, NAME);
+    new DummyCube(X_OBJECT, Y_OBJECT, new Double[] {2. }, DATA_OBJECT, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength16() {
-    new DummyCube(X_OBJECT, Y_OBJECT, Z_OBJECT, new Double[] {2.}, NAME);
+    new DummyCube(X_OBJECT, Y_OBJECT, Z_OBJECT, new Double[] {2. }, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

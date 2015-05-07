@@ -14,20 +14,18 @@ import java.time.Period;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.credit.index.CDSIndexCalculator;
-import com.opengamma.analytics.financial.credit.isdastandardmodel.AnnuityForSpreadApproxFunction;
-import com.opengamma.analytics.financial.credit.isdastandardmodel.AnnuityForSpreadFunction;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.CDSAnalytic;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.CDSAnalyticFactory;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDABaseTest;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantCreditCurve;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantYieldCurve;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.MarketQuoteConverter;
-import com.opengamma.analytics.financial.credit.isdastandardmodel.PriceType;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.QuotedSpread;
 
 /**
  * 
  */
+@Test
 public class ItraxxXoverTest extends ISDABaseTest {
   private static final double NOTIONAL = 1e8;
   private static final LocalDate ACC_START = LocalDate.of(2013, 12, 20);
@@ -35,12 +33,8 @@ public class ItraxxXoverTest extends ISDABaseTest {
   private static final LocalDate EXPIRY = LocalDate.of(2014, 3, 19);
   private static final LocalDate EXERCISE_SETTLE = LocalDate.of(2014, 3, 24);
   private static final LocalDate MATURITY = LocalDate.of(2018, 12, 20);
-  private static final double TRADE_SPREAD = 318.25 * ONE_BP;
   private static final double COUPON = 500 * ONE_BP;
 
-  // private static final double EXP_FWD_ANNUITY = 4.83644025;
-  private static final double BBG_ATM_FWD = 331.7902 * ONE_BP;
-  private static final double TRUE_ATM_FWD = 326.6135 * ONE_BP;
   private static final double DEFAULT_ADJ_INDEX = -7195598.53; //found by setting strike to 500bps
 
   private static final Period TENOR = Period.ofYears(5);
@@ -52,7 +46,6 @@ public class ItraxxXoverTest extends ISDABaseTest {
 
   private static final MarketQuoteConverter CONVERTER = new MarketQuoteConverter();
   private static final CDSAnalyticFactory FACTORY = new CDSAnalyticFactory();
-  private static final CDSAnalytic SPOT_CDX = FACTORY.makeCDX(TRADE_DATE, TENOR);
   private static final CDSAnalytic FWD_START_CDX = FACTORY.makeCDS(TRADE_DATE, EXPIRY.plusDays(1), EXERCISE_SETTLE, ACC_START, MATURITY);
   private static final CDSAnalytic FWD_CDX = FACTORY.makeCDX(EXPIRY, TENOR);
   private static final CDSAnalytic[] PILLAR_CDX = FACTORY.makeCDX(TRADE_DATE, PILLAR_TENORS);
@@ -88,42 +81,8 @@ public class ItraxxXoverTest extends ISDABaseTest {
   }
 
   /**
-   * Should be given by P(t,T_E)E[V + D - G(k)], where V is the index value at expiry, D is the default settlement value and  G(K) = (k-C)A(K) is the excise price 
-   */
-  @Test
-  //(enabled = false)
-  public void putCallTest() {
-    if (PRINT) {
-      final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
-      final double tES = ACT365F.yearFraction(TRADE_DATE, EXERCISE_SETTLE);
-      //build an index curve treating the index spreads and single name par spreads 
-      final ISDACompliantCreditCurve cc = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDX, PILLAR_PAR_SPREADS, YIELD_CURVE);
-      final double indexPV = PRICER.pv(SPOT_CDX, YIELD_CURVE, cc, COUPON, PriceType.CLEAN, 0.0);
-      final double df = YIELD_CURVE.getDiscountFactor(tES);
-      final double q = cc.getSurvivalProbability(tE);
-      final double defaultSettlePV = df * (1 - q) * (1 - RECOVERY_RATE);
-      System.out.println("discount fact: " + df);
-
-      final ISDACompliantYieldCurve fwdYC = YIELD_CURVE.withOffset(tES);
-
-      System.out.println(indexPV * NOTIONAL + "\t" + defaultSettlePV * NOTIONAL);
-      final AnnuityForSpreadFunction annuity = new AnnuityForSpreadApproxFunction(FWD_CDX, fwdYC);
-      final int n = STRIKES.length;
-      for (int i = 0; i < n; i++) {
-        final double exPrice = NOTIONAL * CONVERTER.quotedSpreadToPUF(FWD_CDX, COUPON, fwdYC, STRIKES[i] * ONE_BP);
-        final double exPrice2 = NOTIONAL * (STRIKES[i] * ONE_BP - COUPON) * annuity.evaluate(STRIKES[i] * ONE_BP);
-        final double putCall = df * (DEFAULT_ADJ_INDEX - exPrice2);
-        final double error = putCall - (CALLPRICE[i] - PUTPRICE[i]);
-        // System.out.println(STRIKES[i] + "\t" + exPrice * NOTIONAL + "\t" + (indexPV + defaultSettlePV - exPrice) * NOTIONAL);
-        System.out.println(STRIKES[i] + "\t" + exPrice + "\t" + exPrice2 + "\t" + putCall + "\t" + error);
-      }
-    }
-  }
-
-  /**
    * Regression test for forward values 
    */
-  @Test
   public void forwardValueTest() {
     final double expFwdIndexVal = -7201983.340857886;
     final double expFwdSpread = 331.649277309528 * ONE_BP;
@@ -149,7 +108,6 @@ public class ItraxxXoverTest extends ISDABaseTest {
     assertEquals("ATMFwdSpread", expATMFwdSpread, atmFwdSpread, 1e-16);
   }
 
-  @Test
   public void optionPrices() {
     final double expX0a = 327.91390602255956 * ONE_BP;
     final double expX0b = 327.7699441941618 * ONE_BP;
@@ -158,10 +116,7 @@ public class ItraxxXoverTest extends ISDABaseTest {
       135711.32921182, 45670.1459990407, 13236.2006801549, 3348.89825017615, 750.312519414825, 4.65015781997449, 7.92961638482859E-14 };
 
     final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
-    final double tES = ACT365F.yearFraction(TRADE_DATE, EXERCISE_SETTLE);
-    final double df = YIELD_CURVE.getDiscountFactor(tES);
     final double vol = 0.3;
-    //  final BloombergIndexOptionPricer pricer = new BloombergIndexOptionPricer(TRADE_DATE, EXPIRY, EXPIRY.plusDays(1), EXERCISE_SETTLE, ACC_START, MATURITY, YIELD_CURVE, RECOVERY_RATE);
     final IndexOptionPricer oPricer = new IndexOptionPricer(FWD_CDX, tE, YIELD_CURVE, COUPON);
 
     final ISDACompliantCreditCurve cc = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDX, PILLAR_QUOTED_SPREADS, YIELD_CURVE);
@@ -188,7 +143,6 @@ public class ItraxxXoverTest extends ISDABaseTest {
 
       double impVol = 0;
 
-      //TODO PLAT-5993 The tolerance has been turned down to pass in Bamboo
       final double tol = 1e-12 * expOTMprices[i];
       if (DEFAULT_ADJ_INDEX / NOTIONAL < EXERCISE_PRICE[i]) {
         assertEquals(expOTMprices[i], payer, tol);
@@ -205,15 +159,5 @@ public class ItraxxXoverTest extends ISDABaseTest {
         System.out.println(STRIKES[i] + "\t" + payer + "\t" + receiver + "\t" + payer2 + "\t" + receiver2 + "\t" + impVol);
       }
     }
-    //  
-  }
-
-  private double bbgIndexVal(final double lambda, final double r, final double tE, final double tM) {
-    final double rlambda = r + lambda;
-    final double df = Math.exp(-r * tE);
-    final double e1 = Math.exp(-rlambda * tE);
-    final double e2 = Math.exp(-rlambda * tM);
-    final double ann = (e1 - e2) / rlambda;
-    return ((1 - RECOVERY_RATE) * lambda - COUPON) * ann / df;
   }
 }

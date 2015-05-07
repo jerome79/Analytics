@@ -47,7 +47,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Returns the change in PV01 of an instrument due to a parallel 1bp move of <b>all</b> the curves to which the bond total
  * return swap is sensitive. The value is returned in the currency of the asset.
@@ -58,8 +57,7 @@ public final class BondBillTrsGammaPV01Calculator extends InstrumentDerivativeVi
       new BondBillTrsGammaPV01Calculator();
 
   /** The PV01 calculator */
-  private static final InstrumentDerivativeVisitor
-      <ParameterIssuerProviderInterface, ReferenceAmount<Pair<String, Currency>>> PV01_CALCULATOR =
+  private static final InstrumentDerivativeVisitor<ParameterIssuerProviderInterface, ReferenceAmount<Pair<String, Currency>>> PV01_CALCULATOR =
       new PV01CurveParametersCalculator<>(PresentValueCurveSensitivityIssuerCalculator.getInstance());
   /**
    * The size of the scaling: 1 basis point.

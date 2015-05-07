@@ -18,19 +18,19 @@ public class CouponAccrualDiscountFactorVisitor extends InstrumentDerivativeVisi
   @Override
   public double[] visitCouponIbor(final CouponIbor payment, final YieldCurveBundle curves) {
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(payment.getForwardCurveName());
-    return new double[] {forwardCurve.getDiscountFactor(payment.getFixingPeriodStartTime()), forwardCurve.getDiscountFactor(payment.getFixingPeriodEndTime())};
+    return new double[] {forwardCurve.getDiscountFactor(payment.getFixingPeriodStartTime()), forwardCurve.getDiscountFactor(payment.getFixingPeriodEndTime()) };
   }
 
   @Override
   public double[] visitCouponIborSpread(final CouponIborSpread payment, final YieldCurveBundle curves) {
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(payment.getForwardCurveName());
-    return new double[] {forwardCurve.getDiscountFactor(payment.getFixingPeriodStartTime()), forwardCurve.getDiscountFactor(payment.getFixingPeriodEndTime())};
+    return new double[] {forwardCurve.getDiscountFactor(payment.getFixingPeriodStartTime()), forwardCurve.getDiscountFactor(payment.getFixingPeriodEndTime()) };
   }
 
   @Override
   public double[] visitCouponIborGearing(final CouponIborGearing payment, final YieldCurveBundle curves) {
     final YieldAndDiscountCurve forwardCurve = curves.getCurve(payment.getForwardCurveName());
-    return new double[] {forwardCurve.getDiscountFactor(payment.getFixingPeriodStartTime()), forwardCurve.getDiscountFactor(payment.getFixingPeriodEndTime())};
+    return new double[] {forwardCurve.getDiscountFactor(payment.getFixingPeriodStartTime()), forwardCurve.getDiscountFactor(payment.getFixingPeriodEndTime()) };
   }
 
 }

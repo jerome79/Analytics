@@ -22,7 +22,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test related to the description of a bill total return swap with an underlying bill and a funding leg.
  */

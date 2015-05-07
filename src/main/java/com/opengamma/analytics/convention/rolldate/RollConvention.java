@@ -10,7 +10,6 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 
-
 /**
  * Convention that controls rolling date adjustments.
  */
@@ -502,7 +501,7 @@ public enum RollConvention {
    * @throws IllegalArgumentException if the day of month is invalid
    */
   public static RollConvention dayOfMonth(final int dayOfMonth) {
-    switch(dayOfMonth) {
+    switch (dayOfMonth) {
       case 1:
         return ONE;
       case 2:

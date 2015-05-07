@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
@@ -88,10 +87,10 @@ public class FunctionalDoublesCurveTest {
   @Test
   public void testConvert() {
     final double eps = 1e-15;
-    final double[] x = new double[] {0, 1, 2};
+    final double[] x = new double[] {0, 1, 2 };
     final LinearInterpolator1D interpolator = new LinearInterpolator1D();
     InterpolatedDoublesCurve other = CURVE.toInterpolatedDoublesCurve(x, interpolator);
     assertArrayEquals(other.getXDataAsPrimitive(), x, eps);
-    assertArrayEquals(other.getYDataAsPrimitive(), new double[] {F.evaluate(x[0]), F.evaluate(x[1]), F.evaluate(x[2])}, eps);
+    assertArrayEquals(other.getYDataAsPrimitive(), new double[] {F.evaluate(x[0]), F.evaluate(x[1]), F.evaluate(x[2]) }, eps);
   }
 }

@@ -28,18 +28,19 @@ public final class EndOfMonthRollDateAdjuster implements RollDateAdjuster {
   public static RollDateAdjuster getAdjuster() {
     return INSTANCE;
   }
-  
+
   /**
    * Private constructor
    */
-  private EndOfMonthRollDateAdjuster() {}
-  
+  private EndOfMonthRollDateAdjuster() {
+  }
+
   @Override
   public Temporal adjustInto(Temporal temporal) {
     ArgChecker.notNull(temporal, "temporal");
     return temporal.with(LAST_DAY_OF_THE_MONTH);
   }
-  
+
   @Override
   public long getMonthsToAdjust() {
     return 0;

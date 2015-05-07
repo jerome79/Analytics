@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
@@ -58,42 +57,42 @@ public class InterpolatedCurveShiftFunctionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurve5() {
-    F.evaluate(null, new double[] {1}, new double[] {1});
+    F.evaluate(null, new double[] {1 }, new double[] {1 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurve6() {
-    F.evaluate(null, new double[] {1}, new double[] {1}, "B");
+    F.evaluate(null, new double[] {1 }, new double[] {1 }, "B");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testUnequalArrayLength1() {
-    F.evaluate(CURVE, new double[] {1}, new double[] {3, 4});
+    F.evaluate(CURVE, new double[] {1 }, new double[] {3, 4 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testUnequalArrayLength2() {
-    F.evaluate(CURVE, new double[] {1}, new double[] {3, 4}, "S");
+    F.evaluate(CURVE, new double[] {1 }, new double[] {3, 4 }, "S");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullXShifts1() {
-    F.evaluate(CURVE, null, new double[] {1, 2, 3});
+    F.evaluate(CURVE, null, new double[] {1, 2, 3 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullXShifts2() {
-    F.evaluate(CURVE, null, new double[] {1, 2, 3}, "A");
+    F.evaluate(CURVE, null, new double[] {1, 2, 3 }, "A");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullYShifts1() {
-    F.evaluate(CURVE, new double[] {1, 2, 3}, null);
+    F.evaluate(CURVE, new double[] {1, 2, 3 }, null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullYShifts2() {
-    F.evaluate(CURVE, new double[] {1, 2, 3}, null, "A");
+    F.evaluate(CURVE, new double[] {1, 2, 3 }, null, "A");
   }
 
   @Test
@@ -149,7 +148,7 @@ public class InterpolatedCurveShiftFunctionTest {
     shifted = F.evaluate(CURVE, shiftX, SHIFT);
     x = shifted.getXDataAsPrimitive();
     y = shifted.getYDataAsPrimitive();
-    final double[] resultX = new double[] {0, 1, 2, 3, 3.1, 4, 5, 6, 7, 8, 9};
+    final double[] resultX = new double[] {0, 1, 2, 3, 3.1, 4, 5, 6, 7, 8, 9 };
     final double[] resultY = new double[N + 1];
     for (int i = 0; i < N + 1; i++) {
       resultY[i] = 2 * resultX[i] + 1;
@@ -161,8 +160,8 @@ public class InterpolatedCurveShiftFunctionTest {
 
   @Test
   public void testMultipleShift() {
-    double[] shiftX = new double[] {1, 2, 3, 4};
-    double[] shiftY = new double[] {0.1, 0.2, -0.1, -0.2};
+    double[] shiftX = new double[] {1, 2, 3, 4 };
+    double[] shiftY = new double[] {0.1, 0.2, -0.1, -0.2 };
     InterpolatedDoublesCurve shifted = F.evaluate(CURVE, shiftX, shiftY);
     double[] x = shifted.getXDataAsPrimitive();
     double[] y = shifted.getYDataAsPrimitive();
@@ -188,12 +187,12 @@ public class InterpolatedCurveShiftFunctionTest {
       }
     }
     assertEquals(shifted.getName(), newName);
-    shiftX = new double[] {1.1, 2.1, 3.1, 4.1};
-    shiftY = new double[] {0.1, 0.2, -0.1, -0.2};
+    shiftX = new double[] {1.1, 2.1, 3.1, 4.1 };
+    shiftY = new double[] {0.1, 0.2, -0.1, -0.2 };
     shifted = F.evaluate(CURVE, shiftX, shiftY);
     x = shifted.getXDataAsPrimitive();
     y = shifted.getYDataAsPrimitive();
-    final double[] resultX = new double[] {0, 1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7, 8, 9};
+    final double[] resultX = new double[] {0, 1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7, 8, 9 };
     final double[] resultY = new double[resultX.length];
     for (int i = 0; i < resultX.length; i++) {
       resultY[i] = 2 * resultX[i] + 1;

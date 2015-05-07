@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
-
 import com.opengamma.analytics.math.function.Function1D;
 
 /**

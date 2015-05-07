@@ -29,7 +29,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the construction and the conversion to derivative of DepositZeroDefinition.
  */

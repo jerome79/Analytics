@@ -19,9 +19,9 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Interp
 public interface InterpolatedStubCouponVisitor<RESULT_TYPE> {
 
   RESULT_TYPE visitIborCompoundingInterpolatedStub(IborInterpolatedStubCompoundingCoupon coupon);
-  
+
   RESULT_TYPE visitIborInterpolatedStub(InterpolatedStubCoupon<DepositIndexCoupon<IborIndex>, IborIndex> coupon);
-  
+
   RESULT_TYPE visitOvernightInterpolatedStub(InterpolatedStubCoupon<DepositIndexCoupon<IndexON>, IndexON> coupon);
-  
+
 }

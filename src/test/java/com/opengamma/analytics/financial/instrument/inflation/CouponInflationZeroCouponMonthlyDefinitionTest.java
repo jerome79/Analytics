@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the zero-coupon inflation constructors.
  */
@@ -215,9 +214,9 @@ public class CouponInflationZeroCouponMonthlyDefinitionTest {
   @Test
   public void toDerivativesStartMonthKnown() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2018, 8, 1);
-    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2018, 5, 31),
-            DateUtils.getUTCDate(2018, 6, 30)},
-        new double[]{108.23, 128.23, 128.43});
+    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2018, 5, 31),
+      DateUtils.getUTCDate(2018, 6, 30) },
+        new double[] {108.23, 128.23, 128.43 });
     final Coupon zeroCouponConverted = ZERO_COUPON_DEFINITION.toDerivative(pricingDate, priceIndexTS);
     final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, 128.23 / INDEX_APRIL_2008 - 1.0);

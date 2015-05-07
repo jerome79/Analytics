@@ -97,6 +97,7 @@ public class GridInterpolator2D extends Interpolator2D {
 
     return res;
   }
+
   private Map<Double, Interpolator1DDataBundle> testData(final Map<DoublesPair, Double> data) {
     final Map<Double, Interpolator1DDataBundle> result = new TreeMap<>();
     final TreeMap<DoublesPair, Double> sorted = new TreeMap<>();

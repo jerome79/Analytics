@@ -34,7 +34,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests the present value and its sensitivities for year on year with reference index on the first of the month.
  */

@@ -50,7 +50,7 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
   private static final HolidayCalendar CALENDAR = StandardDataSetsMulticurveEUR.calendarArray()[0];
   private static final Currency EUR = EUREURIBOR3M.getCurrency();
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 2, 18);
-  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR = 
+  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR =
       StandardDataSetsMulticurveEUR.getCurvesEurOisE3();
   private static final MulticurveProviderDiscount MULTICURVE = MULTICURVE_PAIR.getFirst();
   private static final CurveBuildingBlockBundle BLOCK = MULTICURVE_PAIR.getSecond();
@@ -66,9 +66,9 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
   private static final double TRADE_PRICE = 0.999;
   private static final InterestRateFutureTransactionDefinition ERZ4_TRA_DEFINITION =
       new InterestRateFutureTransactionDefinition(ERZ4_SEC_DEFINITION, QUANTITY, TRADE_DATE, TRADE_PRICE);
-  private static final double LAST_MARGIN_PRICE = 0.9973; 
+  private static final double LAST_MARGIN_PRICE = 0.9973;
   // Closing on (2014, 2, 18); Using the last fixing before or on valuation date.
-  private static final InterestRateFutureTransaction ERZ4_TRA = 
+  private static final InterestRateFutureTransaction ERZ4_TRA =
       ERZ4_TRA_DEFINITION.toDerivative(VALUATION_DATE, LAST_MARGIN_PRICE);
   /** Calculators */
   private static final InterestRateFutureSecurityDiscountingMethod METHOD_STIR =
@@ -76,11 +76,11 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
   private static final ParSpreadMarketQuoteDiscountingCalculator PSMQDC = ParSpreadMarketQuoteDiscountingCalculator.getInstance();
-  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = 
+  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC =
       PresentValueCurveSensitivityDiscountingCalculator.getInstance();
-  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = 
+  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC =
       new ParameterSensitivityParameterCalculator<>(PVCSDC);
-  private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC = 
+  private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC =
       new MarketQuoteSensitivityBlockCalculator<>(PSC);
   private static final double TOLERANCE_PV = 1.0E-4;
   private static final double TOLERANCE_PV_DELTA = 1.0E-2;
@@ -92,7 +92,7 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
   public void price() {
     double priceExpected = 0.9973084085494923;
     double priceComputed = METHOD_STIR.price(ERZ4_TRA.getUnderlyingSecurity(), MULTICURVE);
-    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: price", 
+    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: price",
         priceExpected, priceComputed, TOLERANCE_RATE);
   }
 
@@ -103,10 +103,10 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
     assertTrue("STIRFuturesTransactionDiscountingMethodE2ETest: present value from standard curves", pvComputed.size() == 1);
     MultiCurrencyAmount pvExpected = MultiCurrencyAmount.of(Currency.EUR, -262.7672);
     double priceComputed = METHOD_STIR.price(ERZ4_TRA.getUnderlyingSecurity(), MULTICURVE);
-    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: present value from standard curves", 
+    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: present value from standard curves",
         pvExpected.getAmount(EUR).getAmount(), pvComputed.getAmount(EUR).getAmount(), TOLERANCE_PV);
     double pvDetailedInEUR = (priceComputed - LAST_MARGIN_PRICE) * NOTIONAL * FUTURE_FACTOR * QUANTITY;
-    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: present value from standard curves", 
+    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: present value from standard curves",
         pvDetailedInEUR, pvComputed.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
@@ -115,28 +115,28 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
   public void parRate() {
     final double parRate = ERZ4_TRA.accept(PRDC, MULTICURVE);
     final double parRateExpected = 0.00269159145050768;
-    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: par rate from standard curves", 
+    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: par rate from standard curves",
         parRateExpected, parRate, TOLERANCE_RATE);
     double parRateMethod = METHOD_STIR.parRate(ERZ4_TRA.getUnderlyingSecurity(), MULTICURVE);
-    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: par rate from standard curves", 
+    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: par rate from standard curves",
         parRateMethod, parRate, TOLERANCE_RATE);
   }
-  
+
   /** Test the par spread with a standard set of data against hard-coded values. */
   @Test
   public void parSpread() {
     final double parSpreadComputed = ERZ4_TRA.accept(PSMQDC, MULTICURVE);
     final double parSpreadExpected = 8.4085E-6;
-    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: par rate from standard curves", 
+    assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: par rate from standard curves",
         parSpreadExpected, parSpreadComputed, TOLERANCE_RATE);
   }
 
   /** Tests bucketed PV01 with a standard set of data against hard-coded values. */
   @Test
   public void BucketedPV01() {
-    final double[] deltaDsc = {0.0003, 0.0003, 0.0000, 0.0000, 1.7334, 3.0714, 4.6402, -18.8887, -0.9835, 
+    final double[] deltaDsc = {0.0003, 0.0003, 0.0000, 0.0000, 1.7334, 3.0714, 4.6402, -18.8887, -0.9835,
       0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000 };
-    final double[] deltaFwd = {-2398.5241, -2479.7772, -2479.1440, 9422.5946, 912.6277, 0.0000, 0.0000, 
+    final double[] deltaFwd = {-2398.5241, -2479.7772, -2479.1440, 9422.5946, 912.6277, 0.0000, 0.0000,
       0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000 };
     final LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivity = new LinkedHashMap<>();
     sensitivity.put(Pair.of(MULTICURVE.getName(EUR), EUR), new DoubleMatrix1D(deltaDsc));
@@ -146,9 +146,9 @@ public class STIRFuturesTransactionDiscountingMethodE2ETest {
     MultipleCurrencyParameterSensitivity pvParameterSensi = PSC.pointToParameterSensitivity(pvPointSensi, MULTICURVE).multipliedBy(BP1);
     MultipleCurrencyParameterSensitivity pvMarketQuoteSensi = MQSBC.fromParameterSensitivity(pvParameterSensi, BLOCK);
     final MultipleCurrencyParameterSensitivity pvpsComputed = MQSBC.fromInstrument(ERZ4_TRA, MULTICURVE, BLOCK).multipliedBy(BP1);
-    AssertSensitivityObjects.assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: bucketed deltas from standard curves", 
+    AssertSensitivityObjects.assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: bucketed deltas from standard curves",
         pvpsExpected, pvpsComputed, TOLERANCE_PV_DELTA);
-    AssertSensitivityObjects.assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: bucketed deltas from standard curves", 
+    AssertSensitivityObjects.assertEquals("STIRFuturesTransactionDiscountingMethodE2ETest: bucketed deltas from standard curves",
         pvMarketQuoteSensi, pvpsComputed, TOLERANCE_PV_DELTA);
   }
 

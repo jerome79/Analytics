@@ -23,7 +23,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantY
 import com.opengamma.analytics.financial.credit.isdastandardmodel.MultiCDSAnalytic;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -40,7 +39,6 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
   public void test() {
     testCalibrationAgainstISDA(BUILDER_ISDA, 1e-14);
     //TODO adjust the logic to match the incorrect Markit `fix'
-    // testCalibrationAgainstISDA(BUILDER_MARKIT, 1e-14);
   }
 
   @SuppressWarnings("unused")
@@ -50,7 +48,6 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
     final LocalDate spotDate = addWorkDays(tradeDate.minusDays(1), 1, DEFAULT_CALENDAR);
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
-    //final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M" };
     final double[] rates = new double[] {0.004919, 0.005006, 0.00515, 0.005906, 0.008813, 0.0088, 0.01195, 0.01534, 0.01836, 0.02096, 0.02322, 0.02514, 0.02673, 0.02802, 0.02997, 0.0318, 0.03331,
       0.03383, 0.034 };
     final ISDACompliantYieldCurve yieldCurve = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT_ACT_ISDA, ACT_ACT_ISDA, Period.ofMonths(6));
@@ -60,13 +57,11 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
     final double[] spreads = new double[] {0.01, 0.012, 0.015, 0.02, 0.023, 0.021, 0.02, 0.019 };
     ArgChecker.isTrue(n == spreads.length, "spreads wrong length");
 
-    // final AnalyticCDSPricer pricer = new AnalyticCDSPricer(MARKIT_FIX);
     final CreditCurveCalibrator calibrator1 = new CreditCurveCalibrator(cds, yieldCurve);
     final ISDACompliantCreditCurve cc1 = calibrator1.calibrate(spreads);
     final FastCreditCurveBuilder calibrator2 = new FastCreditCurveBuilder();
     final ISDACompliantCreditCurve cc2 = calibrator2.calibrateCreditCurve(cds, spreads, yieldCurve);
     for (int i = 0; i < n; i++) {
-      //System.out.println(cc1.getZeroRateAtIndex(i) + "\t" + cc2.getZeroRateAtIndex(i));
       assertEquals(cc2.getZeroRateAtIndex(i), cc1.getZeroRateAtIndex(i), 1e-15);
     }
 
@@ -88,18 +83,15 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
     if (hotspots > 0) {
       long t0 = System.nanoTime();
       for (int i = 0; i < hotspots; i++) {
-        //  final CreditCurveCalibrator calibrator1a = new CreditCurveCalibrator(cds, yieldCurve);
         final ISDACompliantCreditCurve cc1a = calibrator1.calibrate(spreads);
       }
       long t1 = System.nanoTime();
-      //      System.out.println("time of new calibration: " + (t1 - t0) / hotspots / 1e6 + "ms");
 
       t0 = System.nanoTime();
       for (int i = 0; i < hotspots; i++) {
         final ISDACompliantCreditCurve cc2a = calibrator2.calibrateCreditCurve(cds, spreads, yieldCurve);
       }
       t1 = System.nanoTime();
-      //      System.out.println("time of old calibration: " + (t1 - t0) / hotspots / 1e6 + "ms");
     }
 
   }
@@ -111,7 +103,6 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
     final LocalDate spotDate = addWorkDays(tradeDate.minusDays(1), 1, DEFAULT_CALENDAR);
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
-    //final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M" };
     final double[] rates = new double[] {0.004919, 0.005006, 0.00515, 0.005906, 0.008813, 0.0088, 0.01195, 0.01534, 0.01836, 0.02096, 0.02322, 0.02514, 0.02673, 0.02802, 0.02997, 0.0318, 0.03331,
       0.03383, 0.034 };
     final ISDACompliantYieldCurve yieldCurve = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT_ACT_ISDA, ACT_ACT_ISDA, Period.ofMonths(6));
@@ -127,13 +118,11 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
     final double[] spreads = new double[] {0.01, 0.012, 0.015, 0.02, 0.023, 0.021, 0.02, 0.019 };
     ArgChecker.isTrue(n == spreads.length, "spreads wrong length");
 
-    //  final AnalyticCDSPricer pricer = new AnalyticCDSPricer(true);
     final CreditCurveCalibrator calibrator1 = new CreditCurveCalibrator(cds, yieldCurve, MARKIT_FIX, ArbitrageHandling.Ignore);
     final ISDACompliantCreditCurve cc1 = calibrator1.calibrate(spreads);
     final FastCreditCurveBuilder calibrator2 = new FastCreditCurveBuilder(MARKIT_FIX);
     final ISDACompliantCreditCurve cc2 = calibrator2.calibrateCreditCurve(cds, spreads, yieldCurve);
     for (int i = 0; i < n; i++) {
-      //   System.out.println(cc1.getZeroRateAtIndex(i) + "\t" + cc2.getZeroRateAtIndex(i));
       assertEquals(cc2.getZeroRateAtIndex(i), cc1.getZeroRateAtIndex(i), 1e-13);
     }
 
@@ -152,15 +141,12 @@ public class CreditCurveCalibrationTest extends com.opengamma.analytics.financia
         final ISDACompliantCreditCurve cc1a = calibrator1.calibrate(spreads);
       }
       long t1 = System.nanoTime();
-      //      System.out.println("time of new calibration: " + (t1 - t0) / hotspots / 1e6 + "ms");
 
       t0 = System.nanoTime();
       for (int i = 0; i < hotspots; i++) {
-        //     final FastCreditCurveBuilder calibrator2a = new FastCreditCurveBuilder(true);
         final ISDACompliantCreditCurve cc2a = calibrator2.calibrateCreditCurve(cds, spreads, yieldCurve);
       }
       t1 = System.nanoTime();
-      //      System.out.println("time of old calibration: " + (t1 - t0) / hotspots / 1e6 + "ms");
     }
   }
 

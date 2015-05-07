@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -42,7 +41,7 @@ public class BasisFunctionGeneratorTest {
   public void testFunctionIndexOutOfRange2() {
     BasisFunctionKnots k = BasisFunctionKnots.fromKnots(KNOTS, 5);
     int nS = k.getNumSplines();
-    GENERATOR.generate(k,nS);
+    GENERATOR.generate(k, nS);
   }
 
   @Test
@@ -92,15 +91,15 @@ public class BasisFunctionGeneratorTest {
 
     BasisFunctionKnots knots1 = BasisFunctionKnots.fromInternalKnots(KNOTS, 2);
     BasisFunctionKnots knots2 = BasisFunctionKnots.fromInternalKnots(KNOTS, 3);
-    List<Function1D<double[], Double>> set = GENERATOR.generateSet(new BasisFunctionKnots[] {knots1,knots2});
+    List<Function1D<double[], Double>> set = GENERATOR.generateSet(new BasisFunctionKnots[] {knots1, knots2 });
 
     //pick of one of the basis functions for testing 
-    int index = FunctionUtils.toTensorIndex(new int[]{3, 3}, new int[]{knots1.getNumSplines(), knots2.getNumSplines()});
+    int index = FunctionUtils.toTensorIndex(new int[] {3, 3 }, new int[] {knots1.getNumSplines(), knots2.getNumSplines() });
     Function1D<double[], Double> func = set.get(index);
-    assertEquals(1. / 3., func.evaluate(new double[] {2.0,2.0}), 0.0);
-    assertEquals(1. / 2., func.evaluate(new double[] {2.5,2.0}), 0.0);
-    assertEquals(1. / 8./48., func.evaluate(new double[] {1.5,3.5}), 0.0);
-    assertEquals(0.0, func.evaluate(new double[] {4.0,2.5}), 0.0);
+    assertEquals(1. / 3., func.evaluate(new double[] {2.0, 2.0 }), 0.0);
+    assertEquals(1. / 2., func.evaluate(new double[] {2.5, 2.0 }), 0.0);
+    assertEquals(1. / 8. / 48., func.evaluate(new double[] {1.5, 3.5 }), 0.0);
+    assertEquals(0.0, func.evaluate(new double[] {4.0, 2.5 }), 0.0);
   }
 
   @Test
@@ -108,14 +107,13 @@ public class BasisFunctionGeneratorTest {
     BasisFunctionKnots knots1 = BasisFunctionKnots.fromInternalKnots(KNOTS, 2);
     BasisFunctionKnots knots2 = BasisFunctionKnots.fromInternalKnots(KNOTS, 3);
     BasisFunctionKnots knots3 = BasisFunctionKnots.fromInternalKnots(KNOTS, 1);
-    List<Function1D<double[], Double>> set = GENERATOR.generateSet(new BasisFunctionKnots[] {knots1,knots2,knots3});
+    List<Function1D<double[], Double>> set = GENERATOR.generateSet(new BasisFunctionKnots[] {knots1, knots2, knots3 });
 
     //pick of one of the basis functions for testing 
-    int index = FunctionUtils.toTensorIndex(new int[] {3,3,3}, new int[] {knots1.getNumSplines(),knots2.getNumSplines(),
-      knots3.getNumSplines()});
+    int index = FunctionUtils.toTensorIndex(new int[] {3, 3, 3 }, new int[] {knots1.getNumSplines(), knots2.getNumSplines(),
+      knots3.getNumSplines() });
     Function1D<double[], Double> func = set.get(index);
-    assertEquals(1. / 3., func.evaluate(new double[] {2.0,2.0,3.0}), 0.0);
+    assertEquals(1. / 3., func.evaluate(new double[] {2.0, 2.0, 3.0 }), 0.0);
   }
-
 
 }

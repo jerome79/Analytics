@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.curve;
 
-
 /**
  * Given a curve and some form of shift, return a shifted curve (where the shift can be defined in several ways).
  * @param <T> The type of the curve to shift

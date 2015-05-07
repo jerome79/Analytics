@@ -19,15 +19,9 @@ import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedTransactionDefinition;
-import com.opengamma.analytics.financial.instrument.bond.BondIborSecurityDefinition;
-import com.opengamma.analytics.financial.instrument.bond.BondIborTransactionDefinition;
-import com.opengamma.analytics.financial.instrument.index.IborIndex;
-import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityPaymentFixed;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedTransaction;
-import com.opengamma.analytics.financial.interestrate.bond.definition.BondIborTransaction;
-import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueCurveSensitivityDiscountingCalculator;
 import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueDiscountingCalculator;
@@ -49,15 +43,12 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
-import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
-import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
-
 
 /**
  * Test.
@@ -127,38 +118,8 @@ public class BondTransactionDiscountingMethodTest {
       PRICE_CLEAN_FIXED);
   private static final BondFixedTransaction BOND_FIXED_STD = BOND_FIXED_STD_DEFINITION.toDerivative(REFERENCE_DATE);
 
-  // Ibor coupon Quarterly 2Y
-  private static final DayCount DAY_COUNT_FRN = DayCounts.ACT_ACT_ISDA;
-  private static final BusinessDayConvention BUSINESS_DAY_FRN = BusinessDayConventions.FOLLOWING;
-  private static final boolean IS_EOM_FRN = false;
-  private static final Period IBOR_TENOR = Period.ofMonths(3);
-  private static final DayCount IBOR_DAY_COUNT = DayCounts.ACT_360;
-  private static final int IBOR_SPOT_LAG = 2;
-  private static final BusinessDayConvention IBOR_BUSINESS_DAY = BusinessDayConventions.MODIFIED_FOLLOWING;
-  private static final boolean IBOR_IS_EOM = false;
-  private static final IborIndex IBOR_INDEX = new IborIndex(CUR, IBOR_TENOR, IBOR_SPOT_LAG, IBOR_DAY_COUNT, IBOR_BUSINESS_DAY, IBOR_IS_EOM, "Ibor");
-  private static final Period BOND_TENOR_FRN = Period.ofYears(2);
-  private static final int SETTLEMENT_DAYS_FRN = 3; // Standard for euro-bonds.
-  private static final ZonedDateTime START_ACCRUAL_DATE_FRN = DateUtils.getUTCDate(2011, 7, 13);
-  private static final ZonedDateTime MATURITY_DATE_FRN = START_ACCRUAL_DATE_FRN.plus(BOND_TENOR_FRN);
-  private static final BondIborSecurityDefinition BOND_DESCRIPTION_DEFINITION_FRN = BondIborSecurityDefinition.from(MATURITY_DATE_FRN, START_ACCRUAL_DATE_FRN, IBOR_INDEX, SETTLEMENT_DAYS_FRN,
-      DAY_COUNT_FRN, BUSINESS_DAY_FRN, IS_EOM_FRN, ISSUER_NAMES[1], CALENDAR);
   // Transaction FRN
-  private static final double FIRST_FIXING = 0.02;
-  private static final double PRICE_FRN = 0.99;
-  private static final ZonedDateTime BOND_SETTLEMENT_DATE_FRN = DateUtils.getUTCDate(2011, 8, 24);
-  private static final double BOND_SETTLEMENT_TIME_FRN = TimeCalculator.getTimeBetween(REFERENCE_DATE, BOND_SETTLEMENT_DATE_FRN);
   private static final double QUANTITY_FRN = 100000000; //100m
-  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{BOND_DESCRIPTION_DEFINITION_FRN.getCoupons().getNthPayment(0)
-      .getFixingDate()}, new double[]{FIRST_FIXING});
-  private static final AnnuityPaymentFixed NOMINAL_TR_1_FRN = (AnnuityPaymentFixed) BOND_DESCRIPTION_DEFINITION_FRN.getNominal().toDerivative(REFERENCE_DATE)
-      .trimBefore(BOND_SETTLEMENT_TIME_FRN);
-  private static final Annuity<? extends Payment> COUPON_TR_1_FRN = BOND_DESCRIPTION_DEFINITION_FRN.getCoupons().toDerivative(REFERENCE_DATE, FIXING_TS)
-      .trimBefore(BOND_SETTLEMENT_TIME_FRN);
-  private static final BondIborTransactionDefinition BOND_TRANSACTION_DEFINITION_FRN = new BondIborTransactionDefinition(BOND_DESCRIPTION_DEFINITION_FRN, QUANTITY_FRN, BOND_SETTLEMENT_DATE_FRN,
-      PRICE_FRN);
-  private static final PaymentFixed BOND_SETTLEMENT_FRN = new PaymentFixed(CUR, BOND_SETTLEMENT_TIME_FRN, -PRICE_FRN * QUANTITY_FRN);
-  private static final BondIborTransaction BOND_TRANSACTION_FRN = BOND_TRANSACTION_DEFINITION_FRN.toDerivative(REFERENCE_DATE, FIXING_TS);
   // Calculators
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final PresentValueIssuerCalculator PVIC = PresentValueIssuerCalculator.getInstance();
@@ -229,7 +190,8 @@ public class BondTransactionDiscountingMethodTest {
     final MultiCurrencyAmount pvNominal = NOMINAL_TR_FIXED_3.accept(PVDC, multicurvesDecorated);
     final MultiCurrencyAmount pvCoupon = COUPON_TR_FIXED_3.accept(PVDC, multicurvesDecorated);
     final MultiCurrencyAmount pvSettlement = BOND_SETTLEMENT_FIXED_3.accept(PVDC, ISSUER_MULTICURVES.getMulticurveProvider());
-    assertEquals("Fixed bond present value", (pvNominal.getAmount(CUR).getAmount() + pvCoupon.getAmount(CUR).getAmount()) * QUANTITY_FIXED + pvSettlement.getAmount(CUR).getAmount(), pv.getAmount(CUR).getAmount());
+    assertEquals("Fixed bond present value", (pvNominal.getAmount(CUR).getAmount() + pvCoupon.getAmount(CUR).getAmount()) * QUANTITY_FIXED + pvSettlement.getAmount(CUR).getAmount(), pv.getAmount(CUR)
+        .getAmount());
   }
 
   @Test
@@ -339,25 +301,4 @@ public class BondTransactionDiscountingMethodTest {
     AssertSensitivityObjects.assertEquals("BondTransactionDiscountingMethod: parSpreadYield curve sensitivity", psycsMethod, pscsyCalculator, TOLERANCE_PRICE_DELTA);
   }
 
-  @Test(enabled = false)
-  //FIXME change the test and the pv method with correct accrual interests mechanism.
-  public void testPVIborBond() {
-    final MultiCurrencyAmount pv = METHOD_BOND_TR.presentValue(BOND_TRANSACTION_FRN, ISSUER_MULTICURVES);
-    final MulticurveProviderInterface multicurvesDecorated = new MulticurveProviderDiscountingDecoratedIssuer(ISSUER_MULTICURVES, CUR, BOND_TRANSACTION_FIXED_1.getBondTransaction().getIssuerEntity());
-    final MultiCurrencyAmount pvNominal = NOMINAL_TR_1_FRN.accept(PVDC, multicurvesDecorated);
-    final MultiCurrencyAmount pvCoupon = COUPON_TR_1_FRN.accept(PVDC, multicurvesDecorated);
-    final MultiCurrencyAmount pvSettlement = BOND_SETTLEMENT_FRN.accept(PVDC, multicurvesDecorated);
-    assertEquals("FRN present value", (pvNominal.getAmount(CUR).getAmount() + pvCoupon.getAmount(CUR).getAmount()) * QUANTITY_FRN + pvSettlement.getAmount(CUR).getAmount(), pv.getAmount(CUR).getAmount());
-  }
-
-  @Test(enabled = false)
-  //FIXME change the test and the pv method with correct accrual interests mechanism.
-  public void testPVSIborBond() {
-    final MultipleCurrencyMulticurveSensitivity pvs = METHOD_BOND_TR.presentValueCurveSensitivity(BOND_TRANSACTION_FRN, ISSUER_MULTICURVES);
-    final MultipleCurrencyMulticurveSensitivity pvsNominal = NOMINAL_TR_1_FRN.accept(PVCSIC, ISSUER_MULTICURVES);
-    final MultipleCurrencyMulticurveSensitivity pvsCoupon = COUPON_TR_1_FRN.accept(PVCSIC, ISSUER_MULTICURVES);
-    final MultipleCurrencyMulticurveSensitivity pvsSettlement = BOND_SETTLEMENT_FRN.accept(PVCSIC, ISSUER_MULTICURVES);
-    final MultipleCurrencyMulticurveSensitivity expectedPvs = pvsNominal.plus(pvsCoupon).multipliedBy(QUANTITY_FRN).plus(pvsSettlement).cleaned();
-    assertEquals("FRN present value sensitivity", expectedPvs, pvs.cleaned());
-  }
 }

@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.minimization.UncoupledParameterTransforms;
  */
 public class MixedLogNormalModelFitter extends SmileModelFitter<MixedLogNormalModelData> {
 
-  //private static final double PI_BY_2 = Math.PI / 2.0;
   private final ParameterLimitsTransform[] _transforms;
   private final boolean _useShiftedMean;
   private final int _nNormals;
@@ -33,9 +32,6 @@ public class MixedLogNormalModelFitter extends SmileModelFitter<MixedLogNormalMo
 
     final int n = useShiftedMeans ? 3 * numNormals - 2 : 2 * numNormals - 1;
     _transforms = new ParameterLimitsTransform[n];
-    //    for (int i = 0; i < numNormals; i++) {
-    //      _transforms[i] = new SingleRangeLimitTransform(0.0, LimitType.GREATER_THAN);
-    //    }
     //TODO investigate whether it is better to restrict the range of angles
     for (int i = 0; i < n; i++) {
       _transforms[i] = new NullTransform();
@@ -76,18 +72,6 @@ public class MixedLogNormalModelFitter extends SmileModelFitter<MixedLogNormalMo
           }
         }
         //Don't constrain angles
-        //        for (int i = 0; i < _nNormals - 1; i++) {
-        //          double temp = x.getEntry(i + _nNormals);
-        //          if (temp < 0.0 || temp > PI_BY_2) {
-        //            return true;
-        //          }
-        //          if (_useShiftedMean) {
-        //            temp = x.getEntry(i + 2 * _nNormals - 1);
-        //            if (temp < 0.0 || temp > PI_BY_2) {
-        //              return true;
-        //            }
-        //          }
-        //        }
         return true;
       }
     };

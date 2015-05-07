@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;

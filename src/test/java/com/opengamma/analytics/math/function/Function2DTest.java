@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.function;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -35,16 +33,16 @@ public class Function2DTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testShortArray() {
-    F.evaluate(new Double[] {1.});
+    F.evaluate(new Double[] {1. });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFirst() {
-    F.evaluate(new Double[] {null, 1.});
+    F.evaluate(new Double[] {null, 1. });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSecond() {
-    F.evaluate(new Double[] {1., null});
+    F.evaluate(new Double[] {1., null });
   }
 }

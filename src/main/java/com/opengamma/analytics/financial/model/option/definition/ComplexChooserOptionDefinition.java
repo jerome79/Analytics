@@ -17,7 +17,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * A complex chooser option gives the holder the right to choose whether the
  * option is to be a standard call or put after a certain time. The exercise

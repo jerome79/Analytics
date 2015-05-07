@@ -11,7 +11,6 @@ import com.opengamma.analytics.financial.interestrate.swaption.provider.Swaption
 import com.opengamma.analytics.financial.interestrate.swaption.provider.SwaptionPhysicalFixedIborBlackMethod;
 import com.opengamma.analytics.financial.provider.description.interestrate.BlackSwaptionFlatProviderInterface;
 
-
 /**
  * Interpolates, for interest rate instruments using Black model, and returns the implied volatility required.
  */

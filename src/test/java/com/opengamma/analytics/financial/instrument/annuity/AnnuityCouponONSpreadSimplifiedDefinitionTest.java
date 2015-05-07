@@ -29,7 +29,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests on the constructor of annuity for overnight-indexed coupons with spread.
  */
@@ -120,7 +119,8 @@ public class AnnuityCouponONSpreadSimplifiedDefinitionTest {
 
   @Test
   public void from() {
-    final AnnuityCouponONSpreadSimplifiedDefinition annuity = AnnuityCouponONSpreadSimplifiedDefinition.from(SETTLEMENT_DATE, END_FIXING_DATE, NOTIONAL, SPREAD, IS_PAYER, PAYMENT_PERIOD, EONIA, 2, BUSINESS_DAY,
+    final AnnuityCouponONSpreadSimplifiedDefinition annuity = AnnuityCouponONSpreadSimplifiedDefinition.from(SETTLEMENT_DATE, END_FIXING_DATE, NOTIONAL, SPREAD, IS_PAYER, PAYMENT_PERIOD, EONIA, 2,
+        BUSINESS_DAY,
         IS_EOM, CALENDAR);
     final int nbCouponComputed = annuity.getNumberOfPayments();
     final int nbCouponExpected = 20; // 10 year * semi-annual

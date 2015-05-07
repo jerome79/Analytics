@@ -17,14 +17,13 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 
-
 /**
  * Test.
  */
 @Test
 public class Interpolator1DCubicSplineDataBundleTest {
-  private static final RealPolynomialFunction1D LINEAR = new RealPolynomialFunction1D(new double[] {1, 3});
-  private static final RealPolynomialFunction1D CUBIC = new RealPolynomialFunction1D(new double[] {1, 3, 3, 1});
+  private static final RealPolynomialFunction1D LINEAR = new RealPolynomialFunction1D(new double[] {1, 3 });
+  private static final RealPolynomialFunction1D CUBIC = new RealPolynomialFunction1D(new double[] {1, 3, 3, 1 });
   private static final Function1D<Double, Double> NORMAL = new Function1D<Double, Double>() {
 
     @Override
@@ -136,21 +135,6 @@ public class Interpolator1DCubicSplineDataBundleTest {
       assertEquals(temp, y2[i], 1e-2);
     }
   }
-
-  //  @Test
-  //  public void testLargeData() {
-  //    int n = 499;
-  //    double x[] = new double[n];
-  //    double y[] = new double[n];
-  //    for (int i = 0; i < n; i++) {
-  //      x[i] = i / 20.0;
-  //      y[i] = Math.sin(x[i]);
-  //    }
-  //    Interpolator1DCubicSplineDataBundle data = new Interpolator1DCubicSplineDataBundle(
-  //        new ArrayInterpolator1DDataBundle(x, y));
-  //
-  //    double[] y2 = data.getSecondDerivatives();
-  //  }
 
   @Test
   public void testSecondDerivativesSensitivities() {

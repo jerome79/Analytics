@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.minimization.DoubleRangeLimitTransform;
 
-
 /**
  * Test.
  */
@@ -25,27 +24,26 @@ public class Interpolator1DTest {
   /**
    *  
    */
-  @Test
   public void firstDerivativeInterpolatorsTest() {
     final double[][] xValues = new double[][] { {1., 2., 3., 4., 5., 6. }, {2., 2.1, 4., 5.1, 5.22, 6.8 } };
     final double[][] yValues = new double[][] { {1., 1.1, 2., 3., 5.9, 6. }, {1., 2.1, 3., 3.1, 3.22, 4.8 } };
     final int dim = xValues.length;
     final int nData = xValues[0].length;
     final int nKeys = 11 * nData;
-    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(),  new LinearInterpolator1D(),
+    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(), new LinearInterpolator1D(),
       new LogLinearInterpolator1D(), new NaturalCubicSplineInterpolator1D(), new PCHIPInterpolator1D(), new PCHIPYieldCurveInterpolator1D(),
       new LogNaturalCubicMonotonicityPreservingInterpolator1D(), new StepInterpolator1D(), new StepUpperInterpolator1D(), new TimeSquareInterpolator1D() };
     final int nMethods = interp.length;
     for (int j = 0; j < dim; ++j) {
       for (int i = 0; i < nMethods; ++i) {
-        //        System.out.println(i);
+
         Interpolator1DDataBundle data = interp[i].getDataBundleFromSortedArrays(xValues[j], yValues[j]);
         final double xMin = xValues[j][0];
         final double xMax = xValues[j][nData - 1];
 
         for (int m = 0; m < nKeys - 1; ++m) {
           final double xKey = xMin + (xMax - xMin) * (m + 1.) / nKeys;
-          //          System.out.println(xKey);
+
           assertEquals(interp[i].firstDerivative(data, xKey), 0.5 * (interp[i].interpolate(data, xKey + EPS) - interp[i].interpolate(data, xKey - EPS)) / EPS, EPS);
         }
       }
@@ -91,27 +89,26 @@ public class Interpolator1DTest {
   /**
    *  Data length = 3
    */
-  @Test
   public void firstDerivativeInterpolatorsThreePointsTest() {
     final double[][] xValues = new double[][] { {1., 2., 3. }, {2., 2.1, 4. } };
     final double[][] yValues = new double[][] { {1., 1.1, 2. }, {1., 2.1, 3. } };
     final int dim = xValues.length;
     final int nData = xValues[0].length;
     final int nKeys = 11 * nData;
-    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(),  new LinearInterpolator1D(),
+    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(), new LinearInterpolator1D(),
       new LogLinearInterpolator1D(), new NaturalCubicSplineInterpolator1D(), new PCHIPInterpolator1D(), new PCHIPYieldCurveInterpolator1D(),
       new StepInterpolator1D(), new StepUpperInterpolator1D(), new TimeSquareInterpolator1D() };
     final int nMethods = interp.length;
     for (int j = 0; j < dim; ++j) {
       for (int i = 0; i < nMethods; ++i) {
-        //        System.out.println(i);
+
         Interpolator1DDataBundle data = interp[i].getDataBundleFromSortedArrays(xValues[j], yValues[j]);
         final double xMin = xValues[j][0];
         final double xMax = xValues[j][nData - 1];
 
         for (int m = 0; m < nKeys - 1; ++m) {
           final double xKey = xMin + (xMax - xMin) * (m + 1.) / nKeys;
-          //          System.out.println(xKey);
+
           assertEquals(interp[i].firstDerivative(data, xKey), 0.5 * (interp[i].interpolate(data, xKey + EPS) - interp[i].interpolate(data, xKey - EPS)) / EPS, EPS);
         }
       }
@@ -121,7 +118,6 @@ public class Interpolator1DTest {
   /**
    *  Data length = 2
    */
-  @Test
   public void firstDerivativeInterpolatorsTwoPointsTest2() {
     final double[][] xValues = new double[][] { {1., 2. }, {2., 2.1 } };
     final double[][] yValues = new double[][] { {1., 1.1 }, {1., 2.1 } };
@@ -134,14 +130,14 @@ public class Interpolator1DTest {
     final int nMethods = interp.length;
     for (int j = 0; j < dim; ++j) {
       for (int i = 0; i < nMethods; ++i) {
-        //        System.out.println(i);
+
         Interpolator1DDataBundle data = interp[i].getDataBundleFromSortedArrays(xValues[j], yValues[j]);
         final double xMin = xValues[j][0];
         final double xMax = xValues[j][nData - 1];
 
         for (int m = 0; m < nKeys - 1; ++m) {
           final double xKey = xMin + (xMax - xMin) * (m + 1.) / nKeys;
-          //          System.out.println(xKey);
+
           assertEquals(interp[i].firstDerivative(data, xKey), 0.5 * (interp[i].interpolate(data, xKey + EPS) - interp[i].interpolate(data, xKey - EPS)) / EPS, EPS);
         }
       }
@@ -151,7 +147,6 @@ public class Interpolator1DTest {
   /**
    * Test for interpolators calling another interpolator
    */
-  @Test
   public void firstDerivativeInterpolatorsSecondaryTest() {
     final double[][] xValues = new double[][] { {1., 2., 3., 4., 5., 6. }, {1.1, 1.3, 3.8, 4.1, 5.9, 6. } };
     final double[][] yValues = new double[][] { {1., 1.1, 2., 3., 5.9, 6. }, {1., 1.12, 1., 3.4, 5.9, 3.2 } };
@@ -178,7 +173,6 @@ public class Interpolator1DTest {
   /**
    * Test for PiecewisePolynomialInterpolator1D
    */
-  @Test
   public void piecewisePolynomialTest() {
     final int nData = 10;
     final int dim = 3;
@@ -244,7 +238,6 @@ public class Interpolator1DTest {
   /**
    * Test for extrapolator
    */
-  @Test
   public void firstDerivativeExtrapolatorstest() {
     final double[][] xValues = new double[][] { {1., 2., 3., 4., 5., 6. }, {2., 2.1, 4., 5.1, 5.22, 6.8 } };
     final double[][] yValues = new double[][] { {1., 1.1, 2., 3., 5.9, 6. }, {1., -1.1, 2.6, -3., -3.9, 3. } };
@@ -257,7 +250,6 @@ public class Interpolator1DTest {
     for (int j = 0; j < dim; ++j) {
       Interpolator1DDataBundle data = interp.getDataBundleFromSortedArrays(xValues[j], yValues[j]);
       for (int i = 0; i < nMethods; ++i) {
-        //        System.out.println(i);
         if (i != 3) {
           assertEquals(extrap[i].firstDerivative(data, .2), 0.5 * (extrap[i].interpolate(data, .2 + EPS) - extrap[i].interpolate(data, .2 - EPS)) / EPS, EPS);
         }

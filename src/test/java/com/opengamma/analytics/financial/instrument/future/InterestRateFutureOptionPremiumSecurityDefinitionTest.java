@@ -25,7 +25,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the interest rate future option with initial premium security description.
  */
@@ -52,7 +51,7 @@ public class InterestRateFutureOptionPremiumSecurityDefinitionTest {
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final String DISCOUNTING_CURVE_NAME = "Funding";
   private static final String FORWARD_CURVE_NAME = "Forward";
-  private static final String[] CURVES = {DISCOUNTING_CURVE_NAME, FORWARD_CURVE_NAME};
+  private static final String[] CURVES = {DISCOUNTING_CURVE_NAME, FORWARD_CURVE_NAME };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullUnderlying() {

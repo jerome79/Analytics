@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */

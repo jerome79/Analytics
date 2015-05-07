@@ -119,7 +119,7 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethod {
     final double pv = (strikePart + integralPart) / beta;
     return MultiCurrencyAmount.of(cap.getCurrency(), pv);
   }
-  
+
   /**
    * Computes the pv sensitivity of an Ibor cap/floor in arrears
    * @param cap The cap/floor
@@ -225,7 +225,7 @@ public class CapFloorIborInArrearsSmileModelCapGenericReplicationMethod {
         (strikePartFwd + integralPartFwd - pv * betaFwd) / beta));
     Map<String, List<ForwardSensitivity>> mapFwd = new HashMap<>();
     mapFwd.put(curves.getName(capStandard.getIndex()), listForward);
-    
+
     return MultipleCurrencyMulticurveSensitivity.of(cap.getCurrency(), MulticurveSensitivity.of(mapDsc, mapFwd));
   }
 

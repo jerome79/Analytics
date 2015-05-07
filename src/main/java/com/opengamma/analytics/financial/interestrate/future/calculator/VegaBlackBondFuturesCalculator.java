@@ -20,7 +20,7 @@ public final class VegaBlackBondFuturesCalculator extends InstrumentDerivativeVi
    * The singleton instance.
    */
   private static final VegaBlackBondFuturesCalculator INSTANCE = new VegaBlackBondFuturesCalculator();
-  
+
   /**
    * Returns the singleton of the calculator instance.
    * @return the calculator.
@@ -28,7 +28,7 @@ public final class VegaBlackBondFuturesCalculator extends InstrumentDerivativeVi
   public static VegaBlackBondFuturesCalculator getInstance() {
     return INSTANCE;
   }
-  
+
   /**
    * Singleton constructor.
    */
@@ -38,12 +38,12 @@ public final class VegaBlackBondFuturesCalculator extends InstrumentDerivativeVi
   /** The method used to compute the future option price */
   private static final BondFutureOptionMarginSecurityBlackSmileMethod METHOD_FUTURE_OPTION = BondFutureOptionMarginSecurityBlackSmileMethod
       .getInstance();
-  
+
   @Override
   public Double visitBondFuturesOptionMarginSecurity(BondFuturesOptionMarginSecurity option, BlackBondFuturesProviderInterface data) {
     return METHOD_FUTURE_OPTION.vega(option, data);
   }
-  
+
   @Override
   public Double visitBondFuturesOptionMarginTransaction(BondFuturesOptionMarginTransaction option, BlackBondFuturesProviderInterface data) {
     return METHOD_FUTURE_OPTION.vega(option.getUnderlyingSecurity(), data);

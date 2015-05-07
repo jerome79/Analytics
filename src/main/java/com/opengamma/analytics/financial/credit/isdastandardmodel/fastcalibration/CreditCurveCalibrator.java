@@ -48,7 +48,8 @@ public class CreditCurveCalibrator {
     this(multiCDS, yieldCurve, AccrualOnDefaultFormulae.OrignalISDA, ISDACompliantCreditCurveBuilder.ArbitrageHandling.Ignore);
   }
 
-  public CreditCurveCalibrator(final MultiCDSAnalytic multiCDS, final ISDACompliantYieldCurve yieldCurve, final AccrualOnDefaultFormulae formula, final ISDACompliantCreditCurveBuilder.ArbitrageHandling arbHandle) {
+  public CreditCurveCalibrator(final MultiCDSAnalytic multiCDS, final ISDACompliantYieldCurve yieldCurve, final AccrualOnDefaultFormulae formula,
+      final ISDACompliantCreditCurveBuilder.ArbitrageHandling arbHandle) {
     ArgChecker.notNull(multiCDS, "multiCDS");
     ArgChecker.notNull(yieldCurve, "yieldCurve");
     _arbHandle = arbHandle;
@@ -153,7 +154,8 @@ public class CreditCurveCalibrator {
     this(cds, yieldCurve, AccrualOnDefaultFormulae.OrignalISDA, ISDACompliantCreditCurveBuilder.ArbitrageHandling.Ignore);
   }
 
-  public CreditCurveCalibrator(final CDSAnalytic[] cds, final ISDACompliantYieldCurve yieldCurve, final AccrualOnDefaultFormulae formula, final ISDACompliantCreditCurveBuilder.ArbitrageHandling arbHandle) {
+  public CreditCurveCalibrator(final CDSAnalytic[] cds, final ISDACompliantYieldCurve yieldCurve, final AccrualOnDefaultFormulae formula,
+      final ISDACompliantCreditCurveBuilder.ArbitrageHandling arbHandle) {
     ArgChecker.noNulls(cds, "cds");
     ArgChecker.notNull(yieldCurve, "yieldCurve");
     _arbHandle = arbHandle;
@@ -447,9 +449,6 @@ public class CreditCurveCalibrator {
     int result = 1;
     result = prime * result + ((_arbHandle == null) ? 0 : _arbHandle.hashCode());
     //    Correction made PLAT-6314
-    //    result = prime * result + Arrays.hashCode(_cds2CouponsMap);
-    //    result = prime * result + Arrays.hashCode(_cdsCouponsUpdateMap);
-    //    result = prime * result + Arrays.hashCode(_knot2CouponsMap);
     result = prime * result + Arrays.deepHashCode(_cds2CouponsMap);
     result = prime * result + Arrays.deepHashCode(_cdsCouponsUpdateMap);
     result = prime * result + Arrays.deepHashCode(_knot2CouponsMap);

@@ -24,7 +24,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.PriceType;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.CreditCurveCalibrator;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 
-
 /**
  * Test.
  */
@@ -46,7 +45,7 @@ public class DefaultSwaptionTest extends ISDABaseTest {
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "9M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     YIELD_CURVE = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofYears(1));
 
     final Period[] tenors = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(3), Period.ofYears(5), Period.ofYears(7), Period.ofYears(10) };
@@ -62,7 +61,6 @@ public class DefaultSwaptionTest extends ISDABaseTest {
   /**
    * Round trip test. Does not test that the default swaption is priced correctly, just that the implied vol formula is consistent with the pricing 
    */
-  @Test
   public void impliedVolConsistencyTest() {
     final DefaultSwaption ds = new DefaultSwaption();
 
@@ -76,7 +74,6 @@ public class DefaultSwaptionTest extends ISDABaseTest {
         final boolean isPayer = k > fwdSpread;
         final double price = ds.price(CDS, YIELD_CURVE, CREDIT_CURVE, k, T, vol, isPayer, hasFEP);
         final double iv = ds.impliedVol(CDS, YIELD_CURVE, CREDIT_CURVE, k, T, price, isPayer, hasFEP);
-        //  System.out.println(k + " " + price + "\t" + vol + "\t" + iv);
         assertEquals(isPayer + " " + i + " " + j, vol, iv, 1e-9);
       }
     }
@@ -85,7 +82,6 @@ public class DefaultSwaptionTest extends ISDABaseTest {
   /**
    * Logic taken from {@link SingleNameCDSOptionTest} 
    */
-  @Test
   public void priceTest() {
     final DefaultSwaption ds = new DefaultSwaption();
 
@@ -96,7 +92,7 @@ public class DefaultSwaptionTest extends ISDABaseTest {
 
     final CDSAnalyticFactory factory = new CDSAnalyticFactory();
     final Period[] pillarTenors = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(2), Period.ofYears(3), Period.ofYears(4), Period.ofYears(5), Period.ofYears(7),
-        Period.ofYears(10) };
+      Period.ofYears(10) };
     final CDSAnalytic[] pillarCDS = factory.makeIMMCDS(tradeDate, pillarTenors);
 
     final double[] strikes = new double[] {100, 140, 150, 160, 170, 180, 182.767, 190, 200, 210, 220, 230, 250, 300 };

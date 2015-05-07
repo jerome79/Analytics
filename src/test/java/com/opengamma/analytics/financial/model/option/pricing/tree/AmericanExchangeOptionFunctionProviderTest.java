@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.BjerksundStenslandModel;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -104,7 +103,6 @@ public class AmericanExchangeOptionFunctionProviderTest {
                 final double price = app[0];
                 final double delta1 = quant1 * app[1];
                 final double delta2 = quant2 * app[2];
-                //                final double theta = app[5];
                 final double[] appSpot1Up = _bs.getPriceAdjoint((SPOT + eps) * quant1, quant2 * spot2, interest - b2, b1 - b2, TIME, volhat, true);
                 final double[] appSpot1Down = _bs.getPriceAdjoint((SPOT - eps) * quant1, quant2 * spot2, interest - b2, b1 - b2, TIME, volhat, true);
                 final double[] appSpot2Up = _bs.getPriceAdjoint(SPOT * quant1, quant2 * (spot2 + eps), interest - b2, b1 - b2, TIME, volhat, true);
@@ -113,7 +111,6 @@ public class AmericanExchangeOptionFunctionProviderTest {
                 final double gamma1 = quant1 * 0.5 * (appSpot1Up[1] - appSpot1Down[1]) / eps;
                 final double gamma2 = quant2 * 0.5 * (appSpot2Up[2] - appSpot2Down[2]) / eps;
                 final double cross = quant2 * 0.5 * (appSpot1Up[2] - appSpot1Down[2]) / eps;
-                //                final double[] exact = new double[] {price, delta1, delta2, -theta, gamma1, gamma2, cross };
                 final double[] res = _model.getGreeks(function, SPOT, spot2, vol, sigma2, rho, interest, dividend, div2);
                 final double[] exactMod = new double[] {price, delta1, delta2, gamma1, gamma2, cross };
                 final double[] resMod = new double[] {res[0], res[1], res[2], res[4], res[5], res[6] };
@@ -179,8 +176,8 @@ public class AmericanExchangeOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider2D ref = new AmericanExchangeOptionFunctionProvider(1., 53, 3., 2.);
     final OptionFunctionProvider2D[] function = new OptionFunctionProvider2D[] {ref, new AmericanExchangeOptionFunctionProvider(1., 53, 3., 2.),
-        new AmericanExchangeOptionFunctionProvider(1., 53, 4., 2.), new AmericanExchangeOptionFunctionProvider(1., 53, 3., 1.),
-        new EuropeanExchangeOptionFunctionProvider(1., 53, 3., 2.), null };
+      new AmericanExchangeOptionFunctionProvider(1., 53, 4., 2.), new AmericanExchangeOptionFunctionProvider(1., 53, 3., 1.),
+      new EuropeanExchangeOptionFunctionProvider(1., 53, 3., 2.), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

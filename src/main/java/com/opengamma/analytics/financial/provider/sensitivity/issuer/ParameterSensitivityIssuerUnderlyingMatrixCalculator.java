@@ -60,7 +60,6 @@ public class ParameterSensitivityIssuerUnderlyingMatrixCalculator extends Abstra
     }
     final int[] nbNewParameters = new int[nbMultiCurve];
     final int[] nbParameters = new int[nbMultiCurve];
-    // Implementation note: nbNewParameters - number of new parameters in the curve, parameters not from an underlying curve which is another curve of the bundle.
     loopname = 0;
     for (final String name : multicurveNamesSet) { // loop over all curves in multicurves (by name)
       nbParameters[loopname] = multicurves.getNumberOfParameters(name);
@@ -82,7 +81,6 @@ public class ParameterSensitivityIssuerUnderlyingMatrixCalculator extends Abstra
     final int[][] indexOtherMulticurve = new int[nbMultiCurve][];
     // Implementation note: indexOtherMultiCurve - for each curve in the multi-curve, the index of the underlying curves in the same set
     final int[] startOwnParameter = new int[nbMultiCurve];
-    // Implementation note: The start index of the parameters of the own (new) parameters.
     final int[][] startUnderlyingParameter = new int[nbMultiCurve][];
     // Implementation note: The start index of the parameters of the underlying curves
     loopname = 0;

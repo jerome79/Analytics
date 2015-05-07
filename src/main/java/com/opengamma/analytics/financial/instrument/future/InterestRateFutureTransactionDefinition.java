@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.future;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;

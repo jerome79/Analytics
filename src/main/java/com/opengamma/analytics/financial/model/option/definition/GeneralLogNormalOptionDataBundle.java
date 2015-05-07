@@ -27,7 +27,7 @@ public class GeneralLogNormalOptionDataBundle extends StandardOptionDataBundle {
    * @param spot Time-zero value of f 
    * @param date Date created 
    */
-  public GeneralLogNormalOptionDataBundle(final YieldAndDiscountCurve discountCurve, final DriftSurface localDrift, final VolatilitySurface localVolatility, final double spot, 
+  public GeneralLogNormalOptionDataBundle(final YieldAndDiscountCurve discountCurve, final DriftSurface localDrift, final VolatilitySurface localVolatility, final double spot,
       final ZonedDateTime date) {
     super(discountCurve, 0.0, localVolatility, spot, date);
     ArgChecker.notNull(localDrift, "null localDrift");

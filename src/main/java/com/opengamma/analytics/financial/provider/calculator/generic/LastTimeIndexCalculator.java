@@ -15,13 +15,13 @@ import com.opengamma.strata.collect.ArgChecker;
 public class LastTimeIndexCalculator extends LastTimeCalculator {
 
   private static final IborIndexVisitor INDEX_VISITOR = IborIndexVisitor.getInstance();
-  
+
   private IndexDeposit _baseLeg;
-  
+
   public LastTimeIndexCalculator(IndexDeposit baseLeg) {
     _baseLeg = ArgChecker.notNull(baseLeg, "baseLeg");
   }
-  
+
   @Override
   public Double visitSwap(Swap<?, ?> swap) {
     final double a = swap.getFirstLeg().accept(this);

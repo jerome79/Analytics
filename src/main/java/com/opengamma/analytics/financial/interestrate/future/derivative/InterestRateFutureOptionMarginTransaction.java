@@ -20,8 +20,8 @@ public class InterestRateFutureOptionMarginTransaction extends FuturesTransactio
   * @param referencePrice The reference price.
   */
   public InterestRateFutureOptionMarginTransaction(InterestRateFutureOptionMarginSecurity underlyingOption,
-                                                   long quantity,
-                                                   double referencePrice) {
+      long quantity,
+      double referencePrice) {
     super(underlyingOption, quantity, referencePrice);
   }
 

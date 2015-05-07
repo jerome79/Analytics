@@ -64,7 +64,7 @@ public class ForexNonDeliverableForward implements InstrumentDerivative {
    * @param dsc2 The discounting curve name used for currency2.
    * @deprecated Use the constructor that does not take yield curve names
    */
-  @Deprecated 
+  @Deprecated
   public ForexNonDeliverableForward(final Currency currency1, final Currency currency2, final double notional, final double exchangeRate, final double fixingTime, final double paymentTime,
       final String dsc1, final String dsc2) {
     ArgChecker.notNull(currency1, "First currency");
@@ -82,7 +82,7 @@ public class ForexNonDeliverableForward implements InstrumentDerivative {
     _discountingCurve1Name = dsc1;
     _discountingCurve2Name = dsc2;
   }
-  
+
   /**
    * Constructor for non-deliverable forward Forex transaction.
    * @param currency1 First currency of the transaction.
@@ -171,7 +171,7 @@ public class ForexNonDeliverableForward implements InstrumentDerivative {
   @Deprecated
   public String getDiscountingCurve1Name() {
     if (_discountingCurve1Name == null) {
-      throw new IllegalArgumentException("Discounting curve name 1 was not set"); 
+      throw new IllegalArgumentException("Discounting curve name 1 was not set");
     }
     return _discountingCurve1Name;
   }
@@ -184,7 +184,7 @@ public class ForexNonDeliverableForward implements InstrumentDerivative {
   @Deprecated
   public String getDiscountingCurve2Name() {
     if (_discountingCurve2Name == null) {
-      throw new IllegalArgumentException("Discounting curve name 2 was not set"); 
+      throw new IllegalArgumentException("Discounting curve name 2 was not set");
     }
     return _discountingCurve2Name;
   }

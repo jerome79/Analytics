@@ -75,7 +75,6 @@ public abstract class CapletStrippingSetup {
   private static final boolean IS_EOM = true;
   private static final IborIndex INDEX = new IborIndex(CUR, TENOR, SETTLEMENT_DAYS, DAY_COUNT_INDEX, BUSINESS_DAY, IS_EOM, "USDLIBOR3M");
 
-
   private static final MulticurveProviderDiscount YIELD_CURVES;
   private static final MultiCapFloorPricer PRICER;
 
@@ -87,7 +86,6 @@ public abstract class CapletStrippingSetup {
     // single curve for discount and projection (this is consistent with Bloomberg's cap quotes)
     final YieldCurve indexCurve = YieldCurve.from(curve1);
     final YieldCurve disCurve = YieldCurve.from(curve2);
-    // YIELD_CURVES = new YieldCurveBundle();
     YIELD_CURVES = new MulticurveProviderDiscount();
     YIELD_CURVES.setCurve(CUR, disCurve);
     YIELD_CURVES.setCurve(INDEX, indexCurve);

@@ -21,7 +21,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.schedule.Frequency;
 
-
 /**
  * Tests the volatility swap definition object.
  */
@@ -56,8 +55,8 @@ public class VolatilitySwapDefinitionTest extends AnalyticsTestBase {
     super(VolatilitySwapDefinition.class,
         new Object[] {CCY, VOL_STRIKE, VOL_NOTIONAL, T_PLUS_2D, T_PLUS_5Y, NOW, T_PLUS_5Y, OBSERVATION_FREQUENCY, OBS_PER_YEAR, WEEKENDS },
         new Class[] {Currency.class, double.class, double.class,
-            ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, Frequency.class, double.class,
-            HolidayCalendar.class},
+          ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, ZonedDateTime.class, Frequency.class, double.class,
+          HolidayCalendar.class },
         new boolean[] {true, false, false, true, true, true, true, true, false, true });
   }
 

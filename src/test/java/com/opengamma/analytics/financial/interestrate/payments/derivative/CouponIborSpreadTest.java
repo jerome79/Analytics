@@ -19,7 +19,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 
-
 /**
  * Test.
  */
@@ -72,7 +71,6 @@ public class CouponIborSpreadTest {
   public void testNegativeYearFraction2() {
     new CouponIborSpread(CUR, PAYMENT_TIME, PAYMENT_YEAR_FRACTION, NOTIONAL, RESET_TIME, INDEX, RESET_TIME, MATURITY, -0.2);
   }
-
 
   @Test
   public void testWithNotional() {

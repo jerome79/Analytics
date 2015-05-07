@@ -19,6 +19,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.SimplyC
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
+
 /**
  * The methods associated to the pricing of Ibor fixing.
  */

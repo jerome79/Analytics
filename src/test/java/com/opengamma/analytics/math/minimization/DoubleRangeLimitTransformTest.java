@@ -10,8 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -47,7 +45,7 @@ public class DoubleRangeLimitTransformTest extends ParameterLimitsTransformTestC
       final double x = A + (B - A) * RANDOM.nextDouble();
       final double y = 5 * NORMAL.nextRandom();
       assertRoundTrip(RANGE_LIMITS, x);
-     assertReverseRoundTrip(RANGE_LIMITS, y);
+      assertReverseRoundTrip(RANGE_LIMITS, y);
 
       assertGradient(RANGE_LIMITS, x);
       assertInverseGradient(RANGE_LIMITS, y);

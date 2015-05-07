@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.statistics.descriptive.MeanCalculator;
 import com.opengamma.analytics.math.statistics.descriptive.MedianCalculator;
 import com.opengamma.analytics.math.statistics.descriptive.PopulationVarianceCalculator;
 
-
 /**
  * Test.
  */

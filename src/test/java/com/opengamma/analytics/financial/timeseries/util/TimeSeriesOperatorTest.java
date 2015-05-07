@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.google.common.collect.ImmutableList;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
-
 /**
  * Test.
  */
@@ -23,10 +22,10 @@ public class TimeSeriesOperatorTest {
 
   private static final LocalDateDoubleTimeSeries TEST_PRICE_SERIES =
       LocalDateDoubleTimeSeries.builder()
-        .putAll(
-            ImmutableList.of(ld(1), ld(2), ld(3), ld(4), ld(5), ld(6), ld(7), ld(8), ld(9), ld(10)),
-            ImmutableList.of(738d, 730d, 750d, 750d, 746d, 754d, 769d, 750d, 750d, 764d))
-        .build();
+          .putAll(
+              ImmutableList.of(ld(1), ld(2), ld(3), ld(4), ld(5), ld(6), ld(7), ld(8), ld(9), ld(10)),
+              ImmutableList.of(738d, 730d, 750d, 750d, 746d, 754d, 769d, 750d, 750d, 764d))
+          .build();
 
   @Test
   public void testWeightedVol() {
@@ -41,7 +40,7 @@ public class TimeSeriesOperatorTest {
             .build();
     compareTimeseries(expectedWeightedVolSeries, weightedVolSeries, 0.000000001);
   }
-  
+
   @Test
   public void testRelativeVolatilityWeighting() {
     LocalDateDoubleTimeSeries priceSeries = TEST_PRICE_SERIES;
@@ -61,5 +60,5 @@ public class TimeSeriesOperatorTest {
   private static LocalDate ld(long day) {
     return LocalDate.ofEpochDay(day);
   }
-  
+
 }

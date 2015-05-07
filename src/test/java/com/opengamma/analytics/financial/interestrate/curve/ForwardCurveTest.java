@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.DoubleQuadraticInterpolator1D;
 import com.opengamma.analytics.math.interpolation.FlatExtrapolator1D;
 
-
 /**
  * Test.
  */

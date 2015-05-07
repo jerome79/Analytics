@@ -65,10 +65,10 @@ public class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
     final double[][] dfIbor = new double[2][];
     final double[][] discountedCashFlowIbor = new double[2][];
     final AnnuityPaymentFixed[] cfeIbor = new AnnuityPaymentFixed[] {cmsSpread.getUnderlyingSwap1().getSecondLeg().accept(CFEC, g2Data),
-        cmsSpread.getUnderlyingSwap2().getSecondLeg().accept(CFEC, g2Data) };
+      cmsSpread.getUnderlyingSwap2().getSecondLeg().accept(CFEC, g2Data) };
     final int[] nbCfIbor = new int[] {cfeIbor[0].getNumberOfPayments(), cfeIbor[1].getNumberOfPayments() };
     final double[] notionalSwap = new double[] {cmsSpread.getUnderlyingSwap1().getFixedLeg().getNthPayment(0).getNotional(),
-        cmsSpread.getUnderlyingSwap2().getFixedLeg().getNthPayment(0).getNotional() };
+      cmsSpread.getUnderlyingSwap2().getFixedLeg().getNthPayment(0).getNotional() };
     // Swaps - Float
     for (int loopswap = 0; loopswap < 2; loopswap++) {
       tIbor[loopswap] = new double[nbCfIbor[loopswap]];

@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -103,11 +102,11 @@ public class AffineDividendsTest {
     AffineDividends other = new AffineDividends(TAU1, ALPHA1, BETA1);
     assertEquals(dividends, other);
     assertEquals(dividends.hashCode(), other.hashCode());
-    other = new AffineDividends(new double[] {0.4}, ALPHA1, BETA1);
+    other = new AffineDividends(new double[] {0.4 }, ALPHA1, BETA1);
     assertFalse(dividends.equals(other));
-    other = new AffineDividends(TAU1, new double[] {0.2345}, BETA1);
+    other = new AffineDividends(TAU1, new double[] {0.2345 }, BETA1);
     assertFalse(dividends.equals(other));
-    other = new AffineDividends(TAU1, ALPHA1, new double[] {0.123456});
+    other = new AffineDividends(TAU1, ALPHA1, new double[] {0.123456 });
     assertFalse(dividends.equals(other));
   }
 }

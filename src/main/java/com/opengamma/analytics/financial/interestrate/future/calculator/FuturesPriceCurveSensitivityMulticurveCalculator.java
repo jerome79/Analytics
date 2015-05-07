@@ -24,7 +24,6 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.SimplyC
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
-
 /**
  * Computes the price curve sensitivity for different types of futures. Calculator using a multi-curve provider.
  */

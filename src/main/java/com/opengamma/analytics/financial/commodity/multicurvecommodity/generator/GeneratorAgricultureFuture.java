@@ -12,6 +12,7 @@ import com.opengamma.analytics.financial.commodity.multicurvecommodity.definitio
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
 import com.opengamma.analytics.financial.instrument.index.GeneratorInstrument;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  *  Class used to store and generate an Agriculture Future  characteristics.
  */

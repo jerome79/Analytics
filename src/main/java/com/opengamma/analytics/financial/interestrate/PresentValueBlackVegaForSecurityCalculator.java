@@ -26,6 +26,7 @@ public class PresentValueBlackVegaForSecurityCalculator extends InstrumentDeriva
   private static final BondFutureOptionPremiumSecurityBlackSurfaceMethod PREMIUM_BOND_FUTURE_OPTION = BondFutureOptionPremiumSecurityBlackSurfaceMethod.getInstance();
   private static final InterestRateFutureOptionMarginSecurityBlackSurfaceMethod MARGINED_IR_FUTURE_OPTION = InterestRateFutureOptionMarginSecurityBlackSurfaceMethod.getInstance();
   private static final InterestRateFutureOptionPremiumSecurityBlackSurfaceMethod PREMIUM_IR_FUTURE_OPTION = InterestRateFutureOptionPremiumSecurityBlackSurfaceMethod.getInstance();
+
   public static PresentValueBlackVegaForSecurityCalculator getInstance() {
     return INSTANCE;
   }

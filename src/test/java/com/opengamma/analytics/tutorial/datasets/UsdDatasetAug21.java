@@ -54,14 +54,14 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class UsdDatasetAug21 {
 
-  public static final Interpolator1D INTERPOLATOR_LINEAR = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, 
-          Interpolator1DFactory.FLAT_EXTRAPOLATOR, 
+  public static final Interpolator1D INTERPOLATOR_LINEAR =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR,
+          Interpolator1DFactory.FLAT_EXTRAPOLATOR,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR);
 
-  public static final Interpolator1D INTERPOLATOR_LOG_LINEAR = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_LINEAR, 
-          Interpolator1DFactory.EXPONENTIAL_EXTRAPOLATOR,  
+  public static final Interpolator1D INTERPOLATOR_LOG_LINEAR =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_LINEAR,
+          Interpolator1DFactory.EXPONENTIAL_EXTRAPOLATOR,
           Interpolator1DFactory.EXPONENTIAL_EXTRAPOLATOR);
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
@@ -88,9 +88,9 @@ public class UsdDatasetAug21 {
   /** Units of curves */
   private static final int NB_UNITS = 2;
   private static final int NB_BLOCKS = 2;
-  private static final GeneratorYDCurve[][] ZERO_RATE_LINEAR_INTERPOLATION_GENERATORS = 
+  private static final GeneratorYDCurve[][] ZERO_RATE_LINEAR_INTERPOLATION_GENERATORS =
       new GeneratorYDCurve[NB_BLOCKS][NB_UNITS];
-  private static final GeneratorYDCurve[][] DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS = 
+  private static final GeneratorYDCurve[][] DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS =
       new GeneratorYDCurve[NB_BLOCKS][NB_UNITS];
   private static final String[][] NAMES_UNITS = new String[NB_BLOCKS][NB_UNITS];
   private static final MulticurveProviderDiscount KNOWN_DATA = new MulticurveProviderDiscount(FX_MATRIX);
@@ -105,13 +105,13 @@ public class UsdDatasetAug21 {
     ZERO_RATE_LINEAR_INTERPOLATION_GENERATORS[1][0] = genIntLin;
     ZERO_RATE_LINEAR_INTERPOLATION_GENERATORS[1][1] = genIntLin;
 
-    final GeneratorYDCurve logLinInterpolationGenerator = 
+    final GeneratorYDCurve logLinInterpolationGenerator =
         new GeneratorCurveDiscountFactorInterpolated(MATURITY_CALCULATOR, INTERPOLATOR_LOG_LINEAR);
     DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS[0][0] = logLinInterpolationGenerator;
     DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS[0][1] = logLinInterpolationGenerator;
     DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS[1][0] = logLinInterpolationGenerator;
     DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS[1][1] = logLinInterpolationGenerator;
- 
+
     NAMES_UNITS[0][0] = CURVE_NAME_DSC_USD;
     NAMES_UNITS[0][1] = CURVE_NAME_FWD3_USD;
     NAMES_UNITS[1][0] = CURVE_NAME_FWD3_USD;
@@ -121,43 +121,43 @@ public class UsdDatasetAug21 {
     FWD_IBOR_MAP.put(CURVE_NAME_FWD3_USD, new IborIndex[] {USDLIBOR3M });
     FWD_IBOR_MAP.put(CURVE_NAME_DSC_USD, new IborIndex[] {USDLIBOR6M });
   }
-  
+
   public static ZonedDateTime[] s_startDates = new ZonedDateTime[] {
-      DateUtils.getUTCDate(2014, 9, 25),
-      DateUtils.getUTCDate(2014, 10, 27),
-      DateUtils.getUTCDate(2014, 11, 25),
-      DateUtils.getUTCDate(2014, 12, 29),
-      DateUtils.getUTCDate(2015, 1, 26),
-      DateUtils.getUTCDate(2015, 2, 25),
-      DateUtils.getUTCDate(2015, 8, 25),
-      DateUtils.getUTCDate(2016, 2, 25)
+    DateUtils.getUTCDate(2014, 9, 25),
+    DateUtils.getUTCDate(2014, 10, 27),
+    DateUtils.getUTCDate(2014, 11, 25),
+    DateUtils.getUTCDate(2014, 12, 29),
+    DateUtils.getUTCDate(2015, 1, 26),
+    DateUtils.getUTCDate(2015, 2, 25),
+    DateUtils.getUTCDate(2015, 8, 25),
+    DateUtils.getUTCDate(2016, 2, 25)
   };
   public static ZonedDateTime[] s_endDates = new ZonedDateTime[] {
-      DateUtils.getUTCDate(2015, 3, 25),
-      DateUtils.getUTCDate(2015, 4, 27),
-      DateUtils.getUTCDate(2015, 5, 25),
-      DateUtils.getUTCDate(2015, 6, 25),
-      DateUtils.getUTCDate(2015, 7, 27),
-      DateUtils.getUTCDate(2015, 8, 25),
-      DateUtils.getUTCDate(2016, 2, 25),
-      DateUtils.getUTCDate(2016, 8, 24)
+    DateUtils.getUTCDate(2015, 3, 25),
+    DateUtils.getUTCDate(2015, 4, 27),
+    DateUtils.getUTCDate(2015, 5, 25),
+    DateUtils.getUTCDate(2015, 6, 25),
+    DateUtils.getUTCDate(2015, 7, 27),
+    DateUtils.getUTCDate(2015, 8, 25),
+    DateUtils.getUTCDate(2016, 2, 25),
+    DateUtils.getUTCDate(2016, 8, 24)
   };
-  
+
   static double[] s_fraQuotes = new double[] {
-      0.024899, 
-      0.023569,
-      0.022321,
-      0.021698,
-      0.021365,
-      0.021050,
-      0.021380,
-      0.022698 
+    0.024899,
+    0.023569,
+    0.022321,
+    0.021698,
+    0.021365,
+    0.021050,
+    0.021380,
+    0.022698
   };
 
   public static InstrumentDefinition<?>[] getDefinitions() {
     final InstrumentDefinition<?>[] definitions = new InstrumentDefinition<?>[s_fraQuotes.length];
     for (int i = 0; i < s_fraQuotes.length; ++i) {
-      definitions[i] = ForwardRateAgreementDefinition.from(s_startDates[i], s_endDates[i], NOTIONAL, USDLIBOR6M, 
+      definitions[i] = ForwardRateAgreementDefinition.from(s_startDates[i], s_endDates[i], NOTIONAL, USDLIBOR6M,
           s_fraQuotes[i], NYC);
     }
     return definitions;
@@ -180,12 +180,12 @@ public class UsdDatasetAug21 {
       final ZonedDateTime calibrationDate, boolean marketQuoteRisk, final Interpolator1D interpolator) {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[1][][];
     InstrumentDefinition<?>[] definitions = getDefinitions();
-    
-    definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitions};
-    
+
+    definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitions };
+
     InstrumentDerivativeVisitor<ParameterProviderInterface, Double> target;
     InstrumentDerivativeVisitor<ParameterProviderInterface, MulticurveSensitivity> targetSensitivity;
-    
+
     if (marketQuoteRisk) {
       target = PSMQDC;
       targetSensitivity = PSMQCSC;
@@ -193,20 +193,20 @@ public class UsdDatasetAug21 {
       target = PSRDC;
       targetSensitivity = PSRCSC;
     }
-  
+
     GeneratorYDCurve[][] generators = null;
-    if(interpolator == INTERPOLATOR_LINEAR) {
+    if (interpolator == INTERPOLATOR_LINEAR) {
       generators = ZERO_RATE_LINEAR_INTERPOLATION_GENERATORS;
     } else if (interpolator == INTERPOLATOR_LOG_LINEAR) {
       generators = DISCOUNT_FACTOR_LOG_LINEAR_INTERPOLATION_GENERATORS;
     }
 
     return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits,
-        generators, NAMES_UNITS, KNOWN_DATA, target, targetSensitivity, false, DSC_MAP, 
-        FWD_ON_MAP, FWD_IBOR_MAP, CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_USD_WITH_TODAY, 
+        generators, NAMES_UNITS, KNOWN_DATA, target, targetSensitivity, false, DSC_MAP,
+        FWD_ON_MAP, FWD_IBOR_MAP, CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_USD_WITH_TODAY,
         TS_FIXED_OIS_USD_WITHOUT_TODAY, TS_FIXED_IBOR_USD3M_WITH_LAST, TS_FIXED_IBOR_USD3M_WITHOUT_LAST);
   }
-  
+
   /**
    * Returns the array of Ibor index used in the curve data set. 
    * @return The array: USDLIBOR1M, USDLIBOR3M, USDLIBOR6M

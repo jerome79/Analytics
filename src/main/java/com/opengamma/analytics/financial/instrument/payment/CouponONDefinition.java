@@ -240,7 +240,6 @@ public class CouponONDefinition extends CouponDefinition implements InstrumentDe
         / getPaymentYearFraction());
   }
 
-
   @Override
   public <U, V> V accept(final InstrumentDefinitionVisitor<U, V> visitor, final U data) {
     ArgChecker.notNull(visitor, "visitor");

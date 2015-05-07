@@ -15,7 +15,6 @@ import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -166,8 +165,8 @@ public class EuropeanExchangeOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider2D ref = new EuropeanExchangeOptionFunctionProvider(1., 53, 3., 2.);
     final OptionFunctionProvider2D[] function = new OptionFunctionProvider2D[] {ref, new EuropeanExchangeOptionFunctionProvider(1., 53, 3., 2.),
-        new EuropeanExchangeOptionFunctionProvider(1., 53, 4., 2.), new EuropeanExchangeOptionFunctionProvider(1., 53, 3., 1.),
-        new AmericanSpreadOptionFunctionProvider(0., 1., 53, true), null };
+      new EuropeanExchangeOptionFunctionProvider(1., 53, 4., 2.), new EuropeanExchangeOptionFunctionProvider(1., 53, 3., 1.),
+      new AmericanSpreadOptionFunctionProvider(0., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {
@@ -272,59 +271,4 @@ public class EuropeanExchangeOptionFunctionProviderTest {
     return -first - second;
   }
 
-  //  /**
-  //   * 
-  //   */
-  //  @Test
-  //  public void functionTest() {
-  //    final double eps = 1.e-6;
-  //    final double[] spotSet2 = new double[] {SPOT * 0.9, SPOT * 1.1 };
-  //    final double sigma2 = 0.15;
-  //    final double[] rhoSet = new double[] {-0.1, 0.6 };
-  //    final double quant2 = 2.;
-  //    final double[] quant1Set = new double[] {1., 2., 3. };
-  //
-  //    final double div2 = 0.01;
-  //
-  //    for (final double interest : INTERESTS) {
-  //      for (final double vol : VOLS) {
-  //        for (final double spot2 : spotSet2) {
-  //          for (final double rho : rhoSet) {
-  //            for (final double dividend : DIVIDENDS) {
-  //              for (final double quant1 : quant1Set) {
-  //                final double delta1 = delta1(SPOT, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double gamma1 = gamma1(SPOT, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double theta = theta(SPOT, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double delta2 = delta2(SPOT, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double gamma2 = gamma2(SPOT, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double crossGamma = crossGamma(SPOT, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //
-  //                final double upSpot1 = price(SPOT + eps, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double downSpot1 = price(SPOT - eps, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double upSpot2 = price(SPOT, spot2 + eps, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double downSpot2 = price(SPOT, spot2 - eps, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //
-  //                final double upSpotDelta1 = delta1(SPOT + eps, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double downSpotDelta1 = delta1(SPOT - eps, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double upSpotDelta2 = delta2(SPOT, spot2 + eps, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double downSpotDelta2 = delta2(SPOT, spot2 - eps, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double upSpotDeltaForCross = delta2(SPOT + eps, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double downSpotDeltaForCross = delta2(SPOT - eps, spot2, TIME, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //
-  //                final double upTime = price(SPOT, spot2, TIME + eps, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //                final double downTime = price(SPOT, spot2, TIME - eps, vol, sigma2, rho, interest, interest - dividend, interest - div2, quant1, quant2);
-  //
-  //                assertEquals(delta1, 0.5 * (upSpot1 - downSpot1) / eps, eps);
-  //                assertEquals(gamma1, 0.5 * (upSpotDelta1 - downSpotDelta1) / eps, eps);
-  //                assertEquals(delta2, 0.5 * (upSpot2 - downSpot2) / eps, eps);
-  //                assertEquals(gamma2, 0.5 * (upSpotDelta2 - downSpotDelta2) / eps, eps);
-  //                assertEquals(crossGamma, 0.5 * (upSpotDeltaForCross - downSpotDeltaForCross) / eps, eps);
-  //                assertEquals(theta, -0.5 * (upTime - downTime) / eps, eps);
-  //              }
-  //            }
-  //          }
-  //        }
-  //      }
-  //    }
-  //  }
 }

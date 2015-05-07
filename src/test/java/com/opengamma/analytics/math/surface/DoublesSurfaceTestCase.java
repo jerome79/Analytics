@@ -153,7 +153,7 @@ public abstract class DoublesSurfaceTestCase {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull13() {
-    new DummySurface(new DoublesPair[] {null}, Z_PRIMITIVE, NAME);
+    new DummySurface(new DoublesPair[] {null }, Z_PRIMITIVE, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -168,7 +168,7 @@ public abstract class DoublesSurfaceTestCase {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull16() {
-    new DummySurface(new DoublesPair[] {null}, Z_OBJECT, NAME);
+    new DummySurface(new DoublesPair[] {null }, Z_OBJECT, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -288,7 +288,7 @@ public abstract class DoublesSurfaceTestCase {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull38() {
-    new DummySurface(new DoublesPair[] {null}, Z_PRIMITIVE);
+    new DummySurface(new DoublesPair[] {null }, Z_PRIMITIVE);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -303,7 +303,7 @@ public abstract class DoublesSurfaceTestCase {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull41() {
-    new DummySurface(new DoublesPair[] {null}, Z_OBJECT);
+    new DummySurface(new DoublesPair[] {null }, Z_OBJECT);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -24,18 +24,18 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 @Test
 public class BucketedGreekResultCollectionTest {
-  private static final double[] EXPIRIES = new double[] {1, 5, 10, 20};
+  private static final double[] EXPIRIES = new double[] {1, 5, 10, 20 };
   private static final double[][] STRIKES = new double[][] {
-    new double[] {1.1, 1.2, 1.3},
-    new double[] {1.1, 1.2, 1.3},
-    new double[] {1.1, 1.2},
-    new double[] {1.1, 1.2, 1.3}
+    new double[] {1.1, 1.2, 1.3 },
+    new double[] {1.1, 1.2, 1.3 },
+    new double[] {1.1, 1.2 },
+    new double[] {1.1, 1.2, 1.3 }
   };
   private static final double[][] VEGA = new double[][] {
-    new double[] {0.1, 0.2, 0.3},
-    new double[] {10.1, 10.2, 10.3},
-    new double[] {20.1, 20.2},
-    new double[] {30.1, 30.2, 30.3}
+    new double[] {0.1, 0.2, 0.3 },
+    new double[] {10.1, 10.2, 10.3 },
+    new double[] {20.1, 20.2 },
+    new double[] {30.1, 30.2, 30.3 }
   };
   private static final BucketedGreekResultCollection RESULTS = new BucketedGreekResultCollection(EXPIRIES, STRIKES);
 
@@ -57,7 +57,7 @@ public class BucketedGreekResultCollectionTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongStrikeNumber1() {
     final double[][] result = new double[][] {
-        new double[] {0.1, 0.2, 0.3},
+      new double[] {0.1, 0.2, 0.3 },
     };
     RESULTS.put(BucketedGreekResultCollection.BUCKETED_VEGA, result);
   }
@@ -65,10 +65,10 @@ public class BucketedGreekResultCollectionTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongStrikeNumber2() {
     final double[][] result = new double[][] {
-        new double[] {0.1, 0.2, 0.3},
-        new double[] {10.1, 10.2, 10.3},
-        new double[] {20.1, 20.2, 20.3},
-        new double[] {30.1, 30.2, 30.3}
+      new double[] {0.1, 0.2, 0.3 },
+      new double[] {10.1, 10.2, 10.3 },
+      new double[] {20.1, 20.2, 20.3 },
+      new double[] {30.1, 30.2, 30.3 }
     };
     RESULTS.put(BucketedGreekResultCollection.BUCKETED_VEGA, result);
   }
@@ -76,10 +76,10 @@ public class BucketedGreekResultCollectionTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongExpiryNumber() {
     final double[][] result = new double[][] {
-        new double[] {0.1, 0.2, 0.3, 0.4},
-        new double[] {10.1, 10.2, 10.3, 10.4},
-        new double[] {20.1, 20.2, 20.3, 20.4},
-        new double[] {30.1, 30.2, 30.3, 30.4}
+      new double[] {0.1, 0.2, 0.3, 0.4 },
+      new double[] {10.1, 10.2, 10.3, 10.4 },
+      new double[] {20.1, 20.2, 20.3, 20.4 },
+      new double[] {30.1, 30.2, 30.3, 30.4 }
     };
     RESULTS.put(BucketedGreekResultCollection.BUCKETED_VEGA, result);
   }
@@ -87,10 +87,10 @@ public class BucketedGreekResultCollectionTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNonRectangular() {
     final double[][] result = new double[][] {
-        new double[] {0.1, 0.2, 0.3},
-        new double[] {10.1, 10.2},
-        new double[] {20.1, 20.2, 20.3},
-        new double[] {30.1, 30.2, 30.3}
+      new double[] {0.1, 0.2, 0.3 },
+      new double[] {10.1, 10.2 },
+      new double[] {20.1, 20.2, 20.3 },
+      new double[] {30.1, 30.2, 30.3 }
     };
     RESULTS.put(BucketedGreekResultCollection.BUCKETED_VEGA, result);
   }
@@ -129,14 +129,14 @@ public class BucketedGreekResultCollectionTest {
     assertEquals(results, other);
     assertEquals(results.hashCode(), other.hashCode());
     final double[][] strikes = new double[][] {
-        new double[] {1.1, 1.2, 1.4},
-        new double[] {1.1, 1.2, 1.3},
-        new double[] {1.1, 1.2},
-        new double[] {1.1, 1.2, 1.3}
+      new double[] {1.1, 1.2, 1.4 },
+      new double[] {1.1, 1.2, 1.3 },
+      new double[] {1.1, 1.2 },
+      new double[] {1.1, 1.2, 1.3 }
     };
     other = new BucketedGreekResultCollection(EXPIRIES, strikes);
     assertFalse(results.equals(other));
-    other = new BucketedGreekResultCollection(new double[] {1, 5, 10, 15}, STRIKES);
+    other = new BucketedGreekResultCollection(new double[] {1, 5, 10, 15 }, STRIKES);
     assertFalse(results.equals(other));
     other = new BucketedGreekResultCollection(EXPIRIES, STRIKES);
     results.put(BucketedGreekResultCollection.BUCKETED_VEGA, VEGA);

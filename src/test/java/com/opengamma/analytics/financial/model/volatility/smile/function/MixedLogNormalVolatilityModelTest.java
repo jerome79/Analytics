@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -56,19 +55,6 @@ public class MixedLogNormalVolatilityModelTest {
     LARGE_SYSTEM = new MixedLogNormalModelData(parms);
   }
 
-  @Test(enabled = false)
-  public void printTest() {
-    for (int i = 0; i < 101; i++) {
-      final double k = FORWARD * (0.5 + 2.5 * i / 100.);
-      final EuropeanVanillaOption option = new EuropeanVanillaOption(k, T, true);
-      final double vol1 = VOL_FUNC.getVolatility(option, FORWARD, LEPTOKURTIC1);
-      final double vol2 = VOL_FUNC.getVolatility(option, FORWARD, LEPTOKURTIC2);
-      final double vol3 = VOL_FUNC.getVolatility(option, FORWARD, PLATYKURTIC);
-      System.out.println(k + "\t" + vol1 + "\t" + vol2 + "\t" + vol3);
-    }
-  }
-
-  @Test
   public void smileTest() {
 
     final double shift = 1e-4;
@@ -90,7 +76,6 @@ public class MixedLogNormalVolatilityModelTest {
     assertTrue("platykurtic", kurt[2] < 0);
   }
 
-  @Test
   public void modelAdjointTest() {
     modelAdjointTest(LEPTOKURTIC1);
     modelAdjointTest(LEPTOKURTIC2);
@@ -112,7 +97,6 @@ public class MixedLogNormalVolatilityModelTest {
 
   }
 
-  @Test
   public void volatilityAdjointTest() {
     volatilityAdjointTest(LEPTOKURTIC1);
     volatilityAdjointTest(LEPTOKURTIC2);

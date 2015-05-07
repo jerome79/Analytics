@@ -49,7 +49,7 @@ public class BondFuturesYieldAverageSecurity extends FuturesSecurity {
    * @param tenor The underlying synthetic bond tenor (in years).
    * @param notional The notional of the bond future.
    */
-  public BondFuturesYieldAverageSecurity(final double tradingLastTime, final BondFixedSecurity[] deliveryBasketAtDeliveryDate, 
+  public BondFuturesYieldAverageSecurity(final double tradingLastTime, final BondFixedSecurity[] deliveryBasketAtDeliveryDate,
       final BondFixedSecurity[] deliveryBasketAtSpotDate, final double couponRate, final int tenor, final double notional) {
     super(tradingLastTime);
     ArgChecker.notNull(deliveryBasketAtDeliveryDate, "Delivery basket at delivery date");
@@ -103,12 +103,11 @@ public class BondFuturesYieldAverageSecurity extends FuturesSecurity {
     return _tenor;
   }
 
-
   @Override
   public Currency getCurrency() {
     return _deliveryBasketAtDeliveryDate[0].getCurrency();
   }
-  
+
   /**
    * Returns the number of coupon per year for the first bond in the basket.
    * @return The number of coupon per year.

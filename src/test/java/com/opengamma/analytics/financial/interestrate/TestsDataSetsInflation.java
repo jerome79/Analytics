@@ -60,7 +60,7 @@ public class TestsDataSetsInflation {
 
   public static InterpolatedDoublesSurface createBlackSurfaceExpiryTenorShift(final double shift) {
     return InterpolatedDoublesSurface.from(new double[] {0.5, 1.0, 5.0, 0.5, 1.0, 5.0 }, new double[] {2, 2, 2, 10, 10, 10 }, new double[] {0.35 + shift, 0.34 + shift, 0.25 + shift, 0.30 + shift,
-        0.25 + shift, 0.20 + shift }, INTERPOLATOR_LINEAR_2D);
+      0.25 + shift, 0.20 + shift }, INTERPOLATOR_LINEAR_2D);
   }
 
   public static BlackFlatSwaptionParameters createBlackSwaptionEUR6() {

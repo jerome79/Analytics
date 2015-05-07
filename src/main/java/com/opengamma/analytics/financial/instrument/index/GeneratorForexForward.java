@@ -55,8 +55,8 @@ public class GeneratorForexForward extends GeneratorInstrument<GeneratorAttribut
    * @param businessDayConvention The business day convention. Not null.
    * @param endOfMonth The flag indicating if the end-of-month rule is used.
    */
-  public GeneratorForexForward(final String name, final Currency currency1, final Currency currency2, 
-      final HolidayCalendar calendar, final int spotLag, final BusinessDayConvention businessDayConvention, 
+  public GeneratorForexForward(final String name, final Currency currency1, final Currency currency2,
+      final HolidayCalendar calendar, final int spotLag, final BusinessDayConvention businessDayConvention,
       final boolean endOfMonth) {
     super(name);
     ArgChecker.notNull(currency1, "Currency 1");
@@ -129,7 +129,7 @@ public class GeneratorForexForward extends GeneratorInstrument<GeneratorAttribut
     ArgChecker.notNull(attribute, "Attribute");
     final double fx = attribute.getFxMatrix().fxRate(_currency1, _currency2);
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, _spotLag, _calendar);
-    final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getEndPeriod(), 
+    final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getEndPeriod(),
         _businessDayConvention, _calendar, _endOfMonth);
     return new ForexDefinition(_currency1, _currency2, endDate, notional, fx + forwardPoints);
   }

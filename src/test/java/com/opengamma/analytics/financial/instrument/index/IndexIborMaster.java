@@ -42,7 +42,7 @@ public final class IndexIborMaster {
    * Reference to the DKK CIBOR 6M index.
    */
   public static final String DKKCIBOR6M = "DKKCIBOR6M";
-  
+
   /**
    * Reference to the EUR EURIBOR 1M index.
    */
@@ -102,7 +102,7 @@ public final class IndexIborMaster {
    * Reference to the USD LIBOR 6M index.
    */
   public static final String USDLIBOR12M = "USDLIBOR12M";
-  
+
   /**
    * The method unique instance.
    */

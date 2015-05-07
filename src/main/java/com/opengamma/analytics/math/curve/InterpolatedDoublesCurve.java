@@ -528,7 +528,6 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
 
   private void init(final Interpolator1D interpolator) {
     ArgChecker.notNull(interpolator, "interpolator");
-    //  ArgChecker.isTrue(size() >= 2);
     dataBundle = interpolator.getDataBundleFromSortedArrays(getXDataAsPrimitive(), getYDataAsPrimitive());
     this.interpolator = interpolator;
   }

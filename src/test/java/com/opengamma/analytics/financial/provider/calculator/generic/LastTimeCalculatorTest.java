@@ -28,7 +28,6 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 
-
 /**
  * Test.
  */
@@ -55,15 +54,15 @@ public class LastTimeCalculatorTest {
     final IborIndex index = new IborIndex(CUR, Period.ofMonths(1), 2, DayCounts.ACT_365F,
         BusinessDayConventions.FOLLOWING, true, "Ibor");
     final ForwardRateAgreement fra = new ForwardRateAgreement(CUR,
-                                                              paymentTime,
-                                                              paymentYearFraction,
-                                                              1,
-                                                              index,
-                                                              fixingTime,
-                                                              fixingPeriodStartTime,
-                                                              fixingPeriodEndTime,
-                                                              fixingYearFraction,
-                                                              0.05);
+        paymentTime,
+        paymentYearFraction,
+        1,
+        index,
+        fixingTime,
+        fixingPeriodStartTime,
+        fixingPeriodEndTime,
+        fixingYearFraction,
+        0.05);
 
     assertEquals(fixingPeriodEndTime, fra.accept(LDC), 1e-12);
   }
@@ -79,20 +78,20 @@ public class LastTimeCalculatorTest {
     final double paymentAccrualFactor = 0.25;
     final double refrencePrice = 0.0;
     final InterestRateFutureSecurity sec = new InterestRateFutureSecurity(lastTradingTime,
-                                                                          iborIndex,
-                                                                          fixingPeriodStartTime,
-                                                                          fixingPeriodEndTime,
-                                                                          fixingPeriodAccrualFactor,
-                                                                          1.0,
-                                                                          paymentAccrualFactor,
-                                                                          "S");
+        iborIndex,
+        fixingPeriodStartTime,
+        fixingPeriodEndTime,
+        fixingPeriodAccrualFactor,
+        1.0,
+        paymentAccrualFactor,
+        "S");
     final InterestRateFutureTransaction ir = new InterestRateFutureTransaction(sec, refrencePrice, 1);
     assertEquals(fixingPeriodEndTime, ir.accept(LDC), 1e-12);
   }
 
   @Test
   public void testFixedCouponAnnuity() {
-    final AnnuityCouponFixed annuity = 
+    final AnnuityCouponFixed annuity =
         new AnnuityCouponFixed(CUR, new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 1.0, 1.0, true);
     assertEquals(10, annuity.accept(LDC), 1e-12);
   }

@@ -27,8 +27,8 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
 /**
  * Computes the par rate for different instrument. The meaning of "par rate" is instrument dependent.
  */
-public final class ParRateDiscountingCalculator extends 
-  InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, Double> {
+public final class ParRateDiscountingCalculator extends
+    InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, Double> {
 
   /**
    * The unique instance of the calculator.

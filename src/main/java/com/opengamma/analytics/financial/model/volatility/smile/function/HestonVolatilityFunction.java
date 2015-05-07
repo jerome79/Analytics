@@ -104,7 +104,6 @@ public class HestonVolatilityFunction extends VolatilityFunctionProvider<HestonM
               count++;
             } catch (final IllegalArgumentException e) {
 
-              //impVol = BlackFormulaRepository.impliedVolatility(price, forward, strike, timeToExpiry, true);
             }
           }
         }

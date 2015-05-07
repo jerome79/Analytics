@@ -19,8 +19,8 @@ import com.opengamma.strata.basics.currency.Currency;
 /**
  * Get the single fixed rate that makes the PV of the instrument zero.
  */
-public final class ParRateCurveSensitivityDiscountingCalculator 
-  extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MulticurveSensitivity> {
+public final class ParRateCurveSensitivityDiscountingCalculator
+    extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MulticurveSensitivity> {
 
   /**
    * The unique instance of the calculator.

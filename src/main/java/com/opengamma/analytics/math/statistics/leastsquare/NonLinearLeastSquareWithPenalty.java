@@ -30,7 +30,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * \sum_{i,j=0}^{M-1}P_{i,j}x_ix_j$
  */
 public class NonLinearLeastSquareWithPenalty {
-  // private static final Logger LOGGER = LoggerFactory.getLogger(NonLinearLeastSquareWithPenalty.class);
   private static final int MAX_ATTEMPTS = 100000;
 
   // Review should we use Cholesky as default
@@ -213,7 +212,6 @@ public class NonLinearLeastSquareWithPenalty {
     double p = getANorm(penalty, theta);
     oldChiSqr += p;
 
-
     DoubleMatrix1D beta = getChiSqrGrad(error, jacobian);
     DoubleMatrix1D temp = (DoubleMatrix1D) _algebra.multiply(penalty, theta);
     beta = (DoubleMatrix1D) _algebra.subtract(beta, temp);
@@ -232,7 +230,6 @@ public class NonLinearLeastSquareWithPenalty {
 
       final DoubleMatrix1D trialTheta = (DoubleMatrix1D) _algebra.add(theta, deltaTheta);
 
-      // if the new value of theta is not in the model domain keep increasing lambda until an acceptable step is found
       if (!allowedValue.evaluate(trialTheta)) {
         lambda = increaseLambda(lambda);
         continue;
@@ -281,7 +278,6 @@ public class NonLinearLeastSquareWithPenalty {
     }
     return lambda * 10;
   }
-
 
   private LeastSquareWithPenaltyResults finish(final DoubleMatrix2D alpha, final DecompositionResult decmp, final double chiSqr, final double penalty, final DoubleMatrix2D jacobian,
       final DoubleMatrix1D newTheta, final DoubleMatrix1D sigma) {

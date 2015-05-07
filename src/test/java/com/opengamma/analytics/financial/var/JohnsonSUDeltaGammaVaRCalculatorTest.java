@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */

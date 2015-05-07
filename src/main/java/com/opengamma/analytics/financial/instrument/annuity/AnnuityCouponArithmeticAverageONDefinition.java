@@ -117,7 +117,8 @@ public class AnnuityCouponArithmeticAverageONDefinition extends AnnuityCouponDef
   public static AnnuityCouponArithmeticAverageONDefinition withRateCutOff(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final double notional, final boolean isPayer,
       final Period paymentPeriod, final IndexON indexON, final int paymentLag, final BusinessDayConvention businessDayConvention, final boolean isEOM, final HolidayCalendar indexCalendar,
       final int rateCutOff) {
-    return withRateCutOff(settlementDate, endFixingPeriodDate, notional, isPayer, paymentPeriod, indexON, paymentLag, businessDayConvention, isEOM, indexCalendar, StubConvention.SHORT_INITIAL, rateCutOff);
+    return withRateCutOff(settlementDate, endFixingPeriodDate, notional, isPayer, paymentPeriod, indexON, paymentLag, businessDayConvention, isEOM, indexCalendar, StubConvention.SHORT_INITIAL,
+        rateCutOff);
   }
 
   /**

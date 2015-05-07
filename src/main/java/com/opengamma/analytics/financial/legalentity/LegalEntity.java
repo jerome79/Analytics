@@ -69,7 +69,7 @@ public class LegalEntity implements Bean, Serializable {
   /**
    * For the builder.
    */
-  /* package */ LegalEntity() {
+  /* package */LegalEntity() {
   }
 
   /**
@@ -98,7 +98,7 @@ public class LegalEntity implements Bean, Serializable {
    * @param region The region, not null
    */
   public LegalEntity(final String ticker, final String shortName, final Set<CreditRating> creditRatings, final Sector sector,
-                     final Region region) {
+      final Region region) {
     setTicker(ticker);
     setShortName(shortName);
     setCreditRatings(creditRatings);

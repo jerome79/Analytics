@@ -47,7 +47,6 @@ public class BjerksundStenslandModelDualDeltaGammaSolver {
       res[0] = df * BlackFormulaRepository.price(fwd, k, t, sigma, true);
       res[1] = df * BlackFormulaRepository.dualDelta(fwd, k, t, sigma, true);
       res[2] = df * BlackFormulaRepository.dualGamma(fwd, k, t, sigma);
-      //      }
       return res;
     }
 

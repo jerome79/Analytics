@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -20,7 +19,7 @@ public class NormalVaRParametersTest {
   private static final double PERIODS = 250;
   private static final double QUANTILE = 0.998650101968370;
   private static final NormalVaRParameters PARAMETERS = new NormalVaRParameters(HORIZON, PERIODS, QUANTILE);
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNegativeHorizon() {
     new NormalVaRParameters(-HORIZON, PERIODS, QUANTILE);
@@ -55,6 +54,6 @@ public class NormalVaRParametersTest {
     other = new NormalVaRParameters(HORIZON, PERIODS + 1, QUANTILE);
     assertFalse(other.equals(PARAMETERS));
     other = new NormalVaRParameters(HORIZON, PERIODS, QUANTILE * 0.5);
-    assertFalse(other.equals(PARAMETERS));    
+    assertFalse(other.equals(PARAMETERS));
   }
 }

@@ -51,7 +51,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 @Test
 public class SwapCleanDiscountingCalculatorTest {
   private static final ZonedDateTime[] VALUATION_DATE_SET = new ZonedDateTime[] {DateUtils.getUTCDate(2014, 1, 22),
-      DateUtils.getUTCDate(2014, 4, 22) };
+    DateUtils.getUTCDate(2014, 4, 22) };
   private static final HolidayCalendar NYC = StandardDataSetsMulticurveUSD.calendarArray()[0];
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = GeneratorSwapFixedIborMaster
       .getInstance();
@@ -62,7 +62,7 @@ public class SwapCleanDiscountingCalculatorTest {
   private static final ZonedDateTimeDoubleTimeSeries TS_USDLIBOR3M =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
           new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 10), DateUtils.getUTCDate(2013, 12, 12),
-              DateUtils.getUTCDate(2014, 3, 10) },
+            DateUtils.getUTCDate(2014, 3, 10) },
           new double[] {0.0024185, 0.0024285, 0.0025175, });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_ARRAY_USDLIBOR3M =
       new ZonedDateTimeDoubleTimeSeries[] {TS_USDLIBOR3M };
@@ -82,10 +82,10 @@ public class SwapCleanDiscountingCalculatorTest {
   private static final MulticurveProviderDiscount[] MULTICURVE_SET;
   static {
     Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_OIS_PAIR =
-      StandardDataSetsMulticurveUSD.getCurvesUSDOisL1L3L6();
+        StandardDataSetsMulticurveUSD.getCurvesUSDOisL1L3L6();
     MulticurveProviderDiscount MULTICURVE_OIS = MULTICURVE_OIS_PAIR.getFirst();
     Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_FF_PAIR =
-      StandardDataSetsMulticurveUSD.getCurvesUSDOisFFL1L3L6();
+        StandardDataSetsMulticurveUSD.getCurvesUSDOisFFL1L3L6();
     MulticurveProviderDiscount MULTICURVE_FFS = MULTICURVE_FF_PAIR.getFirst();
     MULTICURVE_SET = new MulticurveProviderDiscount[] {MULTICURVE_OIS, MULTICURVE_FFS };
   }
@@ -123,7 +123,7 @@ public class SwapCleanDiscountingCalculatorTest {
   @Test
   public void consistencyTest() {
     SwapFixedIborDefinition[] swapSet = new SwapFixedIborDefinition[] {SWAP_FIXED_3M_PAY_DEFINITION,
-        SWAP_FIXED_3M_REC_DEFINITION_ };
+      SWAP_FIXED_3M_REC_DEFINITION_ };
     int n = swapSet.length;
     for (ZonedDateTime valuationDate : VALUATION_DATE_SET) {
       for (MulticurveProviderDiscount multicurve : MULTICURVE_SET) {
@@ -150,7 +150,7 @@ public class SwapCleanDiscountingCalculatorTest {
           Annuity<? extends Coupon> floatingLegDerivative = trimedFloatingLeg
               .toDerivative(valuationDate, TS_USDLIBOR3M);
           double accruedYearFractionFloating = DayCountUtils.yearFraction(dayCountFloating, trimedFloatingLeg.getNthPayment(0)
-          .getAccrualStartDate(), valuationDate, calendarFloating);
+              .getAccrualStartDate(), valuationDate, calendarFloating);
           double dirtyFloatingPV = floatingLegDerivative.accept(PVDC, multicurve).getAmount(
               floatingLegDerivative.getCurrency()).getAmount() * Math.signum(floatingLegDerivative.getNthPayment(0).getNotional());
           CouponFixed firstCoupon = (CouponFixed) floatingLegDerivative.getNthPayment(0);
@@ -170,7 +170,7 @@ public class SwapCleanDiscountingCalculatorTest {
           AnnuityCouponFixedDefinition trimedFixedLeg = new AnnuityCouponFixedDefinition(
               listFixed.toArray(new CouponFixedDefinition[listFixed.size()]), calendarFixed);
           double accruedYearFractionFixed = DayCountUtils.yearFraction(dayCountFixed, trimedFixedLeg.getNthPayment(0)
-          .getAccrualStartDate(), valuationDate, calendarFixed);
+              .getAccrualStartDate(), valuationDate, calendarFixed);
           AnnuityCouponFixed fixedLegDerivative = trimedFixedLeg.toDerivative(valuationDate);
           SwapFixedCoupon<?> fixedCouponSwap = new SwapFixedCoupon<>(fixedLegDerivative, floatingLegDerivative);
           double dirtyAnnuity = METHOD_SWAP.presentValueBasisPoint(fixedCouponSwap, multicurve);
@@ -210,19 +210,19 @@ public class SwapCleanDiscountingCalculatorTest {
     ZonedDateTime valuationDate = DateUtils.getUTCDate(2014, 3, 17);
     ZonedDateTimeDoubleTimeSeries timeSeries =
         ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-            new ZonedDateTime[]{DateUtils.getUTCDate(2013, 9, 12), DateUtils.getUTCDate(2013, 12, 12),
-                DateUtils.getUTCDate(2014, 3, 13)}, new double[]{0.0024185, 0.0025285, 0.0024175,});
+            new ZonedDateTime[] {DateUtils.getUTCDate(2013, 9, 12), DateUtils.getUTCDate(2013, 12, 12),
+              DateUtils.getUTCDate(2014, 3, 13) }, new double[] {0.0024185, 0.0025285, 0.0024175, });
     ZonedDateTimeDoubleTimeSeries[] timeSeriesArray = new ZonedDateTimeDoubleTimeSeries[] {timeSeries };
     Currency usd = Currency.USD;
     /* Ibor leg */
     ZonedDateTime[] paymentDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 16),
-        DateUtils.getUTCDate(2014, 3, 17), DateUtils.getUTCDate(2014, 6, 16), DateUtils.getUTCDate(2014, 9, 16) };
+      DateUtils.getUTCDate(2014, 3, 17), DateUtils.getUTCDate(2014, 6, 16), DateUtils.getUTCDate(2014, 9, 16) };
     ZonedDateTime[] accStartDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 9, 16),
-        DateUtils.getUTCDate(2013, 12, 16), DateUtils.getUTCDate(2014, 3, 16), DateUtils.getUTCDate(2014, 6, 16) };
+      DateUtils.getUTCDate(2013, 12, 16), DateUtils.getUTCDate(2014, 3, 16), DateUtils.getUTCDate(2014, 6, 16) };
     ZonedDateTime[] accEndDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 16),
-        DateUtils.getUTCDate(2014, 3, 16), DateUtils.getUTCDate(2014, 6, 16), DateUtils.getUTCDate(2014, 9, 16) };
+      DateUtils.getUTCDate(2014, 3, 16), DateUtils.getUTCDate(2014, 6, 16), DateUtils.getUTCDate(2014, 9, 16) };
     ZonedDateTime[] FixingDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 9, 12),
-        DateUtils.getUTCDate(2013, 12, 12), DateUtils.getUTCDate(2014, 3, 13), DateUtils.getUTCDate(2014, 6, 12) };
+      DateUtils.getUTCDate(2013, 12, 12), DateUtils.getUTCDate(2014, 3, 13), DateUtils.getUTCDate(2014, 6, 12) };
     int nPaymentsIbor = paymentDatesIbor.length;
     IborIndex index = USD6MLIBOR3M.getIborIndex(); // USDLIBOR3M
     HolidayCalendar calendar = USD6MLIBOR3M.getCalendar();
@@ -236,11 +236,11 @@ public class SwapCleanDiscountingCalculatorTest {
     AnnuityCouponIborDefinition iborLeg = new AnnuityCouponIborDefinition(ibor, index, calendar);
     /* Fixed leg */
     ZonedDateTime[] paymentDatesFixed = new ZonedDateTime[] {DateUtils.getUTCDate(2014, 3, 17),
-        DateUtils.getUTCDate(2014, 9, 16) };
+      DateUtils.getUTCDate(2014, 9, 16) };
     ZonedDateTime[] accStartDatesFixed = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 9, 16),
-        DateUtils.getUTCDate(2014, 3, 16) };
+      DateUtils.getUTCDate(2014, 3, 16) };
     ZonedDateTime[] accEndDatesFixed = new ZonedDateTime[] {DateUtils.getUTCDate(2014, 3, 16),
-        DateUtils.getUTCDate(2014, 9, 16) };
+      DateUtils.getUTCDate(2014, 9, 16) };
     int nPaymentsFixed = paymentDatesFixed.length;
     CouponFixedDefinition[] fixed = new CouponFixedDefinition[nPaymentsFixed];
     DayCount dcFixed = USD6MLIBOR3M.getFixedLegDayCount();
@@ -294,7 +294,7 @@ public class SwapCleanDiscountingCalculatorTest {
   public void paymentDateTest() {
     ZonedDateTime valuationDate = DateUtils.getUTCDate(2014, 3, 12); // before start date
     for (SwapFixedIborDefinition swapDefinition : new SwapFixedIborDefinition[] {SWAP_FIXED_3M_PAY_DEFINITION,
-        SWAP_FIXED_3M_REC_DEFINITION_ }) {
+      SWAP_FIXED_3M_REC_DEFINITION_ }) {
       SwapFixedCoupon<Coupon> fixedCouponSwap = swapDefinition.toDerivative(valuationDate,
           TS_ARRAY_USDLIBOR3M);
       MulticurveProviderDiscount multicurve = MULTICURVE_SET[1];
@@ -326,7 +326,7 @@ public class SwapCleanDiscountingCalculatorTest {
   public void notAccruedTest() {
     ZonedDateTime valuationDate = DateUtils.getUTCDate(2013, 8, 10); // before start date
     for (SwapFixedIborDefinition swapDefinition : new SwapFixedIborDefinition[] {SWAP_FIXED_3M_PAY_DEFINITION,
-        SWAP_FIXED_3M_REC_DEFINITION_ }) {
+      SWAP_FIXED_3M_REC_DEFINITION_ }) {
       SwapFixedCoupon<Coupon> fixedCouponSwap = swapDefinition.toDerivative(valuationDate,
           TS_ARRAY_USDLIBOR3M);
       MulticurveProviderDiscount multicurve = MULTICURVE_SET[1];
@@ -354,18 +354,18 @@ public class SwapCleanDiscountingCalculatorTest {
     ZonedDateTimeDoubleTimeSeries timeSeries =
         ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
             new ZonedDateTime[] {DateUtils.getUTCDate(2013, 6, 26), DateUtils.getUTCDate(2013, 9, 26),
-                DateUtils.getUTCDate(2013, 12, 26) }, new double[] {0.0024185, 0.0025285, 0.0024175, });
+              DateUtils.getUTCDate(2013, 12, 26) }, new double[] {0.0024185, 0.0025285, 0.0024175, });
     ZonedDateTimeDoubleTimeSeries[] timeSeriesArray = new ZonedDateTimeDoubleTimeSeries[] {timeSeries };
     Currency usd = Currency.USD;
     /* Ibor leg */
     ZonedDateTime[] paymentDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 9, 30),
-        DateUtils.getUTCDate(2013, 12, 30), DateUtils.getUTCDate(2014, 3, 31), DateUtils.getUTCDate(2014, 6, 30) };
+      DateUtils.getUTCDate(2013, 12, 30), DateUtils.getUTCDate(2014, 3, 31), DateUtils.getUTCDate(2014, 6, 30) };
     ZonedDateTime[] accStartDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 6, 30),
-        DateUtils.getUTCDate(2013, 9, 30), DateUtils.getUTCDate(2013, 12, 30), DateUtils.getUTCDate(2014, 3, 30) };
+      DateUtils.getUTCDate(2013, 9, 30), DateUtils.getUTCDate(2013, 12, 30), DateUtils.getUTCDate(2014, 3, 30) };
     ZonedDateTime[] accEndDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 9, 30),
-        DateUtils.getUTCDate(2013, 12, 30), DateUtils.getUTCDate(2014, 3, 30), DateUtils.getUTCDate(2014, 6, 30) };
+      DateUtils.getUTCDate(2013, 12, 30), DateUtils.getUTCDate(2014, 3, 30), DateUtils.getUTCDate(2014, 6, 30) };
     ZonedDateTime[] FixingDatesIbor = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 6, 26),
-        DateUtils.getUTCDate(2013, 9, 26), DateUtils.getUTCDate(2013, 12, 26), DateUtils.getUTCDate(2014, 3, 26) };
+      DateUtils.getUTCDate(2013, 9, 26), DateUtils.getUTCDate(2013, 12, 26), DateUtils.getUTCDate(2014, 3, 26) };
     int nPaymentsIbor = paymentDatesIbor.length;
     IborIndex index = USD6MLIBOR3M.getIborIndex(); // USDLIBOR3M
     HolidayCalendar calendar = USD6MLIBOR3M.getCalendar(); // modified s.t.30U/360 is used for both legs
@@ -379,11 +379,11 @@ public class SwapCleanDiscountingCalculatorTest {
     AnnuityCouponIborDefinition iborLeg = new AnnuityCouponIborDefinition(ibor, index, calendar);
     /* Fixed leg */
     ZonedDateTime[] paymentDatesFixed = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 30),
-        DateUtils.getUTCDate(2014, 6, 30) };
+      DateUtils.getUTCDate(2014, 6, 30) };
     ZonedDateTime[] accStartDatesFixed = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 6, 30),
-        DateUtils.getUTCDate(2013, 12, 30) };
+      DateUtils.getUTCDate(2013, 12, 30) };
     ZonedDateTime[] accEndDatesFixed = new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 30),
-        DateUtils.getUTCDate(2014, 6, 30) };
+      DateUtils.getUTCDate(2014, 6, 30) };
     int nPaymentsFixed = paymentDatesFixed.length;
     CouponFixedDefinition[] fixed = new CouponFixedDefinition[nPaymentsFixed];
     DayCount dcFixed = USD6MLIBOR3M.getFixedLegDayCount();

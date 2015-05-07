@@ -14,8 +14,8 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 /**
  * Calculator of the present value as a multiple currency amount for multi-curve with normal swaption volatility.
  */
-public final class PresentValueNormalSwaptionCalculator 
-  extends InstrumentDerivativeVisitorAdapter<NormalSwaptionProviderInterface, MultiCurrencyAmount> {
+public final class PresentValueNormalSwaptionCalculator
+    extends InstrumentDerivativeVisitorAdapter<NormalSwaptionProviderInterface, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.
@@ -37,7 +37,7 @@ public final class PresentValueNormalSwaptionCalculator
   }
 
   /** Pricing method for physically-settled swaptions */
-  private static final SwaptionPhysicalFixedIborNormalMethod METHOD_SWT_PHYS = 
+  private static final SwaptionPhysicalFixedIborNormalMethod METHOD_SWT_PHYS =
       SwaptionPhysicalFixedIborNormalMethod.getInstance();
 
   @Override
@@ -45,5 +45,5 @@ public final class PresentValueNormalSwaptionCalculator
       final NormalSwaptionProviderInterface normal) {
     return METHOD_SWT_PHYS.presentValue(swaption, normal);
   }
-  
+
 }

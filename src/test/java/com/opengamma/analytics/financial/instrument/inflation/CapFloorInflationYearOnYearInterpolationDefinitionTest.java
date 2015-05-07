@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -244,10 +243,10 @@ public class CapFloorInflationYearOnYearInterpolationDefinitionTest {
   @Test
   public void toDerivativesStartMonthNotknown() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2011, 7, 29);
-    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2017, 5, 1),
-            DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1)},
-        new double[]{
-            127.23, 127.43, 128.23, 128.43});
+    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2017, 5, 1),
+      DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1) },
+        new double[] {
+          127.23, 127.43, 128.23, 128.43 });
     final Coupon zeroCouponConverted = YoY_CAP_DEFINITION.toDerivative(pricingDate, priceIndexTS);
     // lastKnownFixingTime could be negatif so we don't use the dayfraction
     final double lastKnownFixingTime = TimeCalculator.getTimeBetween(pricingDate, LAST_KNOWN_FIXING_DATE);
@@ -273,9 +272,9 @@ public class CapFloorInflationYearOnYearInterpolationDefinitionTest {
   public void toDerivativesStartMonthKnown() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2018, 6, 25);
     final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2017, 5, 1),
-        DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1) },
+      DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1) },
         new double[] {
-            127.23, 127.43, 128.23, 128.43 });
+          127.23, 127.43, 128.23, 128.43 });
     final Coupon zeroCouponConverted = YoY_CAP_DEFINITION.toDerivative(pricingDate, priceIndexTS);
     final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, Math.max((WEIGHT_END * 128.23 + (1 - WEIGHT_END) * 128.43) /

@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 
-
 /**
  * Test.
  */
@@ -48,7 +47,7 @@ public class StudentTVaRParametersTest {
   public void testNegativeDOF() {
     new StudentTVaRParameters(HORIZON, PERIODS, QUANTILE, -DOF);
   }
-  
+
   @Test
   public void testHashCodeAndEquals() {
     assertEquals(STUDENT_T.getDegreesOfFreedom(), DOF, 0);

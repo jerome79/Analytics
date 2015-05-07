@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -24,7 +23,6 @@ public class NaturalSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov2ptsTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[] yValues = new double[] {6., 1. };
@@ -57,7 +55,6 @@ public class NaturalSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov4ptsTest() {
     final double[] xValues = new double[] {1., 2., 3., 4 };
     final double[] yValues = new double[] {6., 25. / 6., 10. / 3., 4. };
@@ -211,7 +208,6 @@ public class NaturalSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov2ptsMultiTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[][] yValues = new double[][] { {6., 1. }, {2., 5. } };
@@ -244,7 +240,6 @@ public class NaturalSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov4ptsMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4 };
     final double[][] yValues = new double[][] { {6., 25. / 6., 10. / 3., 4. }, {6., 1., 0., 0. } };
@@ -253,7 +248,7 @@ public class NaturalSplineInterpolatorTest {
     final int orderExp = 4;
     final int dimExp = 2;
     final double[][] coefsMatExp = new double[][] { {1. / 6., 0., -2., 6. }, {1., 0., -6., 6. }, {1. / 6., 1. / 2., -3. / 2., 25. / 6. }, {-1., 3., -3., 1. }, {-1. / 3., 1., 0., 10. / 3. },
-        {0., 0., 0., 0 } };
+      {0., 0., 0., 0 } };
 
     NaturalSplineInterpolator interpMatrix = new NaturalSplineInterpolator();
 
@@ -399,14 +394,13 @@ public class NaturalSplineInterpolatorTest {
   /**
    * Derive value of the underlying cubic spline function at the value of xKey
    */
-  @Test
   public void InterpolantsTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {6., 25. / 6., 10. / 3., 4. }, {6., 1., 0., 0. } };
     final double[][] xKey = new double[][] { {-1., 0.5, 1.5 }, {2.5, 3.5, 4.5 } };
 
     final double[][][] resultValuesExpected = new double[][][] { { {26. / 3., 57. / 16. }, {10., 1. / 8. } }, { {335. / 48., 85. / 24. }, {71. / 8., 0. } },
-        { {241. / 48., 107. / 24. }, {25. / 8., 0. } } };
+      { {241. / 48., 107. / 24. }, {25. / 8., 0. } } };
 
     final int yDim = yValues.length;
     final int keyLength = xKey[0].length;
@@ -592,24 +586,4 @@ public class NaturalSplineInterpolatorTest {
     interp.interpolate(xValues, yValues, xKey);
 
   }
-
-  /**
-   * For debugging
-   */
-  @Test(enabled = false)
-  public void printTest() {
-    final double[] xValues = new double[] {1., 2., 3., 4. };
-    final double[] yValues = new double[] {6., 25. / 6., 10. / 3., 4. };
-
-    NaturalSplineInterpolator interpMatrix = new NaturalSplineInterpolator();
-
-    PiecewisePolynomialResult resultMatrix = interpMatrix.interpolate(xValues, yValues);
-
-    System.out.println(resultMatrix.getCoefMatrix());
-    System.out.println(resultMatrix.getKnots());
-    System.out.println(resultMatrix.getNumberOfIntervals());
-    System.out.println(resultMatrix.getOrder());
-    System.out.println(resultMatrix.getDimensions());
-  }
-
 }

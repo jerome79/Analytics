@@ -150,7 +150,6 @@ import com.opengamma.analytics.financial.instrument.varianceswap.VarianceSwapDef
 import com.opengamma.analytics.financial.instrument.volatilityswap.FXVolatilitySwapDefinition;
 import com.opengamma.analytics.financial.instrument.volatilityswap.VolatilitySwapDefinition;
 
-
 /**
  * Class testing the instrument definition visitor.
  */
@@ -199,7 +198,6 @@ public class InstrumentDefinitionVisitorTest {
       count += 2;
     }
     //    assertTrue("Have not tested all methods - need to make sure that the accept() method in the definition points to the correct method in the visitor:",
-    //        InstrumentDefinitionVisitor.class.getMethods().length <= count);
   }
 
   @Test
@@ -852,7 +850,6 @@ public class InstrumentDefinitionVisitorTest {
     public String visitBondCapitalIndexedTransaction(final BondCapitalIndexedTransactionDefinition<?> bond) {
       return getValue(bond, false);
     }
-
 
     @Override
     public String visitForexDefinition(final ForexDefinition fx, final T data) {

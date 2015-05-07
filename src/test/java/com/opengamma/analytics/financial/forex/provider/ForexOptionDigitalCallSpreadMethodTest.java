@@ -105,7 +105,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
   private static final double TOLERANCE_RELATIVE = 1.0E-6;
   private static final Offset<Double> TOL_RELATIVE = Offset.offset(TOLERANCE_RELATIVE);
 
-
   /**
    * Tests the present value in a flat smile case.
    */
@@ -116,7 +115,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     assertThat(pvSpread.getAmount(USD))
         .isEqualTo(pvBlack.getAmount(USD), TOL_PV_FLAT);
   }
-
 
   /**
    * Tests the present value with an explicit computation.
@@ -137,7 +135,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     assertThat(pvComputed.getAmount(USD))
         .isEqualTo(pvExpected.getAmount(USD), TOL_PV);
   }
-
 
   /**
    * Tests the present value with an explicit computation.
@@ -163,7 +160,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         .isEqualTo(pvExpected.getAmount(USD), TOL_PV);
   }
 
-
   /**
    * Tests put call parity.
    */
@@ -187,7 +183,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     assertThat(pvCash)
         .isEqualTo(pvCall.getAmount(USD).plus(pvPut.getAmount(USD)), TOL_PV_FLAT);
   }
-
 
   /**
    * Tests put call parity.
@@ -213,7 +208,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         .isEqualTo(pvCall.getAmount(EUR).plus(pvPut.getAmount(EUR)), TOL_PV_FLAT);
   }
 
-
   /**
    * Tests the present value long/short parity.
    */
@@ -238,7 +232,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     assertThat(ceShort.getAmount(EUR))
         .isEqualTo(ceLong.getAmount(EUR).negated(), tolerance);
   }
-
 
   /**
    * Tests the currency exposure in a flat smile case.
@@ -280,7 +273,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         .isEqualTo(ceExpected.getAmount(EUR), TOL_PV);
   }
 
-
   /**
    * Tests the currency exposure with an explicit computation.
    */
@@ -310,7 +302,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         .isEqualTo(ceExpected.getAmount(EUR), TOL_PV);
   }
 
-
   /**
    * Tests the currency exposure with a FD rate shift.
    */
@@ -336,7 +327,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         TOLERANCE_PV);
   }
 
-
   /**
    * Tests the currency exposure against the present value.
    */
@@ -349,7 +339,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         pv.getAmount(USD).getAmount(),
         TOLERANCE_PV);
   }
-
 
   /**
    * Tests the put/call parity currency exposure.
@@ -382,7 +371,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         TOLERANCE_PV);
   }
 
-
   /**
    * Tests the put/call parity currency exposure.
    */
@@ -414,7 +402,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         TOLERANCE_PV);
   }
 
-
   /**
    * Tests the gamma for Forex option. Payment in domestic currency.
    */
@@ -433,7 +420,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     final CurrencyAmount gammaComputed = METHOD_DIGITAL_SPREAD.gamma(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
     assertEquals("Forex Digital option: call spread method - gamma", gammaExpected.getAmount(), gammaComputed.getAmount(), TOLERANCE_PV);
   }
-
 
   /**
    * Tests the gamma for Forex option. Payment in foreign currency.
@@ -460,7 +446,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     final CurrencyAmount gammaComputed = METHOD_DIGITAL_SPREAD.gamma(digitalForeign, SMILE_MULTICURVES);
     assertEquals("Forex Digital option: call spread method - gamma", gammaExpected.getAmount(), gammaComputed.getAmount(), TOLERANCE_PV);
   }
-
 
   /**
    * Tests the gamma for Forex option. Payment in domestic currency.
@@ -507,24 +492,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     assertEquals("Forex Digital option: call spread method - gamma spot", gammaExpected.getAmount(), gammaComputed.getAmount(), TOLERANCE_PV);
   }
 
-  //
-  //  /**
-  //   * Tests the gamma for Forex option. Payment in foreign currency.
-  //   */
-  //  @Test
-  // public void gammaSpotMethodVsCalculator() {
-  //    final GammaSpotCallSpreadBlackForexCalculator calculator = new GammaSpotCallSpreadBlackForexCalculator(CALL_SPREAD);
-  //    final ForexOptionDigitalDefinition digitalForeignDefinition = new ForexOptionDigitalDefinition(FOREX_DEFINITION, OPTION_EXP_DATE, IS_CALL, IS_LONG, false);
-  //    final ForexOptionDigital digitalForeign = digitalForeignDefinition.toDerivative(REFERENCE_DATE);
-  //    final CurrencyAmount gammaForeignMethod = METHOD_DIGITAL_SPREAD.gammaSpot(digitalForeign, SMILE_MULTICURVES);
-  //    final CurrencyAmount gammaForeignCalculator = digitalForeign.accept(calculator, SMILE_MULTICURVES);
-  //    assertEquals("Forex Digital option: call spread method - gamma spot", gammaForeignCalculator.getAmount(), gammaForeignMethod.getAmount(), TOLERANCE_PV);
-  //    final CurrencyAmount gammaDomesticMethod = METHOD_DIGITAL_SPREAD.gammaSpot(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
-  //    final CurrencyAmount gammaDomesticCalculator = FOREX_DIGITAL_CALL_DOM.accept(calculator, SMILE_MULTICURVES);
-  //    assertEquals("Forex Digital option: call spread method - gamma spot", gammaDomesticCalculator.getAmount(), gammaDomesticMethod.getAmount(), TOLERANCE_PV);
-  //  }
-
-
   /**
    * Tests the relative gamma for Forex option.
    */
@@ -535,7 +502,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     final double gammaRelativeComputed = METHOD_DIGITAL_SPREAD.gammaRelative(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
     assertEquals("Forex: relative gamma", gammaRelativeExpected, gammaRelativeComputed, TOLERANCE_RELATIVE);
   }
-
 
   /**
    * Tests the present value curve sensitivity.
@@ -556,7 +522,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
     final MultipleCurrencyMulticurveSensitivity pvcsComputed = METHOD_DIGITAL_SPREAD.presentValueCurveSensitivity(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
     AssertSensitivityObjects.assertEquals("Forex Digital option: call spread method - present value", pvcsExpected, pvcsComputed, TOLERANCE_DELTA);
   }
-
 
   /**
    * Tests the present value curve sensitivity.
@@ -580,7 +545,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         PresentValueForexBlackVolatilitySensitivity.compare(pvbvExpected, pvbvComputed, TOLERANCE_DELTA));
   }
 
-
   /**
    * Tests the present value. Spread change.
    */
@@ -598,59 +562,8 @@ public class ForexOptionDigitalCallSpreadMethodTest {
         pv2.getAmount(USD).getAmount(),
         10.0);
 
-    //    MultiCurrencyAmount pvBlack = METHOD_DIGITAL_BLACK.presentValue(FOREX_CALL_OPTION, SMILE_BUNDLE);
     //    assertEquals("Forex Digital option: call spread method - present value", pvBlack.getAmount(USD), pv2.getAmount(USD), 10.0); // Should fail
   }
-
-  //
-  //  /**
-  //   * Tests the present value. Method vs Calculator.
-  //   */
-  //  @Test
-  // public void presentValueMethodVCalculator() {
-  //    final MultiCurrencyAmount pv1 = METHOD_DIGITAL_SPREAD.presentValue(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
-  //    final PresentValueCallSpreadBlackForexCalculator calculator = new PresentValueCallSpreadBlackForexCalculator(CALL_SPREAD);
-  //    final MultiCurrencyAmount pvCalculator = FOREX_DIGITAL_CALL_DOM.accept(calculator, SMILE_MULTICURVES);
-  //    assertEquals("Forex Digital option: call spread method - present value", pv1.getAmount(USD), pvCalculator.getAmount(USD), TOLERANCE_PV);
-  //  }
-
-  //
-  //  /**
-  //   * Tests the currency exposure. Method vs Calculator.
-  //   */
-  //  @Test
-  // public void currencyExposureMethodVCalculator() {
-  //    final MultiCurrencyAmount ceMethod = METHOD_DIGITAL_SPREAD.currencyExposure(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
-  //    final CurrencyExposureCallSpreadBlackForexCalculator calculator = new CurrencyExposureCallSpreadBlackForexCalculator(CALL_SPREAD);
-  //    final MultiCurrencyAmount ceCalculator = FOREX_DIGITAL_CALL_DOM.accept(calculator, SMILE_MULTICURVES);
-  //    assertEquals("Forex Digital option: call spread method - currency exposure", ceMethod.getAmount(USD), ceCalculator.getAmount(USD), TOLERANCE_PV);
-  //    assertEquals("Forex Digital option: call spread method - currency exposure", ceMethod.getAmount(EUR), ceCalculator.getAmount(EUR), TOLERANCE_PV);
-  //  }
-
-  //
-  //  /**
-  //   * Tests the present value curve sensitivity. Method vs Calculator.
-  //   */
-  //  @Test
-  // public void presentValueCurveSensitivityMethodVCalculator() {
-  //    final MultipleCurrencyInterestRateCurveSensitivity pvcsMethod = METHOD_DIGITAL_SPREAD.presentValueCurveSensitivity(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
-  //    final PresentValueCurveSensitivityCallSpreadBlackForexCalculator calculator = new PresentValueCurveSensitivityCallSpreadBlackForexCalculator(CALL_SPREAD);
-  //    final MultipleCurrencyInterestRateCurveSensitivity pvcsCalculator = FOREX_DIGITAL_CALL_DOM.accept(calculator, SMILE_MULTICURVES);
-  //    AssertSensivityObjects.assertEquals("Forex Digital option: call spread method - present value", pvcsMethod, pvcsCalculator, TOLERANCE_DELTA);
-  //  }
-
-  //
-  //  /**
-  //   * Tests the present value volatility sensitivity.  Method vs Calculator.
-  //   */
-  //  @Test
-  // public void presentValueBlackVolatilitySensitivityMethodVCalculator() {
-  //    final PresentValueForexBlackVolatilitySensitivity pvbvMethod = METHOD_DIGITAL_SPREAD.presentValueBlackVolatilitySensitivity(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
-  //    final PresentValueBlackVolatilitySensitivityCallSpreadBlackForexCalculator calculator = new PresentValueBlackVolatilitySensitivityCallSpreadBlackForexCalculator(CALL_SPREAD);
-  //    final PresentValueForexBlackVolatilitySensitivity pvbvCalculator = FOREX_DIGITAL_CALL_DOM.accept(calculator, SMILE_MULTICURVES);
-  //    assertTrue("Forex Digital option: call spread method - present value volatility sensitivity", PresentValueForexBlackVolatilitySensitivity.compare(pvbvMethod, pvbvCalculator, TOLERANCE_DELTA));
-  //  }
-
 
   /**
    * Tests present value volatility node sensitivity.
@@ -684,35 +597,6 @@ public class ForexOptionDigitalCallSpreadMethodTest {
       }
     }
   }
-
-  //
-  //  /**
-  //   * Tests present value volatility node sensitivity.
-  //   */
-  //  @Test
-  // public void presentValueBlackVolatilityNodeSensitivityMethodVCalculator() {
-  //    final PresentValueForexBlackVolatilityNodeSensitivityDataBundle pvbnsMethod = METHOD_DIGITAL_SPREAD.presentValueBlackVolatilityNodeSensitivity(FOREX_DIGITAL_CALL_DOM, SMILE_MULTICURVES);
-  //    final PresentValueBlackVolatilityNodeSensitivityCallSpreadBlackForexCalculator calculator = new PresentValueBlackVolatilityNodeSensitivityCallSpreadBlackForexCalculator(STANDARD_SPREAD);
-  //    final PresentValueForexBlackVolatilityNodeSensitivityDataBundle pvbnsCalculator = FOREX_DIGITAL_CALL_DOM.accept(calculator, SMILE_MULTICURVES);
-  //    assertTrue("Forex Digital option: call spread method - Black node sensitivity", PresentValueForexBlackVolatilityNodeSensitivityDataBundle.compare(pvbnsMethod, pvbnsCalculator, TOLERANCE_DELTA));
-  //  }
-
-  //
-  //  /**
-  //   * Tests the Theta (1 day change of pv) for forex options transactions.
-  //   */
-  //  @Test
-  // public void thetaBeforeExpiration() {
-  //    final MultiCurrencyAmount theta = THETAC.getTheta(FOREX_DIGITAL_CALL_DOM_DEFINITION, REFERENCE_DATE, CURVES_NAME, SMILE_MULTICURVES, PVC_CALLSPREAD, 1);
-  //    final ForexOptionDigital swapToday = FOREX_DIGITAL_CALL_DOM_DEFINITION.toDerivative(REFERENCE_DATE, CURVES_NAME);
-  //    final ForexOptionDigital swapTomorrow = FOREX_DIGITAL_CALL_DOM_DEFINITION.toDerivative(REFERENCE_DATE.plusDays(1), CURVES_NAME);
-  //    final MultiCurrencyAmount pvToday = swapToday.accept(PVC_CALLSPREAD, SMILE_MULTICURVES);
-  //    final YieldCurveBundle tomorrowData = FX_OPTION_ROLLDOWN.rollDown(SMILE_MULTICURVES, TimeCalculator.getTimeBetween(REFERENCE_DATE, REFERENCE_DATE.plusDays(1)));
-  //    final MultiCurrencyAmount pvTomorrow = swapTomorrow.accept(PVC_CALLSPREAD, tomorrowData);
-  //    final MultiCurrencyAmount thetaExpected = pvTomorrow.plus(pvToday.multipliedBy(-1.0));
-  //    assertEquals("ThetaCalculator: forex option", thetaExpected.getAmount(USD), theta.getAmount(USD), TOLERANCE_PV);
-  //  }
-
 
   /**
    * Analyzes the profile for digital options.

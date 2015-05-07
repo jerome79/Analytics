@@ -16,10 +16,10 @@ import org.testng.annotations.Test;
  */
 @Test
 public class DiffTest {
-  
+
   /* double data */
   double[] _dataDouble = {-7, -3, -6, 0, 1, 14, 2, 4 };
-  double[] _dataDoubleAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };  
+  double[] _dataDoubleAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };
   double[] _dataDoubleAnswerDiff1times = {4, -3, 6, 1, 13, -12, 2 };
   double[] _dataDoubleAnswerDiff2times = {-7, 9, -5, 12, -25, 14 };
   double[] _dataDoubleAnswerDiff3times = {16, -14, 17, -37, 39 };
@@ -29,9 +29,8 @@ public class DiffTest {
   double[] _dataDoubleAnswerDiff7times = {361 };
   double[] _dataNullDouble = null;
 
-
   float[] _dataFloat = {-7, -3, -6, 0, 1, 14, 2, 4 };
-  float[] _dataFloatAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };  
+  float[] _dataFloatAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };
   float[] _dataFloatAnswerDiff1times = {4, -3, 6, 1, 13, -12, 2 };
   float[] _dataFloatAnswerDiff2times = {-7, 9, -5, 12, -25, 14 };
   float[] _dataFloatAnswerDiff3times = {16, -14, 17, -37, 39 };
@@ -43,7 +42,7 @@ public class DiffTest {
 
   /* long data */
   long[] _dataLong = {-7, -3, -6, 0, 1, 14, 2, 4 };
-  long[] _dataLongAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };  
+  long[] _dataLongAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };
   long[] _dataLongAnswerDiff1times = {4, -3, 6, 1, 13, -12, 2 };
   long[] _dataLongAnswerDiff2times = {-7, 9, -5, 12, -25, 14 };
   long[] _dataLongAnswerDiff3times = {16, -14, 17, -37, 39 };
@@ -52,10 +51,10 @@ public class DiffTest {
   long[] _dataLongAnswerDiff6times = {-146, 215 };
   long[] _dataLongAnswerDiff7times = {361 };
   long[] _dataNullLong = null;
-  
+
   /* int data */
   int[] _dataInteger = {-7, -3, -6, 0, 1, 14, 2, 4 };
-  int[] _dataIntegerAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };  
+  int[] _dataIntegerAnswerDiff0times = {-7, -3, -6, 0, 1, 14, 2, 4 };
   int[] _dataIntegerAnswerDiff1times = {4, -3, 6, 1, 13, -12, 2 };
   int[] _dataIntegerAnswerDiff2times = {-7, 9, -5, 12, -25, 14 };
   int[] _dataIntegerAnswerDiff3times = {16, -14, 17, -37, 39 };
@@ -63,35 +62,33 @@ public class DiffTest {
   int[] _dataIntegerAnswerDiff5times = {61, -85, 130 };
   int[] _dataIntegerAnswerDiff6times = {-146, 215 };
   int[] _dataIntegerAnswerDiff7times = {361 };
-  int[] _dataNullInteger = null;  
-  
-  /* test doubles */ 
+  int[] _dataNullInteger = null;
+
+  /* test doubles */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffDoubleNull() {
     Diff.values(_dataNullDouble);
   }
 
-  @Test
   public void testDiffDouble() {
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff1times, Diff.values(_dataDouble)));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffDoubleNtimesDoubleNull() {
-    System.out.println(Arrays.toString(Diff.values(_dataNullDouble, 1)));
+    Diff.values(_dataNullDouble, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffDoubleNtimesTtooLarge() {
-    System.out.println(Arrays.toString(Diff.values(_dataDouble, 8)));
+    Diff.values(_dataDouble, 8);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffDoubleNtimesTtooSmall() {
-    System.out.println(Arrays.toString(Diff.values(_dataDouble, -1)));
-  }  
-  
-  @Test
+    Diff.values(_dataDouble, -1);
+  }
+
   public void testDiffDoubleNtimes() {
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff0times, Diff.values(_dataDouble, 0)));
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff1times, Diff.values(_dataDouble, 1)));
@@ -99,37 +96,35 @@ public class DiffTest {
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff3times, Diff.values(_dataDouble, 3)));
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff4times, Diff.values(_dataDouble, 4)));
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff5times, Diff.values(_dataDouble, 5)));
-    assertTrue(Arrays.equals(_dataDoubleAnswerDiff6times, Diff.values(_dataDouble, 6)));    
+    assertTrue(Arrays.equals(_dataDoubleAnswerDiff6times, Diff.values(_dataDouble, 6)));
     assertTrue(Arrays.equals(_dataDoubleAnswerDiff7times, Diff.values(_dataDouble, 7)));
   }
 
-  /* test floats */ 
+  /* test floats */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffFloatNull() {
     Diff.values(_dataNullFloat);
   }
 
-  @Test
   public void testDiffFloat() {
     assertTrue(Arrays.equals(_dataFloatAnswerDiff1times, Diff.values(_dataFloat)));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffFloatNtimesFloatNull() {
-    System.out.println(Arrays.toString(Diff.values(_dataNullFloat, 1)));
+    Diff.values(_dataNullFloat, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffFloatNtimesTtooLarge() {
-    System.out.println(Arrays.toString(Diff.values(_dataFloat, 8)));
+    Diff.values(_dataFloat, 8);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffFloatNtimesTtooSmall() {
-    System.out.println(Arrays.toString(Diff.values(_dataFloat, -1)));
-  }  
-  
-  @Test
+    Diff.values(_dataFloat, -1);
+  }
+
   public void testDiffFloatNtimes() {
     assertTrue(Arrays.equals(_dataFloatAnswerDiff0times, Diff.values(_dataFloat, 0)));
     assertTrue(Arrays.equals(_dataFloatAnswerDiff1times, Diff.values(_dataFloat, 1)));
@@ -137,37 +132,35 @@ public class DiffTest {
     assertTrue(Arrays.equals(_dataFloatAnswerDiff3times, Diff.values(_dataFloat, 3)));
     assertTrue(Arrays.equals(_dataFloatAnswerDiff4times, Diff.values(_dataFloat, 4)));
     assertTrue(Arrays.equals(_dataFloatAnswerDiff5times, Diff.values(_dataFloat, 5)));
-    assertTrue(Arrays.equals(_dataFloatAnswerDiff6times, Diff.values(_dataFloat, 6)));    
+    assertTrue(Arrays.equals(_dataFloatAnswerDiff6times, Diff.values(_dataFloat, 6)));
     assertTrue(Arrays.equals(_dataFloatAnswerDiff7times, Diff.values(_dataFloat, 7)));
   }
-  
-  /* test integers */ 
+
+  /* test integers */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffIntegerNull() {
     Diff.values(_dataNullInteger);
   }
 
-  @Test
   public void testDiffInteger() {
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff1times, Diff.values(_dataInteger)));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffIntegerNtimesIntegerNull() {
-    System.out.println(Arrays.toString(Diff.values(_dataNullInteger, 1)));
+    Diff.values(_dataNullInteger, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffIntegerNtimesTtooLarge() {
-    System.out.println(Arrays.toString(Diff.values(_dataInteger, 8)));
+    Diff.values(_dataInteger, 8);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffIntegerNtimesTtooSmall() {
-    System.out.println(Arrays.toString(Diff.values(_dataInteger, -1)));
-  }  
-  
-  @Test
+    Diff.values(_dataInteger, -1);
+  }
+
   public void testDiffIntegerNtimes() {
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff0times, Diff.values(_dataInteger, 0)));
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff1times, Diff.values(_dataInteger, 1)));
@@ -175,37 +168,35 @@ public class DiffTest {
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff3times, Diff.values(_dataInteger, 3)));
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff4times, Diff.values(_dataInteger, 4)));
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff5times, Diff.values(_dataInteger, 5)));
-    assertTrue(Arrays.equals(_dataIntegerAnswerDiff6times, Diff.values(_dataInteger, 6)));    
+    assertTrue(Arrays.equals(_dataIntegerAnswerDiff6times, Diff.values(_dataInteger, 6)));
     assertTrue(Arrays.equals(_dataIntegerAnswerDiff7times, Diff.values(_dataInteger, 7)));
   }
 
-  /* test longs */ 
+  /* test longs */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffLongNull() {
     Diff.values(_dataNullLong);
   }
 
-  @Test
   public void testDiffLong() {
     assertTrue(Arrays.equals(_dataLongAnswerDiff1times, Diff.values(_dataLong)));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffLongNtimesLongNull() {
-    System.out.println(Arrays.toString(Diff.values(_dataNullLong, 1)));
+    Diff.values(_dataNullLong, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffLongNtimesTtooLarge() {
-    System.out.println(Arrays.toString(Diff.values(_dataLong, 8)));
+    Diff.values(_dataLong, 8);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDiffLongNtimesTtooSmall() {
-    System.out.println(Arrays.toString(Diff.values(_dataLong, -1)));
-  }  
-  
-  @Test
+    Diff.values(_dataLong, -1);
+  }
+
   public void testDiffLongNtimes() {
     assertTrue(Arrays.equals(_dataLongAnswerDiff0times, Diff.values(_dataLong, 0)));
     assertTrue(Arrays.equals(_dataLongAnswerDiff1times, Diff.values(_dataLong, 1)));
@@ -213,10 +204,8 @@ public class DiffTest {
     assertTrue(Arrays.equals(_dataLongAnswerDiff3times, Diff.values(_dataLong, 3)));
     assertTrue(Arrays.equals(_dataLongAnswerDiff4times, Diff.values(_dataLong, 4)));
     assertTrue(Arrays.equals(_dataLongAnswerDiff5times, Diff.values(_dataLong, 5)));
-    assertTrue(Arrays.equals(_dataLongAnswerDiff6times, Diff.values(_dataLong, 6)));    
+    assertTrue(Arrays.equals(_dataLongAnswerDiff6times, Diff.values(_dataLong, 6)));
     assertTrue(Arrays.equals(_dataLongAnswerDiff7times, Diff.values(_dataLong, 7)));
   }
-  
-  
-  
+
 }

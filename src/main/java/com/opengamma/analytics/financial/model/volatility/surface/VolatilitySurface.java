@@ -20,6 +20,7 @@ import com.opengamma.analytics.math.surface.SurfaceSliceFunction;
 import com.opengamma.strata.basics.date.Tenor;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
+
 /**
  * 
  */
@@ -99,7 +100,6 @@ public class VolatilitySurface implements VolatilityModel<DoublesPair> {
     return getVolatility(temp);
   }
 
-
   public VolatilityCurve getSlice(final Axis axis, final double here, final Interpolator1D interpolator) {
     final Curve<Double, Double> curve = SurfaceSliceFunction.cut(_surface, axis, here, interpolator);
     return new VolatilityCurve(curve);
@@ -156,7 +156,7 @@ public class VolatilitySurface implements VolatilityModel<DoublesPair> {
   protected Surface<Double, Double, Double> getMultipleMultiplicativeShiftsSurface(final double[] x, final double[] y, final double[] shifts) {
     return SurfaceShiftFunctionFactory.getShiftedSurface(_surface, x, y, shifts, false);
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;

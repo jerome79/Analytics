@@ -37,13 +37,11 @@ import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */
 public class ConvectionDiffusionPDESolverTestCase {
 
-  //private static final PDEDataBundleProvider PDE_DATA_PROVIDER = new PDEDataBundleProvider();
   private static final PDE1DCoefficientsProvider PDE_PROVIDER = new PDE1DCoefficientsProvider();
   private static final InitialConditionsProvider INITIAL_CONDITION_PROVIDER = new InitialConditionsProvider();
 
@@ -123,7 +121,6 @@ public class ConvectionDiffusionPDESolverTestCase {
     };
 
     LOWER = new DirichletBoundaryCondition(spotZeroPrice, 0.0);
-    // UPPER = new NeumannBoundaryCondition(upper1stDev, 5 * FORWARD, ISCALL);
     if (ISCALL) {
 
       UPPER = new FixedSecondDerivativeBoundaryCondition(0.0, 5.0 * FORWARD, false);
@@ -148,20 +145,6 @@ public class ConvectionDiffusionPDESolverTestCase {
     LN_LOWER = new DirichletBoundaryCondition(logSpotZeroPrice, logGridLow);
     LN_UPPER = new DirichletBoundaryCondition(0.0, logGridHi); // put only
 
-    //    final Function<Double, Double> payoff = new Function<Double, Double>() {
-    //
-    //      @SuppressWarnings("synthetic-access")
-    //      @Override
-    //      public Double evaluate(final Double... ts) {
-    //        final double s = ts[1];
-    //        if (ISCALL) {
-    //          return Math.max(0, s - STRIKE);
-    //        }
-    //        return Math.max(0, STRIKE - s);
-    //      }
-    //
-    //    };
-
     PAYOFF = INITIAL_CONDITION_PROVIDER.getEuropeanPayoff(STRIKE, ISCALL);
     PAYOFF_LOG_COOR = INITIAL_CONDITION_PROVIDER.getLogEuropeanPayoff(STRIKE, ISCALL);
     EARLY_EXCISE = INITIAL_CONDITION_PROVIDER.getAmericanEarlyExcise(STRIKE, ISCALL);
@@ -169,9 +152,6 @@ public class ConvectionDiffusionPDESolverTestCase {
     DATA = PDE_PROVIDER.getBlackScholes(RATE, 0.0, ATM_VOL);
     LN_DATA = PDE_PROVIDER.getLogBlackScholes(RATE, 0.0, ATM_VOL);
     CEV_DATA = PDE_PROVIDER.getCEV(RATE, BETA, VOL_BETA);
-    //    DATA = PDE_DATA_PROVIDER.getBackwardsBlackScholes(ATM_VOL, RATE, STRIKE, ISCALL);
-    //    LN_DATA = PDE_DATA_PROVIDER.getBackwardsLogBlackScholes(ATM_VOL, RATE, STRIKE, ISCALL);
-    //    BETA_DATA = PDE_DATA_PROVIDER.getBackwardsCEV(VOL_BETA, RATE, STRIKE, BETA, ISCALL);
   }
 
   /**
@@ -190,7 +170,6 @@ public class ConvectionDiffusionPDESolverTestCase {
 
     final MeshingFunction timeMesh = new ExponentialMeshing(0, T, timeSteps + 1, 0);
     final MeshingFunction spaceMesh = new HyperbolicMeshing(LOWER.getLevel(), UPPER.getLevel(), OPTION.getStrike(), spotSteps + 1, 0.1);
-    // MeshingFunction spaceMesh = new ExponentalMeshing(LOWER.getLevel(), UPPER.getLevel(), spotSteps + 1, 0.0);
 
     final PDEGrid1D grid = new PDEGrid1D(timeMesh, spaceMesh);
     final PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients> data = new PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients>(DATA, PAYOFF, LOWER, UPPER, grid);
@@ -240,32 +219,6 @@ public class ConvectionDiffusionPDESolverTestCase {
     }
 
   }
-
-  // public void testSpaceExtrapolation(final ConvectionDiffusionPDESolver solver, final int timeSteps, final int spotSteps, final double lowerMoneyness, final double upperMoneyness) {
-  // double[][] res1 = solver.solve(DATA, timeSteps, spotSteps, T, LOWER, UPPER);
-  // double[][] res2 = solver.solve(DATA, timeSteps, 2 * spotSteps, T, LOWER, UPPER);
-  //
-  // double df = YIELD_CURVE.getDiscountFactor(T);
-  // int n = res1[0].length;
-  // double price;
-  // for (int i = 0; i < n; i++) {
-  // double spot = res1[0][i];
-  // assertEquals(res1[0][i], res2[0][2 * i], 1e-9);
-  // double moneyness = spot / OPTION.getStrike();
-  // if (moneyness >= lowerMoneyness && moneyness <= upperMoneyness) {
-  // BlackFunctionData data = new BlackFunctionData(spot / df, df, 0.0);
-  // price = 2.0 * res2[1][2 * i] - res1[1][i];
-  // double impVol;
-  // try {
-  // impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, OPTION, price);
-  // } catch (Exception e) {
-  // impVol = 0.0;
-  // }
-  // // System.out.println(spot + "\t" + price + "\t" + impVol);
-  // assertEquals(ATM_VOL, impVol, 1e-3);
-  // }
-  // }
-  // }
 
   public void testTimeExtrapolation(final ConvectionDiffusionPDESolver solver, final int timeSteps, final int spotSteps, final double lowerMoneyness, final double upperMoneyness, final double volTol,
       final double priceTol, final double deltaTol, final double gammaTol, final boolean print) {

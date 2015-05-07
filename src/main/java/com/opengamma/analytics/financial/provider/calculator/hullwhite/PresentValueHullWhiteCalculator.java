@@ -27,8 +27,8 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 /**
  * Calculates the present value of an inflation instruments by discounting for a given MarketBundle
  */
-public final class PresentValueHullWhiteCalculator extends 
-  InstrumentDerivativeVisitorDelegate<HullWhiteOneFactorProviderInterface, MultiCurrencyAmount> {
+public final class PresentValueHullWhiteCalculator extends
+    InstrumentDerivativeVisitorDelegate<HullWhiteOneFactorProviderInterface, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.

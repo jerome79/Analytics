@@ -28,7 +28,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the constructors and equal/hash for CouponFixedDefinition.
  */
@@ -45,7 +44,7 @@ public class CouponFixedDefinitionTest {
   private static final ZonedDateTime FAKE_DATE = DateUtils.getUTCDate(0, 1, 1);
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final BusinessDayConvention BD_CONVENTION = BusinessDayConventions.FOLLOWING;
-  private static final IborIndex INDEX = new IborIndex(CUR, Period.ofMonths(6), 0, DAY_COUNT, BD_CONVENTION, false ,"Ibor");
+  private static final IborIndex INDEX = new IborIndex(CUR, Period.ofMonths(6), 0, DAY_COUNT, BD_CONVENTION, false, "Ibor");
   private static final CouponFloatingDefinition COUPON = new CouponIborDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FAKE_DATE, INDEX, CALENDAR);
   private static final CouponFixedDefinition FIXED_COUPON = new CouponFixedDefinition(COUPON, RATE);
 

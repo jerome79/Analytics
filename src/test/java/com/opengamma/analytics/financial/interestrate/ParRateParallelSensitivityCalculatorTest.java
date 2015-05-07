@@ -32,7 +32,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * @deprecated This class tests deprecated functionality.
  */
@@ -84,22 +83,6 @@ public class ParRateParallelSensitivityCalculatorTest {
     doTest(fra, CURVES);
   }
 
-  //  @Test
-  //  public void testFutures() {
-  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, HolidayCalendars.SAT_SUN, DayCounts.ACT_365,
-  //        BusinessDayConventions.FOLLOWING, true);
-  //    final double lastTradingTime = 1.473;
-  //    final double fixingPeriodStartTime = 1.467;
-  //    final double fixingPeriodEndTime = 1.75;
-  //    final double fixingPeriodAccrualFactor = 0.267;
-  //    final double paymentAccrualFactor = 0.25;
-  //    final double referencePrice = 0.0; // TODO CASE - Future refactor - referencePrice = 0.0
-  //    final int quantity = 123;
-  //    final InterestRateFutureTransaction ir = new InterestRateFutureTransaction(lastTradingTime, iborIndex, fixingPeriodStartTime, fixingPeriodEndTime, fixingPeriodAccrualFactor, referencePrice, 1, paymentAccrualFactor,
-  //        quantity, "L", FUNDING_CURVE_NAME, LIBOR_CURVE_NAME);
-  //    doTest(ir, CURVES);
-  //  }
-
   @Test
   public void testBond() {
     final int n = 20;
@@ -115,61 +98,6 @@ public class ParRateParallelSensitivityCalculatorTest {
     final BondFixedSecurity bond = new BondFixedSecurity(nominal, new AnnuityCouponFixed(coupons), 0, 0, 0.5, SimpleYieldConvention.TRUE, 2, FUNDING_CURVE_NAME, "S");
     doTest(bond, CURVES);
   }
-
-  //  @Test
-  //  public void testFixedFloatSwap() {
-  //    final int n = 20;
-  //    final double[] fixedPaymentTimes = new double[n];
-  //    final double[] floatPaymentTimes = new double[2 * n];
-  //    final double[] indexFixingTimes = new double[2 * n];
-  //    final double[] indexMaturityTimes = new double[2 * n];
-  //    final double[] yearFrac = new double[2 * n];
-  //
-  //    for (int i = 0; i < n * 2; i++) {
-  //      if (i % 2 == 0) {
-  //        fixedPaymentTimes[i / 2] = (i + 2) * 0.25;
-  //      }
-  //      floatPaymentTimes[i] = (i + 1) * 0.25;
-  //      indexFixingTimes[i] = i * 0.25;
-  //      indexMaturityTimes[i] = floatPaymentTimes[i];
-  //      yearFrac[i] = 0.25;
-  //    }
-  //    final double swapRate = 0.04;
-  //
-  //    Swap<?, ?> swap = new FixedFloatSwap(CUR, fixedPaymentTimes, floatPaymentTimes, INDEX, swapRate, FUNDING_CURVE_NAME, LIBOR_CURVE_NAME, true);
-  //    doTest(swap, CURVES);
-  //
-  //    final AnnuityCouponIbor va = new AnnuityCouponIbor(CUR, floatPaymentTimes, indexFixingTimes, INDEX, indexFixingTimes, indexMaturityTimes, yearFrac, yearFrac, new double[2 * n], 3.43,
-  //        FUNDING_CURVE_NAME, LIBOR_CURVE_NAME, true);
-  //    final AnnuityCouponFixed ca = new AnnuityCouponFixed(CUR, fixedPaymentTimes, swapRate, FUNDING_CURVE_NAME, false);
-  //    swap = new FixedFloatSwap(ca, va);
-  //    doTest(swap, CURVES);
-  //  }
-
-  //  @Test
-  //  public void testBasisSwap() {
-  //    final int n = 20;
-  //    final double tau = 0.25;
-  //    final double[] paymentTimes = new double[n];
-  //    final double[] spreads = new double[n];
-  //    final double[] yearFracs = new double[n];
-  //    final double[] indexFixing = new double[n];
-  //    final double[] indexMaturity = new double[n];
-  //    for (int i = 0; i < n; i++) {
-  //      indexFixing[i] = i * tau;
-  //      paymentTimes[i] = (i + 1) * tau;
-  //      indexMaturity[i] = paymentTimes[i];
-  //      spreads[i] = i * 0.001;
-  //      yearFracs[i] = tau;
-  //    }
-  //
-  //    final GenericAnnuity<CouponIborSpread> payLeg = new AnnuityCouponIbor(CUR, paymentTimes, indexFixing, INDEX, indexMaturity, yearFracs, 1.0, FUNDING_CURVE_NAME, LIBOR_CURVE_NAME, true);
-  //    final GenericAnnuity<CouponIborSpread> receiveLeg = new AnnuityCouponIbor(CUR, paymentTimes, indexFixing, INDEX, indexFixing, indexMaturity, yearFracs, yearFracs, spreads, 1.0, FUNDING_CURVE_NAME,
-  //        FUNDING_CURVE_NAME, false);
-  //
-  //    final Swap<?, ?> swap = new TenorSwap<CouponIborSpread>(payLeg, receiveLeg);
-  //    doTest(swap, CURVES);
-  //  }
 
   private void doTest(final InstrumentDerivative ird, final YieldCurveBundle curves) {
     final Map<String, Double> ana = PRPSC.visit(ird, curves);

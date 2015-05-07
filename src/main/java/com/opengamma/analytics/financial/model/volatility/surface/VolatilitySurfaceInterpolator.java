@@ -104,8 +104,6 @@ public class VolatilitySurfaceInterpolator {
     }
   }
 
-  //TODO add new constructor pattern using builder to set options, as in EquityVarianceSwapPricer
-
   public Function1D<Double, Double>[] getIndependentSmileFits(final SmileSurfaceDataBundle marketData) {
     ArgChecker.notNull(marketData, "market data");
     final int n = marketData.getNumExpiries();
@@ -183,7 +181,7 @@ public class VolatilitySurfaceInterpolator {
         }
 
         // Case 2 & 3: Extrapolation OR Less than 4 Expiries => Linear Extrapolation / Interpolation
-        // FIXME Casey 15-01-2015 Extrapolation is hardcoded, to Linear.Should take input from _timeInterpolator
+        // FIXME Extrapolation is hardcoded, to Linear.Should take input from _timeInterpolator
         // FIXME If n < 4, time interpolation is hardcoded, also to be linear.
         final int index = SurfaceArrayUtils.getLowerBoundIndex(expiries, t);
 

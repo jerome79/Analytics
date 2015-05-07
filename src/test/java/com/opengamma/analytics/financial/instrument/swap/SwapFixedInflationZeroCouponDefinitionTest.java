@@ -30,7 +30,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  *  Class testing the Fixed vs Index price zero coupon swap definition.
  */
@@ -50,8 +49,6 @@ public class SwapFixedInflationZeroCouponDefinitionTest {
   private static final double NOTIONAL = 98765432;
   private static final int MONTH_LAG = 3;
   private static final int SPOT_LAG = 2;
-  //  private static final double INDEX_MAY_2008_INTERPOLATED = 108.45483870967742; // May index: 108.23 - June Index = 108.64
-  //  private static final double INDEX_MAY_2008 = 108.23;
   private static final ZonedDateTime REFERENCE_START_DATE = DateUtils.getUTCDate(2008, 5, 18);
   private static final ZonedDateTime REFERENCE_START_DATE_MONTHLY = DateUtils.getUTCDate(2008, 5, 31);
   private static final ZonedDateTime[] REFERENCE_START_DATES = new ZonedDateTime[2];
@@ -65,8 +62,6 @@ public class SwapFixedInflationZeroCouponDefinitionTest {
     REFERENCE_END_DATES[1] = PAYMENT_DATE.minusMonths(MONTH_LAG - 1).with(TemporalAdjusters.lastDayOfMonth());
   }
 
-  //  private static final DoubleTimeSeries<ZonedDateTime> HICPX_TS = MulticurveProviderDiscountDataSets.euroHICPXFrom2009();
-
   private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_SWAP_INFLATION = new GeneratorSwapFixedInflationZeroCoupon("generator", PRICE_INDEX_EUR, BUSINESS_DAY, CALENDAR, EOM, MONTH_LAG,
       SPOT_LAG,
       true);
@@ -77,7 +72,6 @@ public class SwapFixedInflationZeroCouponDefinitionTest {
    */
   public void swapFixedInflationZeroCouponInterpolationConstructor() {
     final double zeroCpnRate = 0.02;
-    //    ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(START_DATE, BUSINESS_DAY, CALENDAR, EOM, COUPON_TENOR);
     final CouponInflationZeroCouponInterpolationDefinition inflationCpn = CouponInflationZeroCouponInterpolationDefinition.from(CUR, PAYMENT_DATE, START_DATE, PAYMENT_DATE, 1.0, -NOTIONAL,
         PRICE_INDEX_EUR, MONTH_LAG, REFERENCE_START_DATES, REFERENCE_END_DATES, false);
     final CouponFixedCompoundingDefinition fixedCpn = CouponFixedCompoundingDefinition.from(CUR, START_DATE, PAYMENT_DATE, NOTIONAL, COUPON_TENOR_YEAR, zeroCpnRate);
@@ -123,7 +117,6 @@ public class SwapFixedInflationZeroCouponDefinitionTest {
    */
   public void swapFixedInflationZeroCouponMonthlyConstructor() {
     final double zeroCpnRate = 0.02;
-    //    ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(START_DATE, BUSINESS_DAY, CALENDAR, EOM, COUPON_TENOR);
     final CouponInflationZeroCouponMonthlyDefinition inflationCpn = new CouponInflationZeroCouponMonthlyDefinition(CUR, PAYMENT_DATE, START_DATE, PAYMENT_DATE, 1.0, -NOTIONAL, PRICE_INDEX_EUR,
         MONTH_LAG, MONTH_LAG, REFERENCE_START_DATE, REFERENCE_END_DATES[0], false);
     final CouponFixedCompoundingDefinition fixedCpn = CouponFixedCompoundingDefinition.from(CUR, START_DATE, PAYMENT_DATE, NOTIONAL, COUPON_TENOR_YEAR, zeroCpnRate);

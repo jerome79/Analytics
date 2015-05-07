@@ -11,7 +11,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */

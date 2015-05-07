@@ -102,14 +102,14 @@ public class InflationIssuerDiscountBuildingRepository {
       final LinkedHashMap<String, GeneratorCurve> generatorsMap,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> calculator,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, InflationSensitivity> sensitivityCalculator) {
-    final GeneratorInflationIssuerProviderDiscount generator = 
+    final GeneratorInflationIssuerProviderDiscount generator =
         new GeneratorInflationIssuerProviderDiscount(knownData, dscMap, fwdOnMap, priceMap, issuerMap, generatorsMap);
     final InflationIssuerDiscountBuildingData data = new InflationIssuerDiscountBuildingData(instruments, generator);
-    final Function1D<DoubleMatrix1D, DoubleMatrix1D> curveCalculator = 
+    final Function1D<DoubleMatrix1D, DoubleMatrix1D> curveCalculator =
         new InflationIssuerDiscountFinderFunction(calculator, data);
-    final Function1D<DoubleMatrix1D, DoubleMatrix2D> jacobianCalculator = 
+    final Function1D<DoubleMatrix1D, DoubleMatrix2D> jacobianCalculator =
         new InflationIssuerDiscountFinderJacobian(new ParameterSensitivityInflationIssuerMatrixCalculator(sensitivityCalculator),
-        data);
+            data);
     final double[] parameters = _rootFinder.getRoot(curveCalculator, jacobianCalculator, new DoubleMatrix1D(initGuess)).getData();
     final InflationIssuerProviderDiscount newCurves = data.getGeneratorMarket().evaluate(new DoubleMatrix1D(parameters));
     return newCurves;
@@ -161,7 +161,7 @@ public class InflationIssuerDiscountBuildingRepository {
     for (final String name : currentCurves) {
       startIndexCurrent[loopc] = nbParametersCurrentTotal;
       nbParametersCurrent[loopc] = multicurves.getNumberOfIntrinsicParameters(name, currentBeforeCurveNames);
-//      nbParametersCurrent[loopc] = multicurves.getInflationProvider().getCurve(name).getNumberOfIntrinsicParameters(currentBeforeCurveNames);
+      //      nbParametersCurrent[loopc] = multicurves.getInflationProvider().getCurve(name).getNumberOfIntrinsicParameters(currentBeforeCurveNames);
       currentBeforeCurveNames.add(name);
       nbParametersCurrentTotal += nbParametersCurrent[loopc];
       loopc++;
@@ -273,8 +273,8 @@ public class InflationIssuerDiscountBuildingRepository {
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> calculator,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, InflationSensitivity> sensitivityCalculator) {
     LinkedListMultimap<String, Pair<Object, LegalEntityFilter<LegalEntity>>> issuerMap = LinkedListMultimap.create();
-    return makeCurvesFromDerivatives(curveBundles, knownData, new LinkedHashMap<String, Currency>(), 
-        new LinkedHashMap<String, IndexON[]>(), new LinkedHashMap<String, IborIndex[]>(), priceMap, 
+    return makeCurvesFromDerivatives(curveBundles, knownData, new LinkedHashMap<String, Currency>(),
+        new LinkedHashMap<String, IndexON[]>(), new LinkedHashMap<String, IborIndex[]>(), priceMap,
         issuerMap, calculator, sensitivityCalculator);
   }
 
@@ -293,26 +293,26 @@ public class InflationIssuerDiscountBuildingRepository {
    */
   public Pair<InflationIssuerProviderDiscount, CurveBuildingBlockBundle> makeCurvesFromDerivatives(
       final MultiCurveBundle<GeneratorCurve>[] curveBundles,
-      final InflationIssuerProviderDiscount knownData, 
-      LinkedHashMap<String, Currency> dscMap, LinkedHashMap<String, IndexON[]> fwdOnMap, 
+      final InflationIssuerProviderDiscount knownData,
+      LinkedHashMap<String, Currency> dscMap, LinkedHashMap<String, IndexON[]> fwdOnMap,
       LinkedHashMap<String, IborIndex[]> fwdIborMap, LinkedHashMap<String, IndexPrice[]> priceMap,
       LinkedListMultimap<String, Pair<Object, LegalEntityFilter<LegalEntity>>> issuerMap,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> calculator,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, InflationSensitivity> sensitivityCalculator) {
-    return makeCurvesFromDerivatives(curveBundles, knownData, new CurveBuildingBlockBundle(), dscMap, fwdOnMap, 
+    return makeCurvesFromDerivatives(curveBundles, knownData, new CurveBuildingBlockBundle(), dscMap, fwdOnMap,
         fwdIborMap, priceMap, issuerMap, calculator, sensitivityCalculator);
   }
-  
+
   public Pair<InflationIssuerProviderDiscount, CurveBuildingBlockBundle> makeCurvesFromDerivatives(
       final MultiCurveBundle<GeneratorCurve>[] curveBundles,
-      final InflationIssuerProviderDiscount knownData, final CurveBuildingBlockBundle knownBlockBundle, 
+      final InflationIssuerProviderDiscount knownData, final CurveBuildingBlockBundle knownBlockBundle,
       LinkedHashMap<String, IndexPrice[]> priceMap,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> calculator,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, InflationSensitivity> sensitivityCalculator) {
     LinkedListMultimap<String, Pair<Object, LegalEntityFilter<LegalEntity>>> issuerMap = LinkedListMultimap.create();
-    return makeCurvesFromDerivatives(curveBundles, knownData, knownBlockBundle, new LinkedHashMap<String, Currency>(), 
+    return makeCurvesFromDerivatives(curveBundles, knownData, knownBlockBundle, new LinkedHashMap<String, Currency>(),
         new LinkedHashMap<String, IndexON[]>(), new LinkedHashMap<String, IborIndex[]>(), priceMap, issuerMap,
-        calculator, sensitivityCalculator);    
+        calculator, sensitivityCalculator);
   }
 
   /**
@@ -331,8 +331,8 @@ public class InflationIssuerDiscountBuildingRepository {
    */
   public Pair<InflationIssuerProviderDiscount, CurveBuildingBlockBundle> makeCurvesFromDerivatives(
       final MultiCurveBundle<GeneratorCurve>[] curveBundles,
-      final InflationIssuerProviderDiscount knownData, final CurveBuildingBlockBundle knownBlockBundle, 
-      LinkedHashMap<String, Currency> dscMap, LinkedHashMap<String, IndexON[]> fwdOnMap, 
+      final InflationIssuerProviderDiscount knownData, final CurveBuildingBlockBundle knownBlockBundle,
+      LinkedHashMap<String, Currency> dscMap, LinkedHashMap<String, IndexON[]> fwdOnMap,
       LinkedHashMap<String, IborIndex[]> fwdIborMap, LinkedHashMap<String, IndexPrice[]> priceMap,
       LinkedListMultimap<String, Pair<Object, LegalEntityFilter<LegalEntity>>> issuerMap,
       final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> calculator,

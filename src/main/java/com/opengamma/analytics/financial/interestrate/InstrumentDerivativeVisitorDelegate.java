@@ -439,7 +439,6 @@ public class InstrumentDerivativeVisitorDelegate<DATA_TYPE, RESULT_TYPE> impleme
     return _delegate.visitBondInterestIndexedTransaction(bond);
   }
 
-
   @Override
   public RESULT_TYPE visitCouponFixed(final CouponFixed payment, final DATA_TYPE data) {
     return _delegate.visitCouponFixed(payment, data);

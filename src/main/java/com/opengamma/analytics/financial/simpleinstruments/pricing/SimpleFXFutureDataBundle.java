@@ -17,7 +17,7 @@ public class SimpleFXFutureDataBundle {
   private final YieldAndDiscountCurve _payYieldCurve;
   private final YieldAndDiscountCurve _receiveYieldCurve;
   private final double _spot;
-  
+
   public SimpleFXFutureDataBundle(final YieldAndDiscountCurve payYieldCurve, final YieldAndDiscountCurve receiveYieldCurve, final double spot) {
     ArgChecker.notNull(payYieldCurve, "pay yield curve");
     ArgChecker.notNull(receiveYieldCurve, "receive yield curve");
@@ -25,19 +25,19 @@ public class SimpleFXFutureDataBundle {
     _receiveYieldCurve = receiveYieldCurve;
     _spot = spot;
   }
-  
+
   public YieldAndDiscountCurve getPayCurve() {
     return _payYieldCurve;
   }
-  
+
   public YieldAndDiscountCurve getReceiveCurve() {
     return _receiveYieldCurve;
   }
-  
+
   public double getSpot() {
     return _spot;
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -73,6 +73,5 @@ public class SimpleFXFutureDataBundle {
     }
     return true;
   }
-  
-  
+
 }

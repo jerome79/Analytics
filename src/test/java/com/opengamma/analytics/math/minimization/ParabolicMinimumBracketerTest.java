@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */

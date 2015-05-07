@@ -32,7 +32,5 @@ public class AnnuityForSpreadApproxFunction extends AnnuityForSpreadFunction {
     final ISDACompliantCreditCurve cc = new ISDACompliantCreditCurve(1.0, lambda);
     return PRICER.annuity(_cds, _yieldCurve, cc, PriceType.CLEAN);
   }
-  
-
 
 }

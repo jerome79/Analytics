@@ -34,7 +34,7 @@ public abstract class ParameterSensitivityInflationIssuerMatrixProviderAbstractC
    * @param curveSensitivityCalculator The calculator.
    */
   public ParameterSensitivityInflationIssuerMatrixProviderAbstractCalculator(
-      final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, 
+      final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface,
       InflationSensitivity> curveSensitivityCalculator) {
     ArgChecker.notNull(curveSensitivityCalculator, "Sensitivity calculator");
     _curveSensitivityCalculator = curveSensitivityCalculator;

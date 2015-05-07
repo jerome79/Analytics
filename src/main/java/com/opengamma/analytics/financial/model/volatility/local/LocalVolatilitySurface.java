@@ -36,7 +36,6 @@ public abstract class LocalVolatilitySurface<T extends StrikeType> extends Volat
     return getVolatility(temp);
   }
 
-
   @Override
   public abstract double getVolatility(final double t, final double k);
 

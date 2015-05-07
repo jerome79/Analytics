@@ -19,7 +19,6 @@ import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.financial.pnl.UnderlyingType;
 import com.opengamma.analytics.financial.trade.OptionTradeData;
 
-
 /**
  * Test.
  */
@@ -56,7 +55,7 @@ public class GreekDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyUnderlyingData() {
-    new GreekDataBundle(GREEK_RESULTS, Collections.<UnderlyingType, Double> emptyMap(), OPTION_TRADE_DATA);
+    new GreekDataBundle(GREEK_RESULTS, Collections.<UnderlyingType, Double>emptyMap(), OPTION_TRADE_DATA);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

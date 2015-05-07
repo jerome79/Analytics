@@ -46,9 +46,6 @@ public final class BondTrsPV01Calculator extends InstrumentDerivativeVisitorAdap
   public ReferenceAmount<Pair<String, Currency>> visitBondTotalReturnSwap(final BondTotalReturnSwap bondTrs, final ParameterIssuerProviderInterface data) {
     ArgChecker.notNull(bondTrs, "bondTrs");
     ArgChecker.notNull(data, "data");
-    //    final ReferenceAmount<Pair<String, Currency>> fundingLegPV01 = bondTrs.getFundingLeg().accept(CALCULATOR, data);
-    //    final ReferenceAmount<Pair<String, Currency>> bondPV01 = bondTrs.getAsset().accept(CALCULATOR, data);
-    //    return fundingLegPV01.plus(bondPV01);
     return bondTrs.accept(CALCULATOR, data);
   }
 

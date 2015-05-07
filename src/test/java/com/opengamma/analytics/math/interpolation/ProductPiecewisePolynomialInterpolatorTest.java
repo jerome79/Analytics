@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityF
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.ParallelArrayBinarySort;
 
-
 /**
  * 
  */
@@ -42,9 +41,9 @@ public class ProductPiecewisePolynomialInterpolatorTest {
   @Test
   public void notClampedTest() {
     double[][] xValuesSet = new double[][] { {-5.0, -1.4, 3.2, 3.5, 7.6 }, {1., 2., 4.5, 12.1, 14.2 },
-        {-5.2, -3.4, -3.2, -0.9, -0.2 } };
+      {-5.2, -3.4, -3.2, -0.9, -0.2 } };
     double[][] yValuesSet = new double[][] { {-2.2, 1.1, 1.9, 2.3, -0.1 }, {3.4, 5.2, 4.3, 1.1, 0.2 },
-        {1.4, 2.2, 4.1, 1.9, 0.99 } };
+      {1.4, 2.2, 4.1, 1.9, 0.99 } };
 
     for (int k = 0; k < xValuesSet.length; ++k) {
       double[] xValues = Arrays.copyOf(xValuesSet[k], xValuesSet[k].length);
@@ -136,7 +135,7 @@ public class ProductPiecewisePolynomialInterpolatorTest {
           double key = xValues[0] + interval * j;
           InterpolatorTestUtil.assertRelative("clampedTest", FUNC.evaluate(resultBase, key).getEntry(0),
               FUNC.evaluate(result, key)
-              .getEntry(0), EPS);
+                  .getEntry(0), EPS);
           InterpolatorTestUtil.assertArrayRelative("clampedTest", FUNC.nodeSensitivity(resultBase, key).getData(),
               FUNC.nodeSensitivity(result, key).getData(), EPS);
         }

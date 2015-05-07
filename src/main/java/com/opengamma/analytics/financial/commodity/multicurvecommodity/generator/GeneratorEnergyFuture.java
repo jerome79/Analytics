@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.generator;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.commodity.multicurvecommodity.definition.EnergyFutureSecurityDefinition;

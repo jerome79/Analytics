@@ -129,8 +129,8 @@ public class MulticurveBuildingHullWhiteDiscountFuturesUSDTest {
   private static final GeneratorDepositIbor GENERATOR_USDLIBOR3M = new GeneratorDepositIbor("GENERATOR_USDLIBOR3M", USDLIBOR3M, NYC);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2013, 4, 25),
-      DateUtils.getUTCDate(2013, 4, 26)}, new double[]{0.0007, 0.0008});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2013, 4, 25),
+    DateUtils.getUTCDate(2013, 4, 26) }, new double[] {0.0007, 0.0008 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2013, 4, 25) },
       new double[] {0.0007 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_EUR_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_EUR_WITH_TODAY };
@@ -162,7 +162,6 @@ public class MulticurveBuildingHullWhiteDiscountFuturesUSDTest {
       new double[] {0.0027560,
         0.99715, 0.99700, 0.99680, 0.99660,
         (100 + 7.0 / 32.0 + 3.0 / (32.0 * 4.0)) / 100.0, (100 + 17.0 / 32.0) / 100.0, (101 + 2.0 / 32.0) / 100.0, (98 + 21.0 / 32.0) / 100.0 };
-  // Quoted in 32nd (by 1/4): 100-07 3/4, 100-17 +, 101-02, 98-21 };
   /** Generators for the Fwd 3M USD curve */
   private static final GeneratorInstrument<? extends GeneratorAttribute>[] FWD3_EUR_GENERATORS =
       new GeneratorInstrument<?>[] {GENERATOR_USDLIBOR3M,
@@ -256,34 +255,10 @@ public class MulticurveBuildingHullWhiteDiscountFuturesUSDTest {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
     }
-  }
-
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], HW_KNOWN_DATA, PSMQHWC, PSMQCSHWC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("MulticurveBuildingHullWhiteDiscountFuturesUSDTest:" + nbTest + " curve construction / 2 units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 2 units: 06-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 810 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], HW_KNOWN_DATA, PSMQHWC, PSMQCSHWC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("MulticurveBuildingHullWhiteDiscountFuturesUSDTest:" + nbTest + " curve construction / 1 unit: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 unit: 06-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 920 ms for 100 sets.
-
   }
 
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final HullWhiteOneFactorProviderDiscount curves, final boolean withToday, final int block) {

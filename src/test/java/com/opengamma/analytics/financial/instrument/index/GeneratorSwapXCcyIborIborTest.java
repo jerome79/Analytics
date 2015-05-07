@@ -49,7 +49,7 @@ public class GeneratorSwapXCcyIborIborTest {
     assertEquals("GeneratorSwapIborIbor: getter", EURIBOR3M, EURIBOR3MUSDLIBOR3M.getIborIndex1());
     assertEquals("GeneratorSwapIborIbor: getter", USDLIBOR3M, EURIBOR3MUSDLIBOR3M.getIborIndex2());
     assertTrue("GeneratorSwapIborIbor: getter", EURIBOR3MUSDLIBOR3M.getName().equals("EURIBOR3MUSDLIBOR3M"));
-    assertEquals("GeneratorSwapIborIbor: getter", EURIBOR3M.getBusinessDayConvention(), 
+    assertEquals("GeneratorSwapIborIbor: getter", EURIBOR3M.getBusinessDayConvention(),
         EURIBOR3MUSDLIBOR3M.getBusinessDayConvention());
     assertEquals("GeneratorSwapIborIbor: getter", EURIBOR3M.getSpotLag(), EURIBOR3MUSDLIBOR3M.getSpotLag());
     assertTrue("GeneratorSwapIborIbor: getter", EURIBOR3M.isEndOfMonth() == EURIBOR3MUSDLIBOR3M.isEndOfMonth());
@@ -60,7 +60,7 @@ public class GeneratorSwapXCcyIborIborTest {
    * Tests the constructor with business day convention and end-of-month.
    */
   public void constructor() {
-    final GeneratorSwapXCcyIborIbor generator2 = new GeneratorSwapXCcyIborIbor("Generator 2", EURIBOR3M, USDLIBOR3M, 
+    final GeneratorSwapXCcyIborIbor generator2 = new GeneratorSwapXCcyIborIbor("Generator 2", EURIBOR3M, USDLIBOR3M,
         BusinessDayConventions.FOLLOWING, false, 1, NYC, NYC);
     assertEquals("GeneratorSwapIborIbor: getter", EURIBOR3M, EURIBOR3MUSDLIBOR3M.getIborIndex1());
     assertEquals("GeneratorSwapIborIbor: getter", USDLIBOR3M, EURIBOR3MUSDLIBOR3M.getIborIndex2());
@@ -82,13 +82,13 @@ public class GeneratorSwapXCcyIborIborTest {
             .addRate(EURIBOR3M.getCurrency(), USDLIBOR3M.getCurrency(), fxRateEURUSD)
             .build();
     final GeneratorAttributeFX attribute = new GeneratorAttributeFX(tenor, fxMatrix);
-    final SwapXCcyIborIborDefinition insGenerated = EURIBOR3MUSDLIBOR3M.generateInstrument(referenceDate, 
+    final SwapXCcyIborIborDefinition insGenerated = EURIBOR3MUSDLIBOR3M.generateInstrument(referenceDate,
         spread, notional, attribute);
     final ZonedDateTime settleDate = ScheduleCalculator.getAdjustedDate(referenceDate, EURIBOR3MUSDLIBOR3M.getSpotLag(), NYC);
-    final SwapXCcyIborIborDefinition insExpected = SwapXCcyIborIborDefinition.from(settleDate, tenor, 
+    final SwapXCcyIborIborDefinition insExpected = SwapXCcyIborIborDefinition.from(settleDate, tenor,
         EURIBOR3MUSDLIBOR3M, notional, notional * fxRateEURUSD, spread, true, NYC, NYC);
     assertEquals("GeneratorSwap: generate instrument", insExpected, insGenerated);
-    final SwapDefinition insGenerated2 = EURIBOR3MUSDLIBOR3M_2.generateInstrument(referenceDate, 
+    final SwapDefinition insGenerated2 = EURIBOR3MUSDLIBOR3M_2.generateInstrument(referenceDate,
         spread, -notional, attribute);
     assertEquals("GeneratorSwap: generate instrument", insExpected.getFirstLeg(), insGenerated2.getFirstLeg());
     assertEquals("GeneratorSwap: generate instrument", insExpected.getSecondLeg(), insGenerated2.getSecondLeg());

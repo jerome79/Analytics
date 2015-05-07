@@ -439,7 +439,6 @@ public class AnalyticCDSPricer {
     if (cds.getProtectionEnd() <= 0.0) { //short cut already expired CDSs
       return 0.0;
     }
-    //   final double obsOffset = cds.isProtectionFromStartOfDay() ? -cds.getCurveOneDay() : 0.0;
 
     final int n = cds.getNumPayments();
     double pvSense = 0.0;
@@ -458,7 +457,6 @@ public class AnalyticCDSPricer {
     if (cds.isPayAccOnDefault()) {
       final double start = cds.getNumPayments() == 1 ? cds.getEffectiveProtectionStart() : cds.getAccStart();
       final double[] integrationSchedule = getIntegrationsPoints(start, cds.getProtectionEnd(), yieldCurve, creditCurve);
-      //      final double offsetStepin = cds.getStepin() + obsOffset;
 
       double accPVSense = 0.0;
       for (int i = 0; i < n; i++) {
@@ -487,7 +485,6 @@ public class AnalyticCDSPricer {
     if (cds.getProtectionEnd() <= 0.0) { //short cut already expired CDSs
       return 0.0;
     }
-    //   final double obsOffset = cds.isProtectionFromStartOfDay() ? -cds.getCurveOneDay() : 0.0;
 
     final int n = cds.getNumPayments();
     double pvSense = 0.0;
@@ -506,7 +503,6 @@ public class AnalyticCDSPricer {
     if (cds.isPayAccOnDefault()) {
       final double start = cds.getNumPayments() == 1 ? cds.getEffectiveProtectionStart() : cds.getAccStart();
       final double[] integrationSchedule = getIntegrationsPoints(start, cds.getProtectionEnd(), yieldCurve, creditCurve);
-      //  final double offsetStepin = cds.getStepin() + obsOffset;
 
       double accPVSense = 0.0;
       for (int i = 0; i < n; i++) {
@@ -662,22 +658,11 @@ public class AnalyticCDSPricer {
       // TODO once the maths is written up in a white paper, check these formula again, since tests again finite difference
       // could miss some subtle error
 
-      //  if (Math.abs(dhrt) < 1e-5) {
       final double eP = epsilonP(-dhrt);
       final double ePP = epsilonPP(-dhrt);
       final double dPVdp0 = q0 * dt * dht * (eP - ePP);
       final double dPVdp1 = b0 * dt * dht / p1 * ePP;
       tPvSense = dPVdp0 * dpdr0 + dPVdp1 * dpdr1;
-      //        } else {
-      //          final double w1 = (b0 - b1) / dhrt;
-      //          final double w2 = w1 - b1;
-      //          final double w3 = dht / dhrt;
-      //          final double w4 = dt / dhrt;
-      //          final double w5 = (1 - w3) * w2;
-      //          final double dPVdq0 = w4 / q0 * (w5 + w3 * (b0 - w1));
-      //          final double dPVdq1 = w4 / q1 * (w5 + w3 * (b1 * (1 + dhrt) - w1));
-      //          tPvSense = dPVdq0 * dqdr0 - dPVdq1 * dqdr1;
-      //        }
 
       pvSense += tPvSense;
       ht0 = ht1;
@@ -719,7 +704,6 @@ public class AnalyticCDSPricer {
     double dqdr0 = creditCurve.getSingleNodeDiscountFactorSensitivity(t, creditCurveNode);
     double q0 = Math.exp(-ht0);
     double p0 = Math.exp(-rt0);
-    // double pv = 0.0;
     double pvSense = 0.0;
     final int n = integrationSchedule.length;
     for (int i = 1; i < n; ++i) {
@@ -803,7 +787,6 @@ public class AnalyticCDSPricer {
     double dpdr0 = yieldCurve.getSingleNodeDiscountFactorSensitivity(t, yieldCurveNode);
     double q0 = Math.exp(-ht0);
     double p0 = Math.exp(-rt0);
-    // double pv = 0.0;
     double pvSense = 0.0;
     final int n = integrationSchedule.length;
     for (int i = 1; i < n; ++i) {
@@ -828,18 +811,11 @@ public class AnalyticCDSPricer {
       final double fhBar = hBar + fBar;
 
       double dPVSense;
-      //  if (Math.abs(fhBar) < 1e-5) {
-      // throw new UnsupportedOperationException();
       final double e = epsilon(-fhBar);
       final double eP = epsilonP(-fhBar);
       final double dPVdp0 = q0 * hBar * (e - eP);
       final double dPVdp1 = hBar * p0 * q0 / p1 * eP;
       dPVSense = dPVdp0 * dpdr0 + dPVdp1 * dpdr1;
-      //      } else {
-      //        final double w1 = hBar / fhBar;
-      //        final double w2 = (p0 * q0 - p1 * q1) / fhBar;
-      //        dPVSense = w1 * ((-w2 / p0 + q0) * dpdr0 - (w2 / p1 - q1) * dpdr1);
-      //      }
 
       pvSense += dPVSense;
 

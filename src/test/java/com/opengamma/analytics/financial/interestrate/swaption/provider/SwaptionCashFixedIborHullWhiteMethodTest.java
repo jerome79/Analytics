@@ -40,7 +40,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the pricing of cash-settled swaption in Hull-White one factor model.
  */
@@ -85,9 +84,7 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
   private static final SwaptionCashFixedIborHullWhiteNumericalIntegrationMethod METHOD_HW_INTEGRATION = SwaptionCashFixedIborHullWhiteNumericalIntegrationMethod.getInstance();
   private static final SwaptionCashFixedIborHullWhiteApproximationMethod METHOD_HW_APPROXIMATION = SwaptionCashFixedIborHullWhiteApproximationMethod.getInstance();
 
-  //  private static final CashFlowEquivalentCalculator CFEC = CashFlowEquivalentCalculator.getInstance();
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
-  //  private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final PresentValueHullWhiteCalculator PVHWC = PresentValueHullWhiteCalculator.getInstance();
   private static final PresentValueCurveSensitivityHullWhiteCalculator PVCSHWC = PresentValueCurveSensitivityHullWhiteCalculator.getInstance();
 
@@ -98,7 +95,6 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E+4; //Testing note: Sensitivity is for a movement of 1. 1E+2 = 1 cent for a 1 bp move.
 
-  @Test
   /**
    * Tests long/short parity.
    */
@@ -108,7 +104,6 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     assertEquals("Swaption cash - Hull-White - present value - long/short parity", pvLong.getAmount(EUR).getAmount(), -pvShort.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests long/short parity.
    */
@@ -122,7 +117,6 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     assertEquals("Swaption cash - Hull-White - present value - scaling", scale * pvOriginal.getAmount(EUR).getAmount(), pvScaled.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Compare approximate formula with numerical integration.
    */
@@ -130,23 +124,26 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     final double bp1 = 10000;
     final MultiCurrencyAmount pvPayerLongExplicit = METHOD_HW_APPROXIMATION.presentValue(SWAPTION_PAYER_LONG, HW_MULTICURVES);
     final MultiCurrencyAmount pvPayerLongIntegration = METHOD_HW_INTEGRATION.presentValue(SWAPTION_PAYER_LONG, HW_MULTICURVES);
-    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvPayerLongExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvPayerLongIntegration.getAmount(EUR).getAmount() / NOTIONAL
+    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvPayerLongExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvPayerLongIntegration.getAmount(EUR)
+        .getAmount() / NOTIONAL
         * bp1, 4.0E-1);
     final MultiCurrencyAmount pvPayerShortExplicit = METHOD_HW_APPROXIMATION.presentValue(SWAPTION_PAYER_SHORT, HW_MULTICURVES);
     final MultiCurrencyAmount pvPayerShortIntegration = METHOD_HW_INTEGRATION.presentValue(SWAPTION_PAYER_SHORT, HW_MULTICURVES);
-    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvPayerShortExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvPayerShortIntegration.getAmount(EUR).getAmount() / NOTIONAL
+    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvPayerShortExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvPayerShortIntegration
+        .getAmount(EUR).getAmount() / NOTIONAL
         * bp1, 4.0E-1);
     final MultiCurrencyAmount pvReceiverLongExplicit = METHOD_HW_APPROXIMATION.presentValue(SWAPTION_RECEIVER_LONG, HW_MULTICURVES);
     final MultiCurrencyAmount pvReceiverLongIntegration = METHOD_HW_INTEGRATION.presentValue(SWAPTION_RECEIVER_LONG, HW_MULTICURVES);
-    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvReceiverLongExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvReceiverLongIntegration.getAmount(EUR).getAmount()
+    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvReceiverLongExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvReceiverLongIntegration
+        .getAmount(EUR).getAmount()
         / NOTIONAL * bp1, 5.0E-1);
     final MultiCurrencyAmount pvReceiverShortExplicit = METHOD_HW_APPROXIMATION.presentValue(SWAPTION_RECEIVER_SHORT, HW_MULTICURVES);
     final MultiCurrencyAmount pvReceiverShortIntegration = METHOD_HW_INTEGRATION.presentValue(SWAPTION_RECEIVER_SHORT, HW_MULTICURVES);
-    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvReceiverShortExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvReceiverShortIntegration.getAmount(EUR).getAmount()
+    assertEquals("Swaption cash - Hull-White - present value - explicit/numerical integration", pvReceiverShortExplicit.getAmount(EUR).getAmount() / NOTIONAL * bp1, pvReceiverShortIntegration
+        .getAmount(EUR).getAmount()
         / NOTIONAL * bp1, 5.0E-1);
   }
 
-  @Test
   /**
    * Tests the Hull-White parameters sensitivity.
    */
@@ -177,7 +174,6 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     }
   }
 
-  @Test(enabled = false)
   /**
    * Tests approximation error. "enabled = false" for the standard testing.
    */
@@ -185,7 +181,7 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     final double bp1 = 10000;
     final double errorLimit = 5.0E-1; // 0.5 bp
     final double forward = SWAP_PAYER.accept(PRDC, MULTICURVES);
-    final double[] strikeRel = new double[] {-0.0250, -0.0150, -0.0050, 0.0, 0.0050, 0.0150, 0.0250};
+    final double[] strikeRel = new double[] {-0.0250, -0.0150, -0.0050, 0.0, 0.0050, 0.0150, 0.0250 };
     final double[] pvPayerApproximation = new double[strikeRel.length];
     final double[] pvPayerIntegration = new double[strikeRel.length];
     final double[] pvReceiverApproximation = new double[strikeRel.length];
@@ -206,7 +202,6 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     }
   }
 
-  @Test
   /**
    * Tests the curve sensitivity.
    */
@@ -214,50 +209,6 @@ public class SwaptionCashFixedIborHullWhiteMethodTest {
     final MultipleCurrencyParameterSensitivity pvpsExact = PS_HW_C.calculateSensitivity(SWAPTION_RECEIVER_SHORT, HW_MULTICURVES, HW_MULTICURVES.getMulticurveProvider().getAllNames());
     final MultipleCurrencyParameterSensitivity pvpsFD = PS_HW_FDC.calculateSensitivity(SWAPTION_RECEIVER_SHORT, HW_MULTICURVES);
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 10000;
-    MultiCurrencyAmount pvPayerLongExplicit = MultiCurrencyAmount.of(EUR, 0.0);
-    MultiCurrencyAmount pvPayerLongIntegration = MultiCurrencyAmount.of(EUR, 0.0);
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongExplicit = METHOD_HW_APPROXIMATION.presentValue(SWAPTION_PAYER_LONG, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption Hull-White approximation method: " + (endTime - startTime) + " ms");
-    // Performance note: HW price: 10-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 390 ms for 10000 swaptions.
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_HW_APPROXIMATION.presentValueHullWhiteSensitivity(SWAPTION_PAYER_LONG, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " HW sensitivity swaption Hull-White approximation method: " + (endTime - startTime) + " ms");
-    // Performance note: HW parameters sensitivity: 10-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 520 ms for 10000 swaptions.
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_HW_APPROXIMATION.presentValueCurveSensitivity(SWAPTION_PAYER_LONG, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve sensitivity swaption Hull-White approximation method: " + (endTime - startTime) + " ms");
-    // Performance note: HW curve sensitivity: 10-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 570 ms for 10000 swaptions.
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongIntegration = METHOD_HW_INTEGRATION.presentValue(SWAPTION_PAYER_LONG, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " cash swaption Hull-White numerical integration method: " + (endTime - startTime) + " ms");
-    // Performance note: HW numerical integration: 10-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 1800 ms for 10000 swaptions.
-
-    double difference = 0.0;
-    difference = pvPayerLongExplicit.getAmount(EUR).getAmount() - pvPayerLongIntegration.getAmount(EUR).getAmount();
-    System.out.println("Difference: " + difference);
   }
 
 }

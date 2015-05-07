@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Tests related to the "time/square of value" interpolator.
  */
@@ -19,8 +18,8 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 public class TimeSquareInterpolator1DTest {
 
   private static final Interpolator1D INTERPOLATOR = new TimeSquareInterpolator1D();
-  private static final double[] X = new double[] {1, 2, 3};
-  private static final double[] Y = new double[] {4, 5, 6};
+  private static final double[] X = new double[] {1, 2, 3 };
+  private static final double[] Y = new double[] {4, 5, 6 };
   private static final Interpolator1DDataBundle DATA = INTERPOLATOR.getDataBundle(X, Y);
 
   private static final double TOLERANCE_Y = 1.0E-10;
@@ -62,7 +61,7 @@ public class TimeSquareInterpolator1DTest {
    */
   public void interpolation() {
     final Interpolator1D interpolatorFromFactory = Interpolator1DFactory.TIME_SQUARE_INSTANCE;
-    double[] x = new double[] {1.0, 1.5, 2, 2.75};
+    double[] x = new double[] {1.0, 1.5, 2, 2.75 };
     for (int loopx = 0; loopx < x.length; loopx++) {
       double yCalculated = INTERPOLATOR.interpolate(DATA, x[loopx]);
       double yCalculatedFactory = interpolatorFromFactory.interpolate(DATA, x[loopx]);
@@ -87,7 +86,7 @@ public class TimeSquareInterpolator1DTest {
    */
   public void interpolationSensitivity() {
     double shift = 1.0E-6;
-    double[] x = new double[] {1.0, 1.5, 2, 2.75};
+    double[] x = new double[] {1.0, 1.5, 2, 2.75 };
     for (int loopx = 0; loopx < x.length; loopx++) {
       double yInit = INTERPOLATOR.interpolate(DATA, x[loopx]);
       double[] ySensiCalculated = INTERPOLATOR.getNodeSensitivitiesForValue(DATA, x[loopx]);
@@ -144,15 +143,15 @@ public class TimeSquareInterpolator1DTest {
     Interpolator1DDataBundle bundle = INTERPOLATOR.getDataBundle(xData, yData);
     double[] xTest = new double[] {1.0, 2.5, 3.0, 3.5, 4.0 };
     int nbTest = xTest.length;
-    for(int i=0; i<nbTest; i++) {
+    for (int i = 0; i < nbTest; i++) {
       assertEquals("SquareLinearInterpolator - 0 values", 0, INTERPOLATOR.interpolate(bundle, xTest[i]), TOLERANCE_Y);
-    }    
+    }
   }
 
   /** Tests first derivative at node when value is 0. */
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void firstDerivativeNodeOne0Exception1() {
-    double[] xData = new double[] {1.0, 2.0, 3.0};
+    double[] xData = new double[] {1.0, 2.0, 3.0 };
     double[] yData = new double[] {1.0, 0.0, 1.0 };
     Interpolator1DDataBundle bundle = INTERPOLATOR.getDataBundle(xData, yData);
     INTERPOLATOR.firstDerivative(bundle, 2.1);
@@ -161,7 +160,7 @@ public class TimeSquareInterpolator1DTest {
   /** Tests first derivative at node when value is 0. */
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void firstDerivativeNodeOne0Exception2() {
-    double[] xData = new double[] {1.0, 2.0, 3.0};
+    double[] xData = new double[] {1.0, 2.0, 3.0 };
     double[] yData = new double[] {1.0, 0.0, 1.0 };
     Interpolator1DDataBundle bundle = INTERPOLATOR.getDataBundle(xData, yData);
     INTERPOLATOR.firstDerivative(bundle, 1.9);
@@ -170,7 +169,7 @@ public class TimeSquareInterpolator1DTest {
   /** Tests sensitivity at node when all values are 0. */
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void sensitivityNodeOne0Exception1() {
-    double[] xData = new double[] {1.0, 2.0, 3.0};
+    double[] xData = new double[] {1.0, 2.0, 3.0 };
     double[] yData = new double[] {1.0, 0.0, 1.0 };
     Interpolator1DDataBundle bundle = INTERPOLATOR.getDataBundle(xData, yData);
     INTERPOLATOR.getNodeSensitivitiesForValue(bundle, 2.1);
@@ -179,7 +178,7 @@ public class TimeSquareInterpolator1DTest {
   /** Tests sensitivity at node when all values are 0. */
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void sensitivityNodeOne0Exception2() {
-    double[] xData = new double[] {1.0, 2.0, 3.0};
+    double[] xData = new double[] {1.0, 2.0, 3.0 };
     double[] yData = new double[] {1.0, 0.0, 1.0 };
     Interpolator1DDataBundle bundle = INTERPOLATOR.getDataBundle(xData, yData);
     INTERPOLATOR.getNodeSensitivitiesForValue(bundle, 1.9);
@@ -188,7 +187,7 @@ public class TimeSquareInterpolator1DTest {
   /** Tests data with a negative value. */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void negativeValueException() {
-    double[] xData = new double[] {1.0, 2.0, 3.0};
+    double[] xData = new double[] {1.0, 2.0, 3.0 };
     double[] yData = new double[] {1.0, -0.1, 1.0 };
     INTERPOLATOR.getDataBundle(xData, yData);
   }
@@ -196,9 +195,9 @@ public class TimeSquareInterpolator1DTest {
   /** Tests data with a negative value. */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void negativeValueException2() {
-    double[] xData = new double[] {1.0, 2.0, 3.0};
+    double[] xData = new double[] {1.0, 2.0, 3.0 };
     double[] yData = new double[] {1.0, -0.1, 1.0 };
     INTERPOLATOR.getDataBundleFromSortedArrays(xData, yData);
   }
-  
+
 }

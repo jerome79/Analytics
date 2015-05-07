@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SVIForm
 import com.opengamma.analytics.financial.model.volatility.smile.function.SVIVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 
-
 /**
  * Test.
  */

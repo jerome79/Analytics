@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.util.time;
 
-
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

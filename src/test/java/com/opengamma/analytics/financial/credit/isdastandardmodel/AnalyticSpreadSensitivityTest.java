@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.BumpType;
 
-
 /**
  * Test.
  */
@@ -37,7 +36,7 @@ public class AnalyticSpreadSensitivityTest extends ISDABaseTest {
 
   // market CDSs
   private static final LocalDate[] PAR_SPD_DATES = new LocalDate[] {LocalDate.of(2013, 6, 20), LocalDate.of(2013, 9, 20), LocalDate.of(2014, 3, 20), LocalDate.of(2015, 3, 20),
-      LocalDate.of(2016, 3, 20), LocalDate.of(2018, 3, 20), LocalDate.of(2023, 3, 20) };
+    LocalDate.of(2016, 3, 20), LocalDate.of(2018, 3, 20), LocalDate.of(2023, 3, 20) };
   private static final double[] PAR_SPREADS = new double[] {50, 70, 80, 95, 100, 95, 80 };
   private static final int NUM_MARKET_CDS = PAR_SPD_DATES.length;
   private static final CDSAnalytic[] MARKET_CDS = new CDSAnalytic[NUM_MARKET_CDS];

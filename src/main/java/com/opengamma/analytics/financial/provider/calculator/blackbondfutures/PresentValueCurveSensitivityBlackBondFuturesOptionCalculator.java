@@ -17,7 +17,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multipl
  */
 public final class PresentValueCurveSensitivityBlackBondFuturesOptionCalculator extends
     InstrumentDerivativeVisitorAdapter<BlackBondFuturesProviderInterface, MultipleCurrencyMulticurveSensitivity> {
-  
+
   private final FuturesTransactionBlackBondFuturesMethod _methodFutures;
 
   /**
@@ -26,8 +26,7 @@ public final class PresentValueCurveSensitivityBlackBondFuturesOptionCalculator 
   public PresentValueCurveSensitivityBlackBondFuturesOptionCalculator() {
     _methodFutures = new FuturesTransactionBlackBondFuturesMethod();
   }
-  
-  
+
   /**
    * Constructor from a futures method.
    */

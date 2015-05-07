@@ -80,11 +80,9 @@ public class SwaptionCashFixedIborLinearTSRMethodTest {
    * Tests the present value v hard-coded values.
    */
   public void presentValue() {
-    //    double pvSABR = METHOD_CASH_SABR.presentValue(SWAPTION_PAYER_LONG, SABR_BUNDLE);
     final MultiCurrencyAmount pvPayerTSR = METHOD_CASH_TSR.presentValue(SWAPTION_PAYER_LONG, SABR_MULTICURVES);
     final double pvPayerExpected = 1917641.961;
     assertEquals("Cash-settled swaption: linear TSR: present value", pvPayerExpected, pvPayerTSR.getAmount(EUR).getAmount(), 1E+0);
-    //    double pvSABR = METHOD_CASH_SABR.presentValue(SWAPTION_RECEIVER_LONG, SABR_BUNDLE);
     final MultiCurrencyAmount pvReceiverTSR = METHOD_CASH_TSR.presentValue(SWAPTION_RECEIVER_LONG, SABR_MULTICURVES);
     final double pvReceiverExpected = 4102844.469;
     assertEquals("Cash-settled swaption: linear TSR: present value", pvReceiverExpected, pvReceiverTSR.getAmount(EUR).getAmount(), 1E+0);

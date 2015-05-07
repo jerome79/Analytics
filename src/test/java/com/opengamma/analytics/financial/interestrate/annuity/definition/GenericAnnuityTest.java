@@ -22,7 +22,6 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */
@@ -69,7 +68,7 @@ public class GenericAnnuityTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullPayment() {
-    new Annuity<>(new CouponFixed[] {null});
+    new Annuity<>(new CouponFixed[] {null });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -121,7 +120,7 @@ public class GenericAnnuityTest {
     for (int i = 0; i < PAYMENTS.length; i++) {
       assertEquals(annuity.getNthPayment(i), PAYMENTS[i]);
     }
-    other = new Annuity<>(new CouponFixed[] {PAYMENTS[0], PAYMENTS[1]});
+    other = new Annuity<>(new CouponFixed[] {PAYMENTS[0], PAYMENTS[1] });
     assertFalse(annuity.equals(other));
   }
 }

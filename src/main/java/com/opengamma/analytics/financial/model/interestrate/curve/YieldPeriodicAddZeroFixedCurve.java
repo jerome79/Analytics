@@ -110,5 +110,5 @@ public class YieldPeriodicAddZeroFixedCurve extends YieldAndDiscountCurve {
   public List<String> getUnderlyingCurvesNames() {
     return new ArrayList<>();
   }
-  
+
 }

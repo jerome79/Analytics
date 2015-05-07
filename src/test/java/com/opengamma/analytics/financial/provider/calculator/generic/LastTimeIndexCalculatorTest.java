@@ -37,7 +37,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 @Test
 public class LastTimeIndexCalculatorTest {
 
@@ -63,14 +62,14 @@ public class LastTimeIndexCalculatorTest {
   private static final LastTimeIndexCalculator LAST_TIME_JPYLIBOR6M = new LastTimeIndexCalculator(JPYLIBOR6M);
 
   private static final double TOLERANCE_TIME = 1.0E-10;
-  
+
   @Test
   public void testNonBasisSwap() {
     double lastTimeComputed = IRS_1.accept(LAST_TIME_JPYLIBOR6M);
     double lastTimeExpected = ((CouponIbor) (IRS_1.getSecondLeg().getNthPayment(IRS_1.getSecondLeg().getNumberOfPayments() - 1))).getFixingPeriodEndTime();
     assertEquals("LastFixingTimeIndexCalculator: IRS", lastTimeComputed, lastTimeExpected, TOLERANCE_TIME);
   }
-  
+
   @Test
   public void testBasisSwap() {
     // The reference date has been chosen such that the last date of the two legs are different.

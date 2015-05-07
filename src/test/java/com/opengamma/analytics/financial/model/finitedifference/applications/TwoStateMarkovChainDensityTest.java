@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.model.finitedifference.PDEFullResults1D
 import com.opengamma.analytics.financial.model.finitedifference.PDEGrid1D;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 
-
 /**
  * Test.
  */
@@ -51,7 +50,6 @@ public class TwoStateMarkovChainDensityTest {
     int xNodes = 200;
 
     MeshingFunction timeMesh = new ExponentialMeshing(0, T, tNodes, 5.0);
-    //MeshingFunction spaceMesh = new ExponentialMeshing(0.0, 6.0 * FORWARD.getForward(T), xNodes, 3.0);
     MeshingFunction spaceMesh = new HyperbolicMeshing(-0.0 * FORWARD.getForward(T), 6.0 * FORWARD.getForward(T), FORWARD.getSpot(), xNodes, 0.01);
 
     PDEGrid1D grid = new PDEGrid1D(timeMesh, spaceMesh);

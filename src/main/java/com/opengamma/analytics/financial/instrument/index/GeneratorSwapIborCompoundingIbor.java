@@ -69,7 +69,8 @@ public class GeneratorSwapIborCompoundingIbor extends GeneratorInstrument<Genera
    * @param calendar1 The holiday calendar for the first ibor leg.
    * @param calendar2 The holiday calendar for the second ibor leg.
    */
-  public GeneratorSwapIborCompoundingIbor(final String name, final IborIndex iborIndex1, Period compoundingPeriod1, final IborIndex iborIndex2, final HolidayCalendar calendar1, final HolidayCalendar calendar2) {
+  public GeneratorSwapIborCompoundingIbor(final String name, final IborIndex iborIndex1, Period compoundingPeriod1, final IborIndex iborIndex2, final HolidayCalendar calendar1,
+      final HolidayCalendar calendar2) {
     super(name);
     ArgChecker.notNull(iborIndex1, "ibor index 1");
     ArgChecker.notNull(compoundingPeriod1, "compounding period 1");

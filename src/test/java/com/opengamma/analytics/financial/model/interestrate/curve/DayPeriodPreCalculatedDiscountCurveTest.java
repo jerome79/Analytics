@@ -40,7 +40,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Test.
  */
@@ -139,13 +138,20 @@ public class DayPeriodPreCalculatedDiscountCurveTest {
     final MultiCurrencyAmount pvCalcAnnIbor_WITH_PRECALCULATED_DISCOUNT = ANNUITY_IBOR.accept(PVDC, MULTICURVES_WITH_PRECALCULATED_DISCOUNT);
     final MultiCurrencyAmount pvCalcAnnFixed_WITH_PRECALCULATED_DISCOUNT = ANNUITY_FIXED.accept(PVDC, MULTICURVES_WITH_PRECALCULATED_DISCOUNT);
     final MultiCurrencyAmount pvCalcSwap_WITH_PRECALCULATED_DISCOUNT = SWAP.accept(PVDC, MULTICURVES_WITH_PRECALCULATED_DISCOUNT);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcCpn3_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcCpn3.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcCpn6_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcCpn6.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcAnnIbor_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcAnnIbor.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcAnnFixed.getAmount(EUR).getAmount(), pvCalcAnnFixed_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvMethCpn3.getAmount(EUR).getAmount(), pvMethCpn3_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvMethCpn6.getAmount(EUR).getAmount(), pvMethCpn6_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcSwap_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcSwap.getAmount(EUR).getAmount(), TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcCpn3_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcCpn3.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcCpn6_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcCpn6.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcAnnIbor_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcAnnIbor.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcAnnFixed.getAmount(EUR).getAmount(), pvCalcAnnFixed_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvMethCpn3.getAmount(EUR).getAmount(), pvMethCpn3_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvMethCpn6.getAmount(EUR).getAmount(), pvMethCpn6_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
+    assertEquals("PresentValueDiscountingProviderCalculator: multiple Ibor index", pvCalcSwap_WITH_PRECALCULATED_DISCOUNT.getAmount(EUR).getAmount(), pvCalcSwap.getAmount(EUR).getAmount(),
+        TOLERANCE_PV);
   }
 
   @Test

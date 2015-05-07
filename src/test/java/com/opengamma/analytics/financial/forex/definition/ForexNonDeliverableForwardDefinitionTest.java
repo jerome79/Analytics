@@ -18,8 +18,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 
-
-
 /**
  * Tests related to the construction of ForexNonDeliverableForwardDefinition and it conversion to derivative.
  */
@@ -85,8 +83,9 @@ public class ForexNonDeliverableForwardDefinitionTest {
    */
   public void toDerivative() {
     final ForexNonDeliverableForward ndfConverted = NDF_DEFINITION.toDerivative(REFERENCE_DATE);
-    final ForexNonDeliverableForward ndfExpected = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_DATE), TimeCalculator.getTimeBetween(
-        REFERENCE_DATE, PAYMENT_DATE));
+    final ForexNonDeliverableForward ndfExpected = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, TimeCalculator.getTimeBetween(REFERENCE_DATE, FIXING_DATE),
+        TimeCalculator.getTimeBetween(
+            REFERENCE_DATE, PAYMENT_DATE));
     assertEquals("Forex NDF - toDerivatives", ndfExpected, ndfConverted);
   }
 

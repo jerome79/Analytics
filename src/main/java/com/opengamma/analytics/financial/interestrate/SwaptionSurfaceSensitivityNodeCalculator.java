@@ -39,13 +39,13 @@ public class SwaptionSurfaceSensitivityNodeCalculator {
     ArgChecker.isTrue(parameters.getParameterSurface() instanceof InterpolatedDoublesSurface,
         "Can only calculate node sensitivities for interpolated double surfaces");
     InterpolatedDoublesSurface interpolatedSurface = (InterpolatedDoublesSurface) parameters.getParameterSurface();
-    Map<Double, Interpolator1DDataBundle> volatilityData = 
+    Map<Double, Interpolator1DDataBundle> volatilityData =
         (Map<Double, Interpolator1DDataBundle>) interpolatedSurface.getInterpolatorData();
     Interpolator2D interpolator = interpolatedSurface.getInterpolator();
     SurfaceValue sensitivityNode = new SurfaceValue();
     for (final Entry<DoublesPair, Double> entry : sensitivities.getSensitivity().getMap().entrySet()) {
       final Map<DoublesPair, Double> weight = interpolator.getNodeSensitivitiesForValue(volatilityData, entry.getKey());
-      sensitivityNode = SurfaceValue.plus(sensitivityNode, 
+      sensitivityNode = SurfaceValue.plus(sensitivityNode,
           SurfaceValue.multiplyBy(SurfaceValue.from(weight), entry.getValue()));
     }
     return new PresentValueSwaptionSurfaceSensitivity(sensitivityNode, parameters.getGeneratorSwap());

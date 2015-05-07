@@ -14,7 +14,6 @@ import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
 
-
 /**
  * Test.
  */
@@ -155,7 +154,6 @@ public class JTransformsWrapperTest {
     JTransformsWrapper.inverseTransform1DReal(new double[0], false);
   }
 
-  @Test
   public void testForwardBackwardFull() {
 
     final ComplexNumber[] transform = JTransformsWrapper.fullTransform1DReal(A);
@@ -182,7 +180,6 @@ public class JTransformsWrapperTest {
     }
   }
 
-  @Test
   public void testForwardBackwardReal() {
     final ComplexNumber[] transform = JTransformsWrapper.transform1DReal(A);
     final ComplexNumber[] transformFull = JTransformsWrapper.fullTransform1DReal(A);
@@ -195,37 +192,8 @@ public class JTransformsWrapperTest {
       realTransform[i] = transform[i].getReal();
       assertComplexEquals(transform[i], transformFull[i]);
     }
-    //final ComplexNumber[] inverse = JTransformsWrapper.inverseTransform1DReal(realTransform, true);
-    //for (final ComplexNumber element : inverse) {
-      // TODO fix test assertEquals(inverse[i].getReal(), A[i], EPS);
-    //}
   }
 
-  // @Test
-  // public void testSin() {
-  // final ComplexNumber[] transform = JTransformsWrapper.fullTransform1DReal(A2);
-  // int n = transform.length;
-  // double deltaOmega = 2 * Math.PI / n / 0.04;
-  // double omega;
-  //
-  // for (int i = n / 2; i < n; i++) {
-  // omega = (i - n) * deltaOmega;
-  //
-  // ComplexNumber res = ComplexMathUtils.multiply(0.04, transform[i]);
-  // // res = ComplexMathUtils.conjugate(res);// TODO why?
-  // System.out.println(omega + "\t" + res.getReal() + "\t" + res.getImaginary());
-  // }
-  //
-  // for (int i = 0; i <= n / 2; i++) {
-  // omega = i * deltaOmega;
-  // ComplexNumber res = ComplexMathUtils.multiply(0.04, transform[i]);
-  // // res = ComplexMathUtils.conjugate(res);// TODO why?
-  //
-  // System.out.println(omega + "\t" + res.getReal() + "\t" + res.getImaginary());
-  // }
-  // }
-
-  @Test
   public void testParsevalsTheorem() {
     final ComplexNumber[] transform = JTransformsWrapper.transform1DReal(A);
     final int n = A.length;
@@ -243,7 +211,6 @@ public class JTransformsWrapperTest {
     assertEquals(1.0, sum1 / sum2, 1e-2);
   }
 
-  @Test
   public void testGauss() {
 
     final ComplexNumber[] transform = JTransformsWrapper.transform1DReal(G);
@@ -262,7 +229,6 @@ public class JTransformsWrapperTest {
 
   }
 
-  @Test
   public void testGauss2() {
 
     final ComplexNumber[] transform = JTransformsWrapper.fullTransform1DReal(G);
@@ -278,21 +244,17 @@ public class JTransformsWrapperTest {
       final ComplexNumber scale = ComplexMathUtils.multiply(DELTAX, ComplexMathUtils.exp(new ComplexNumber(0.0, omega * X_MIN)));
       final ComplexNumber res = ComplexMathUtils.multiply(scale, transform[i]);
       assertComplexEquals(GAUSS_TRANSFORM.evaluate(new ComplexNumber(omega)), res);
-      // System.out.println(omega + "\t" + res.getReal() + "\t" + res.getImaginary());
     }
 
     for (int i = 0; i <= n / 2; i++) {
       omega = i * deltaF;
       final ComplexNumber scale = ComplexMathUtils.multiply(DELTAX, ComplexMathUtils.exp(new ComplexNumber(0.0, omega * X_MIN)));
       final ComplexNumber res = ComplexMathUtils.multiply(scale, transform[i]);
-
       assertComplexEquals(GAUSS_TRANSFORM.evaluate(new ComplexNumber(omega)), res);
-      // System.out.println(omega + "\t" + res.getReal() + "\t" + res.getImaginary());
     }
 
   }
 
-  @Test
   public void testGaussBackTransform() {
 
     final ComplexNumber[] transform = JTransformsWrapper.inverseTransform1DComplex(G_TRANS, false);
@@ -307,14 +269,12 @@ public class JTransformsWrapperTest {
       final ComplexNumber scale = ComplexMathUtils.multiply(DELTAX / 2 / Math.PI, ComplexMathUtils.exp(new ComplexNumber(0.0, -x * X_MIN)));
       final ComplexNumber res = ComplexMathUtils.multiply(scale, transform[i]);
       assertComplexEquals(new ComplexNumber(GAUSS.evaluate(x), 0.0), res);
-      // System.out.println(x + "\t" + res.getReal() + "\t" + res.getImaginary());
     }
     for (int i = 0; i <= n / 2; i++) {
       x = i * deltaX;
       final ComplexNumber scale = ComplexMathUtils.multiply(DELTAX / 2 / Math.PI, ComplexMathUtils.exp(new ComplexNumber(0.0, -x * X_MIN)));
       final ComplexNumber res = ComplexMathUtils.multiply(scale, transform[i]);
       assertComplexEquals(new ComplexNumber(GAUSS.evaluate(x), 0.0), res);
-      // System.out.println(x + "\t" + res.getReal() + "\t" + res.getImaginary());
     }
 
   }

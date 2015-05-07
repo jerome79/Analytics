@@ -302,7 +302,6 @@ public class BjerksundStenslandModel {
     return -(Math.log(x) / denom + y);
   }
 
-  // **************
   // adjoint stuff
 
   /**
@@ -332,7 +331,7 @@ public class BjerksundStenslandModel {
     double bsmPrice = Math.exp(-r * t) * BlackFormulaRepository.price(s0 * Math.exp(b * t), k, t, sigma, isCall);
     // if the volatility is zero it is either optimal to exercise immediatly or wait til expiry
     if (sigma * Math.sqrt(t) < SMALL) {
-      return  lowBoundPriceAdjoint(s0, k, r, b, t, sigma, isCall, bsmPrice);
+      return lowBoundPriceAdjoint(s0, k, r, b, t, sigma, isCall, bsmPrice);
     }
 
     if (isCall) {
@@ -340,7 +339,6 @@ public class BjerksundStenslandModel {
     }
     return getPutPriceAdjoint(s0, k, r, b, t, sigma, bsmPrice);
   }
-
 
   /**
    * Get the option price, plus its delta and gamma. <b>Note</b> if a put is required, the gamma is found by divided difference
@@ -355,7 +353,7 @@ public class BjerksundStenslandModel {
    * @return length 3 array of price, delta and gamma
    */
   public double[] getPriceDeltaGamma(double s0, double k, double r, double b, double t, double sigma, boolean isCall) {
-   
+
     double bsmPrice = Math.exp(-r * t) * BlackFormulaRepository.price(s0 * Math.exp(b * t), k, t, sigma, isCall);
     // if the volatility is zero it is either optimal to exercise immediatly or wait til expiry
     if (sigma * Math.sqrt(t) < SMALL) {
@@ -363,10 +361,10 @@ public class BjerksundStenslandModel {
     }
 
     double[] res = isCall ? getCallDeltaGamma(s0, k, r, b, t, sigma, bsmPrice) : getPutDeltaGamma(s0, k, r, b, t, sigma);
-   
+
     //If the calculated price is less than the immediate exicse or  European price, must handle the greeks differently
     double lowerBoundPrice = Math.max((isCall ? s0 - k : k - s0), bsmPrice);
-    if (res[0] < lowerBoundPrice) { 
+    if (res[0] < lowerBoundPrice) {
       return lowBoundPriceDeltaGamma(s0, k, r, b, t, sigma, isCall, bsmPrice);
     } else {
       return res;
@@ -496,7 +494,7 @@ public class BjerksundStenslandModel {
     double w6 = alpha1Adj[0] * (phi6Adj[0] - psi1Adj[0]);
     double w7 = psi2Adj[0] - psi3Adj[0];
     double w8 = k * (-psi4Adj[0] + psi5Adj[0]);
-    double w9 = w3 + w4 + w5 + w6 + w7 + w8; 
+    double w9 = w3 + w4 + w5 + w6 + w7 + w8;
 
     /*
      * In the case that either immediate excise or no early excise (i.e. the European price) is worth more than the price
@@ -508,7 +506,6 @@ public class BjerksundStenslandModel {
     }
 
     // backwards sweep
-    // w3Bar to w9Bar = 1.0;
     double w2Bar = -alpha2Adj[0];
     double w1Bar = alpha2Adj[0];
     double psi5Bar = k;
@@ -630,7 +627,7 @@ public class BjerksundStenslandModel {
     }
     return res;
   }
-  
+
   /**
    * In the case of immediate excise or no early excise (European price) the sensitivities should be handled separately
    * @param s0 The spot
@@ -666,7 +663,7 @@ public class BjerksundStenslandModel {
     double[] res = new double[3];
     // European option case
     if (b >= r) {
-    return lowBoundPriceDeltaGamma(s0, k, r, b, t, sigma, true, bsmPrice);
+      return lowBoundPriceDeltaGamma(s0, k, r, b, t, sigma, true, bsmPrice);
     }
 
     double sigmaSq = sigma * sigma;
@@ -873,7 +870,6 @@ public class BjerksundStenslandModel {
     double w3Bar = w5Bar;
     double w2Bar = w4Bar;
     double w1Bar = w4Bar + w5Bar;
-    // double w0Bar = t1 * w1Bar;
 
     double[] res = new double[9];
     double lammbaBar = t1 * w14; // w14 == w11*w11Bar

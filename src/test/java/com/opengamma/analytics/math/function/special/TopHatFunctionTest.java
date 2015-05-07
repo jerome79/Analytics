@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -34,12 +33,12 @@ public class TopHatFunctionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testX1() {
-    F.evaluate(X1);    
+    F.evaluate(X1);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testX2() {
-    F.evaluate(X2);    
+    F.evaluate(X2);
   }
 
   @Test

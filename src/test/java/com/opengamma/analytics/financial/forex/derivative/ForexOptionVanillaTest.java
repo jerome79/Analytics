@@ -21,7 +21,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Tests related to the construction of vanilla Forex options (derivative version).
  */
@@ -41,7 +40,7 @@ public class ForexOptionVanillaTest {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 8);
   private static final String DISCOUNTING_CURVE_NAME_CUR_1 = "Discounting EUR";
   private static final String DISCOUNTING_CURVE_NAME_CUR_2 = "Discounting USD";
-  private static final String[] CURVES_NAME = new String[] {DISCOUNTING_CURVE_NAME_CUR_1, DISCOUNTING_CURVE_NAME_CUR_2};
+  private static final String[] CURVES_NAME = new String[] {DISCOUNTING_CURVE_NAME_CUR_1, DISCOUNTING_CURVE_NAME_CUR_2 };
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final Forex FX = FX_DEFINITION.toDerivative(REFERENCE_DATE);
   private static final double EXPIRATION_TIME = DayCountUtils.yearFraction(ACT_ACT, REFERENCE_DATE, EXPIRATION_DATE);
@@ -59,7 +58,6 @@ public class ForexOptionVanillaTest {
     assertEquals(IS_CALL, FX_OPTION.isCall());
     assertEquals(IS_LONG, FX_OPTION.isLong());
   }
-
 
   @Test
   /**

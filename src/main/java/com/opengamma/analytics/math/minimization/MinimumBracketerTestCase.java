@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Abstract test.
  */

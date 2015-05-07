@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 
-
 /**
  * Test.
  */
@@ -99,7 +98,7 @@ public class ChebyshevPolynomialOfFirstKindFunctionTest {
     }
 
   };
-  private static final DoubleFunction1D[] T = new DoubleFunction1D[] {T0, T1, T2, T3, T4, T5, T6, T7, T8, T9};
+  private static final DoubleFunction1D[] T = new DoubleFunction1D[] {T0, T1, T2, T3, T4, T5, T6, T7, T8, T9 };
   private static final ChebyshevPolynomialOfFirstKindFunction CHEBYSHEV = new ChebyshevPolynomialOfFirstKindFunction();
   private static final double EPS = 1e-12;
 

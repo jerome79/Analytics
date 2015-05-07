@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebraFactory;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */
@@ -64,7 +63,6 @@ public class SVINonLinearLeastSquareFitterTest extends LeastSquareSmileFitterTes
     assertEquals("a", SIGMA * SIGMA, parameters.getEntry(0), EPS);
     assertEquals("b", 0.0, parameters.getEntry(1), EPS);
     //TODO investigate why a chi^2 of 0 is not reached
-    //assertEquals("chi^2", 0.0, results.getChiSq(), EPS);
 
   }
 

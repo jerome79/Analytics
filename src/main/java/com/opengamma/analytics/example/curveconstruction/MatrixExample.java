@@ -17,9 +17,8 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
  */
 // @export "classDefinition"
 public class MatrixExample {
-// CSOFF
+  // CSOFF
 
-  // @export "initMatrixDemo"
   static double[] ARRAY_1D = {4.0, 5.0, 10.0 };
   public static double[][] ARRAY_2D = { {1.0, 2.0, 3.0 }, {4.0, 5.0, 6.0 } };
 
@@ -31,7 +30,6 @@ public class MatrixExample {
     out.println(matrix_2d);
   }
 
-  // @export "matrixAlgebraDemo"
   public static void matrixAlgebraDemo(PrintStream out) {
     ColtMatrixAlgebra colt = new ColtMatrixAlgebra();
     DoubleMatrix1D v = new DoubleMatrix1D(ARRAY_1D);

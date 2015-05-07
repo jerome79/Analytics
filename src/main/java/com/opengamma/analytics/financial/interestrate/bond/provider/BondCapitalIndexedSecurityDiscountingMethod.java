@@ -120,7 +120,7 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
     final MultiCurrencyAmount nominalAccruedInterest =
         bond.getSettlement().accept(PVIC, market.getInflationProvider()).multipliedBy(bond.getAccruedInterest());
     double dfSettle = market.getDiscountFactor(ccy, bond.getSettlementTime());
-    double pvPrice = dfSettle * cleanPriceNominal *  notional;
+    double pvPrice = dfSettle * cleanPriceNominal * notional;
     return nominalAccruedInterest.plus(ccy, pvPrice);
   }
 
@@ -177,7 +177,7 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    * @param curves The issuer and inflation curve provider.
    * @return The clean price.
    */
-  public double cleanRealPriceFromCurves(final BondCapitalIndexedSecurity<?> bond, 
+  public double cleanRealPriceFromCurves(final BondCapitalIndexedSecurity<?> bond,
       final InflationIssuerProviderInterface curves) {
     ArgChecker.notNull(bond, "Coupon");
     ArgChecker.notNull(curves, "Curves");
@@ -185,7 +185,7 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
     double indexRatioAtSettlement = bond.getIndexRatio();
     double notional = bond.getCoupon().getNthPayment(0).getNotional();
     MultiCurrencyAmount nominalAccruedInterest =
-      bond.getSettlement().accept(PVIC, curves.getInflationProvider()).multipliedBy(bond.getAccruedInterest());
+        bond.getSettlement().accept(PVIC, curves.getInflationProvider()).multipliedBy(bond.getAccruedInterest());
     double df = curves.getMulticurveProvider().getDiscountFactor(bond.getCurrency(), bond.getSettlementTime());
     double pv = presentValue(bond, curves).getAmount(bond.getCurrency()).getAmount();
     double pvPriceNominal = pv - nominalAccruedInterest.getAmount(ccy).getAmount();
@@ -385,7 +385,7 @@ public final class BondCapitalIndexedSecurityDiscountingMethod {
    * @param provider The provider.
    * @return The present value.
    */
-  public MultipleCurrencyInflationSensitivity presentValueCurveSensitivity(final BondCapitalIndexedSecurity<?> bond, 
+  public MultipleCurrencyInflationSensitivity presentValueCurveSensitivity(final BondCapitalIndexedSecurity<?> bond,
       final ParameterInflationIssuerProviderInterface provider) {
     ArgChecker.notNull(bond, "Bond");
     MulticurveProviderInterface multicurveDecorated = new MulticurveProviderDiscountingDecoratedIssuer(

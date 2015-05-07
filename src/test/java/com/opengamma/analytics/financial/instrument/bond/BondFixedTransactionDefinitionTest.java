@@ -32,7 +32,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -127,7 +126,6 @@ public class BondFixedTransactionDefinitionTest {
   private static final YieldConvention US_STREET = SimpleYieldConvention.US_STREET;
   private static final int SETTLEMENT_DAYS_MON = 3;
   private static final Period PAYMENT_TENOR_MON = Period.ofMonths(6);
-  //  private static final int COUPON_PER_YEAR_MON = 2;
   private static final ZonedDateTime BOND_MATURITY_MON = DateUtils.getUTCDate(2014, 12, 11);
   private static final ZonedDateTime BOND_START_MON = DateUtils.getUTCDate(2009, 3, 11);
   private static final ZonedDateTime BOND_FIRSTCPN_MON = DateUtils.getUTCDate(2009, 12, 11);
@@ -166,8 +164,8 @@ public class BondFixedTransactionDefinitionTest {
     CouponFixedDefinition cpn = BOND_UKT_500_20140907.getCoupons().getNthPayment(cpnIndex);
     double cpnAccrued = cpn.getAmount() / cpn.getNotional();
     final int nbCoupon = BOND_UKT_500_20140907.getCoupons().getNumberOfPayments();
-    double accruedUndajusted = AccruedInterestCalculator.getAccruedInterest(BOND_UKT_500_20140907.getDayCount(), 
-        cpnIndex, nbCoupon, transaction.getPreviousAccrualDate(), settleDate, transaction.getNextAccrualDate(), 
+    double accruedUndajusted = AccruedInterestCalculator.getAccruedInterest(BOND_UKT_500_20140907.getDayCount(),
+        cpnIndex, nbCoupon, transaction.getPreviousAccrualDate(), settleDate, transaction.getNextAccrualDate(),
         cpn.getRate(), BOND_UKT_500_20140907.getCouponPerYear(), BOND_UKT_500_20140907.isEOM());
     double accruedAtSettle = accruedUndajusted - cpnAccrued;
     double accruedComputed = transaction.getAccruedInterestAtSettlement();

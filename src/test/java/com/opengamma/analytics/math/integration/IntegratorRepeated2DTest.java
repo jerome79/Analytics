@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function2D;
 
-
 /**
  * Tests related to the repeated one-dimensional integration to integrate 2-D functions.
  */
@@ -42,14 +41,14 @@ public class IntegratorRepeated2DTest {
     Double[] upper;
     double result, resultExpected;
     // First set of limits.
-    lower = new Double[] {0.0, 1.0};
-    upper = new Double[] {2.0, 10.0};
+    lower = new Double[] {0.0, 1.0 };
+    upper = new Double[] {2.0, 10.0 };
     result = integrator2D.integrate(f, lower, upper);
     resultExpected = (upper[0] * upper[0] - lower[0] * lower[0]) / 2.0 * (upper[1] - lower[1]) + (upper[0] - lower[0]) * (-Math.cos(upper[1]) + Math.cos(lower[1]));
     assertEquals("Integration 2D - repeated 1D", resultExpected, result, 1E-8);
     // Second set of limits.
-    lower = new Double[] {0.25, 5.25};
-    upper = new Double[] {25.25, 35.25};
+    lower = new Double[] {0.25, 5.25 };
+    upper = new Double[] {25.25, 35.25 };
     result = integrator2D.integrate(f, lower, upper);
     resultExpected = (upper[0] * upper[0] - lower[0] * lower[0]) / 2.0 * (upper[1] - lower[1]) + (upper[0] - lower[0]) * (-Math.cos(upper[1]) + Math.cos(lower[1]));
     assertEquals("Integration 2D - repeated 1D", resultExpected, result, 1E-6);

@@ -16,7 +16,6 @@ import com.opengamma.analytics.math.statistics.descriptive.SampleStandardDeviati
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  */
 @Test
@@ -41,7 +40,7 @@ public class SampleMedianAbsoluteDeviationCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testInsufficientData() {
-    MAD_CALC.apply(new double[] {3.});
+    MAD_CALC.apply(new double[] {3. });
   }
 
   @Test

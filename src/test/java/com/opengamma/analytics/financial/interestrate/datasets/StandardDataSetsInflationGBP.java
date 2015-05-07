@@ -61,7 +61,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * 
  */
 public class StandardDataSetsInflationGBP {
-  
+
   private static final ZonedDateTime CALIBRATION_DATE = DateUtils.getUTCDate(2014, 4, 11);
 
   private static final Interpolator1D INTERPOLATOR_LINEAR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
@@ -75,21 +75,20 @@ public class StandardDataSetsInflationGBP {
 
   private static final double NOTIONAL = 1.0;
 
-  private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_INFLATION_SWAP = 
+  private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_INFLATION_SWAP =
       GeneratorSwapFixedInflationMaster.getInstance().getGenerator("UKRPI");
   private static final IndexPrice GBP_RPI = GENERATOR_INFLATION_SWAP.getIndexPrice();
 
-
   private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY =
-      ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2013, 12, 31),
-          DateUtils.getUTCDate(2014, 1, 31), DateUtils.getUTCDate(2014, 2, 28)}, new double[]{253.4, 252.6, 254.2});
+      ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 31),
+        DateUtils.getUTCDate(2014, 1, 31), DateUtils.getUTCDate(2014, 2, 28) }, new double[] {253.4, 252.6, 254.2 });
 
   private static final String CURVE_NAME_RPI_GBP = "GBP RPI";
 
   /** Market values for the RPI GBP curve */
 
   public static final double[] RPI_GBP_MARKET_QUOTES = new double[] {
-    0.02163, 0.02262, 0.02371, 0.02463, 0.02522, 0.02581, 0.02634, 0.02698, 0.0249, 0.02844, 
+    0.02163, 0.02262, 0.02371, 0.02463, 0.02522, 0.02581, 0.02634, 0.02698, 0.0249, 0.02844,
     0.02991, 0.02810, 0.03175, 0.031915 };
 
   /** Generators for the RPI GBP curve */
@@ -116,7 +115,7 @@ public class StandardDataSetsInflationGBP {
   private static final InstrumentDefinition<?>[][][][] DEFINITIONS_UNITS = new InstrumentDefinition<?>[NB_BLOCKS][][][];
   private static final GeneratorPriceIndexCurve[][][] GENERATORS_UNITS = new GeneratorPriceIndexCurve[NB_BLOCKS][][];
   private static final String[][][] NAMES_UNITS = new String[NB_BLOCKS][][];
-  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR = 
+  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR =
       StandardDataSetsMulticurveGBP.getCurvesGBPSonia(CALIBRATION_DATE);
   private static final MulticurveProviderDiscount GBP_MULTICURVE = MULTICURVE_PAIR.getFirst();
   private static final InflationProviderDiscount KNOWN_DATA = new InflationProviderDiscount(GBP_MULTICURVE);
@@ -227,7 +226,7 @@ public class StandardDataSetsInflationGBP {
       }
       curveBundles[i] = new MultiCurveBundle<>(singleCurves);
     }
-    return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(curveBundles, knownData, knownBundle, 
+    return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(curveBundles, knownData, knownBundle,
         GBP_RPI_MAP, calculator, sensitivityCalculator);
   }
 

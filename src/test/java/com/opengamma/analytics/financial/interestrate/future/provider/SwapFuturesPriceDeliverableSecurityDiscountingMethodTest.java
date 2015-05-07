@@ -28,7 +28,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the pricing of deliverable interest rate swap futures as traded on CME.
  */
@@ -59,7 +58,8 @@ public class SwapFuturesPriceDeliverableSecurityDiscountingMethodTest {
   @Test
   public void price() {
     final MultiCurrencyAmount pvSwap = SWAP_FUTURES_SECURITY.getUnderlyingSwap().accept(PVDC, MULTICURVES);
-    final double priceExpected = 1.0d + pvSwap.getAmount(USD).getAmount() / MULTICURVES.getMulticurveProvider().getDiscountFactor(SWAP_FUTURES_SECURITY.getCurrency(), SWAP_FUTURES_SECURITY.getDeliveryTime());
+    final double priceExpected = 1.0d + pvSwap.getAmount(USD).getAmount() /
+        MULTICURVES.getMulticurveProvider().getDiscountFactor(SWAP_FUTURES_SECURITY.getCurrency(), SWAP_FUTURES_SECURITY.getDeliveryTime());
     final double priceComputed = SWAP_FUTURES_SECURITY.accept(FPMC, MULTICURVES);
     assertEquals("DeliverableSwapFuturesSecurityDefinition: price", priceExpected, priceComputed, TOLERANCE_PRICE);
   }

@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */
@@ -54,7 +53,6 @@ public class BlackFormulaTest {
     final BlackFormula put = new BlackFormula(FORWARD, FORWARD, T, SIGMA, null, false);
 
     assertEquals(call.computePrice(), put.computePrice(), EPS);
-    // System.err.println("atm put price = " + put.computePrice());
   }
 
   @Test
@@ -93,7 +91,6 @@ public class BlackFormulaTest {
     final double strike25Call = FORMULA.computeStrikeImpliedByForwardDelta(0.25, true);
     final double strike75Call = FORMULA.computeStrikeImpliedByForwardDelta(0.75, true);
     final double strike90Call = FORMULA.computeStrikeImpliedByForwardDelta(0.90, true);
-    // System.err.println("strike90Call = " + strike90Call);
 
     final double strike90Put = FORMULA.computeStrikeImpliedByForwardDelta(-0.90, false);
     final double strike75Put = FORMULA.computeStrikeImpliedByForwardDelta(-0.75, false);

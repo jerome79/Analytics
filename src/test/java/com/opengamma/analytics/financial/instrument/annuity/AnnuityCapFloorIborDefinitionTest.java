@@ -22,7 +22,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the construction of cap/floor Ibor legs..
  */
@@ -101,7 +100,8 @@ public class AnnuityCapFloorIborDefinitionTest {
       assertEquals(STRIKE, CAP_12.getNthPayment(loopcpn).getStrike());
       assertEquals(IS_CAP, CAP_12.getNthPayment(loopcpn).isCap());
     }
-    final AnnuityCapFloorIborDefinition floor = AnnuityCapFloorIborDefinition.from(START_DATE, MATURITY_DATE, NOTIONAL, IBOR_INDEX, LEG_DAY_COUNT, LEG_PAYMENT_PERIOD, IS_PAYER, STRIKE, !IS_CAP, CALENDAR);
+    final AnnuityCapFloorIborDefinition floor = AnnuityCapFloorIborDefinition.from(START_DATE, MATURITY_DATE, NOTIONAL, IBOR_INDEX, LEG_DAY_COUNT, LEG_PAYMENT_PERIOD, IS_PAYER, STRIKE, !IS_CAP,
+        CALENDAR);
     for (int loopcpn = 0; loopcpn < CAP_12.getNumberOfPayments(); loopcpn++) {
       assertEquals(STRIKE, floor.getNthPayment(loopcpn).getStrike());
       assertEquals(!IS_CAP, floor.getNthPayment(loopcpn).isCap());

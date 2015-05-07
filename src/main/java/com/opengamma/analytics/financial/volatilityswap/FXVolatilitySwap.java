@@ -65,6 +65,7 @@ public class FXVolatilitySwap extends VolatilitySwap {
   public Currency getBaseCurrency() {
     return _baseCurrency;
   }
+
   /**
    * Gets the counter currency.
    * @return the counter currency

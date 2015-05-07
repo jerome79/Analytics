@@ -177,7 +177,7 @@ public class TimeSeriesUtils {
   public static <K, V> String toString(TimeSeries<K, V> ts) {
     StringBuilder sb = new StringBuilder();
     sb.append(ts.getClass().getSimpleName());
-    sb.append("["); 
+    sb.append("[");
     Iterator<Entry<K, V>> iterator = ts.iterator();
     while (iterator.hasNext()) {
       Entry<?, ?> next = iterator.next();

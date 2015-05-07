@@ -15,7 +15,6 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 
-
 /**
  * Tests the curve construction as the sum (or difference) of a main curve and a fixed curve.
  */
@@ -24,8 +23,8 @@ public class YieldAndDiscountAddZeroFixedCurveTest {
 
   private static final Interpolator1D INTERPOLATOR_LINEAR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final double[] TIME = new double[] {1, 2, 2.5, 3};
-  private static final double[] YIELD = new double[] {0.01, 0.02, 0.02, 0.01};
+  private static final double[] TIME = new double[] {1, 2, 2.5, 3 };
+  private static final double[] YIELD = new double[] {0.01, 0.02, 0.02, 0.01 };
   private static final InterpolatedDoublesCurve R = InterpolatedDoublesCurve.from(TIME, YIELD, INTERPOLATOR_LINEAR);
   private static final YieldAndDiscountCurve CURVE_MAIN = new YieldCurve("Main", R);
   private static final YieldAndDiscountCurve CURVE_FIXED = new YieldCurve("Fixed", new ConstantDoublesCurve(0.0010, "Fixed"));
@@ -50,7 +49,7 @@ public class YieldAndDiscountAddZeroFixedCurveTest {
 
   @Test
   public void interestRate() {
-    double[] t = {0.5, 1.0, 2.75};
+    double[] t = {0.5, 1.0, 2.75 };
     for (int loopt = 0; loopt < t.length; loopt++) {
       assertEquals("YieldAndDiscountAddZeroFixedCurve: rate", CURVE_MAIN.getInterestRate(t[loopt]) + CURVE_FIXED.getInterestRate(t[loopt]), CURVE_TOTAL.getInterestRate(t[loopt]), TOLERANCE_RATE);
     }

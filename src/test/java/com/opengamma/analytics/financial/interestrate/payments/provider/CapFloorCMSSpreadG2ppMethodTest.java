@@ -53,7 +53,6 @@ public class CapFloorCMSSpreadG2ppMethodTest {
 
   // CMS spread coupon
   private static final double NOTIONAL = 100000000;
-  //  private static final double BP1 = 1.0E-4; // 1 basis point
   private static final ZonedDateTime ACCRUAL_START_DATE = ScheduleCalculator.getAdjustedDate(FIXING_DATE, EUR1YEURIBOR6M.getSpotLag(), CALENDAR);
   private static final ZonedDateTime ACCRUAL_END_DATE = ScheduleCalculator.getAdjustedDate(ACCRUAL_START_DATE, Period.ofMonths(6), GEN_EUR_DEPOSIT);
   private static final ZonedDateTime PAYMENT_DATE = ACCRUAL_END_DATE;
@@ -89,19 +88,7 @@ public class CapFloorCMSSpreadG2ppMethodTest {
   public void presentValueNIntegrationVsApproximation() {
 
     // TODO
-    //    double[] forward = new double[] {PRC.visit(CMS_SPREAD.getUnderlyingSwap1(), CURVES), PRC.visit(CMS_SPREAD.getUnderlyingSwap2(), CURVES)};
-    //    double atm = forward[0] - forward[1];
-    //    double[] shift = new double[] {-0.0100, -0.0050, 0.0, 0.0050, 0.0100};
-    //    double[] pvNI = new double[shift.length];
-    //    double[] pvApprox = new double[shift.length];
-    //    for (int loopstrike = 0; loopstrike < shift.length; loopstrike++) {
     //      CapFloorCMSSpreadDefinition cmsSpreadDefinition = CapFloorCMSSpreadDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, PAYMENT_ACCRUAL_FACTOR, NOTIONAL, SWAP_USD10Y, SWAP_USD2Y,
-    //          atm + shift[loopstrike], IS_CAP);
-    //      CapFloorCMSSpread cmsSpread = (CapFloorCMSSpread) cmsSpreadDefinition.toDerivative(REFERENCE_DATE, CURVE_NAMES);
-    //      pvNI[loopstrike] = METHOD_NI.presentValue(cmsSpread, BUNDLE_G2PP).getAmount() / NOTIONAL / BP1;
-    //      pvApprox[loopstrike] = METHOD_APPROX.presentValue(cmsSpread, BUNDLE_G2PP).getAmount() / NOTIONAL / BP1;
-    //      assertEquals("CMS spread: G2++ - present value", pvNI[loopstrike], pvApprox[loopstrike], TOLERANCE_PV_APPROX);
-    //    }
   }
 
 }

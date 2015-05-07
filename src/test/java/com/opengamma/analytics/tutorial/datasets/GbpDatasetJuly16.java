@@ -66,8 +66,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 public class GbpDatasetJuly16 {
 
-  private static final Interpolator1D INTERPOLATOR_LINEAR = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, 
+  private static final Interpolator1D INTERPOLATOR_LINEAR =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
 
   private static final LastTimeCalculator MATURITY_CALCULATOR = LastTimeCalculator.getInstance();
@@ -87,21 +87,21 @@ public class GbpDatasetJuly16 {
   private static final GeneratorSwapFixedONMaster GENERATOR_OIS_MASTER = GeneratorSwapFixedONMaster.getInstance();
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GENERATOR_OIS_MASTER.getGenerator("GBP1YSONIA", LON);
   private static final IndexON GBPSONIA = GENERATOR_OIS_GBP.getIndex();
-  private static final BusinessDayAdjustment ADJUSTED_DATE_ON = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_ON =
       BusinessDayAdjustment.of(GENERATOR_OIS_GBP.getBusinessDayConvention(), LON);
-  private static final DaysAdjustment OFFSET_FIXING = 
+  private static final DaysAdjustment OFFSET_FIXING =
       DaysAdjustment.ofBusinessDays(0, LON, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
 
   private static final String CURVE_NAME_DSC_GBP = "GBP-DSCON-OIS";
 
   /** Data as of 16-Jul-2014 */
   /** Market values for the curve with Central Bank meeting date OIS swaps */
-  private static final double[] BOE_MARKET_QUOTES = 
+  private static final double[] BOE_MARKET_QUOTES =
       new double[] {0.00455, 0.00468, 0.004988, 0.006238, 0.006475, 0.00675 };
   /** Tenors for the dsc GBP curve */
   private static final ZonedDateTime[] BOE_DATES = new ZonedDateTime[] {
     DateUtils.getUTCDate(2014, 8, 7), DateUtils.getUTCDate(2014, 9, 4), DateUtils.getUTCDate(2014, 10, 9),
-    DateUtils.getUTCDate(2014, 11, 6), DateUtils.getUTCDate(2014, 12, 4), DateUtils.getUTCDate(2015, 1, 8), 
+    DateUtils.getUTCDate(2014, 11, 6), DateUtils.getUTCDate(2014, 12, 4), DateUtils.getUTCDate(2015, 1, 8),
     DateUtils.getUTCDate(2015, 2, 5) };
   private static final int NB_DATES = BOE_DATES.length;
 
@@ -109,7 +109,7 @@ public class GbpDatasetJuly16 {
   private static final double[] STD_MARKET_QUOTES = new double[] {0.004263,
     0.004275, 0.00431, 0.004375, 0.004375, 0.004507,
     0.004592, 0.004805, 0.005107, 0.005339, 0.00562,
-    0.005936, 0.006231, 0.006543, 0.006879, 0.007185};
+    0.005936, 0.006231, 0.006543, 0.006879, 0.007185 };
   /** Generators for the dsc GBP curve */
   private static final GeneratorInstrument<? extends GeneratorAttribute>[] STD_GENERATORS =
       CurveCalibrationConventionDataSets.generatorGbpOnOis(1, STD_MARKET_QUOTES.length - 1);
@@ -117,7 +117,7 @@ public class GbpDatasetJuly16 {
   private static final Period[] STD_TENOR = new Period[] {
     Period.ofDays(0), Period.ofDays(7), Period.ofDays(14), Period.ofDays(21), Period.ofMonths(1), Period.ofMonths(2),
     Period.ofMonths(3), Period.ofMonths(4), Period.ofMonths(5), Period.ofMonths(6), Period.ofMonths(7),
-    Period.ofMonths(8), Period.ofMonths(9), Period.ofMonths(10), Period.ofMonths(11), Period.ofMonths(12)};
+    Period.ofMonths(8), Period.ofMonths(9), Period.ofMonths(10), Period.ofMonths(11), Period.ofMonths(12) };
   private static final GeneratorAttributeIR[] STD_ATTR = new GeneratorAttributeIR[STD_TENOR.length];
   static {
     for (int loopins = 0; loopins < 1; loopins++) {
@@ -151,26 +151,25 @@ public class GbpDatasetJuly16 {
   }
 
   @SuppressWarnings({"unchecked", "rawtypes" })
-  public static InstrumentDefinition<?>[] getDefinitions(final double[] marketQuotes, 
+  public static InstrumentDefinition<?>[] getDefinitions(final double[] marketQuotes,
       final GeneratorInstrument[] generators, final GeneratorAttribute[] attribute, final ZonedDateTime referenceDate) {
     final InstrumentDefinition<?>[] definitions = new InstrumentDefinition<?>[marketQuotes.length];
     for (int loopmv = 0; loopmv < marketQuotes.length; loopmv++) {
-      definitions[loopmv] = generators[loopmv].generateInstrument(referenceDate, marketQuotes[loopmv], NOTIONAL, 
+      definitions[loopmv] = generators[loopmv].generateInstrument(referenceDate, marketQuotes[loopmv], NOTIONAL,
           attribute[loopmv]);
     }
     return definitions;
   }
 
   /** Calculators */
-  private static final ParSpreadMarketQuoteDiscountingCalculator PSMQC = 
+  private static final ParSpreadMarketQuoteDiscountingCalculator PSMQC =
       ParSpreadMarketQuoteDiscountingCalculator.getInstance();
-  private static final ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator PSMQCSC = 
+  private static final ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator PSMQCSC =
       ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator.getInstance();
   private static final MulticurveDiscountBuildingRepository CURVE_BUILDING_REPOSITORY =
       CurveCalibrationConventionDataSets.curveBuildingRepositoryMulticurve();
 
-  
-  private static InstrumentDefinition<?>[] getDefinitionForFirstInstruments(ZonedDateTime calibrationDate, 
+  private static InstrumentDefinition<?>[] getDefinitionForFirstInstruments(ZonedDateTime calibrationDate,
       ZonedDateTime firstStartDate, InstrumentDefinition<?>[] definitionsDsc) {
     int howMany = 0;
 
@@ -185,7 +184,7 @@ public class GbpDatasetJuly16 {
         SwapFixedONDefinition definition = (SwapFixedONDefinition) definitionsDsc[i];
         if (firstStartDate.isBefore(
             definition.getFirstLeg().getNthPayment(definition.getFirstLeg().getNumberOfPayments() - 1).
-            getPaymentDate())) {
+                getPaymentDate())) {
           howMany = i + 1;
           break;
         }
@@ -196,38 +195,38 @@ public class GbpDatasetJuly16 {
     }
     return Arrays.copyOf(definitionsDsc, howMany);
   }
-  
+
   /**
    */
   public static Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> getBoeCurve(
       ZonedDateTime calibrationDate) {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[1][][];
     InstrumentDefinition<?>[] definitionsBoe = generateOisSwaps(BOE_DATES, BOE_MARKET_QUOTES);
-    InstrumentDefinition<?>[] definitionsStdInstruments = 
+    InstrumentDefinition<?>[] definitionsStdInstruments =
         getDefinitionForFirstInstruments(calibrationDate, BOE_DATES[0],
             getDefinitions(STD_MARKET_QUOTES, STD_GENERATORS, STD_ATTR, calibrationDate));
-    
+
     definitionsUnits[0] = new InstrumentDefinition<?>[][] {
-        ArrayUtils.addAll(definitionsStdInstruments, definitionsBoe)};
-    
-    return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits, 
-        GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP, 
-        CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY, 
+      ArrayUtils.addAll(definitionsStdInstruments, definitionsBoe) };
+
+    return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits,
+        GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP,
+        CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY,
         TS_FIXED_IBOR_GBP6M_WITH_LAST, TS_FIXED_IBOR_GBP6M_WITHOUT_LAST);
   }
-  
+
   /**
    */
   public static Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> getStandardCurve(
       ZonedDateTime calibrationDate) {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[1][][];
-    InstrumentDefinition<?>[] definitions = 
+    InstrumentDefinition<?>[] definitions =
         getDefinitions(STD_MARKET_QUOTES, STD_GENERATORS, STD_ATTR, calibrationDate);
     definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitions };
-    
-    return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits, 
-        GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP, 
-        CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY, 
+
+    return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits,
+        GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP,
+        CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY,
         TS_FIXED_IBOR_GBP6M_WITH_LAST, TS_FIXED_IBOR_GBP6M_WITHOUT_LAST);
   }
 
@@ -333,22 +332,22 @@ public class GbpDatasetJuly16 {
         cpnFixed[loopcpn] = (CouponFixedDefinition) cpn[loopcpn];
       }
       AnnuityCouponFixedDefinition fixedLegDefinition = new AnnuityCouponFixedDefinition(cpnFixed, LON);
-      AnnuityDefinition<? extends CouponDefinition> onLegDefinition = (AnnuityDefinition<? extends CouponDefinition>) 
+      AnnuityDefinition<? extends CouponDefinition> onLegDefinition = (AnnuityDefinition<? extends CouponDefinition>)
           new FloatingAnnuityDefinitionBuilder().
-          payer(false).
-          notional(NOTIONAL_PROV).
-          startDate(dates[loopimm].toLocalDate()).
-          endDate(dates[loopimm + 1].toLocalDate()).
-          index(GBPSONIA).
-          accrualPeriodFrequency(GENERATOR_OIS_GBP.getLegsPeriod()).
-          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-          resetDateAdjustmentParameters(ADJUSTED_DATE_ON).
-          accrualPeriodParameters(ADJUSTED_DATE_ON).
-          dayCount(GBPSONIA.getDayCount()).
-          fixingDateAdjustmentParameters(OFFSET_FIXING).
-          currency(GBP).
-          compoundingMethod(CompoundingMethod.FLAT).
-          build();
+              payer(false).
+              notional(NOTIONAL_PROV).
+              startDate(dates[loopimm].toLocalDate()).
+              endDate(dates[loopimm + 1].toLocalDate()).
+              index(GBPSONIA).
+              accrualPeriodFrequency(GENERATOR_OIS_GBP.getLegsPeriod()).
+              rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+              resetDateAdjustmentParameters(ADJUSTED_DATE_ON).
+              accrualPeriodParameters(ADJUSTED_DATE_ON).
+              dayCount(GBPSONIA.getDayCount()).
+              fixingDateAdjustmentParameters(OFFSET_FIXING).
+              currency(GBP).
+              compoundingMethod(CompoundingMethod.FLAT).
+              build();
       swap[loopimm] = new SwapCouponFixedCouponDefinition(fixedLegDefinition, onLegDefinition);
     }
     return swap;

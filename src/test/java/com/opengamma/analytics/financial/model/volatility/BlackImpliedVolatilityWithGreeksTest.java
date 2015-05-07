@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.time.TimeCalculator;
 
-
 /**
  * Test.
  */
@@ -45,7 +44,6 @@ public class BlackImpliedVolatilityWithGreeksTest {
    * Check implied volatility agrees with the original volatility which is used for computing the sample option price. 
    * Then check the resulting greeks are also consistent.  
    */
-  @Test
   public void recoveryTest() {
     final boolean[] isCall = new boolean[] {true, false };
     for (final boolean call : isCall) {
@@ -84,7 +82,6 @@ public class BlackImpliedVolatilityWithGreeksTest {
   /**
    * 
    */
-  @Test
   public void priceTest() {
     final boolean[] isCall = new boolean[] {true, false };
     for (final boolean call : isCall) {
@@ -119,15 +116,14 @@ public class BlackImpliedVolatilityWithGreeksTest {
    * Assumption on the interest rate is encoded to discount factor by exp(-r*t) and forward by spot*exp(r*t), 
    * which are inputs of getImpliedVolatilityAndGreeksDiscountFactor (or getPriceAndGreeksDiscountFactor) and getImpliedVolatilityAndGreeksForward (or getPriceAndGreeksForward), respectively.
    */
-  @Test
+  @Test(enabled = false)
   public void sampleTest() {
-    //    boolean print = true;
     boolean print = false;
 
     final LocalDate evaluationDate = LocalDate.of(2013, 8, 1);
     final LocalDate[] expiryDate = new LocalDate[] {LocalDate.of(2013, 8, 17), LocalDate.of(2013, 8, 17), LocalDate.of(2013, 8, 17), LocalDate.of(2013, 8, 17),
-        LocalDate.of(2013, 8, 17), LocalDate.of(2013, 8, 17), LocalDate.of(2013, 9, 21), LocalDate.of(2013, 9, 21), LocalDate.of(2013, 9, 21),
-        LocalDate.of(2013, 9, 21), LocalDate.of(2013, 9, 21) };
+      LocalDate.of(2013, 8, 17), LocalDate.of(2013, 8, 17), LocalDate.of(2013, 9, 21), LocalDate.of(2013, 9, 21), LocalDate.of(2013, 9, 21),
+      LocalDate.of(2013, 9, 21), LocalDate.of(2013, 9, 21) };
     final int nOptions = expiryDate.length;
     final double[] timeToExpiry = new double[nOptions];
 
@@ -154,7 +150,7 @@ public class BlackImpliedVolatilityWithGreeksTest {
       System.out.println("\t\t\t\t\t" + "(Implied Volatility," + "\t" + "Delta," + "\t" + "Gamma," + "\t" + "Vega)");
     }
     final double[] discountFactor = new double[] {0.9991236718712008, 0.9991236718712008, 0.9991236718712008, 0.9991236718712008, 0.9991236718712008, 0.9991236718712008, 0.9972093804899117,
-        0.9972093804899117, 0.9972093804899117, 0.9972093804899117, 0.9972093804899117 };
+      0.9972093804899117, 0.9972093804899117, 0.9972093804899117, 0.9972093804899117 };
     for (int i = 0; i < nOptions; ++i) {
       final double[] volAndGreeks = calculator.getImpliedVolatilityAndGreeksDiscountFactor(optionPrice[i], discountFactor[i], spot, strike[i], timeToExpiry[i], isCall);
       if (print == true) {
@@ -191,7 +187,7 @@ public class BlackImpliedVolatilityWithGreeksTest {
     }
 
     final double[] forward = new double[] {1687.4387500422877, 1687.4387500422877, 1687.4387500422877, 1687.4387500422877, 1687.4387500422877, 1687.4387500422877, 1690.6780391212496,
-        1690.6780391212496, 1690.6780391212496, 1690.6780391212496, 1690.6780391212496 };
+      1690.6780391212496, 1690.6780391212496, 1690.6780391212496, 1690.6780391212496 };
     if (print == true) {
       System.out.println("\t\t\t\t\t" + "(Implied Volatility," + "\t" + "Delta," + "\t" + "Gamma," + "\t" + "Vega)");
     }

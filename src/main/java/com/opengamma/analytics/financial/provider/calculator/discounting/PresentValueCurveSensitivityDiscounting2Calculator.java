@@ -46,21 +46,21 @@ public final class PresentValueCurveSensitivityDiscounting2Calculator extends In
   }
 
   /** The methods used by the different instruments. */
-  private static final CouponONArithmeticAverageDiscountingMethod METHOD_CPN_AAON_EXACT = 
+  private static final CouponONArithmeticAverageDiscountingMethod METHOD_CPN_AAON_EXACT =
       CouponONArithmeticAverageDiscountingMethod.getInstance();
-  private static final CouponONArithmeticAverageSpreadDiscountingMethod METHOD_CPN_AAON_SPREAD_EXACT = 
+  private static final CouponONArithmeticAverageSpreadDiscountingMethod METHOD_CPN_AAON_SPREAD_EXACT =
       CouponONArithmeticAverageSpreadDiscountingMethod.getInstance();
 
   // -----     Payment/Coupon     ------
 
   @Override
-  public MultipleCurrencyMulticurveSensitivity visitCouponONArithmeticAverage(final CouponONArithmeticAverage payment, 
+  public MultipleCurrencyMulticurveSensitivity visitCouponONArithmeticAverage(final CouponONArithmeticAverage payment,
       final ParameterProviderInterface multicurve) {
     return METHOD_CPN_AAON_EXACT.presentValueCurveSensitivity(payment, multicurve.getMulticurveProvider());
   }
 
   @Override
-  public MultipleCurrencyMulticurveSensitivity visitCouponONArithmeticAverageSpread(final CouponONArithmeticAverageSpread payment, 
+  public MultipleCurrencyMulticurveSensitivity visitCouponONArithmeticAverageSpread(final CouponONArithmeticAverageSpread payment,
       final ParameterProviderInterface multicurve) {
     return METHOD_CPN_AAON_SPREAD_EXACT.presentValueCurveSensitivity(payment, multicurve.getMulticurveProvider());
   }

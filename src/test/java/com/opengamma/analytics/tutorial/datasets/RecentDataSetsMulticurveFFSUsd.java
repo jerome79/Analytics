@@ -135,7 +135,7 @@ public class RecentDataSetsMulticurveFFSUsd {
     Period.ofMonths(0), Period.ofMonths(0), Period.ofMonths(0), Period.ofMonths(0), Period.ofMonths(0),
     Period.ofYears(3), Period.ofYears(4), Period.ofYears(5), Period.ofYears(6), //Period.ofYears(2), 
     Period.ofYears(7), Period.ofYears(8), Period.ofYears(9), Period.ofYears(10), Period.ofYears(12),
-    Period.ofYears(15), Period.ofYears(20), Period.ofYears(25), Period.ofYears(30), Period.ofYears(40)  };
+    Period.ofYears(15), Period.ofYears(20), Period.ofYears(25), Period.ofYears(30), Period.ofYears(40) };
   private static final GeneratorAttributeIR[] FWD3_USD_ATTR = new GeneratorAttributeIR[FWD3_USD_TENOR.length];
   static {
     for (int loopins = 0; loopins < FWD3_USD_TENOR.length; loopins++) {
@@ -285,7 +285,7 @@ public class RecentDataSetsMulticurveFFSUsd {
       dscMarketQuoteComputed[loopdsc] = derivative.accept(PSMQC, multicurve);
     }
     InstrumentDefinition<?>[] definitionsDsc = getDefinitions(dscMarketQuoteComputed, DSC_USD_GENERATORS, DSC_USD_ATTR, calibrationDate);
-    
+
     GeneratorInstrument<? extends GeneratorAttribute>[] fwd3Generators =
         CurveCalibrationConventionDataSets.generatorUsdIbor3Fut3Irs3(calibrationDate, 3, 10, 14);
 
@@ -337,10 +337,9 @@ public class RecentDataSetsMulticurveFFSUsd {
     return TS_IBOR_USD3M_WITHOUT_LAST;
   }
 
-  //  private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-      new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27), DateUtils.getUTCDate(2011, 9, 28)},
-      new double[]{0.07, 0.08});
+      new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27), DateUtils.getUTCDate(2011, 9, 28) },
+      new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_ON_USD_WITH_TODAY };

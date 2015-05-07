@@ -36,7 +36,6 @@ public final class ProjectedPayCashFlowVisitor extends InstrumentDerivativeVisit
   }
 
   private ProjectedPayCashFlowVisitor() {
-    //    super(Collections.<MultiCurrencyAmount>emptyList());
   }
 
   /**

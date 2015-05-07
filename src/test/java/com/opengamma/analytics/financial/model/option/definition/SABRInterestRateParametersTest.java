@@ -23,7 +23,6 @@ import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 
-
 /**
  * Test the SABR parameters surfaces object.
  */

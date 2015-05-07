@@ -34,7 +34,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * 
  */
@@ -90,7 +89,7 @@ public class CouponIborAverageFixingDatesDefinitionTest {
   private static final CouponIborAverageFixingDatesDefinition DFN2 = new CouponIborAverageFixingDatesDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL,
       INDEX, FIXING_DATES, WEIGHTS, EXP_START_DATES, EXP_END_DATES, FIX_ACC_FACTORS);
 
-  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS1 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2010, 12, 7)}, new double[]{0.01});
+  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS1 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2010, 12, 7) }, new double[] {0.01 });
   private static final double[] FIXING_TS2_VALUES = {0.011, 0.012, 0.013, 0.014, 0.015, 0.016 };
   private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS2 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
       new ZonedDateTime[] {DateUtils.getUTCDate(2011, 1, 3), DateUtils.getUTCDate(2011, 2, 3), DateUtils.getUTCDate(2011, 3, 3), DateUtils.getUTCDate(2011, 4, 3), DateUtils.getUTCDate(2011, 5, 3),

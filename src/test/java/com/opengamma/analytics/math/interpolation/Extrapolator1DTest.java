@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
 
-
 /**
  * Test.
  */
@@ -27,11 +26,11 @@ public class Extrapolator1DTest {
   private static final FlatExtrapolator1D FLAT_EXTRAPOLATOR = new FlatExtrapolator1D();
   private static final Interpolator1DDataBundle DATA;
 
-  private static final double[] X_DATA = new double[] {0, 0.4, 1.0, 1.8, 2.8, 5};
-  private static final double[] Y_DATA = new double[] {3., 4., 3.1, 2., 7., 2.};
+  private static final double[] X_DATA = new double[] {0, 0.4, 1.0, 1.8, 2.8, 5 };
+  private static final double[] Y_DATA = new double[] {3., 4., 3.1, 2., 7., 2. };
 
-  private static final double[] X_TEST = new double[] {-1.0, 6.0};
-  private static final double[] Y_TEST = new double[] {-1.1, -5.272727273};
+  private static final double[] X_TEST = new double[] {-1.0, 6.0 };
+  private static final double[] Y_TEST = new double[] {-1.1, -5.272727273 };
 
   static {
     DATA = INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, Y_DATA);
@@ -84,12 +83,12 @@ public class Extrapolator1DTest {
 
   @Test
   public void testDataBundleType3() {
-    assertEquals(INTERPOLATOR.getDataBundle(new double[] {1, 2, 3}, new double[] {1, 2, 3}).getClass(), Interpolator1DDoubleQuadraticDataBundle.class);
+    assertEquals(INTERPOLATOR.getDataBundle(new double[] {1, 2, 3 }, new double[] {1, 2, 3 }).getClass(), Interpolator1DDoubleQuadraticDataBundle.class);
   }
 
   @Test
   public void testDataBundleType4() {
-    assertEquals(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2, 3}, new double[] {1, 2, 3}).getClass(), Interpolator1DDoubleQuadraticDataBundle.class);
+    assertEquals(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2, 3 }, new double[] {1, 2, 3 }).getClass(), Interpolator1DDoubleQuadraticDataBundle.class);
   }
 
   @Test

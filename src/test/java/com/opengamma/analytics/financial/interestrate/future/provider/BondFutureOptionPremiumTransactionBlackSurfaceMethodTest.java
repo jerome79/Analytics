@@ -42,7 +42,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the pricing methods for bond future options transaction with up-front premium payment.
  */
@@ -57,7 +56,7 @@ public class BondFutureOptionPremiumTransactionBlackSurfaceMethodTest {
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final int SETTLEMENT_DAYS = 1;
   private static final int NB_BOND = 7;
-  private static final double[] CONVERSION_FACTOR = new double[] {.8317, .8565, .8493, .8516, .8540, .8417, .8292};
+  private static final double[] CONVERSION_FACTOR = new double[] {.8317, .8565, .8493, .8516, .8540, .8417, .8292 };
   private static final ZonedDateTime LAST_TRADING_DATE = DateUtils.getUTCDate(2011, 9, 30);
   private static final ZonedDateTime FIRST_NOTICE_DATE = DateUtils.getUTCDate(2011, 8, 31);
   private static final ZonedDateTime LAST_NOTICE_DATE = DateUtils.getUTCDate(2011, 10, 4);
@@ -70,10 +69,10 @@ public class BondFutureOptionPremiumTransactionBlackSurfaceMethodTest {
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM = false;
   private static final YieldConvention YIELD_CONVENTION = YieldConventionFactory.INSTANCE.getYieldConvention("STREET CONVENTION");
-  private static final Period[] BOND_TENOR = new Period[] {Period.ofYears(5), Period.ofYears(5), Period.ofYears(5), Period.ofYears(8), Period.ofYears(5), Period.ofYears(5), Period.ofYears(5)};
+  private static final Period[] BOND_TENOR = new Period[] {Period.ofYears(5), Period.ofYears(5), Period.ofYears(5), Period.ofYears(8), Period.ofYears(5), Period.ofYears(5), Period.ofYears(5) };
   private static final ZonedDateTime[] START_ACCRUAL_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2010, 11, 30), DateUtils.getUTCDate(2010, 12, 31), DateUtils.getUTCDate(2011, 1, 31),
-    DateUtils.getUTCDate(2008, 2, 29), DateUtils.getUTCDate(2011, 3, 31), DateUtils.getUTCDate(2011, 4, 30), DateUtils.getUTCDate(2011, 5, 31)};
-  private static final double[] RATE = new double[] {0.01375, 0.02125, 0.0200, 0.02125, 0.0225, 0.0200, 0.0175};
+    DateUtils.getUTCDate(2008, 2, 29), DateUtils.getUTCDate(2011, 3, 31), DateUtils.getUTCDate(2011, 4, 30), DateUtils.getUTCDate(2011, 5, 31) };
+  private static final double[] RATE = new double[] {0.01375, 0.02125, 0.0200, 0.02125, 0.0225, 0.0200, 0.0175 };
   private static final ZonedDateTime[] MATURITY_DATE = new ZonedDateTime[NB_BOND];
   static {
     for (int loopbasket = 0; loopbasket < NB_BOND; loopbasket++) {
@@ -119,11 +118,13 @@ public class BondFutureOptionPremiumTransactionBlackSurfaceMethodTest {
     final MultiCurrencyAmount pvCallComputed = METHOD_BLACK_TRA.presentValue(BOND_FUTURE_OPTION_TRA_CALL, BLACK_MULTICURVES);
     final double priceCall = METHOD_BLACK_SEC.price(BOND_FUTURE_OPTION_SEC_CALL, BLACK_MULTICURVES);
     final MultiCurrencyAmount pvCallPremium = METHOD_PAY_FIXED.presentValue(BOND_FUTURE_OPTION_TRA_CALL.getPremium(), ISSUER_MULTICURVES.getMulticurveProvider());
-    assertEquals("BondFutureOptionPremiumTransactionBlackSurfaceMethod: present vlaue", pvCallComputed.getAmount(USD).getAmount(), pvCallPremium.getAmount(USD).getAmount() + priceCall * QUANTITY * NOTIONAL, TOLERANCE_PV);
+    assertEquals("BondFutureOptionPremiumTransactionBlackSurfaceMethod: present vlaue", pvCallComputed.getAmount(USD).getAmount(), pvCallPremium.getAmount(USD).getAmount() + priceCall * QUANTITY *
+        NOTIONAL, TOLERANCE_PV);
     final MultiCurrencyAmount pvPutComputed = METHOD_BLACK_TRA.presentValue(BOND_FUTURE_OPTION_TRA_PUT, BLACK_MULTICURVES);
     final MultiCurrencyAmount pvPutPremium = METHOD_PAY_FIXED.presentValue(BOND_FUTURE_OPTION_TRA_PUT.getPremium(), ISSUER_MULTICURVES.getMulticurveProvider());
     final MultiCurrencyAmount pvFut = METHOD_FUTURES.presentValue(BOND_FUT, ISSUER_MULTICURVES);
-    assertEquals("BondFutureOptionPremiumSecurityBlackSurfaceMethod: option price from future price", pvFut.getAmount(USD).getAmount() * QUANTITY - STRIKE * NOTIONAL * QUANTITY, pvCallComputed.getAmount(USD).getAmount()
+    assertEquals("BondFutureOptionPremiumSecurityBlackSurfaceMethod: option price from future price", pvFut.getAmount(USD).getAmount() * QUANTITY - STRIKE * NOTIONAL * QUANTITY, pvCallComputed
+        .getAmount(USD).getAmount()
         - pvCallPremium.getAmount(USD).getAmount() - (pvPutComputed.getAmount(USD).getAmount() - pvPutPremium.getAmount(USD).getAmount()), TOLERANCE_PV);
   }
 
@@ -132,7 +133,8 @@ public class BondFutureOptionPremiumTransactionBlackSurfaceMethodTest {
     final MultiCurrencyAmount pvComputed = METHOD_BLACK_TRA.presentValue(BOND_FUTURE_OPTION_TRA_CALL, BLACK_PRICE_MULTICURVES);
     final double priceCall = METHOD_BLACK_SEC.price(BOND_FUTURE_OPTION_SEC_CALL, BLACK_PRICE_MULTICURVES);
     final MultiCurrencyAmount pvPremium = METHOD_PAY_FIXED.presentValue(BOND_FUTURE_OPTION_TRA_CALL.getPremium(), ISSUER_MULTICURVES.getMulticurveProvider());
-    assertEquals("BondFutureOptionPremiumTransactionBlackSurfaceMethod: present value", pvComputed.getAmount(USD).getAmount(), pvPremium.getAmount(USD).getAmount() + priceCall * QUANTITY * NOTIONAL, TOLERANCE_PV);
+    assertEquals("BondFutureOptionPremiumTransactionBlackSurfaceMethod: present value", pvComputed.getAmount(USD).getAmount(), pvPremium.getAmount(USD).getAmount() + priceCall * QUANTITY * NOTIONAL,
+        TOLERANCE_PV);
     final double priceFutures = METHOD_FUTURES.price(BOND_FUT, ISSUER_MULTICURVES);
     final MultiCurrencyAmount pv2 = METHOD_BLACK_TRA.presentValue(BOND_FUTURE_OPTION_TRA_CALL, new BlackBondFuturesSmilePriceProvider(BLACK_MULTICURVES, priceFutures));
     final MultiCurrencyAmount pv3 = METHOD_BLACK_TRA.presentValue(BOND_FUTURE_OPTION_TRA_CALL, BLACK_MULTICURVES);

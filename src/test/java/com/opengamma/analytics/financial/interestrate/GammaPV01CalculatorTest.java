@@ -23,7 +23,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * @deprecated This class tests deprecated functionality.
  */

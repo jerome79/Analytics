@@ -11,15 +11,13 @@ import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
 @Test
 public class GaussianQuadratureDataTest {
-  private static final double[] X = new double[] {1, 2, 3, 4};
-  private static final double[] W = new double[] {6, 7, 8, 9};
+  private static final double[] X = new double[] {1, 2, 3, 4 };
+  private static final double[] W = new double[] {6, 7, 8, 9 };
   private static final GaussianQuadratureData F = new GaussianQuadratureData(X, W);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -34,7 +32,7 @@ public class GaussianQuadratureDataTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength() {
-    new GaussianQuadratureData(X, new double[] {1, 2, 3});
+    new GaussianQuadratureData(X, new double[] {1, 2, 3 });
   }
 
   @Test

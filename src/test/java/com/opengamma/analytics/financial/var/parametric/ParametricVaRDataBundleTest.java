@@ -19,18 +19,17 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.analytics.util.ArrayUtils;
 
-
 /**
  * Test.
  */
 @Test
 public class ParametricVaRDataBundleTest {
   private static final List<String> NAMES = Arrays.asList("A", "B", "C");
-  private static final DoubleMatrix1D ZERO = new DoubleMatrix1D(new double[] {0, 0, 0});
-  private static final DoubleMatrix1D R = new DoubleMatrix1D(new double[] {1, 0, 0});
-  private static final DoubleMatrix1D DELTA = new DoubleMatrix1D(new double[] {1, 2, 3});
-  private static final DoubleMatrix2D GAMMA = new DoubleMatrix2D(new double[][] {new double[] {1, 0, 0}, new double[] {0, 2, 0}, new double[] {0, 0, 3}});
-  private static final DoubleMatrix2D COV = new DoubleMatrix2D(new double[][] {new double[] {0.1, 0.2, 0.3}, new double[] {0.2, 0.4, 0.5}, new double[] {0.3, 0.6, 0.5}});
+  private static final DoubleMatrix1D ZERO = new DoubleMatrix1D(new double[] {0, 0, 0 });
+  private static final DoubleMatrix1D R = new DoubleMatrix1D(new double[] {1, 0, 0 });
+  private static final DoubleMatrix1D DELTA = new DoubleMatrix1D(new double[] {1, 2, 3 });
+  private static final DoubleMatrix2D GAMMA = new DoubleMatrix2D(new double[][] {new double[] {1, 0, 0 }, new double[] {0, 2, 0 }, new double[] {0, 0, 3 } });
+  private static final DoubleMatrix2D COV = new DoubleMatrix2D(new double[][] {new double[] {0.1, 0.2, 0.3 }, new double[] {0.2, 0.4, 0.5 }, new double[] {0.3, 0.6, 0.5 } });
   private static final int ORDER = 1;
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -83,17 +82,17 @@ public class ParametricVaRDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNonSquareCovarianceMatrix() {
-    new ParametricVaRDataBundle(DELTA, new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3}, new double[] {4, 5, 6}}), ORDER);
+    new ParametricVaRDataBundle(DELTA, new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3 }, new double[] {4, 5, 6 } }), ORDER);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongCovarianceMatrixSize1() {
-    new ParametricVaRDataBundle(DELTA, new DoubleMatrix2D(new double[][] {new double[] {1}}), 1);
+    new ParametricVaRDataBundle(DELTA, new DoubleMatrix2D(new double[][] {new double[] {1 } }), 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongCovarianceMatrixSize2() {
-    new ParametricVaRDataBundle(GAMMA, new DoubleMatrix2D(new double[][] {new double[] {1}}), 2);
+    new ParametricVaRDataBundle(GAMMA, new DoubleMatrix2D(new double[][] {new double[] {1 } }), 2);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -103,12 +102,12 @@ public class ParametricVaRDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongReturnSize1() {
-    new ParametricVaRDataBundle(new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5}), DELTA, COV, 1);
+    new ParametricVaRDataBundle(new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5 }), DELTA, COV, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongReturnSize2() {
-    new ParametricVaRDataBundle(new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5}), GAMMA, COV, 1);
+    new ParametricVaRDataBundle(new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5 }), GAMMA, COV, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -128,7 +127,7 @@ public class ParametricVaRDataBundleTest {
     assertFalse(data.equals(other));
     other = new ParametricVaRDataBundle(NAMES, R, R, COV, ORDER);
     assertFalse(data.equals(other));
-    other = new ParametricVaRDataBundle(NAMES, R, DELTA, new DoubleMatrix2D(new double[][] {new double[] {0, 0, 0}, new double[] {0, 0, 0}, new double[] {0, 0, 0}}), ORDER);
+    other = new ParametricVaRDataBundle(NAMES, R, DELTA, new DoubleMatrix2D(new double[][] {new double[] {0, 0, 0 }, new double[] {0, 0, 0 }, new double[] {0, 0, 0 } }), ORDER);
     assertFalse(data.equals(other));
     other = new ParametricVaRDataBundle(NAMES, R, DELTA, COV, ORDER + 1);
     assertFalse(data.equals(other));
@@ -142,7 +141,7 @@ public class ParametricVaRDataBundleTest {
     assertFalse(data.equals(other));
     other = new ParametricVaRDataBundle(NAMES, R, R, COV, ORDER);
     assertFalse(data.equals(other));
-    other = new ParametricVaRDataBundle(NAMES, R, GAMMA, new DoubleMatrix2D(new double[][] {new double[] {0, 0, 0}, new double[] {0, 0, 0}, new double[] {0, 0, 0}}), ORDER);
+    other = new ParametricVaRDataBundle(NAMES, R, GAMMA, new DoubleMatrix2D(new double[][] {new double[] {0, 0, 0 }, new double[] {0, 0, 0 }, new double[] {0, 0, 0 } }), ORDER);
     assertFalse(data.equals(other));
     other = new ParametricVaRDataBundle(NAMES, R, GAMMA, COV, ORDER + 1);
     assertFalse(data.equals(other));

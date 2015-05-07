@@ -56,7 +56,6 @@ public class DoubleQuadraticInterpolator1D extends Interpolator1D {
     final RealPolynomialFunction1D quadratic1 = quadraticData.getQuadratic(low - 1);
     final RealPolynomialFunction1D quadratic2 = quadraticData.getQuadratic(high - 1);
     final double w = _weightFunction.getWeight((xData[high] - value) / (xData[high] - xData[low]));
-    // final double w = (xData[high] - value) / (xData[high] - xData[low]);
     return w * quadratic1.evaluate(value - xData[low]) + (1 - w) * quadratic2.evaluate(value - xData[high]);
   }
 
@@ -121,7 +120,6 @@ public class DoubleQuadraticInterpolator1D extends Interpolator1D {
     final double[] temp1 = getQuadraticSensitivities(xData, value, low);
     final double[] temp2 = getQuadraticSensitivities(xData, value, high);
     final double w = _weightFunction.getWeight((xData[high] - value) / (xData[high] - xData[low]));
-    // final double w = (xData[high] - value) / (xData[high] - xData[low]);
     result[low - 1] = w * temp1[0];
     result[low] = w * temp1[1] + (1 - w) * temp2[0];
     result[high] = w * temp1[2] + (1 - w) * temp2[1];

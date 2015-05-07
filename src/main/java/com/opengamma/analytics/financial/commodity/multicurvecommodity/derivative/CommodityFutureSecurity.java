@@ -11,6 +11,7 @@ import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * Abstract commodity future security.
  */

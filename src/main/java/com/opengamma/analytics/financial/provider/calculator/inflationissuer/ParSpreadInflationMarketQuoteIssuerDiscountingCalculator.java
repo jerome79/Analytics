@@ -21,13 +21,13 @@ import com.opengamma.analytics.financial.provider.description.inflation.Paramete
  * This calculator requires the transaction version of instruments like bonds and bills, as the
  * purchase price information is necessary to calculate a meaningful par spread.
  */
-public final class ParSpreadInflationMarketQuoteIssuerDiscountingCalculator 
-  extends InstrumentDerivativeVisitorDelegate<ParameterInflationIssuerProviderInterface, Double> {
+public final class ParSpreadInflationMarketQuoteIssuerDiscountingCalculator
+    extends InstrumentDerivativeVisitorDelegate<ParameterInflationIssuerProviderInterface, Double> {
 
   /**
    * The unique instance of the calculator.
    */
-  private static final ParSpreadInflationMarketQuoteIssuerDiscountingCalculator INSTANCE = 
+  private static final ParSpreadInflationMarketQuoteIssuerDiscountingCalculator INSTANCE =
       new ParSpreadInflationMarketQuoteIssuerDiscountingCalculator();
 
   /**

@@ -413,7 +413,6 @@ public final class ForexOptionVanillaBlackTermStructureMethod implements ForexPr
    * @param black The curve and Black data.
    * @return The volatility parameters sensitivity. The sensitivity figures are, like the present value, in the domestic currency (currency 2).
    */
-  //TODO: REVIEW: should a new object with the sensitivity be created?
   public double[] presentValueBlackVolatilityNodeSensitivity(final ForexOptionVanilla optionForex, final YieldCurveWithBlackForexTermStructureBundle black) {
     ArgChecker.notNull(optionForex, "Forex option");
     ArgChecker.notNull(black, "Smile");

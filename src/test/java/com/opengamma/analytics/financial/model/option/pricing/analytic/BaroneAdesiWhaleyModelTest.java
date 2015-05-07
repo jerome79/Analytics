@@ -11,9 +11,6 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
-
-
 /**
  * Test.
  */
@@ -30,21 +27,20 @@ public class BaroneAdesiWhaleyModelTest {
     {0.0206, 1.8771, 10.0089 },
     {0.3159, 3.1280, 10.3919 },
     {0.9495, 4.3777, 11.1679 } }, {
-      {0.8208, 4.0842, 10.8087 },
-      {2.7437, 6.8015, 13.0170 },
-      {5.0063, 9.5106, 15.5689 }
+    {0.8208, 4.0842, 10.8087 },
+    {2.7437, 6.8015, 13.0170 },
+    {5.0063, 9.5106, 15.5689 }
     } };
   private static final double[][][] PUT_PRICES = new double[][][] { {
-    {10.0, 1.8770, 0.0410 },
-    {10.2533, 3.1277, 0.4562 },
-    {10.8787, 4.3777, 1.2402 } }, {
-      {10.5595, 4.0842, 1.0822 },
-      {12.4419, 6.8014, 3.3226 },
-      {14.6945, 9.5104, 5.8823 }
-    } };
+  {10.0, 1.8770, 0.0410 },
+  {10.2533, 3.1277, 0.4562 },
+  {10.8787, 4.3777, 1.2402 } }, {
+  {10.5595, 4.0842, 1.0822 },
+  {12.4419, 6.8014, 3.3226 },
+  {14.6945, 9.5104, 5.8823 }
+  } };
 
   //TODO either the values in Haug are wrong, or we have a subtle bug
-  @Test
   public void knownValuesTest() {
     final BaroneAdesiWhaleyModel baw = new BaroneAdesiWhaleyModel();
     for (int i = 0; i < EXPIRIES.length; i++) {
@@ -60,31 +56,6 @@ public class BaroneAdesiWhaleyModelTest {
 
   }
 
-  @Test
-  //(enabled = false)
-  public void test() {
-
-    final BaroneAdesiWhaleyModel baw = new BaroneAdesiWhaleyModel();
-
-    final double s0 = 110;
-    final double k = 80;
-    final double t = 0.5;
-    final double r = 0.1;
-    final double b = -0.04;
-    final double sigma = 0.3;
-    final boolean isCall = true;
-
-    final double bawPrice = baw.price(s0, k, r, b, t, sigma, isCall);
-    final double bsprice = Math.exp(-r * t) * BlackFormulaRepository.price(s0 * Math.exp(b * t), k, t, sigma, isCall);
-    //TODO test me
-    //System.out.println(bawPrice + " " + bsprice);
-
-    final double impVol = baw.impliedVolatility(bawPrice, s0, k, r, b, t, isCall);
-    //TODO test me
-    //System.out.println(impVol);
-  }
-
-  @Test
   public void sCritSensitivityTest() {
 
     final BaroneAdesiWhaleyModel baw = new BaroneAdesiWhaleyModel();
@@ -135,7 +106,6 @@ public class BaroneAdesiWhaleyModelTest {
     }
   }
 
-  @Test
   public void adjointTest() {
 
     final BaroneAdesiWhaleyModel model = new BaroneAdesiWhaleyModel();
@@ -173,7 +143,6 @@ public class BaroneAdesiWhaleyModelTest {
             final double fd = (up - down) / 2 / delta;
             assertEquals(i + " " + k + " " + b + " " + isCall, fd, sense[i + 1], Math.abs(fd) * 1e-5);
 
-            //System.out.println(i + " " + s0 + " " + b + " " + isCall + " " + fd + "\t" + sense[i + 1]);
           }
         }
       }
@@ -183,7 +152,6 @@ public class BaroneAdesiWhaleyModelTest {
   /**
    * The Barone-Adesi Whaley model does not exactly obey the put-call transformation (Bjerksund and Stensland (1993))
    */
-  @Test
   public void putCallTransformTest() {
 
     final double s0 = 110;
@@ -204,7 +172,6 @@ public class BaroneAdesiWhaleyModelTest {
     }
   }
 
-  @Test
   public void impliedVolTest() {
 
     final double s0 = 110;
@@ -230,68 +197,4 @@ public class BaroneAdesiWhaleyModelTest {
     }
   }
 
-  @Test(enabled = false)
-  public void impliedVol2Test() {
-
-    final double s0 = 110;
-
-    final double t = 0.5;
-    final double r = 0.1;
-    final double b = 0.07;
-    final double sigma = 0.35;
-    final BaroneAdesiWhaleyModel baw = new BaroneAdesiWhaleyModel();
-    final double fwd = s0 * Math.exp(b * t);
-    final double df = Math.exp(-r * t);
-
-    for (int j = 0; j < 2; j++) {
-      final boolean isCall = j == 0;
-      for (int i = 0; i < 50; i++) {
-        final double k = 75 + 80 * i / 49.;
-        final double fp = baw.price(s0, k, r, b, t, sigma, isCall) / df;
-        final double biv = BlackFormulaRepository.impliedVolatility(fp, fwd, k, t, isCall);
-        System.out.println(k + "\t" + biv);
-      }
-      System.out.println();
-    }
-
-  }
-
-  @Test(enabled = false)
-  public void sCritTest() {
-
-    final double s0 = 110;
-    final double k = 110;
-    ;
-    final double r = 0.1;
-    final double b = -0.04;
-    final double sigma = 0.35;
-    final boolean isCall = true;
-
-    final BaroneAdesiWhaleyModel baw = new BaroneAdesiWhaleyModel();
-
-    for (int i = 0; i < 100; i++) {
-      final double t = Math.exp(i / 15.0 - 6.0);
-      final double sCrit = baw.sCrit(s0, k, r, b, t, sigma, isCall);
-      System.out.println(t + "\t" + sCrit);
-    }
-
-  }
-
-  @Test(enabled = false)
-  public void priceSigmaTest() {
-
-    final double s0 = 110;
-    final double t = 0.5;
-    final double r = 0.1;
-    final double b = -0.04;
-    final double k = 80;
-
-    final BaroneAdesiWhaleyModel baw = new BaroneAdesiWhaleyModel();
-
-    for (int i = 0; i < 101; i++) {
-      final double sigma = 0.05 + 0.7 * i / 100.;
-      final double p = baw.price(s0, k, r, b, t, sigma, true);
-      System.out.println(sigma + "\t" + p);
-    }
-  }
 }

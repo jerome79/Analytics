@@ -17,7 +17,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.ArrayUtils;
 
-
 /**
  * Test.
  */
@@ -27,19 +26,19 @@ public class StandardSmileSurfaceDataBundleTest {
   private static final double[] FORWARDS = new double[] {1.1, 1.15, 1.3 };
   private static final double[] EXPIRIES = new double[] {0.1, 0.25, 1 };
   private static final double[][] STRIKES = new double[][] {
-      new double[] {1.1, 1.15, 1.3, 1.5, 1.7 },
-      new double[] {1.1, 1.15, 1.3, 1.5, 1.7, 2 },
-      new double[] {1.15, 1.3, 1.5, 1.7, 2 } };
+    new double[] {1.1, 1.15, 1.3, 1.5, 1.7 },
+    new double[] {1.1, 1.15, 1.3, 1.5, 1.7, 2 },
+    new double[] {1.15, 1.3, 1.5, 1.7, 2 } };
 
   private static final double[][] VOLS = new double[][] {
-      new double[] {0.1, 0.1, 0.1, 0.1, 0.1 },
-      new double[] {0.11, 0.11, 0.11, 0.11, 0.11, 0.11 },
-      new double[] {0.12, 0.12, 0.12, 0.12, 0.12 } };
+    new double[] {0.1, 0.1, 0.1, 0.1, 0.1 },
+    new double[] {0.11, 0.11, 0.11, 0.11, 0.11, 0.11 },
+    new double[] {0.12, 0.12, 0.12, 0.12, 0.12 } };
 
   private static final double[][] DECREASING_VARIANCE = new double[][] {
-      new double[] {0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001 },
-      new double[] {0.11, 0.011, 0.0011, 0.00011, 0.000011, 0.0000011 },
-      new double[] {0.12, 0.00012, 0.00012, 0.00012, 0.000012, 0.0000012 } };
+    new double[] {0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001 },
+    new double[] {0.11, 0.011, 0.0011, 0.00011, 0.000011, 0.0000011 },
+    new double[] {0.12, 0.00012, 0.00012, 0.00012, 0.000012, 0.0000012 } };
   private static final Interpolator1D INTERPOLATOR = Interpolator1DFactory.DOUBLE_QUADRATIC_INSTANCE;
   private static final ForwardCurve FORWARD_CURVE;
   private static final StandardSmileSurfaceDataBundle DATA;
@@ -116,9 +115,9 @@ public class StandardSmileSurfaceDataBundleTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testVolLength2() {
     new StandardSmileSurfaceDataBundle(SPOT, FORWARDS, EXPIRIES, STRIKES, new double[][] {
-        new double[] {0.1, 0.1, 0.1, 0.1 },
-        new double[] {0.11, 0.11, 0.11, 0.11 },
-        new double[] {0.12, 0.12, 0.12, 0.12 } }, INTERPOLATOR);
+      new double[] {0.1, 0.1, 0.1, 0.1 },
+      new double[] {0.11, 0.11, 0.11, 0.11 },
+      new double[] {0.12, 0.12, 0.12, 0.12 } }, INTERPOLATOR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -139,9 +138,9 @@ public class StandardSmileSurfaceDataBundleTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testVolLength4() {
     new StandardSmileSurfaceDataBundle(FORWARD_CURVE, EXPIRIES, STRIKES, new double[][] {
-        new double[] {0.1, 0.1, 0.1, 0.1 },
-        new double[] {0.11, 0.11, 0.11, 0.11 },
-        new double[] {0.12, 0.12, 0.12, 0.12 } });
+      new double[] {0.1, 0.1, 0.1, 0.1 },
+      new double[] {0.11, 0.11, 0.11, 0.11 },
+      new double[] {0.12, 0.12, 0.12, 0.12 } });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -178,7 +177,6 @@ public class StandardSmileSurfaceDataBundleTest {
       assertArrayEquals(VOLS[i], DATA.getVolatilities()[i], 0);
     }
     assertEquals(FORWARD_CURVE, DATA.getForwardCurve());
-    //   assertEquals(IS_CALL_DATA, DATA.isCallData());
     StandardSmileSurfaceDataBundle other = new StandardSmileSurfaceDataBundle(FORWARD_CURVE, EXPIRIES, STRIKES, VOLS);
     assertEquals(DATA, other);
     assertEquals(DATA.hashCode(), other.hashCode());
@@ -205,8 +203,6 @@ public class StandardSmileSurfaceDataBundleTest {
     assertFalse(DATA.equals(other));
     other = new StandardSmileSurfaceDataBundle(FORWARD_CURVE, EXPIRIES, STRIKES, STRIKES);
     assertFalse(DATA.equals(other));
-    //    other = new StandardSmileSurfaceDataBundle(FORWARD_CURVE, EXPIRIES, STRIKES, VOLS, !IS_CALL_DATA);
-    //    assertFalse(DATA.equals(other));
   }
 
   @Test

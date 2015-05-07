@@ -20,7 +20,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.IdentityMatrix;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * 
  */
@@ -29,7 +28,6 @@ public class InterpolatedCurveVectorFunctionTest {
 
   private static final VectorFieldFirstOrderDifferentiator DIFF = new VectorFieldFirstOrderDifferentiator(1e-4);
 
-  @Test
   public void test() {
     final double[] knots = new double[] {-1, 0, 0.5, 1.5, 3.0 };
     final Interpolator1D interpolator = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC, Interpolator1DFactory.LINEAR_EXTRAPOLATOR);
@@ -72,7 +70,6 @@ public class InterpolatedCurveVectorFunctionTest {
     final InterpolatedVectorFunctionProvider pro = new InterpolatedVectorFunctionProvider(interpolator, knots);
   }
 
-  @Test
   public void providerTest() {
     final double[] knots = new double[] {-1, 0, 0.5, 1.5, 3.0 };
     final Interpolator1D interpolator = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC, Interpolator1DFactory.LINEAR_EXTRAPOLATOR);
@@ -96,7 +93,6 @@ public class InterpolatedCurveVectorFunctionTest {
     }
   }
 
-  @Test
   public void concatTest() {
     final double[] samplePoints = new double[] {-2, -1, 0.7, 1, 2, 3, 4 };
     final double[] knots1 = new double[] {-1, 0, 0.5, 1.5, 3.0 };
@@ -156,10 +152,10 @@ public class InterpolatedCurveVectorFunctionTest {
     System.arraycopy(x1.getData(), 0, x.getData(), 0, nKnots1);
     System.arraycopy(x2.getData(), 0, x.getData(), nKnots1, nKnots2);
     final DoubleMatrix1D y = vf.evaluate(x);
-    //System.out.println(y);
+
     assertEquals(samplePoints.length * 3, y.getNumberOfElements());
     final DoubleMatrix2D jac = vf.calculateJacobian(x);
-    //  System.out.println(jac);
+
     assertEquals(samplePoints.length * 3, jac.getNumberOfRows());
     assertEquals(nKnots, jac.getNumberOfColumns());
 

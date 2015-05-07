@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Test.
  */

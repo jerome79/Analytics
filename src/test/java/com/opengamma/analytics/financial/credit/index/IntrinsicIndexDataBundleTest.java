@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDABaseTest;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantCreditCurve;
 import com.opengamma.analytics.financial.credit.options.CDSIndexPrvider;
 
-
 /**
  * 
  */

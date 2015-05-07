@@ -12,6 +12,4 @@ public interface PDE1DSolver<T extends PDE1DCoefficients> {
 
   PDEResults1D solve(PDE1DDataBundle<T> pdeData);
 
-  //void visit(T coeff);
-
 }

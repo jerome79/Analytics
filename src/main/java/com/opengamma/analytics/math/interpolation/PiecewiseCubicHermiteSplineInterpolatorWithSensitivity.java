@@ -116,16 +116,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorWithSensitivity extends Piec
       }
 
       // // TODO this would all be a lot nicer if we had multiplication of sparse matrices
-      // double[][] dDy = new double[n][];
-      // for (int i = 0; i < n; i++) {
-      // final double[] vec = new double[n];
-      // vec[0] = -dDDelta[0][i] / h[0];
-      // vec[n - 1] = dDDelta[n - 2][i] / h[n - 2];
-      // for (int j = 1; j < n - 1; j++) {
-      // vec[j] = -dDDelta[j][i] / h[j] + dDDelta[j - 1][i] / h[j - 1];
-      // }
-      // dDy[i] = vec;
-      // }
 
       double[][] bDy = new double[n - 1][n];
       double[][] cDy = new double[n - 1][n];

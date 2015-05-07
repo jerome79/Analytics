@@ -19,7 +19,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -27,8 +26,8 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
 public class AnnuityPaymentFixedDefinitionTest {
   private static final HolidayCalendar CALENDAR = HolidayCalendars.NO_HOLIDAYS;
   private static final Currency CUR = Currency.EUR;
-  private static final ZonedDateTime[] PAYMENT_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 7, 13), DateUtils.getUTCDate(2011, 10, 13), DateUtils.getUTCDate(2012, 1, 13)};
-  private static final double[] PAYMENT_AMOUNT = new double[] {100.0, 150.0, 1.0};
+  private static final ZonedDateTime[] PAYMENT_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 7, 13), DateUtils.getUTCDate(2011, 10, 13), DateUtils.getUTCDate(2012, 1, 13) };
+  private static final double[] PAYMENT_AMOUNT = new double[] {100.0, 150.0, 1.0 };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullPayment() {

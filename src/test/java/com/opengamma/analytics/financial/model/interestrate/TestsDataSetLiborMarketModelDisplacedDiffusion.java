@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.interestrate;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;

@@ -25,7 +25,6 @@ import com.opengamma.analytics.math.random.RandomNumberGenerator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */
@@ -76,7 +75,7 @@ public class MonteCarloOptionModelTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyGreeks() {
     MODEL.getGreeks(new EuropeanVanillaOptionDefinition(100, new Expiry(DateUtils.getUTCDate(2010, 1, 1)), true), new StandardOptionDataBundle(null, 0, null, 100, DateUtils.getUTCDate(2010, 1, 1)),
-        Collections.<Greek> emptySet());
+        Collections.<Greek>emptySet());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

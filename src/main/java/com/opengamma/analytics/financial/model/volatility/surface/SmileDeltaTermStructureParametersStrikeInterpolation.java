@@ -194,9 +194,10 @@ public class SmileDeltaTermStructureParametersStrikeInterpolation extends SmileD
 
   @Override
   public VolatilityAndBucketedSensitivities getVolatilityAndSensitivities(final Triple<Double, Double, Double> tsf) {
-    ArgChecker.notNull(tsf,  "time/strike/forward triple");
+    ArgChecker.notNull(tsf, "time/strike/forward triple");
     return getVolatilityAndSensitivities(tsf.getFirst(), tsf.getSecond(), tsf.getThird());
   }
+
   /**
    * Gets the interpolator
    * @return The interpolator

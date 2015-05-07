@@ -218,8 +218,7 @@ public class PDE1DDataBundle<T extends PDE1DCoefficients> {
       return false;
     }
     @SuppressWarnings("unchecked")
-    final
-    PDE1DDataBundle<T> other = (PDE1DDataBundle<T>) obj;
+    final PDE1DDataBundle<T> other = (PDE1DDataBundle<T>) obj;
     if (_coefficients == null) {
       if (other._coefficients != null) {
         return false;

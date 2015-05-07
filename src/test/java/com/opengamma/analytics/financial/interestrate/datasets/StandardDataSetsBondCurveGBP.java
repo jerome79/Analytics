@@ -68,15 +68,15 @@ public class StandardDataSetsBondCurveGBP {
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GENERATOR_OIS_MASTER.getGenerator("GBP1YSONIA", LON);
   private static final IndexON GBPSONIA = GENERATOR_OIS_GBP.getIndex();
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITH_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITH_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
-    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITHOUT_TODAY = 
+        DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITHOUT_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
-    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITH_TODAY = 
+        DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITH_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_GBP_WITH_TODAY };
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITHOUT_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITHOUT_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_GBP_WITHOUT_TODAY };
 
   private static final String CURVE_NAME_DSC_GBP = "GBP-DSCON-OIS";
@@ -107,7 +107,8 @@ public class StandardDataSetsBondCurveGBP {
     }
   }
 
-  /** Market values for the UKT GBP curve */ /** ISIN: GB00BDNHF692 - GB00BDNJY806 */
+  /** Market values for the UKT GBP curve */
+  /** ISIN: GB00BDNHF692 - GB00BDNJY806 */
   private static final ZonedDateTime[] BILL_MATURITY = new ZonedDateTime[] {DateUtils.getUTCDate(2014, 10, 6),
     DateUtils.getUTCDate(2015, 1, 5) };
   private static final int NB_BILL = BILL_MATURITY.length;
@@ -176,7 +177,7 @@ public class StandardDataSetsBondCurveGBP {
   }
 
   @SuppressWarnings({"unchecked", "rawtypes" })
-  public static InstrumentDefinition<?>[] getDefinitions(double[] marketQuotes, GeneratorInstrument[] generators, 
+  public static InstrumentDefinition<?>[] getDefinitions(double[] marketQuotes, GeneratorInstrument[] generators,
       GeneratorAttribute[] attribute, ZonedDateTime referenceDate) {
     final InstrumentDefinition<?>[] definitions = new InstrumentDefinition<?>[marketQuotes.length];
     for (int loopmv = 0; loopmv < marketQuotes.length; loopmv++) {
@@ -186,18 +187,18 @@ public class StandardDataSetsBondCurveGBP {
   }
 
   // Calculator
-  private static final ParSpreadMarketQuoteIssuerDiscountingCalculator PSMQIC = 
+  private static final ParSpreadMarketQuoteIssuerDiscountingCalculator PSMQIC =
       ParSpreadMarketQuoteIssuerDiscountingCalculator.getInstance();
-  private static final ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator PSMQCSIC = 
+  private static final ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator PSMQCSIC =
       ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator.getInstance();
 
-  private static final IssuerDiscountBuildingRepository CURVE_BUILDING_REPOSITORY = 
+  private static final IssuerDiscountBuildingRepository CURVE_BUILDING_REPOSITORY =
       CurveCalibrationConventionDataSets.curveBuildingRepositoryIssuer();
 
   public static Pair<IssuerProviderDiscount, CurveBuildingBlockBundle> getCurvesGBPSoniaGovt(ZonedDateTime calibrationDate) {
-    InstrumentDefinition<?>[] dscDefinition = 
+    InstrumentDefinition<?>[] dscDefinition =
         getDefinitions(DSC_1_GBP_MARKET_QUOTES, DSC_1_GBP_GENERATORS, DSC_1_GBP_ATTR, calibrationDate);
-    InstrumentDefinition<?>[] gvtDefinition = 
+    InstrumentDefinition<?>[] gvtDefinition =
         getDefinitions(GOVTUK_GBP_MARKET_QUOTES, GOVTUK_GBP_GENERATORS, GOVTUK_GBP_ATTR, calibrationDate);
     InstrumentDefinition<?>[][][] unitsDefinition = new InstrumentDefinition<?>[2][][];
     unitsDefinition[0] = new InstrumentDefinition<?>[][] {dscDefinition };

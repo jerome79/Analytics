@@ -126,7 +126,7 @@ public final class SwaptionPhysicalFixedIborG2ppApproximationMethod {
       betaK[0] += alphaK[loopcf] * ht0[0][loopcf + 1];
       betaK[1] += alphaK[loopcf] * ht0[1][loopcf + 1];
     }
-    final double[] betaBar = new double[] {(beta0[0] + betaK[0]) / 2.0, (beta0[1] + betaK[1]) / 2.0};
+    final double[] betaBar = new double[] {(beta0[0] + betaK[0]) / 2.0, (beta0[1] + betaK[1]) / 2.0 };
     final double sigmaBar2 = gamma[0][0] * betaBar[0] * betaBar[0] + gamma[1][1] * betaBar[1] * betaBar[1] + 2 * rhog2pp * gamma[0][1] * betaBar[0] * betaBar[1];
     final double sigmaBar = Math.sqrt(sigmaBar2);
     final EuropeanVanillaOption option = new EuropeanVanillaOption(k, 1, !swaption.isCall());

@@ -11,6 +11,7 @@ import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * Class describing a digital foreign exchange European option.
  * The implied strike is the absolute value of ratio of the domestic currency (currency 2) amount and the foreign currency amount (currency1).

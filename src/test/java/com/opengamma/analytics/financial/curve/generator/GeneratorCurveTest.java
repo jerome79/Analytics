@@ -28,7 +28,6 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 
-
 /**
  * Tests the different curve generators types.
  */
@@ -41,8 +40,8 @@ public class GeneratorCurveTest {
 
   private static final Interpolator1D LINEAR_FLAT = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final double[] NODES = new double[] {0.01, 0.50, 1.00, 2.00, 5.05, 10.0};
-  private static final double[] YIELD = new double[] {0.02, 0.02, 0.03, 0.01, 0.02, 0.01};
+  private static final double[] NODES = new double[] {0.01, 0.50, 1.00, 2.00, 5.05, 10.0 };
+  private static final double[] YIELD = new double[] {0.02, 0.02, 0.03, 0.01, 0.02, 0.01 };
   private static final double ANCHOR = 1.5;
   private static final GeneratorCurveYieldInterpolatedNode GENERATOR_YIELD_INTERPOLATED_NODE = new GeneratorCurveYieldInterpolatedNode(NODES, LINEAR_FLAT);
   private static final GeneratorCurveYieldInterpolatedAnchorNode GENERATOR_YIELD_INTERPOLATED_ANCHOR_NODE = new GeneratorCurveYieldInterpolatedAnchorNode(NODES, ANCHOR, LINEAR_FLAT);
@@ -50,7 +49,7 @@ public class GeneratorCurveTest {
   private static final double CST = 0.0050;
   private static final GeneratorCurveYieldConstant GENERATOR_YIELD_CONSTANT = new GeneratorCurveYieldConstant();
 
-  private static final GeneratorCurveAddYield GENERATOR_SPREAD = new GeneratorCurveAddYield(new GeneratorYDCurve[] {GENERATOR_YIELD_INTERPOLATED_NODE, GENERATOR_YIELD_CONSTANT}, false);
+  private static final GeneratorCurveAddYield GENERATOR_SPREAD = new GeneratorCurveAddYield(new GeneratorYDCurve[] {GENERATOR_YIELD_INTERPOLATED_NODE, GENERATOR_YIELD_CONSTANT }, false);
 
   private static final GeneratorCurveAddYieldExisiting GENERATOR_EXISTING = new GeneratorCurveAddYieldExisiting(GENERATOR_YIELD_CONSTANT, true, CURVE_NAME_1);
 
@@ -58,7 +57,7 @@ public class GeneratorCurveTest {
   private static final double BETA1 = -0.02;
   private static final double BETA2 = 0.06;
   private static final double LAMBDA = 2.0;
-  private static final double[] PARAMETERS_NS = new double[] {BETA0, BETA1, BETA2, LAMBDA};
+  private static final double[] PARAMETERS_NS = new double[] {BETA0, BETA1, BETA2, LAMBDA };
   private static final GeneratorCurveYieldNelsonSiegel GENERATOR_NS = new GeneratorCurveYieldNelsonSiegel();
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -127,7 +126,7 @@ public class GeneratorCurveTest {
 
   @Test
   public void generateCurveYieldConstant() {
-    final YieldAndDiscountCurve curveGenerated = GENERATOR_YIELD_CONSTANT.generateCurve(CURVE_NAME_1, new double[] {CST});
+    final YieldAndDiscountCurve curveGenerated = GENERATOR_YIELD_CONSTANT.generateCurve(CURVE_NAME_1, new double[] {CST });
     final YieldAndDiscountCurve curveExpected = new YieldCurve(CURVE_NAME_1, new ConstantDoublesCurve(CST, CURVE_NAME_1));
     assertEquals("GeneratorCurveYieldConstant: generate curve", curveExpected, curveGenerated);
   }
@@ -149,8 +148,8 @@ public class GeneratorCurveTest {
    * The the curve generator with yield spread with two levels of spread.
    */
   public void generateCurveYieldSpread2() {
-    final GeneratorCurveAddYield generatorSpread1 = new GeneratorCurveAddYield(new GeneratorYDCurve[] {GENERATOR_YIELD_INTERPOLATED_NODE, GENERATOR_YIELD_CONSTANT}, false);
-    final GeneratorCurveAddYield generatorSpread2 = new GeneratorCurveAddYield(new GeneratorYDCurve[] {generatorSpread1, GENERATOR_YIELD_CONSTANT}, false);
+    final GeneratorCurveAddYield generatorSpread1 = new GeneratorCurveAddYield(new GeneratorYDCurve[] {GENERATOR_YIELD_INTERPOLATED_NODE, GENERATOR_YIELD_CONSTANT }, false);
+    final GeneratorCurveAddYield generatorSpread2 = new GeneratorCurveAddYield(new GeneratorYDCurve[] {generatorSpread1, GENERATOR_YIELD_CONSTANT }, false);
     final double[] x = new double[YIELD.length + 2];
     System.arraycopy(YIELD, 0, x, 0, YIELD.length);
     x[YIELD.length] = CST;
@@ -169,7 +168,7 @@ public class GeneratorCurveTest {
     final double[] x = new double[2 * YIELD.length];
     System.arraycopy(YIELD, 0, x, 0, YIELD.length);
     System.arraycopy(YIELD, 0, x, YIELD.length, YIELD.length);
-    final GeneratorCurveAddYield generatorIntMinusInt = new GeneratorCurveAddYield(new GeneratorYDCurve[] {GENERATOR_YIELD_INTERPOLATED_NODE, GENERATOR_YIELD_INTERPOLATED_NODE}, true);
+    final GeneratorCurveAddYield generatorIntMinusInt = new GeneratorCurveAddYield(new GeneratorYDCurve[] {GENERATOR_YIELD_INTERPOLATED_NODE, GENERATOR_YIELD_INTERPOLATED_NODE }, true);
     final YieldAndDiscountCurve curveGenerated = generatorIntMinusInt.generateCurve(CURVE_NAME_1, x);
     final YieldAndDiscountCurve curveExpected0 = new YieldCurve(CURVE_NAME_1 + "-0", new InterpolatedDoublesCurve(NODES, YIELD, LINEAR_FLAT, true, CURVE_NAME_1 + "-0"));
     final YieldAndDiscountCurve curveExpected1 = new YieldCurve(CURVE_NAME_1 + "-1", new InterpolatedDoublesCurve(NODES, YIELD, LINEAR_FLAT, true, CURVE_NAME_1 + "-1"));
@@ -183,7 +182,7 @@ public class GeneratorCurveTest {
     final YieldAndDiscountCurve curveExisting = new YieldCurve(CURVE_NAME_1, new InterpolatedDoublesCurve(NODES, YIELD, LINEAR_FLAT, true, CURVE_NAME_1));
     final YieldCurveBundle bundle = new YieldCurveBundle();
     bundle.setCurve(CURVE_NAME_1, curveExisting);
-    final YieldAndDiscountCurve curveGenerated = GENERATOR_EXISTING.generateCurve(CURVE_NAME_2, bundle, new double[] {CST});
+    final YieldAndDiscountCurve curveGenerated = GENERATOR_EXISTING.generateCurve(CURVE_NAME_2, bundle, new double[] {CST });
     final YieldAndDiscountCurve curveExpected0 = new YieldCurve(CURVE_NAME_2 + "-0", new ConstantDoublesCurve(CST, CURVE_NAME_2 + "-0"));
     final YieldAndDiscountCurve curveExpected = new YieldAndDiscountAddZeroSpreadCurve(CURVE_NAME_2, true, curveExisting, curveExpected0);
     assertEquals("GeneratorCurveYieldConstant: generate curve", curveExpected, curveGenerated);

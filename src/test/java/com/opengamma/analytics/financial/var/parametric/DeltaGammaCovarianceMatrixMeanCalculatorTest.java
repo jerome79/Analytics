@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 
-
 /**
  * Test.
  */
@@ -26,9 +25,9 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 public class DeltaGammaCovarianceMatrixMeanCalculatorTest {
   private static final MatrixAlgebra ALGEBRA = new ColtMatrixAlgebra();
   private static final DeltaGammaCovarianceMatrixMeanCalculator F = new DeltaGammaCovarianceMatrixMeanCalculator(ALGEBRA);
-  private static final DoubleMatrix1D DELTA_VECTOR = new DoubleMatrix1D(new double[] {1, 5});
-  private static final DoubleMatrix2D GAMMA_MATRIX = new DoubleMatrix2D(new double[][] {new double[] {25, -7.5}, new double[] {-7.5, 125}});
-  private static final DoubleMatrix2D COVARIANCE_MATRIX = new DoubleMatrix2D(new double[][] {new double[] {0.0036, -0.0006}, new double[] {-0.0006, 0.0016}});
+  private static final DoubleMatrix1D DELTA_VECTOR = new DoubleMatrix1D(new double[] {1, 5 });
+  private static final DoubleMatrix2D GAMMA_MATRIX = new DoubleMatrix2D(new double[][] {new double[] {25, -7.5 }, new double[] {-7.5, 125 } });
+  private static final DoubleMatrix2D COVARIANCE_MATRIX = new DoubleMatrix2D(new double[][] {new double[] {0.0036, -0.0006 }, new double[] {-0.0006, 0.0016 } });
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull() {

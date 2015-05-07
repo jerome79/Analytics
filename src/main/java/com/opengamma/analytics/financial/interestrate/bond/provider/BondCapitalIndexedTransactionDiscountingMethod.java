@@ -41,7 +41,7 @@ public final class BondCapitalIndexedTransactionDiscountingMethod {
   /**
    * The method used for security computation.
    */
-  private static final BondCapitalIndexedSecurityDiscountingMethod METHOD_SECURITY = 
+  private static final BondCapitalIndexedSecurityDiscountingMethod METHOD_SECURITY =
       new BondCapitalIndexedSecurityDiscountingMethod();
 
   /**
@@ -54,7 +54,7 @@ public final class BondCapitalIndexedTransactionDiscountingMethod {
     double notional = bond.getNotionalStandard();
     final MultiCurrencyAmount pvBond = METHOD_SECURITY.presentValue(bond.getBondTransaction(), provider);
     final MultiCurrencyAmount pvSettlement = bond.getBondTransaction().getSettlement().
-        accept(PVIC, provider.getInflationProvider()).multipliedBy(-bond.getQuantity() * (bond.getTransactionPrice() 
+        accept(PVIC, provider.getInflationProvider()).multipliedBy(-bond.getQuantity() * (bond.getTransactionPrice()
             + bond.getBondStandard().getAccruedInterest() / notional));
     return pvBond.multipliedBy(bond.getQuantity()).plus(pvSettlement);
   }
@@ -81,7 +81,7 @@ public final class BondCapitalIndexedTransactionDiscountingMethod {
    * @param provider The provider.
    * @return The present value.
    */
-  public MultipleCurrencyInflationSensitivity presentValueCurveSensitivity(final BondCapitalIndexedTransaction<?> bond, 
+  public MultipleCurrencyInflationSensitivity presentValueCurveSensitivity(final BondCapitalIndexedTransaction<?> bond,
       final ParameterInflationIssuerProviderInterface provider) {
     final MultipleCurrencyInflationSensitivity sensitivityBond = METHOD_SECURITY.presentValueCurveSensitivity(bond.getBondTransaction(), provider);
     final MultipleCurrencyInflationSensitivity sensitivitySettlement = bond.getBondTransaction().getSettlement().

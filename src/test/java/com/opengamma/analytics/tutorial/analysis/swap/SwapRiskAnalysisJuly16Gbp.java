@@ -52,7 +52,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in GBP.
  * Those examples can be used for tutorials. 
  */
-@Test
+@Test(enabled = false)
 public class SwapRiskAnalysisJuly16Gbp {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
@@ -62,10 +62,10 @@ public class SwapRiskAnalysisJuly16Gbp {
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GENERATOR_OIS_MASTER.getGenerator("GBP1YSONIA", LON);
   private static final IndexON GBPSONIA = GENERATOR_OIS_GBP.getIndex();
   private static final Currency GBP = Currency.GBP;
-  private static final BusinessDayAdjustment ADJUSTED_DATE_SONIA = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_SONIA =
       BusinessDayAdjustment.of(GENERATOR_OIS_GBP.getBusinessDayConvention(), LON);
   private static final DaysAdjustment OFFSET_PAY_SONIA =
-      DaysAdjustment.ofBusinessDays(GENERATOR_OIS_GBP.getPaymentLag(), LON, 
+      DaysAdjustment.ofBusinessDays(GENERATOR_OIS_GBP.getPaymentLag(), LON,
           BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
   private static final DaysAdjustment OFFSET_FIX_SONIA =
       DaysAdjustment.ofBusinessDays(0, LON, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
@@ -97,59 +97,57 @@ public class SwapRiskAnalysisJuly16Gbp {
       accrualPeriodParameters(ADJUSTED_DATE_SONIA).
       paymentDateAdjustmentParameters(OFFSET_PAY_SONIA).
       build().getPayments();
-  private static final CouponFixedDefinition[] CPN_FIXED_1_DEFINITION = 
+  private static final CouponFixedDefinition[] CPN_FIXED_1_DEFINITION =
       new CouponFixedDefinition[PAYMENT_LEG_1_DEFINITION.length];
   static {
     for (int loopcpn = 0; loopcpn < PAYMENT_LEG_1_DEFINITION.length; loopcpn++) {
       CPN_FIXED_1_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_LEG_1_DEFINITION[loopcpn];
     }
   }
-  private static final AnnuityCouponFixedDefinition FIXED_LEG_1_DEFINITION = 
+  private static final AnnuityCouponFixedDefinition FIXED_LEG_1_DEFINITION =
       new AnnuityCouponFixedDefinition(CPN_FIXED_1_DEFINITION, LON);
   /** ON leg */
   @SuppressWarnings("unchecked")
-  private static final AnnuityDefinition<? extends CouponDefinition> ON_LEG_1_DEFINITION = 
-  (AnnuityDefinition<? extends CouponDefinition>) new FloatingAnnuityDefinitionBuilder().
-      payer(!PAYER_1).
-      notional(NOTIONAL_PROV_1).
-      startDate(EFFECTIVE_DATE_1).
-      endDate(MATURITY_DATE_1).
-      index(GBPSONIA).
-      accrualPeriodFrequency(GENERATOR_OIS_GBP.getLegsPeriod()).
-      rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-      resetDateAdjustmentParameters(ADJUSTED_DATE_SONIA).
-      accrualPeriodParameters(ADJUSTED_DATE_SONIA).
-      dayCount(GBPSONIA.getDayCount()).
-      fixingDateAdjustmentParameters(OFFSET_FIX_SONIA).
-      currency(GBP).
-      compoundingMethod(CompoundingMethod.FLAT).
-      build();
-  private static final SwapCouponFixedCouponDefinition SWAP_1_DEFINITION = 
+  private static final AnnuityDefinition<? extends CouponDefinition> ON_LEG_1_DEFINITION =
+      (AnnuityDefinition<? extends CouponDefinition>) new FloatingAnnuityDefinitionBuilder().
+          payer(!PAYER_1).
+          notional(NOTIONAL_PROV_1).
+          startDate(EFFECTIVE_DATE_1).
+          endDate(MATURITY_DATE_1).
+          index(GBPSONIA).
+          accrualPeriodFrequency(GENERATOR_OIS_GBP.getLegsPeriod()).
+          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+          resetDateAdjustmentParameters(ADJUSTED_DATE_SONIA).
+          accrualPeriodParameters(ADJUSTED_DATE_SONIA).
+          dayCount(GBPSONIA.getDayCount()).
+          fixingDateAdjustmentParameters(OFFSET_FIX_SONIA).
+          currency(GBP).
+          compoundingMethod(CompoundingMethod.FLAT).
+          build();
+  private static final SwapCouponFixedCouponDefinition SWAP_1_DEFINITION =
       new SwapCouponFixedCouponDefinition(FIXED_LEG_1_DEFINITION, ON_LEG_1_DEFINITION);
 
   /** Curves and fixing */
   private static final ZonedDateTimeDoubleTimeSeries TS_FIXED_SONIA_WITHOUT_TODAY =
       GbpDatasetJuly16.fixingGbpSoniaWithoutLast();
 
-
-  private static final Swap<? extends Payment, ? extends Payment> SWAP_1 = 
-      SWAP_1_DEFINITION.toDerivative(VALUATION_DATE, 
+  private static final Swap<? extends Payment, ? extends Payment> SWAP_1 =
+      SWAP_1_DEFINITION.toDerivative(VALUATION_DATE,
           new ZonedDateTimeDoubleTimeSeries[] {TS_FIXED_SONIA_WITHOUT_TODAY, TS_FIXED_SONIA_WITHOUT_TODAY });
 
   /** Calculators **/
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
-  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = 
+  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC =
       PresentValueCurveSensitivityDiscountingCalculator.getInstance();
-  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = 
+  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC =
       new ParameterSensitivityParameterCalculator<>(PVCSDC);
-  private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC = 
+  private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC =
       new MarketQuoteSensitivityBlockCalculator<>(PSC);
 
-  //  private static final double TOLERANCE_PV_2 = 1.0E+4;
   private static final double BP1 = 1.0E-4;
 
-  @Test
+  @Test(enabled = false)
   public void compareCurves() {
     final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> stdCurveAndBundle =
         GbpDatasetJuly16.getStandardCurve(VALUATION_DATE);
@@ -157,32 +155,32 @@ public class SwapRiskAnalysisJuly16Gbp {
     final CurveBuildingBlockBundle stdBundle = stdCurveAndBundle.getSecond();
 
     final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> boeCurveAndBundle =
-       GbpDatasetJuly16.getBoeCurve(VALUATION_DATE);
+        GbpDatasetJuly16.getBoeCurve(VALUATION_DATE);
     final MulticurveProviderDiscount boeCurve = boeCurveAndBundle.getFirst();
     final CurveBuildingBlockBundle boeBundle = boeCurveAndBundle.getSecond();
- 
+
     MultiCurrencyAmount pvStd = SWAP_1.accept(PVDC, stdCurve);
     MultiCurrencyAmount pvBoe = SWAP_1.accept(PVDC, boeCurve);
-    double parStd = SWAP_1.accept(PRDC, stdCurve); 
+    double parStd = SWAP_1.accept(PRDC, stdCurve);
     double parBoe = SWAP_1.accept(PRDC, boeCurve);
-    
+
     System.out.println("Swap name,PV STD,PV BOE,PAR STD,PAR BOE");
-    System.out.println("SWAP_1," 
+    System.out.println("SWAP_1,"
         + String.valueOf(pvStd.getAmount(GBP)) + ","
         + String.valueOf(pvBoe.getAmount(GBP)) + ","
         + String.valueOf(parStd) + ","
         + String.valueOf(parBoe));
 
     System.out.println("--- STD curve ---");
-    MultipleCurrencyParameterSensitivity stdSensitivities = 
+    MultipleCurrencyParameterSensitivity stdSensitivities =
         MQSBC.fromInstrument(SWAP_1, stdCurve, stdBundle).multipliedBy(BP1);
     ExportUtils.consolePrint(stdSensitivities, stdCurve);
 
     System.out.println("--- BOE curve ---");
-    MultipleCurrencyParameterSensitivity boeSensitivities = 
+    MultipleCurrencyParameterSensitivity boeSensitivities =
         MQSBC.fromInstrument(SWAP_1, boeCurve, boeBundle).multipliedBy(BP1);
     ExportUtils.consolePrint(boeSensitivities, boeCurve);
 
   }
-  
+
 }

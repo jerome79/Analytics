@@ -1044,7 +1044,6 @@ public abstract class InstrumentDefinitionVisitorSameMethodAdapter<DATA_TYPE, RE
     return visit(bond);
   }
 
-
   @Override
   public RESULT_TYPE visitForexDefinition(final ForexDefinition fx, final DATA_TYPE data) {
     return visit(fx, data);

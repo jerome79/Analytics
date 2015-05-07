@@ -101,7 +101,7 @@ public class SwaptionCashFixedIborG2ppNumericalIntegrationMethod {
     final IntegratorRepeated2D integrator2D = new IntegratorRepeated2D(integrator1D);
     double pv = 0.0;
     try {
-      pv = 1.0 / (2.0 * Math.PI * Math.sqrt(1 - rhobar * rhobar)) * integrator2D.integrate(integrant, new Double[] {-limit, -limit}, new Double[] {limit, limit});
+      pv = 1.0 / (2.0 * Math.PI * Math.sqrt(1 - rhobar * rhobar)) * integrator2D.integrate(integrant, new Double[] {-limit, -limit }, new Double[] {limit, limit });
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
@@ -123,7 +123,6 @@ public class SwaptionCashFixedIborG2ppNumericalIntegrationMethod {
     private final double _rhobar;
     private final SwapFixedCoupon<? extends Payment> _swap;
     private final double _strike;
-    //    private final double _notional;
     private final double _omega;
 
     public SwaptionIntegrant(final double[] discountedCashFlowFixed, final double[][] alphaFixed, final double[] tau2Fixed, final double[] discountedCashFlowIbor, final double[][] alphaIbor,
@@ -137,7 +136,6 @@ public class SwaptionCashFixedIborG2ppNumericalIntegrationMethod {
       _rhobar = rhobar;
       _swap = swap;
       _strike = strike;
-      //      _notional = Math.abs(swap.getFixedLeg().getNthPayment(0).getNotional());
       _omega = (swap.getFixedLeg().isPayer() ? 1.0 : -1.0);
     }
 

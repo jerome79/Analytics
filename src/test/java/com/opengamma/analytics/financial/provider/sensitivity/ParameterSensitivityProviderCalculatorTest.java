@@ -49,7 +49,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the computation of parameter sensitivity from point sensitivity.
  *
@@ -75,8 +74,8 @@ public class ParameterSensitivityProviderCalculatorTest {
   private static final SwapFixedONDefinition OIS_DEFINITION = SwapFixedONDefinition.from(EFFECTIVE_DATE, Period.ofMonths(6), NOTIONAL, USD1YFEDFUND, 0.02, false);
   private static final SwapFixedCoupon<Coupon> OIS = OIS_DEFINITION.toDerivative(REFERENCE_DATE);
 
-  private static final double[] TIME = {0.25, 0.50, 1.0, 2.0, 5.0};
-  private static final double[] YIELD = {0.02, 0.025, 0.03, 0.03, 0.028};
+  private static final double[] TIME = {0.25, 0.50, 1.0, 2.0, 5.0 };
+  private static final double[] YIELD = {0.02, 0.025, 0.03, 0.03, 0.028 };
   private static final Interpolator1D INTERPOLATOR_LINEAR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.LINEAR_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
   private static final String DSC_NAME = "USD Discounting";
@@ -100,7 +99,6 @@ public class ParameterSensitivityProviderCalculatorTest {
   private static final PresentValueCurveSensitivityDiscountingCalculator PVCSC = PresentValueCurveSensitivityDiscountingCalculator.getInstance();
   private static final PresentValueDiscountingCalculator PVC = PresentValueDiscountingCalculator.getInstance();
   private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = new ParameterSensitivityParameterCalculator<>(PVCSC);
-  // private static final ParameterSensitivityMatrixMarketCalculator PSC_MAT = new ParameterSensitivityMatrixMarketCalculator(PVCSC);
   private static final double SHIFT = 5.0E-7;
   private static final ParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PSC_DSC_FD = new ParameterSensitivityMulticurveDiscountInterpolatedFDCalculator(PVC, SHIFT);
   private static final ParameterSensitivityMulticurveForwardInterpolatedFDCalculator PSC_FWD_FD = new ParameterSensitivityMulticurveForwardInterpolatedFDCalculator(PVC, SHIFT);

@@ -59,8 +59,8 @@ public class SwapInflationZeroCouponDiscountingMethodE2ETest {
   private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_INFLATION_SWAP = GeneratorSwapFixedInflationMaster.getInstance().getGenerator("UKRPI");
   private static final double RATE_FIXED_LEG = 0.02506;
   private static final SwapFixedInflationZeroCouponDefinition SWAP_DEFINITION = GENERATOR_INFLATION_SWAP.generateInstrument(STD_ACCRUAL_START_DATE, RATE_FIXED_LEG, STD_NOTIONAL, RPI_GBP_ATTR);
-  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2013, 12, 31),
-      DateUtils.getUTCDate(2014, 1, 31), DateUtils.getUTCDate(2014, 2, 28)}, new double[]{253.4, 252.6, 254.2});
+  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 31),
+    DateUtils.getUTCDate(2014, 1, 31), DateUtils.getUTCDate(2014, 2, 28) }, new double[] {253.4, 252.6, 254.2 });
   private static final InstrumentDerivative SWAP = convert(SWAP_DEFINITION);
   // Data
 

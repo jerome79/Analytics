@@ -40,6 +40,7 @@ public class MultiplyCurveSpreadFunction implements CurveSpreadFunction {
   @Deprecated
   public MultiplyCurveSpreadFunction() {
   }
+
   /**
    * @param curves An array of curves, not null or empty
    * @return A function that will find the value of each curve at the given input <i>x</i> and multiply each in turn

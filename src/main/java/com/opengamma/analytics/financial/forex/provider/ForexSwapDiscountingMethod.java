@@ -105,12 +105,10 @@ public final class ForexSwapDiscountingMethod {
     ArgChecker.notNull(fx, "Forex swap");
     ArgChecker.notNull(multicurves, "Multi-curves provider");
     final Currency ccy2 = fx.getNearLeg().getCurrency2();
-    //    final String name2 = fx.getFarLeg().getPaymentCurrency2().getFundingCurveName();
     final double payTime = fx.getFarLeg().getPaymentTime();
     final double pv2 = multicurves.getFxRates().convert(presentValue(fx, multicurves), ccy2).getAmount();
     final double dfEnd = multicurves.getDiscountFactor(fx.getFarLeg().getCurrency2(), fx.getFarLeg().getPaymentTime());
     final double notional1 = fx.getNearLeg().getPaymentCurrency1().getAmount();
-    //    double spread = -pv2 / (notional1 * dfEnd);
     // Backward sweep
     final double spreadBar = 1.0;
     final double dfEndBar = pv2 / (notional1 * dfEnd * dfEnd) * spreadBar;

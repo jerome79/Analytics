@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.payment;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
@@ -31,15 +30,15 @@ import com.opengamma.strata.collect.ArgChecker;
 public final class InterpolatedStubCouponDefinition extends CouponDefinition implements InstrumentDefinitionWithData<Payment, DoubleTimeSeries<ZonedDateTime>> {
 
   private final CouponDefinition _fullCoupon;
-  
+
   private final ZonedDateTime _firstInterpolatedDate;
-  
+
   private final double _firstInterpolatedYearFraction;
-  
+
   private final ZonedDateTime _secondInterpolatedDate;
-  
+
   private final double _secondInterpolatedYearFraction;
-  
+
   private InterpolatedStubCouponDefinition(
       final CouponDefinition fullCoupon,
       final ZonedDateTime firstInterpolatedDate,
@@ -53,7 +52,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
     _secondInterpolatedDate = secondInterpolatedDate;
     _secondInterpolatedYearFraction = secondInterpolatedYearFraction;
   }
-  
+
   public static InterpolatedStubCouponDefinition from(
       final CouponDefinition fullCoupon,
       final ZonedDateTime firstInterpolatedDate,
@@ -62,19 +61,19 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
       final double secondInterpolatedYearFraction) {
     return new InterpolatedStubCouponDefinition(fullCoupon, firstInterpolatedDate, firstInterpolatedYearFraction, secondInterpolatedDate, secondInterpolatedYearFraction);
   }
-  
+
   public ZonedDateTime getFirstInterpolatedDate() {
     return _firstInterpolatedDate;
   }
-  
+
   public double getFirstInterpolatedYearFraction() {
     return _firstInterpolatedYearFraction;
   }
-  
+
   public ZonedDateTime getSecondInterpolatedDate() {
     return _secondInterpolatedDate;
   }
-  
+
   public double getSecondInterpolatedYearFraction() {
     return _secondInterpolatedYearFraction;
   }
@@ -82,7 +81,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
   @Override
   public Payment toDerivative(ZonedDateTime date) {
     Payment fullCoupon = _fullCoupon.toDerivative(date);
-    
+
     double firstInterpolatedTime = TimeCalculator.getTimeBetween(date, _firstInterpolatedDate);
     double secondInterpolatedTime = TimeCalculator.getTimeBetween(date, _secondInterpolatedDate);
     InterpolatedStubParameterObject of = InterpolatedStubParameterObject.of(firstInterpolatedTime, _firstInterpolatedYearFraction, secondInterpolatedTime, _secondInterpolatedYearFraction);
@@ -92,7 +91,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
   @Override
   public Payment toDerivative(ZonedDateTime date, DoubleTimeSeries<ZonedDateTime> data) {
     Payment fullCoupon = ((InstrumentDefinitionWithData<Payment, DoubleTimeSeries<ZonedDateTime>>) _fullCoupon).toDerivative(date, data);
-    
+
     double firstInterpolatedTime = TimeCalculator.getTimeBetween(date, _firstInterpolatedDate);
     double secondInterpolatedTime = TimeCalculator.getTimeBetween(date, _secondInterpolatedDate);
     InterpolatedStubParameterObject of = InterpolatedStubParameterObject.of(firstInterpolatedTime, _firstInterpolatedYearFraction, secondInterpolatedTime, _secondInterpolatedYearFraction);
@@ -110,16 +109,16 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
     ArgChecker.notNull(visitor, "visitor");
     return _fullCoupon.accept(visitor);
   }
-  
+
   private static final class InterpolatedStubParameterObject {
     private final double _firstInterpolatedTime;
-    
+
     private final double _firstInterpolatedYearFraction;
-    
+
     private final double _secondInterpolatedTime;
-    
+
     private final double _secondInterpolatedYearFraction;
-    
+
     private InterpolatedStubParameterObject(
         final double firstInterpolatedTime,
         final double firstInterpolatedYearFraction,
@@ -130,23 +129,23 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
       _secondInterpolatedTime = secondInterpolatedTime;
       _secondInterpolatedYearFraction = secondInterpolatedYearFraction;
     }
-    
+
     public double getFirstInterpolatedTime() {
       return _firstInterpolatedTime;
     }
-    
+
     public double getFirstInterpolatedYearFraction() {
       return _firstInterpolatedYearFraction;
     }
-    
+
     public double getSecondInterpolatedTime() {
       return _secondInterpolatedTime;
     }
-    
+
     public double getSecondInterpolatedYearFraction() {
       return _secondInterpolatedYearFraction;
     }
-    
+
     public static InterpolatedStubParameterObject of(
         final double firstInterpolatedTime,
         final double firstInterpolatedYearFraction,
@@ -157,21 +156,21 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
   }
 
   private static final class InterpolatedStubCouponVisitor extends InstrumentDerivativeVisitorAdapter<InterpolatedStubParameterObject, Payment> {
-    
+
     private static final InterpolatedStubCouponVisitor INSTANCE = new InterpolatedStubCouponVisitor();
-    
+
     private InterpolatedStubCouponVisitor() {
     }
-    
+
     public static InterpolatedStubCouponVisitor getInstance() {
       return INSTANCE;
     }
-    
+
     @Override
     public Payment visitCouponFixed(CouponFixed payment, InterpolatedStubParameterObject data) {
       return payment;
     }
-    
+
     @Override
     public Payment visitCouponIbor(CouponIbor payment, InterpolatedStubParameterObject data) {
       return IborInterpolatedStubCoupon.from(
@@ -181,7 +180,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
           data.getSecondInterpolatedTime(),
           data.getSecondInterpolatedYearFraction());
     }
-    
+
     @Override
     public Payment visitCouponIborSpread(CouponIborSpread payment, InterpolatedStubParameterObject data) {
       return IborInterpolatedStubCoupon.from(
@@ -191,7 +190,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
           data.getSecondInterpolatedTime(),
           data.getSecondInterpolatedYearFraction());
     }
-    
+
     @Override
     public Payment visitCouponIborCompounding(CouponIborCompounding payment, InterpolatedStubParameterObject data) {
       return IborInterpolatedStubCompoundingCoupon.from(
@@ -201,7 +200,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
           data.getSecondInterpolatedTime(),
           data.getSecondInterpolatedYearFraction());
     }
-    
+
     @Override
     public Payment visitCouponIborCompoundingFlatSpread(CouponIborCompoundingFlatSpread payment, InterpolatedStubParameterObject data) {
       return IborInterpolatedStubCompoundingCoupon.from(
@@ -211,7 +210,7 @@ public final class InterpolatedStubCouponDefinition extends CouponDefinition imp
           data.getSecondInterpolatedTime(),
           data.getSecondInterpolatedYearFraction());
     }
-    
+
     @Override
     public Payment visitCouponIborCompoundingSpread(CouponIborCompoundingSpread payment, InterpolatedStubParameterObject data) {
       return IborInterpolatedStubCompoundingCoupon.from(

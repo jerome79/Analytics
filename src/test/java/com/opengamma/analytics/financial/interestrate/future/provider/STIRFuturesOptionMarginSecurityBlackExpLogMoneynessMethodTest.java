@@ -60,13 +60,13 @@ public class STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethodTest {
   final private static InterpolatedDoublesSurface BLACK_SURFACE_LOGMONEY = StandardDataSetsBlack.blackSurfaceExpiryLogMoneyness();
   /** EUR curves */
   final private static MulticurveProviderDiscount MULTICURVE = MulticurveProviderDiscountDataSets.createMulticurveEUR();
-  final private static BlackSTIRFuturesExpLogMoneynessProvider MULTICURVE_BLACK = 
+  final private static BlackSTIRFuturesExpLogMoneynessProvider MULTICURVE_BLACK =
       new BlackSTIRFuturesExpLogMoneynessProvider(MULTICURVE, BLACK_SURFACE_LOGMONEY, EURIBOR3M);
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2014, 4, 10);
-  private static final InterestRateFutureOptionMarginSecurity CALL_ERZ4_09825 = 
+  private static final InterestRateFutureOptionMarginSecurity CALL_ERZ4_09825 =
       CALL_ERZ4_09825_DEFINITION.toDerivative(REFERENCE_DATE);
-  private static final InterestRateFutureOptionMarginSecurity PUT_ERZ4_09825 = 
+  private static final InterestRateFutureOptionMarginSecurity PUT_ERZ4_09825 =
       PUT_ERZ4_09825_DEFINITION.toDerivative(REFERENCE_DATE);
   /** Methods and calculators */
   private static final InterestRateFutureSecurityDiscountingMethod METHOD_FUTURE = InterestRateFutureSecurityDiscountingMethod.getInstance();
@@ -130,7 +130,7 @@ public class STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethodTest {
     final double priceFutures = METHOD_FUTURE.price(CALL_ERZ4_09825.getUnderlyingFuture(), MULTICURVE);
     final double rateFutures = 1.0d - priceFutures;
     final double rateStrike = 1.0d - STRIKE_09825;
-    final EuropeanVanillaOption option = new EuropeanVanillaOption(rateStrike, 
+    final EuropeanVanillaOption option = new EuropeanVanillaOption(rateStrike,
         CALL_ERZ4_09825.getExpirationTime(), !CALL_ERZ4_09825.isCall());
     final double logmoney = Math.log(rateStrike / rateFutures);
     final double expiry = CALL_ERZ4_09825.getExpirationTime();
@@ -138,20 +138,20 @@ public class STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethodTest {
     final BlackFunctionData dataBlack = new BlackFunctionData(rateFutures, 1.0, volatility);
     final double[] priceAD = BLACK_FUNCTION.getPriceAdjoint(option, dataBlack);
     final double vega = priceAD[2];
-    final PresentValueBlackSTIRFuturesCubeSensitivity vegaComputed = 
+    final PresentValueBlackSTIRFuturesCubeSensitivity vegaComputed =
         METHOD_OPT.priceBlackSensitivity(CALL_ERZ4_09825, MULTICURVE_BLACK);
-    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity", 
+    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity",
         vega, vegaComputed.getSensitivity().toSingleValue(), TOLERANCE_DELTA);
-    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity", 
+    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity",
         1, vegaComputed.getSensitivity().getMap().size());
-    final Entry<Triple<Double, Double, Double>, Double> point = 
+    final Entry<Triple<Double, Double, Double>, Double> point =
         vegaComputed.getSensitivity().getMap().entrySet().iterator().next();
-    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity", 
+    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity",
         CALL_ERZ4_09825.getExpirationTime(), point.getKey().getFirst(), TOLERANCE_RATE);
     assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity",
-        CALL_ERZ4_09825.getUnderlyingFuture().getTradingLastTime() - CALL_ERZ4_09825.getExpirationTime(), 
+        CALL_ERZ4_09825.getUnderlyingFuture().getTradingLastTime() - CALL_ERZ4_09825.getExpirationTime(),
         point.getKey().getSecond(), TOLERANCE_RATE);
-    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity", 
+    assertEquals("STIRFuturesOptionMarginSecurityBlackExpLogMoneynessMethod: Black parameters sensitivity",
         CALL_ERZ4_09825.getStrike(), point.getKey().getThird(), TOLERANCE_RATE);
   }
 

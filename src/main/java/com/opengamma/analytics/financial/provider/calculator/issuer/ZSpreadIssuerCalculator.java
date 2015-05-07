@@ -26,7 +26,8 @@ public final class ZSpreadIssuerCalculator extends
 
   private static final int SCALING_FACTOR = 100;
 
-  private ZSpreadIssuerCalculator() {}
+  private ZSpreadIssuerCalculator() {
+  }
 
   /**
    * Gets the calculator instance.
@@ -39,8 +40,8 @@ public final class ZSpreadIssuerCalculator extends
   /** necessary to scale twice, to scale up for the input price and the calculator output */
   private Double getBondZSpreadPrice(BondSecurity bond, Pair<IssuerProviderInterface, Double> data) {
     return SCALING_FACTOR * SCALING_FACTOR * METHOD_BOND_SEC.zSpreadFromCurvesAndClean(bond,
-                                                                                       data.getFirst(),
-                                                                                       data.getSecond());
+        data.getFirst(),
+        data.getSecond());
   }
 
   //TODO add BondIborSecurity, BondInterestIndexedSecurity when clean price is supported
@@ -57,7 +58,7 @@ public final class ZSpreadIssuerCalculator extends
 
   @Override
   public Double visitBondCapitalIndexedTransaction(BondCapitalIndexedTransaction<?> bond,
-                                                   Pair<IssuerProviderInterface, Double> data) {
+      Pair<IssuerProviderInterface, Double> data) {
     return getBondZSpreadPrice(bond.getBondStandard(), data);
   }
 

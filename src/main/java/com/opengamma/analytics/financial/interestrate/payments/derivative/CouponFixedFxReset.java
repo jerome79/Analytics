@@ -21,7 +21,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * Reference: Coupon with FX Reset Notional, OpenGamma Documentation 26, September 2014.
  */
 public class CouponFixedFxReset extends Coupon {
-  
+
   // TODO: nominal exchange?
 
   /** The fixed rate of the fixed coupon. */
@@ -55,7 +55,7 @@ public class CouponFixedFxReset extends Coupon {
     _fxFixingTime = fxFixingTime;
     _fxDeliveryTime = fxDeliveryTime;
   }
-  
+
   /**
    * Returns the amount paid for a given FX reset rate.
    * @param fxRate The exchange rate between the reference currency (RC) and the payment currency (PC): 1 RC = X . PC.
@@ -151,6 +151,6 @@ public class CouponFixedFxReset extends Coupon {
   @Override
   public Coupon withNotional(double notional) {
     throw new UnsupportedOperationException("CouponFixedFXReset does not support withNotional method.");
-  }  
+  }
 
 }

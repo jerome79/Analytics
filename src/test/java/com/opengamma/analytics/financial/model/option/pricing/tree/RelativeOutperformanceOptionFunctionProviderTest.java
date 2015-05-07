@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -146,7 +145,7 @@ public class RelativeOutperformanceOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider2D ref = new RelativeOutperformanceOptionFunctionProvider(100., 1., 53, true);
     final OptionFunctionProvider2D[] function = new OptionFunctionProvider2D[] {ref, new RelativeOutperformanceOptionFunctionProvider(100., 1., 53, true),
-        new AmericanSpreadOptionFunctionProvider(100., 1., 53, true), null };
+      new AmericanSpreadOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

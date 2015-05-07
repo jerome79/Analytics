@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockTy
 import com.opengamma.analytics.financial.model.option.definition.Barrier.ObservationType;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

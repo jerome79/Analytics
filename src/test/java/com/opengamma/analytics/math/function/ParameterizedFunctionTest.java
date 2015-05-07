@@ -14,7 +14,6 @@ import com.opengamma.analytics.math.differentiation.ScalarFirstOrderDifferentiat
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */

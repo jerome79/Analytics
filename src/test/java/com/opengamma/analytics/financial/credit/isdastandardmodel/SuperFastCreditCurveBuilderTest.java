@@ -21,7 +21,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantC
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.CreditCurveCalibrator;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.SuperFastCreditCurveBuilder;
 
-
 /**
  * Test.
  */
@@ -30,14 +29,11 @@ public class SuperFastCreditCurveBuilderTest extends CreditCurveCalibrationTest 
 
   private static final SuperFastCreditCurveBuilder BUILDER_ISDA = new SuperFastCreditCurveBuilder();
 
-  //  private static final SuperFastCreditCurveBuilder BUILDER_MARKIT = new SuperFastCreditCurveBuilder(MARKIT_FIX);
-
   @Test
   public void test() {
     testCalibrationAgainstISDA(BUILDER_ISDA, 1e-14);
 
     //NOTE: we do not match the Markit 'fix' for forward starting swaps 
-    // testCalibrationAgainstISDA(BUILDER_MARKIT, 1e-14);
   }
 
   @Test
@@ -59,7 +55,7 @@ public class SuperFastCreditCurveBuilderTest extends CreditCurveCalibrationTest 
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "9M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     final ISDACompliantYieldCurve yc = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofYears(1));
 
     final ISDACompliantCreditCurve curveSuperFast = fastOgZero.calibrateCreditCurve(pillar, spreads, yc);
@@ -106,7 +102,7 @@ public class SuperFastCreditCurveBuilderTest extends CreditCurveCalibrationTest 
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "9M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     final double[] rates = new double[] {0.00462, 0.00231, 0.00154, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     final ISDACompliantYieldCurve yc = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofYears(1));
     final double[] spreads = new double[] {2.7e-5, 2.7e-4, 2.7e-3, 2.7e-3, 2.7e-2, 2.7e-2 };
 
@@ -140,9 +136,9 @@ public class SuperFastCreditCurveBuilderTest extends CreditCurveCalibrationTest 
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "9M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     final double[] ratesDiff = new double[] {0.00445, 0.009489, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316,
-        0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
     final ISDACompliantYieldCurve yc = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofYears(1));
     final ISDACompliantYieldCurve ycDiff = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, ratesDiff, ACT360, D30360, Period.ofYears(1));
 

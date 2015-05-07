@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.math.statistics.distribution.StudentTDistribution;
 
-
 /**
  * Test.
  */

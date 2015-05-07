@@ -55,7 +55,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in USD.
  * Those examples can be used for tutorials. 
  */
-@Test
+@Test(enabled = false)
 public class SwapRiskAnalysisJuly16Usd {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
@@ -68,11 +68,11 @@ public class SwapRiskAnalysisJuly16Usd {
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();
   private static final Currency USD = USDLIBOR3M.getCurrency();
-  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR =
       BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC);
   private static final DaysAdjustment OFFSET_ADJ_LIBOR =
       DaysAdjustment.ofBusinessDays(-2, NYC, BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC));
-  private static final BusinessDayAdjustment ADJUSTED_DATE_FEDFUND = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_FEDFUND =
       BusinessDayAdjustment.of(GENERATOR_OIS_USD.getBusinessDayConvention(), NYC);
   private static final DaysAdjustment OFFSET_PAY_SONIA =
       DaysAdjustment.ofBusinessDays(GENERATOR_OIS_USD.getPaymentLag(), NYC,
@@ -121,14 +121,14 @@ public class SwapRiskAnalysisJuly16Usd {
       rate(FIXED_RATE_1).
       accrualPeriodParameters(ADJUSTED_DATE_LIBOR).
       build().getPayments();
-  private static final CouponFixedDefinition[] CPN_FIXED_1_DEFINITION = 
+  private static final CouponFixedDefinition[] CPN_FIXED_1_DEFINITION =
       new CouponFixedDefinition[PAYMENT_LEG_1_DEFINITION.length];
   static {
     for (int loopcpn = 0; loopcpn < PAYMENT_LEG_1_DEFINITION.length; loopcpn++) {
       CPN_FIXED_1_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_LEG_1_DEFINITION[loopcpn];
     }
   }
-  private static final AnnuityCouponFixedDefinition FIXED_LEG_1_DEFINITION = 
+  private static final AnnuityCouponFixedDefinition FIXED_LEG_1_DEFINITION =
       new AnnuityCouponFixedDefinition(CPN_FIXED_1_DEFINITION, NYC);
   /** Ibor leg */
   @SuppressWarnings("unchecked")
@@ -147,7 +147,7 @@ public class SwapRiskAnalysisJuly16Usd {
           fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR).
           currency(USDLIBOR3M.getCurrency()).
           build();
-  private static final SwapCouponFixedCouponDefinition IRS_1_DEFINITION = 
+  private static final SwapCouponFixedCouponDefinition IRS_1_DEFINITION =
       new SwapCouponFixedCouponDefinition(FIXED_LEG_1_DEFINITION, IBOR_LEG_1_DEFINITION);
   /** Swap LIBOR3M 2 **/
   private static final PaymentDefinition[] PAYMENT_LEG_2_DEFINITION = new FixedAnnuityDefinitionBuilder().
@@ -155,14 +155,14 @@ public class SwapRiskAnalysisJuly16Usd {
       endDate(MATURITY_DATE_2).dayCount(USD6MLIBOR3M.getFixedLegDayCount()).
       accrualPeriodFrequency(USD6MLIBOR3M.getFixedLegPeriod()).rate(FIXED_RATE_2).accrualPeriodParameters(ADJUSTED_DATE_LIBOR).
       build().getPayments();
-  private static final CouponFixedDefinition[] CPN_FIXED_2_DEFINITION = 
+  private static final CouponFixedDefinition[] CPN_FIXED_2_DEFINITION =
       new CouponFixedDefinition[PAYMENT_LEG_2_DEFINITION.length];
   static {
     for (int loopcpn = 0; loopcpn < PAYMENT_LEG_2_DEFINITION.length; loopcpn++) {
       CPN_FIXED_2_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_LEG_2_DEFINITION[loopcpn];
     }
   }
-  private static final AnnuityCouponFixedDefinition FIXED_LEG_2_DEFINITION = 
+  private static final AnnuityCouponFixedDefinition FIXED_LEG_2_DEFINITION =
       new AnnuityCouponFixedDefinition(CPN_FIXED_2_DEFINITION, NYC);
   @SuppressWarnings("unchecked")
   private static final AnnuityDefinition<? extends CouponDefinition> IBOR_LEG_2_DEFINITION = (AnnuityDefinition<? extends CouponDefinition>)
@@ -171,7 +171,7 @@ public class SwapRiskAnalysisJuly16Usd {
           resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR).accrualPeriodParameters(ADJUSTED_DATE_LIBOR).
           dayCount(USDLIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR).currency(USDLIBOR3M.getCurrency()).
           build();
-  private static final SwapCouponFixedCouponDefinition IRS_2_DEFINITION = 
+  private static final SwapCouponFixedCouponDefinition IRS_2_DEFINITION =
       new SwapCouponFixedCouponDefinition(FIXED_LEG_2_DEFINITION, IBOR_LEG_2_DEFINITION);
   /** Swap LIBOR3M 3 **/
   private static final PaymentDefinition[] PAYMENT_LEG_3_DEFINITION = new FixedAnnuityDefinitionBuilder().
@@ -179,32 +179,32 @@ public class SwapRiskAnalysisJuly16Usd {
       endDate(MATURITY_DATE_3).dayCount(USD6MLIBOR3M.getFixedLegDayCount()).
       accrualPeriodFrequency(USD6MLIBOR3M.getFixedLegPeriod()).rate(FIXED_RATE_3).accrualPeriodParameters(ADJUSTED_DATE_LIBOR).
       build().getPayments();
-  private static final CouponFixedDefinition[] CPN_FIXED_3_DEFINITION = 
+  private static final CouponFixedDefinition[] CPN_FIXED_3_DEFINITION =
       new CouponFixedDefinition[PAYMENT_LEG_3_DEFINITION.length];
   static {
     for (int loopcpn = 0; loopcpn < PAYMENT_LEG_3_DEFINITION.length; loopcpn++) {
       CPN_FIXED_3_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_LEG_3_DEFINITION[loopcpn];
     }
   }
-  private static final AnnuityCouponFixedDefinition FIXED_LEG_3_DEFINITION = 
+  private static final AnnuityCouponFixedDefinition FIXED_LEG_3_DEFINITION =
       new AnnuityCouponFixedDefinition(CPN_FIXED_3_DEFINITION, NYC);
   @SuppressWarnings("unchecked")
-  private static final AnnuityDefinition<? extends CouponDefinition> IBOR_LEG_3_DEFINITION = 
-  (AnnuityDefinition<? extends CouponDefinition>) new FloatingAnnuityDefinitionBuilder().
-      payer(!PAYER_3).
-      notional(NOTIONAL_PROV_1).
-      startDate(EFFECTIVE_DATE_3).
-      endDate(MATURITY_DATE_3).
-      index(USDLIBOR3M).
-      accrualPeriodFrequency(USDLIBOR3M.getTenor()).
-      rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-      resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR).
-      accrualPeriodParameters(ADJUSTED_DATE_LIBOR).
-      dayCount(USDLIBOR3M.getDayCount()).
-      fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR).
-      currency(USDLIBOR3M.getCurrency()).
-      build();
-  private static final SwapCouponFixedCouponDefinition IRS_3_DEFINITION = 
+  private static final AnnuityDefinition<? extends CouponDefinition> IBOR_LEG_3_DEFINITION =
+      (AnnuityDefinition<? extends CouponDefinition>) new FloatingAnnuityDefinitionBuilder().
+          payer(!PAYER_3).
+          notional(NOTIONAL_PROV_1).
+          startDate(EFFECTIVE_DATE_3).
+          endDate(MATURITY_DATE_3).
+          index(USDLIBOR3M).
+          accrualPeriodFrequency(USDLIBOR3M.getTenor()).
+          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+          resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR).
+          accrualPeriodParameters(ADJUSTED_DATE_LIBOR).
+          dayCount(USDLIBOR3M.getDayCount()).
+          fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR).
+          currency(USDLIBOR3M.getCurrency()).
+          build();
+  private static final SwapCouponFixedCouponDefinition IRS_3_DEFINITION =
       new SwapCouponFixedCouponDefinition(FIXED_LEG_3_DEFINITION, IBOR_LEG_3_DEFINITION);
   /** Swap LIBOR6M 1 **/
   //TODO
@@ -220,40 +220,40 @@ public class SwapRiskAnalysisJuly16Usd {
       accrualPeriodParameters(ADJUSTED_DATE_FEDFUND).
       paymentDateAdjustmentParameters(OFFSET_PAY_SONIA).
       build().getPayments();
-  private static final CouponFixedDefinition[] CPN_FIXED_OIS_1_DEFINITION = 
+  private static final CouponFixedDefinition[] CPN_FIXED_OIS_1_DEFINITION =
       new CouponFixedDefinition[PAYMENT_OIS_LEG_1_DEFINITION.length];
   static {
     for (int loopcpn = 0; loopcpn < PAYMENT_OIS_LEG_1_DEFINITION.length; loopcpn++) {
       CPN_FIXED_OIS_1_DEFINITION[loopcpn] = (CouponFixedDefinition) PAYMENT_OIS_LEG_1_DEFINITION[loopcpn];
     }
   }
-  private static final AnnuityCouponFixedDefinition FIXED_OIS_LEG_1_DEFINITION = 
+  private static final AnnuityCouponFixedDefinition FIXED_OIS_LEG_1_DEFINITION =
       new AnnuityCouponFixedDefinition(CPN_FIXED_OIS_1_DEFINITION, NYC);
   /** ON leg */
   @SuppressWarnings("unchecked")
-  private static final AnnuityDefinition<? extends CouponDefinition> ON_LEG_1_DEFINITION = 
-  (AnnuityDefinition<? extends CouponDefinition>) new FloatingAnnuityDefinitionBuilder().
-      payer(!PAYER_4).
-      notional(NOTIONAL_PROV_1).
-      startDate(EFFECTIVE_DATE_4).
-      endDate(MATURITY_DATE_4).
-      index(USDFEDFUND).
-      accrualPeriodFrequency(GENERATOR_OIS_USD.getLegsPeriod()).
-      rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-      resetDateAdjustmentParameters(ADJUSTED_DATE_FEDFUND).
-      accrualPeriodParameters(ADJUSTED_DATE_FEDFUND).
-      dayCount(USDFEDFUND.getDayCount()).
-      fixingDateAdjustmentParameters(OFFSET_FIX_SONIA).
-      currency(USD).
-      compoundingMethod(CompoundingMethod.FLAT).
-      build();
-  private static final SwapCouponFixedCouponDefinition OIS_1_DEFINITION = 
+  private static final AnnuityDefinition<? extends CouponDefinition> ON_LEG_1_DEFINITION =
+      (AnnuityDefinition<? extends CouponDefinition>) new FloatingAnnuityDefinitionBuilder().
+          payer(!PAYER_4).
+          notional(NOTIONAL_PROV_1).
+          startDate(EFFECTIVE_DATE_4).
+          endDate(MATURITY_DATE_4).
+          index(USDFEDFUND).
+          accrualPeriodFrequency(GENERATOR_OIS_USD.getLegsPeriod()).
+          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+          resetDateAdjustmentParameters(ADJUSTED_DATE_FEDFUND).
+          accrualPeriodParameters(ADJUSTED_DATE_FEDFUND).
+          dayCount(USDFEDFUND.getDayCount()).
+          fixingDateAdjustmentParameters(OFFSET_FIX_SONIA).
+          currency(USD).
+          compoundingMethod(CompoundingMethod.FLAT).
+          build();
+  private static final SwapCouponFixedCouponDefinition OIS_1_DEFINITION =
       new SwapCouponFixedCouponDefinition(FIXED_OIS_LEG_1_DEFINITION, ON_LEG_1_DEFINITION);
 
   /** Curves and fixing */
   private static final ZonedDateTimeDoubleTimeSeries TS_FIXED_IBOR_USD3M_WITHOUT_TODAY =
       RecentDataSetsMulticurveStandardUsd.fixingUsdLibor3MWithoutLast();
-  private static final ZonedDateTimeDoubleTimeSeries TS_FIXED_ON_USD_WITHOUT_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries TS_FIXED_ON_USD_WITHOUT_TODAY =
       RecentDataSetsMulticurveStandardUsd.fixingUsdOnWithoutLast();
 
   private static final Swap<? extends Payment, ? extends Payment> IRS_1 = IRS_1_DEFINITION.toDerivative(VALUATION_DATE,
@@ -268,39 +268,39 @@ public class SwapRiskAnalysisJuly16Usd {
   /** Calculators **/
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
-  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = 
+  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC =
       PresentValueCurveSensitivityDiscountingCalculator.getInstance();
-  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = 
+  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC =
       new ParameterSensitivityParameterCalculator<>(PVCSDC);
-  private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC = 
+  private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC =
       new MarketQuoteSensitivityBlockCalculator<>(PSC);
 
   private static final double BP1 = 1.0E-4;
 
-  final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> m_stdCurveBundle; 
+  final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> m_stdCurveBundle;
   final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> m_cashImmHedgeCurveBundle;
-  final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> m_cashOisFedFundHedgeCurveBundle; 
+  final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> m_cashOisFedFundHedgeCurveBundle;
   final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> m_cashOisHedgeCurveBundle;
 
   public SwapRiskAnalysisJuly16Usd() {
     m_stdCurveBundle = UsdDatasetJuly16.getStandardCurveBundle(VALUATION_DATE, false,
         UsdDatasetJuly16.INTERPOLATOR_LOG_LINEAR);
 
-    m_cashImmHedgeCurveBundle = UsdDatasetJuly16.getHedgeCurveBundle(VALUATION_DATE, m_stdCurveBundle.getFirst(), 
+    m_cashImmHedgeCurveBundle = UsdDatasetJuly16.getHedgeCurveBundle(VALUATION_DATE, m_stdCurveBundle.getFirst(),
         UsdDatasetJuly16.INTERPOLATOR_LOG_LINEAR, 0, 48, 0, 0, false);
 
-    m_cashOisFedFundHedgeCurveBundle = UsdDatasetJuly16.getHedgeCurveBundle(VALUATION_DATE, m_stdCurveBundle.getFirst(), 
+    m_cashOisFedFundHedgeCurveBundle = UsdDatasetJuly16.getHedgeCurveBundle(VALUATION_DATE, m_stdCurveBundle.getFirst(),
         UsdDatasetJuly16.INTERPOLATOR_LOG_LINEAR, 1, 0, 14, 17, false);
 
-    m_cashOisHedgeCurveBundle = UsdDatasetJuly16.getHedgeCurveBundle(VALUATION_DATE, m_stdCurveBundle.getFirst(), 
+    m_cashOisHedgeCurveBundle = UsdDatasetJuly16.getHedgeCurveBundle(VALUATION_DATE, m_stdCurveBundle.getFirst(),
         UsdDatasetJuly16.INTERPOLATOR_LOG_LINEAR, 1, 0, 31, 0, false);
   }
-  
-  @Test
+
+  @Test(enabled = false)
   public void compareStdVsImmCurves() {
 
     System.out.println("Swap name,PV STD,PV IMM,PV OISFF,PV OIS,PAR STD,PAR IMM,PAR OISFF,PAR OIS");
-    System.out.println("IRS_1," 
+    System.out.println("IRS_1,"
         + String.valueOf(IRS_1.accept(PVDC, m_stdCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(IRS_1.accept(PVDC, m_cashImmHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(IRS_1.accept(PVDC, m_cashOisFedFundHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
@@ -308,9 +308,9 @@ public class SwapRiskAnalysisJuly16Usd {
         + String.valueOf(IRS_1.accept(PRDC, m_stdCurveBundle.getFirst())) + ","
         + String.valueOf(IRS_1.accept(PRDC, m_cashImmHedgeCurveBundle.getFirst())) + ","
         + String.valueOf(IRS_1.accept(PRDC, m_cashOisFedFundHedgeCurveBundle.getFirst())) + ","
-        + String.valueOf(IRS_1.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst())) 
+        + String.valueOf(IRS_1.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst()))
         );
-    System.out.println("IRS_2," 
+    System.out.println("IRS_2,"
         + String.valueOf(IRS_2.accept(PVDC, m_stdCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(IRS_2.accept(PVDC, m_cashImmHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(IRS_2.accept(PVDC, m_cashOisFedFundHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
@@ -318,9 +318,9 @@ public class SwapRiskAnalysisJuly16Usd {
         + String.valueOf(IRS_2.accept(PRDC, m_stdCurveBundle.getFirst())) + ","
         + String.valueOf(IRS_2.accept(PRDC, m_cashImmHedgeCurveBundle.getFirst())) + ","
         + String.valueOf(IRS_2.accept(PRDC, m_cashOisFedFundHedgeCurveBundle.getFirst())) + ","
-        + String.valueOf(IRS_2.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst())) 
+        + String.valueOf(IRS_2.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst()))
         );
-    System.out.println("IRS_3," 
+    System.out.println("IRS_3,"
         + String.valueOf(IRS_3.accept(PVDC, m_stdCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(IRS_3.accept(PVDC, m_cashImmHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(IRS_3.accept(PVDC, m_cashOisFedFundHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
@@ -328,9 +328,9 @@ public class SwapRiskAnalysisJuly16Usd {
         + String.valueOf(IRS_3.accept(PRDC, m_stdCurveBundle.getFirst())) + ","
         + String.valueOf(IRS_3.accept(PRDC, m_cashImmHedgeCurveBundle.getFirst())) + ","
         + String.valueOf(IRS_3.accept(PRDC, m_cashOisFedFundHedgeCurveBundle.getFirst())) + ","
-        + String.valueOf(IRS_3.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst())) 
+        + String.valueOf(IRS_3.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst()))
         );
-    System.out.println("OIS_1," 
+    System.out.println("OIS_1,"
         + String.valueOf(OIS_1.accept(PVDC, m_stdCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(OIS_1.accept(PVDC, m_cashImmHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
         + String.valueOf(OIS_1.accept(PVDC, m_cashOisFedFundHedgeCurveBundle.getFirst()).getAmount(Currency.USD)) + ","
@@ -338,34 +338,32 @@ public class SwapRiskAnalysisJuly16Usd {
         + String.valueOf(OIS_1.accept(PRDC, m_stdCurveBundle.getFirst())) + ","
         + String.valueOf(OIS_1.accept(PRDC, m_cashImmHedgeCurveBundle.getFirst())) + ","
         + String.valueOf(OIS_1.accept(PRDC, m_cashOisFedFundHedgeCurveBundle.getFirst())) + ","
-        + String.valueOf(OIS_1.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst())) 
+        + String.valueOf(OIS_1.accept(PRDC, m_cashOisHedgeCurveBundle.getFirst()))
         );
-    
+
   }
 
-  @Test
+  @Test(enabled = false)
   public void compareHedgeCurves() {
     System.out.println("--- STD curve ---");
-    MultipleCurrencyParameterSensitivity stdSensitivities = 
+    MultipleCurrencyParameterSensitivity stdSensitivities =
         MQSBC.fromInstrument(IRS_1, m_stdCurveBundle.getFirst(), m_stdCurveBundle.getSecond()).multipliedBy(BP1);
     ExportUtils.consolePrint(stdSensitivities, m_stdCurveBundle.getFirst());
-    
+
     System.out.println("--- 48 IMM curve ---");
-    MultipleCurrencyParameterSensitivity hedgeSensitivities = MQSBC.fromInstrument(IRS_1, 
+    MultipleCurrencyParameterSensitivity hedgeSensitivities = MQSBC.fromInstrument(IRS_1,
         m_cashImmHedgeCurveBundle.getFirst(), m_cashImmHedgeCurveBundle.getSecond()).multipliedBy(BP1);
     ExportUtils.consolePrint(hedgeSensitivities, m_cashImmHedgeCurveBundle.getFirst());
 
     System.out.println("--- 1 Cash + 14 OIS + 17 FF curve ---");
-    hedgeSensitivities = MQSBC.fromInstrument(IRS_1, m_cashOisFedFundHedgeCurveBundle.getFirst(), 
+    hedgeSensitivities = MQSBC.fromInstrument(IRS_1, m_cashOisFedFundHedgeCurveBundle.getFirst(),
         m_cashOisFedFundHedgeCurveBundle.getSecond()).multipliedBy(BP1);
     ExportUtils.consolePrint(hedgeSensitivities, m_cashOisFedFundHedgeCurveBundle.getFirst());
- 
 
     System.out.println("--- 1 Cash + 31 OIS curve ---");
-    hedgeSensitivities = MQSBC.fromInstrument(IRS_1, m_cashOisHedgeCurveBundle.getFirst(), 
+    hedgeSensitivities = MQSBC.fromInstrument(IRS_1, m_cashOisHedgeCurveBundle.getFirst(),
         m_cashOisHedgeCurveBundle.getSecond()).multipliedBy(BP1);
     ExportUtils.consolePrint(hedgeSensitivities, m_cashOisHedgeCurveBundle.getFirst());
- 
 
   }
 

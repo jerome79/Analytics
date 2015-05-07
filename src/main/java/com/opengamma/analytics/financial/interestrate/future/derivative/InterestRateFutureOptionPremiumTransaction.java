@@ -29,9 +29,9 @@ public class InterestRateFutureOptionPremiumTransaction extends FuturesTransacti
   */
   @SuppressWarnings("deprecation")
   public InterestRateFutureOptionPremiumTransaction(InterestRateFutureOptionPremiumSecurity underlyingOption,
-                                                    int quantity,
-                                                    double premiumTime,
-                                                    double tradePrice) {
+      int quantity,
+      double premiumTime,
+      double tradePrice) {
     super(underlyingOption, quantity, tradePrice);
     final double premiumAmount = -tradePrice * quantity * underlyingOption.getUnderlyingFuture().getNotional() * underlyingOption.getUnderlyingFuture().getPaymentAccrualFactor();
     _premium = new PaymentFixed(underlyingOption.getCurrency(), premiumTime, premiumAmount);

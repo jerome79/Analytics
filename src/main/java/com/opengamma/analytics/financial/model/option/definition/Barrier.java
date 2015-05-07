@@ -92,8 +92,8 @@ public class Barrier {
     }
     final Barrier other = (Barrier) obj;
     return _barrier == other._barrier &&
-           _knock == other._knock &&
-           _observation == other._observation &&
-           Double.doubleToLongBits(_level) == Double.doubleToLongBits(other._level);
+        _knock == other._knock &&
+        _observation == other._observation &&
+        Double.doubleToLongBits(_level) == Double.doubleToLongBits(other._level);
   }
 }

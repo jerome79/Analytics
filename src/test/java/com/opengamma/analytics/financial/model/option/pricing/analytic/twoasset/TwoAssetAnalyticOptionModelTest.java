@@ -27,7 +27,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */
@@ -73,7 +72,7 @@ public class TwoAssetAnalyticOptionModelTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyGreeks() {
-    DUMMY.getGreeks(OPTION, DATA, Collections.<Greek> emptySet());
+    DUMMY.getGreeks(OPTION, DATA, Collections.<Greek>emptySet());
   }
 
   @Test

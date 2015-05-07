@@ -23,7 +23,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */
@@ -62,7 +61,7 @@ public class SABRATMVolatilityCalibrationFunctionTest {
     final double a1 = 1;
     final double a2 = 0;
     final double a3 = (1 - beta) * (1 - beta) * T / 24 / f1 / f1;
-    final Double[] roots = CUBIC_ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2, a3}));
+    final Double[] roots = CUBIC_ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2, a3 }));
     assertEquals(roots[0], FUNCTION.calibrate(OPTION, data).getAlpha(), 1e-9);
   }
 
@@ -71,7 +70,7 @@ public class SABRATMVolatilityCalibrationFunctionTest {
     final double a0 = -ATM_SIGMA;
     final double a1 = 1 + (2 - 3 * RHO * RHO) * KSI * KSI * T / 24;
     final double a2 = RHO * KSI * T / 4;
-    final Double[] roots = QUADRATIC_ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2}));
+    final Double[] roots = QUADRATIC_ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2 }));
     assertEquals(FUNCTION.calibrate(OPTION, DATA).getAlpha(), roots[1], 1e-9);
   }
 }

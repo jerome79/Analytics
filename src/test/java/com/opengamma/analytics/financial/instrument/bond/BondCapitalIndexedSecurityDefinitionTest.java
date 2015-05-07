@@ -47,8 +47,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 
-
-
 /**
  * Tests construction of capital-indexed bond definitions.
  */
@@ -268,7 +266,7 @@ public class BondCapitalIndexedSecurityDefinitionTest {
   private static final int SETTLEMENT_DAYS_TIPS_1 = 2;
   /** The issuer name */
   private static final String ISSUER_US = "US GOVT";
-  
+
   /**
     * Tests the bond constructors for a TIPS.
     */

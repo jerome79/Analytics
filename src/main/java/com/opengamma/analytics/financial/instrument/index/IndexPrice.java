@@ -10,7 +10,6 @@ import java.util.Objects;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Class describing a price index, like the one used in inflation instruments.
  */

@@ -70,16 +70,6 @@ public class MixedLogNormalModelData implements SmileModelData {
       ArgChecker.isTrue(parameters[i] >= 0.0, "parameters {} have value {}, must be >= 0", i, parameters[i]);
     }
     //Review it is not clear whether we wish to restrict the range of angles
-    //    for (int i = n; i < 2 * n - 1; i++) {
-    //      ArgChecker.isTrue(parameters[i] >= 0.0, "parameters {} have value {}, must be >= 0", i, parameters[i]);
-    //      ArgChecker.isTrue(parameters[i] <= 1.0, "parameters {} have value {}, must be <= 1.0", i, parameters[i]);
-    //    }
-    //    if (useShiftedMeans) {
-    //      for (int i = 2 * n - 1; i < np; i++) {
-    //        ArgChecker.isTrue(parameters[i] >= 0.0, "parameters {} have value {}, must be >= 0", i, parameters[i]);
-    //        ArgChecker.isTrue(parameters[i] <= 1.0, "parameters {} have value {}, must be <= 1.0", i, parameters[i]);
-    //      }
-    //    }
 
     _sto = new SumToOne(n);
     _parameters = parameters;

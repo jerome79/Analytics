@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.DoubleFunction1D;
 
-
 /**
  * Test.
  */
@@ -43,7 +42,7 @@ public class JacobiPolynomialFunctionTest {
     }
 
   };
-  private static final DoubleFunction1D[] P = new DoubleFunction1D[] {P0, P1, P2};
+  private static final DoubleFunction1D[] P = new DoubleFunction1D[] {P0, P1, P2 };
   private static final JacobiPolynomialFunction JACOBI = new JacobiPolynomialFunction();
   private static final double EPS = 1e-9;
 

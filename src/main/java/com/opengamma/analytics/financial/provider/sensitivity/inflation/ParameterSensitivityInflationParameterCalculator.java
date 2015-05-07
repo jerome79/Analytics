@@ -20,7 +20,6 @@ import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * For an instrument, computes the sensitivity of a value (often the present value or a par spread) to the parameters used in the curve.
  * The meaning of "parameters" will depend of the way the curve is stored (interpolated yield, function parameters, etc.).
@@ -28,7 +27,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * @param <DATA_TYPE> Data type.
  */
 public class ParameterSensitivityInflationParameterCalculator<DATA_TYPE extends ParameterInflationProviderInterface>
-  extends ParameterSensitivityInflationParameterAbstractCalculator<DATA_TYPE> {
+    extends ParameterSensitivityInflationParameterAbstractCalculator<DATA_TYPE> {
 
   /**
    * Constructor

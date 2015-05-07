@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * Construct a curve a + b*x + c*x^2 (where a, b, and c are the parameters), then make some VectorFunctions
  * that sample the curve at some values of x, thus providing a mapping from the model parameters to the curve

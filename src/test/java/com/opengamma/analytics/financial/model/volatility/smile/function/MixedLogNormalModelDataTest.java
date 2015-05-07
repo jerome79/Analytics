@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */

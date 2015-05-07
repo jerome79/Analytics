@@ -209,8 +209,8 @@ public class AnalysisMarketDataJPYSets {
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_WITHOUT_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-          new ZonedDateTime[]{DateUtils.getUTCDate(2013, 8, 7), DateUtils.getUTCDate(2013, 8, 8)},
-          new double[]{0.07, 0.08});
+          new ZonedDateTime[] {DateUtils.getUTCDate(2013, 8, 7), DateUtils.getUTCDate(2013, 8, 8) },
+          new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_WITHOUT_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_WITHOUT_TODAY };
   private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_6M_WITHOUT_TODAY =

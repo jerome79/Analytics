@@ -24,7 +24,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */

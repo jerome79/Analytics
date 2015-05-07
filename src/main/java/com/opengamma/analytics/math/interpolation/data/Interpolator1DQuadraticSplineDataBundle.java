@@ -43,7 +43,6 @@ public class Interpolator1DQuadraticSplineDataBundle implements Interpolator1DDa
       root = Math.sqrt(root);
       final double temp1 = (-b + root) / 2 / a;
       _b[i] = temp1;
-      // _b[i] = 2 * (h[i] - h[i - 1] - _a[i] * dx[i]) / dx[i] / dx[i];
     }
     _a[n] = _a[n - 1];
   }

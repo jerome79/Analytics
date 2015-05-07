@@ -78,7 +78,7 @@ public final class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
     final double theta = cmsSpread.getFixingTime();
     final double tp = cmsSpread.getPaymentTime();
     final double dftp = multicurves.getDiscountFactor(ccy, tp);
-    final int[] nbCfFixed = new int[] {cmsSpread.getUnderlyingSwap1().getFixedLeg().getNumberOfPayments(), cmsSpread.getUnderlyingSwap2().getFixedLeg().getNumberOfPayments()};
+    final int[] nbCfFixed = new int[] {cmsSpread.getUnderlyingSwap1().getFixedLeg().getNumberOfPayments(), cmsSpread.getUnderlyingSwap2().getFixedLeg().getNumberOfPayments() };
     final double[][] tFixed = new double[2][];
     final double[][] dfFixed = new double[2][];
     final double[][] discountedCashFlowFixed = new double[2][];
@@ -86,10 +86,10 @@ public final class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
     final double[][] dfIbor = new double[2][];
     final double[][] discountedCashFlowIbor = new double[2][];
     final AnnuityPaymentFixed[] cfeIbor = new AnnuityPaymentFixed[] {cmsSpread.getUnderlyingSwap1().getSecondLeg().accept(CFEC, multicurves),
-        cmsSpread.getUnderlyingSwap2().getSecondLeg().accept(CFEC, multicurves)};
-    final int[] nbCfIbor = new int[] {cfeIbor[0].getNumberOfPayments(), cfeIbor[1].getNumberOfPayments()};
+      cmsSpread.getUnderlyingSwap2().getSecondLeg().accept(CFEC, multicurves) };
+    final int[] nbCfIbor = new int[] {cfeIbor[0].getNumberOfPayments(), cfeIbor[1].getNumberOfPayments() };
     final double[] notionalSwap = new double[] {cmsSpread.getUnderlyingSwap1().getFixedLeg().getNthPayment(0).getNotional(),
-        cmsSpread.getUnderlyingSwap2().getFixedLeg().getNthPayment(0).getNotional()};
+      cmsSpread.getUnderlyingSwap2().getFixedLeg().getNthPayment(0).getNotional() };
     // Swaps - Float
     for (int loopswap = 0; loopswap < 2; loopswap++) {
       tIbor[loopswap] = new double[nbCfIbor[loopswap]];
@@ -146,7 +146,7 @@ public final class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
       }
     }
     final double[] hthetaTp = MODEL_G2PP.volatilityMaturityPart(parameters, theta, tp);
-    final double[] alphaTp = new double[] {Math.sqrt(gamma[0][0]) * hthetaTp[0], Math.sqrt(gamma[1][1]) * hthetaTp[1]};
+    final double[] alphaTp = new double[] {Math.sqrt(gamma[0][0]) * hthetaTp[0], Math.sqrt(gamma[1][1]) * hthetaTp[1] };
     final double tau2Tp = alphaTp[0] * alphaTp[0] + alphaTp[1] * alphaTp[1] + 2 * rhog2pp * gamma[0][1] * hthetaTp[0] * hthetaTp[1];
 
     // Integration
@@ -159,7 +159,7 @@ public final class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
     double pv = 0.0;
     try {
       pv = 1.0 / (2.0 * Math.PI * Math.sqrt(1 - rhobar * rhobar))
-          * integrator2D.integrate(integrant, new Double[] {-INTEGRATION_LIMIT, -INTEGRATION_LIMIT}, new Double[] {INTEGRATION_LIMIT, INTEGRATION_LIMIT});
+          * integrator2D.integrate(integrant, new Double[] {-INTEGRATION_LIMIT, -INTEGRATION_LIMIT }, new Double[] {INTEGRATION_LIMIT, INTEGRATION_LIMIT });
     } catch (final Exception e) {
       throw new MathException(e);
     }
@@ -202,7 +202,7 @@ public final class CapFloorCMSSpreadG2ppNumericalIntegrationMethod {
     @Override
     public Double evaluate(final Double x0, final Double x1) {
       final double[] rate = new double[2];
-      final double[] x = new double[] {x0, x1};
+      final double[] x = new double[] {x0, x1 };
       rate[0] = MODEL_G2PP.swapRate(x, _discountedCashFlowFixed[0], _alphaFixed[0], _tau2Fixed[0], _discountedCashFlowIbor[0], _alphaIbor[0], _tau2Ibor[0]);
       rate[1] = MODEL_G2PP.swapRate(x, _discountedCashFlowFixed[1], _alphaFixed[1], _tau2Fixed[1], _discountedCashFlowIbor[1], _alphaIbor[1], _tau2Ibor[1]);
       final double densityPart = -(x0 * x0 + x1 * x1 - 2 * _rhobar * x0 * x1) / (2.0 * (1 - _rhobar * _rhobar));

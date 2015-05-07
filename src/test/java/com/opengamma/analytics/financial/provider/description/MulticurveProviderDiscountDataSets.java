@@ -72,19 +72,19 @@ public class MulticurveProviderDiscountDataSets {
   private static final double[] USD_DSC_RATE = new double[] {0.0100, 0.0120, 0.0120, 0.0140, 0.0140, 0.0140 };
   private static final double[] USD_DSC_DF = new double[] {1.00, 0.99, 0.98, 9.96, 0.91, 0.85 };
   private static final String USD_DSC_NAME = "USD Dsc";
-  private static final YieldAndDiscountCurve USD_RATE_DSC = 
-      new YieldCurve(USD_DSC_NAME, 
+  private static final YieldAndDiscountCurve USD_RATE_DSC =
+      new YieldCurve(USD_DSC_NAME,
           new InterpolatedDoublesCurve(USD_DSC_TIME, USD_DSC_RATE, LINEAR_FLAT, true, USD_DSC_NAME));
-  private static final YieldAndDiscountCurve USD_DF_DSC = 
-      new DiscountCurve(USD_DSC_NAME, 
+  private static final YieldAndDiscountCurve USD_DF_DSC =
+      new DiscountCurve(USD_DSC_NAME,
           new InterpolatedDoublesCurve(USD_DSC_TIME, USD_DSC_DF, LINEAR_FLAT, true, USD_DSC_NAME));
-  private static final double[] USD_DSC_PERF_TIME = 
+  private static final double[] USD_DSC_PERF_TIME =
       new double[] {0.0, 0.1, 0.25, 0.5, 0.75, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 12.0, 15.0, 20.0, 25.0, 30.0 }; // 20
-  private static final double[] USD_DSC_PERF_RATE = 
-      new double[] {0.0100, 0.0100, 0.0100, 0.0100, 0.0120, 0.0120, 0.0120, 0.0140, 0.0140, 0.0140, 
-    0.0140, 0.0150, 0.0160, 0.0170, 0.0160, 0.0160, 0.0150, 0.0150, 0.0140, 0.0140 };
-  private static final YieldAndDiscountCurve USD_PERF_DSC = 
-      new YieldCurve(USD_DSC_NAME, 
+  private static final double[] USD_DSC_PERF_RATE =
+      new double[] {0.0100, 0.0100, 0.0100, 0.0100, 0.0120, 0.0120, 0.0120, 0.0140, 0.0140, 0.0140,
+        0.0140, 0.0150, 0.0160, 0.0170, 0.0160, 0.0160, 0.0150, 0.0150, 0.0140, 0.0140 };
+  private static final YieldAndDiscountCurve USD_PERF_DSC =
+      new YieldCurve(USD_DSC_NAME,
           new InterpolatedDoublesCurve(USD_DSC_PERF_TIME, USD_DSC_PERF_RATE, LINEAR_FLAT, true, USD_DSC_NAME));
   private static final double[] USD_FWD3_TIME = new double[] {0.0, 0.5, 1.0, 2.0, 5.0, 10.0 };
   private static final double[] USD_FWD3_RATE = new double[] {0.0150, 0.0125, 0.0150, 0.0175, 0.0150, 0.0150 };
@@ -308,9 +308,6 @@ public class MulticurveProviderDiscountDataSets {
   private static final IssuerProviderDiscount PROVIDER_ISSUER = new IssuerProviderDiscount(MULTICURVES_EUR_USD, ISSUER_CURVES);
 
   // Seasonal factors (from February/January to December/November)
-  //  private static final double[] SEASONAL_FACTOR_EUR = new double[] {1.0010, 1.0010, 1.0020, 0.9990, 0.9990, 0.9990, 0.9990, 1.0000, 1.0010, 1.0010, 1.0010};
-  //  private static final double[] SEASONAL_FACTOR_USD = new double[] {1.0010, 1.0010, 1.0020, 0.9990, 0.9990, 0.9990, 0.9990, 1.0000, 1.0010, 1.0010, 1.0010 };
-  //  private static final double[] SEASONAL_FACTOR_GBP = new double[] {1.0010, 1.0010, 1.0020, 0.9990, 0.9990, 0.9990, 0.9990, 1.0000, 1.0010, 1.0010, 1.0010};
   // Price index data
   // Implementation note : we have had the value of November 2001 for test purpose.
   private static final double[] UKRPI_VALUE_2001 = new double[] {217.9 };
@@ -489,7 +486,6 @@ public class MulticurveProviderDiscountDataSets {
     timeValueUs[0] = TimeCalculator.getTimeBetween(pricingDate, referenceDate[0]);
     timeValueUs[1] = TimeCalculator.getTimeBetween(pricingDate, referenceDate[1]);
     final ZonedDateTime[] maturityDateUs = new ZonedDateTime[2 * yearUs.length];
-    //    double[] maturityTimeUs = new double[yearUs.length];
     for (int loopus = 0; loopus < yearUs.length; loopus++) {
       maturityDateUs[2 * loopus] = ScheduleCalculator.getAdjustedDate(referenceDate[0], Period.ofYears(yearUs[loopus]), BUSINESS_DAY_USD, CALENDAR_USD);
       maturityDateUs[2 * loopus + 1] = ScheduleCalculator.getAdjustedDate(referenceDate[1], Period.ofYears(yearUs[loopus]), BUSINESS_DAY_USD, CALENDAR_USD);
@@ -506,7 +502,6 @@ public class MulticurveProviderDiscountDataSets {
 
   public static InflationIssuerProviderDiscount createMarket2(final ZonedDateTime pricingDate) {
     final InflationIssuerProviderDiscount market = createMarket1(pricingDate);
-    //    final DoublesCurve curveNoAdj = market.getCurve(PRICE_INDEX_USD).getCurve();
     //TODO: seasonal have modified, so the following have to be modified
     /*final DoublesCurve adj = new SeasonalCurve(curveNoAdj.getXData()[0], SEASONAL_FACTOR_USD, false);*/
     /* final DoublesCurve[] curveSet = new DoublesCurve[] {curveNoAdj, adj };*/

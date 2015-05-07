@@ -11,7 +11,6 @@ import org.testng.Assert;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Abstract test.
  */

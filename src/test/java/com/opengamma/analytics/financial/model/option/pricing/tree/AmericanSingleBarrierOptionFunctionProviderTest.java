@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.volatility.BlackScholesFormulaRep
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * American type of single barrier option
  */
@@ -79,7 +78,7 @@ public class AmericanSingleBarrierOptionFunctionProviderTest {
   @Test
   public void priceTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
 
     final double[] vols = new double[] {0.1, 0.15 };
     final double time = 0.1;
@@ -163,7 +162,7 @@ public class AmericanSingleBarrierOptionFunctionProviderTest {
   @Test
   public void discreteDividendsPriceTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
     final double eps = 1.e-1;
 
     final double[] propDividends = new double[] {0.002, 0.004, 0.001 };
@@ -365,7 +364,7 @@ public class AmericanSingleBarrierOptionFunctionProviderTest {
             assertEquals(resGreeksBarrierUpTri.get(Greek.THETA), resGreeksConstBarrierUp.get(Greek.THETA), Math.max(Math.abs(resGreeksConstBarrierUp.get(Greek.THETA)), 1.));
 
             final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-                new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
+              new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
             for (final LatticeSpecification lattice : lattices) {
               final GreekResultCollection resGreeksBarrierDownTriRe = _modelTrinomial.getGreeks(lattice, functionBarrierDown, SPOT, volRef, rateRef, dividend[0]);
               assertEquals(resGreeksBarrierDownTriRe.get(Greek.FAIR_PRICE), resGreeksConstBarrierDown.get(Greek.FAIR_PRICE),
@@ -394,7 +393,7 @@ public class AmericanSingleBarrierOptionFunctionProviderTest {
     final AmericanSingleBarrierOptionFunctionProvider.BarrierTypes type = AmericanSingleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DownAndOut");
     final OptionFunctionProvider1D ref = new AmericanSingleBarrierOptionFunctionProvider(100., 1., 53, true, 90., type);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new AmericanSingleBarrierOptionFunctionProvider(100., 1., 53, true, 90., type),
-        new EuropeanVanillaOptionFunctionProvider(100., 1., 53, true), null };
+      new EuropeanVanillaOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

@@ -13,7 +13,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.B
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatilityFormula;
 
-
 /**
  * Test.
  */

@@ -31,7 +31,6 @@ import com.opengamma.analytics.math.surface.NodalDoublesSurface;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */
@@ -210,14 +209,12 @@ public class VarianceSwapRatesSensitivityTest {
   // Setup ------------------------------------------
 
   // The pricing method
-  //  final VarianceSwapStaticReplication pricer_default_w_cutoff = new VarianceSwapStaticReplication(StrikeParameterization.STRIKE);
   final VarianceSwapStaticReplication pricer_without_cutoff = new VarianceSwapStaticReplication();
 
   // Market data
   private static final double SPOT = 80;
   private static final double DRIFT = 0.03;
   private static final ForwardCurve FORWARD_CURVE = new ForwardCurve(SPOT, DRIFT);
-  // private static final double FORWARD = 100;
 
   private static final double[] EXPIRIES = new double[] {0.5, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0, 5.0, 10.0, 10.0, 10.0, 10.0 };
   private static final double[] STRIKES = new double[] {40, 80, 100, 120, 40, 80, 100, 120, 40, 80, 100, 120, 40, 80, 100, 120 };
@@ -259,12 +256,14 @@ public class VarianceSwapRatesSensitivityTest {
   private static final double[] noObsWeights = {};
   private static final double[] singleObsSoNoReturn = {80 };
 
-  private static final VarianceSwap swapStartsNow = new VarianceSwap(now, expiry2, expiry2, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, singleObsSoNoReturn, noObsWeights);
+  private static final VarianceSwap swapStartsNow = new VarianceSwap(now, expiry2, expiry2, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, singleObsSoNoReturn,
+      noObsWeights);
 
-  //private static final VarianceSwap swapStartsTomorrow = new VarianceSwap(tPlusOne, expiry2, expiry2, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations, noObsWeights);
-
-  private static final VarianceSwap swap10y = new VarianceSwap(tPlusOne, expiry10, expiry10, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations, noObsWeights);
-  private static final VarianceSwap swap5y = new VarianceSwap(tPlusOne, expiry5, expiry5, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations, noObsWeights);
-  private static final VarianceSwap swap1y = new VarianceSwap(tPlusOne, expiry1, expiry1, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations, noObsWeights);
+  private static final VarianceSwap swap10y = new VarianceSwap(tPlusOne, expiry10, expiry10, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations,
+      noObsWeights);
+  private static final VarianceSwap swap5y = new VarianceSwap(tPlusOne, expiry5, expiry5, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations,
+      noObsWeights);
+  private static final VarianceSwap swap1y = new VarianceSwap(tPlusOne, expiry1, expiry1, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations,
+      noObsWeights);
 
 }

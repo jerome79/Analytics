@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test {@link VariableNotionalProvider}
  */
@@ -38,10 +37,10 @@ public class VariableNotionalProviderTest {
     double baseNotional = 1.0e6;
     Period period = Period.ofMonths(3);
     LocalDate[] dates = new LocalDate[] {baseDate, baseDate.plus(period), baseDate.plus(period.multipliedBy(2)),
-        baseDate.plus(period.multipliedBy(3)), baseDate.plus(period.multipliedBy(4)) };
+      baseDate.plus(period.multipliedBy(3)), baseDate.plus(period.multipliedBy(4)) };
     int nDates = dates.length;
     double[] notionals = new double[] {baseNotional, baseNotional * 0.9, baseNotional * 0.8, baseNotional * 0.7,
-        baseNotional * 0.6 };
+      baseNotional * 0.6 };
     VariableNotionalProvider provider = new VariableNotionalProvider(dates, notionals);
     LocalDate[] datesRes = provider.getDates();
     double[] notionalsRes = provider.getNotionals();

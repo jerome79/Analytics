@@ -478,7 +478,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethod extends CapFloor
       final double hpp = (_eta - 1.0) * _tau * hp / periodFactor;
       final double kp = hp / g - h * gp / (g * g);
       final double kpp = hpp / g - 2 * hp * gp / (g * g) - h * (gpp / (g * g) - 2 * (gp * gp) / (g * g * g));
-      return new double[] {kp, kpp};
+      return new double[] {kp, kpp };
     }
 
     /**

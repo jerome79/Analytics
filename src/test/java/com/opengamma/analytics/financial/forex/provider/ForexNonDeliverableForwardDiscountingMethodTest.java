@@ -45,7 +45,6 @@ public class ForexNonDeliverableForwardDiscountingMethodTest {
 
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 11, 10);
 
-  //  private static final double USD_KRW = 1111.11;
   private static final FxMatrix FX_MATRIX = MulticurveProviderDiscountForexDataSets.fxMatrix();
 
   private static final ForexNonDeliverableForward NDF = NDF_DEFINITION.toDerivative(REFERENCE_DATE);
@@ -136,17 +135,6 @@ public class ForexNonDeliverableForwardDiscountingMethodTest {
     final double fwdFX = METHOD_FX.forwardForexRate(FOREX, MULTICURVES);
     assertEquals("Forward rate - non-deliverable forward", fwdNDF, fwdFX, TOLERANCE_PV);
   }
-
-  //  @Test
-  //  /**
-  //   * Tests the forward Forex rate through the method and through the calculator.
-  //   */
-  //  public void forwardRateMethodVsCalculator() {
-  //    final double fwdMethod = METHOD_NDF.forwardForexRate(NDF, MULTICURVES);
-  //    final ForwardRateForexCalculator FWDC = ForwardRateForexCalculator.getInstance();
-  //    final double fwdCalculator = NDF.accept(FWDC, MULTICURVES);
-  //    assertEquals("Forex: forward rate", fwdMethod, fwdCalculator, 1.0E-10);
-  //  }
 
   @Test
   /**

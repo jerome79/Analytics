@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
@@ -46,7 +45,7 @@ public class GeneratorBondFixed extends GeneratorInstrument<GeneratorAttributeET
     if (attribute.isPrice()) {
       return new BondFixedTransactionDefinition(_security, quantity, settleDate, marketQuote);
     }
-    return BondFixedTransactionDefinition.fromYield(_security, quantity, settleDate, marketQuote);    
+    return BondFixedTransactionDefinition.fromYield(_security, quantity, settleDate, marketQuote);
   }
 
 }

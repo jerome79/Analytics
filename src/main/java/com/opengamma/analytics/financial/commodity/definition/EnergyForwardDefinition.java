@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.commodity.definition;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.commodity.derivative.EnergyForward;
@@ -40,7 +39,6 @@ public class EnergyForwardDefinition extends CommodityForwardDefinition<EnergyFo
       final SettlementType settlementType, final double referencePrice, final Currency currency, final ZonedDateTime settlementDate) {
     super(expiryDate, underlying, unitAmount, firstDeliveryDate, lastDeliveryDate, amount, unitName, settlementType, referencePrice, currency, settlementDate);
   }
-
 
   /**
    * Constructor for forwards without delivery dates (e.g. cash settlement)
@@ -116,7 +114,7 @@ public class EnergyForwardDefinition extends CommodityForwardDefinition<EnergyFo
     return new EnergyForward(timeToFixing, getUnderlying(), getUnitAmount(), getFirstDeliveryDate(), getLastDeliveryDate(), getAmount(), getUnitName(), getSettlementType(), timeToSettlement,
         referencePrice.doubleValue(), getCurrency());
   }
-  
+
   @Override
   public <U, V> V accept(final InstrumentDefinitionVisitor<U, V> visitor, final U data) {
     ArgChecker.notNull(visitor, "visitor");

@@ -15,7 +15,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.ChiSquareDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */

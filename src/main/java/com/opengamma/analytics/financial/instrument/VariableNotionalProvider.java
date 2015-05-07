@@ -12,7 +12,6 @@ import java.util.List;
 
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * The class describes variable notionals. 
  */

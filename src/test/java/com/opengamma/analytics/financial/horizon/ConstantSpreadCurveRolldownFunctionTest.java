@@ -17,14 +17,13 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 
-
 /**
  * Test.
  */
 @Test
 public class ConstantSpreadCurveRolldownFunctionTest {
-  private static final double[] TIMES = new double[] {1, 2, 3, 4, 5, 10};
-  private static final double[] RATES = new double[] {0.03, 0.05, 0.04, 0.07, 0.02, 0.1};
+  private static final double[] TIMES = new double[] {1, 2, 3, 4, 5, 10 };
+  private static final double[] RATES = new double[] {0.03, 0.05, 0.04, 0.07, 0.02, 0.1 };
   private static final YieldCurve INTERPOLATED_CURVE = YieldCurve.from(InterpolatedDoublesCurve.from(TIMES, RATES, Interpolator1DFactory.LINEAR_INSTANCE));
   private static final YieldCurve FUNCTIONAL_CURVE = YieldCurve.from(FunctionalDoublesCurve.from(new Function1D<Double, Double>() {
 

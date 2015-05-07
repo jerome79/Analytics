@@ -39,7 +39,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the construction of Inflation Capital index bonds.
  */
@@ -111,12 +110,14 @@ public class BondCapitalIndexedSecurityTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullIssuer1() {
-    new BondCapitalIndexedSecurity<>(NOMINAL, COUPON, SETTLEMENT_TIME, ACCRUED_INTEREST, FACTOR_TO_NEXT, 0, YIELD_CONVENTION, COUPON_PER_YEAR_GILT_1, SETTLEMENT, INDEX_START, 100, 100, 1.0, (String) null);
+    new BondCapitalIndexedSecurity<>(NOMINAL, COUPON, SETTLEMENT_TIME, ACCRUED_INTEREST, FACTOR_TO_NEXT, 0, YIELD_CONVENTION, COUPON_PER_YEAR_GILT_1, SETTLEMENT, INDEX_START, 100, 100, 1.0,
+        (String) null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullIssuer2() {
-    new BondCapitalIndexedSecurity<>(NOMINAL, COUPON, SETTLEMENT_TIME, ACCRUED_INTEREST, FACTOR_TO_NEXT, 0, YIELD_CONVENTION, COUPON_PER_YEAR_GILT_1, SETTLEMENT, INDEX_START, 100, 100, 1.0, (LegalEntity) null);
+    new BondCapitalIndexedSecurity<>(NOMINAL, COUPON, SETTLEMENT_TIME, ACCRUED_INTEREST, FACTOR_TO_NEXT, 0, YIELD_CONVENTION, COUPON_PER_YEAR_GILT_1, SETTLEMENT, INDEX_START, 100, 100, 1.0,
+        (LegalEntity) null);
   }
 
   @Test

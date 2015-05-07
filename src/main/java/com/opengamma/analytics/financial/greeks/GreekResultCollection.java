@@ -23,17 +23,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * 
  */
 public class GreekResultCollection implements Iterable<Pair<Greek, Double>> {
-  // REVIEW kirk 2010-05-20 -- Ideas for speeding up:
-  // - For common cases, store SingleGreekResult in a double[], where the indices are ordinals
-  //   for the greek in the enumeration. Super-fast lookup and small objects, but wasted
-  //   space for the common case of one greek in a result collection.
 
-  // REVIEW kirk 2010-05-20 -- Does this need a set of fudge converters?
-
-  // REVIEW kirk 2010-05-20 -- Is this the best backing map?
-  // We might not want to use a Map<> at all, but we can't use an EnumMap<>
-  // as Greek is going to be promoted to an Object from an Enum.
-  // REVIEW elaine 2010-06-25 Greek is now an Object
   /** The backing map */
   private final Map<Greek, Double> _backingMap = new TreeMap<>();
 
@@ -56,7 +46,7 @@ public class GreekResultCollection implements Iterable<Pair<Greek, Double>> {
    */
   public void put(final Greek greek, final Double result) {
     ArgChecker.notNull(greek, "Greek");
-    // NOTE kirk 2010-05-21 -- Per Elaine, a null result IS a legitimate result.
+    // NOTE null result IS a legitimate result.
     // We still put it in the backing map, so that we can tell that a particular
     // greek WAS computed, but the result was also NULL.
     _backingMap.put(greek, result);
@@ -139,7 +129,7 @@ public class GreekResultCollection implements Iterable<Pair<Greek, Double>> {
 
   @Override
   public Iterator<Pair<Greek, Double>> iterator() {
-    // TODO kirk 2010-05-20 -- This can be dramatically improved if we change the backing map
+    // This can be dramatically improved if we change the backing map
     // to not be a backing map at all.
     return new BackingMapGreekIterator(_backingMap.entrySet().iterator());
   }

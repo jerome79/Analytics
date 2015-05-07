@@ -20,7 +20,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * The function to integrate is scaled in such a way as to allow any values for the limits of the integrals.
  */
 public class GaussLegendreQuadratureIntegrator1D extends GaussianQuadratureIntegrator1D {
-  private static final Double[] LIMITS = new Double[] {-1., 1.};
+  private static final Double[] LIMITS = new Double[] {-1., 1. };
   private static final GaussLegendreWeightAndAbscissaFunction GENERATOR = new GaussLegendreWeightAndAbscissaFunction();
 
   /**

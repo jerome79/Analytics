@@ -18,7 +18,6 @@ import com.google.common.collect.Iterables;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 
-
 /**
  * Test.
  */
@@ -69,7 +68,8 @@ public class FloatingReceiveCashFlowVisitorTest {
     assertEquals(1, mca.size());
     ca = Iterables.getOnlyElement(mca.getAmounts());
     assertEquals(InstrumentTestHelper.FIXED_INCOME_CURRENCY, ca.getCurrency());
-    assertEquals(-InstrumentTestHelper.IBOR_COUPON_NOTIONAL * InstrumentTestHelper.GEARING / 2. - InstrumentTestHelper.IBOR_COUPON_NOTIONAL * InstrumentTestHelper.IBOR_COUPON_SPREAD / 2., ca.getAmount(), 1e-15);
+    assertEquals(-InstrumentTestHelper.IBOR_COUPON_NOTIONAL * InstrumentTestHelper.GEARING / 2. - InstrumentTestHelper.IBOR_COUPON_NOTIONAL * InstrumentTestHelper.IBOR_COUPON_SPREAD / 2.,
+        ca.getAmount(), 1e-15);
     assertEquals(payment, InstrumentTestHelper.RECEIVE_IBOR_GEARING_COUPON.accept(VISITOR, null));
     assertEquals(Collections.emptyMap(), InstrumentTestHelper.PAY_IBOR_GEARING_COUPON.accept(VISITOR));
   }

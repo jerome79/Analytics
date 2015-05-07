@@ -40,6 +40,6 @@ public class QuadraticRealRootFinder implements Polynomial1DRootFinder<Double> {
       throw new MathException("No real roots for quadratic");
     }
     final double q = -0.5 * (b + Math.signum(b) * discriminant);
-    return new Double[] {q / a, c / q};
+    return new Double[] {q / a, c / q };
   }
 }

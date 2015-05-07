@@ -24,7 +24,7 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
  * Examples of bond and bills to be used in tests. Examples in GBP.
  */
 public class BondDataSetsGbp {
-  
+
   private static final String UK_GOVT_NAME = IssuerProviderDiscountDataSets.getIssuerNames()[3];
   private static final String REPO_TYPE = "General collateral";
   private static final Currency GBP = Currency.GBP;
@@ -140,7 +140,5 @@ public class BondDataSetsGbp {
   public static BillSecurityDefinition billUK(double notional, ZonedDateTime maturityDate) {
     return new BillSecurityDefinition(GBP, maturityDate, notional, SPOT_LAG_BILL_UK, CALENDAR_GILT, YIELD_BILL_UK, DAY_COUNT_BILL_UK, UK_GOVT_NAME);
   }
-  
-  
 
 }

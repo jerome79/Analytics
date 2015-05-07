@@ -10,7 +10,6 @@ import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * 
  */
@@ -42,7 +41,6 @@ public class OrthonormalHermitePolynomialFunction extends OrthogonalPolynomialFu
     @SuppressWarnings("unchecked")
     final Pair<DoubleFunction1D, DoubleFunction1D>[] polynomials = new Pair[n + 1];
     DoubleFunction1D p, dp, p1, p2;
-    //  final double divisor = Math.sqrt(2 * n);
     final double sqrt2 = Math.sqrt(2);
     final DoubleFunction1D x = getX();
     for (int i = 0; i <= n; i++) {

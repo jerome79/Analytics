@@ -25,9 +25,10 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
  * sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot (or imported into some other 
  * visualisation tool).    
  */
+@Test(enabled = false)
 public class CapletStrippingPSplineTermStructureDemo extends CapletStrippingSetup {
 
-  @Test(description = "Demo of infering a caplet volatility surface by seperate P-spline fit of absolute strike quotes")
+  @Test(description = "Demo of infering a caplet volatility surface by seperate P-spline fit of absolute strike quotes", enabled = false)
   public void singleStrikeTest() {
     final BasisSplineVolatilityTermStructureProvider vtsp = new BasisSplineVolatilityTermStructureProvider(0, 10.0, 10, 2);
     final int size = vtsp.getNumModelParameters();
@@ -47,7 +48,6 @@ public class CapletStrippingPSplineTermStructureDemo extends CapletStrippingSetu
       Arrays.fill(errors, 1e-4); //1bps
       res[i] = stripper.solve(vols, MarketDataType.VOL, errors, guess);
       System.out.println(res[i].getChiSqr());
-      // res[i].printCapletVols(System.out);
     }
 
     final CombinedCapletStrippingResults comRes = new CombinedCapletStrippingResults(res);

@@ -162,14 +162,6 @@ public class MixedLogNormalVolatilitySurface {
     final double[] mu = data.getMus();
     final int n = w.length;
 
-    // double sum1 = 0;
-    // double sum2 = 0;
-    // for (int i = 0; i < n; i++) {
-    // sum1 += w[i] * sigma[i];
-    // sum2 += w[i] / sigma[i];
-    // }
-    // final double tZeroLimit = Math.sqrt(sum1 / sum2);
-
     final Function<Double, Double> surf = new Function<Double, Double>() {
       @SuppressWarnings("synthetic-access")
       @Override
@@ -190,12 +182,10 @@ public class MixedLogNormalVolatilitySurface {
         final double maxX = Math.exp(rootT * maxExp);
         if (x > maxX) {
           x = maxX;
-          // return evaluate(t, maxX * fwd);
         } else {
           final double minX = 1 / maxX;
           if (x < minX) {
             x = minX;
-            // return evaluate(t, minX * fwd);
           }
         }
 
@@ -220,9 +210,6 @@ public class MixedLogNormalVolatilitySurface {
           fStar[i] = Math.exp(t * mu[i]) / expOmega;
           d1[i] = (Math.log(fStar[i] / x) + 0.5 * sigma[i] * sigma[i] * t) / sigma[i] / rootT;
           d1Sqr[i] = d1[i] * d1[i];
-          // if (d1Sqr[i] < d1SqrMin) {
-          // d1SqrMin = d1Sqr[i];
-          // }
           if (w[i] > 0.0) {
             final double test = Math.log(w[i]) + t * mu[i] - d1Sqr[i] / 2.0;
             if (test > maxVal) {
@@ -243,10 +230,8 @@ public class MixedLogNormalVolatilitySurface {
         double num = 0;
         for (int i = 0; i < n; i++) {
           if (w[i] > 0) {
-            // final double regPhi = Math.exp(eta[i] - maxVal);
             double deltaStar = 0;
             if (d1Sqr[i] > maxExp) {
-              // deltaStar = (isCall ? 1.0 : -1.0) / Math.sqrt(1 + d1Sqr[i]);
               deltaStar = (isCall ? 1.0 : -1.0) / (Math.abs(d1[i]) + 0.969008 / Math.abs(d1[i]));
             } else {
               final double delta = isCall ? NORMAL.getCDF(d1[i]) : -NORMAL.getCDF(-d1[i]);
@@ -261,7 +246,6 @@ public class MixedLogNormalVolatilitySurface {
         if (Doubles.isFinite(res)) {
           return res;
         }
-        // return 0.0;
         throw new MathException("Local Volatility failure: " + res);
       }
     };

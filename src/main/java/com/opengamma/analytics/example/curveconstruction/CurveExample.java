@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
  */
 public class CurveExample {
 
-  // @export "constantDoublesCurveDemo"
   public static void constantDoublesCurveDemo(PrintStream out) {
     Curve<Double, Double> curve = new ConstantDoublesCurve(5.0);
 
@@ -30,28 +29,9 @@ public class CurveExample {
     out.println(curve.getYValue(-10.0));
   }
 
-  // @export "nodalDoublesCurveDemo"
-  //    public static void nodalDoublesCurveDemo(PrintStream out) {
-  //        double[] xdata = { 1.0, 2.0, 3.0 };
-  //        double[] ydata = { 2.0, 4.0, 6.0 };
-  //        Curve curve = new NodalDoublesCurve(xdata, ydata, true);
-  //
-  //        out.println(curve.getYValue(1.0));
-  //        out.println(curve.getYValue(2.0));
-  //        out.println(curve.getYValue(3.0));
-  //
-  //        try {
-  //            out.println("Trying to get y value for an undefined x value...");
-  //            curve.getYValue(1.5);
-  //        } catch (java.lang.IllegalArgumentException  e) {
-  //            out.println("IllegalArgumentException called");
-  //        }
-  //    }
-
-  // @export "interpolatedDoublesCurveDemo"
   public static void interpolatedDoublesCurveDemo(PrintStream out) {
-    double[] xdata = {1.0, 2.0, 3.0};
-    double[] ydata = {2.0, 4.0, 6.0};
+    double[] xdata = {1.0, 2.0, 3.0 };
+    double[] ydata = {2.0, 4.0, 6.0 };
     LinearInterpolator1D interpolator = new LinearInterpolator1D();
     Curve<Double, Double> curve = new InterpolatedDoublesCurve(xdata, ydata, interpolator, true);
 
@@ -68,10 +48,9 @@ public class CurveExample {
     }
   }
 
-  // @export "interpolatorExtrapolatorDoublesCurveDemo"
   public static void interpolatorExtrapolatorDoublesCurveDemo(PrintStream out) {
-    double[] xdata = {1.0, 2.0, 3.0};
-    double[] ydata = {2.0, 4.0, 6.0};
+    double[] xdata = {1.0, 2.0, 3.0 };
+    double[] ydata = {2.0, 4.0, 6.0 };
 
     Interpolator1D interpolator = new LinearInterpolator1D();
     Interpolator1D leftExtrapolator = new LinearExtrapolator1D(interpolator);

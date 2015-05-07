@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -61,11 +60,12 @@ public class CouponIborDefinitionTest {
   private static final double NOTIONAL = 1000000; //1m
 
   // Coupon with specific payment and accrual dates.
-  private static final CouponIborDefinition IBOR_COUPON_DEFINITION = CouponIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX, CALENDAR);
+  private static final CouponIborDefinition IBOR_COUPON_DEFINITION = CouponIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX,
+      CALENDAR);
   // Coupon with standard payment and accrual dates.
   private static final CouponIborDefinition IBOR_COUPON_DEFINITION_2 = CouponIborDefinition.from(NOTIONAL, FIXING_DATE, INDEX, CALENDAR);
   private static final double FIXING_RATE = 0.04;
-  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{FIXING_DATE}, new double[]{FIXING_RATE});
+  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {FIXING_DATE }, new double[] {FIXING_RATE });
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 12, 27); //For conversion to derivative
 
   @Test(expectedExceptions = IllegalArgumentException.class)

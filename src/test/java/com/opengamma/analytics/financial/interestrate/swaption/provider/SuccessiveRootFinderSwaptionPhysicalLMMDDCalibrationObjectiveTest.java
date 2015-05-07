@@ -37,7 +37,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the calibration engine for LMM DD calibration to European swaptions (by calibrating volatility parameters with a common multiplicative factor).
  */
@@ -83,12 +82,10 @@ public class SuccessiveRootFinderSwaptionPhysicalLMMDDCalibrationObjectiveTest {
     }
   }
   private static final PresentValueSABRSwaptionCalculator PVSSC = PresentValueSABRSwaptionCalculator.getInstance();
-  //  private static final SwaptionPhysicalFixedIborSABRMethod METHOD_SABR = SwaptionPhysicalFixedIborSABRMethod.getInstance();
   private static final SwaptionPhysicalFixedIborLMMDDMethod METHOD_LMM = SwaptionPhysicalFixedIborLMMDDMethod.getInstance();
 
   private static final double TOLERANCE_PV = 1.0E-2;
 
-  @Test
   /**
    * Tests the correctness of Hull-White one factor calibration to swaptions with SABR price.
    */
@@ -108,30 +105,6 @@ public class SuccessiveRootFinderSwaptionPhysicalLMMDDCalibrationObjectiveTest {
       pvLmm[loopexp] = METHOD_LMM.presentValue(SWAPTION_LONG_PAYER[loopexp], objective.getLMMProvider());
       assertEquals("Hull-White calibration: swaption " + loopexp, pvSabr[loopexp].getAmount(EUR).getAmount(), pvLmm[loopexp].getAmount(EUR).getAmount(), TOLERANCE_PV);
     }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Test of performance. In normal testing, "enabled = false".
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      final LiborMarketModelDisplacedDiffusionParameters lmmParameters = TestsDataSetLiborMarketModelDisplacedDiffusion.createLMMParameters(REFERENCE_DATE,
-          SWAP_PAYER_DEFINITION[SWAP_TENOR_YEAR.length - 1].getIborLeg());
-      final SuccessiveRootFinderLMMDDCalibrationObjective objective = new SuccessiveRootFinderLMMDDCalibrationObjective(lmmParameters, EUR);
-      final CalibrationEngineWithCalculators<SABRSwaptionProviderInterface> calibrationEngine = new SuccessiveRootFinderLMMDDCalibrationEngine<>(objective);
-      for (int loopexp = 0; loopexp < SWAP_TENOR_YEAR.length; loopexp++) {
-        calibrationEngine.addInstrument(SWAPTION_LONG_PAYER[loopexp], PVSSC);
-      }
-      calibrationEngine.calibrate(SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " LMM calibration to swaption (5 swaptions): " + (endTime - startTime) + " ms");
-    // Performance note: calibration: 12-Dec-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 200 ms for 100 calibration with 5 swaptions.
   }
 
 }

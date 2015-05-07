@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -203,7 +202,7 @@ public class AmericanSpreadOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider2D ref = new AmericanSpreadOptionFunctionProvider(100., 1., 53, true);
     final OptionFunctionProvider2D[] function = new OptionFunctionProvider2D[] {ref, new AmericanSpreadOptionFunctionProvider(100., 1., 53, true),
-        new EuropeanSpreadOptionFunctionProvider(100., 1., 53, true), null };
+      new EuropeanSpreadOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

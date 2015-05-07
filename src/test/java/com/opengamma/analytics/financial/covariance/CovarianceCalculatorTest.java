@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 
-
 /**
  * Test.
  */
@@ -26,10 +25,10 @@ public class CovarianceCalculatorTest {
     }
 
   };
-  private static final DoubleTimeSeries<?> TS1 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[]{2}, new double[]{1}, UTC);
-  private static final DoubleTimeSeries<?> TS2 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {2, 3}, new double[] {1, 2}, UTC);
-  private static final DoubleTimeSeries<?> TS3 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {4, 5}, new double[] {1, 2}, UTC);
-  private static final DoubleTimeSeries<?> TS4 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {4, 5, 6}, new double[] {1, 2, 3}, UTC);
+  private static final DoubleTimeSeries<?> TS1 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {2 }, new double[] {1 }, UTC);
+  private static final DoubleTimeSeries<?> TS2 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {2, 3 }, new double[] {1, 2 }, UTC);
+  private static final DoubleTimeSeries<?> TS3 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {4, 5 }, new double[] {1, 2 }, UTC);
+  private static final DoubleTimeSeries<?> TS4 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {4, 5, 6 }, new double[] {1, 2, 3 }, UTC);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullTS1() {

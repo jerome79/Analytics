@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -53,7 +52,6 @@ public class BlackFormulaRepositoryTest {
     {1.328198130230618E-4, 0.0029567128738985232, 0.04468941116428932, 0.47558224046532205, 3.8091577630027356,
       18.03481967011267, 43.99634090899799 } };
 
-  @Test
   public void zeroVolTest() {
     final boolean isCall = true;
     final int n = STRIKES_INPUT.length;
@@ -64,7 +62,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void zeroExpiryTest() {
     final boolean isCall = false;
     final int n = STRIKES_INPUT.length;
@@ -75,7 +72,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void tinyVolTest() {
     final double vol = 1e-4;
     final boolean isCall = true;
@@ -87,7 +83,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void shortExpiryTest() {
     final double t = 1e-5;
     final double vol = 0.4;
@@ -100,7 +95,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void massiveVolTest() {
     final double vol = 8.0; // 800% vol
     final boolean isCall = true;
@@ -111,7 +105,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void zeroStikeTest() {
     final boolean isCall = true;
     final int n = VOLS.length;
@@ -121,7 +114,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void putCallParityTest() {
     final int n = VOLS.length;
     final int m = STRIKES_INPUT.length;
@@ -135,12 +127,7 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void nonEdgeCaseTest() {
-    final boolean print = false;
-    if (print) {
-      System.out.println("BlackFormulaRepositotyTest");
-    }
     final boolean isCall = true;
     final int n = VOLS.length;
     final int m = STRIKES_INPUT.length;
@@ -148,21 +135,10 @@ public class BlackFormulaRepositoryTest {
       for (int j = 0; j < n; j++) {
         final double price = BlackFormulaRepository.price(FORWARD, STRIKES_INPUT[i], TIME_TO_EXPIRY, VOLS[j], isCall);
         assertEquals(PRE_COMPUTER_PRICES[i][j], price, 1e-13 * price);
-        if (print) {
-          if (j == 0) {
-            System.out.print(price);
-          } else {
-            System.out.print(", " + price);
-          }
-        }
-      }
-      if (print) {
-        System.out.print("\n");
       }
     }
   }
 
-  @Test
   /**
    * Tests the strikes in a range of strikes, volatilities and call/put.
    */
@@ -170,8 +146,6 @@ public class BlackFormulaRepositoryTest {
     final BlackPriceFunction function = new BlackPriceFunction();
     final int nbStrike = STRIKES_INPUT.length;
     final int nbVols = VOLS.length;
-    // double[][] delta = new double[2][nbStrike];
-    // double[][] strikeOutput = new double[2][nbStrike];
     boolean callput = false;
     for (int loopcall = 0; loopcall < 2; loopcall++) {
       callput = !callput;
@@ -193,7 +167,6 @@ public class BlackFormulaRepositoryTest {
 
   // TODO: test the conditions.
 
-  @Test
   /**
    * Tests the strikes in a range of strikes, volatilities and call/put.
    */
@@ -224,54 +197,9 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test(enabled = false)
-  /**
-   * Assess the performance of the derivatives computation.
-   */
-  public void impliedStrikePerformanceDerivatives() {
-    final double[] delta = new double[] {0.25, -0.25, 0.49 };
-    final boolean[] cap = new boolean[] {true, false, true };
-    final double[] forward = new double[] {104, 100, 10 };
-    final double[] time = new double[] {2.5, 5.0, 0.5 };
-    final double[] vol = new double[] {0.25, 0.10, 0.50 };
-    final double[] derivatives = new double[4];
-
-    long startTime, endTime;
-    final int nbTest = 100000;
-    @SuppressWarnings("unused")
-    double strike;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      for (int loop = 0; loop < delta.length; loop++) {
-        strike = BlackFormulaRepository.impliedStrike(delta[loop], cap[loop], forward[loop], time[loop], vol[loop]);
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " implied strike: " + (endTime - startTime) + " ms");
-    // Performance note: strike: 18-Jul-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 70 ms for 100000.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      for (int loop = 0; loop < delta.length; loop++) {
-        strike = BlackFormulaRepository.impliedStrike(delta[loop], cap[loop], forward[loop], time[loop], vol[loop],
-            derivatives);
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " implied strike + derivatives : " + (endTime - startTime) + " ms");
-    // Performance note: strike+derivatives: 18-Jul-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 80 ms for 100000.
-  }
-
-  /*
-   * 
-   * 
-   * New tests added
-   */
   /**
    * finite difference vs greek methods
    */
-  @Test
   public void greeksTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -376,15 +304,9 @@ public class BlackFormulaRepositoryTest {
 
   }
 
-  /*
-   * 
-   * 
-   * Tests for "price" method
-   */
   /**
    * Large/small values for price
    */
-  @Test
   public void exPriceTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -410,13 +332,7 @@ public class BlackFormulaRepositoryTest {
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
-
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -565,7 +481,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -782,7 +697,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6 };
 
       for (int k = 0; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -827,7 +741,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -854,7 +767,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1 };
       final double[] refVec = new double[] {refC1, refP1 };
       for (int k = 0; k < 2; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -907,7 +819,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * Use SimpleOptionData class for price
    */
-  @Test
   public void useSimpleOptionDataTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -963,7 +874,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * Large/small value for delta
    */
-  @Test
   public void exDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -984,11 +894,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 4; ++k) {
           if (refVec[k] > 1.e10) {
@@ -1173,7 +1078,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1344,8 +1248,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
-
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
@@ -1392,7 +1294,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -1421,7 +1322,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1 };
       final double[] refVec = new double[] {refC1, refP1 };
       for (int k = 0; k < 2; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -1442,7 +1342,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void parityDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1498,7 +1397,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void strikeForDeltaRecoveryTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1520,7 +1418,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * Note that the inverse is not necessarily possible because \pm 1, 0 are not taken by strikeForDelta method
    */
-  @Test
   public void exDeltaStrikeForDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1549,7 +1446,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exFwdStrikeForDeltaTest() {
     final int nVols = VOLS.length;
 
@@ -1575,7 +1471,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exTimeStrikeForDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1587,25 +1482,19 @@ public class BlackFormulaRepositoryTest {
         final double fwd = STRIKES_INPUT[i];
         final double vol = VOLS[j];
         final double resC1 = BlackFormulaRepository.strikeForDelta(fwd, 1. - 1.e-12, 1.e-12, vol, true);
-        // final double resC2 = BlackFormulaRepository.strikeForDelta(fwd, 1. - 1.e-12, 1.e12, vol, true);
         final double resP1 = BlackFormulaRepository.strikeForDelta(fwd, -0.5, 1.e-12, vol, false);
-        // final double resP2 = BlackFormulaRepository.strikeForDelta(fwd, -1. + 1.e-12, 1.e12, vol, false);
         final double strRecovC1 = BlackFormulaRepository.delta(fwd, resC1, 1.e-12, vol, true);
-        // final double strRecovC2 = BlackFormulaRepository.delta(fwd, resC2, 1.e12, vol, true);
         final double strRecovP1 = BlackFormulaRepository.delta(fwd, resP1, 1.e-12, vol, false);
-        // final double strRecovP2 = BlackFormulaRepository.delta(fwd, resP2, 1.e12, vol, false);
 
         assertEquals(1. - 1.e-12, strRecovC1, EPS * red);
         /*
          * This case is not correctly recovered because strike = infinity is obtained by strikeForDelta, coming from
          * exp( 1.e12 ), which always results in delta = 0
          */
-        // assertEquals(1. - 1.e-12, strRecovC2, EPS * red);
         assertEquals(-0.5, strRecovP1, EPS * red);
         /*
          * This case gives strike = infinity
          */
-        // assertEquals(-1., strRecovP2, EPS * red);
       }
     }
   }
@@ -1613,27 +1502,20 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exVolStrikeForDeltaTest() {
     final double small = 1.e-12;
     final double inf = Double.POSITIVE_INFINITY;
 
-    // final double resC1 = BlackFormulaRepository.strikeForDelta(FORWARD, 1. - 1.e-12, TIME_TO_EXPIRY, large, true);
     final double resC2 = BlackFormulaRepository.strikeForDelta(FORWARD, 1.e-12, TIME_TO_EXPIRY, small, true);
-    // final double resP1 = BlackFormulaRepository.strikeForDelta(FORWARD, -1. + 1.e-12, TIME_TO_EXPIRY, large, false);
     final double resP2 = BlackFormulaRepository.strikeForDelta(FORWARD, -1.e-12, TIME_TO_EXPIRY, small, false);
-    // final double strRecovC1 = BlackFormulaRepository.delta(FORWARD, resC1, TIME_TO_EXPIRY, large, true);
     final double strRecovC2 = BlackFormulaRepository.delta(FORWARD, resC2, TIME_TO_EXPIRY, small, true);
-    // final double strRecovP1 = BlackFormulaRepository.delta(FORWARD, resP1, TIME_TO_EXPIRY, large, false);
     final double strRecovP2 = BlackFormulaRepository.delta(FORWARD, resP2, TIME_TO_EXPIRY, small, false);
     final double resC3 = BlackFormulaRepository.strikeForDelta(FORWARD, 0.5, inf, 0., true);
     final double resP3 = BlackFormulaRepository.strikeForDelta(FORWARD, -0.5, inf, 0., false);
     final double strRecovC3 = BlackFormulaRepository.delta(FORWARD, resC3, inf, 0., true);
     final double strRecovP3 = BlackFormulaRepository.delta(FORWARD, resP3, inf, 0., false);
 
-    // assertEquals(1. - 1.e-12, strRecovC1, EPS);
     assertEquals(1.e-12, strRecovC2, EPS);
-    // assertEquals(-1. + 1.e-12, strRecovP1, EPS);
     assertEquals(-1.e-12, strRecovP2, EPS);
     assertEquals(0.5, strRecovC3, EPS);
     assertEquals(-0.5, strRecovP3, EPS);
@@ -1704,7 +1586,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values for dual delta
    */
-  @Test
   public void exDualDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1725,11 +1606,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 4; ++k) {
           if (refVec[k] > 1.e10) {
@@ -2084,7 +1960,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
@@ -2133,7 +2008,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -2162,7 +2036,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1 };
       final double[] refVec = new double[] {refC1, refP1 };
       for (int k = 0; k < 2; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -2183,7 +2056,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void parityDualDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2239,7 +2111,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values
    */
-  @Test
   public void exSimpleDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2260,11 +2131,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 4; ++k) {
           if (refVec[k] > 1.e10) {
@@ -2407,7 +2273,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -2450,7 +2315,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -2530,7 +2394,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -2622,7 +2485,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
@@ -2671,7 +2533,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -2700,7 +2561,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1 };
       final double[] refVec = new double[] {refC1, refP1 };
       for (int k = 0; k < 2; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -2721,7 +2581,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void paritySimpleDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2777,7 +2636,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values
    */
-  @Test
   public void exGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2794,11 +2652,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resC2 };
         final double[] refVec = new double[] {refC1, refC2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 2; ++k) {
           if (refVec[k] > 1.e10) {
@@ -2955,7 +2808,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refC3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3090,7 +2942,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refC3, refC4, refC5, refP2 };
 
       for (int k = 0; k < 6; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e9);
@@ -3125,7 +2976,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refC4, refC5 };
 
       for (int k = 0; k < 5; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e9);
         } else {
@@ -3149,7 +2999,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1 };
       final double[] refVec = new double[] {refC1 };
       for (int k = 0; k < 1; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -3207,7 +3056,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values
    */
-  @Test
   public void exDualGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3224,11 +3072,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resC2 };
         final double[] refVec = new double[] {refC1, refC2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 2; ++k) {
           if (refVec[k] > 1.e10) {
@@ -3385,7 +3228,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refC3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3521,7 +3363,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refC3, refC4, refC5, refP2 };
 
       for (int k = 0; k < 6; ++k) {// k=7 ref value is not accurate due to non-unity of vol
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e9);
@@ -3556,7 +3397,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refC4, refC5 };
 
       for (int k = 0; k < 5; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e9);
         } else {
@@ -3580,7 +3420,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1 };
       final double[] refVec = new double[] {refC1 };
       for (int k = 0; k < 1; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -3637,7 +3476,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small value
    */
-  @Test
   public void exCrossGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3654,11 +3492,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resC2 };
         final double[] refVec = new double[] {refC1, refC2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 2; ++k) {
           if (refVec[k] > 1.e10) {
@@ -3815,7 +3648,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refC3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -3951,7 +3783,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refC3, refC4, refC5, refP2 };
 
       for (int k = 0; k < 6; ++k) {// k=7 ref value is not accurate due to non-unity of vol
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e9);
@@ -3986,7 +3817,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refC4, refC5 };
 
       for (int k = 0; k < 5; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e9);
         } else {
@@ -4010,7 +3840,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1 };
       final double[] refVec = new double[] {refC1 };
       for (int k = 0; k < 1; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -4067,7 +3896,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exThetaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -4089,13 +3917,7 @@ public class BlackFormulaRepositoryTest {
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
-
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -4130,7 +3952,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -4165,7 +3986,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -4198,7 +4018,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -4232,7 +4051,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e8);
           } else {
@@ -4278,7 +4096,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 6; ++k) {// ref values
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 6 && k != 7) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e8);
@@ -4364,7 +4181,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -4407,7 +4223,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -4449,7 +4264,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -4492,7 +4306,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 6; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -4532,7 +4345,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 3) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -4576,7 +4388,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 6; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -4619,7 +4430,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 2 && k != 7) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -4672,7 +4482,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5,
         refC6, refP6 };
       for (int k = 0; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if ((refVec[k] != -0.5 * vol) && (refVec[k] != -0.5 * FORWARD) && (refVec[k] != Double.NEGATIVE_INFINITY) &&
             k != 11) {
@@ -4728,7 +4537,6 @@ public class BlackFormulaRepositoryTest {
         refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {// The last two cases return reference values
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -4790,7 +4598,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refC8, refP8 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 3 && k != 4 && k != 7 && k != 11) {
           if (k != 12 && k != 13) {// ref values are returned
             if (refVec[k] > 1.e10) {
@@ -4855,7 +4662,6 @@ public class BlackFormulaRepositoryTest {
           refC6, refP6, refC7, refP7, refC8, refP8 };
 
         for (int k = 0; k < 16; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 4 && k != 8 && k != 12) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -4917,7 +4723,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refC8, refP8 };
 
       for (int k = 0; k < 16; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 4 && k != 9 && k != 12 && k != 14) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -4980,7 +4785,6 @@ public class BlackFormulaRepositoryTest {
           refC6, refP6, refC7, refP7, refC8, refP8 };
 
         for (int k = 0; k < 14; ++k) {// some of ref values skipped
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 5 && k != 9) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -5042,7 +4846,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refC8, refP8 };
 
       for (int k = 0; k < 16; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 5 && k != 9 && k != 11 && k != 13) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -5073,7 +4876,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
       final double[] refVec = new double[] {refC1, refP1, 0., 0. };
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -5100,7 +4902,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
       final double[] refVec = new double[] {0., 0., 0., 0. };
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -5159,7 +4960,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exDriftlessThetaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -5176,11 +4976,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resC2 };
         final double[] refVec = new double[] {refC1, refC2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 2; ++k) {
           if (refVec[k] > 1.e10) {
@@ -5243,7 +5038,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -5304,7 +5098,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e12) {
           assertTrue(resVec[k] > 1.e9);
         } else {
@@ -5339,7 +5132,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -5496,7 +5288,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refP8 };
 
       for (int k = 0; k < 15; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if ((refVec[k] != -0.5 * vol * NORMAL.getPDF(0.)) && (refVec[k] != -0.5 * FORWARD * NORMAL.getPDF(0.)) &&
             (refVec[k] != Double.NEGATIVE_INFINITY)) {
@@ -5558,7 +5349,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refP8 };
 
       for (int k = 0; k < 15; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 12) {// ref value
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -5618,7 +5408,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exthetaModTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -5641,7 +5430,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -5679,7 +5467,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -5714,7 +5501,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -5747,7 +5533,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -5781,7 +5566,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e8);
           } else {
@@ -5827,7 +5611,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 6; ++k) {// ref values
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 6 && k != 7) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e8);
@@ -5913,7 +5696,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -5956,7 +5738,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -5998,7 +5779,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -6041,7 +5821,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 6; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -6081,7 +5860,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3 };
 
         for (int k = 0; k < 6; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 3) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -6125,7 +5903,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 6; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -6168,7 +5945,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 2 && k != 7) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -6221,7 +5997,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5,
         refC6, refP6 };
       for (int k = 0; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
         if ((refVec[k] != -0.5 * vol) && (refVec[k] != -0.5 * FORWARD) && (refVec[k] != Double.NEGATIVE_INFINITY) &&
             k != 11) {
@@ -6277,7 +6052,6 @@ public class BlackFormulaRepositoryTest {
         refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {// The last two cases return reference values
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -6339,7 +6113,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refC8, refP8 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 3 && k != 8) {
           if (k != 12 && k != 13) {// ref values are returned
             if (refVec[k] > 1.e10) {
@@ -6404,7 +6177,6 @@ public class BlackFormulaRepositoryTest {
           refC6, refP6, refC7, refP7, refC8, refP8 };
 
         for (int k = 0; k < 16; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 4 && k != 8 && k != 12) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -6466,7 +6238,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refC8, refP8 };
 
       for (int k = 0; k < 16; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 9 && k != 10) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -6529,7 +6300,6 @@ public class BlackFormulaRepositoryTest {
           refC6, refP6, refC7, refP7, refC8, refP8 };
 
         for (int k = 0; k < 14; ++k) {// some of ref values skipped
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (k != 5 && k != 9 && k != 12) {
             if (refVec[k] > 1.e10) {
               assertTrue(resVec[k] > 1.e10);
@@ -6591,7 +6361,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7, refC8, refP8 };
 
       for (int k = 0; k < 16; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 5 && k != 9 && k != 11 && k != 13 && k != 14) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -6622,7 +6391,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
       final double[] refVec = new double[] {refC1, refP1, 0., 0. };
       for (int k = 2; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -6649,7 +6417,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
       final double[] refVec = new double[] {0., 0., 0., 0. };
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -6702,7 +6469,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * 
    */
-  @Test
   public void consistencyWithBlackScholestest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -6735,7 +6501,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exVegaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -6752,11 +6517,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resC2 };
         final double[] refVec = new double[] {refC1, refC2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 2; ++k) {
           if (refVec[k] > 1.e10) {
@@ -6819,7 +6579,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -6880,7 +6639,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e12) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -6915,7 +6673,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -7070,9 +6827,7 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
-        // if (refVec[k] != forward * rootT * NORMAL.getPDF(0.);)
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -7126,7 +6881,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] != FORWARD * Math.sqrt(TIME_TO_EXPIRY) * NORMAL.getPDF(0.)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -7146,7 +6900,6 @@ public class BlackFormulaRepositoryTest {
     }
 
     for (int j = 0; j < nVols; ++j) {
-      // final double vol = VOLS[j];
       final double resC1 = BlackFormulaRepository.vega(FORWARD, 1.e-12, 1.e-24, 1.e-12);
       final double resC2 = BlackFormulaRepository.vega(FORWARD, 1.e-12, 1.e-24, 1.e12);
       final double resC3 = BlackFormulaRepository.vega(FORWARD, 1.e-12, 1.e24, 1.e-12);
@@ -7179,9 +6932,7 @@ public class BlackFormulaRepositoryTest {
         refC7, refP7 };
 
       for (int k = 0; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
 
-        // if (refVec[k] != forward * rootT * NORMAL.getPDF(0.);)
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -7235,7 +6986,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void useSimpleOptionDataVegaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -7275,7 +7025,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exVannaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -7294,7 +7043,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2 };
 
         for (int k = 0; k < 2; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -7415,7 +7163,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e12) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -7450,7 +7197,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -7607,7 +7353,6 @@ public class BlackFormulaRepositoryTest {
 
       for (int k = 0; k < 14; ++k) {
         // refC5 and refP5 are ambiguous cases
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 8 && k != 9) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
@@ -7663,7 +7408,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 2; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 8 && k != 9) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -7715,7 +7459,6 @@ public class BlackFormulaRepositoryTest {
         refC7, refP7 };
 
       for (int k = 0; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -7774,7 +7517,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exDualVannaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -7913,7 +7655,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e12) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -7948,7 +7689,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -8103,7 +7843,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 8 && k != 9) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
@@ -8159,7 +7898,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 2; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 8 && k != 9) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -8211,7 +7949,6 @@ public class BlackFormulaRepositoryTest {
         refC7, refP7 };
 
       for (int k = 0; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -8270,7 +8007,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exVommaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8409,7 +8145,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
       for (int k = 0; k < 4; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e12) {
           assertTrue(resVec[k] > 1.e12);
         } else {
@@ -8444,7 +8179,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refC2, refC3, refP3 };
 
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
           } else {
@@ -8600,7 +8334,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 12) {// ref val
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
@@ -8656,7 +8389,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 2; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (k != 8 && k != 9) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -8708,7 +8440,6 @@ public class BlackFormulaRepositoryTest {
         refC7, refP7 };
 
       for (int k = 2; k < 12; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -8766,7 +8497,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volgaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8790,7 +8520,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volRecoveryTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8810,7 +8539,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void impliedVolTest() {
 
     final double vol = 0.4342; // Deliberately picked an arbitrary vol
@@ -8823,7 +8551,6 @@ public class BlackFormulaRepositoryTest {
 
     for (int i = 0; i < 100; i++) {
       final double k = 0.004 + 0.022 * i / 100.;
-      // final double k = 0.0327;
       final double cPrice = p * BlackFormulaRepository.price(f, k, t, vol, true);
       final double pPrice = p * BlackFormulaRepository.price(f, k, t, vol, false);
 
@@ -8832,8 +8559,6 @@ public class BlackFormulaRepositoryTest {
       final boolean isCall = k > f;
       final double otmP = (isCall ? cPrice : pPrice) / p;
       iv = BlackFormulaRepository.impliedVolatility(otmP, f, k, t, isCall);
-
-      // System.out.println(k + "\t" + cPrice + "\t" + pPrice + "\t" + ivCall + "\t" + ivPut + "\t" + iv);
 
       // this is why we should compute OTM prices if an implied vol is required
       assertEquals(vol, ivCall, 5e-4);
@@ -8878,7 +8603,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volInitialGuessTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8901,7 +8625,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volRecoveryFromDataTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8934,7 +8657,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void strikeRecoveryTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8965,7 +8687,6 @@ public class BlackFormulaRepositoryTest {
   @Test(enabled = false)
   public void sampleTest() {
     final double inf = Double.POSITIVE_INFINITY;
-    // final double nan = Double.NaN;
     final double resC0 = BlackFormulaRepository.crossGamma(inf, FORWARD, 0.01, VOLS[2]);
     final double resC00 = BlackFormulaRepository.crossGamma(1.e12, FORWARD, 0.01, VOLS[2]);
     System.out.println(resC0 + "\t" + resC00);
@@ -9030,7 +8751,6 @@ public class BlackFormulaRepositoryTest {
   @Test(enabled = false)
   public void sample2Test() {
     final double inf = Double.POSITIVE_INFINITY;
-    // final double nan = Double.NaN;
     final double resC0 = BlackFormulaRepository.price(inf, FORWARD, 0.01, VOLS[2], true);
     final double resC00 = BlackFormulaRepository.price(1.e14, FORWARD, 0.01, VOLS[2], true);
     System.out.println(resC0 + "\t" + resC00);
@@ -9099,7 +8819,6 @@ public class BlackFormulaRepositoryTest {
   @Test(enabled = false)
   public void sample3Test() {
     final double inf = Double.POSITIVE_INFINITY;
-    // final double nan = Double.NaN;
     final double resC0 = BlackFormulaRepository.theta(inf, FORWARD, 0.01, VOLS[2], true, 0.05);
     final double resC00 = BlackFormulaRepository.theta(1.e14, FORWARD, 0.01, VOLS[2], true, 0.05);
     System.out.println(resC0 + "\t" + resC00);
@@ -9172,7 +8891,6 @@ public class BlackFormulaRepositoryTest {
   @Test(enabled = false)
   public void sample4Test() {
     final double inf = Double.POSITIVE_INFINITY;
-    // final double nan = Double.NaN;
     final double resC0 = BlackFormulaRepository.vomma(inf, FORWARD, 0.01, VOLS[2]);
     final double resC00 = BlackFormulaRepository.vomma(1.e14, FORWARD, 0.01, VOLS[2]);
     System.out.println(resC0 + "\t" + resC00);

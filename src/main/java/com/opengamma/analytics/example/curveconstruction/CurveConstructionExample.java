@@ -37,9 +37,8 @@ import com.opengamma.strata.basics.currency.Currency;
  * Example for curve construction.
  */
 public class CurveConstructionExample {
-// CSOFF
+  // CSOFF
 
-  // @export "matrixDemo"
   public static void matrixDemo(final PrintStream out) {
     final double[][] matrix_2 = identityMatrix(2);
     out.format("2x2 identity matrix:%n%s%n%n", Arrays.deepToString(matrix_2));
@@ -51,7 +50,6 @@ public class CurveConstructionExample {
     out.format("DoubleMatrix2D:%n%s%n%n", m.toString());
   }
 
-  // @export "matrixMultiplyDemo"
   public static void matrixMultiplyDemo(final PrintStream out) {
     final double[][] matrix_4 = identityMatrix(4);
     final DoubleMatrix2D m = new DoubleMatrix2D(matrix_4);
@@ -63,7 +61,6 @@ public class CurveConstructionExample {
     out.println(colt.multiply(m, v));
   }
 
-  // @export "polyDerivativeDemo"
   public static RealPolynomialFunction1D getFunction() {
     final double[] coefficients = {-125, 75, -15, 1 };
     return new RealPolynomialFunction1D(coefficients);
@@ -79,7 +76,6 @@ public class CurveConstructionExample {
     out.println(Arrays.toString(coefficients));
   }
 
-  // @export "rootFindingDemo"
   public static void rootFindingDemo(final PrintStream out) {
     final RealPolynomialFunction1D f = getFunction();
 
@@ -99,7 +95,6 @@ public class CurveConstructionExample {
     }
   }
 
-  // @export "annuityDerivatives"
   public static void annuityDerivativeDemo(final PrintStream out) {
     final double[] paymentTimes = {t };
     final boolean isPayer = false;
@@ -109,7 +104,6 @@ public class CurveConstructionExample {
     out.format("Present value of 1-period annuity: %f%n", presentValue);
   }
 
-  // @export "interestRateDerivatives"
   static Currency ccy = Currency.EUR;
   static double t = 1.0;
   static double r = 0.03;
@@ -132,7 +126,6 @@ public class CurveConstructionExample {
   public static void interestRateDerivativeDemo(final PrintStream out) {
     final Cash loan = new Cash(ccy, 0.0, t, notional, r, t, yieldCurveName);
 
-    // @export "interestRateDerivatives-presentValue"
     final YieldCurveBundle bundle = getBundle(y);
 
     for (double i = 1.0; i < 3.0; i += 1) {
@@ -157,7 +150,6 @@ public class CurveConstructionExample {
     assert (parRate - parRateManual) < 0.0001;
   }
 
-  // @export "yield-points"
   // factory takes interpolator, left extrapolator, right extrapolator
   static CombinedInterpolatorExtrapolator interpolator = CombinedInterpolatorExtrapolatorFactory.getInterpolator("NaturalCubicSpline", "LinearExtrapolator",
       "FlatExtrapolator");
@@ -173,8 +165,6 @@ public class CurveConstructionExample {
     final double[] marketValues = new double[nMats];
 
     for (int i = 0; i < nMats; i++) {
-      //            FixedCouponSwap swap = makeSwap(ccy, i, rates[i], curveName);
-      //            marketInstruments[i] = swap;
       marketValues[i] = 0.0; // By definition, on-market swaps have zero value.
     }
 
@@ -204,7 +194,6 @@ public class CurveConstructionExample {
     }
   }
 
-  // @export "identityMatrix"
   public static double[][] identityMatrix(final int n) {
     final double[][] matrix = new double[n][n];
     for (int i = 0; i < n; i++) {

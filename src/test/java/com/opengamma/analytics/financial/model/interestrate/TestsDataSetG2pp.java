@@ -12,12 +12,12 @@ import com.opengamma.analytics.financial.model.interestrate.definition.G2ppPiece
  */
 public class TestsDataSetG2pp {
 
-  private static final double[] MEAN_REVERSION = new double[] {0.01, 0.30};
-  private static final double[][] VOLATILITY_1 = new double[][] { {0.01, 0.011, 0.012, 0.013, 0.014}, {0.01, 0.009, 0.008, 0.007, 0.006}};
-  private static final double[][] VOLATILITY_2 = new double[][] { {0.015, 0.013, 0.012, 0.010, 0.009}, {0.012, 0.009, 0.008, 0.007, 0.006}};
-  private static final double[][] VOLATILITY_3 = new double[][] { {0.010, 0.011, 0.010, 0.010, 0.009}, {0.008, 0.009, 0.008, 0.007, 0.006}};
-  private static final double[][] VOLATILITY_CST = new double[][] { {0.01}, {0.005}};
-  private static final double[] VOLATILITY_TIME = new double[] {0.5, 1.0, 2.0, 5.0};
+  private static final double[] MEAN_REVERSION = new double[] {0.01, 0.30 };
+  private static final double[][] VOLATILITY_1 = new double[][] { {0.01, 0.011, 0.012, 0.013, 0.014 }, {0.01, 0.009, 0.008, 0.007, 0.006 } };
+  private static final double[][] VOLATILITY_2 = new double[][] { {0.015, 0.013, 0.012, 0.010, 0.009 }, {0.012, 0.009, 0.008, 0.007, 0.006 } };
+  private static final double[][] VOLATILITY_3 = new double[][] { {0.010, 0.011, 0.010, 0.010, 0.009 }, {0.008, 0.009, 0.008, 0.007, 0.006 } };
+  private static final double[][] VOLATILITY_CST = new double[][] { {0.01 }, {0.005 } };
+  private static final double[] VOLATILITY_TIME = new double[] {0.5, 1.0, 2.0, 5.0 };
   private static final double CORRELATION = -0.50;
   private static final G2ppPiecewiseConstantParameters MODEL_PARAMETERS_1 = new G2ppPiecewiseConstantParameters(MEAN_REVERSION, VOLATILITY_1, VOLATILITY_TIME, CORRELATION);
   private static final G2ppPiecewiseConstantParameters MODEL_PARAMETERS_2 = new G2ppPiecewiseConstantParameters(MEAN_REVERSION, VOLATILITY_2, VOLATILITY_TIME, CORRELATION);

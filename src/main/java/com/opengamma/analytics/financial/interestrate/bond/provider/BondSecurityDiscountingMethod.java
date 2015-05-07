@@ -371,7 +371,6 @@ public final class BondSecurityDiscountingMethod {
    */
   public double modifiedDurationFromYield(final BondFixedSecurity bond, final double yield) {
     final int nbCoupon = bond.getCoupon().getNumberOfPayments();
-    //    final double nominal = bond.getNominal().getNthPayment(bond.getNominal().getNumberOfPayments() - 1).getAmount();
     final YieldConvention yieldConvention = bond.getYieldConvention();
     if (nbCoupon == 1) {
       if (yieldConvention.equals(US_STREET) || yieldConvention.equals(GERMAN_BOND) || yieldConvention.equals(ITALY_TREASURY_BONDS)

@@ -52,11 +52,11 @@ public class STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
   private static final HolidayCalendar CALENDAR = StandardDataSetsMulticurveEUR.calendarArray()[0];
   private static final Currency EUR = EUREURIBOR3M.getCurrency();
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2014, 2, 18);
-  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR = 
+  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_PAIR =
       StandardDataSetsMulticurveEUR.getCurvesEurOisE3();
   private static final MulticurveProviderDiscount MULTICURVE = MULTICURVE_PAIR.getFirst();
   private static final CurveBuildingBlockBundle BLOCK = MULTICURVE_PAIR.getSecond();
-  final private static InterpolatedDoublesSurface BLACK_SURFACE_LOGMONEY = 
+  final private static InterpolatedDoublesSurface BLACK_SURFACE_LOGMONEY =
       StandardDataSetsBlack.blackSurfaceExpiryLogMoneyness();
   final private static BlackSTIRFuturesExpLogMoneynessProviderDiscount MULTICURVE_BLACK =
       new BlackSTIRFuturesExpLogMoneynessProviderDiscount(MULTICURVE, BLACK_SURFACE_LOGMONEY, EUREURIBOR3M);
@@ -83,30 +83,30 @@ public class STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
   private static final double TRADE_PRICE = 0.01;
 
   private static final InterestRateFutureOptionMarginTransactionDefinition CALL_ERZ4_099_TRA_1_DEFINITION =
-      new InterestRateFutureOptionMarginTransactionDefinition(CALL_ERZ4_099_SEC_DEFINITION, 
+      new InterestRateFutureOptionMarginTransactionDefinition(CALL_ERZ4_099_SEC_DEFINITION,
           QUANTITY, TRADE_DATE_1, TRADE_PRICE);
   private static final InterestRateFutureOptionMarginTransactionDefinition CALL_ERZ4_099_TRA_2_DEFINITION =
-      new InterestRateFutureOptionMarginTransactionDefinition(CALL_ERZ4_099_SEC_DEFINITION, 
+      new InterestRateFutureOptionMarginTransactionDefinition(CALL_ERZ4_099_SEC_DEFINITION,
           QUANTITY, TRADE_DATE_2, TRADE_PRICE);
   private static final InterestRateFutureOptionMarginTransactionDefinition PUT_ERZ4_099_TRA_1_DEFINITION =
-      new InterestRateFutureOptionMarginTransactionDefinition(PUT_ERZ4_099_SEC_DEFINITION, 
+      new InterestRateFutureOptionMarginTransactionDefinition(PUT_ERZ4_099_SEC_DEFINITION,
           QUANTITY, TRADE_DATE_2, TRADE_PRICE);
   private static final double REFERENCE_PRICE = 0.02;
-  private static final InterestRateFutureOptionMarginTransaction CALL_ERZ4_099_TRA_1 = 
+  private static final InterestRateFutureOptionMarginTransaction CALL_ERZ4_099_TRA_1 =
       CALL_ERZ4_099_TRA_1_DEFINITION.toDerivative(REFERENCE_DATE, REFERENCE_PRICE);
-  private static final InterestRateFutureOptionMarginTransaction CALL_ERZ4_099_TRA_2 = 
+  private static final InterestRateFutureOptionMarginTransaction CALL_ERZ4_099_TRA_2 =
       CALL_ERZ4_099_TRA_2_DEFINITION.toDerivative(REFERENCE_DATE, REFERENCE_PRICE);
-  private static final InterestRateFutureOptionMarginTransaction PUT_ERZ4_099_TRA_1 = 
+  private static final InterestRateFutureOptionMarginTransaction PUT_ERZ4_099_TRA_1 =
       PUT_ERZ4_099_TRA_1_DEFINITION.toDerivative(REFERENCE_DATE, REFERENCE_PRICE);
 
   /** Methods and calculators */
-  private static final PresentValueBlackSTIRFutureOptionCalculator PVBFOC = 
+  private static final PresentValueBlackSTIRFutureOptionCalculator PVBFOC =
       PresentValueBlackSTIRFutureOptionCalculator.getInstance();
   private static final PresentValueCurveSensitivityBlackSTIRFutureOptionCalculator PVCSBFOC =
       PresentValueCurveSensitivityBlackSTIRFutureOptionCalculator.getInstance();
-  private static final ParameterSensitivityParameterCalculator<BlackSTIRFuturesProviderInterface> PSSFC = 
+  private static final ParameterSensitivityParameterCalculator<BlackSTIRFuturesProviderInterface> PSSFC =
       new ParameterSensitivityParameterCalculator<>(PVCSBFOC);
-  private static final MarketQuoteSensitivityBlockCalculator<BlackSTIRFuturesProviderInterface> MQSBC = 
+  private static final MarketQuoteSensitivityBlockCalculator<BlackSTIRFuturesProviderInterface> MQSBC =
       new MarketQuoteSensitivityBlockCalculator<>(PSSFC);
 
   /** Tolerances */
@@ -134,17 +134,17 @@ public class STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
    * Tests bucketed PV01 with a standard set of data against hard-coded values.
    */
   public void BucketedPV01() {
-    final double[] deltaDsc = {-0.0003, -0.0003, 0.0000, 0.0000, -1.7044, -3.0201, -4.5627, 18.5730, 0.9670, 
+    final double[] deltaDsc = {-0.0003, -0.0003, 0.0000, 0.0000, -1.7044, -3.0201, -4.5627, 18.5730, 0.9670,
       0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000 };
-    final double[] deltaFwd = {2358.4356, 2438.3306, 2437.7080, -9265.1071, -897.3742, 0.0000, 0.0000, 0.0000, 
+    final double[] deltaFwd = {2358.4356, 2438.3306, 2437.7080, -9265.1071, -897.3742, 0.0000, 0.0000, 0.0000,
       0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000 };
     final LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivity = new LinkedHashMap<>();
     sensitivity.put(Pair.of(MULTICURVE.getName(EUR), EUR), new DoubleMatrix1D(deltaDsc));
     sensitivity.put(Pair.of(MULTICURVE.getName(EUREURIBOR3M), EUR), new DoubleMatrix1D(deltaFwd));
     final MultipleCurrencyParameterSensitivity pvpsExpected = new MultipleCurrencyParameterSensitivity(sensitivity);
-    final MultipleCurrencyParameterSensitivity pvpsComputed = 
+    final MultipleCurrencyParameterSensitivity pvpsComputed =
         MQSBC.fromInstrument(CALL_ERZ4_099_TRA_1, MULTICURVE_BLACK, BLOCK).multipliedBy(BP1);
-    AssertSensitivityObjects.assertEquals("STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest:" + 
+    AssertSensitivityObjects.assertEquals("STIRFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest:" +
         " bucketed delts from standard curves", pvpsExpected, pvpsComputed, TOLERANCE_PV_DELTA);
   }
 

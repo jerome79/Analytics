@@ -14,16 +14,14 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Abstract test.
  */
 @Test
 public abstract class Interpolator1DDataBundleTestCase {
   private static final double EPS = 1e-16;
-  private static final double[] KEYS1 = new double[] {5., 1., 4., 2., 3.};
-  private static final double[] VALUES1 = new double[] {50., 10., 40., 20., 30.};
+  private static final double[] KEYS1 = new double[] {5., 1., 4., 2., 3. };
+  private static final double[] VALUES1 = new double[] {50., 10., 40., 20., 30. };
   private final Interpolator1DDataBundle DATA = createDataBundle(KEYS1, VALUES1);
 
   protected abstract Interpolator1DDataBundle createDataBundle(double[] keys, double[] values);
@@ -178,7 +176,7 @@ public abstract class Interpolator1DDataBundleTestCase {
     Interpolator1DDataBundle other = createDataBundle(KEYS1, VALUES1);
     assertEquals(DATA, other);
     assertEquals(DATA.hashCode(), other.hashCode());
-    final double[] x = new double[] {KEYS1[0] + 1.456, KEYS1[1] + 1.456, KEYS1[2] + 1.456, KEYS1[3] + 1.456, KEYS1[4] + 1.456};
+    final double[] x = new double[] {KEYS1[0] + 1.456, KEYS1[1] + 1.456, KEYS1[2] + 1.456, KEYS1[3] + 1.456, KEYS1[4] + 1.456 };
     other = createDataBundle(x, VALUES1);
     assertFalse(DATA.equals(other));
     other = createDataBundle(KEYS1, x);

@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */
@@ -36,7 +35,6 @@ public class SVIPDFTest {
   private static final double F = 0.04;
   private static final double T = 2.5;
   private static final SVIFormulaData DATA = new SVIFormulaData(A, B, RHO, SIGMA, M);
-  //private static final ProbabilityDistribution<Double> SVI_DIST;
   private static final Function1D<Double, Double> SVI = new Function1D<Double, Double>() {
     final SVIVolatilityFunction svi = new SVIVolatilityFunction();
 
@@ -49,15 +47,12 @@ public class SVIPDFTest {
   };
 
   //  static {
-  //    SVI_DIST = new DistributionFromImpliedVolatility(F, T, SVI);
-  //  }
 
   @SuppressWarnings("unused")
   @Test
   public void testSABR() {
     final double[] strikes = new double[] {0.02, 0.03, 0.035, 0.0375, 0.04, 0.0425, 0.045, 0.05, 0.06 };
     final int n = strikes.length;
-    //    final double[] vols = new double[n];
     final double[] errors = new double[n];
     final BlackFunctionData[] data = new BlackFunctionData[n];
     final EuropeanVanillaOption[] options = new EuropeanVanillaOption[n];

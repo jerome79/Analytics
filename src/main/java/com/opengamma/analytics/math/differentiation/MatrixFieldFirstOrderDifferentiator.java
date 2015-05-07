@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  */

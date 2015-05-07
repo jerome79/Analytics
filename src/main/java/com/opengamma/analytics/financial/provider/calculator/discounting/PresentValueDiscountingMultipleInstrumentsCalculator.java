@@ -16,7 +16,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Calculator of the present value as a multiple currency amount using cash-flow discounting and forward estimation.
  * Allows multiple instruments to be passed in and the aggregate PV to be calculated.
  */
-public final class PresentValueDiscountingMultipleInstrumentsCalculator extends InstrumentDerivativeVisitorSameMethodAdapter<Pair<InstrumentDerivative[], MulticurveProviderInterface>, MultiCurrencyAmount> {
+public final class PresentValueDiscountingMultipleInstrumentsCalculator extends
+    InstrumentDerivativeVisitorSameMethodAdapter<Pair<InstrumentDerivative[], MulticurveProviderInterface>, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.

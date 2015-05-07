@@ -69,7 +69,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves, 
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, curves, interpolator, false);
   }

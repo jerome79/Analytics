@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test StubCalculator.
  */
@@ -25,9 +24,9 @@ public class StubCalculatorTest {
   // StubCalculator used to accept ZDT, so tests were written that way
 
   private static final ZonedDateTime[] NO_STUB1 = new ZonedDateTime[] {DateUtils.getUTCDate(2008, 1, 1), DateUtils.getUTCDate(2008, 4, 1), DateUtils.getUTCDate(2008, 7, 1),
-      DateUtils.getUTCDate(2008, 10, 1), DateUtils.getUTCDate(2009, 1, 1), DateUtils.getUTCDate(2009, 4, 1), DateUtils.getUTCDate(2009, 7, 1), DateUtils.getUTCDate(2009, 10, 1),
-      DateUtils.getUTCDate(2010, 1, 1), DateUtils.getUTCDate(2010, 4, 1), DateUtils.getUTCDate(2010, 7, 1), DateUtils.getUTCDate(2010, 10, 1), DateUtils.getUTCDate(2011, 1, 1),
-      DateUtils.getUTCDate(2011, 4, 1), DateUtils.getUTCDate(2011, 7, 1), DateUtils.getUTCDate(2011, 10, 1)};
+    DateUtils.getUTCDate(2008, 10, 1), DateUtils.getUTCDate(2009, 1, 1), DateUtils.getUTCDate(2009, 4, 1), DateUtils.getUTCDate(2009, 7, 1), DateUtils.getUTCDate(2009, 10, 1),
+    DateUtils.getUTCDate(2010, 1, 1), DateUtils.getUTCDate(2010, 4, 1), DateUtils.getUTCDate(2010, 7, 1), DateUtils.getUTCDate(2010, 10, 1), DateUtils.getUTCDate(2011, 1, 1),
+    DateUtils.getUTCDate(2011, 4, 1), DateUtils.getUTCDate(2011, 7, 1), DateUtils.getUTCDate(2011, 10, 1) };
   private static final ZonedDateTime[] SHORT_START_STUB1;
   private static final ZonedDateTime[] LONG_START_STUB1;
   private static final ZonedDateTime[] SHORT_END_STUB1;
@@ -38,9 +37,9 @@ public class StubCalculatorTest {
   private static final LocalDate[] SHORT_END_STUB2;
   private static final LocalDate[] LONG_END_STUB2;
   private static final ZonedDateTime[] NO_STUB3 = new ZonedDateTime[] {DateUtils.getUTCDate(2008, 1, 31), DateUtils.getUTCDate(2008, 4, 30), DateUtils.getUTCDate(2008, 7, 31),
-      DateUtils.getUTCDate(2008, 10, 31), DateUtils.getUTCDate(2009, 1, 31), DateUtils.getUTCDate(2009, 4, 30), DateUtils.getUTCDate(2009, 7, 31), DateUtils.getUTCDate(2009, 10, 31),
-      DateUtils.getUTCDate(2010, 1, 31), DateUtils.getUTCDate(2010, 4, 30), DateUtils.getUTCDate(2010, 7, 31), DateUtils.getUTCDate(2010, 10, 31), DateUtils.getUTCDate(2011, 1, 31),
-      DateUtils.getUTCDate(2011, 4, 30), DateUtils.getUTCDate(2011, 7, 31), DateUtils.getUTCDate(2011, 10, 31)};
+    DateUtils.getUTCDate(2008, 10, 31), DateUtils.getUTCDate(2009, 1, 31), DateUtils.getUTCDate(2009, 4, 30), DateUtils.getUTCDate(2009, 7, 31), DateUtils.getUTCDate(2009, 10, 31),
+    DateUtils.getUTCDate(2010, 1, 31), DateUtils.getUTCDate(2010, 4, 30), DateUtils.getUTCDate(2010, 7, 31), DateUtils.getUTCDate(2010, 10, 31), DateUtils.getUTCDate(2011, 1, 31),
+    DateUtils.getUTCDate(2011, 4, 30), DateUtils.getUTCDate(2011, 7, 31), DateUtils.getUTCDate(2011, 10, 31) };
   private static final ZonedDateTime[] SHORT_START_STUB3;
   private static final ZonedDateTime[] LONG_START_STUB3;
   private static final ZonedDateTime[] SHORT_END_STUB3;
@@ -105,12 +104,12 @@ public class StubCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullInSchedule1() {
-    StubCalculator.getStartStubType(new LocalDate[] {null, null}, 1);
+    StubCalculator.getStartStubType(new LocalDate[] {null, null }, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullInSchedule3() {
-    StubCalculator.getEndStubType(new LocalDate[] {null, null}, 1);
+    StubCalculator.getEndStubType(new LocalDate[] {null, null }, 1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

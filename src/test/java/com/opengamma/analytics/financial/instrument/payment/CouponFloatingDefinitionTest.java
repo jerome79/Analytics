@@ -21,7 +21,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

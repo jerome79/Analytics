@@ -86,8 +86,8 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * Calculator of the present value as a multiple currency amount using cash-flow discounting and forward estimation.
  */
-public final class PresentValueDiscountingCalculator extends 
-  InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MultiCurrencyAmount> {
+public final class PresentValueDiscountingCalculator extends
+    InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.
@@ -115,51 +115,51 @@ public final class PresentValueDiscountingCalculator extends
   private static final PaymentFixedDiscountingMethod METHOD_PAY_FIXED = PaymentFixedDiscountingMethod.getInstance();
   private static final DepositIborDiscountingMethod METHOD_DEPOSIT_IBOR = DepositIborDiscountingMethod.getInstance();
   private static final CouponFixedDiscountingMethod METHOD_CPN_FIXED = CouponFixedDiscountingMethod.getInstance();
-  private static final CouponFixedCompoundingDiscountingMethod METHOD_CPN_FIXED_COMPOUNDING = 
+  private static final CouponFixedCompoundingDiscountingMethod METHOD_CPN_FIXED_COMPOUNDING =
       CouponFixedCompoundingDiscountingMethod.getInstance();
-  private static final CouponFixedFxResetDiscountingMethod METHOD_CPN_FIXED_FXRESET = 
+  private static final CouponFixedFxResetDiscountingMethod METHOD_CPN_FIXED_FXRESET =
       CouponFixedFxResetDiscountingMethod.getInstance();
   private static final CouponIborFxResetDiscountingMethod METHOD_CPN_IBOR_FXRESET =
       CouponIborFxResetDiscountingMethod.getInstance();
   private static final CouponIborDiscountingMethod METHOD_CPN_IBOR = CouponIborDiscountingMethod.getInstance();
-  private static final CouponIborAverageDiscountingMethod METHOD_CPN_IBOR_AVERAGE = 
+  private static final CouponIborAverageDiscountingMethod METHOD_CPN_IBOR_AVERAGE =
       CouponIborAverageDiscountingMethod.getInstance();
-  private static final CouponIborSpreadDiscountingMethod METHOD_CPN_IBOR_SPREAD = 
+  private static final CouponIborSpreadDiscountingMethod METHOD_CPN_IBOR_SPREAD =
       CouponIborSpreadDiscountingMethod.getInstance();
-  private static final CouponIborGearingDiscountingMethod METHOD_CPN_IBOR_GEARING = 
+  private static final CouponIborGearingDiscountingMethod METHOD_CPN_IBOR_GEARING =
       CouponIborGearingDiscountingMethod.getInstance();
-  private static final CouponIborCompoundingDiscountingMethod METHOD_CPN_IBOR_COMP = 
+  private static final CouponIborCompoundingDiscountingMethod METHOD_CPN_IBOR_COMP =
       CouponIborCompoundingDiscountingMethod.getInstance();
-  private static final CouponIborCompoundingSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_SPREAD = 
+  private static final CouponIborCompoundingSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_SPREAD =
       CouponIborCompoundingSpreadDiscountingMethod.getInstance();
-  private static final CouponIborCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_FLAT_SPREAD = 
+  private static final CouponIborCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_FLAT_SPREAD =
       CouponIborCompoundingFlatSpreadDiscountingMethod.getInstance();
-  private static final CouponIborCompoundingSimpleSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_SIMPLE_SPREAD = 
+  private static final CouponIborCompoundingSimpleSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_SIMPLE_SPREAD =
       CouponIborCompoundingSimpleSpreadDiscountingMethod.getInstance();
   private static final CouponONDiscountingMethod METHOD_CPN_ON = CouponONDiscountingMethod.getInstance();
-  private static final CouponONSpreadDiscountingMethod METHOD_CPN_ON_SPREAD = 
+  private static final CouponONSpreadDiscountingMethod METHOD_CPN_ON_SPREAD =
       CouponONSpreadDiscountingMethod.getInstance();
-  private static final CouponONArithmeticAverageDiscountingApproxMethod METHOD_CPN_AAON = 
+  private static final CouponONArithmeticAverageDiscountingApproxMethod METHOD_CPN_AAON =
       CouponONArithmeticAverageDiscountingApproxMethod.getInstance();
-  private static final CouponONArithmeticAverageSpreadDiscountingApproxMethod METHOD_CPN_AAON_SPREAD = 
+  private static final CouponONArithmeticAverageSpreadDiscountingApproxMethod METHOD_CPN_AAON_SPREAD =
       CouponONArithmeticAverageSpreadDiscountingApproxMethod.getInstance();
   private static final CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMethod METHOD_CPN_ONAA_SPREADSIMPL =
       CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMethod.getInstance();
   private static final ForwardRateAgreementDiscountingMethod METHOD_FRA = ForwardRateAgreementDiscountingMethod.getInstance();
   private static final ForexDiscountingMethod METHOD_FOREX = ForexDiscountingMethod.getInstance();
   private static final ForexSwapDiscountingMethod METHOD_FOREX_SWAP = ForexSwapDiscountingMethod.getInstance();
-  private static final ForexNonDeliverableForwardDiscountingMethod METHOD_FOREX_NDF = 
+  private static final ForexNonDeliverableForwardDiscountingMethod METHOD_FOREX_NDF =
       ForexNonDeliverableForwardDiscountingMethod.getInstance();
   private static final FuturesTransactionMulticurveMethod METHOD_FUT = new FuturesTransactionMulticurveMethod();
-  private static final CouponFixedAccruedCompoundingDiscountingMethod METHOD_CPN_FIXED_ACCRUED_COMPOUNDING = 
+  private static final CouponFixedAccruedCompoundingDiscountingMethod METHOD_CPN_FIXED_ACCRUED_COMPOUNDING =
       CouponFixedAccruedCompoundingDiscountingMethod.getInstance();
-  private static final CouponONCompoundedDiscountingMethod METHOD_CPN_ON_COMPOUNDING = 
+  private static final CouponONCompoundedDiscountingMethod METHOD_CPN_ON_COMPOUNDING =
       CouponONCompoundedDiscountingMethod.getInstance();
-  private static final InterpolatedStubPresentValueDiscountingCalculator METHOD_CPN_INTERP_STUB = 
+  private static final InterpolatedStubPresentValueDiscountingCalculator METHOD_CPN_INTERP_STUB =
       InterpolatedStubPresentValueDiscountingCalculator.getInstance();
-  private static final CouponIborAverageFixingDatesDiscountingMethod METHOD_CPN_IBOR_AVERAGE_FIXING_DATES = 
+  private static final CouponIborAverageFixingDatesDiscountingMethod METHOD_CPN_IBOR_AVERAGE_FIXING_DATES =
       CouponIborAverageFixingDatesDiscountingMethod.getInstance();
-  private static final CouponIborAverageFixingDatesCompoundingDiscountingMethod METHOD_CPN_IBOR_AVERAGE_CMP = 
+  private static final CouponIborAverageFixingDatesCompoundingDiscountingMethod METHOD_CPN_IBOR_AVERAGE_CMP =
       CouponIborAverageFixingDatesCompoundingDiscountingMethod.getInstance();
   private static final CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_FLAT_CMP_SPREAD =
       CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethod.getInstance();

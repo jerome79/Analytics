@@ -23,13 +23,13 @@ import com.opengamma.analytics.financial.provider.sensitivity.inflation.Inflatio
  * transaction version of instruments like bonds and bills, as the purchase price
  * information is necessary to calculate a meaningful par spread.
  */
-public final class ParSpreadInflationMarketQuoteCurveSensitivityIssuerDiscountingCalculator 
-  extends InstrumentDerivativeVisitorDelegate<ParameterInflationIssuerProviderInterface, InflationSensitivity> {
+public final class ParSpreadInflationMarketQuoteCurveSensitivityIssuerDiscountingCalculator
+    extends InstrumentDerivativeVisitorDelegate<ParameterInflationIssuerProviderInterface, InflationSensitivity> {
 
   /**
    * The unique instance of the calculator.
    */
-  private static final ParSpreadInflationMarketQuoteCurveSensitivityIssuerDiscountingCalculator INSTANCE = 
+  private static final ParSpreadInflationMarketQuoteCurveSensitivityIssuerDiscountingCalculator INSTANCE =
       new ParSpreadInflationMarketQuoteCurveSensitivityIssuerDiscountingCalculator();
 
   /**

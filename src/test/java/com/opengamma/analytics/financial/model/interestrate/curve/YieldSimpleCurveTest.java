@@ -15,7 +15,6 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 
-
 /**
  * Test {@link YieldSimpleCurve}
  */
@@ -24,9 +23,9 @@ public class YieldSimpleCurveTest {
 
   private static final Interpolator1D INTERPOLATOR_LINEAR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(
       Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final double[] TIME = new double[] {1.0, 2.0, 2.5, 3};
+  private static final double[] TIME = new double[] {1.0, 2.0, 2.5, 3 };
   private static final int NB_TIME = TIME.length;
-  private static final double[] YIELD = new double[] {0.01, 0.02, 0.02, 0.01};
+  private static final double[] YIELD = new double[] {0.01, 0.02, 0.02, 0.01 };
   private static final InterpolatedDoublesCurve RATE = InterpolatedDoublesCurve.from(TIME, YIELD, INTERPOLATOR_LINEAR);
   private static final String NAME = "SimpleRate";
   private static final YieldAndDiscountCurve CURVE = new YieldSimpleCurve(NAME, RATE);
@@ -38,12 +37,11 @@ public class YieldSimpleCurveTest {
   private static final double TOLERANCE_RATE = 1.0E-10;
   private static final double TOLERANCE_SENSI = 1.0E-8;
 
-
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void curve() {
     new YieldSimpleCurve(NAME, null);
   }
-  
+
   @Test
   public void discountFactor() {
     for (int loopt = 0; loopt < NB_TEST; loopt++) {
@@ -64,9 +62,9 @@ public class YieldSimpleCurveTest {
 
   @Test
   public void numberParameters() {
-    assertEquals("YieldSimpleCurve: parameters", CURVE.getNumberOfParameters(), RATE.size());    
+    assertEquals("YieldSimpleCurve: parameters", CURVE.getNumberOfParameters(), RATE.size());
   }
-  
+
   @Test
   public void interestRateParameterSensitivity() {
     double shift = 1.0E-6;
@@ -89,7 +87,7 @@ public class YieldSimpleCurveTest {
       }
     }
   }
-    
+
   @Test
   public void interestRateParameterSensitivityCst() {
     double shift = 1.0E-6;
@@ -102,7 +100,7 @@ public class YieldSimpleCurveTest {
       double rccMinus = curveMinus.getInterestRate(TIME_TEST[looptest]);
       double sensiFD = (rccPlus - rccMinus) / (2 * shift);
       assertEquals("YieldSimpleCurve: ParameterSensitivity", sensiFD, sensiComputed[0], TOLERANCE_SENSI);
-    }    
+    }
   }
-  
+
 }

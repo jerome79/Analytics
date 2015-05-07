@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.payment;
 
-
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
@@ -84,7 +83,7 @@ public class CouponIborGearingDefinition extends CouponFloatingDefinition {
     _spreadAmount = spread * getNotional() * getPaymentYearFraction();
     _factor = factor;
   }
-  
+
   public CouponIborGearingDefinition(
       Currency currency,
       ZonedDateTime paymentDate,

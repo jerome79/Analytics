@@ -42,7 +42,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Test related to the pricing and sensitivity of the Ibor cap/floor with the Black model.
  */

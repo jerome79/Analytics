@@ -215,7 +215,6 @@ public final class EquityVarianceSwapPricer {
     final int index = swap.correctForDividends() ? 0 : 1;
     final double t = swap.getTimeToSettlement();
 
-    //up - here we assume that the local vol surface is invariant to a change of spot and form a new pure local vol surface corresponding to the bumped spot
     final double sUp = spot * (1 + eps);
     final EquityDividendsCurvesBundle divCurvesUp = new EquityDividendsCurvesBundle(sUp, discountCurve, dividends);
     final PureLocalVolatilitySurface plvUp = VolatilitySurfaceConverter.convertLocalVolSurface(lv, divCurvesUp);
@@ -257,7 +256,6 @@ public final class EquityVarianceSwapPricer {
     final double t = swap.getTimeToSettlement();
 
     final double mid = VAR_SWAP_FWD_PDE_CALCULATOR.expectedVariance(spot, discountCurve, dividends, t, plv)[index];
-    //up - here we assume that the local vol surface is invariant to a change of spot and form a new pure local vol surface corresponding to the bumped spot
     final double sUp = spot * (1 + eps);
     final EquityDividendsCurvesBundle divCurvesUp = new EquityDividendsCurvesBundle(sUp, discountCurve, dividends);
     final PureLocalVolatilitySurface plvUp = VolatilitySurfaceConverter.convertLocalVolSurface(lv, divCurvesUp);

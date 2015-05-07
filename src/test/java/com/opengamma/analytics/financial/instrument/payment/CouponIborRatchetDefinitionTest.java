@@ -27,8 +27,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Tests the CouponIborRatchetDefinition constructor and toDerivatives.
  */
@@ -108,11 +106,13 @@ public class CouponIborRatchetDefinitionTest {
     assertEquals("Ratchet Ibor Coupon: equal/hash", RATCHET_IBOR_DEFINITION, other);
     assertEquals("Ratchet Ibor Coupon: equal/hash", RATCHET_IBOR_DEFINITION.hashCode(), other.hashCode());
     CouponIborRatchetDefinition modified;
-    modified = new CouponIborRatchetDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX_IBOR, new double[3], FLOOR_COEF, CAP_COEF, CALENDAR);
+    modified = new CouponIborRatchetDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX_IBOR, new double[3], FLOOR_COEF, CAP_COEF,
+        CALENDAR);
     assertFalse("Ratchet Ibor Coupon: equal/hash", RATCHET_IBOR_DEFINITION.equals(modified));
     modified = new CouponIborRatchetDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX_IBOR, MAIN_COEF, new double[3], CAP_COEF, CALENDAR);
     assertFalse("Ratchet Ibor Coupon: equal/hash", RATCHET_IBOR_DEFINITION.equals(modified));
-    modified = new CouponIborRatchetDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX_IBOR, MAIN_COEF, FLOOR_COEF, new double[3], CALENDAR);
+    modified = new CouponIborRatchetDefinition(CUR, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX_IBOR, MAIN_COEF, FLOOR_COEF, new double[3],
+        CALENDAR);
     assertFalse("Ratchet Ibor Coupon: equal/hash", RATCHET_IBOR_DEFINITION.equals(modified));
   }
 

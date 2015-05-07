@@ -18,7 +18,6 @@ import com.opengamma.analytics.financial.forex.definition.ForexOptionVanillaDefi
 import com.opengamma.analytics.financial.forex.definition.ForexSwapDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitorAdapter;
 
-
 /**
  * Tests the visitor of Forex definitions.
  */

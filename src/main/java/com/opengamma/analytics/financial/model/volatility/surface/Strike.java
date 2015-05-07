@@ -24,7 +24,6 @@ public class Strike implements StrikeType {
     return _value;
   }
 
-
   @Override
   public Strike with(double value) {
     return new Strike(value);

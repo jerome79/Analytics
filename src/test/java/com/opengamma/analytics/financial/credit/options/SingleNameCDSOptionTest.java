@@ -34,6 +34,7 @@ import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository
  * However the test below show that BBG is using some other model. It is likely  the BBG is using its own proprietary model which would be impossible to replicate 
  * without more details.  
  */
+@Test
 public class SingleNameCDSOptionTest extends ISDABaseTest {
   private static final double NOTIONAL = 1e7;
   private static final LocalDate TRADE_DATE = LocalDate.of(2014, 2, 5);
@@ -56,7 +57,6 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
   private static final CDSAnalyticFactory FACTORY = new CDSAnalyticFactory();
   private static final CDSAnalytic SPOT_CDS = FACTORY.makeIMMCDS(TRADE_DATE, TENOR);
   private static final CDSAnalytic[] PILLAR_CDS = FACTORY.makeIMMCDS(TRADE_DATE, PILLAR_TENORS);
-  // private static final CDSAnalytic[] PILLAR_CDS = FACTORY.makeCDS(EXPIRY, EXPIRY.plusDays(1), getIMMDateSet(getNextIMMDate(TRADE_DATE), PILLAR_TENORS));
 
   private static ISDACompliantYieldCurve YIELD_CURVE = ISDA_USD_20140205;
 
@@ -80,7 +80,6 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void upfrontModelTest() {
     final double puf = CONVERTER.quotedSpreadToPUF(SPOT_CDS, COUPON, YIELD_CURVE, TRADE_SPREAD);
     assertEquals(3.45676772, puf * ONE_HUNDRED, 1e-8);
@@ -92,7 +91,6 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
   /**
    * BBG treats the pillar spreads (which are quoted spreads) as par spreads to build the credit curve   
    */
-  @Test
   public void isdaFairValueTest() {
     final ISDACompliantCreditCurve cc = CREDIT_CURVE_BUILDER.calibrateCreditCurve(PILLAR_CDS, PILLAR_PAR_SPREADS, YIELD_CURVE);
     final double puf = PRICER.pv(SPOT_CDS, YIELD_CURVE, cc, COUPON);
@@ -106,7 +104,6 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
     assertEquals(4607.92895, cs01, 2e-1); //0.2 out on notional of 10MM
   }
 
-  @Test
   public void forwardPriceTest() {
 
     final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
@@ -161,9 +158,7 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
     for (int i = 0; i < n; i++) {
       final double p = NOTIONAL * EXP_FWD_ANNUITY * BlackFormulaRepository.price(FWD_SPREAD, STRIKES[i] * ONE_BP, tEAlt, vol, true);
       final double impVol = BlackFormulaRepository.impliedVolatility(MTM[i] / NOTIONAL / EXP_FWD_ANNUITY, FWD_SPREAD, STRIKES[i] * ONE_BP, tEAlt, true);
-      // final double impVol2 = BlackFormulaRepository.impliedVolatility(p / NOTIONAL / EXP_FWD_ANNUITY, FWD_SPREAD, STRIKES[i] * ONE_BP, tEAlt, true);
       System.out.println(STRIKES[i] + "\t" + p + "\t" + impVol + "\t" + (p / MTM[i]));
-      // assertEquals(vol, impVol, 2e-2);
     }
 
   }
@@ -171,7 +166,6 @@ public class SingleNameCDSOptionTest extends ISDABaseTest {
   /**
    * In this test we used our own calculations for the forward and annuity in the Black formula. The same comments as above apply 
    */
-  @Test
   public void blackOptionTest2() {
     final double tEAlt = ACT_ACT_ISDA.yearFraction(TRADE_DATE, EXPIRY);
     //The CDS 'seen' at expiry 

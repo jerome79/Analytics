@@ -34,7 +34,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests for the methods related to interest rate securities pricing with Hull-White model convexity adjustment.
  */
@@ -123,16 +122,5 @@ public class InterestRateFutureTransactionHullWhiteMethodTest {
     final MultipleCurrencyParameterSensitivity pvpsDepositFD = PSHWC_FD.calculateSensitivity(ERU2_TRA, HW_MULTICURVES);
     AssertSensitivityObjects.assertEquals("CashDiscountingProviderMethod: presentValueCurveSensitivity ", pvpsDepositExact, pvpsDepositFD, TOLERANCE_PV_DELTA);
   }
-
-  //  @Test
-  //  /**
-  //   * Compare the price with a price without convexity adjustment.
-  //   */
-  //  public void comparisonDiscounting() {
-  //    final InterestRateFutureDiscountingMethod methodDiscounting = InterestRateFutureDiscountingMethod.getInstance();
-  //    final double priceDiscounting = methodDiscounting.price(ERU2, BUNDLE_HW);
-  //    final double priceHullWhite = METHOD.price(ERU2, BUNDLE_HW);
-  //    assertTrue("Future price comparison with no convexity adjustment", priceDiscounting > priceHullWhite);
-  //  }
 
 }

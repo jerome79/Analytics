@@ -22,7 +22,6 @@ import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
 
-
 /**
  * Test.
  */
@@ -97,7 +96,6 @@ public class SumToOneTest {
 
     DoubleMatrix1D sigma = new DoubleMatrix1D(n, 1e-4);
     DoubleMatrix1D start = new DoubleMatrix1D(n - 1, 0.8);
-    //  DoubleMatrix1D maxJump = new DoubleMatrix1D(n - 1, Math.PI / 20);
 
     LeastSquareResults res = SOLVER.solve(new DoubleMatrix1D(w), sigma, func, start/*, maxJump*/);
     assertEquals("chi sqr", 0.0, res.getChiSq(), 1e-9);
@@ -142,7 +140,6 @@ public class SumToOneTest {
 
     DoubleMatrix1D sigma = new DoubleMatrix1D(n, 1e-4);
     DoubleMatrix1D start = new DoubleMatrix1D(0.0, 0.8);
-    //  DoubleMatrix1D maxJump = new DoubleMatrix1D(1.0, Math.PI / 20);
 
     LeastSquareResults res = SOLVER.solve(new DoubleMatrix1D(w), sigma, func, start/*, maxJump*/);
     assertEquals("chi sqr", 0.0, res.getChiSq(), 1e-9);

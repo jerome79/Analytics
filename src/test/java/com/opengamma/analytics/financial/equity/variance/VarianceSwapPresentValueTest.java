@@ -42,7 +42,6 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.timeseries.LocalDateDoublePoint;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
-
 /**
  * Test.
  */
@@ -72,7 +71,6 @@ public class VarianceSwapPresentValueTest {
   private static final double SPOT = 80;
   private static final double DRIFT = 0.05;
   private static final ForwardCurve FORWARD_CURVE = new ForwardCurve(SPOT, DRIFT);
-  // private static final double FORWARD = 100;
 
   // The pricing method
   private static final VarianceSwapStaticReplication PRICER = new VarianceSwapStaticReplication();
@@ -97,9 +95,7 @@ public class VarianceSwapPresentValueTest {
   private static final double varNotional = 10000; // A notional of 10000 means PV is in bp
   private static final double now = 0;
   private static final double expiry1 = 1;
-  // private static final double expiry2 = 2;
   private static final double expiry5 = 5;
-  // private static final double expiry10 = 10;
   private static final int nObsExpected = 750;
   private static final int noObsDisrupted = 0;
   private static final double annualization = 252;
@@ -117,9 +113,8 @@ public class VarianceSwapPresentValueTest {
 
   // Tests ------------------------------------------
 
-  private static double TOLERATED = 1.0E-9;
+  private static double TOLERANCE = 1.0E-9;
 
-  @Test
   /**
    * Compare presentValue with impliedVariance, ensuring that spot starting varianceSwaps equal that coming only from implied part <p>
    * Ensure we handle the one underlying observation correctly. i.e. no *returns* yet
@@ -130,10 +125,9 @@ public class VarianceSwapPresentValueTest {
     final double pv = PRICER.presentValue(swapStartsNow, MARKET);
     final double variance = PRICER.expectedVariance(swapStartsNow, MARKET);
     final double pvOfHedge = swapStartsNow.getVarNotional() * (variance - swapStartsNow.getVarStrike()) * MARKET.getDiscountCurve().getDiscountFactor(expiry5);
-    assertEquals(pv, pvOfHedge, TOLERATED);
+    assertEquals(pv, pvOfHedge, TOLERANCE);
   }
 
-  @Test
   /**
    * Variance is additive, hence a forward starting VarianceSwap may be decomposed into the difference of two spot starting ones.
    */
@@ -154,16 +148,14 @@ public class VarianceSwapPresentValueTest {
 
     final double pvDiffOfTwoSpotStarts = (5.0 * pvSpot5 - 1.0 * pvSpot1) / 4.0;
 
-    assertEquals(pvFowardStart, pvDiffOfTwoSpotStarts, TOLERATED);
+    assertEquals(pvFowardStart, pvDiffOfTwoSpotStarts, TOLERANCE);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void onFirstObsWithoutObs() {
-
-    final VarianceSwap swapOnFirstObsWithoutObs = new VarianceSwap(now, expiry5, expiry5, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations,
+    VarianceSwap swapOnFirstObsWithoutObs = new VarianceSwap(now, expiry5, expiry5, varStrike, varNotional, Currency.EUR, annualization, nObsExpected, noObsDisrupted, noObservations,
         noObsWeights);
-    @SuppressWarnings("unused")
-    final double pv = PRICER.presentValue(swapOnFirstObsWithoutObs, MARKET);
+    PRICER.presentValue(swapOnFirstObsWithoutObs, MARKET);
   }
 
   final static double volAnnual = 0.28;
@@ -178,7 +170,7 @@ public class VarianceSwapPresentValueTest {
 
   static {
     for (int i = 0; i < nObs; i++) {
-      obs[i] = Math.exp(NORMAL.nextRandom()*stdDevDaily);
+      obs[i] = Math.exp(NORMAL.nextRandom() * stdDevDaily);
       if (i > 0) {
         avgReturn += Math.log(obs[i] / obs[i - 1]);
         avgSquareReturn += Math.pow(Math.log(obs[i] / obs[i - 1]), 2);
@@ -188,9 +180,6 @@ public class VarianceSwapPresentValueTest {
     avgSquareReturn /= (nObs - 1);
   }
 
-
-
-  @Test
   /**
    * After lastObs but before settlement date, presentValue == RealizedVar
    */
@@ -200,17 +189,16 @@ public class VarianceSwapPresentValueTest {
     final double pv = PRICER.presentValue(swapPaysTomorrow, MARKET);
     final double variance = new RealizedVariance().evaluate(swapPaysTomorrow);
     final double pvOfHedge = swapStartsNow.getVarNotional() * (variance - swapStartsNow.getVarStrike()) * MARKET.getDiscountCurve().getDiscountFactor(tPlusOne);
-    assertEquals(pvOfHedge, pv, TOLERATED);
+    assertEquals(pvOfHedge, pv, TOLERANCE);
   }
 
-  @Test
   /**
    * After settlement, presentValue == 0.0
    */
   public void swapAfterSettlement() {
     final VarianceSwap swapEnded = new VarianceSwap(-1.0, -1.0 / 365, -1.0 / 365, varStrike, varNotional, Currency.EUR, annualization, nObs, 0, obs, obsWeight);
     final double pv = PRICER.presentValue(swapEnded, MARKET);
-    assertEquals(0.0, pv, TOLERATED);
+    assertEquals(0.0, pv, TOLERANCE);
   }
 
   /**
@@ -218,7 +206,6 @@ public class VarianceSwapPresentValueTest {
    * derived from a volatility surface which is flat at 30% - hence we should recover (up to some numerical tolerance)
    * 0.3^2 for the expected variance.
    */
-  @Test
   public void flatVolPrice() {
     VarianceSwapDefinition def = new VarianceSwapDefinition(s_ObsStartTime, s_ObsEndTime, s_SettlementTime, s_Ccy, s_Calendar, s_AnnualizationFactor, s_VolStrike, s_VolNotional);
     ZonedDateTime valueDate = ZonedDateTime.of(2013, 7, 25, 12, 0, 0, 0, UTC); // before first observation
@@ -235,7 +222,6 @@ public class VarianceSwapPresentValueTest {
     // Don't include the valueDate in the observations
     int observationDays = BusinessDayDateUtils.getDaysBetween(s_ObsStartTime, valueDate, s_Calendar);
 
-    System.out.println("\nObsevations added: " + observationDays);
     LocalDate[] dates = new LocalDate[observationDays];
     double[] prices = new double[observationDays];
     double[] logPrices = new double[observationDays];

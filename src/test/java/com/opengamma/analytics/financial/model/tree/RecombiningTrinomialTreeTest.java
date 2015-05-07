@@ -9,13 +9,12 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
 @Test
 public class RecombiningTrinomialTreeTest {
-  private static final Double[][] DATA = new Double[][] {new Double[] {1.}, new Double[] {2., 3., 4.}, new Double[] {5., 6., 7., 8., 9.}, new Double[] {10., 11., 12., 13., 14., 15., 16.}};
+  private static final Double[][] DATA = new Double[][] {new Double[] {1. }, new Double[] {2., 3., 4. }, new Double[] {5., 6., 7., 8., 9. }, new Double[] {10., 11., 12., 13., 14., 15., 16. } };
   private static final RecombiningTrinomialTree<Double> TREE = new RecombiningTrinomialTree<>(DATA);
 
   @Test

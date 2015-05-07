@@ -27,7 +27,7 @@ public final class OvernightInterpolatedStubCoupon extends InterpolatedStubCoupo
     // TODO Auto-generated method stub
     return null;
   }
-  
+
   @Override
   public <S> S accept(InterpolatedStubCouponVisitor<S> visitor) {
     return null;

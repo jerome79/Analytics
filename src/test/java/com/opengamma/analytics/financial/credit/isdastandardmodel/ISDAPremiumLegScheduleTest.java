@@ -25,7 +25,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -52,7 +51,6 @@ public class ISDAPremiumLegScheduleTest {
   /**
    * short front stub and end on a weekend at EoM 
    */
-  @Test
   public void scheduleTest1() {
     final LocalDate[] accStart = new LocalDate[] {LocalDate.of(2012, 6, 7), LocalDate.of(2012, 8, 29), LocalDate.of(2012, 11, 29), LocalDate.of(2013, 2, 28), LocalDate.of(2013, 5, 29),
       LocalDate.of(2013, 8, 29), LocalDate.of(2013, 11, 29), LocalDate.of(2014, 2, 28), LocalDate.of(2014, 5, 29), LocalDate.of(2014, 8, 29), LocalDate.of(2014, 12, 1), LocalDate.of(2015, 3, 2),
@@ -87,7 +85,6 @@ public class ISDAPremiumLegScheduleTest {
   /**
    * Long front stub, start on weekend and end on IMM date 
    */
-  @Test
   public void scheduleTest2() {
     final LocalDate[] accStart = new LocalDate[] {LocalDate.of(2012, 6, 30), LocalDate.of(2012, 12, 20), LocalDate.of(2013, 3, 20), LocalDate.of(2013, 6, 20), LocalDate.of(2013, 9, 20) };
     final LocalDate[] accEnd = new LocalDate[] {LocalDate.of(2012, 12, 20), LocalDate.of(2013, 3, 20), LocalDate.of(2013, 6, 20), LocalDate.of(2013, 9, 20), LocalDate.of(2013, 12, 21) };
@@ -115,7 +112,6 @@ public class ISDAPremiumLegScheduleTest {
   /**
    * short back stub, start and end on IMM date 
    */
-  @Test
   public void scheduleTest3() {
     final LocalDate[] accStart = new LocalDate[] {LocalDate.of(2012, 6, 20), LocalDate.of(2012, 9, 20), LocalDate.of(2012, 12, 20), LocalDate.of(2013, 3, 20), LocalDate.of(2013, 6, 20) };
     final LocalDate[] accEnd = new LocalDate[] {LocalDate.of(2012, 9, 20), LocalDate.of(2012, 12, 20), LocalDate.of(2013, 3, 20), LocalDate.of(2013, 6, 20), LocalDate.of(2013, 9, 21) };
@@ -143,7 +139,6 @@ public class ISDAPremiumLegScheduleTest {
   /**
    * long back stub, start and end NOT on IMM date 
    */
-  @Test
   public void scheduleTest4() {
     final LocalDate[] accStart = new LocalDate[] {LocalDate.of(2012, 5, 10), LocalDate.of(2012, 8, 10), LocalDate.of(2012, 11, 12), LocalDate.of(2013, 2, 11), LocalDate.of(2013, 5, 10) };
     final LocalDate[] accEnd = new LocalDate[] {LocalDate.of(2012, 8, 10), LocalDate.of(2012, 11, 12), LocalDate.of(2013, 2, 11), LocalDate.of(2013, 5, 10), LocalDate.of(2013, 10, 21) };

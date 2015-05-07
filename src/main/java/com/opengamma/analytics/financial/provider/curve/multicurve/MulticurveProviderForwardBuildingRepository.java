@@ -32,7 +32,6 @@ import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Functions to build curves.
  */

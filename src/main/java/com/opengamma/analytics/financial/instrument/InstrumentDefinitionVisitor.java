@@ -1454,7 +1454,6 @@ public interface InstrumentDefinitionVisitor<DATA_TYPE, RESULT_TYPE> {
    */
   RESULT_TYPE visitBondInterestIndexedTransaction(BondInterestIndexedTransactionDefinition<?, ?> bond);
 
-
   // -----     Forex     -----
 
   /**

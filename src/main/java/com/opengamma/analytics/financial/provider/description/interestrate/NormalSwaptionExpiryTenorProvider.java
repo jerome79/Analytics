@@ -34,7 +34,7 @@ public class NormalSwaptionExpiryTenorProvider implements NormalSwaptionProvider
    * @param parameters The normal volatility parameters. Not null.
    * @param generator The underlying swaps generators. Not null.
    */
-  public NormalSwaptionExpiryTenorProvider(final MulticurveProviderInterface multicurve, 
+  public NormalSwaptionExpiryTenorProvider(final MulticurveProviderInterface multicurve,
       final Surface<Double, Double, Double> parameters, final GeneratorSwapFixedIbor generator) {
     ArgChecker.notNull(multicurve, "multicurve");
     ArgChecker.notNull(parameters, "parameters");
@@ -79,7 +79,7 @@ public class NormalSwaptionExpiryTenorProvider implements NormalSwaptionProvider
   public Set<String> getAllCurveNames() {
     return _multicurve.getAllCurveNames();
   }
-  
+
   /**
    * Returns the The normal (Bachelier) volatility surface. The dimensions are expiration and tenor.
    * @return The surface

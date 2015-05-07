@@ -52,7 +52,7 @@ public class AnnuityCapFloorInflationYearOnYearMonthlyDefinition extends Annuity
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(paymentPeriod, "Payment period");
     ArgChecker.notNull(lastKnownFixingDate, "Last known fixing date");
-    final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, totalTenor, paymentPeriod,  true, false, businessDayConvention, calendar, endOfMonth);
+    final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, totalTenor, paymentPeriod, true, false, businessDayConvention, calendar, endOfMonth);
 
     final CapFloorInflationYearOnYearMonthlyDefinition[] coupons = new CapFloorInflationYearOnYearMonthlyDefinition[paymentDates.length];
     coupons[0] = CapFloorInflationYearOnYearMonthlyDefinition.from(settlementDate, paymentDates[0], notional, priceIndex, conventionalMonthLag, monthLag, lastKnownFixingDate, strike, isCap);

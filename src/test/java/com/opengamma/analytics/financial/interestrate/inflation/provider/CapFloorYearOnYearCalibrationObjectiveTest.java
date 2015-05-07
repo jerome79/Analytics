@@ -38,7 +38,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  *  Tests related to the calibration engine for inflation year on year cap/floor calibration.
  */
@@ -86,7 +85,6 @@ public class CapFloorYearOnYearCalibrationObjectiveTest {
   Annuity<? extends Payment>[][] CAPS = new Annuity<?>[strikes.length][availabelTenor.length];
   double[][][] marketPrices = new double[strikes.length][availabelTenor.length][expiryTimes.length];
 
-  @Test
   /**
   *  Tests the correctness of inflation year on year cap/floor calibration to market prices.
   *  Calibration basket: CAPLET i y, for i=1 to 30.
@@ -154,7 +152,6 @@ public class CapFloorYearOnYearCalibrationObjectiveTest {
   Annuity<? extends Payment>[][] CAPS_AVAILABLE = new Annuity<?>[strikes_AVAILABLE.length][availabelTenor.length];
   double[][] marketPrices_AVAILABLE = new double[strikes_AVAILABLE.length][availabelTenor.length];
 
-  @Test
   /**
    * Tests the correctness of inflation year on year cap/floor calibration to market prices.
    * Calibration basket: CAP 1y, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y,12y, 15y, 20y, 25y, 30y
@@ -182,7 +179,8 @@ public class CapFloorYearOnYearCalibrationObjectiveTest {
     for (int loop1 = 0; loop1 < strikes_AVAILABLE.length; loop1++) {
       for (int loop2 = 0; loop2 < availabelTenor.length; loop2++) {
         for (int loop3 = 0; loop3 < availabelTenor[loop2]; loop3++) {
-          marketPrices_AVAILABLE[loop1][loop2] = marketPrices_AVAILABLE[loop1][loop2] + METHOD.presentValue(CAPS_AVAILABLE[loop1][loop2].getNthPayment(loop3), BLACK_INFLATION).getAmount(CUR).getAmount();
+          marketPrices_AVAILABLE[loop1][loop2] = marketPrices_AVAILABLE[loop1][loop2] +
+              METHOD.presentValue(CAPS_AVAILABLE[loop1][loop2].getNthPayment(loop3), BLACK_INFLATION).getAmount(CUR).getAmount();
         }
       }
     }
@@ -216,7 +214,6 @@ public class CapFloorYearOnYearCalibrationObjectiveTest {
     }
   }
 
-  @Test
   /**
    * Tests the correctness of inflation year on year cap/floor calibration to market prices.
    * Calibration basket: CAP 1y, 2y, 3y, 4y, 5y, 6y, 7y, 8y, 9y, 10y,12y, 15y, 20y, 25y, 30y for strikes 2%, 3%, 4%
@@ -248,7 +245,8 @@ public class CapFloorYearOnYearCalibrationObjectiveTest {
     for (int loop1 = 0; loop1 < strikes_AVAILABLE.length; loop1++) {
       for (int loop2 = 0; loop2 < availabelTenor.length; loop2++) {
         for (int loop3 = 0; loop3 < availabelTenor[loop2]; loop3++) {
-          marketPrices_AVAILABLE[loop1][loop2] = marketPrices_AVAILABLE[loop1][loop2] + METHOD.presentValue(CAPS_AVAILABLE[loop1][loop2].getNthPayment(loop3), BLACK_INFLATION).getAmount(CUR).getAmount();
+          marketPrices_AVAILABLE[loop1][loop2] = marketPrices_AVAILABLE[loop1][loop2] +
+              METHOD.presentValue(CAPS_AVAILABLE[loop1][loop2].getNthPayment(loop3), BLACK_INFLATION).getAmount(CUR).getAmount();
         }
       }
     }
@@ -281,53 +279,4 @@ public class CapFloorYearOnYearCalibrationObjectiveTest {
       }
     }
   }
-
-  @Test(enabled = false)
-  public void performance() {
-    for (int loop1 = 0; loop1 < strikes_AVAILABLE.length; loop1++) {
-      for (int loop2 = 0; loop2 < availabelTenor.length; loop2++) {
-        final Period tenor = Period.ofYears(availabelTenor[loop2]);
-
-        CAP_DEFINITIONS_AVAILABLE[loop1][loop2] = AnnuityCapFloorInflationYearOnYearMonthlyDefinition.from(PRICE_INDEX_EUR, SETTLEMENT_DATE, NOTIONAL,
-            tenor, COUPON_PAYMENT_TENOR, BUSINESS_DAY, CALENDAR, IS_EOM, MONTH_LAG, MONTH_LAG, LAST_KNOWN_FIXING_DATE, strikes_AVAILABLE[loop1], IS_CAP);
-        CAPS_AVAILABLE[loop1][loop2] = CAP_DEFINITIONS_AVAILABLE[loop1][loop2].toDerivative(REFERENCE_DATE);
-      }
-    }
-    for (int loopexp = 0; loopexp < availabelTenor.length; loopexp++) {
-      final CapFloorInflationYearOnYearMonthly cap = (CapFloorInflationYearOnYearMonthly) CAPS_AVAILABLE[0][loopexp].getNthPayment(CAPS_AVAILABLE[0][loopexp].getNumberOfPayments() - 1);
-      expiryTimes_AVAILABLE[loopexp] = cap.getReferenceEndTime();
-    }
-    final InflationYearOnYearCapFloorParameters parameters = new InflationYearOnYearCapFloorParameters(expiryTimes_AVAILABLE, strikes_AVAILABLE, volatilities_AVAILABLE, PRICE_INDEX_EUR);
-    final SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationObjective objective = new SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationObjective(parameters, CUR);
-    final SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationEngine<InflationProviderDiscount> calibrationEngine = new SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationEngine<>(
-        objective);
-
-    for (int loop1 = 0; loop1 < strikes_AVAILABLE.length; loop1++) {
-      for (int loop2 = 0; loop2 < availabelTenor.length; loop2++) {
-        for (int loop3 = 0; loop3 < availabelTenor[loop2]; loop3++) {
-          marketPrices_AVAILABLE[loop1][loop2] = marketPrices_AVAILABLE[loop1][loop2] + METHOD.presentValue(CAPS_AVAILABLE[loop1][loop2].getNthPayment(loop3), BLACK_INFLATION).getAmount(CUR).getAmount();
-        }
-      }
-    }
-
-    for (int loop1 = 0; loop1 < strikes.length; loop1++) {
-      for (int loop2 = 0; loop2 < availabelTenor.length; loop2++) {
-
-        calibrationEngine.addInstrument(CAPS_AVAILABLE[loop1][loop2], marketPrices_AVAILABLE[loop1][loop2]);
-
-      }
-    }
-
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      calibrationEngine.calibrate(MARKET.getInflationProvider());
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CapFloorYearOnYearInterpolationCalibrationObjectiveTest - " + nbTest + " volatility matrix construction year on year cap/floor: " + (endTime - startTime) + " ms");
-    // Performance note:volatility matrix construction year on year cap/floor: 28-Aug-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 4999 ms for 100 sets.
-  }
-
 }

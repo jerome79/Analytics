@@ -16,7 +16,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  */

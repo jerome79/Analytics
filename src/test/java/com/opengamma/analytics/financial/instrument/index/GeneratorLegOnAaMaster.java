@@ -46,7 +46,7 @@ public final class GeneratorLegOnAaMaster {
     final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     _generatorLeg = new HashMap<>();
     IndexON fedFund = indexONMaster.getIndex("FED FUND");
-    _generatorLeg.put("USDFEDFUNDAA3M", new GeneratorLegONArithmeticAverage("USDFEDFUNDAA3M", Currency.USD, fedFund, 
+    _generatorLeg.put("USDFEDFUNDAA3M", new GeneratorLegONArithmeticAverage("USDFEDFUNDAA3M", Currency.USD, fedFund,
         Period.ofMonths(3), 2, 0, BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false,
         baseCalendar, baseCalendar));
   }
@@ -56,10 +56,10 @@ public final class GeneratorLegOnAaMaster {
     if (generatorNoCalendar == null) {
       throw new RuntimeException("Could not get Ibor index for " + name);
     }
-    return new GeneratorLegONArithmeticAverage(generatorNoCalendar.getName(), generatorNoCalendar.getCurrency(), 
-        generatorNoCalendar.getIndexON(), generatorNoCalendar.getPaymentPeriod(), generatorNoCalendar.getSpotOffset(), 
-        generatorNoCalendar.getPaymentOffset(), generatorNoCalendar.getBusinessDayConvention(), 
-        generatorNoCalendar.isEndOfMonth(), generatorNoCalendar.getStubType(), generatorNoCalendar.isExchangeNotional(), 
+    return new GeneratorLegONArithmeticAverage(generatorNoCalendar.getName(), generatorNoCalendar.getCurrency(),
+        generatorNoCalendar.getIndexON(), generatorNoCalendar.getPaymentPeriod(), generatorNoCalendar.getSpotOffset(),
+        generatorNoCalendar.getPaymentOffset(), generatorNoCalendar.getBusinessDayConvention(),
+        generatorNoCalendar.isEndOfMonth(), generatorNoCalendar.getStubType(), generatorNoCalendar.isExchangeNotional(),
         cal, cal);
   }
 

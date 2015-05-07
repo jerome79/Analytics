@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.function;
 
-
 /**
  * 
  */
@@ -18,7 +17,5 @@ public interface SmileModelData {
   boolean isAllowed(final int index, final double value);
 
   SmileModelData with(final int index, final double value);
-
-
 
 }

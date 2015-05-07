@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.model.option.definition;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  * Definition for an asymmetric power options (a.k.a. standard power options).

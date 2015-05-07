@@ -20,7 +20,6 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRJoh
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRPaulotVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 
-
 /**
  * 
  */
@@ -46,7 +45,7 @@ public class SABRExtrapolationLeftFunctionTest {
   private static final SABRBerestyckiVolatilityFunction FUNC_BERESTYCKI = new SABRBerestyckiVolatilityFunction();
   private static final SABRPaulotVolatilityFunction FUNC_PAULOT = new SABRPaulotVolatilityFunction();
   private static final VolatilityFunctionProvider<SABRFormulaData>[] FUNCTIONS = new VolatilityFunctionProvider[] {
-      FUNC_HAGAN, FUNC_JOHNSON, FUNC_HAGAN_ALT, FUNC_BERESTYCKI, FUNC_PAULOT };
+    FUNC_HAGAN, FUNC_JOHNSON, FUNC_HAGAN_ALT, FUNC_BERESTYCKI, FUNC_PAULOT };
 
   /**
    * C2 continuity and accessors are tested

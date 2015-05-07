@@ -17,8 +17,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.currency.Currency;
 
-
-
 /**
  * Tests related to the construction of ForexNonDeliverableForward.
  */

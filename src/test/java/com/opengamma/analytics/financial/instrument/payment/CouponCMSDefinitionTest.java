@@ -33,7 +33,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test related to CouponCMSDefinition construction.
  */
@@ -82,7 +81,7 @@ public class CouponCMSDefinitionTest {
   private static final String FORWARD_CURVE_NAME = " Forward";
   private static final String[] CURVES_NAME = {FUNDING_CURVE_NAME, FORWARD_CURVE_NAME };
   private static final double FIXING_RATE = 0.04;
-  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{FIXING_DATE}, new double[]{FIXING_RATE});
+  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {FIXING_DATE }, new double[] {FIXING_RATE });
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullPaymentDate() {

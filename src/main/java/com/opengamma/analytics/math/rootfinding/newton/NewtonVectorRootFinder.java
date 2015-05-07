@@ -124,7 +124,6 @@ public class NewtonVectorRootFinder extends VectorRootFinder {
     }
     updatePosition(p, function, data);
     final double g1 = data.getG1();
-    // the function is invalid at the new position, try to recover
     if (!Doubles.isFinite(g1)) {
       bisectBacktrack(p, function, data);
     }

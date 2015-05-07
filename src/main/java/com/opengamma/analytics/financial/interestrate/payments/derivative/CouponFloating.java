@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
-
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 

@@ -41,7 +41,7 @@ public class ZSpreadCalculator<T extends ParameterProviderInterface> {
   /** The root-finder */
   private static final RealSingleRootFinder ROOT_FINDER = new BrentSingleRootFinder();
   /** The present value calculator */
-  private final InstrumentDerivativeVisitor<T, MultiCurrencyAmount>  _pvCalculator;
+  private final InstrumentDerivativeVisitor<T, MultiCurrencyAmount> _pvCalculator;
   /** The present value sensitivity calculator */
   private final InstrumentDerivativeVisitor<T, MultipleCurrencyMulticurveSensitivity> _pvSensitivityCalculator;
 

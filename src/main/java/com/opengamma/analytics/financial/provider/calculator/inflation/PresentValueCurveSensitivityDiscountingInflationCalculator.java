@@ -50,8 +50,8 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
  * Calculator of the present value curve sensitivity as multiple currency interest rate curve sensitivity.
  */
 
-public final class PresentValueCurveSensitivityDiscountingInflationCalculator extends 
-  InstrumentDerivativeVisitorAdapter<ParameterInflationProviderInterface, MultipleCurrencyInflationSensitivity> {
+public final class PresentValueCurveSensitivityDiscountingInflationCalculator extends
+    InstrumentDerivativeVisitorAdapter<ParameterInflationProviderInterface, MultipleCurrencyInflationSensitivity> {
 
   /**
    * The unique instance of the calculator.
@@ -225,14 +225,14 @@ public final class PresentValueCurveSensitivityDiscountingInflationCalculator ex
 
   //     -----     Bond    -----
 
-//  @Override
-//  public MultipleCurrencyInflationSensitivity visitBondCapitalIndexedSecurity(final BondCapitalIndexedSecurity<?> bond, 
-//      final ParameterInflationProviderInterface curves) {
-//    return METHOD_BOND_SEC.presentValueCurveSensitivity(bond, curves.getInflationProvider());
-//  }
+  //  @Override
+  //  public MultipleCurrencyInflationSensitivity visitBondCapitalIndexedSecurity(final BondCapitalIndexedSecurity<?> bond, 
+  //      final ParameterInflationProviderInterface curves) {
+  //    return METHOD_BOND_SEC.presentValueCurveSensitivity(bond, curves.getInflationProvider());
+  //  }
 
   @Override
-  public MultipleCurrencyInflationSensitivity visitBondCapitalIndexedTransaction(final BondCapitalIndexedTransaction<?> bond, 
+  public MultipleCurrencyInflationSensitivity visitBondCapitalIndexedTransaction(final BondCapitalIndexedTransaction<?> bond,
       final ParameterInflationProviderInterface curves) {
     return METHOD_BOND_TR.presentValueCurveSensitivity(bond, curves.getInflationProvider());
   }

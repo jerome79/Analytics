@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
@@ -23,9 +22,9 @@ public class CurveSpreadFunctionTest {
   private static final CurveSpreadFunction DIVIDE = CurveSpreadFunctionFactory.of("/");
   private static final CurveSpreadFunction MULTIPLY = CurveSpreadFunctionFactory.of("*");
   private static final CurveSpreadFunction SUBTRACT = CurveSpreadFunctionFactory.of("-");
-  private static final double[] X = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
-  private static final double[] Y1 = new double[] {2, 4, 6, 8, 10, 12, 14, 16, 18};
-  private static final double[] Y2 = new double[] {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1};
+  private static final double[] X = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  private static final double[] Y1 = new double[] {2, 4, 6, 8, 10, 12, 14, 16, 18 };
+  private static final double[] Y2 = new double[] {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1 };
   private static final InterpolatedDoublesCurve INTERPOLATED1 = InterpolatedDoublesCurve.fromSorted(X, Y1, new LinearInterpolator1D());
   private static final InterpolatedDoublesCurve INTERPOLATED2 = InterpolatedDoublesCurve.fromSorted(X, Y2, new LinearInterpolator1D());
   private static final ConstantDoublesCurve CONSTANT1 = ConstantDoublesCurve.from(2);
@@ -104,7 +103,7 @@ public class CurveSpreadFunctionTest {
   @SuppressWarnings("unchecked")
   @Test
   public void testConstant() {
-    final Curve<Double, Double>[] curves = new Curve[] {CONSTANT1, CONSTANT2};
+    final Curve<Double, Double>[] curves = new Curve[] {CONSTANT1, CONSTANT2 };
     final double y1 = 2;
     final double y2 = 1.1;
     Function<Double, Double> f = ADD.evaluate(curves);
@@ -121,7 +120,7 @@ public class CurveSpreadFunctionTest {
   @Test
   public void testFunctional() {
     final double x = 3.5;
-    final Curve<Double, Double>[] curves = new Curve[] {FUNCTIONAL1, FUNCTIONAL2};
+    final Curve<Double, Double>[] curves = new Curve[] {FUNCTIONAL1, FUNCTIONAL2 };
     Function<Double, Double> f = ADD.evaluate(curves);
     assertEquals(f.evaluate(x), F1.evaluate(x) + F2.evaluate(x), 0);
     f = DIVIDE.evaluate(curves);
@@ -136,7 +135,7 @@ public class CurveSpreadFunctionTest {
   @Test
   public void testInterpolated() {
     final double x = 3.5;
-    final Curve<Double, Double>[] curves = new Curve[] {INTERPOLATED1, INTERPOLATED2};
+    final Curve<Double, Double>[] curves = new Curve[] {INTERPOLATED1, INTERPOLATED2 };
     Function<Double, Double> f = ADD.evaluate(curves);
     assertEquals(f.evaluate(x), INTERPOLATED1.getYValue(x) + INTERPOLATED2.getYValue(x), 0);
     f = DIVIDE.evaluate(curves);

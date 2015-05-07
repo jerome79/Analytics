@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * 
  */
@@ -28,7 +27,6 @@ public class LeastSquareWithPenaltyResultTest {
     DoubleMatrix1D parms = new DoubleMatrix1D(nParms, 0.5);
     DoubleMatrix2D cov = new DoubleMatrix2D(nParms, nParms);
 
-
     LeastSquareWithPenaltyResults res = new LeastSquareWithPenaltyResults(chi2, pen, parms, cov);
     assertEquals(chi2, res.getChiSq());
     assertEquals(pen, res.getPenalty());
@@ -38,6 +36,5 @@ public class LeastSquareWithPenaltyResultTest {
     assertEquals(chi2, res.getChiSq());
     assertEquals(pen, res.getPenalty());
   }
-
 
 }

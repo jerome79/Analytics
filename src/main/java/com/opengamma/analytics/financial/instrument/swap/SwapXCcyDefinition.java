@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.swap;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;

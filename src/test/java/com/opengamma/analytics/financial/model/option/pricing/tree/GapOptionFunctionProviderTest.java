@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -109,8 +108,6 @@ public class GapOptionFunctionProviderTest {
     /*
      * Due to slow convergence of other lattice specifications, only LeisenReimerLatticeSpecification is used here
      */
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-    //        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
@@ -144,8 +141,6 @@ public class GapOptionFunctionProviderTest {
     /*
      * Due to slow convergence of other lattice specifications, only LeisenReimerLatticeSpecification is used here
      */
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-    //        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.01, 0.01 };
@@ -198,8 +193,6 @@ public class GapOptionFunctionProviderTest {
     /*
      * Due to slow convergence of other lattice specifications, only LeisenReimerLatticeSpecification is used here
      */
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-    //        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
@@ -242,8 +235,6 @@ public class GapOptionFunctionProviderTest {
     /*
      * Due to slow convergence of other lattice specifications, only LeisenReimerLatticeSpecification is used here
      */
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-    //        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.03, 0.02 };
@@ -400,7 +391,7 @@ public class GapOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider1D ref = new GapOptionFunctionProvider(103., 1., 1003, true, 105.5);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new GapOptionFunctionProvider(103., 1., 1003, true, 105.5),
-        new GapOptionFunctionProvider(103., 1., 1003, true, 106), new EuropeanVanillaOptionFunctionProvider(103., 1., 1003, true), null };
+      new GapOptionFunctionProvider(103., 1., 1003, true, 106), new EuropeanVanillaOptionFunctionProvider(103., 1., 1003, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

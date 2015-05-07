@@ -26,7 +26,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -48,7 +47,8 @@ public class GeneratorSwapFixedIborTest {
   private static final BusinessDayConvention BUSINESS_DAY_2 = BusinessDayConventions.FOLLOWING;
   private static final boolean IS_EOM_2 = false;
   private static final int SPOT_LAG_2 = 1;
-  private static final GeneratorSwapFixedIbor GENERATOR_GENERIC = new GeneratorSwapFixedIbor("Swap Generator", FIXED_LEG_PERIOD, DAY_COUNT_FIXED, IBOR_INDEX, BUSINESS_DAY_2, IS_EOM_2, SPOT_LAG_2, CALENDAR);
+  private static final GeneratorSwapFixedIbor GENERATOR_GENERIC = new GeneratorSwapFixedIbor("Swap Generator", FIXED_LEG_PERIOD, DAY_COUNT_FIXED, IBOR_INDEX, BUSINESS_DAY_2, IS_EOM_2, SPOT_LAG_2,
+      CALENDAR);
 
   @Test
   public void getter() {

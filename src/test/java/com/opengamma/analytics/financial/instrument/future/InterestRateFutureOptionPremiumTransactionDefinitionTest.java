@@ -23,8 +23,6 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Tests the interest rate future option with margin transaction description.
  */
@@ -39,7 +37,6 @@ public class InterestRateFutureOptionPremiumTransactionDefinitionTest {
   private static final ZonedDateTime LAST_TRADING_DATE = ScheduleCalculator.getAdjustedDate(SPOT_LAST_TRADING_DATE, -IBOR_INDEX.getSpotLag(), CALENDAR);
   private static final double NOTIONAL = 1000000.0; // 1m
   private static final double FUTURE_FACTOR = 0.25;
-  //  private static final double REFERENCE_PRICE = 0.0; // TODO - CASE - Future refactor - 0.0 Refence Price here
   private static final String NAME = "ERU2";
   private static final double STRIKE = 0.9895;
   private static final InterestRateFutureSecurityDefinition ERU2 = new InterestRateFutureSecurityDefinition(LAST_TRADING_DATE, IBOR_INDEX, NOTIONAL, FUTURE_FACTOR, NAME, CALENDAR);
@@ -54,10 +51,9 @@ public class InterestRateFutureOptionPremiumTransactionDefinitionTest {
       TRADE_PRICE);
   // Derivative
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 8, 18);
-  //  private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
   private static final String DISCOUNTING_CURVE_NAME = "Funding";
   private static final String FORWARD_CURVE_NAME = "Forward";
-  private static final String[] CURVES = {DISCOUNTING_CURVE_NAME, FORWARD_CURVE_NAME};
+  private static final String[] CURVES = {DISCOUNTING_CURVE_NAME, FORWARD_CURVE_NAME };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullUnderlying() {

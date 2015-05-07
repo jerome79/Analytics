@@ -12,16 +12,15 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.tree.RecombiningBinomialTree;
 
-
 /**
  * Test.
  */
 @Test
 public class ImpliedTreeResultTest {
-  private static final Double[][] SPOT1 = new Double[][] {new Double[] {100.}, new Double[] {95., 105.}, new Double[] {90., 100., 110.}};
-  private static final Double[][] VOL1 = new Double[][] {new Double[] {0.1}, new Double[] {0.05, 0.4}};
-  private static final Double[][] SPOT2 = new Double[][] {new Double[] {200.}, new Double[] {95., 105.}, new Double[] {90., 100., 110.}};
-  private static final Double[][] VOL2 = new Double[][] {new Double[] {0.2}, new Double[] {0.05, 0.4}};
+  private static final Double[][] SPOT1 = new Double[][] {new Double[] {100. }, new Double[] {95., 105. }, new Double[] {90., 100., 110. } };
+  private static final Double[][] VOL1 = new Double[][] {new Double[] {0.1 }, new Double[] {0.05, 0.4 } };
+  private static final Double[][] SPOT2 = new Double[][] {new Double[] {200. }, new Double[] {95., 105. }, new Double[] {90., 100., 110. } };
+  private static final Double[][] VOL2 = new Double[][] {new Double[] {0.2 }, new Double[] {0.05, 0.4 } };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullSpot() {

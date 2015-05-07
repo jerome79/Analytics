@@ -19,6 +19,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.SimplyC
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
+
 /**
  * Method to compute present value and present value sensitivity for Ibor coupon with gearing factor and spread.
  */

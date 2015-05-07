@@ -24,7 +24,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class GaussJacobiQuadratureIntegrator1D extends GaussianQuadratureIntegrator1D {
   private static final GaussJacobiWeightAndAbscissaFunction GENERATOR = new GaussJacobiWeightAndAbscissaFunction(0, 0);
-  private static final Double[] LIMITS = new Double[] {-1., 1.};
+  private static final Double[] LIMITS = new Double[] {-1., 1. };
 
   //TODO allow alpha and beta to be set
   /**

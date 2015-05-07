@@ -30,7 +30,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the zero-coupon inflation constructors.
  */
@@ -234,8 +233,8 @@ public class CouponInflationZeroCouponInterpolationDefinitionTest {
   @Test
   public void toDerivativesInterpolatedKnown() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2018, 7, 25);
-    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2008, 6, 30),
-        DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30)}, new double[]{108.23, 108.64, 128.23, 128.43});
+    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2008, 6, 30),
+      DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30) }, new double[] {108.23, 108.64, 128.23, 128.43 });
     final CouponInflationZeroCouponInterpolationDefinition zeroCouponInterpolated = CouponInflationZeroCouponInterpolationDefinition.from(START_DATE, PAYMENT_DATE, NOTIONAL, PRICE_INDEX_EUR,
         MONTH_LAG, MONTH_LAG, false);
     final Coupon zeroCouponConverted = zeroCouponInterpolated.toDerivative(pricingDate, priceIndexTS);

@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 
-
 /**
  * Test.
  */

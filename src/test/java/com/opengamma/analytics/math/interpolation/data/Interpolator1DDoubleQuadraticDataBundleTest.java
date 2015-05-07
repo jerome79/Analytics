@@ -16,13 +16,12 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 
-
 /**
  * Test.
  */
 @Test
 public class Interpolator1DDoubleQuadraticDataBundleTest {
-  private static final RealPolynomialFunction1D QUADRATIC = new RealPolynomialFunction1D(new double[] {2, 3, 4});
+  private static final RealPolynomialFunction1D QUADRATIC = new RealPolynomialFunction1D(new double[] {2, 3, 4 });
   private static final Interpolator1DDoubleQuadraticDataBundle DATA;
   private static final double[] X;
   private static final double[] Y;

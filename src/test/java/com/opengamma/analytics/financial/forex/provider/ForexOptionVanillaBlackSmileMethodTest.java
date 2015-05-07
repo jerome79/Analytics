@@ -74,7 +74,7 @@ public class ForexOptionVanillaBlackSmileMethodTest {
   private static final int SETTLEMENT_DAYS = 2;
   // Smile data
   private static final Period[] EXPIRY_PERIOD = new Period[] {Period.ofMonths(3), Period.ofMonths(6), Period.ofYears(1),
-      Period.ofYears(2), Period.ofYears(5) };
+    Period.ofYears(2), Period.ofYears(5) };
   private static final int NB_EXP = EXPIRY_PERIOD.length;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 13);
   private static final ZonedDateTime REFERENCE_SPOT = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, SETTLEMENT_DAYS, CALENDAR);
@@ -388,17 +388,6 @@ public class ForexOptionVanillaBlackSmileMethodTest {
     final double fwdExpected = METHOD_DISC.forwardForexRate(FOREX_CALL_OPTION.getUnderlyingForex(), MULTICURVES);
     assertEquals("Forex vanilla option: forward forex rate", fwd, fwdExpected, TOLERANCE_RELATIVE);
   }
-
-  //  @Test
-  //  /**
-  //   * Tests the forward Forex rate through the method and through the calculator.
-  //   */
-  //  public void forwardRateMethodVsCalculator() {
-  //    final double fwdMethod = METHOD_OPTION.forwardForexRate(FOREX_CALL_OPTION, SMILE_BUNDLE);
-  //    final ForwardRateForexCalculator FWDC = ForwardRateForexCalculator.getInstance();
-  //    final double fwdCalculator = FOREX_CALL_OPTION.accept(FWDC, SMILE_BUNDLE);
-  //    assertEquals("Forex: forward rate", fwdMethod, fwdCalculator, TOLERANCE_RELATIVE);
-  //  }
 
   @Test
   /**
@@ -837,34 +826,5 @@ public class ForexOptionVanillaBlackSmileMethodTest {
       assertEquals("Forex vanilla option: vega quote", sensiQuote[loopexp][0], atm[loopexp], 1.0E-10); // ATM
     }
   }
-
-  //    @Test
-  //    /**
-  //     * Tests the theoretical Theta (derivative with respect to time in Black formula).
-  //     */
-  //    public void thetaTheoretical() {
-  //      final double strike = 1.45;
-  //      final boolean isCall = true;
-  //      final boolean isLong = true;
-  //      final double notional = 100000000;
-  //      final ZonedDateTime payDate = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, Period.ofMonths(9), BUSINESS_DAY, CALENDAR);
-  //      final ZonedDateTime expDate = ScheduleCalculator.getAdjustedDate(payDate, -SETTLEMENT_DAYS, CALENDAR);
-  //      final double timeToExpiry = TimeCalculator.getTimeBetween(REFERENCE_DATE, expDate);
-  //      final ForexDefinition forexUnderlyingDefinition = new ForexDefinition(EUR, USD, payDate, notional, strike);
-  //      final ForexOptionVanillaDefinition callDefinition = new ForexOptionVanillaDefinition(forexUnderlyingDefinition, expDate, isCall, isLong);
-  //      final ForexOptionVanilla call = callDefinition.toDerivative(REFERENCE_DATE, NOT_USED_2);
-  //      final double df = CURVES.getCurve(CURVES_NAME[1]).getDiscountFactor(TimeCalculator.getTimeBetween(REFERENCE_DATE, payDate));
-  //      final double forward = SPOT * CURVES.getCurve(CURVES_NAME[0]).getDiscountFactor(TimeCalculator.getTimeBetween(REFERENCE_DATE, payDate)) / df;
-  //      final double volatility = SMILE_TERM.getVolatility(timeToExpiry, strike, forward);
-  //      final double thetaUnit = BlackFormulaRepository.theta(forward, strike, timeToExpiry, volatility);
-  //      final double thetaExpected = thetaUnit * notional;
-  //      final CurrencyAmount thetaCallComputed = METHOD_OPTION.thetaTheoretical(call, SMILE_MULTICURVES);
-  //      assertEquals("Theta theoretical: forex option", thetaExpected, thetaCallComputed.getAmount(), TOLERANCE_PV);
-  //      assertEquals("Theta theoretical: forex option", USD, thetaCallComputed.getCurrency());
-  //      final ForexOptionVanillaDefinition putDefinition = new ForexOptionVanillaDefinition(forexUnderlyingDefinition, expDate, !isCall, isLong);
-  //      final ForexOptionVanilla put = putDefinition.toDerivative(REFERENCE_DATE, CURVES_NAME);
-  //      final CurrencyAmount thetaPutComputed = METHOD_OPTION.thetaTheoretical(put, SMILE_MULTICURVES);
-  //      assertEquals("Theta theoretical: forex option", thetaCallComputed.getAmount(), thetaPutComputed.getAmount(), TOLERANCE_PV);
-  //    }
 
 }

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * This represents one payment period on the premium leg of a CDS
  */
@@ -213,7 +214,6 @@ public class CDSCoupon {
     final LocalDate accEnd = premDates[1];
     final LocalDate paymentDate = premDates[2];
     ArgChecker.isTrue(accEnd.isAfter(accStart), "require accEnd after accStart");
-    //  ArgChecker.isTrue(paymentDate.isAfter(accStart), "require paymentDate after accStart");
     ArgChecker.isFalse(tradeDate.isAfter(paymentDate), "coupon payment is in the past");
 
     final LocalDate effStart = protectionFromStartOfDay ? accStart.minusDays(1) : accStart;

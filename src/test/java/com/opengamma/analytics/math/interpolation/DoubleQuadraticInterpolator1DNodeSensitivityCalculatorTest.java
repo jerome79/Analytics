@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
 
-
 /**
  * Test.
  */
@@ -40,7 +39,7 @@ public class DoubleQuadraticInterpolator1DNodeSensitivityCalculatorTest {
   };
 
   static {
-    final double[] t = new double[] {0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 7.0, 10.0, 15.0, 17.5, 20.0, 25.0, 30.0};
+    final double[] t = new double[] {0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 7.0, 10.0, 15.0, 17.5, 20.0, 25.0, 30.0 };
     final int n = t.length;
     final double[] r = new double[n];
     for (int i = 0; i < n; i++) {
@@ -89,5 +88,5 @@ public class DoubleQuadraticInterpolator1DNodeSensitivityCalculatorTest {
     }
     assertEquals(1.0, sensitivity[sensitivity.length - 1], EPS);
   }
-  
+
 }

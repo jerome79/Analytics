@@ -10,8 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -20,10 +18,10 @@ public class MatrixAlgebraImplementationTest {
   private static final MatrixAlgebra COMMONS = MatrixAlgebraFactory.COMMONS_ALGEBRA;
   private static final MatrixAlgebra COLT = MatrixAlgebraFactory.COLT_ALGEBRA;
   private static final MatrixAlgebra OG = MatrixAlgebraFactory.OG_ALGEBRA;
-  private static final DoubleMatrix1D M1 = new DoubleMatrix1D(new double[] {1, 2});
-  private static final DoubleMatrix1D M2 = new DoubleMatrix1D(new double[] {3, 4});
-  private static final DoubleMatrix2D M3 = new DoubleMatrix2D(new double[][] {new double[] {1, 2}, new double[] {2, 1}});
-  private static final DoubleMatrix2D M4 = new DoubleMatrix2D(new double[][] {new double[] {5, 6}, new double[] {7, 8}});
+  private static final DoubleMatrix1D M1 = new DoubleMatrix1D(new double[] {1, 2 });
+  private static final DoubleMatrix1D M2 = new DoubleMatrix1D(new double[] {3, 4 });
+  private static final DoubleMatrix2D M3 = new DoubleMatrix2D(new double[][] {new double[] {1, 2 }, new double[] {2, 1 } });
+  private static final DoubleMatrix2D M4 = new DoubleMatrix2D(new double[][] {new double[] {5, 6 }, new double[] {7, 8 } });
   private static final Matrix<?> M5 = new Matrix<Double>() {
 
     @Override
@@ -81,7 +79,7 @@ public class MatrixAlgebraImplementationTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testOGInnerProduct1() {
-    OG.getInnerProduct(M1, new DoubleMatrix1D(new double[] {1, 2, 3}));
+    OG.getInnerProduct(M1, new DoubleMatrix1D(new double[] {1, 2, 3 }));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -206,7 +204,7 @@ public class MatrixAlgebraImplementationTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testOGTrace2() {
-    OG.getTrace(new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3}, new double[] {4, 5, 6}}));
+    OG.getTrace(new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3 }, new double[] {4, 5, 6 } }));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -256,17 +254,17 @@ public class MatrixAlgebraImplementationTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testOGMultiply2() {
-    OG.multiply(new DoubleMatrix1D(new double[] {1, 2, 3}), M3);
+    OG.multiply(new DoubleMatrix1D(new double[] {1, 2, 3 }), M3);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testOGMultiply3() {
-    OG.multiply(M3, new DoubleMatrix1D(new double[] {1, 2, 3}));
+    OG.multiply(M3, new DoubleMatrix1D(new double[] {1, 2, 3 }));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testOGMultiply4() {
-    OG.multiply(new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3}, new double[] {4, 5, 6}}), M3);
+    OG.multiply(new DoubleMatrix2D(new double[][] {new double[] {1, 2, 3 }, new double[] {4, 5, 6 } }), M3);
   }
 
   @Test

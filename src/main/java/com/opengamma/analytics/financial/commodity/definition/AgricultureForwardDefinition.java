@@ -34,7 +34,8 @@ public class AgricultureForwardDefinition extends CommodityForwardDefinition<Agr
    * @param currency currency
    * @param settlementDate settlement date
    */
-  public AgricultureForwardDefinition(final ZonedDateTime expiryDate, final StandardId underlying, final double unitAmount, final ZonedDateTime firstDeliveryDate, final ZonedDateTime lastDeliveryDate,
+  public AgricultureForwardDefinition(final ZonedDateTime expiryDate, final StandardId underlying, final double unitAmount, final ZonedDateTime firstDeliveryDate,
+      final ZonedDateTime lastDeliveryDate,
       final double amount, final String unitName, final SettlementType settlementType, final double referencePrice, final Currency currency, final ZonedDateTime settlementDate) {
     super(expiryDate, underlying, unitAmount, firstDeliveryDate, lastDeliveryDate, amount, unitName, settlementType, referencePrice, currency, settlementDate);
   }
@@ -103,7 +104,7 @@ public class AgricultureForwardDefinition extends CommodityForwardDefinition<Agr
     final double timeToSettlement = TimeCalculator.getTimeBetween(date, this.getSettlementDate());
     return new AgricultureForward(timeToFixing, getUnderlying(), getUnitAmount(), getFirstDeliveryDate(), getLastDeliveryDate(), getAmount(), getUnitName(), getSettlementType(),
         timeToSettlement, getReferencePrice(), getCurrency());
-  }  
+  }
 
   @Override
   public AgricultureForward toDerivative(final ZonedDateTime date, final Double referencePrice) {
@@ -113,7 +114,7 @@ public class AgricultureForwardDefinition extends CommodityForwardDefinition<Agr
     return new AgricultureForward(timeToFixing, getUnderlying(), getUnitAmount(), getFirstDeliveryDate(), getLastDeliveryDate(), getAmount(), getUnitName(), getSettlementType(), timeToSettlement,
         referencePrice.doubleValue(), getCurrency());
   }
-  
+
   @Override
   public <U, V> V accept(final InstrumentDefinitionVisitor<U, V> visitor, final U data) {
     ArgChecker.notNull(visitor, "visitor");

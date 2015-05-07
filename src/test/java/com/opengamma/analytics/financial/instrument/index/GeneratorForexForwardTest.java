@@ -27,7 +27,7 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
  */
 @Test
 public class GeneratorForexForwardTest {
-  
+
   private static final String NAME = "EUR/USD Forward";
   private static final int SETTLEMENT_DAYS = 2;
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;

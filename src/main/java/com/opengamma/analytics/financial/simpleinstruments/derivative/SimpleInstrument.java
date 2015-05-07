@@ -11,6 +11,6 @@ package com.opengamma.analytics.financial.simpleinstruments.derivative;
 public interface SimpleInstrument {
 
   <S, T> T accept(final SimpleInstrumentVisitor<S, T> visitor, final S data);
-  
+
   <S, T> T accept(final SimpleInstrumentVisitor<S, T> visitor);
 }

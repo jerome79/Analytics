@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 
-
 /**
  * Test.
  */
@@ -32,9 +31,9 @@ public class EmpiricalDistributionVaRCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullParameters() {
-    CALCULATOR.evaluate(null, ImmutableZonedDateTimeDoubleTimeSeries.of(new long[]{1, 2}, new double[]{0.06, 0.07}, UTC));
+    CALCULATOR.evaluate(null, ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2 }, new double[] {0.06, 0.07 }, UTC));
   }
-  
+
   @Test
   public void test() {
     final int n = 10;

@@ -378,7 +378,6 @@ public class NonLinearLeastSquare {
 
       DoubleMatrix1D trialTheta = (DoubleMatrix1D) _algebra.add(theta, deltaTheta);
 
-      // if the new value of theta is not in the model domain or the jump is too large, keep increasing lambda until an
       // acceptable step is found
       if (!constraints.evaluate(trialTheta) || !allowJump(deltaTheta, maxJumps)) {
         lambda = increaseLambda(lambda);

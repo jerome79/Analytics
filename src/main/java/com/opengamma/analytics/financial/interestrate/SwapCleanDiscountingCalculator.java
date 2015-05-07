@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
@@ -69,7 +68,7 @@ public class SwapCleanDiscountingCalculator {
         swapDefinition.getIborLeg(), indexTimeSeries);
     double cleanFloatingPV = (dirtyIborLegPV - iborLegAccruedInterest) *
         Math.signum(iborLeg.getNthPayment(0).getNotional());
-    
+
     AnnuityCouponFixed fixedLeg = swapDefinition.getFixedLeg().toDerivative(valuationDate);
     double accruedAmount = getAccrued(fixedLegDayCount, calendar, valuationDate, swapDefinition.getFixedLeg(),
         indexTimeSeries) * Math.signum(fixedLeg.getNthPayment(0).getNotional());

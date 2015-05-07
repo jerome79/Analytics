@@ -225,20 +225,20 @@ public class ForwardRateAgreementDefinition extends CouponFloatingDefinition {
    * @param paymentCalendar the payment calendar.
    * @return The FRA.
    */
-  public static ForwardRateAgreementDefinition from(final ZonedDateTime accrualStartDate, 
-      final ZonedDateTime accrualEndDate, final double notional, final ZonedDateTime fixingDate, final IborIndex index, 
+  public static ForwardRateAgreementDefinition from(final ZonedDateTime accrualStartDate,
+      final ZonedDateTime accrualEndDate, final double notional, final ZonedDateTime fixingDate, final IborIndex index,
       final double rate, final HolidayCalendar fixingCalendar, final HolidayCalendar paymentCalendar) {
     ArgChecker.notNull(accrualStartDate, "accrual start date");
     ArgChecker.notNull(accrualEndDate, "accrual end date");
     ArgChecker.notNull(fixingDate, "fixing date");
     ArgChecker.notNull(index, "index");
     final ZonedDateTime paymentDate = ScheduleCalculator.getAdjustedDate(accrualStartDate, 0, paymentCalendar);
-    final double paymentAccrualFactor = 
+    final double paymentAccrualFactor =
         DayCountUtils.yearFraction(index.getDayCount(), accrualStartDate, accrualEndDate, fixingCalendar);
-    return new ForwardRateAgreementDefinition(index.getCurrency(), paymentDate, accrualStartDate, accrualEndDate, 
+    return new ForwardRateAgreementDefinition(index.getCurrency(), paymentDate, accrualStartDate, accrualEndDate,
         paymentAccrualFactor, notional, fixingDate, index, rate, fixingCalendar);
   }
-  
+
   /**
    * Gets the Ibor index of the instrument.
    * @return The index.

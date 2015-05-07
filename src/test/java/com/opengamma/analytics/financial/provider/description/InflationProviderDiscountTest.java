@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

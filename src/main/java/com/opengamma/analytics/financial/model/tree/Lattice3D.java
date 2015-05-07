@@ -11,14 +11,12 @@ package com.opengamma.analytics.financial.model.tree;
  * @param <T> Type of the data that the lattice contains
  */
 public interface Lattice3D<T> {
-  
+
   /**
    * Gets the base data of the tree
    * @return The underlying data for the tree 
    */
   T[][][] getNodes();
-
-  
 
   /**
    * Get an individual node value

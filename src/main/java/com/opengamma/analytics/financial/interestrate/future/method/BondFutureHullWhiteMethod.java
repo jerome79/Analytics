@@ -322,7 +322,6 @@ public final class BondFutureHullWhiteMethod extends BondFutureMethod {
     // Sum on each interval
     final int nbInt = ctd.size();
     final double[] kappa = new double[nbInt - 1];
-    //    double price = 0.0;
     if (nbInt != 1) {
       // The intersections
       final BracketRoot bracketer = new BracketRoot();

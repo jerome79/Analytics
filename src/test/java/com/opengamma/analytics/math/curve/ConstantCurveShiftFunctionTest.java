@@ -10,8 +10,6 @@ import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -33,12 +31,12 @@ public class ConstantCurveShiftFunctionTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void test3() {
-    F.evaluate(CURVE, new double[] {2}, new double[] {1});
+    F.evaluate(CURVE, new double[] {2 }, new double[] {1 });
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void test4() {
-    F.evaluate(CURVE, new double[] {2}, new double[] {1}, "A");
+    F.evaluate(CURVE, new double[] {2 }, new double[] {1 }, "A");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -55,11 +53,11 @@ public class ConstantCurveShiftFunctionTest {
   public void test() {
     final double shift = 0.34;
     ConstantDoublesCurve shifted = F.evaluate(CURVE, shift);
-    assertArrayEquals(shifted.getYData(), new Double[] {Y + shift});
+    assertArrayEquals(shifted.getYData(), new Double[] {Y + shift });
     assertEquals(shifted.getName(), "PARALLEL_SHIFT_X");
     final String newName = "Y";
     shifted = F.evaluate(CURVE, shift, newName);
-    assertArrayEquals(shifted.getYData(), new Double[] {Y + shift});
+    assertArrayEquals(shifted.getYData(), new Double[] {Y + shift });
     assertEquals(shifted.getName(), newName);
   }
 }

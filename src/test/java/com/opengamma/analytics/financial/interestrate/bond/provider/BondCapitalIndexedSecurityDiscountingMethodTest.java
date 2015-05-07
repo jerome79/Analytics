@@ -54,7 +54,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the present value of Capital inflation indexed bonds.
  */
@@ -82,10 +81,10 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
   private static final PresentValueDiscountingInflationCalculator PVDIC = PresentValueDiscountingInflationCalculator.getInstance();
   private static final NetAmountInflationCalculator NADIC = NetAmountInflationCalculator.getInstance();
   private static final PresentValueDiscountingInflationIssuerCalculator PVDIIC = PresentValueDiscountingInflationIssuerCalculator.getInstance();
-  private static final ParameterSensitivityInflationMulticurveDiscountInterpolatedFDCalculator PS_PV_FDC = 
+  private static final ParameterSensitivityInflationMulticurveDiscountInterpolatedFDCalculator PS_PV_FDC =
       new ParameterSensitivityInflationMulticurveDiscountInterpolatedFDCalculator(PVDIC, SHIFT_FD);
   private static final PresentValueCurveSensitivityDiscountingInflationCalculator PVCSDC = PresentValueCurveSensitivityDiscountingInflationCalculator.getInstance();
-  private static final ParameterSensitivityInflationParameterCalculator<ParameterInflationProviderInterface> PSC = 
+  private static final ParameterSensitivityInflationParameterCalculator<ParameterInflationProviderInterface> PSC =
       new ParameterSensitivityInflationParameterCalculator<>(PVCSDC);
 
   // Treasury Indexed Bonds CAIN 3% Index-linked Treasury Stock 2025 - AU0000XCLWP8
@@ -110,7 +109,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
   private static final DoubleTimeSeries<ZonedDateTime> AUD_CPI = MulticurveProviderDiscountDataSets.audCPIFrom2009();
   private static final BondCapitalIndexedSecurity<Coupon> BOND_SECURITY_CAIN = BOND_SECURITY_CAIN_DEFINITION.toDerivative(PRICING_DATE, AUD_CPI);
 
-  @Test
   /**
    * Tests the present value computation.
    */
@@ -128,7 +126,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     assertEquals("Inflation Capital Indexed bond: present value", pvExpectd.getAmount(BOND_SECURITY_CAIN.getCurrency()).getAmount(), pv.getAmount(BOND_SECURITY_CAIN.getCurrency()).getAmount(), 1.0E-2);
   }
 
-  @Test
   /**
    * Tests the present value Method vs Calculator.
    */
@@ -138,7 +135,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     assertEquals("Inflation Capital Indexed bond: present value", pvMethod, pvCalculator);
   }
 
-  @Test
   /**
    * Test the present value parameter curves sensitivity.
    */
@@ -151,7 +147,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
 
   }
 
-  @Test
   /**
    * Test the present value curves sensitivity.
    */
@@ -193,7 +188,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
   private static final DoubleTimeSeries<ZonedDateTime> UK_RPI = MulticurveProviderDiscountDataSets.ukRpiFrom2010();
   private static final BondCapitalIndexedSecurity<Coupon> BOND_SECURITY_GILT_1 = BOND_SECURITY_GILT_1_DEFINITION.toDerivative(PRICING_DATE, UK_RPI);
 
-  @Test
   /**
    * Tests the present value computation.
    */
@@ -208,11 +202,10 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     }
     final MultiCurrencyAmount pvExpected = pvNominal.plus(pvCoupon);
     final MultiCurrencyAmount pv = METHOD_BOND_INFLATION.presentValue(BOND_SECURITY_GILT_1, MARKET);
-    assertEquals("Inflation Capital Indexed bond: present value", 
+    assertEquals("Inflation Capital Indexed bond: present value",
         pvExpected.getAmount(BOND_SECURITY_GILT_1.getCurrency()).getAmount(), pv.getAmount(BOND_SECURITY_GILT_1.getCurrency()).getAmount(), 1.0E-2);
   }
 
-  @Test
   /**
    * Tests the present value Method vs Calculator.
    */
@@ -241,10 +234,9 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
       .fromInterpolation(PRICE_INDEX_USCPI, MONTH_LAG_TIPS_1, START_DATE_TIPS_1, INDEX_START_TIPS_1, MATURITY_DATE_TIPS_1, COUPON_PERIOD_TIPS_1, NOTIONAL_TIPS_1, REAL_RATE_TIPS_1, BUSINESS_DAY_USD,
           SETTLEMENT_DAYS_TIPS_1, CALENDAR_USD, DAY_COUNT_TIPS_1, YIELD_CONVENTION_TIPS_1, IS_EOM_TIPS_1, ISSUER_US_GOVT);
   private static final DoubleTimeSeries<ZonedDateTime> US_CPI = MulticurveProviderDiscountDataSets.usCpiFrom2009();
-  private static final BondCapitalIndexedSecurity<Coupon> BOND_SECURITY_TIPS_1 = 
+  private static final BondCapitalIndexedSecurity<Coupon> BOND_SECURITY_TIPS_1 =
       BOND_SECURITY_TIPS_1_DEFINITION.toDerivative(PRICING_DATE, US_CPI);
 
-  @Test
   /**
    * Tests the present value computation.
    */
@@ -261,12 +253,11 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     }
     final MultiCurrencyAmount pvExpected = pvNominal.plus(pvCoupon);
     final MultiCurrencyAmount pv = METHOD_BOND_INFLATION.presentValue(BOND_SECURITY_TIPS_1, MARKET);
-    assertEquals("Inflation Capital Indexed bond: present value", 
+    assertEquals("Inflation Capital Indexed bond: present value",
         pvExpected.getAmount(BOND_SECURITY_TIPS_1.getCurrency()).getAmount(),
         pv.getAmount(BOND_SECURITY_TIPS_1.getCurrency()).getAmount(), 1.0E-2);
   }
 
-  @Test
   /**
     * Tests the present value computation.
     */
@@ -279,7 +270,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     MultiCurrencyAmount pvAccrued = BOND_SECURITY_TIPS_1.getSettlement().accept(PVDIC, MARKET).
         multipliedBy(BOND_SECURITY_TIPS_1.getAccruedInterest());
     MultiCurrencyAmount pvExpected = pvPriceReal.plus(pvAccrued);
-    assertEquals("Inflation Capital Indexed bond: present value from clean real price", 
+    assertEquals("Inflation Capital Indexed bond: present value from clean real price",
         pvExpected.getAmount(ccy).getAmount(), pv.getAmount(ccy).getAmount(), 1.0E-6);
   }
 
@@ -295,11 +286,10 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     double pvPriceNominal = cleanPriceNominal * MARKET.getDiscountFactor(ccy, BOND_SECURITY_TIPS_1.getSettlementTime())
         * NOTIONAL_TIPS_1;
     double pvExpected = pvPriceNominal + pvAccrued.getAmount(ccy).getAmount();
-    assertEquals("Inflation Capital Indexed bond: present value from clean real price", pvExpected, 
+    assertEquals("Inflation Capital Indexed bond: present value from clean real price", pvExpected,
         pv.getAmount(ccy).getAmount(), 1.0E-6);
   }
 
-  @Test
   /**
    * Tests the clean real price from the dirty real price.
    */
@@ -311,7 +301,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     assertEquals("Inflation Capital Indexed bond: clean from dirty", cleanRealExpected, cleanReal, 1.0E-8);
   }
 
-  @Test
   /**
    * Tests the clean real price from the dirty real price.
    */
@@ -322,7 +311,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     assertEquals("Inflation Capital Indexed bond: clean from dirty", cleanRealExpected, cleanReal, 1.0E-8);
   }
 
-  @Test
   /**
    * Tests the dirty real price computation from the real yield in the "US I/L real" convention.
    */
@@ -346,7 +334,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     }
   }
 
-  @Test
   /**
    * Tests the clean real price from the dirty real price.
    */
@@ -373,7 +360,8 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     final BondCapitalIndexedSecurity<Coupon> bond_110817 = BOND_SECURITY_TIPS_1_DEFINITION.toDerivative(pricingDate20110817, US_CPI);
     final double referenceIndexExpected = 225.83129;
     final MultiCurrencyAmount netAmountSettle = bond_110817.getSettlement().accept(NADIC, market.getInflationProvider());
-    final double referenceIndexComputed = netAmountSettle.getAmount(bond_110817.getCurrency()).getAmount() * BOND_SECURITY_TIPS_1_DEFINITION.getIndexStartValue() / bond_110817.getSettlement().getNotional();
+    final double referenceIndexComputed = netAmountSettle.getAmount(bond_110817.getCurrency()).getAmount() * BOND_SECURITY_TIPS_1_DEFINITION.getIndexStartValue() /
+        bond_110817.getSettlement().getNotional();
     assertEquals("Inflation Capital Indexed bond: index", referenceIndexExpected, referenceIndexComputed, 1.0E-5);
     final double indexRatioExpected = 1.13782;
     final MultiCurrencyAmount indexRatioCalculated = bond_110817.getSettlement().accept(NADIC, market.getInflationProvider());
@@ -405,7 +393,8 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     final BondCapitalIndexedSecurity<Coupon> bond_110817 = BOND_SECURITY_TIPS_1_DEFINITION.toDerivative(pricingDate20110817, US_CPI);
     final double referenceIndexExpected = 225.83129;
     final MultiCurrencyAmount netAmountSettle = bond_110817.getSettlement().accept(NADIC, market.getInflationProvider());
-    final double referenceIndexComputed = netAmountSettle.getAmount(bond_110817.getCurrency()).getAmount() * BOND_SECURITY_TIPS_1_DEFINITION.getIndexStartValue() / bond_110817.getSettlement().getNotional();
+    final double referenceIndexComputed = netAmountSettle.getAmount(bond_110817.getCurrency()).getAmount() * BOND_SECURITY_TIPS_1_DEFINITION.getIndexStartValue() /
+        bond_110817.getSettlement().getNotional();
     assertEquals("Inflation Capital Indexed bond: index", referenceIndexExpected, referenceIndexComputed, 1.0E-5);
     final double indexRatioExpected = 1.13782;
     assertEquals("Inflation Capital Indexed bond: indexRatio", indexRatioExpected, referenceIndexComputed / INDEX_START_TIPS_1, 1.0E-5);
@@ -436,7 +425,8 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     final BondCapitalIndexedSecurity<Coupon> bond_110817 = BOND_SECURITY_TIPS_1_DEFINITION.toDerivative(pricingDate20110817, US_CPI);
     final double referenceIndexExpected = 225.82348;
     final MultiCurrencyAmount netAmountSettle = bond_110817.getSettlement().accept(NADIC, market.getInflationProvider());
-    final double referenceIndexComputed = netAmountSettle.getAmount(bond_110817.getCurrency()).getAmount() * BOND_SECURITY_TIPS_1_DEFINITION.getIndexStartValue() / bond_110817.getSettlement().getNotional();
+    final double referenceIndexComputed = netAmountSettle.getAmount(bond_110817.getCurrency()).getAmount() * BOND_SECURITY_TIPS_1_DEFINITION.getIndexStartValue() /
+        bond_110817.getSettlement().getNotional();
     assertEquals("Inflation Capital Indexed bond: index", referenceIndexExpected, referenceIndexComputed, 1.0E-5);
     final double indexRatioExpected = 1.13778;
     final double yieldExpected = 1.999636 / 100.0;
@@ -454,39 +444,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
     assertEquals("Inflation Capital Indexed bond: net amount", netAmountExpected, netAmount.getAmount(PRICE_INDEX_USCPI.getCurrency()).getAmount() * m1 / NOTIONAL_TIPS_1, 2.0E+0); // The difference is due to rounding.
   }
 
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-
-    long startTime, endTime;
-    final int nbTest = 10000;
-
-    final double[] yield = new double[] {-0.01, 0.00, 0.01, 0.02, 0.03 };
-
-    final double[] dirtyRealPrice = new double[yield.length];
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      for (int loopyield = 0; loopyield < yield.length; loopyield++) {
-        dirtyRealPrice[loopyield] = METHOD_BOND_INFLATION.dirtyPriceFromRealYield(BOND_SECURITY_TIPS_1, yield[loopyield]);
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " price from yield for inflation bonds (TIPS): " + (endTime - startTime) + " ms");
-
-    final double[] yieldComputed = new double[yield.length];
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      for (int loopyield = 0; loopyield < yield.length; loopyield++) {
-        yieldComputed[loopyield] = METHOD_BOND_INFLATION.yieldRealFromDirtyRealPrice(BOND_SECURITY_TIPS_1, dirtyRealPrice[loopyield]);
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " yield from price for inflation bonds (TIPS): " + (endTime - startTime) + " ms");
-  }
-
-  @Test
   /**
    * Test the present value parameter curves sensitivity.
    */
@@ -499,7 +456,6 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
 
   }
 
-  @Test
   /**
    * Test the present value curves sensitivity.
    */
@@ -508,14 +464,14 @@ public class BondCapitalIndexedSecurityDiscountingMethodTest {
         MARKET.getIssuerProvider(), BOND_SECURITY_GILT_1.getCurrency(), BOND_SECURITY_GILT_1.getIssuerEntity());
     InflationProviderInterface inflationDecorated = new InflationProviderDecoratedMulticurve(
         MARKET.getInflationProvider(), multicurveDecorated);
-    final MultipleCurrencyInflationSensitivity sensitivityNominal = 
+    final MultipleCurrencyInflationSensitivity sensitivityNominal =
         BOND_SECURITY_GILT_1.getNominal().accept(PVCSDC, inflationDecorated);
-    final MultipleCurrencyInflationSensitivity sensitivityCoupon = 
+    final MultipleCurrencyInflationSensitivity sensitivityCoupon =
         BOND_SECURITY_GILT_1.getCoupon().accept(PVCSDC, inflationDecorated);
     final MultipleCurrencyInflationSensitivity pvcisCalculated = sensitivityNominal.plus(sensitivityCoupon);
-    final MultipleCurrencyInflationSensitivity pvcisMethod = 
+    final MultipleCurrencyInflationSensitivity pvcisMethod =
         METHOD_BOND_INFLATION.presentValueCurveSensitivity(BOND_SECURITY_GILT_1, MARKET);
-    AssertSensitivityObjects.assertEquals("Bond capital indexed security: presentValueCurveSensitivity ", 
+    AssertSensitivityObjects.assertEquals("Bond capital indexed security: presentValueCurveSensitivity ",
         pvcisCalculated, pvcisMethod, TOLERANCE_PV_DELTA);
   }
 

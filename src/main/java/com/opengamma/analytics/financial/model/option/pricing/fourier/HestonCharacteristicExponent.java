@@ -172,7 +172,6 @@ public class HestonCharacteristicExponent implements MartingaleCharacteristicExp
     wBar[10] = add(multiply(divide(subtract(w[12], 1), temp3), wBar[15]), multiply(divide(subtract(w[12], 1), square(temp1)), wBar[13]));
     wBar[9] = subtract(multiply(t, wBar[11]), multiply(divide(w[8], square(w[9])), wBar[10]));
     wBar[8] = add(multiply(oneOverOmega2, w[15], wBar[17]), divide(wBar[10], w[9]));
-    //subtract(add(multiply(wBar12, multiply(-t, w12)), wBar8), wBar9);
     wBar[7] = subtract(wBar[8], add(multiply(t, w[12], wBar[12]), wBar[9]));
     wBar[6] = divide(wBar[7], multiply(2, w[7]));
     wBar[5] = wBar[6];
@@ -217,8 +216,6 @@ public class HestonCharacteristicExponent implements MartingaleCharacteristicExp
       final ComplexNumber z = multiply(u, add(I, u));
 
       //      //TODO calculate the omega -> 0 sensitivity without resorting to this hack
-      //      HestonCharacteristicExponent ceTemp = this.withOmega(1.1e-6 * _kappa / mod(z));
-      //      ComplexNumber[] temp = ceTemp.getCharacteristicExponentAdjoint(u, t);
 
       final double var;
       if (_kappa * t < 1e-6) {

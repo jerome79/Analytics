@@ -25,11 +25,11 @@ public class AccruedInterestCalculatorTest {
   private static final DayCount DC1 = DayCounts.ACT_ACT_ICMA;
   private static final ZonedDateTime DATE1 = DateUtils.getUTCDate(2006, 1, 4);
   private static final ZonedDateTime[] SCHEDULE1 = new ZonedDateTime[] {DateUtils.getUTCDate(2005, 8, 15), DateUtils.getUTCDate(2006, 2, 15), DateUtils.getUTCDate(2006, 8, 15),
-      DateUtils.getUTCDate(2007, 2, 15)};
+    DateUtils.getUTCDate(2007, 2, 15) };
   private static final DayCount DC2 = DayCounts.THIRTY_U_360;
   private static final ZonedDateTime DATE2 = DateUtils.getUTCDate(2006, 1, 6);
   private static final ZonedDateTime[] SCHEDULE2 = new ZonedDateTime[] {DateUtils.getUTCDate(2005, 8, 15), DateUtils.getUTCDate(2006, 2, 15), DateUtils.getUTCDate(2006, 8, 15),
-      DateUtils.getUTCDate(2007, 2, 14)};
+    DateUtils.getUTCDate(2007, 2, 14) };
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final double EPS = 1e-12;
 
@@ -50,7 +50,7 @@ public class AccruedInterestCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullElementInSchedule() {
-    getAccruedInterest(DC1, DATE1, new ZonedDateTime[] {null}, 0.02, 1, false, 0, CALENDAR);
+    getAccruedInterest(DC1, DATE1, new ZonedDateTime[] {null }, 0.02, 1, false, 0, CALENDAR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -184,7 +184,7 @@ public class MulticurveBuildingDiscountingDiscountUSD2DemoTest {
         CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getFirst(),
         USDLIBOR3M,
         NYC,
-        Files.createTempFile("demo-test-fwd-usd-libor3m-ncs","csv").toFile(),
+        Files.createTempFile("demo-test-fwd-usd-libor3m-ncs", "csv").toFile(),
         0,
         350,
         7);
@@ -215,8 +215,8 @@ public class MulticurveBuildingDiscountingDiscountUSD2DemoTest {
   }
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_USD_WITH_TODAY };

@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test related to the construction and the conversion of Ibor coupon with spread.
  */
@@ -58,7 +57,7 @@ public class CouponIborSpreadDefinitionTest {
       NOTIONAL, FIXING_DATE, IBOR_COUPON_DEFINITION.getFixingPeriodStartDate().plusDays(2), IBOR_COUPON_DEFINITION.getAccrualEndDate().minusDays(2),
       IBOR_COUPON_DEFINITION.getFixingPeriodAccrualFactor(), INDEX, SPREAD, CALENDAR);
   private static final double FIXING_RATE = 0.04;
-  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{FIXING_DATE}, new double[]{FIXING_RATE});
+  private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {FIXING_DATE }, new double[] {FIXING_RATE });
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2011, 4, 5);
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 12, 27); //For conversion to derivative
 

@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantCreditCurveBuilder.ArbitrageHandling;
 
-
 /**
  * Test.
  */

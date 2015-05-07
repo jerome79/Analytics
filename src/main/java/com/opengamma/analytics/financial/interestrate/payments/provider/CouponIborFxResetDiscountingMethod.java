@@ -47,7 +47,6 @@ public final class CouponIborFxResetDiscountingMethod {
   private CouponIborFxResetDiscountingMethod() {
   }
 
-
   /**
    * Compute the present value of a Ibor coupon with spread using a specific forward rate provider by discounting.
    * @param coupon The coupon with FX reset.

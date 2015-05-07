@@ -1040,7 +1040,6 @@ public class InstrumentDefinitionVisitorDelegate<DATA_TYPE, RESULT_TYPE> impleme
     return _delegate.visitBondInterestIndexedTransaction(bond);
   }
 
-
   @Override
   public RESULT_TYPE visitForexDefinition(final ForexDefinition fx, final DATA_TYPE data) {
     return _delegate.visitForexDefinition(fx, data);

@@ -7,7 +7,6 @@ package com.opengamma.analytics.convention.daycount;
 
 import java.time.LocalDate;
 
-
 /**
  * The 'Flat' day count.
  */

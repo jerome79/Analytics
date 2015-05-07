@@ -37,7 +37,6 @@ public abstract class Cube<S, T, U, V> {
     _name = name;
   }
 
-  
   /**
    * @return The name of the cube
    */

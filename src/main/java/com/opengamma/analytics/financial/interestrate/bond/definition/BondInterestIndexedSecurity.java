@@ -142,14 +142,6 @@ public class BondInterestIndexedSecurity<N extends PaymentFixed, C extends Coupo
     return _settlement;
   }
 
-//  /**
-//   * Returns the issuer/currency pair for the bond.
-//   * @return The pair.
-//   */
-//  public Pair<String, Currency> getIssuerCurrency() {
-//    return Pair.of(getIssuer(), getCurrency());
-//  }
-
   @Override
   public <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data) {
     ArgChecker.notNull(visitor, "visitor");

@@ -48,7 +48,8 @@ public class SwapFixedONSimplifiedDefinition extends SwapDefinition {
    * @param isPayer The flag indicating if the annuity is paying (true) or receiving (false).
    * @return The swap.
    */
-  public static SwapFixedONSimplifiedDefinition from(final ZonedDateTime settlementDate, final Period tenorAnnuity, final double notional, final GeneratorSwapFixedON generator, final double fixedRate,
+  public static SwapFixedONSimplifiedDefinition from(final ZonedDateTime settlementDate, final Period tenorAnnuity, final double notional, final GeneratorSwapFixedON generator,
+      final double fixedRate,
       final boolean isPayer) {
     final AnnuityCouponONSimplifiedDefinition oisLeg = AnnuityCouponONSimplifiedDefinition.from(settlementDate, tenorAnnuity, notional, generator, !isPayer);
     final double sign = isPayer ? -1.0 : 1.0;

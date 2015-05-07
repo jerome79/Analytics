@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResult;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -33,7 +32,7 @@ public class PiecewisePolynomialFunction1DTest {
         new double[][] { {1., -3., 3., -1 }, {0., 5., -20., 20 }, {1., 0., 0., 0. }, {0., 5., -10., 5 }, {1., 3., 3., 1. }, {0., 5., 0., 0. } });
     final double[][] xKeys = new double[][] { {-2, 1, 2, 2.5 }, {1.5, 7. / 3., 29. / 7., 5. } };
     final double[][][] valuesExp = new double[][][] { { {-64., -1., 0., 1. / 8. }, {-1. / 8., 1. / 27., 3375. / 7. / 7. / 7., 27. } },
-        { {125., 20., 5., 5. / 4. }, {45. / 4., 20. / 9., 2240. / 7. / 7. / 7., 20. } } };
+      { {125., 20., 5., 5. / 4. }, {45. / 4., 20. / 9., 2240. / 7. / 7. / 7., 20. } } };
     final int dim = 2;
     final int nCoefs = 4;
     final int keyLength = xKeys[0].length;
@@ -206,8 +205,8 @@ public class PiecewisePolynomialFunction1DTest {
   public void GeneralIntegrateDifferentiateTest() {
     final double[] knots = new double[] {1., 2., 3., 4 };
     final double[][] coefMat = new double[][] { {1., 0., 0., 0., 0. },
-        {1., 4., 6., 4., 1. },
-        {1., 8., 24., 32., 16. } };
+      {1., 4., 6., 4., 1. },
+      {1., 8., 24., 32., 16. } };
     final double[] xKeys = new double[] {-2, 1, 2.5, 4. };
     final double[] initials = new double[] {1., 2.5, 23. / 7., 7. };
     final int nKeys = xKeys.length;

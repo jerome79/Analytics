@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test interpolateWithSensitivity method via PiecewisePolynomialInterpolator1D
  */

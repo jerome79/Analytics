@@ -43,7 +43,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests for the inflation convexity adjustment.
  */

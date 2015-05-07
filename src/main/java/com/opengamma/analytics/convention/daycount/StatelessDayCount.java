@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Base class providing a hash and equality test based on the class.
  */

@@ -47,15 +47,14 @@ import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests the pricing method for fixed coupon with FX reset notional.
  */
 @Test
 public class CouponFixedFxResetDiscountingMethodTest {
-  
+
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2010, 1, 6);
-  
+
   /** Single coupon. */
   private static final Currency CUR_REF = Currency.EUR;
   private static final Currency CUR_PAY = Currency.USD;
@@ -67,31 +66,30 @@ public class CouponFixedFxResetDiscountingMethodTest {
   private static final double ACCRUAL_FACTOR = 0.267;
   private static final double NOTIONAL = 100000000; //100m
   private static final double RATE = 0.04;
-  private static final CouponFixedFxResetDefinition CPN_DEFINITION = 
-      new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, 
+  private static final CouponFixedFxResetDefinition CPN_DEFINITION =
+      new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR,
           NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
   private static final CouponFixedFxReset CPN = CPN_DEFINITION.toDerivative(VALUATION_DATE);
-  
-  
-  private static final MulticurveProviderDiscount MULTICURVE = 
-      MulticurveProviderDiscountDataSets.createMulticurveEurUsd();  
-  
+
+  private static final MulticurveProviderDiscount MULTICURVE =
+      MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
+
   /** Methods and calculators. */
   private static final CouponFixedFxResetDiscountingMethod METHOD_CPN_FIXED_FX =
       CouponFixedFxResetDiscountingMethod.getInstance();
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final CurrencyExposureDiscountingCalculator CEDC = CurrencyExposureDiscountingCalculator.getInstance();
-  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = 
+  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC =
       PresentValueCurveSensitivityDiscountingCalculator.getInstance();
-  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = 
+  private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC =
       new ParameterSensitivityParameterCalculator<>(PVCSDC);
   private static final double SHIFT = 1.0E-6;
-  private static final ParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PSC_DSC_FD = 
+  private static final ParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PSC_DSC_FD =
       new ParameterSensitivityMulticurveDiscountInterpolatedFDCalculator(PVDC, SHIFT);
 
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E+0;
-  
+
   @Test
   public void presentValue() {
     double fxToday = MULTICURVE.getFxRate(CUR_REF, CUR_PAY);
@@ -102,68 +100,68 @@ public class CouponFixedFxResetDiscountingMethodTest {
     double pvExpected = amount * dfXTp * dfYT0 / dfXT0;
     MultiCurrencyAmount pvComputed = METHOD_CPN_FIXED_FX.presentValue(CPN, MULTICURVE);
     assertTrue("CouponFixedFxResetDiscountingMethod: present value", pvComputed.size() == 1);
-    assertEquals("CouponFixedFxResetDiscountingMethod: present value", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present value",
         pvExpected, pvComputed.getAmount(CUR_PAY).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void presentValueCalculatorVsMethod() {
     MultiCurrencyAmount pvMethod = METHOD_CPN_FIXED_FX.presentValue(CPN, MULTICURVE);
     MultiCurrencyAmount pvCalculator = CPN.accept(PVDC, MULTICURVE);
-    assertEquals("CouponFixedFxResetDiscountingMethod: present value", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present value",
         pvMethod.getAmount(CUR_PAY).getAmount(), pvCalculator.getAmount(CUR_PAY).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void currencyExposure() {
     MultiCurrencyAmount pvComputed = METHOD_CPN_FIXED_FX.presentValue(CPN, MULTICURVE);
     MultiCurrencyAmount ceComputed = METHOD_CPN_FIXED_FX.currencyExposure(CPN, MULTICURVE);
-    assertEquals("CouponFixedFxResetDiscountingMethod: present currencyExposure", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present currencyExposure",
         MULTICURVE.getFxRates().convert(ceComputed, CUR_PAY).getAmount(),
         MULTICURVE.getFxRates().convert(pvComputed, CUR_PAY).getAmount(), TOLERANCE_PV);
-    assertTrue("CouponFixedFxResetDiscountingMethod: present currencyExposure", 
+    assertTrue("CouponFixedFxResetDiscountingMethod: present currencyExposure",
         Math.abs(ceComputed.getAmount(CUR_REF).getAmount()) > TOLERANCE_PV);
     double amount = NOTIONAL * ACCRUAL_FACTOR * RATE;
     double dfXTp = MULTICURVE.getDiscountFactor(CUR_PAY, CPN.getPaymentTime());
     double dfYT0 = MULTICURVE.getDiscountFactor(CUR_REF, CPN.getFxDeliveryTime());
     double dfXT0 = MULTICURVE.getDiscountFactor(CUR_PAY, CPN.getFxDeliveryTime());
     double ceExpected = amount * dfXTp * dfYT0 / dfXT0;
-    assertEquals("CouponFixedFxResetDiscountingMethod: present currencyExposure", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present currencyExposure",
         ceExpected, ceComputed.getAmount(CUR_REF).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void currencyExposureCalculatorVsMethod() {
     MultiCurrencyAmount ceMethod = METHOD_CPN_FIXED_FX.currencyExposure(CPN, MULTICURVE);
     MultiCurrencyAmount ceCalculator = CPN.accept(CEDC, MULTICURVE);
-    assertEquals("CouponFixedFxResetDiscountingMethod: present value", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present value",
         ceMethod.getAmount(CUR_REF).getAmount(), ceCalculator.getAmount(CUR_REF).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void presentValueCurveSensitivity() {
     MultipleCurrencyParameterSensitivity senseCalc1 = PSC.calculateSensitivity(CPN, MULTICURVE);
     MultipleCurrencyParameterSensitivity senseFd1 = PSC_DSC_FD.calculateSensitivity(CPN, MULTICURVE);
-    AssertSensitivityObjects.assertEquals("CouponFixedFxResetDiscountingMethod: curve sensitivity", 
-         senseCalc1, senseFd1, TOLERANCE_PV_DELTA);    
+    AssertSensitivityObjects.assertEquals("CouponFixedFxResetDiscountingMethod: curve sensitivity",
+        senseCalc1, senseFd1, TOLERANCE_PV_DELTA);
   }
-  
+
   @Test
   public void presentValueCurveSensitivityCalculatorVsMethod() {
-    MultipleCurrencyMulticurveSensitivity pvcsMethod = 
+    MultipleCurrencyMulticurveSensitivity pvcsMethod =
         METHOD_CPN_FIXED_FX.presentValueCurveSensitivity(CPN, MULTICURVE).cleaned();
-    MultipleCurrencyMulticurveSensitivity pvcsCalculator = 
+    MultipleCurrencyMulticurveSensitivity pvcsCalculator =
         CPN.accept(PVCSDC, MULTICURVE).cleaned();
-    AssertSensitivityObjects.assertEquals("CouponFixedFxResetDiscountingMethod: curve sensitivity", 
+    AssertSensitivityObjects.assertEquals("CouponFixedFxResetDiscountingMethod: curve sensitivity",
         pvcsMethod, pvcsCalculator, TOLERANCE_PV_DELTA);
   }
 
-  /** Swap with FX reset. EUR P3M v USD FX reset P3M*/ 
+  /** Swap with FX reset. EUR P3M v USD FX reset P3M*/
   private static final HolidayCalendar CAL = CalendarUSD.NYC;
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
-  private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M = 
+  private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M =
       GENERATOR_IRS_MASTER.getGenerator(GeneratorSwapFixedIborMaster.EUR1YEURIBOR3M, CAL);
-  private static final BusinessDayAdjustment ADJUSTED_DATE_IBOR = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_IBOR =
       BusinessDayAdjustment.of(EUR1YEURIBOR3M.getBusinessDayConvention(), CAL);
   private static final DaysAdjustment OFFSET_ADJ_IBOR =
       DaysAdjustment.ofBusinessDays(-2, CAL, BusinessDayAdjustment.of(EUR1YEURIBOR3M.getBusinessDayConvention(), CAL));
@@ -180,36 +178,36 @@ public class CouponFixedFxResetDiscountingMethodTest {
     }
   };
   // Ibor leg EUR with exchange notional
-  private static final AnnuityDefinition<? extends CouponDefinition> IBOR_LEG_1_DEFINITION = 
+  private static final AnnuityDefinition<? extends CouponDefinition> IBOR_LEG_1_DEFINITION =
       (AnnuityDefinition<? extends CouponDefinition>)
       new FloatingAnnuityDefinitionBuilder().payer(PAYER_1).notional(NOTIONAL_PROV_1).startDate(EFFECTIVE_DATE_1).
-      endDate(MATURITY_DATE_1).index(EUREURIBOR3M).accrualPeriodFrequency(EUREURIBOR3M.getTenor()).
-      rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-      resetDateAdjustmentParameters(ADJUSTED_DATE_IBOR).accrualPeriodParameters(ADJUSTED_DATE_IBOR).
-      dayCount(EUREURIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_IBOR).
-      currency(EUREURIBOR3M.getCurrency()).exchangeInitialNotional(true).exchangeFinalNotional(true).
-      startDateAdjustmentParameters(ADJUSTED_DATE_IBOR).endDateAdjustmentParameters(ADJUSTED_DATE_IBOR).build();
+          endDate(MATURITY_DATE_1).index(EUREURIBOR3M).accrualPeriodFrequency(EUREURIBOR3M.getTenor()).
+          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+          resetDateAdjustmentParameters(ADJUSTED_DATE_IBOR).accrualPeriodParameters(ADJUSTED_DATE_IBOR).
+          dayCount(EUREURIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_IBOR).
+          currency(EUREURIBOR3M.getCurrency()).exchangeInitialNotional(true).exchangeFinalNotional(true).
+          startDateAdjustmentParameters(ADJUSTED_DATE_IBOR).endDateAdjustmentParameters(ADJUSTED_DATE_IBOR).build();
   // Fixed Leg USD with FX reset EUR with exchange notional
   private static final AnnuityDefinition<? extends CouponDefinition> LEG_FXRESET_FIXED_1_DEFINITION;
   static {
     double sign = PAYER_1 ? 1.0d : -1.0d;
     int nbCpn1 = IBOR_LEG_1_DEFINITION.getNumberOfPayments() - 2; // Remove notional
     CouponDefinition[] cpnFxReset = new CouponDefinition[3 * nbCpn1];
-    for(int loopcpn = 0; loopcpn<nbCpn1; loopcpn++) {
-      CouponIborDefinition cpnLoop = (CouponIborDefinition) IBOR_LEG_1_DEFINITION.getNthPayment(loopcpn+1);
-      cpnFxReset[3 * loopcpn] = new CouponFixedFxResetDefinition(CUR_PAY, cpnLoop.getAccrualStartDate(), 
-          cpnLoop.getAccrualStartDate(), cpnLoop.getAccrualStartDate(), 1.0d, -sign * NOTIONAL_1, 1.0d, CUR_REF, 
+    for (int loopcpn = 0; loopcpn < nbCpn1; loopcpn++) {
+      CouponIborDefinition cpnLoop = (CouponIborDefinition) IBOR_LEG_1_DEFINITION.getNthPayment(loopcpn + 1);
+      cpnFxReset[3 * loopcpn] = new CouponFixedFxResetDefinition(CUR_PAY, cpnLoop.getAccrualStartDate(),
+          cpnLoop.getAccrualStartDate(), cpnLoop.getAccrualStartDate(), 1.0d, -sign * NOTIONAL_1, 1.0d, CUR_REF,
           cpnLoop.getFixingDate(), cpnLoop.getAccrualStartDate());
-      cpnFxReset[1 + 3 * loopcpn] = new CouponFixedFxResetDefinition(CUR_PAY, cpnLoop.getAccrualEndDate(), 
-          cpnLoop.getAccrualStartDate(), cpnLoop.getAccrualEndDate(), cpnLoop.getPaymentYearFraction(), 
+      cpnFxReset[1 + 3 * loopcpn] = new CouponFixedFxResetDefinition(CUR_PAY, cpnLoop.getAccrualEndDate(),
+          cpnLoop.getAccrualStartDate(), cpnLoop.getAccrualEndDate(), cpnLoop.getPaymentYearFraction(),
           sign * NOTIONAL_1, FIXED_RATE_1, CUR_REF, cpnLoop.getFixingDate(), cpnLoop.getAccrualStartDate());
-      cpnFxReset[2 + 3 * loopcpn] = new CouponFixedFxResetDefinition(CUR_PAY, cpnLoop.getAccrualEndDate(), 
-          cpnLoop.getAccrualEndDate(), cpnLoop.getAccrualEndDate(), 1.0d, sign * NOTIONAL_1, 1.0d, CUR_REF, 
+      cpnFxReset[2 + 3 * loopcpn] = new CouponFixedFxResetDefinition(CUR_PAY, cpnLoop.getAccrualEndDate(),
+          cpnLoop.getAccrualEndDate(), cpnLoop.getAccrualEndDate(), 1.0d, sign * NOTIONAL_1, 1.0d, CUR_REF,
           cpnLoop.getFixingDate(), cpnLoop.getAccrualStartDate());
-    }    
+    }
     LEG_FXRESET_FIXED_1_DEFINITION = new AnnuityDefinition<>(cpnFxReset, CAL);
   }
-  private static final SwapDefinition SWAP_1_DEFINITION = 
+  private static final SwapDefinition SWAP_1_DEFINITION =
       new SwapDefinition(IBOR_LEG_1_DEFINITION, LEG_FXRESET_FIXED_1_DEFINITION);
   private static final Swap<? extends Payment, ? extends Payment> SWAP_1 = SWAP_1_DEFINITION.toDerivative(VALUATION_DATE);
 
@@ -218,24 +216,23 @@ public class CouponFixedFxResetDiscountingMethodTest {
     MultiCurrencyAmount pvExpected = SWAP_1.getFirstLeg().accept(PVDC, MULTICURVE);
     Annuity<? extends Payment> legFxRest = SWAP_1.getSecondLeg();
     int nbCpn = legFxRest.getNumberOfPayments();
-    for(int loopcpn=0; loopcpn<nbCpn; loopcpn++) {
+    for (int loopcpn = 0; loopcpn < nbCpn; loopcpn++) {
       pvExpected = pvExpected.plus(legFxRest.getNthPayment(loopcpn).accept(PVDC, MULTICURVE));
     }
-    assertEquals("CouponFixedFxResetDiscountingMethod: present value", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present value",
         pvExpected.getAmount(CUR_PAY).getAmount(), pvComputed.getAmount(CUR_PAY).getAmount(), TOLERANCE_PV);
   }
-  
+
   public void currencyExposureSwap() {
     MultiCurrencyAmount ceComputed = SWAP_1.accept(CEDC, MULTICURVE);
     MultiCurrencyAmount ceExpected = SWAP_1.getFirstLeg().accept(PVDC, MULTICURVE);
     Annuity<? extends Payment> legFxRest = SWAP_1.getSecondLeg();
     int nbCpn = legFxRest.getNumberOfPayments();
-    for(int loopcpn=0; loopcpn<nbCpn; loopcpn++) {
+    for (int loopcpn = 0; loopcpn < nbCpn; loopcpn++) {
       ceExpected = ceExpected.plus(legFxRest.getNthPayment(loopcpn).accept(CEDC, MULTICURVE));
     }
-    assertEquals("CouponFixedFxResetDiscountingMethod: present value", 
+    assertEquals("CouponFixedFxResetDiscountingMethod: present value",
         ceExpected.getAmount(CUR_REF).getAmount(), ceComputed.getAmount(CUR_REF).getAmount(), TOLERANCE_PV);
-  } 
-  
-  
+  }
+
 }

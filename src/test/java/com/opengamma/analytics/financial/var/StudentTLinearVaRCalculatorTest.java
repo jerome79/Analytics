@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 
-
 /**
  * Test.
  */

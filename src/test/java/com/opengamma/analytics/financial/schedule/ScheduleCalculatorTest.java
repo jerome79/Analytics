@@ -149,8 +149,6 @@ public class ScheduleCalculatorTest {
     assertEquals("Adjusted date", DateUtils.getUTCDate(2012, 5, 31), ScheduleCalculator.getAdjustedDate(eom30, INDEX_EURIBOR6M, CALENDAR));
     assertArrayEquals("Adjusted date", new ZonedDateTime[] {DateUtils.getUTCDate(2012, 5, 31), DateUtils.getUTCDate(2012, 5, 31) },
         ScheduleCalculator.getAdjustedDate(new ZonedDateTime[] {eom30, eom30 }, INDEX_EURIBOR6M, CALENDAR));
-    //    ZonedDateTime eom31 = DateUtils.getUTCDate(2011, 10, 31);
-    //    ZonedDateTime eom30NGBD = DateUtils.getUTCDate(2011, 4, 29);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -232,10 +230,6 @@ public class ScheduleCalculatorTest {
     final ZonedDateTime monthEndDec = DateUtils.getUTCDate(2011, 12, 31);
     final ZonedDateTime monthEndJan = DateUtils.getUTCDate(2012, 1, 31);
     final ZonedDateTime monthEndFeb = DateUtils.getUTCDate(2012, 2, 29);
-    //    final StubConvention stubLongStart = StubConvention.LONG_INITIAL; // false-true
-    //    final StubConvention stubLongEnd = StubConvention.LONG_FINAL; // false-false
-    //    final StubConvention stubShortStart = StubConvention.SHORT_INITIAL; // true-true
-    //    final StubConvention stubShortEnd = StubConvention.SHORT_FINAL; // true-false
     final ZonedDateTime[] scheduleMidMonth2YStubType = ScheduleCalculator.getUnadjustedDateSchedule(midMonth, midMonth.plus(y2), m6, StubConvention.LONG_FINAL);
     final ZonedDateTime[] scheduleMidMonth2Y = ScheduleCalculator.getUnadjustedDateSchedule(midMonth, midMonth.plus(y2), m6, false, false);
     final ZonedDateTime[] scheduleMidMonth2YExpected = new ZonedDateTime[] {DateUtils.getUTCDate(2012, 7, 19), DateUtils.getUTCDate(2013, 1, 19), DateUtils.getUTCDate(2013, 7, 19),
@@ -596,7 +590,7 @@ public class ScheduleCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCalendar() {
-    ScheduleCalculator.getAdjustedDateSchedule(new ZonedDateTime[] {DateUtils.getUTCDate(2010, 6, 1)},
+    ScheduleCalculator.getAdjustedDateSchedule(new ZonedDateTime[] {DateUtils.getUTCDate(2010, 6, 1) },
         BusinessDayConventions.MODIFIED_FOLLOWING, null, 0);
   }
 

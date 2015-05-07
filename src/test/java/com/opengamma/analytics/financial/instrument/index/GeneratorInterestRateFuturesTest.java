@@ -18,7 +18,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the generator of interest rate futures.
  */

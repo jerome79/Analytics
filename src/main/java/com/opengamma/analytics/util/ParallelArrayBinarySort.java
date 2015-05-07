@@ -55,7 +55,6 @@ public class ParallelArrayBinarySort {
     dualArrayQuickSort(keys, values, 0, n - 1);
   }
 
-
   /**
    * Sort the content of keys and values simultaneously so that
    * both match the correct ordering. Alters the arrays in place

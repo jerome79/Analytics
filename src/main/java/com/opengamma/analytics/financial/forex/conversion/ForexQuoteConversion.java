@@ -12,7 +12,6 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ForexQuoteConversion {
 
-
   private final double _domPips;
   private final double _s0;
   private final double _k;

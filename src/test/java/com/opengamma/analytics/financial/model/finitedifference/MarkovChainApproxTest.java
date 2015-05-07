@@ -14,7 +14,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatilityFormula;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -22,8 +21,6 @@ import com.opengamma.strata.collect.ArgChecker;
 public class MarkovChainApproxTest {
   private static final BlackImpliedVolatilityFormula BLACK_IMPLIED_VOL = new BlackImpliedVolatilityFormula();
   private static final double T = 5.0;
-  //private static final double RATE = 0.0;
-  //private static final YieldAndDiscountCurve YIELD_CURVE = new YieldCurve(ConstantDoublesCurve.from(RATE));
   private static final double VOL1 = 0.20;
   private static final double VOL2 = 0.70;
   private static final double LAMBDA12 = 0.2;
@@ -40,7 +37,6 @@ public class MarkovChainApproxTest {
     SIMS = CHAIN.simulate(T, 100000);
   }
 
-  @Test
   public void momentTest() {
 
     final double[] res1 = CHAIN.getMoments(T, SIMS);
@@ -51,7 +47,6 @@ public class MarkovChainApproxTest {
     }
   }
 
-  @Test
   public void priceTest() {
     final double forward = 0.04;
     final double df = 0.9;
@@ -63,7 +58,6 @@ public class MarkovChainApproxTest {
     for (int i = 0; i < 101; i++) {
       strike = 0.01 + 0.1 * i / 100;
       final EuropeanVanillaOption option = new EuropeanVanillaOption(strike, T, true);
-      //BlackPriceFunction func = new BlackPriceFunction();
       final double price = CHAIN_APPROX.price(forward, df, strike);
       final double mcPrice = CHAIN.price(forward, df, strike, T, SIMS);
       try {
@@ -76,8 +70,6 @@ public class MarkovChainApproxTest {
       } catch (final Exception e) {
         mcImpVol = 0;
       }
-      // System.out.println(strike + "\t" + price + "\t" + mcPrice + "\t" + impVol + "\t" + mcImpVol);
-
       if (strike > 0.01 && strike < 0.2) {
         assertEquals(impVol, mcImpVol, 1e-2);
       }

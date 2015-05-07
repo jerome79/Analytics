@@ -376,7 +376,7 @@ public class CapFloorCMSSpreadSABRBinormalMethod {
     @Override
     public Double evaluate(final Double x) {
       @SuppressWarnings("synthetic-access")
-      final CapFloorCMSSpreadSABRBinormalMethod method = new CapFloorCMSSpreadSABRBinormalMethod(new RealPolynomialFunction1D(new double[] {x}), _methodCmsCap, _methodCmsCoupon);
+      final CapFloorCMSSpreadSABRBinormalMethod method = new CapFloorCMSSpreadSABRBinormalMethod(new RealPolynomialFunction1D(new double[] {x }), _methodCmsCap, _methodCmsCoupon);
       return method.presentValue(_cmsSpread, _sabrData).getAmount(_cmsSpread.getCurrency()).getAmount() - _price;
     }
   }

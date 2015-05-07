@@ -37,8 +37,8 @@ import com.opengamma.strata.collect.ArgChecker;
  * Compute the sensitivity of the spread to the curve; the spread is the number to be added to the market standard quote of the instrument for which the present value of the instrument is zero.
  * The notion of "spread" will depend of each instrument.
  */
-public final class ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator 
-  extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MulticurveSensitivity> {
+public final class ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator
+    extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MulticurveSensitivity> {
 
   /**
    * The unique instance of the calculator.

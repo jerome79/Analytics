@@ -54,7 +54,6 @@ import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test the builder of floating annuities.
  */
@@ -80,9 +79,6 @@ public class FloatingAnnuityDefinitionBuilderTest {
   private static final int TENOR_YEAR_1 = 10;
   private static final LocalDate MATURITY_DATE_1 = EFFECTIVE_DATE_1.plus(Period.ofYears(TENOR_YEAR_1));
   private static final Period PAYMENT_PERIOD = Period.ofMonths(3);
-  //  private static final int SPOT_OFFSET = 2;
-  //  private static final int PAY_OFFSET = 0;
-  //  private static final int CUT_OFF_OFFSET = 2;
   private static final double SPREAD_1 = 0.0010;
   private static final boolean PAYER_1 = false;
   private static final double NOTIONAL_1 = 1000000; // 1m
@@ -421,6 +417,7 @@ public class FloatingAnnuityDefinitionBuilderTest {
           .resetDateAdjustmentParameters(ADJUSTED_DATE_USDLIBOR).accrualPeriodParameters(ADJUSTED_DATE_USDLIBOR).
           dayCount(USDLIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_FIXING_USDLIBOR).
           currency(USD).spread(0.0).endStub(CPN_IBOR_STUB8).build();
+
   /**
    * start/end stub with one/two ibor indexes.
    */
@@ -429,9 +426,9 @@ public class FloatingAnnuityDefinitionBuilderTest {
     testStub("FloatingAnnuityDefinitionBuilder - Stub - long start one index", LEG_IBOR_STUB1, new IborIndex[] {
         USDLIBOR6M }, true, 5, CouponIborSpreadDefinition.class, START_DATE_STUB1, END_DATE_STUB1.minus(P1Y));
     testStub("FloatingAnnuityDefinitionBuilder - Stub - short start two indexes", LEG_IBOR_STUB2, new IborIndex[] {
-        USDLIBOR1M, USDLIBOR3M }, true, 3, CouponIborDefinition.class, START_DATE_STUB2, END_DATE_STUB2.minus(P1Y));
+      USDLIBOR1M, USDLIBOR3M }, true, 3, CouponIborDefinition.class, START_DATE_STUB2, END_DATE_STUB2.minus(P1Y));
     testStub("FloatingAnnuityDefinitionBuilder - Stub - short end two indexes", LEG_IBOR_STUB3, new IborIndex[] {
-        USDLIBOR1M, USDLIBOR3M }, false, 3, CouponIborSpreadDefinition.class, START_DATE_STUB3.plus(P1Y),
+      USDLIBOR1M, USDLIBOR3M }, false, 3, CouponIborSpreadDefinition.class, START_DATE_STUB3.plus(P1Y),
         END_DATE_STUB3);
     testStub("FloatingAnnuityDefinitionBuilder - Stub - Short start one index", LEG_IBOR_STUB4,
         new IborIndex[] {USDLIBOR3M }, true, 3, CouponIborSpreadDefinition.class, START_DATE_STUB4,
@@ -496,6 +493,7 @@ public class FloatingAnnuityDefinitionBuilderTest {
           .resetDateAdjustmentParameters(ADJUSTED_DATE_USDLIBOR).accrualPeriodParameters(ADJUSTED_DATE_USDLIBOR).
           dayCount(USDLIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_FIXING_USDLIBOR).spread(SPREAD_1)
           .currency(USD).endStub(CPN_IBOR_STUB12).compoundingMethod(CompoundingMethod.STRAIGHT).build();
+
   /**
    * start/end stub with one/two ibor compounding indexes, StubConvention.BOTH not supported. 
    * Note compounding accrual dates in each coupon are computed short start. 
@@ -565,6 +563,7 @@ public class FloatingAnnuityDefinitionBuilderTest {
           .resetDateAdjustmentParameters(ADJUSTED_DATE_USDLIBOR).accrualPeriodParameters(ADJUSTED_DATE_USDLIBOR).
           dayCount(USDFEDFUND.getDayCount()).fixingDateAdjustmentParameters(OFFSET_FIXING_USDLIBOR).
           currency(USD).endStub(CPN_OIS_STUB16).compoundingMethod(null).spread(0.015).build();
+
   /**
    * CompoundingMethod.NONE returns getONArithmeticAverageDefinition
    */

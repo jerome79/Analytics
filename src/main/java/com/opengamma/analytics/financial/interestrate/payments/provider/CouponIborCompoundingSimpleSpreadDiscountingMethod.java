@@ -19,6 +19,7 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.SimplyC
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
+
 /**
  * Method to compute present value and present value sensitivity for Ibor compounding coupon with spread and compounding type "Compounding treating spread as simple interest".
  * The definition of "Compounding treating spread as simple interest" is available in the ISDA document:

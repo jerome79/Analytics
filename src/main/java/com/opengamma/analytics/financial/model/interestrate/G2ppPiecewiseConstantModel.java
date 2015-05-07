@@ -243,7 +243,6 @@ public class G2ppPiecewiseConstantModel {
       for (int loopd2 = loopd1; loopd2 < 2; loopd2++) {
         d2[loopd1][loopd2] = -(d2f[loopd1][loopd2] * g - df[loopd2] * dg[loopd1] - df[loopd1] * dg[loopd2] - f * d2g[loopd1][loopd2]) / (g * g) - 2 * dg[loopd1] * f * dg[loopd2] / (g * g * g);
         //        d2[loopd1][loopd2] = -(d2f[loopd1][loopd2] * g + df[loopd2] * dg[loopd1] - df[loopd1] * dg[loopd2] - f * d2g[loopd1][loopd2]) / (g * g) 
-        //        + 2 * dg[loopd1] * (df[loopd2] * g - f * dg[loopd2]) / (g * g * g);
       }
     }
     d2[1][0] = d2[0][1];
@@ -373,7 +372,6 @@ public class G2ppPiecewiseConstantModel {
     }
 
     // Test:end
-    //    double swapRate = -f / g;
     // Backward sweep
     double[][] fBar = new double[2][2];
     double[][][] dfBar = new double[2][2][2];

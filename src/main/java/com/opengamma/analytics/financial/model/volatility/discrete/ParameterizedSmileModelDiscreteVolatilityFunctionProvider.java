@@ -217,7 +217,6 @@ public abstract class ParameterizedSmileModelDiscreteVolatilityFunctionProvider<
           }
 
           final double[] sigmas = smiles.get(i).evaluate(toSmileModelData(parms));
-          // scatter smile in order expected by res;
           final int[] map = revMap[i];
           final int nStrikes = sigmas.length;
           for (int j = 0; j < nStrikes; j++) {

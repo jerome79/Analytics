@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;

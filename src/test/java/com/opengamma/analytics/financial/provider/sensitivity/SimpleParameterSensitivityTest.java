@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebraFactory;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 
-
 /**
  * Tests related to ParameterSensitivity manipulations.
  */

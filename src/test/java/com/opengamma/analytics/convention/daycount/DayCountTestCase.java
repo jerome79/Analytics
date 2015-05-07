@@ -30,12 +30,12 @@ public abstract class DayCountTestCase {
 
   protected abstract DayCount getDayCount();
 
-  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class})
+  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class })
   public void testNullFirstDate1() {
     DayCountUtils.yearFraction(getDayCount(), null, D2);
   }
 
-  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class})
+  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class })
   public void testNullSecondDate1() {
     DayCountUtils.yearFraction(getDayCount(), D1, null);
   }

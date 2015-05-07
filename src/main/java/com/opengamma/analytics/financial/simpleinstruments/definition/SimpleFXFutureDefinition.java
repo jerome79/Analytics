@@ -23,8 +23,8 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
   private final Currency _payCurrency;
   private final Currency _receiveCurrency;
   private final double _unitAmount;
-  
-  public SimpleFXFutureDefinition(final ZonedDateTime expiryDate, final ZonedDateTime settlementDate, final double referencePrice, final Currency payCurrency, final Currency recieveCurrency, 
+
+  public SimpleFXFutureDefinition(final ZonedDateTime expiryDate, final ZonedDateTime settlementDate, final double referencePrice, final Currency payCurrency, final Currency recieveCurrency,
       final double unitAmount) {
     ArgChecker.notNull(expiryDate, "expiry date");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -37,31 +37,31 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
     _receiveCurrency = recieveCurrency;
     _unitAmount = unitAmount;
   }
-  
+
   public ZonedDateTime getExpiry() {
     return _expiryDate;
   }
-  
+
   public ZonedDateTime getSettlementDate() {
     return _settlementDate;
   }
-  
+
   public double getReferencePrice() {
     return _referencePrice;
   }
-  
+
   public Currency getPayCurrency() {
     return _payCurrency;
   }
-  
+
   public Currency getReceiveCurrency() {
     return _receiveCurrency;
   }
-  
+
   public double getUnitAmount() {
     return _unitAmount;
   }
-  
+
   @Override
   public SimpleFXFuture toDerivative(final ZonedDateTime date) {
     ArgChecker.notNull(date, "date");
@@ -70,7 +70,7 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
     double timeToDelivery = TimeCalculator.getTimeBetween(date, _settlementDate);
     return new SimpleFXFuture(timeToFixing, timeToDelivery, _referencePrice, _unitAmount, _payCurrency, _receiveCurrency);
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -110,7 +110,7 @@ public class SimpleFXFutureDefinition implements SimpleInstrumentDefinition<Simp
     }
     if (!Objects.equals(_payCurrency, other._payCurrency)) {
       return false;
-    }   
+    }
     if (!Objects.equals(_receiveCurrency, other._receiveCurrency)) {
       return false;
     }

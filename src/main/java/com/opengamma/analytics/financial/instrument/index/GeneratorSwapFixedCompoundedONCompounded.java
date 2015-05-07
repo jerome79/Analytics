@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;

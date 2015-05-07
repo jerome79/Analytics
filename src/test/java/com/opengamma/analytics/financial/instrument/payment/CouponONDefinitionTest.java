@@ -39,7 +39,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the OIS coupon definition.
  */
@@ -140,7 +139,7 @@ public class CouponONDefinitionTest {
    */
   public void toDerivativeFixingBeforeStart() {
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(TRADE_DATE, 1, EUR_CALENDAR);
-    final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 7)}, new double[]{0.01});
+    final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 7) }, new double[] {0.01 });
     final Payment cpnConverted = EONIA_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
     final double paymentTime = TimeCalculator.getTimeBetween(referenceDate, EUR_PAYMENT_DATE);
     final double fixingStartTime = TimeCalculator.getTimeBetween(referenceDate, START_ACCRUAL_DATE);

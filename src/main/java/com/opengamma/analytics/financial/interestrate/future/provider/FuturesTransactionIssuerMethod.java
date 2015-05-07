@@ -17,7 +17,7 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
  */
 public class FuturesTransactionIssuerMethod extends FuturesTransactionMethod {
 
-  private static final FuturesPVCurveSensitivityFromPriceCurveSensitivityCalculator PVCSIC = 
+  private static final FuturesPVCurveSensitivityFromPriceCurveSensitivityCalculator PVCSIC =
       FuturesPVCurveSensitivityFromPriceCurveSensitivityCalculator.getInstance();
 
   /**
@@ -26,7 +26,7 @@ public class FuturesTransactionIssuerMethod extends FuturesTransactionMethod {
   public FuturesTransactionIssuerMethod() {
     super(new FuturesSecurityIssuerMethod());
   }
-  
+
   /**
    * Constructor from a futures security method.
    * @param securityMethod The method to compute the price and the price curve sensitivity of the underlying security.
@@ -63,9 +63,9 @@ public class FuturesTransactionIssuerMethod extends FuturesTransactionMethod {
    * @return The present value rate sensitivity.
    */
 
-  public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final FuturesTransaction<?> futures, 
+  public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final FuturesTransaction<?> futures,
       final ParameterIssuerProviderInterface multicurve) {
-    final MulticurveSensitivity priceSensitivity = 
+    final MulticurveSensitivity priceSensitivity =
         getSecurityMethod().priceCurveSensitivity(futures.getUnderlyingSecurity(), multicurve);
     return futures.accept(PVCSIC, priceSensitivity);
 

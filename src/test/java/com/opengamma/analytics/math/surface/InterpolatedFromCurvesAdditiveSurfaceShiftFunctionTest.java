@@ -17,19 +17,18 @@ import com.opengamma.analytics.math.curve.CurveShiftFunctionFactory;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
 @Test
 public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
   private static final LinearInterpolator1D INTERPOLATOR = new LinearInterpolator1D();
-  private static final InterpolatedDoublesCurve NODAL = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4}, new double[] {2, 3, 4, 5}, INTERPOLATOR, "Q");
-  private static final InterpolatedDoublesCurve INTERPOLATED1 = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4}, new double[] {3, 4, 5, 6}, INTERPOLATOR, "W");
-  private static final InterpolatedDoublesCurve INTERPOLATED2 = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4}, new double[] {4, 5, 6, 7}, INTERPOLATOR, "E");
-  private static final double[] POINTS = new double[] {1, 2, 4};
+  private static final InterpolatedDoublesCurve NODAL = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4 }, new double[] {2, 3, 4, 5 }, INTERPOLATOR, "Q");
+  private static final InterpolatedDoublesCurve INTERPOLATED1 = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4 }, new double[] {3, 4, 5, 6 }, INTERPOLATOR, "W");
+  private static final InterpolatedDoublesCurve INTERPOLATED2 = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4 }, new double[] {4, 5, 6, 7 }, INTERPOLATOR, "E");
+  private static final double[] POINTS = new double[] {1, 2, 4 };
   @SuppressWarnings("unchecked")
-  private static final Curve<Double, Double>[] CURVES = new Curve[] {NODAL, INTERPOLATED1, INTERPOLATED2};
+  private static final Curve<Double, Double>[] CURVES = new Curve[] {NODAL, INTERPOLATED1, INTERPOLATED2 };
   private static final String NAME = "D";
   private static final InterpolatedFromCurvesDoublesSurface SURFACE1 = InterpolatedFromCurvesDoublesSurface.fromSorted(true, POINTS, CURVES, INTERPOLATOR, NAME);
   private static final InterpolatedFromCurvesDoublesSurface SURFACE2 = InterpolatedFromCurvesDoublesSurface.fromSorted(false, POINTS, CURVES, INTERPOLATOR, NAME);
@@ -57,32 +56,32 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull5() {
-    F.evaluate(null, new double[] {3}, new double[] {4}, new double[] {5});
+    F.evaluate(null, new double[] {3 }, new double[] {4 }, new double[] {5 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNull6() {
-    F.evaluate(null, new double[] {3}, new double[] {4}, new double[] {5}, NAME);
+    F.evaluate(null, new double[] {3 }, new double[] {4 }, new double[] {5 }, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthY1() {
-    F.evaluate(SURFACE1, new double[] {1}, new double[] {2, 3}, new double[] {4});
+    F.evaluate(SURFACE1, new double[] {1 }, new double[] {2, 3 }, new double[] {4 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthY2() {
-    F.evaluate(SURFACE1, new double[] {1}, new double[] {2, 3}, new double[] {4}, "M");
+    F.evaluate(SURFACE1, new double[] {1 }, new double[] {2, 3 }, new double[] {4 }, "M");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthZ1() {
-    F.evaluate(SURFACE1, new double[] {1}, new double[] {2}, new double[] {3, 4});
+    F.evaluate(SURFACE1, new double[] {1 }, new double[] {2 }, new double[] {3, 4 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthZ2() {
-    F.evaluate(SURFACE1, new double[] {1}, new double[] {2}, new double[] {3, 4}, "L");
+    F.evaluate(SURFACE1, new double[] {1 }, new double[] {2 }, new double[] {3, 4 }, "L");
   }
 
   @Test
@@ -227,12 +226,12 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testMultipleShiftNoX() {
-    F.evaluate(SURFACE2, new double[] {1, 1.2}, new double[] {1, 2}, new double[] {0.3, 0.3});
+    F.evaluate(SURFACE2, new double[] {1, 1.2 }, new double[] {1, 2 }, new double[] {0.3, 0.3 });
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void testMultipleShiftShiftNoY() {
-    F.evaluate(SURFACE1, new double[] {1, 2}, new double[] {1, 1.2}, new double[] {0.3, 0.3});
+    F.evaluate(SURFACE1, new double[] {1, 2 }, new double[] {1, 1.2 }, new double[] {0.3, 0.3 });
   }
 
   @Test
@@ -268,9 +267,9 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
 
   @Test
   public void testMultipleShiftXZ() {
-    final double[] x = new double[] {1, 2};
-    final double[] y = new double[] {4, 2};
-    final double[] shift = new double[] {0.54, -0.9};
+    final double[] x = new double[] {1, 2 };
+    final double[] y = new double[] {4, 2 };
+    final double[] shift = new double[] {0.54, -0.9 };
     InterpolatedFromCurvesDoublesSurface surface = F.evaluate(SURFACE1, x, y, shift);
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);
@@ -300,9 +299,9 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
 
   @Test
   public void testMultipleShiftYZ() {
-    final double[] x = new double[] {1, 2};
-    final double[] y = new double[] {4, 2};
-    final double[] shift = new double[] {0.54, -0.9};
+    final double[] x = new double[] {1, 2 };
+    final double[] y = new double[] {4, 2 };
+    final double[] shift = new double[] {0.54, -0.9 };
     InterpolatedFromCurvesDoublesSurface surface = F.evaluate(SURFACE2, x, y, shift);
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);

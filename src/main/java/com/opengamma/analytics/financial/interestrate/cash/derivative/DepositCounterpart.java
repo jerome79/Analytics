@@ -72,6 +72,7 @@ public class DepositCounterpart extends Cash {
   public LegalEntity getCounterparty() {
     return _counterparty;
   }
+
   @Override
   public int hashCode() {
     final int prime = 31;

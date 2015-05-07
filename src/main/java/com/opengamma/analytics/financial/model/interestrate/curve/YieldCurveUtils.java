@@ -112,9 +112,9 @@ public class YieldCurveUtils {
    * @return A new curve with bucketed shifts applied
    */
   public static YieldCurve withBucketedShifts(YieldCurve curve,
-                                              List<DoublesPair> buckets,
-                                              List<Double> shifts,
-                                              ShiftType shiftType) {
+      List<DoublesPair> buckets,
+      List<Double> shifts,
+      ShiftType shiftType) {
     return withBucketedShifts(curve, buckets, shifts, shiftType, BUCKETED_SHIFT_NAME);
   }
 
@@ -138,10 +138,10 @@ public class YieldCurveUtils {
    * @return A new curve with bucketed shifts applied
    */
   public static YieldCurve withBucketedShifts(YieldCurve curve,
-                                              List<DoublesPair> buckets,
-                                              List<Double> shifts,
-                                              ShiftType shiftType,
-                                              String nameSuffix) {
+      List<DoublesPair> buckets,
+      List<Double> shifts,
+      ShiftType shiftType,
+      String nameSuffix) {
     ArgChecker.notNull(curve, "curve");
     ArgChecker.noNulls(buckets, "buckets");
     ArgChecker.noNulls(shifts, "shifts");
@@ -185,7 +185,8 @@ public class YieldCurveUtils {
         stepCurvePoints.add(DoublesPair.of(oldPair.getSecond(), 0));
         DoublesCurve spreadCurve = InterpolatedDoublesCurve.from(stepCurvePoints, stepInterpolator);
         return new YieldCurve(newName, SpreadDoublesCurve.from(ADD_SPREAD, newName, underlyingCurve, spreadCurve));
-      } case RELATIVE: {
+      }
+      case RELATIVE: {
         if (oldPair.getFirst() >= 0 && Double.compare(0, oldPair.getFirst()) != 0) {
           stepCurvePoints.add(DoublesPair.of(0., 1.));
         }
@@ -204,7 +205,8 @@ public class YieldCurveUtils {
         stepCurvePoints.add(DoublesPair.of(oldPair.getSecond(), 1));
         DoublesCurve spreadCurve = InterpolatedDoublesCurve.from(stepCurvePoints, stepInterpolator);
         return new YieldCurve(newName, SpreadDoublesCurve.from(MULTIPLY_SPREAD, newName, underlyingCurve, spreadCurve));
-      } default:
+      }
+      default:
         throw new IllegalArgumentException("Cannot handle curve shift type " + shiftType + " for bucketed shifts");
     }
   }
@@ -249,10 +251,10 @@ public class YieldCurveUtils {
    * @throws IllegalArgumentException if the curve is not an interpolated curve
    */
   public static YieldCurve withPointShifts(YieldCurve curve,
-                                           List<Double> t,
-                                           List<Double> shifts,
-                                           ShiftType shiftType,
-                                           String nameSuffix) {
+      List<Double> t,
+      List<Double> shifts,
+      ShiftType shiftType,
+      String nameSuffix) {
     ArgChecker.notNull(curve, "curve");
     ArgChecker.noNulls(t, "times");
     ArgChecker.noNulls(shifts, "shifts");
@@ -270,10 +272,12 @@ public class YieldCurveUtils {
         return new YieldCurve(
             newName,
             CurveShiftFunctionFactory.getShiftedCurve(curve.getCurve(), tArray, shiftArray, newName));
-      } case RELATIVE: {
+      }
+      case RELATIVE: {
         InterpolatedDoublesCurve interpolatedCurve = (InterpolatedDoublesCurve) curve.getCurve();
         return new YieldCurve(newName, getRelativeShiftedCurve(interpolatedCurve, tArray, shiftArray, newName));
-      } default:
+      }
+      default:
         throw new IllegalArgumentException("Cannot handle curve shift type " + shiftType + " for point shifts");
     }
   }
@@ -288,9 +292,9 @@ public class YieldCurveUtils {
    */
   //TODO this should be moved into a separate CurveShiftFunction
   private static InterpolatedDoublesCurve getRelativeShiftedCurve(InterpolatedDoublesCurve curve,
-                                                                  double[] t,
-                                                                  double[] yShift,
-                                                                  String newName) {
+      double[] t,
+      double[] yShift,
+      String newName) {
     if (t.length == 0) {
       return InterpolatedDoublesCurve.from(
           curve.getXDataAsPrimitive(),

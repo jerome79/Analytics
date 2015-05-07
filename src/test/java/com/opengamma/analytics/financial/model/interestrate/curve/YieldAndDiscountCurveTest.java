@@ -15,16 +15,15 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Tests related to the construction of yield and discounting curves.
  */
 @Test
 public class YieldAndDiscountCurveTest {
 
-  private static final double[] TIME = new double[] {1, 2, 3};
-  private static final double[] RATES = new double[] {0.03, 0.04, 0.05};
-  private static final double[] DF_VALUES = new double[] {Math.exp(-0.03), Math.exp(-0.08), Math.exp(-0.15)};
+  private static final double[] TIME = new double[] {1, 2, 3 };
+  private static final double[] RATES = new double[] {0.03, 0.04, 0.05 };
+  private static final double[] DF_VALUES = new double[] {Math.exp(-0.03), Math.exp(-0.08), Math.exp(-0.15) };
   private static final Interpolator1D INTERPOLATOR = new LinearInterpolator1D();
   private static final InterpolatedDoublesCurve R = InterpolatedDoublesCurve.from(TIME, RATES, INTERPOLATOR);
   private static final InterpolatedDoublesCurve DF = InterpolatedDoublesCurve.from(TIME, DF_VALUES, INTERPOLATOR);

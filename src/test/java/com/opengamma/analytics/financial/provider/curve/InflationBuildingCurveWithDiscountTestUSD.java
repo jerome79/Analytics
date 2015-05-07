@@ -51,17 +51,13 @@ import com.opengamma.analytics.financial.model.interestrate.curve.PriceIndexCurv
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.provider.calculator.generic.LastTimeCalculator;
-import com.opengamma.analytics.financial.provider.calculator.inflation.MarketQuoteInflationSensitivityBlockCalculator;
 import com.opengamma.analytics.financial.provider.calculator.inflation.ParSpreadInflationMarketQuoteCurveSensitivityDiscountingCalculator;
 import com.opengamma.analytics.financial.provider.calculator.inflation.ParSpreadInflationMarketQuoteDiscountingCalculator;
-import com.opengamma.analytics.financial.provider.calculator.inflation.PresentValueCurveSensitivityDiscountingInflationCalculator;
 import com.opengamma.analytics.financial.provider.calculator.inflation.PresentValueDiscountingInflationCalculator;
 import com.opengamma.analytics.financial.provider.curve.inflation.InflationDiscountBuildingRepositoryWithDiscount;
 import com.opengamma.analytics.financial.provider.description.inflation.InflationProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.inflation.ParameterInflationProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.inflation.InflationSensitivity;
-import com.opengamma.analytics.financial.provider.sensitivity.inflation.ParameterSensitivityInflationParameterCalculator;
-import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyParameterSensitivity;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
@@ -102,8 +98,8 @@ public class InflationBuildingCurveWithDiscountTestUSD {
 
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2012, 9, 28);
 
-  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28), DateUtils.getUTCDate(2012, 6, 30), DateUtils.getUTCDate(2012, 7, 31)}, new double[]{200, 200, 200, 200});
+  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28), DateUtils.getUTCDate(2012, 6, 30), DateUtils.getUTCDate(2012, 7, 31) }, new double[] {200, 200, 200, 200 });
   private static final String CURVE_NAME_DSC_USD = "USD Dsc";
   private static final String CURVE_NAME_CPI_USD = "USD CPI";
 
@@ -204,7 +200,6 @@ public class InflationBuildingCurveWithDiscountTestUSD {
 
   // Calculator
   private static final PresentValueDiscountingInflationCalculator PVIC = PresentValueDiscountingInflationCalculator.getInstance();
-  private static final PresentValueCurveSensitivityDiscountingInflationCalculator PVCSDIC = PresentValueCurveSensitivityDiscountingInflationCalculator.getInstance();
   private static final ParSpreadInflationMarketQuoteDiscountingCalculator PSIMQC = ParSpreadInflationMarketQuoteDiscountingCalculator.getInstance();
   private static final ParSpreadInflationMarketQuoteCurveSensitivityDiscountingCalculator PSIMQCSC = ParSpreadInflationMarketQuoteCurveSensitivityDiscountingCalculator.getInstance();
 
@@ -251,55 +246,11 @@ public class InflationBuildingCurveWithDiscountTestUSD {
         ArrayUtils.toPrimitive(((PriceIndexCurveSimple) curveInflation[1]).getCurve().getYData()), TOLERANCE_CAL);
   }
 
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSIMQC, PSIMQCSC);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("MulticurveBuildingDiscountingDiscountXCcyTest - " + nbTest + " curve construction / USD/EUR 3 units: " + (endTime - startTime) + " ms");
-    // Performance note: curve construction Price index EUR and discount EUR 1 units: 27-Mar-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 5869 ms for 1000 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], KNOWN_DATA, PSIMQC, PSIMQCSC);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 1 unit: " + (endTime - startTime) + " ms");
-    // Performance note: curve construction Price index EUR and discount EUR 1 units: 27-Mar-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 9153 ms for 1000 sets.
-
-  }
-
   @Test
   public void curveConstructionGeneratorOtherBlocks() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), loopblock);
     }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Analyzes the shape of the forward curve.
-   */
-  public void marketQuoteSensitivityAnalysis() {
-
-    final InflationProviderDiscount multicurves7 = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(1).getFirst();
-    multicurves7.setAll(CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getFirst());
-    final CurveBuildingBlockBundle blocks7 = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(1).getSecond();
-    blocks7.addAll(CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getSecond());
-    final double spreadJPYEUR = 0.0010; // 10bps
-    final double notional = 100000;
-    final GeneratorAttributeIR swapAttribute = new GeneratorAttributeIR(Period.ofYears(4));
-    final SwapFixedInflationZeroCouponDefinition swapDefinition = GENERATOR_INFALTION_SWAP.generateInstrument(NOW, spreadJPYEUR, notional, swapAttribute);
-    final InstrumentDerivative swap = swapDefinition.toDerivative(NOW, new ZonedDateTimeDoubleTimeSeries[] {TS_PRICE_INDEX_USD_WITH_TODAY, TS_PRICE_INDEX_USD_WITH_TODAY });
-    final ParameterSensitivityInflationParameterCalculator<ParameterInflationProviderInterface> PSC = new ParameterSensitivityInflationParameterCalculator<>(PVCSDIC);
-    final MarketQuoteInflationSensitivityBlockCalculator<ParameterInflationProviderInterface> MQSC = new MarketQuoteInflationSensitivityBlockCalculator<>(PSC);
-    @SuppressWarnings("unused")
-    final MultipleCurrencyParameterSensitivity mqs = MQSC.fromInstrument(swap, multicurves7, blocks7);
   }
 
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final InflationProviderDiscount curves, final int block) {

@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DCubicSplineDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test.
  */
@@ -43,7 +42,7 @@ public class NaturalCubicSplineInterpolator1DNodeSensitivityCalculatorTest {
   };
 
   static {
-    final double[] t = new double[] {0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 7.0, 10.0, 15.0, 17.5, 20.0, 25.0, 30.0};
+    final double[] t = new double[] {0.0, 0.5, 1.0, 2.0, 3.0, 5.0, 7.0, 10.0, 15.0, 17.5, 20.0, 25.0, 30.0 };
     final int n = t.length;
     final double[] r = new double[n];
     for (int i = 0; i < n; i++) {
@@ -87,7 +86,7 @@ public class NaturalCubicSplineInterpolator1DNodeSensitivityCalculatorTest {
 
   @Test
   public void testYieldCurve() {
-    final double[] fwdTimes = new double[] {0.0, 1.0, 2.0, 5.0, 10.0, 20.0, 31.0};
+    final double[] fwdTimes = new double[] {0.0, 1.0, 2.0, 5.0, 10.0, 20.0, 31.0 };
     final int n = fwdTimes.length;
     final double[] rates = new double[n];
     for (int i = 0; i < n; i++) {

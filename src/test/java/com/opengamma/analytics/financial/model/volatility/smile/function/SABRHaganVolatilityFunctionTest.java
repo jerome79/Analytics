@@ -22,7 +22,6 @@ import com.opengamma.analytics.math.rootfinding.BracketRoot;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Tests related to the Hagan et al. approximation of the SABR implied volatility.
  */
@@ -351,7 +350,6 @@ public class SABRHaganVolatilityFunctionTest extends SABRVolatilityFunctionTestC
     final double tol = 1e-5;
     final SABRFormulaData data = DATA.withRho(1.0).withBeta(0.0).withNu(20.0);
     testVolatilityModelAdjoint(F, CALL_ATM, data, eps, tol);
-    // testVolatilityModelAdjoint(FORWARD, CALL_ITM, data, eps, tol);
     testVolatilityModelAdjoint(F, CALL_OTM, data, eps, tol);
   }
 
@@ -407,7 +405,6 @@ public class SABRHaganVolatilityFunctionTest extends SABRVolatilityFunctionTestC
   }
 
   private void testVolatilityModelAdjoint(final double forward, final EuropeanVanillaOption optionData, final SABRFormulaData sabrData, final double eps, final double tol) {
-    //    double volatility = FUNCTION.getVolatilityFunction(optionData, forward).evaluate(sabrData);
     final double[] volatilityAdjoint = FUNCTION.getVolatilityModelAdjoint(optionData, forward, sabrData);
 
     assertEqualsRelTol("Alpha Sensitivity" + sabrData.toString(), fdSensitivity(optionData, forward, sabrData, SABRParameter.Alpha, eps), volatilityAdjoint[0], tol);
@@ -481,7 +478,6 @@ public class SABRHaganVolatilityFunctionTest extends SABRVolatilityFunctionTestC
       testVolatilityAdjoint(F, CALL_OTM, data, eps, tol);
     }
   }
-
 
   /**
    * Calculate the true SABR delta and gamma and compare with that found by finite difference

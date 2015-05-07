@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */

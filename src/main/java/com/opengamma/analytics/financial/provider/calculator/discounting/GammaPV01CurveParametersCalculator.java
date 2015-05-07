@@ -4,6 +4,7 @@
  * Please see distribution for license.
  */
 package com.opengamma.analytics.financial.provider.calculator.discounting;
+
 import java.util.Map;
 
 import com.opengamma.analytics.ShiftType;
@@ -25,7 +26,6 @@ import com.opengamma.analytics.util.amount.ReferenceAmount;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
-
 
 /**
  * Returns the change in PV01 of an instrument due to a parallel 1bp move of <b>all</b> the curves to which the instrument is sensitive.

@@ -999,7 +999,6 @@ public abstract class InstrumentDefinitionVisitorAdapter<DATA_TYPE, RESULT_TYPE>
     return getException(bond);
   }
 
-
   @Override
   public RESULT_TYPE visitForexDefinition(final ForexDefinition fx, final DATA_TYPE data) {
     return getException(fx, data);

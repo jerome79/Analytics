@@ -49,12 +49,12 @@ public class BlackScholesMertonImpliedVolatilitySurfaceModelTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyPrices() {
-    MODEL.getSurface(Collections.<OptionDefinition, Double> emptyMap(), DATA);
+    MODEL.getSurface(Collections.<OptionDefinition, Double>emptyMap(), DATA);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData() {
-    MODEL.getSurface(Collections.<OptionDefinition, Double> singletonMap(new EuropeanVanillaOptionDefinition(RANDOM.nextDouble(), new Expiry(DATE), true), 2.3), null);
+    MODEL.getSurface(Collections.<OptionDefinition, Double>singletonMap(new EuropeanVanillaOptionDefinition(RANDOM.nextDouble(), new Expiry(DATE), true), 2.3), null);
   }
 
   @Test
@@ -78,7 +78,7 @@ public class BlackScholesMertonImpliedVolatilitySurfaceModelTest {
       initialData = new StandardOptionDataBundle(curve, b, null, spot, DATE);
       data = new StandardOptionDataBundle(curve, b, new VolatilitySurface(ConstantDoublesSurface.from(sigma)), spot, DATE);
       price = BSM.getPricingFunction(definition).evaluate(data);
-      assertEquals(sigma, MODEL.getSurface(Collections.<OptionDefinition, Double> singletonMap(definition, price), initialData).getVolatility(DoublesPair.of(0., 0.)), EPS);
+      assertEquals(sigma, MODEL.getSurface(Collections.<OptionDefinition, Double>singletonMap(definition, price), initialData).getVolatility(DoublesPair.of(0., 0.)), EPS);
     }
   }
 }

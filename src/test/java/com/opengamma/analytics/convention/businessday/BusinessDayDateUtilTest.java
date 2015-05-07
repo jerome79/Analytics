@@ -22,7 +22,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.date.ImmutableHolidayCalendar;
 
-
 @Test
 public class BusinessDayDateUtilTest {
   private static final ZoneId UTC = ZoneId.of("UTC");
@@ -44,7 +43,7 @@ public class BusinessDayDateUtilTest {
     ZonedDateTime d5 = ZonedDateTime.of(2014, 7, 22, 12, 0, 0, 0, UTC); // Tuesday
 
     //same day
-    assertEquals(0, getDaysBetween(d0, d0, WEEKEND_CALENDAR)); 
+    assertEquals(0, getDaysBetween(d0, d0, WEEKEND_CALENDAR));
 
     assertEquals(1, getDaysBetween(d1, d5, WEEKEND_CALENDAR)); //Monday to Tuesday 
     assertEquals(5, getDaysBetween(d1, d2, WEEKEND_CALENDAR)); //Monday to Saturday
@@ -71,8 +70,6 @@ public class BusinessDayDateUtilTest {
     assertEquals(10, getWorkingDaysInclusive(d1, d3, WEEKEND_CALENDAR)); //Monday to Friday week
     assertEquals(5, getWorkingDaysInclusive(d2, d3, WEEKEND_CALENDAR)); //Saturday to Friday
   }
-
-
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void wrongWayDatesTest() {

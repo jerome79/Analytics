@@ -21,7 +21,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * Class describing inflation coupon.
  */
 public abstract class CouponInflationDefinition extends CouponDefinition
-  implements InstrumentDefinitionWithData<Payment, DoubleTimeSeries<ZonedDateTime>> {
+    implements InstrumentDefinitionWithData<Payment, DoubleTimeSeries<ZonedDateTime>> {
 
   /**
    * The price index associated to the coupon.
@@ -57,10 +57,10 @@ public abstract class CouponInflationDefinition extends CouponDefinition
 
   @Override
   public abstract Coupon toDerivative(final ZonedDateTime date);
-  
+
   @Override
   public abstract Coupon toDerivative(final ZonedDateTime date, final DoubleTimeSeries<ZonedDateTime> priceIndexTimeSeries);
-  
+
   /**
    * Gets the price index associated to the coupon.
    * @return The price index.

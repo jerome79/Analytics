@@ -45,7 +45,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests the present value and its sensitivities for zero-coupon cap/floor with reference index interpolated between months.
  */
@@ -173,9 +172,9 @@ public class CapFloorInflationZeroCouponInterpolationBlackSmileMethodTest {
         LAST_KNOWN_FIXING_DATE, MATURITY, STRIKE, IS_CAP);
 
     final ZonedDateTimeDoubleTimeSeries ts = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-        new ZonedDateTime[]{DateUtils.getUTCDate(2008, 4, 30), DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2011, 5, 31), DateUtils.getUTCDate(2011, 6, 30),
-            DateUtils.getUTCDate(2011, 9, 27),
-            DateUtils.getUTCDate(2011, 9, 28)}, new double[]{108.23, 108.64, 225.964, 225.722, 200, 200});
+        new ZonedDateTime[] {DateUtils.getUTCDate(2008, 4, 30), DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2011, 5, 31), DateUtils.getUTCDate(2011, 6, 30),
+          DateUtils.getUTCDate(2011, 9, 27),
+          DateUtils.getUTCDate(2011, 9, 28) }, new double[] {108.23, 108.64, 225.964, 225.722, 200, 200 });
 
     final CapFloorInflationZeroCouponInterpolation capZeroCouponUsd = (CapFloorInflationZeroCouponInterpolation) capZeroCouponUsdDefinition.toDerivative(PRICING_DATE, ts);
     final CouponInflationZeroCouponInterpolation zeroCouponUsd = (CouponInflationZeroCouponInterpolation) zeroCouponUsdDefinition.toDerivative(PRICING_DATE, ts);

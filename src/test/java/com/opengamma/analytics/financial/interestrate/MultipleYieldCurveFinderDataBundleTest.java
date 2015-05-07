@@ -91,7 +91,7 @@ public class MultipleYieldCurveFinderDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthParRates() {
-    new MultipleYieldCurveFinderDataBundle(DERIVATIVES, new double[] {0.01}, null, NODES, INTERPOLATORS, false, FX_MATRIX);
+    new MultipleYieldCurveFinderDataBundle(DERIVATIVES, new double[] {0.01 }, null, NODES, INTERPOLATORS, false, FX_MATRIX);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -109,7 +109,7 @@ public class MultipleYieldCurveFinderDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testCurveAlreadyPresent() {
-    new MultipleYieldCurveFinderDataBundle(DERIVATIVES, PAR_RATES, new YieldCurveBundle(Collections.<String, YieldAndDiscountCurve> singletonMap(CURVE_NAME1,
+    new MultipleYieldCurveFinderDataBundle(DERIVATIVES, PAR_RATES, new YieldCurveBundle(Collections.<String, YieldAndDiscountCurve>singletonMap(CURVE_NAME1,
         YieldCurve.from(ConstantDoublesCurve.from(2.)))), NODES, INTERPOLATORS, false, FX_MATRIX);
   }
 

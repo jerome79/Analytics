@@ -240,7 +240,7 @@ public class InterestRateFutureOptionMarginNormalSmileMethodTest {
    */
   private static final InterpolatedDoublesSurface NORMAL_PARAMETERS_MONEYNESS = NormalDataSets
       .createNormalSurfaceFuturesPricesSimpleMoneyness();
-  private static final NormalSTIRFuturesExpSimpleMoneynessProviderDiscount NORMAL_MULTICURVES_MONEYNESS = 
+  private static final NormalSTIRFuturesExpSimpleMoneynessProviderDiscount NORMAL_MULTICURVES_MONEYNESS =
       new NormalSTIRFuturesExpSimpleMoneynessProviderDiscount(MULTICURVES, NORMAL_PARAMETERS_MONEYNESS, EURIBOR3M, false);
 
   /**
@@ -285,9 +285,9 @@ public class InterestRateFutureOptionMarginNormalSmileMethodTest {
    */
   @Test
   public void presentValueCurveSensitivityMoneyness() {
-     MultipleCurrencyParameterSensitivity pvpsDepositExact = PSNFC.calculateSensitivity(TRANSACTION_1,
+    MultipleCurrencyParameterSensitivity pvpsDepositExact = PSNFC.calculateSensitivity(TRANSACTION_1,
         NORMAL_MULTICURVES_MONEYNESS, NORMAL_MULTICURVES_MONEYNESS.getMulticurveProvider().getAllNames());
-     MultipleCurrencyParameterSensitivity pvpsDepositFD = PSNFC_FD.calculateSensitivity(TRANSACTION_1,
+    MultipleCurrencyParameterSensitivity pvpsDepositFD = PSNFC_FD.calculateSensitivity(TRANSACTION_1,
         NORMAL_MULTICURVES_MONEYNESS);
 
     // bump and reprice method involves the change in moneyness

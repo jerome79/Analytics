@@ -76,7 +76,7 @@ public class SwaptionPhysicalFixedIborG2ppNumericalIntegrationMethod {
     final IntegratorRepeated2D integrator2D = new IntegratorRepeated2D(integrator1D);
     double pv = 0.0;
     try {
-      pv = 1.0 / (2.0 * Math.PI * Math.sqrt(1 - rhobar * rhobar)) * integrator2D.integrate(integrant, new Double[] {-limit, -limit}, new Double[] {limit, limit});
+      pv = 1.0 / (2.0 * Math.PI * Math.sqrt(1 - rhobar * rhobar)) * integrator2D.integrate(integrant, new Double[] {-limit, -limit }, new Double[] {limit, limit });
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }

@@ -34,7 +34,6 @@ import com.opengamma.analytics.math.interpolation.DoubleQuadraticInterpolator1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 
-
 /**
  * Test.
  */
@@ -43,7 +42,6 @@ public class SABRFiniteDifferenceTest {
   private static final boolean DEBUG = false; //set to false before commit
 
   private static final DoubleQuadraticInterpolator1D INTERPOLATOR_1D = new DoubleQuadraticInterpolator1D();
-  //private static final PDEDataBundleProvider PDE_DATA_PROVIDER = new PDEDataBundleProvider();
   private static final PDE1DCoefficientsProvider PDE_PROVIDER = new PDE1DCoefficientsProvider();
   private static final InitialConditionsProvider INITIAL_CONDITIONS_PROVIDER = new InitialConditionsProvider();
 
@@ -54,7 +52,6 @@ public class SABRFiniteDifferenceTest {
   private static final Function1D<Double, Double> ATM_VOL;
   private static final double BETA = 0.5;
   private static final double RHO = -0.6;
-  // private static final double NU = 0.5;
   private static final Function1D<Double, Double> NU;
   private static final double RATE = 0.02;
   private static final double DRIFT = 0.07;
@@ -147,7 +144,6 @@ public class SABRFiniteDifferenceTest {
    * Run a backwards PDE once for the example strike and maturity, using the local volatility derived from the SABR
    * implied volatility surface, and check the price agrees with SABR.
    */
-  @Test
   public void testBackwardsSingleStrike() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 20;
@@ -179,7 +175,6 @@ public class SABRFiniteDifferenceTest {
    * Run a classic (i.e. defined in terms of instantaneous short rates) backwards PDE once for the example strike and maturity, using the local volatility derived from the SABR
    * implied volatility surface, and check the price agrees with SABR.
    */
-  @Test
   public void testClassicBackwardsSingleStrike() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 20;
@@ -220,7 +215,6 @@ public class SABRFiniteDifferenceTest {
    * Run a backwards PDE multiple time at different strikes for maturity, using the local volatility derived from the
    * SABR implied volatility surface, and check the price agrees with SABR.
    */
-  @Test
   public void testBackwardsMultipleStrikes() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 50;
@@ -238,7 +232,6 @@ public class SABRFiniteDifferenceTest {
     for (int j = 0; j < 50; j++) {
       final double strike = forward * (0.5 + 1.5 * j / 49.);
       final BoundaryCondition upper = new DirichletBoundaryCondition(maxForward - strike, maxForward);
-      // final ZZConvectionDiffusionPDEDataBundle pdeData = PDE_DATA_PROVIDER.getBackwardsLocalVol(strike, T, true, SABR_LOCAL_VOL, FORWARD_CURVE);
       final Function1D<Double, Double> payoff = INITIAL_CONDITIONS_PROVIDER.getEuropeanPayoff(strike, true);
       final PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients> db = new PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients>(PDE, payoff, lower, upper, grid);
       final PDEResults1D res = solver.solve(db);
@@ -278,7 +271,6 @@ public class SABRFiniteDifferenceTest {
    * Run a forwards PDE once, using the local volatility derived from the
    * SABR implied volatility surface, and check the prices at the example expiry and strikes agrees with SABR.
    */
-  @Test
   public void testForwardPDE() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 50;
@@ -286,12 +278,10 @@ public class SABRFiniteDifferenceTest {
 
     final double maxMoneyness = 6.0;
 
-    //  final ZZConvectionDiffusionPDEDataBundle pdeData = PDE_DATA_PROVIDER.getForwardLocalVol(SABR_LOCAL_VOL, FORWARD_CURVE, true);
     final ConvectionDiffusionPDE1DCoefficients pde = PDE_PROVIDER.getForwardLocalVol(FORWARD_CURVE, SABR_LOCAL_VOL);
     final Function1D<Double, Double> initialCondition = INITIAL_CONDITIONS_PROVIDER.getForwardCallPut(true);
 
     final BoundaryCondition lower = new DirichletBoundaryCondition(1.0, 0.0);
-    // BoundaryCondition upper = new DirichletBoundaryCondition(0.0, maxMoneyness);
     final BoundaryCondition upper = new NeumannBoundaryCondition(0, maxMoneyness, false);
 
     final MeshingFunction timeMesh = new ExponentialMeshing(0.0, T, tNodes, 4.0);
@@ -323,7 +313,6 @@ public class SABRFiniteDifferenceTest {
    * Run a classic forwards PDE once, using the local volatility derived from the
    * SABR implied volatility surface, and check the prices at the example expiry and strikes agrees with SABR.
    */
-  @Test
   public void testClassicForwardsPDE() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 50;
@@ -331,7 +320,6 @@ public class SABRFiniteDifferenceTest {
     final double fwd = FORWARD_CURVE.getForward(T);
     final double maxStrike = 4.0 * fwd;
 
-    // final ZZConvectionDiffusionPDEDataBundle pdeData = PDE_DATA_PROVIDER.getForwardLocalVol(RATE, RATE - DRIFT, SPOT, true, SABR_LOCAL_VOL);
     final ConvectionDiffusionPDE1DCoefficients pde = PDE_PROVIDER.getForwardLocalVolatility(RATE, RATE - DRIFT, SABR_LOCAL_VOL);
     final Function1D<Double, Double> initialCondition = INITIAL_CONDITIONS_PROVIDER.getForwardCallPut(SPOT, true);
 
@@ -350,7 +338,6 @@ public class SABRFiniteDifferenceTest {
 
     final PDEResults1D res = solver.solve(db);
     final double df = Math.exp(-RATE * T);
-    //   System.out.println("Classic forward PDE");
     for (int i = 0; i < xNodes; i++) {
       final double k = grid.getSpaceNode(i);
       if (k > 0.5 * fwd && k < 2.0 * fwd) {
@@ -378,7 +365,6 @@ public class SABRFiniteDifferenceTest {
    * Since there is no way of analytically calculating the delta for an arbitrary local volatility surface, we compare the results of running the
    * backwards and forwards PDE solver
    */
-  @Test
   public void testLocalVolDelta() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 50;
@@ -483,7 +469,6 @@ public class SABRFiniteDifferenceTest {
     }
   }
 
-  @Test
   public void testLocalVolGamma() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 50;
@@ -496,10 +481,6 @@ public class SABRFiniteDifferenceTest {
 
     final LocalVolatilitySurfaceMoneyness lvUp = LocalVolatilitySurfaceConverter.shiftForwardCurve(LV_M, shift);
     final LocalVolatilitySurfaceMoneyness lvDown = LocalVolatilitySurfaceConverter.shiftForwardCurve(LV_M, -shift);
-
-    //    final ZZConvectionDiffusionPDEDataBundle pdeDataFwd = PDE_DATA_PROVIDER.getForwardLocalVol(LV_M, true);
-    //    final ZZConvectionDiffusionPDEDataBundle pdeDataUp = PDE_DATA_PROVIDER.getForwardLocalVol(lvUp, true);
-    //    final ZZConvectionDiffusionPDEDataBundle pdeDataDown = PDE_DATA_PROVIDER.getForwardLocalVol(lvDown, true);
 
     final ConvectionDiffusionPDE1DCoefficients pdeFwd = PDE_PROVIDER.getForwardLocalVol(LV_M);
     final ConvectionDiffusionPDE1DCoefficients pdeFwdUp = PDE_PROVIDER.getForwardLocalVol(lvUp);
@@ -535,7 +516,6 @@ public class SABRFiniteDifferenceTest {
       final double gammaFwd = fixedSurfaceGamma + 2 * surfaceDelta - 2 * x * surfaceVanna + surfaceGamma;
 
       final BoundaryCondition upperBwd = new DirichletBoundaryCondition(maxForward - k, maxForward);
-      // final ZZConvectionDiffusionPDEDataBundle pdeDataBkd = PDE_DATA_PROVIDER.getBackwardsLocalVol(k, T, true, SABR_LOCAL_VOL, FORWARD_CURVE);
       final Function1D<Double, Double> payoff = INITIAL_CONDITIONS_PROVIDER.getEuropeanPayoff(k, true);
       final PDEResults1D resBkd = solver.solve(new PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients>(PDE, payoff, lowerBwd, upperBwd, gridBwd));
 
@@ -577,7 +557,6 @@ public class SABRFiniteDifferenceTest {
    * When the local volatility surface parametrised by moneyness (rather than strike) is made invariant to changes in the forward curve, the resulting
    * delta is that of a volatility model which is a function of moneyness only. An example of this is SABR with beta = 1.
    */
-  @Test
   public void testSABRDelta() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final int tNodes = 50;
@@ -588,7 +567,6 @@ public class SABRFiniteDifferenceTest {
     final SABRFormulaData sabrData = new SABRFormulaData(ATM_VOL.evaluate(T), 1.0, RHO, NU.evaluate(T));
     final LocalVolatilitySurfaceStrike locVol = getSABRLocalVolSurface(1.0, FORWARD_CURVE);
 
-    // final ZZConvectionDiffusionPDEDataBundle pdeDataFwd = PDE_DATA_PROVIDER.getForwardLocalVol(locVol, FORWARD_CURVE, true);
     final ConvectionDiffusionPDE1DCoefficients pde = PDE_PROVIDER.getForwardLocalVol(FORWARD_CURVE, locVol);
     final Function1D<Double, Double> initialCond = INITIAL_CONDITIONS_PROVIDER.getForwardCallPut(true);
 

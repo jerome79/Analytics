@@ -14,7 +14,6 @@ import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexFuture;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

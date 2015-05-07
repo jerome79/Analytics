@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -178,13 +177,11 @@ public class BilinearSplineInterpolatorTest {
         assertEquals(resValues[i][j], expVal, ref * EPS);
       }
     }
-    //    final PiecewisePolynomialFunction2D func = new PiecewisePolynomialFunction2D();
     for (int i = 0; i < n0Keys; ++i) {
       for (int j = 0; j < n1Keys; ++j) {
         final double expVal = (x0Keys[i] - 1.5) * (x1Keys[j] - 0.5);
         final double ref = Math.abs(expVal) == 0. ? 1. : Math.abs(expVal);
         assertEquals(resValues[i][j], expVal, ref * EPS);
-        //        assertEquals(resValues[i][j], func.evaluate(result, x0Keys[i], x1Keys[j]), ref * EPS);
       }
     }
     {
@@ -409,16 +406,4 @@ public class BilinearSplineInterpolatorTest {
     BilinearSplineInterpolator intp = new BilinearSplineInterpolator();
     intp.interpolate(x0Values, x1Values, yValues);
   }
-  //  /**
-  //   * 
-  //   */
-  //  @Test
-  //  public void Test() {
-  //    double[] x0Values = new double[] {0., 1., 2., 3. };
-  //    double[] x1Values = new double[] {0., 1., 2. };
-  //    double[][] yValues = new double[][] { {1., 2., 4. }, {-1., 2., -4. }, {2., 3., 4. }, {5., 2., 1. } };
-  //
-  //    BilinearSplineInterpolator interp = new BilinearSplineInterpolator();
-  //    interp.interpolate(x0Values, x1Values, yValues);
-  //  }
 }

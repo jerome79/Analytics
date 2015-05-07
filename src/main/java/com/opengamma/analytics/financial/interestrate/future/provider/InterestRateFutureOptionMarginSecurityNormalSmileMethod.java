@@ -102,7 +102,7 @@ public final class InterestRateFutureOptionMarginSecurityNormalSmileMethod exten
     double priceFuture = METHOD_FUTURE.price(security.getUnderlyingFuture(), normalData.getMulticurveProvider());
     return priceCurveSensitivityFromFuturePrice(security, normalData, priceFuture);
   }
-  
+
   /**
    * Computes the option security price curve sensitivity.  with underlying futures price
    * It is supposed that for a given strike the volatility does not change with the curves (sticky strike).

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.commodity.derivative;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
@@ -13,6 +12,7 @@ import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisito
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.id.StandardId;
+
 /**
  * Metal  commodity derivative
  */

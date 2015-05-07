@@ -50,7 +50,7 @@ public class DecisionScheduleDerivativeCalculator extends InstrumentDerivativeVi
 
   @Override
   public DecisionScheduleDerivative visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, final MulticurveProviderInterface multicurves) {
-    final double[] decisionTime = new double[] {swaption.getTimeToExpiry()};
+    final double[] decisionTime = new double[] {swaption.getTimeToExpiry() };
     final AnnuityPaymentFixed cfe = swaption.getUnderlyingSwap().accept(CFEC, multicurves);
     final double[][] impactTime = new double[1][cfe.getNumberOfPayments()];
     final double[][] impactAmount = new double[1][cfe.getNumberOfPayments()];

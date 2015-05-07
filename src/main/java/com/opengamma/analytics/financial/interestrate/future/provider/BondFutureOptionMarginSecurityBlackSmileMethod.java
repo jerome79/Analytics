@@ -28,17 +28,17 @@ public final class BondFutureOptionMarginSecurityBlackSmileMethod extends
 
   /** The Black function used in the pricing. */
   private static final BlackPriceFunction BLACK_FUNCTION = new BlackPriceFunction();
-  
+
   /** The method used to compute the future price. */
   private final FuturesSecurityIssuerMethod _methodFutures;
-  
+
   /**
    * Default constructor.
    */
   private BondFutureOptionMarginSecurityBlackSmileMethod() {
     _methodFutures = BondFuturesSecurityDiscountingMethod.getInstance();
   }
-  
+
   /**
    * Constructor from a particular bond futures method. The method is used to compute the price and price curve
    * sensitivity of the underlying futures.

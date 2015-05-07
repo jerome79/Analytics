@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 
-
 /**
  * Test.
  */
@@ -28,9 +27,9 @@ public class DeltaMeanCalculatorTest {
   private static final DeltaMeanCalculator F = new DeltaMeanCalculator(ALGEBRA);
   private static final DoubleMatrix1D EMPTY_VECTOR = new DoubleMatrix1D(new double[0]);
   private static final DoubleMatrix2D EMPTY_MATRIX = new DoubleMatrix2D(new double[0][0]);
-  private static final DoubleMatrix1D VECTOR = new DoubleMatrix1D(new double[] {3});
-  private static final DoubleMatrix2D MATRIX = new DoubleMatrix2D(new double[][] {new double[] {1}});
-  private static final DoubleMatrix1D ZERO = new DoubleMatrix1D(new double[] {0});
+  private static final DoubleMatrix1D VECTOR = new DoubleMatrix1D(new double[] {3 });
+  private static final DoubleMatrix2D MATRIX = new DoubleMatrix2D(new double[][] {new double[] {1 } });
+  private static final DoubleMatrix1D ZERO = new DoubleMatrix1D(new double[] {0 });
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullAlgebra() {

@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test interpolateWithSensitivity method via PiecewisePolynomialInterpolator1D
  */
@@ -358,8 +357,8 @@ public class NonnegativityPreservingQuinticSplineInterpolator1DTest {
   public void linearDataTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8. };
     final double[][] yValues = new double[][] { {0., 0., 0., 0., 0., 0., 0., 0. }, {1., 1., 1., 1., 1., 1., 1., 1. }, {1., 3., 5., 7., 9., 11., 13., 15. },
-        {19., 14., 9., 4., -1., -6., -11., -16. }, {-16., -11., -6., -1., 4., 9., 14., 19., },
-        {0., 0., 0., 0., 0., 0., 1., 1. }, {0., 0., 0., 0., 0., 0., -1., -1. } };
+      {19., 14., 9., 4., -1., -6., -11., -16. }, {-16., -11., -6., -1., 4., 9., 14., 19., },
+      {0., 0., 0., 0., 0., 0., 1., 1. }, {0., 0., 0., 0., 0., 0., -1., -1. } };
     final int nData = xValues.length;
     final int dim = yValues.length;
 
@@ -409,9 +408,9 @@ public class NonnegativityPreservingQuinticSplineInterpolator1DTest {
     final double[] xKeys = new double[10 * nData];
     xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10. };
     yValues1 = new double[][] {
-        {2.0, 2.0, 0.0, 1.0, 2.0, 0.0, 2.0, 1.0, 0.0, 2.0 },
-        {2.0, -1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 2.0 },
-        {2.0, -1.0, 0.0, -1.0, 1.0, 2.0, 1.0, 2.0, -1.0, 2.0 } };
+      {2.0, 2.0, 0.0, 1.0, 2.0, 0.0, 2.0, 1.0, 0.0, 2.0 },
+      {2.0, -1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 2.0 },
+      {2.0, -1.0, 0.0, -1.0, 1.0, 2.0, 1.0, 2.0, -1.0, 2.0 } };
     final int dim = yValues1.length;
 
     for (int k = 0; k < dim; ++k) {
@@ -468,8 +467,8 @@ public class NonnegativityPreservingQuinticSplineInterpolator1DTest {
     final double[] xKeys = new double[10 * nData];
     xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10. };
     yValues1 = new double[][] {
-        {0.1, 0.1, 3.1, 1.1, 2.1, 0.1, 3.1, 0.1, 2.1, 1.1 },
-        {0.1, 1.1, 1.1, 1.1, 0.1, 2.1, 0.1, 3.1, 0.1, 0.1 }
+      {0.1, 0.1, 3.1, 1.1, 2.1, 0.1, 3.1, 0.1, 2.1, 1.1 },
+      {0.1, 1.1, 1.1, 1.1, 0.1, 2.1, 0.1, 3.1, 0.1, 0.1 }
     };
     final int dim = yValues1.length;
 

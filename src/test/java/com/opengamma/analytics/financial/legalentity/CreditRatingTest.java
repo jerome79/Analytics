@@ -11,7 +11,6 @@ import static org.testng.AssertJUnit.assertNull;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Tests the credit rating object
  */

@@ -31,8 +31,8 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
  * Calculates the estimated net amount of an inflation (linear) instruments for a given InflationProvider.
  */
 
-public final class NetAmountInflationCalculator 
-  extends InstrumentDerivativeVisitorDelegate<ParameterInflationProviderInterface, MultiCurrencyAmount> {
+public final class NetAmountInflationCalculator
+    extends InstrumentDerivativeVisitorDelegate<ParameterInflationProviderInterface, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.

@@ -21,7 +21,6 @@ import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.util.AssertMatrix;
-import com.opengamma.analytics.util.monitor.OperationTimer;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -243,105 +242,6 @@ public class MultiCapFloorPricerTest extends CapletStrippingSetup {
     assertEquals(nCaps, intrVal.length);
     for (int i = 0; i < nCaps; i++) {
       assertTrue(intrVal[i] > 0.0); //Cap ATM means the strike equals the swap rate - individual caplets may be ITM 
-    }
-  }
-
-  @SuppressWarnings("unused")
-  @Test
-  public void priceTimeTest() {
-
-    int warmup = 1;
-    int benchmarkCycles = 0;
-
-    MulticurveProviderDiscount yieldCurve = getYieldCurves();
-
-    List<CapFloor> caps = getAllCaps();
-    int nCaps = caps.size();
-
-    MultiCapFloorPricer multiPricer = new MultiCapFloorPricer(caps, yieldCurve);
-    CapFloorPricer[] pricers = new CapFloorPricer[nCaps];
-    //   List<List<CapFloor>> allCaps = new ArrayList<>(nStrikes);
-
-    for (int i = 0; i < nCaps; i++) {
-      pricers[i] = new CapFloorPricer(caps.get(i), yieldCurve);
-    }
-
-    for (int count = 0; count < warmup; count++) {
-      double[] prices = multiPricer.price(s_VolSurface);
-    }
-
-    if (benchmarkCycles > 0) {
-      OperationTimer timer = new OperationTimer(LOGGER, "processing {} cycles on timeTest - multiPricer", benchmarkCycles);
-      for (int count = 0; count < benchmarkCycles; count++) {
-        double[] prices = multiPricer.price(s_VolSurface);
-      }
-      timer.finished();
-    }
-
-    for (int count = 0; count < warmup; count++) {
-      for (int i = 0; i < nCaps; i++) {
-        double p = pricers[i].price(s_VolSurface);
-      }
-
-    }
-
-    if (benchmarkCycles > 0) {
-      OperationTimer timer2 = new OperationTimer(LOGGER, "processing {} cycles on timeTest - single Pricer", benchmarkCycles);
-      for (int count = 0; count < benchmarkCycles; count++) {
-        for (int i = 0; i < nCaps; i++) {
-          double p = pricers[i].price(s_VolSurface);
-        }
-      }
-      timer2.finished();
-    }
-  }
-
-  // since finding implied vol is expensive compared to finding a price (10-20 times more), there is little (relative) difference here. This is why it is
-  // quicker to to caplet stripping based on price (weighted by vega) rather than implied vol.
-  @SuppressWarnings("unused")
-  @Test
-  public void volTimeTest() {
-
-    int warmup = 1;
-    int benchmarkCycles = 0;
-
-    MulticurveProviderDiscount yieldCurve = getYieldCurves();
-    List<CapFloor> caps = getAllCaps();
-    int nCaps = caps.size();
-
-    MultiCapFloorPricer multiPricer = new MultiCapFloorPricer(caps, yieldCurve);
-    CapFloorPricer[] pricers = new CapFloorPricer[nCaps];
-
-    for (int i = 0; i < nCaps; i++) {
-      pricers[i] = new CapFloorPricer(caps.get(i), yieldCurve);
-    }
-
-    for (int count = 0; count < warmup; count++) {
-      double[] vols = multiPricer.impliedVols(s_VolSurface);
-    }
-
-    if (benchmarkCycles > 0) {
-      OperationTimer timer = new OperationTimer(LOGGER, "processing {} cycles on timeTest - multiPricer", benchmarkCycles);
-      for (int count = 0; count < benchmarkCycles; count++) {
-        double[] vols = multiPricer.impliedVols(s_VolSurface);
-      }
-      timer.finished();
-    }
-
-    for (int count = 0; count < warmup; count++) {
-      for (int i = 0; i < nCaps; i++) {
-        double v = pricers[i].impliedVol(s_VolSurface);
-      }
-    }
-
-    if (benchmarkCycles > 0) {
-      OperationTimer timer2 = new OperationTimer(LOGGER, "processing {} cycles on timeTest - single Pricer", benchmarkCycles);
-      for (int count = 0; count < benchmarkCycles; count++) {
-        for (int i = 0; i < nCaps; i++) {
-          double v = pricers[i].impliedVol(s_VolSurface);
-        }
-      }
-      timer2.finished();
     }
   }
 

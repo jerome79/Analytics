@@ -22,7 +22,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public abstract class SABRExtrapolationLeftRightFunction {
 
   private final VolatilityFunctionProvider<SABRFormulaData> _sabrFunction;
-  
+
   /**
    * Constructor using default volatility function
    */
@@ -38,7 +38,7 @@ public abstract class SABRExtrapolationLeftRightFunction {
     ArgChecker.notNull(volatilityFunction, "volatilityFunction");
     _sabrFunction = volatilityFunction;
   }
-  
+
   /**
    * Get volatility function
    * @return The volatility function
@@ -144,6 +144,5 @@ public abstract class SABRExtrapolationLeftRightFunction {
 
     return differentiator.differentiate(function).evaluate(ref);
   }
-  
-  
+
 }

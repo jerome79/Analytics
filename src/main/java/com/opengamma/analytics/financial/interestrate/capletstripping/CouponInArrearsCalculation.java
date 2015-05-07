@@ -44,7 +44,6 @@ import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * This class wraps {@link CapletStripper} and {@link GeneralSmileInterpolator}.
  * Given multi-curves and market caps, derive caplet volatility surface. 
@@ -190,16 +189,16 @@ public class CouponInArrearsCalculation {
       sampleVols[i] = _surface.getZValue(expiry, sampleStrikes[i]);
     }
 
-      // construct a interpolated/extrapolated smile
+    // construct a interpolated/extrapolated smile
     double forward = _curves.getSimplyCompoundForwardRate(couponIbor.getIndex(),
-          couponIbor.getFixingPeriodStartTime(), couponIbor.getFixingPeriodEndTime(),
-          couponIbor.getFixingAccrualFactor());
+        couponIbor.getFixingPeriodStartTime(), couponIbor.getFixingPeriodEndTime(),
+        couponIbor.getFixingAccrualFactor());
     InterpolatedSmileFunction smileFunction = new InterpolatedSmileFunction(interpolator, forward, sampleStrikes,
-          expiry, sampleVols);
+        expiry, sampleVols);
 
     // compute pv 
     CouponIborInArrearsSmileModelReplicationMethod inArrearsCal = new CouponIborInArrearsSmileModelReplicationMethod(
-          smileFunction);
+        smileFunction);
     return inArrearsCal.presentValue(couponIbor, _curves);
   }
 
@@ -261,16 +260,16 @@ public class CouponInArrearsCalculation {
       sampleVols[i] = _surface.getZValue(expiry, sampleStrikes[i]);
     }
 
-      // construct a interpolated/extrapolated smile
+    // construct a interpolated/extrapolated smile
     double forward = _curves.getSimplyCompoundForwardRate(couponIbor.getIndex(),
-          couponIbor.getFixingPeriodStartTime(), couponIbor.getFixingPeriodEndTime(),
-          couponIbor.getFixingAccrualFactor());
+        couponIbor.getFixingPeriodStartTime(), couponIbor.getFixingPeriodEndTime(),
+        couponIbor.getFixingAccrualFactor());
     InterpolatedSmileFunction smileFunction = new InterpolatedSmileFunction(interpolator, forward, sampleStrikes,
-          expiry, sampleVols);
+        expiry, sampleVols);
 
     // compute pv 
     CouponIborInArrearsSmileModelReplicationMethod inArrearsCal = new CouponIborInArrearsSmileModelReplicationMethod(
-          smileFunction);
+        smileFunction);
     MultipleCurrencyMulticurveSensitivity sense = inArrearsCal.presentValueCurveSensitivity(couponIbor, _curves);
 
     return pointToParameterSensitivity(sense);

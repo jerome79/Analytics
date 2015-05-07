@@ -27,7 +27,6 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test the swap Ibor+spread to Ibor+spread constructor and to derivative.
  */
@@ -82,11 +81,11 @@ public class SwapIborIborDefinitionTest {
    */
   @Test
   public void toDerivative() {
-    final ZonedDateTimeDoubleTimeSeries fixingTs3 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{SWAP_IBOR_IBOR.getFirstLeg().getNthPayment(0).getFixingDate()},
-        new double[]{0.0123});
-    final ZonedDateTimeDoubleTimeSeries fixingTs6 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {SWAP_IBOR_IBOR.getFirstLeg().getNthPayment(0).getFixingDate()},
-        new double[] {0.0135});
-    final ZonedDateTimeDoubleTimeSeries[] fixingTs = new ZonedDateTimeDoubleTimeSeries[] {fixingTs3, fixingTs6};
+    final ZonedDateTimeDoubleTimeSeries fixingTs3 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {SWAP_IBOR_IBOR.getFirstLeg().getNthPayment(0).getFixingDate() },
+        new double[] {0.0123 });
+    final ZonedDateTimeDoubleTimeSeries fixingTs6 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {SWAP_IBOR_IBOR.getFirstLeg().getNthPayment(0).getFixingDate() },
+        new double[] {0.0135 });
+    final ZonedDateTimeDoubleTimeSeries[] fixingTs = new ZonedDateTimeDoubleTimeSeries[] {fixingTs3, fixingTs6 };
     final ZonedDateTime referenceDateBeforeFirstFixing = DateUtils.getUTCDate(2012, 4, 13);
     final Swap<? extends Payment, ? extends Payment> swapConvertedBeforeFirstFixing = SWAP_IBOR_IBOR.toDerivative(referenceDateBeforeFirstFixing);
     for (int loopcpn = 0; loopcpn < swapConvertedBeforeFirstFixing.getFirstLeg().getNumberOfPayments(); loopcpn++) {

@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.integration;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

@@ -157,7 +157,6 @@ public class ISDACompliantCurve extends DoublesCurve {
         rt[i] = r[i] * timesFromBaseDate[i] - eta;
       }
     } else if (newBaseFromOriginalBase >= timesFromBaseDate[n - 1]) {
-      //new base after last knot. The new 'curve' has a constant zero rate which we represent with a nominal knot at 1.0
       t = new double[1];
       rt = new double[1];
       t[0] = 1.0;
@@ -284,7 +283,6 @@ public class ISDACompliantCurve extends DoublesCurve {
    * @return the RT value
    */
   public double getRT(final double t) {
-    //  ArgChecker.isTrue(t >= 0, "require t >= 0.0, was, {}", t);
     // short-cut doing binary search
     if (t <= this.t[0]) {
       return rt[0] * t / this.t[0];

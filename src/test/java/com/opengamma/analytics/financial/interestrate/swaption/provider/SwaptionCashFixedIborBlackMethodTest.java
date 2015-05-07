@@ -120,7 +120,8 @@ public class SwaptionCashFixedIborBlackMethodTest {
     assertEquals("Swaption Black method: present value", pvCalculator.getAmount(Currency.EUR).getAmount(), pvMethod.getAmount(Currency.EUR).getAmount(), TOLERANCE_PRICE);
   }
 
-  @Test(enabled = false) //TODO
+  @Test(enabled = false)
+  //TODO
   /**
    * Tests the curve sensitivity for the explicit formula.
    */

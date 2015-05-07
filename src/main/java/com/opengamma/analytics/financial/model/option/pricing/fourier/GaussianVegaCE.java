@@ -15,7 +15,7 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * @deprecated This only exists for code testing during development 
  */
-@Deprecated 
+@Deprecated
 public class GaussianVegaCE implements MartingaleCharacteristicExponent {
 
   private final GaussianCharacteristicExponent _base;

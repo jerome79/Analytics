@@ -23,7 +23,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */
@@ -65,11 +64,7 @@ public class ComplexChooserOptionModelTest {
   @Test
   public void test() {
     // TODO test wrt BSM
-    // final double spot = 2;
-    // final StandardOptionDataBundle data = DATA.withSpot(spot);
-    // final ComplexChooserOptionDefinition chooser = new ComplexChooserOptionDefinition(new Expiry(DATE), CALL_STRIKE, CALL_EXPIRY, PUT_STRIKE, PUT_EXPIRY);
     // assertEquals(MODEL.getPricingFunction(chooser).evaluate(data), BSM.getPricingFunction(
-    // new EuropeanVanillaOptionDefinition(CALL_STRIKE, new Expiry(DateUtil.getDateOffsetWithYearFraction(DATE, CALL_LIFE)), true)).evaluate(data), 0);
     assertEquals(MODEL.getPricingFunction(CHOOSER).evaluate(DATA), 6.0508, 1e-4);
   }
 }

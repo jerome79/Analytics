@@ -12,8 +12,6 @@ import java.time.Period;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

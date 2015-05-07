@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -39,7 +38,7 @@ public class LogOptionFunctionProviderTest {
   @Test
   public void priceLatticeTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
 
     for (final LatticeSpecification lattice : lattices) {
       for (final double strike : STRIKES) {
@@ -65,7 +64,7 @@ public class LogOptionFunctionProviderTest {
   @Test
   public void greekTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
     for (final LatticeSpecification lattice : lattices) {
       for (final double strike : STRIKES) {
         for (final double interest : INTERESTS) {
@@ -99,7 +98,7 @@ public class LogOptionFunctionProviderTest {
   @Test
   public void priceLatticeTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     for (final LatticeSpecification lattice : lattices) {
       for (final double strike : STRIKES) {
@@ -148,7 +147,7 @@ public class LogOptionFunctionProviderTest {
   @Test
   public void priceDiscreteDividendTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.01, 0.01 };
     final double[] cashDividends = new double[] {5., 10., 8. };
@@ -195,7 +194,7 @@ public class LogOptionFunctionProviderTest {
   @Test
   public void greekTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
     for (final LatticeSpecification lattice : lattices) {
       for (final double strike : STRIKES) {
         for (final double interest : INTERESTS) {
@@ -261,7 +260,7 @@ public class LogOptionFunctionProviderTest {
   @Test
   public void greeksDiscreteDividendLatticeTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.03, 0.02 };
     final double[] cashDividends = new double[] {5., 10., 8. };
@@ -402,7 +401,7 @@ public class LogOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider1D ref = new LogOptionFunctionProvider(100., 1., 1003);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new LogOptionFunctionProvider(100., 1., 1003), new EuropeanVanillaOptionFunctionProvider(100., 1., 1003, true),
-        null };
+      null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

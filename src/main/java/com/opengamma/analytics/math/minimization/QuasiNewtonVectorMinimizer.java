@@ -117,7 +117,6 @@ public class QuasiNewtonVectorMinimizer implements MinimizerWithGradient<Functio
     }
     updatePosition(p, function, data);
     final double g1 = data.getG1();
-    // the function is invalid at the new position, try to recover
     if (Double.isInfinite(g1) || Double.isNaN(g1)) {
       bisectBacktrack(p, function, data);
     }

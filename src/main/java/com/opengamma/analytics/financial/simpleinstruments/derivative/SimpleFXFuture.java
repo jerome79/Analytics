@@ -20,7 +20,7 @@ public class SimpleFXFuture implements SimpleInstrument {
   private final double _unitAmount;
   private final Currency _payCurrency;
   private final Currency _receiveCurrency;
-  
+
   public SimpleFXFuture(final double expiry, final double settlement, final double referencePrice, final double unitAmount, final Currency payCurrency, final Currency receiveCurrency) {
     ArgChecker.notNull(payCurrency, "currency");
     ArgChecker.isTrue(expiry >= 0, "time to expiry must be positive");
@@ -32,27 +32,27 @@ public class SimpleFXFuture implements SimpleInstrument {
     _payCurrency = payCurrency;
     _receiveCurrency = receiveCurrency;
   }
-  
+
   public double getExpiry() {
     return _expiry;
   }
-  
+
   public double getSettlement() {
     return _settlement;
   }
-  
+
   public double getReferencePrice() {
     return _referencePrice;
   }
-  
+
   public double getUnitAmount() {
     return _unitAmount;
   }
-  
+
   public Currency getPayCurrency() {
     return _payCurrency;
   }
-  
+
   public Currency getReceiveCurrency() {
     return _receiveCurrency;
   }
@@ -82,7 +82,7 @@ public class SimpleFXFuture implements SimpleInstrument {
     }
     if (obj == null) {
       return false;
-    } 
+    }
     if (getClass() != obj.getClass()) {
       return false;
     }
@@ -117,6 +117,5 @@ public class SimpleFXFuture implements SimpleInstrument {
   public <S, T> T accept(final SimpleInstrumentVisitor<S, T> visitor) {
     return visitor.visitSimpleFXFuture(this);
   }
-  
-}
 
+}

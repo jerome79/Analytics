@@ -64,7 +64,7 @@ public class IntegratedCIRTimeChangeCharacteristicExponent implements StocasticC
       }
     };
   }
-  
+
   @Override
   public ComplexNumber getValue(ComplexNumber u, double t) {
     if (u.getReal() == 0.0 && u.getImaginary() == 0.0) {
@@ -181,7 +181,5 @@ public class IntegratedCIRTimeChangeCharacteristicExponent implements StocasticC
   public Function1D<ComplexNumber, ComplexNumber[]> getAdjointFunction(double t) {
     throw new UnsupportedOperationException();
   }
-
- 
 
 }

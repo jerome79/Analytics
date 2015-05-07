@@ -30,7 +30,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the pricing of Yield average bond futures (in particular for AUD-SFE futures) with discounting method, i.e. without convexity adjustments.
  */
@@ -53,7 +52,6 @@ public class BondFuturesYieldAverageDiscountingMethodTest {
   private static final double NOTIONAL_FUTURES = 10000;
 
   private static final ZonedDateTime LAST_TRADING_DATE = DateUtils.getUTCDate(2014, 3, 17);
-  //  private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2014, 1, 10);
   // ASX 10 Year Bond Contract - March 14
   private static final double[] UNDERLYING_COUPON = {0.0575, 0.0550, 0.0275, 0.0325 };
   private static final ZonedDateTime[] UNDERLYING_MATURITY_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2022, 7, 15), DateUtils.getUTCDate(2023, 4, 15),

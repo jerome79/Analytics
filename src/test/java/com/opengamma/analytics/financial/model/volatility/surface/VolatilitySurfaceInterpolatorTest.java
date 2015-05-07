@@ -24,7 +24,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.interpolation.LinearExtrapolator1D;
 
-
 /**
  * Test.
  */

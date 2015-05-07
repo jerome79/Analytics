@@ -21,11 +21,11 @@ import com.opengamma.strata.collect.tuple.Triple;
 /**
  * Computes the price for different types of futures. Calculator using a multi-curve and issuer provider.
  */
-public final class FuturesPriceBlackSensitivityBlackBondFuturesCalculator 
+public final class FuturesPriceBlackSensitivityBlackBondFuturesCalculator
     extends InstrumentDerivativeVisitorAdapter<BlackBondFuturesProviderInterface, PresentValueBlackBondFuturesCubeSensitivity> {
 
   /** The default instance of the calculator. */
-  private static final FuturesPriceBlackSensitivityBlackBondFuturesCalculator DEFAULT = 
+  private static final FuturesPriceBlackSensitivityBlackBondFuturesCalculator DEFAULT =
       new FuturesPriceBlackSensitivityBlackBondFuturesCalculator();
   /** The method used to compute the future price. */
   private final FuturesSecurityIssuerMethod _methodFutures;

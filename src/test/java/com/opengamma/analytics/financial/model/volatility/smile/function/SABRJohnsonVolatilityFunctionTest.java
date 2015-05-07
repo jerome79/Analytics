@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

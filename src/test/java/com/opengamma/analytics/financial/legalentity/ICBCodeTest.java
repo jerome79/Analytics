@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Tests the ICB code object.
  */

@@ -27,7 +27,7 @@ public class DailyScheduleCalculator extends Schedule {
     ArgChecker.notNull(endDate, "end date");
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
-      return new LocalDate[] {startDate};
+      return new LocalDate[] {startDate };
     }
     final List<LocalDate> dates = new ArrayList<>();
     LocalDate date = startDate;
@@ -48,7 +48,7 @@ public class DailyScheduleCalculator extends Schedule {
     ArgChecker.notNull(endDate, "end date");
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
-      return new ZonedDateTime[] {startDate};
+      return new ZonedDateTime[] {startDate };
     }
     final List<ZonedDateTime> dates = new ArrayList<>();
     ZonedDateTime date = startDate;

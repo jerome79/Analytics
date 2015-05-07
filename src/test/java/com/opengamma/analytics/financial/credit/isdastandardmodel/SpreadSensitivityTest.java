@@ -20,16 +20,12 @@ import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
 @Test
 public class SpreadSensitivityTest {
 
-  // private static final ISDACompliantCreditCurveBuild BUILDER = new ISDACompliantCreditCurveBuild();
-  private static final ISDACompliantCreditCurveBuilder BUILDER = new FastCreditCurveBuilder();
-  private static final AnalyticCDSPricer PRICER = new AnalyticCDSPricer();
   private static final FiniteDifferenceSpreadSensitivityCalculator CDV01_CAL = new FiniteDifferenceSpreadSensitivityCalculator();
   private static final HolidayCalendar DEFAULT_CALENDAR = HolidayCalendars.SAT_SUN;
 
@@ -48,7 +44,7 @@ public class SpreadSensitivityTest {
 
   // market CDSs
   private static final LocalDate[] PAR_SPD_DATES = new LocalDate[] {LocalDate.of(2013, 6, 20), LocalDate.of(2013, 9, 20), LocalDate.of(2014, 3, 20), LocalDate.of(2015, 3, 20),
-      LocalDate.of(2016, 3, 20), LocalDate.of(2018, 3, 20), LocalDate.of(2023, 3, 20) };
+    LocalDate.of(2016, 3, 20), LocalDate.of(2018, 3, 20), LocalDate.of(2023, 3, 20) };
   private static final double[] PAR_SPREADS = new double[] {50, 70, 80, 95, 100, 95, 80 };
   private static final int NUM_MARKET_CDS = PAR_SPD_DATES.length;
   private static final CDSAnalytic[] MARKET_CDS = new CDSAnalytic[NUM_MARKET_CDS];
@@ -73,7 +69,6 @@ public class SpreadSensitivityTest {
     }
   }
 
-  @Test
   public void parellelCreditDV01Test() {
     final double fromExcel = 4238.557409;
 
@@ -84,7 +79,6 @@ public class SpreadSensitivityTest {
     }
 
     final double cdv01 = NOTIONAL / 10000 * CDV01_CAL.parallelCS01FromParSpreads(CDS, dealSpread, YIELD_CURVE, MARKET_CDS, mrkSpreads, 1e-4, BumpType.ADDITIVE);
-    // System.out.println(cdv01);
     assertEquals("", fromExcel, cdv01, 1e-13 * NOTIONAL);
 
     /*
@@ -106,68 +100,9 @@ public class SpreadSensitivityTest {
     }
   }
 
-  @Test(enabled = false)
-  public void creditCurveTest() {
-    final double[] mrkSpreads = new double[1];
-    for (int i = 0; i < 1; i++) {
-      mrkSpreads[i] = PAR_SPREADS[i] / 10000.;
-    }
-    final CDSAnalytic[] mrkCDS = new CDSAnalytic[] {MARKET_CDS[0] };
-    final ISDACompliantCreditCurve creditCurve = BUILDER.calibrateCreditCurve(mrkCDS, mrkSpreads, YIELD_CURVE);
-
-    final int n = creditCurve.getNumberOfKnots();
-    for (int i = 0; i < n; i++) {
-      System.out.println(creditCurve.getTimeAtIndex(i) + "\t" + creditCurve.getZeroRateAtIndex(i));
-    }
-    System.out.println();
-
-    // final int step = 10;
-    // for (int i = 0; i < 200; i++) {
-    // final LocalDate temp = TODAY.plusDays(i * step);
-    // final double t = ACT365.getDayCountFraction(TODAY, temp);
-    // final double p = creditCurve.getDiscountFactor(t);
-    // final double h = creditCurve.getHazardRate(t);
-    // System.out.println(temp + "\t" + t + "\t" + p + "\t" + h);
-    // }
-
-    final double price = NOTIONAL * PRICER.pv(CDS, YIELD_CURVE, creditCurve, 50 / 10000.);
-    System.out.println(price);
-  }
-
-  @Test(enabled = false)
-  public void bucketCreditDVO1Test() {
-    final double dealSpread = DEAL_SPREAD / 10000;
-    final double[] mrkSpreads = new double[NUM_MARKET_CDS];
-    for (int i = 0; i < NUM_MARKET_CDS; i++) {
-      mrkSpreads[i] = PAR_SPREADS[i] / 10000;
-    }
-
-    final double[] bucketCdv01 = CDV01_CAL.bucketedCS01FromParSpreads(CDS, dealSpread, YIELD_CURVE, MARKET_CDS, mrkSpreads, 1e-4, BumpType.ADDITIVE);
-    for (int i = 0; i < NUM_MARKET_CDS; i++) {
-      System.out.println(bucketCdv01[i] * NOTIONAL / 10000);
-    }
-
-  }
-
-  @Test(enabled = false)
-  public void bucketFlatCreditDVO1Test() {
-    final double dealSpread = DEAL_SPREAD / 10000;
-    final double[] mrkSpreads = new double[NUM_MARKET_CDS];
-    for (int i = 0; i < NUM_MARKET_CDS; i++) {
-      mrkSpreads[i] = PAR_SPREADS[i] / 10000;
-    }
-
-    final double[] bucketCdv01 = CDV01_CAL.bucketedCS01FromQuotedSpreads(CDS, dealSpread, YIELD_CURVE, MARKET_CDS, mrkSpreads, 1e-4, BumpType.ADDITIVE);
-    for (int i = 0; i < NUM_MARKET_CDS; i++) {
-      System.out.println(bucketCdv01[i] * NOTIONAL / 10000);
-    }
-
-  }
-
   /**
    * 
    */
-  @Test
   public void crossPrallelCS01test() {
     /*
      * Tol is not needed if exactly the same steps are taken
@@ -201,9 +136,6 @@ public class SpreadSensitivityTest {
     assertEquals(pCS01QS, pCS01QSd, tol);
     assertEquals(pCS01PU, pCS01PUd, tol);
 
-    //    final double pufFromPSpread = conv.parSpreadsToPUF(new CDSAnalytic[] {CDS }, spread, YIELD_CURVE, new double[] {spread })[0];
-    //    final double pufFromBumpedPSpread = conv.parSpreadsToPUF(new CDSAnalytic[] {CDS }, new double[] {spread }, YIELD_CURVE, new double[] {spread + bump })[0];
-
     final ISDACompliantCreditCurve curvePSUp = cvBuild.calibrateCreditCurve(CDS, spread + bump, YIELD_CURVE);
     final ISDACompliantCreditCurve curvePS = cvBuild.calibrateCreditCurve(CDS, spread, YIELD_CURVE);
     final double pufFromBumpedPSpread = pricer.pv(CDS, YIELD_CURVE, curvePSUp, spread, PriceType.DIRTY);
@@ -211,9 +143,6 @@ public class SpreadSensitivityTest {
 
     final double pCS01PSExp = (pufFromBumpedPSpread - pufFromPSpread) / bump;
     assertEquals(pCS01PSExp, pCS01PS, tol);
-
-    //    final double pufFromQSpread = conv.quotedSpreadToPUF(CDS, fixedCoupon, YIELD_CURVE, spread);
-    //    final double pufFromBumpedQSpread = conv.quotedSpreadToPUF(CDS, fixedCoupon, YIELD_CURVE, spread + bump);
 
     final ISDACompliantCreditCurve curveUp = cvBuild.calibrateCreditCurve(CDS, spread + bump, YIELD_CURVE);
     final ISDACompliantCreditCurve curve = cvBuild.calibrateCreditCurve(CDS, spread, YIELD_CURVE);
@@ -252,7 +181,6 @@ public class SpreadSensitivityTest {
   /**
    * 
    */
-  @Test
   public void CS01PillarAndCreditTest() {
     /*
      * Tol is not needed if exactly the same steps are taken
@@ -272,7 +200,7 @@ public class SpreadSensitivityTest {
 
     final double[] pillarSpreads = new double[] {107.81, 112.99, 115.26, 117.63, 120.8, 124.09, 127.81, 130.38, 136.82, 138.77, 141.3 };
     final Period[] tenors = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(2), Period.ofYears(3), Period.ofYears(4), Period.ofYears(5), Period.ofYears(6),
-        Period.ofYears(7), Period.ofYears(8), Period.ofYears(9), Period.ofYears(10) };
+      Period.ofYears(7), Period.ofYears(8), Period.ofYears(9), Period.ofYears(10) };
     final LocalDate[] pillarDates = IMMDateLogic.getIMMDateSet(nextIMM, tenors);
     pillarDates[2] = pillarDates[2].minusMonths(2);
     pillarDates[3] = pillarDates[3].plusWeeks(3);
@@ -472,7 +400,6 @@ public class SpreadSensitivityTest {
   /**
    * 
    */
-  @Test
   public void finiteDifferenceSpreadSensitivityTest() {
     /*
      * Tol is not needed if exactly the same steps are taken

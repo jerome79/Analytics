@@ -25,7 +25,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantY
 import com.opengamma.analytics.financial.credit.isdastandardmodel.MarketQuoteConverter;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 
-
 /**
  * 
  */
@@ -74,7 +73,6 @@ public class BlackIndexOptionPricerTest extends ISDABaseTest {
     final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
     final CDSAnalytic fwdCDX = FACTORY.makeCDX(optionExpiry, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDX = fwdCDX.withOffset(timeToExpiry);
-    //  final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
 
     final double[] indexPUF = new double[] {0.0556, 0.0582, 0.0771, 0.0652 };
     final CDSAnalytic[] indexCDS = FACTORY.makeCDX(TRADE_DATE, INDEX_PILLARS);

@@ -20,7 +20,6 @@ import com.opengamma.analytics.financial.sensitivity.PositionGreek;
 import com.opengamma.analytics.financial.sensitivity.ValueGreek;
 import com.opengamma.analytics.financial.trade.OptionTradeData;
 
-
 /**
  * Test.
  */
@@ -65,7 +64,7 @@ public class GreekConverterTest {
   public void testGreekResultMissingDataValueGreek() {
     final GreekResultCollection greeks = new GreekResultCollection();
     greeks.put(Greek.DELTA, 5.);
-    final Map<UnderlyingType, Double> data = Collections.<UnderlyingType, Double> singletonMap(UnderlyingType.BOND_YIELD, 0.04);
+    final Map<UnderlyingType, Double> data = Collections.<UnderlyingType, Double>singletonMap(UnderlyingType.BOND_YIELD, 0.04);
     G_TO_VG_CONVERTER.evaluate(new GreekDataBundle(greeks, data, TRADE_DATA));
   }
 

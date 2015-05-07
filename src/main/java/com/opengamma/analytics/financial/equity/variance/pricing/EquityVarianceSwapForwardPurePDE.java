@@ -184,7 +184,6 @@ public class EquityVarianceSwapForwardPurePDE {
       sum += w * otmPrice * (x[i + 1] - x[i - 1]);
     }
     sum /= 2.0;
-    //don't add on the end points;
     return sum;
   }
 

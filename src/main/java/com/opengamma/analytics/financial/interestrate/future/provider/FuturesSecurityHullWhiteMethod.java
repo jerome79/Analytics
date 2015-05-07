@@ -21,9 +21,6 @@ public class FuturesSecurityHullWhiteMethod extends FuturesSecurityMethod {
   /** The futures price curve sensitivity calculator **/
   private static final FuturesPriceCurveSensitivityHullWhiteCalculator FPCSHWC = FuturesPriceCurveSensitivityHullWhiteCalculator.getInstance();
 
-  //  /** The futures price and price curve sensitivity (simultaneous) calculator **/
-  //  private static final FuturesPriceADHullWhiteCalculator FPADHWIC = FuturesPriceADHullWhiteCalculator.getInstance();
-
   /**
    * Computes the quoted price of a futures from a multicurve provider.
    * @param futures The futures security.
@@ -43,15 +40,5 @@ public class FuturesSecurityHullWhiteMethod extends FuturesSecurityMethod {
   public MulticurveSensitivity priceCurveSensitivity(final FuturesSecurity futures, final HullWhiteOneFactorProviderInterface multicurve) {
     return futures.accept(FPCSHWC, multicurve);
   }
-
-  //  /**
-  //   * Computes the future price and the price curve sensitivity simultaneously (Algorithmic differentiation).
-  //   * @param futures The future security.
-  //   * @param multicurve The multicurve provider.
-  //   * @return The price and price curve sensitivity as a pair.
-  //   */
-  //  public Pair<Double, MulticurveSensitivity> priceAD(final BondFuturesSecurity futures, final HullWhiteOneFactorProviderInterface multicurve) {
-  //    return futures.accept(FPADHWC, multicurve);
-  //  }
 
 }

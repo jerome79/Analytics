@@ -75,7 +75,8 @@ public class SwaptionPhysicalFixedIborSpreadBlackMethodTest {
       IS_PAYER, IS_LONG);
   private static final SwaptionPhysicalFixedIborSpreadDefinition SWAPTION_SPREAD_EUR3M3M_DEFINITION = SwaptionPhysicalFixedIborSpreadDefinition.from(EXPIRY_DATE, SWAP_SPREAD_EUR3M3M_DEFINITION,
       IS_PAYER, IS_LONG);
-  private static final SwaptionPhysicalFixedIborDefinition SWAPTION_NOSPREAD_EUR3M3M_DEFINITION = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, SWAP_NOSPREAD_EUR3M3M_DEFINITION, IS_PAYER, IS_LONG);
+  private static final SwaptionPhysicalFixedIborDefinition SWAPTION_NOSPREAD_EUR3M3M_DEFINITION = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, SWAP_NOSPREAD_EUR3M3M_DEFINITION, IS_PAYER,
+      IS_LONG);
 
   private static final SwapFixedCoupon<Coupon> SWAP_SPREAD_EUR1Y3M = SWAP_SPREAD_EUR1Y3M_DEFINITION.toDerivative(REFERENCE_DATE);
   private static final SwaptionPhysicalFixedIbor SWAPTION_SPREAD_EUR1Y3M = SWAPTION_SPREAD_EUR1Y3M_DEFINITION.toDerivative(REFERENCE_DATE);

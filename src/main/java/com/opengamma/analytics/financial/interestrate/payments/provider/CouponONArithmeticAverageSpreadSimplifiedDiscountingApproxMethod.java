@@ -81,7 +81,6 @@ public final class CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMet
     final double rateAccruedCompounded = multicurve.getSimplyCompoundForwardRate(coupon.getIndex(), tStart, tEnd, delta) * delta;
     final double rateAccrued = Math.log(1.0 + rateAccruedCompounded);
     final double df = multicurve.getDiscountFactor(coupon.getCurrency(), coupon.getPaymentTime());
-    //    final double pv = df * (rateAccrued * coupon.getNotional() + coupon.getSpreadAmount());
     // Backward sweep
     final double pvBar = 1.0;
     final double dfBar = (rateAccrued * coupon.getNotional() + coupon.getSpreadAmount()) * pvBar;

@@ -68,8 +68,8 @@ public class ForexOptionVanillaBlackFlatMethodTest {
   // Vol data
   private static final Pair<Currency, Currency> CURRENCY_PAIR = Pair.of(EUR, USD);
   private static final Period[] EXPIRY_PERIOD = new Period[] {Period.ofMonths(3), Period.ofMonths(6), Period.ofYears(1),
-    Period.ofYears(2), Period.ofYears(5)};
-  private static final double[] VOL = new double[] {0.20, 0.25, 0.20, 0.15, 0.20};
+    Period.ofYears(2), Period.ofYears(5) };
+  private static final double[] VOL = new double[] {0.20, 0.25, 0.20, 0.15, 0.20 };
   private static final int NB_EXP = EXPIRY_PERIOD.length;
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 6, 13);
   private static final ZonedDateTime REFERENCE_SPOT = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, SETTLEMENT_DAYS, CALENDAR);
@@ -102,9 +102,9 @@ public class ForexOptionVanillaBlackFlatMethodTest {
   private static final PresentValueForexBlackFlatCalculator PVFBFC = PresentValueForexBlackFlatCalculator.getInstance();
   private static final PresentValueCurveSensitivityForexBlackFlatCalculator PVCSFBFC = PresentValueCurveSensitivityForexBlackFlatCalculator.getInstance();
   // For comparison
-  private static final double[] DELTA = new double[] {0.10, 0.25};
-  private static final double[][] RISK_REVERSAL_FLAT = new double[][] { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}};
-  private static final double[][] STRANGLE_FLAT = new double[][] { {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}};
+  private static final double[] DELTA = new double[] {0.10, 0.25 };
+  private static final double[][] RISK_REVERSAL_FLAT = new double[][] { {0.0, 0.0 }, {0.0, 0.0 }, {0.0, 0.0 }, {0.0, 0.0 }, {0.0, 0.0 } };
+  private static final double[][] STRANGLE_FLAT = new double[][] { {0.0, 0.0 }, {0.0, 0.0 }, {0.0, 0.0 }, {0.0, 0.0 }, {0.0, 0.0 } };
   private static final SmileDeltaTermStructureParametersStrikeInterpolation SMILE_TERM_FLAT = new SmileDeltaTermStructureParametersStrikeInterpolation(TIME_TO_EXPIRY,
       DELTA, VOL, RISK_REVERSAL_FLAT, STRANGLE_FLAT, LINEAR_FLAT, LINEAR_FLAT);
   private static final BlackForexSmileProvider SMILE_FLAT_MULTICURVES = new BlackForexSmileProvider(MULTICURVES, SMILE_TERM_FLAT, CURRENCY_PAIR);

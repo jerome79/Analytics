@@ -75,7 +75,7 @@ public class ConstantDoublesSurface extends Surface<Double, Double, Double> {
     if (_zArray != null) {
       return _zArray;
     }
-    _zArray = new Double[] {_z};
+    _zArray = new Double[] {_z };
     return _zArray;
   }
 

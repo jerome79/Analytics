@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.volatility.curve.VolatilityCurve;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.util.time.DateUtils;
 
-
 /**
  * Test.
  */

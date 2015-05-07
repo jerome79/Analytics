@@ -16,7 +16,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
 
-
 /**
  * Test.
  */
@@ -31,8 +30,6 @@ public class NelsonSiegelBondCurveModelTest {
   private static final double BETA2 = 6;
   private static final double LAMBDA = 2;
   private static final DoubleMatrix1D TREASURY_T = new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
-  //private static final DoubleMatrix1D TREASURY_19740830_Y = new DoubleMatrix1D(new double[] {9.4411, 8.7922, 8.4988, 8.3483, 8.2579, 8.1975, 8.1545, 8.1221, 8.0970, 8.0769, 8.0605, 8.0467, 8.0351,
-  //    8.0252, 8.0166});
   private static final DoubleMatrix1D TREASURY_19740102_Y = new DoubleMatrix1D(new double[] {7.2912, 6.8593, 6.7166, 6.6840, 6.6901, 6.7077, 6.7266, 6.7438, 6.7584, 6.7707, 6.7810, 6.7897, 6.7971,
     6.8035, 6.8090 });
   private static final DoubleMatrix1D TREASURY_E;
@@ -79,12 +76,6 @@ public class NelsonSiegelBondCurveModelTest {
     assertEquals(fitted.getEntry(1), 1.56992400, 1e-3);
     assertEquals(fitted.getEntry(2), -2.58262072, 1e-3);
     assertEquals(fitted.getEntry(3), 1.14781832, 1e-3);
-    //    result = NLLS.solve(TREASURY_T, TREASURY_19740830_Y, TREASURY_E, MODEL.getParameterizedFunction(), new DoubleMatrix1D(new double[] {1, 1, 1, 1}));
-    //    fitted = result.getParameters();
-    //    assertEquals(fitted.getEntry(0), 7.89593811, 1e-3);
-    //    assertEquals(fitted.getEntry(1), 0.61383027, 1e-3);
-    //    assertEquals(fitted.getEntry(2), 5.35682485, 1e-3);
-    //    assertEquals(fitted.getEntry(3), 0.30308753, 1e-3);
   }
 
 }

@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import java.util.Objects;
 
-
-
 /**
  * 
  */
@@ -78,6 +76,5 @@ public class ForwardCurveYieldImplied extends ForwardCurve {
     }
     return true;
   }
-
 
 }

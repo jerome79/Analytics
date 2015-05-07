@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.provider;
 
-
 /**
  * Method to compute the price for an interest rate future with discounting (like a forward).
  * No convexity adjustment is done.

@@ -33,7 +33,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * @deprecated This class tests deprecated functionality.
  */
@@ -83,22 +82,6 @@ public class PV01CalculatorTest {
     doTest(fra, CURVES);
   }
 
-  //  @Test
-  //  public void testFutures() {
-  //    final IborIndex iborIndex = new IborIndex(CUR, Period.ofMonths(3), 2, HolidayCalendars.SAT_SUN, DayCounts.ACT_365,
-  //        BusinessDayConventions.FOLLOWING, true);
-  //    final double lastTradingTime = 1.473;
-  //    final double fixingPeriodStartTime = 1.467;
-  //    final double fixingPeriodEndTime = 1.75;
-  //    final double fixingPeriodAccrualFactor = 0.267;
-  //    final double paymentAccrualFactor = 0.25;
-  //    final int quantity = 123;
-  //    final double price = 0.973;
-  //    final InterestRateFutureTransaction ir = new InterestRateFutureTransaction(lastTradingTime, iborIndex, fixingPeriodStartTime, fixingPeriodEndTime, fixingPeriodAccrualFactor, price, 1, paymentAccrualFactor, quantity,
-  //        "K", FUNDING_CURVE_NAME, LIBOR_CURVE_NAME);
-  //    doTest(ir, CURVES);
-  //  }
-
   @Test
   public void testFixedCouponAnnuity() {
     final int n = 15;
@@ -117,33 +100,6 @@ public class PV01CalculatorTest {
     doTest(annuity, CURVES);
   }
 
-  //  @Test
-  //  public void testForwardLiborAnnuity() {
-  //    final int n = 15;
-  //    final double alpha = 0.245;
-  //    final double yearFrac = 0.25;
-  //    final double spread = 0.01;
-  //    final double[] paymentTimes = new double[n];
-  //    final double[] indexFixing = new double[n];
-  //    final double[] indexMaturity = new double[n];
-  //    final double[] paymentYearFracs = new double[n];
-  //    final double[] forwardYearFracs = new double[n];
-  //    final double[] spreads = new double[n];
-  //    for (int i = 0; i < n; i++) {
-  //      paymentTimes[i] = (i + 1) * alpha - 0.001;
-  //      indexFixing[i] = i * alpha + 0.1;
-  //      indexMaturity[i] = paymentTimes[i] + 0.1;
-  //      paymentYearFracs[i] = yearFrac;
-  //      forwardYearFracs[i] = alpha;
-  //      spreads[i] = spread + 0.001 * i;
-  //    }
-  //
-  //    final AnnuityCouponIbor annuity = new AnnuityCouponIbor(CUR, paymentTimes, indexFixing, INDEX, indexFixing, indexMaturity, paymentYearFracs, forwardYearFracs, spreads, Math.E, FUNDING_CURVE_NAME,
-  //        LIBOR_CURVE_NAME, true);
-  //    doTest(annuity, CURVES);
-  //
-  //  }
-
   @Test
   public void testBond() {
     final int n = 20;
@@ -161,31 +117,6 @@ public class PV01CalculatorTest {
     final BondFixedTransaction trade = new BondFixedTransaction(bond, 100, 100, bond, 90);
     doTest(trade, CURVES);
   }
-
-  //  @Test
-  //  public void testTenorSwap() {
-  //    final int n = 20;
-  //    final double tau = 0.25;
-  //    final double[] paymentTimes = new double[n];
-  //    final double[] spreads = new double[n];
-  //    final double[] yearFracs = new double[n];
-  //    final double[] indexFixing = new double[n];
-  //    final double[] indexMaturity = new double[n];
-  //    for (int i = 0; i < n; i++) {
-  //      paymentTimes[i] = (i + 1) * tau;
-  //      indexFixing[i] = i * tau;
-  //      indexMaturity[i] = paymentTimes[i];
-  //      spreads[i] = i * 0.001;
-  //      yearFracs[i] = tau;
-  //    }
-  //
-  //    final GenericAnnuity<CouponIborSpread> payLeg = new AnnuityCouponIbor(CUR, paymentTimes, indexFixing, INDEX, indexMaturity, yearFracs, 1.0, FUNDING_CURVE_NAME, LIBOR_CURVE_NAME, true);
-  //    final GenericAnnuity<CouponIborSpread> receiveLeg = new AnnuityCouponIbor(CUR, paymentTimes, indexFixing, INDEX, indexFixing, indexMaturity, yearFracs, yearFracs, spreads, 1.0, FUNDING_CURVE_NAME,
-  //        FUNDING_CURVE_NAME, false);
-  //
-  //    final Swap<?, ?> swap = new TenorSwap<CouponIborSpread>(payLeg, receiveLeg);
-  //    doTest(swap, CURVES);
-  //  }
 
   private void doTest(final InstrumentDerivative ird, final YieldCurveBundle curves) {
     final Map<String, Double> ana = PV01.visit(ird, curves);

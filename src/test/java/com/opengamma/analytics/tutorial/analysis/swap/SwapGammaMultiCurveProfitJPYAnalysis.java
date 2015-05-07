@@ -36,7 +36,6 @@ import com.opengamma.analytics.financial.provider.calculator.discounting.Present
 import com.opengamma.analytics.financial.provider.curve.CurveBuildingBlockBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
-import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyParameterSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.parameter.ParameterSensitivityParameterCalculator;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -47,7 +46,6 @@ import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.tutorial.datasets.AnalysisMarketDataJPYSets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
-import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -283,99 +281,6 @@ public class SwapGammaMultiCurveProfitJPYAnalysis {
       }
     }
     return multicurveBumped;
-  }
-
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  public void performanceGamma() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      MultiCurrencyAmount pv = IRS_JPY.accept(PVDC, MULTICURVE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaMultiCurveCalculator - " + nbTest + " pv - 3 curves: " + (endTime - startTime) + " ms");
-    // Performance note: PVD: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 20 ms for 1000 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      MultipleCurrencyMulticurveSensitivity pvcs = IRS_JPY.accept(PVCSDC, MULTICURVE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaMultiCurveCalculator - " + nbTest + " pvcs - 3 curves: " + (endTime - startTime) + " ms");
-    // Performance note: PVCSD: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 30 ms for 1000 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      HashMap<String, DoubleMatrix2D> crossGammaIntra = CGMCC.calculateCrossGammaIntraCurve(IRS_JPY, MULTICURVE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaMultiCurveCalculator - " + nbTest + " intro-curve x-gamma - 3 curves: " + (endTime - startTime) + " ms");
-    // Performance note: Cross-gamma intra-curve 2 curves: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 2000 ms for 1000 sets.
-
-  }
-
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  public void performanceCalibration() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    double[] dscQuotes = new double[] {0.0001,
-      0.0006, 0.0006, 0.0006, 0.0005, 0.0006, 0.0007, 0.0007, 0.0006, 0.0007, 0.0006,
-      0.0006, 0.0006, 0.0010, 0.0010, 0.0014, 0.0021, 0.0027, 0.0034, 0.0041, 0.0057,
-      0.0083, 0.0115, 0.0131, 0.0141, 0.0154 };
-
-    double[] fwd6Quotes = new double[] {0.0017786,
-      0.0029, 0.0029, 0.0029,
-      0.0018, 0.0017, 0.0018, 0.0021, 0.0025, 0.0025, 0.0031, 0.0040, 0.0048, 0.0057,
-      0.0065, 0.0084, 0.0111, 0.0143, 0.0160, 0.0170, 0.0183 };
-
-    double[] fwd3Quotes = new double[] {0.0013,
-      0.0020, 0.0020, 0.0020, 0.0019, 0.0019, 0.0019,
-      0.0005, 0.0005, 0.0005, 0.0005, 0.0006, 0.0007, 0.0008, 0.0009, 0.0009, 0.0010,
-      0.0011, 0.0012, 0.0013, 0.0013, 0.0013, 0.0013, 0.0014 };
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> multicurve3Pair =
-          AnalysisMarketDataJPYSets.getMulticurveJPYOisL6L3(CALIBRATION_DATE, dscQuotes, fwd6Quotes, fwd3Quotes);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwapGammaMultiCurveProfitJPYAnalysis - calibration - " + nbTest + " 3 curves - 3 units calibrations: " + (endTime - startTime) + " ms");
-    // Performance note: 3 Curve calibration linear: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 3900 ms for 100 sets.
-    // Performance note: 3 Curve calibration linear: 05-Aug-2014: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 5500 ms for 100 sets.
-    // Performance note: 3 Curve calibration log-ncs on df: 05-Aug-2014: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 8600 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> multicurve2Pair =
-          AnalysisMarketDataJPYSets.getMulticurveJPYOisL6(CALIBRATION_DATE, dscQuotes, fwd6Quotes);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwapGammaMultiCurveProfitJPYAnalysis - calibration - " + nbTest + " 2 curves - 2 units calibrations: " + (endTime - startTime) + " ms");
-    // Performance note: 2 Curve calibration: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 1900 ms for 100 sets. // 2900 // 3000
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> multicurve3Pair =
-          AnalysisMarketDataJPYSets.getMulticurveJPYOisL6L3OneUnit(CALIBRATION_DATE, dscQuotes, fwd6Quotes, fwd3Quotes);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwapGammaMultiCurveProfitJPYAnalysis - calibration - " + nbTest + " 3 curves - 1 unit calibrations: " + (endTime - startTime) + " ms");
-    // Performance note: 3 Curve calibration: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 6000 ms for 100 sets. // 9000 // 9100
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> multicurve3Pair =
-          AnalysisMarketDataJPYSets.getMulticurveJPYOisL6OneUnit(CALIBRATION_DATE, dscQuotes, fwd6Quotes);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwapGammaMultiCurveProfitJPYAnalysis - calibration - " + nbTest + " 2 curves - 1 unit calibrations: " + (endTime - startTime) + " ms");
-    // Performance note: 3 Curve calibration: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: xxx ms for 100 sets. // 3500 // 3700
-
   }
 
 }

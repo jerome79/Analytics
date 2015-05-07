@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.provider.curve;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveAddYield;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveDiscountFactorInterpolatedAnchorNode;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveDiscountFactorInterpolatedNumber;
@@ -55,7 +52,6 @@ import com.opengamma.analytics.financial.provider.calculator.generic.LastFixingE
 import com.opengamma.analytics.financial.provider.calculator.generic.LastTimeCalculator;
 import com.opengamma.analytics.financial.provider.curve.multicurve.MulticurveDiscountBuildingRepository;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
-import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -120,8 +116,8 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeTest {
   }
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_EUR_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_EUR_WITH_TODAY };
@@ -256,7 +252,6 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeTest {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
@@ -298,29 +293,6 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeTest {
 
   //TODO: test on the correctness of the Jacobian matrix in the CurveBuildingBlock's.
 
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], MULTICURVE_KNOWN_DATA, PSMQDC, PSMQCSDC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 3 units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 units: 07-Jan-2013: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 685 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], MULTICURVE_KNOWN_DATA, PSMQDC, PSMQCSDC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 1 unit: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 unit: 07-Jan-2013: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 740 ms for 100 sets.
-
-  }
-
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final MulticurveProviderDiscount curves, final boolean withToday, final int block) {
     final int nbBlocks = definitions.length;
     for (int loopblock = 0; loopblock < nbBlocks; loopblock++) {
@@ -333,36 +305,6 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeTest {
           assertEquals("Curve construction: block " + block + ", unit " + loopblock + " - instrument " + loopins, 0, pv[loopcurve][loopins], TOLERANCE_CAL);
         }
       }
-    }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Analyzes the shape of the forward curve.
-   */
-  public void forwardAnalysis() {
-    final MulticurveProviderInterface multicurve = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getFirst();
-    final int jump = 1;
-    //      final int startIndex = 0;
-    final int nbDate = 500;
-    ZonedDateTime startDate = NOW;
-    final double[] rateDsc = new double[nbDate];
-    final double[] startTime = new double[nbDate];
-    try {
-      final FileWriter writer = new FileWriter("dsc-committee.csv");
-      for (int loopdate = 0; loopdate < nbDate; loopdate++) {
-        startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
-        final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, 1, TARGET);
-        final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = DayCountUtils.yearFraction(EONIA.getDayCount(), startDate, endDate);
-        rateDsc[loopdate] = multicurve.getSimplyCompoundForwardRate(EONIA, startTime[loopdate], endTime, accrualFactor);
-        startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, TARGET);
-        writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
-      }
-      writer.flush();
-      writer.close();
-    } catch (final IOException e) {
-      e.printStackTrace();
     }
   }
 

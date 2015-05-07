@@ -292,8 +292,6 @@ public class InstrumentDerivativeVisitorSameValueAdapter<DATA_TYPE, RESULT_TYPE>
     return _value;
   }
 
-
-
   @Override
   public RESULT_TYPE visitBondFixedSecurity(final BondFixedSecurity bond) {
     return _value;
@@ -438,7 +436,6 @@ public class InstrumentDerivativeVisitorSameValueAdapter<DATA_TYPE, RESULT_TYPE>
   public RESULT_TYPE visitBondInterestIndexedTransaction(final BondInterestIndexedTransaction<?, ?> bond) {
     return _value;
   }
-
 
   @Override
   public RESULT_TYPE visitCouponFixed(final CouponFixed payment, final DATA_TYPE data) {

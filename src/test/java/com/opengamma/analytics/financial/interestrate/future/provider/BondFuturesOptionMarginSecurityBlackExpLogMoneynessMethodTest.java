@@ -202,13 +202,13 @@ public class BondFuturesOptionMarginSecurityBlackExpLogMoneynessMethodTest {
         TOLERANCE_DELTA);
   }
 
-
   public void theoreticalTheta() {
     final double priceFutures = METHOD_FUTURE.price(CALL_BOBL_116.getUnderlyingFuture(), ISSUER_SPECIFIC_MULTICURVES);
     final double logmoney = Math.log(STRIKE_116 / priceFutures);
     final double expiry = CALL_BOBL_116.getExpirationTime();
     final double volatility = BLACK_SURFACE.getZValue(expiry, logmoney);
-    final double rate = -Math.log(ISSUER_SPECIFIC_MULTICURVES.getMulticurveProvider().getDiscountFactor(CALL_BOBL_116.getCurrency(), CALL_BOBL_116.getExpirationTime())) / CALL_BOBL_116.getExpirationTime();
+    final double rate = -Math.log(ISSUER_SPECIFIC_MULTICURVES.getMulticurveProvider().getDiscountFactor(CALL_BOBL_116.getCurrency(), CALL_BOBL_116.getExpirationTime())) /
+        CALL_BOBL_116.getExpirationTime();
     final double thetaCallExpected = BlackFormulaRepository.theta(priceFutures, STRIKE_116, CALL_BOBL_116.getExpirationTime(), volatility, CALL_BOBL_116.isCall(), rate);
     final double thetaCallComputed = METHOD_OPT.theta(CALL_BOBL_116, BLACK_FLAT_BNDFUT);
     assertEquals("BondFuturesOptionMarginSecurityBlackFlatMethod: theta", thetaCallExpected, thetaCallComputed, TOLERANCE_DELTA);

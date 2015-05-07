@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -43,9 +42,9 @@ public class RungeKuttaIntegrator1DTest {
   };
 
   private static final Function1D<Double, Double> MIX_NORM = new Function1D<Double, Double>() {
-    private final double[] W = new double[] { 0.2, 0.2, 0.2, 0.2, 0.2 };
-    private final double[] MU = new double[] { 0.0, -0.4, 0.5, 0.0, 0.01234583 };
-    private final double[] SIGMA = new double[] { 3.0, 0.1, 5.0, 0.001, 0.0001 };
+    private final double[] W = new double[] {0.2, 0.2, 0.2, 0.2, 0.2 };
+    private final double[] MU = new double[] {0.0, -0.4, 0.5, 0.0, 0.01234583 };
+    private final double[] SIGMA = new double[] {3.0, 0.1, 5.0, 0.001, 0.0001 };
 
     @SuppressWarnings("synthetic-access")
     @Override

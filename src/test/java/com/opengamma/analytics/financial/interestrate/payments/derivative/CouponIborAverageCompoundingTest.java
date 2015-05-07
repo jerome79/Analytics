@@ -28,7 +28,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * 
  */
@@ -103,7 +102,8 @@ public class CouponIborAverageCompoundingTest {
 
   private static final double AMOUNT_ACC = 0.05;
   private static final double RATE_FIXED = 0.01;
-  private static final CouponIborAverageFixingDatesCompounding DFN1 = new CouponIborAverageFixingDatesCompounding(CUR, PAYMENT_TIME, ACCRUAL_FACTOR, NOTIONAL, ACCRUAL_FACTORS, INDEX, FIXING_TIMES, WEIGHTS,
+  private static final CouponIborAverageFixingDatesCompounding DFN1 = new CouponIborAverageFixingDatesCompounding(CUR, PAYMENT_TIME, ACCRUAL_FACTOR, NOTIONAL, ACCRUAL_FACTORS, INDEX, FIXING_TIMES,
+      WEIGHTS,
       FIXING_PERIOD_START_TIMES, FIXING_PERIOD_END_TIMES, FIX_ACC_FACTORS, AMOUNT_ACC, RATE_FIXED);
   private static final CouponIborAverageFixingDatesCompounding DFN2 = DFN1.withNotional(NOTIONAL);
 

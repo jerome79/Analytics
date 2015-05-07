@@ -22,7 +22,6 @@ public interface Lattice<T> {
    * @param size The number of steps in the tree
    * @return an empty data set representing a tree
    */
- // T[][] getEmptyNodes(int size);
 
   /**
    * Get an individual node value

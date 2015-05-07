@@ -24,8 +24,8 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
 /**
  * Calculate the market quote of instruments in models using a multi-curve provider.
  */
-public final class MarketQuoteDiscountingCalculator 
-  extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, Double> {
+public final class MarketQuoteDiscountingCalculator
+    extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, Double> {
 
   /**
    * The unique instance of the calculator.
@@ -88,7 +88,7 @@ public final class MarketQuoteDiscountingCalculator
     final double pvbp = METHOD_SWAP.presentValueBasisPoint(swap, multicurves.getMulticurveProvider());
     return pvSecond / pvbp;
   }
-  
+
   // TODO: add generic swap? margin on first leg to get a pv=0
 
   //     -----     Futures     -----

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.commodity.multicurvecommodity.definition;
 
-
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 

@@ -177,14 +177,8 @@ public final class ForexOptionVanillaVannaVolgaMethod {
       priceVVsmile[loopvv] = BLACK_FUNCTION.getPriceFunction(optionVV).evaluate(dataBlackSmile);
       vegaSmile[loopvv] = BLACK_FUNCTION.getVegaFunction(optionVV).evaluate(dataBlackSmile);
     }
-    //    final double priceFlat = BLACK_FUNCTION.getPriceFunction(optionForex).evaluate(dataBlackATM);
     final double[] vega = new double[3];
     final double[] x = vannaVolgaWeights(optionForex, forward, dfDomestic, strikesVV, volVV, vega);
-    //    double price = priceFlat;
-    //    for (int loopvv = 0; loopvv < 3; loopvv = loopvv + 2) {
-    //      price += x[loopvv] * (priceVVsmile[loopvv] - priceVVATM[loopvv]);
-    //    }
-    //    price *= Math.abs(optionForex.getUnderlyingForex().getPaymentCurrency1().getAmount()) * (optionForex.isLong() ? 1.0 : -1.0);
     final double[] vegaReference = new double[3];
     vegaReference[0] = x[0] * vegaSmile[0];
     vegaReference[2] = x[2] * vegaSmile[2];
@@ -233,11 +227,6 @@ public final class ForexOptionVanillaVannaVolgaMethod {
     final double[] priceFlat = BLACK_FUNCTION.getPriceAdjoint(optionForex, dataBlackATM);
     final double[] x = vannaVolgaWeights(optionForex, forward, dfDomestic, strikesVV, volVV);
     final double factor = Math.abs(optionForex.getUnderlyingForex().getPaymentCurrency1().getAmount()) * (optionForex.isLong() ? 1.0 : -1.0);
-    //    double pv = priceFlat[0];
-    //    for (int loopvv = 0; loopvv < 3; loopvv = loopvv + 2) {
-    //      pv += x[loopvv] * (priceVVAdjsmile[loopvv][0] - priceVVAdjATM[loopvv][0]);
-    //    }
-    //    pv *= factor;
     // Backward sweep
     final double pvBar = 1.0;
     final double[] priceVVATMBar = new double[3];

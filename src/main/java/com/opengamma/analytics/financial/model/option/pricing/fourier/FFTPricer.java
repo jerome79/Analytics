@@ -45,8 +45,6 @@ public class FFTPricer {
     ArgChecker.isTrue(tol > 0.0, "need tol > 0");
     ArgChecker.isTrue(alpha != 0.0 && alpha != -1.0, "alpha cannot be -1 or 0");
     ArgChecker.isTrue(highestStrike >= lowestStrike, "need highestStrike >= lowestStrike");
-    //   ArgChecker.isTrue(lowestStrike <= forward, "need lowestStrike <= forward");
-    //    ArgChecker.isTrue(highestStrike >= forward, "need highestStrike >= forward");
     ArgChecker.isTrue(limitSigma > 0.0, "need limitSigma > 0");
 
     double kMax;

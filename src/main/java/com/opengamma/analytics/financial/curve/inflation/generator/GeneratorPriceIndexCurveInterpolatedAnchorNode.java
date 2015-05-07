@@ -37,7 +37,7 @@ public class GeneratorPriceIndexCurveInterpolatedAnchorNode extends GeneratorPri
    * @param anchorNode The anchor node point.
    * @param anchorValue The anchor value at the anchor node point.
    */
-  public GeneratorPriceIndexCurveInterpolatedAnchorNode(final double[] nodePoints, final Interpolator1D interpolator, 
+  public GeneratorPriceIndexCurveInterpolatedAnchorNode(final double[] nodePoints, final Interpolator1D interpolator,
       final double anchorNode, final double anchorValue) {
     ArgChecker.notNull(nodePoints, "Node points");
     ArgChecker.notNull(interpolator, "Interpolator");
@@ -81,7 +81,7 @@ public class GeneratorPriceIndexCurveInterpolatedAnchorNode extends GeneratorPri
   public PriceIndexCurveSimple generateCurve(final String name, final double[] x) {
     ArgChecker.isTrue(x.length == _nbPoints, "Incorrect dimension for the rates");
     ArgChecker.notNull(name, "name");
-    return new PriceIndexCurveSimple(DoublesCurveInterpolatedAnchor.from(_nodePoints, x, _anchorNode, _anchorValue, 
+    return new PriceIndexCurveSimple(DoublesCurveInterpolatedAnchor.from(_nodePoints, x, _anchorNode, _anchorValue,
         _interpolator, name));
   }
 

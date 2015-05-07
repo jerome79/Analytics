@@ -33,7 +33,6 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 
-
 /**
  * Test.
  */
@@ -68,8 +67,6 @@ public class VarianceSwapWithDividendsTest {
     MLN_DATA = new MultiHorizonMixedLogNormalModelData(weights, sigmas, mus);
   }
 
-  @SuppressWarnings("unused")
-  @Test
   public void checkTest() {
     if (PRINT) {
       System.out.println("VarianceSwapWithDividendsTest PRINT must be set to false");
@@ -77,12 +74,8 @@ public class VarianceSwapWithDividendsTest {
     if (!ASSERT) {
       System.out.println("VarianceSwapWithDividendsTest ASSERT must be set to true, otherwise numbers are NOT tested");
     }
-    if (N_SIMS > 10000) {
-      System.out.println("VarianceSwapWithDividendsTest Too many simulations for Ant tests - change N_SIMS to 10000");
-    }
   }
 
-  @Test
   public void noDividendsTest() {
     final AffineDividends dividends = AffineDividends.noDividends();
     testNumericsForFlatPureVol(dividends);
@@ -90,7 +83,6 @@ public class VarianceSwapWithDividendsTest {
 
   }
 
-  @Test
   public void proportionalOnlyTest() {
     final double[] tau = new double[] {EXPIRY - 0.7, EXPIRY - 0.1, EXPIRY + 0.1 };
     final double[] alpha = new double[3];
@@ -100,7 +92,6 @@ public class VarianceSwapWithDividendsTest {
     testNumerics(dividends, MLN_DATA, 1e-7);
   }
 
-  @Test
   public void dividendsAfterExpiryTest() {
     final double[] tau = new double[] {EXPIRY + 0.1, EXPIRY + 0.6 };
     final double[] alpha = new double[] {0.1 * SPOT, 0.05 * SPOT };
@@ -110,7 +101,6 @@ public class VarianceSwapWithDividendsTest {
     testNumerics(dividends, MLN_DATA, 1e-7);
   }
 
-  @Test
   public void dividendsBeforeExpiryTest() {
     final double[] tau = new double[] {0.85, 1.2 };
     final double[] alpha = new double[] {0.3 * SPOT, 0.2 * SPOT };
@@ -120,17 +110,14 @@ public class VarianceSwapWithDividendsTest {
     testNumerics(dividends, MLN_DATA, 1e-7);
   }
 
-  @Test
   public void dividendsAtExpiryTest() {
     final double[] tau = new double[] {1.2, EXPIRY };
     final double[] alpha = new double[] {0.1 * SPOT, 0.05 * SPOT };
     final double[] beta = new double[] {0.1, 0.2 };
     final AffineDividends dividends = new AffineDividends(tau, alpha, beta);
-    //   testNumericsForFlatPureVol(dividends);
     testNumerics(dividends, MLN_DATA, 1e-7);
   }
 
-  @Test
   public void testMixedLogNormalVolSurface() {
 
     final AffineDividends dividends = AffineDividends.noDividends();
@@ -158,8 +145,6 @@ public class VarianceSwapWithDividendsTest {
     final double rv = res[0] / EXPIRY;
     final double expected = w * sigma1 * sigma1 + (1 - w) * sigma2 * sigma2;
     assertEquals(expected, rv, 2e-6); //TODO this should be better
-
-    //  PDE_BKD_SOLVER.expectedVariance(SPOT, DISCOUNT_CURVE, dividends, EXPIRY, );
   }
 
   /**
@@ -205,10 +190,6 @@ public class VarianceSwapWithDividendsTest {
     final double mcVarRV1 = res[4];// The variance of the expected variance correcting for dividends
     final double mcRV2 = res[2]; //The (annualised) expected variance NOT correcting for dividends
     final double mcVarRV2 = res[5]; //The variance of expected variance NOT correcting for dividends
-    //      double mceK1 = (Math.sqrt(mcRV1) - mcVarRV1 / 8 / Math.pow(mcRV1, 1.5)); //very small bias correction applied here
-    //      double sdK1 = Math.sqrt(mcVarRV1 / 4 / mcRV1 * (1 - mcVarRV1 / 16 / mcRV1 / mcRV1));
-    //      double mceK2 = (Math.sqrt(mcRV2) - mcVarRV2 / 8 / Math.pow(mcRV2, 1.5)); //very small bias correction applied here
-    //      double sdK2 = Math.sqrt(mcVarRV2 / 4 / mcRV2 * (1 - mcVarRV2 / 16 / mcRV2 / mcRV2));
     if (PRINT) {
       System.out.format("Monte Carlo: F_T = %1$.3f, s =  %2$.3f+-%3$.3f RV1 = %4$.8f+-%5$.8f RV2 = %6$.8f+-%7$.8f%n", fT, mcST, mcSDST, mcRV1, Math.sqrt(mcVarRV1), mcRV2, Math.sqrt(mcVarRV2));
     }

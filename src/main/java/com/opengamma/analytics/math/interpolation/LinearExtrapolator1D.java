@@ -16,7 +16,7 @@ public class LinearExtrapolator1D extends Interpolator1D {
   private final Interpolator1D _interpolator;
   private final double _eps;
 
-  public LinearExtrapolator1D(final Interpolator1D interpolator) { 
+  public LinearExtrapolator1D(final Interpolator1D interpolator) {
     this(interpolator, 1e-8);
   }
 

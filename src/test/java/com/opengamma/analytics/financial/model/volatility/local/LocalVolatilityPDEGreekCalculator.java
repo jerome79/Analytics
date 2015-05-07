@@ -266,7 +266,6 @@ public class LocalVolatilityPDEGreekCalculator {
         "and forward curve. Dual delta and gamma are calculated by finite difference on the PDE grid. Spot delta and " +
         "gamma are calculated by ");
     ps.println("Strike\tVol\tBS Delta\tDelta\tBS Dual Delta\tDual Delta\tBS Gamma\tGamma\tBS Dual Gamma\tDual Gamma");
-    //\tsurface delta\tsurface gamma\t surface cross gamma\tmodel dg");
 
     final double minM = Math.exp(-1.0 * Math.sqrt(expiry));
     final double maxM = 1.0 / minM;
@@ -299,7 +298,6 @@ public class LocalVolatilityPDEGreekCalculator {
 
         ps.println(k + "\t" + impVol + "\t" + bsDelta + "\t" + modelDelta + "\t" + bsDualDelta + "\t" + modelDD
             + "\t" + bsGamma + "\t" + modelGamma + "\t" + bsDualGamma + "\t" + modelDG);
-        //  + "\t" + 2 * surfaceDelta + "\t" + surfaceGamma + "\t" + -2 * m * crossGamma + "\t" + m * m *  modelDG);
       }
     }
     ps.print("\n");
@@ -429,24 +427,6 @@ public class LocalVolatilityPDEGreekCalculator {
     }
     ps.println("\n");
 
-    //    //debug
-    //    PDEFullResults1D pdeResDebug = runForwardPDESolverDebug(forward, localVol, _isCall, _theta, expiry, maxForward, _timeSteps, _spaceSteps, _timeGridBunching, _spaceGridBunching, forward);
-    //    for (int i = 0; i < n; i++) {
-    //      double k = pdeResDebug.getSpaceValue(i);
-    //      double price = pdeResDebug.getFunctionValue(i);
-    //      double impVol = 0;
-    //      try {
-    //        impVol = BlackFormulaRepository.impliedVolatility(price, forward, k, expiry, _isCall);
-    //      } catch (Exception e) {
-    //      }
-    //      double priceShift = pdeResDebugShift.getFunctionValue(i);
-    //      double impVolShift = 0;
-    //      try {
-    //        impVolShift = BlackFormulaRepository.impliedVolatility(priceShift, forwardShift, k, expiry, _isCall);
-    //      } catch (Exception e) {
-    //      }
-    //      ps.println(k + "\t" + impVol + "\t" + impVolShift);
-    //    }
   }
 
   /**
@@ -511,7 +491,6 @@ public class LocalVolatilityPDEGreekCalculator {
     }
 
     for (int i = 0; i < n; i++) {
-      //  System.out.print(TENORS[i] + "\t");
       final int m = strikes[i].length;
       for (int j = 0; j < m; j++) {
         ps.print(res[i][j] + "\t");
@@ -579,7 +558,6 @@ public class LocalVolatilityPDEGreekCalculator {
     }
 
     for (int i = 0; i < n; i++) {
-      //     System.out.print(TENORS[i] + "\t");
       final int m = strikes[i].length;
       for (int j = 0; j < m; j++) {
         ps.print(res[i][j] + "\t");
@@ -614,7 +592,6 @@ public class LocalVolatilityPDEGreekCalculator {
     final double maxT = option.getTimeToExpiry();
     final double maxProxyDelta = 1.5;
     final double volShift = 1e-3;
-    //    final double fracShift = 5e-4;
     final double fwdShift = 5e-2;
 
     //parallel shift the strike parameterised local vol surface
@@ -747,7 +724,6 @@ public class LocalVolatilityPDEGreekCalculator {
     final InitialConditionsProvider intProvider = new InitialConditionsProvider();
     final ConvectionDiffusionPDE1DCoefficients pde = pdeProvider.getBackwardsLocalVol(forwardCurve, expiry, localVolatility);
     final Function1D<Double, Double> payoff = intProvider.getEuropeanPayoff(strike, isCall);
-    // final ZZConvectionDiffusionPDEDataBundle db = provider.getBackwardsLocalVol(strike, expiry, isCall, localVolatility, forwardCurve);
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(theta, false);
 
     BoundaryCondition lower;
@@ -760,7 +736,6 @@ public class LocalVolatilityPDEGreekCalculator {
       upper = new NeumannBoundaryCondition(0.0, maxFwd, false);
     }
 
-    // MeshingFunction timeMesh = new ExponentialMeshing(0.0, expiry, nTimeNodes, timeMeshLambda);
     final MeshingFunction timeMesh = new DoubleExponentialMeshing(0, expiry, expiry / 2, nTimeNodes, timeMeshLambda, -timeMeshLambda);
     //keep the grid the same regardless of spot (useful for finite-difference)
     final MeshingFunction spaceMesh = new HyperbolicMeshing(0.0, maxFwd, fwdNodeCentre, nFwdNodes, spotMeshBunching);

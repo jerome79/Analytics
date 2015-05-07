@@ -12,7 +12,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  */

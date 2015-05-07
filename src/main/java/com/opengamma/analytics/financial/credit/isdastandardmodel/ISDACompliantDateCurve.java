@@ -22,6 +22,7 @@ import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * An ISDA compliant date curve.
  */
@@ -53,8 +54,6 @@ public class ISDACompliantDateCurve
 
   //-------------------------------------------------------------------------
   //  protected static ISDACompliantCurve makeISDACompliantCurve(final LocalDate baseDate, final LocalDate[] dates, final double[] rates) {
-  //    return makeISDACompliantCurve(baseDate, dates, rates, ACT_365);
-  //  }
 
   protected static ISDACompliantCurve makeISDACompliantCurve(final LocalDate baseDate, final LocalDate[] dates, final double[] rates, final DayCount dayCount) {
     double[] t = checkAndGetTimes(baseDate, dates, rates, dayCount);

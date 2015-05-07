@@ -112,7 +112,6 @@ public class PCHIPYieldCurveInterpolator1D extends Interpolator1D {
       }
     }
 
-    //    final PiecewisePolynomialResult poly = BASE.interpolate(xx, xy);
     return new Interpolator1DPiecewisePoynomialDataBundle(new ArrayInterpolator1DDataBundle(xx, xy, true), new PiecewiseCubicHermiteSplineInterpolatorWithSensitivity());
   }
 

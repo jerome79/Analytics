@@ -148,7 +148,7 @@ public final class SwaptionCashFixedIborSABRMethod {
     sensi.addNu(expiryMaturity, omega * discountFactorSettle * pvbp * bsAdjoint[2] * volatilityAdjoint[6]);
     return sensi;
   }
-  
+
   /**
    * Computes the present value of a physical delivery European swaption in the SABR model.
    * @param swaption The swaption.

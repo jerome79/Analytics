@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

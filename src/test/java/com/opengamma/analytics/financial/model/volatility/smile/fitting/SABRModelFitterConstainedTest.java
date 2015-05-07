@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFor
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 
-
 /**
  * Test.
  */

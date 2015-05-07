@@ -30,7 +30,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * @param <C> Type of inflation coupon. Can be {@link CouponInflationZeroCouponMonthlyGearingDefinition} or {@link CouponInflationZeroCouponInterpolationGearingDefinition}.
  */
 public class BondCapitalIndexedTransactionDefinition<C extends CouponDefinition> extends BondTransactionDefinition<C, C>
-  implements InstrumentDefinitionWithData<BondTransaction<? extends BondSecurity<? extends Payment, ? extends Coupon>>, DoubleTimeSeries<ZonedDateTime>> {
+    implements InstrumentDefinitionWithData<BondTransaction<? extends BondSecurity<? extends Payment, ? extends Coupon>>, DoubleTimeSeries<ZonedDateTime>> {
 
   /**
    * Constructor of a Capital indexed bond transaction from all the transaction details.

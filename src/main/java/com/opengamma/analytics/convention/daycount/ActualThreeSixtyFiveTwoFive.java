@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.convention.daycount;
 
-
 import java.time.LocalDate;
 import java.time.temporal.JulianFields;
 
@@ -29,7 +28,7 @@ public class ActualThreeSixtyFiveTwoFive extends ActualTypeDayCount {
   public double getAccruedInterest(final LocalDate previousCouponDate, final LocalDate date, final LocalDate nextCouponDate, final double coupon, final double paymentsPerYear) {
     return yearFraction(previousCouponDate, date) * coupon;
   }
-  
+
   @Override
   public String getName() {
     return "Actual/365.25";

@@ -17,17 +17,17 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
  * Tests {@link TimeSeriesDifferenceOperator}
  */
 public class TimeSeriesDifferenceOperatorTest {
-  
+
   private static final TimeSeriesDifferenceOperator OP_DIF_1 = new TimeSeriesDifferenceOperator();
   private static final TimeSeriesDifferenceOperator OP_DIF_2 = new TimeSeriesDifferenceOperator(2);
-  
+
   private static final double TOLERANCE_DIFF = 1.0E-10;
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullTsException() {
     OP_DIF_1.apply(null);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void tooShortTimeSeriesException() {
     LocalDateDoubleTimeSeries tooShortTs =
@@ -36,7 +36,7 @@ public class TimeSeriesDifferenceOperatorTest {
             .build();
     OP_DIF_1.apply(tooShortTs);
   }
-  
+
   /**
    * Test the difference operator for a standard lag of 1 element.
    */
@@ -65,7 +65,7 @@ public class TimeSeriesDifferenceOperatorTest {
 
     compareTimeseries(returned, expected, TOLERANCE_DIFF);
   }
-  
+
   /** Tests the difference operator for a lag of 2 elements. */
   @Test
   public void difference2() {
@@ -92,5 +92,5 @@ public class TimeSeriesDifferenceOperatorTest {
 
     compareTimeseries(returned, expected, TOLERANCE_DIFF);
   }
-  
+
 }

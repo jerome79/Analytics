@@ -85,8 +85,8 @@ public final class ImmutableZonedDateTimeDoubleTimeSeries
    */
   public static ImmutableZonedDateTimeDoubleTimeSeries of(ZonedDateTime instant, double value) {
     Objects.requireNonNull(instant, "instant");
-    long[] timesArray = new long[] {ZonedDateTimeToLongConverter.convertToLong(instant)};
-    double[] valuesArray = new double[] {value};
+    long[] timesArray = new long[] {ZonedDateTimeToLongConverter.convertToLong(instant) };
+    double[] valuesArray = new double[] {value };
     return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, instant.getZone());
   }
 
@@ -405,7 +405,7 @@ public final class ImmutableZonedDateTimeDoubleTimeSeries
       if (includeStart && includeEnd) {
         int pos = Arrays.binarySearch(_times, startTime);
         if (pos >= 0) {
-          return new ImmutableZonedDateTimeDoubleTimeSeries(new long[] {startTime}, new double[] {_values[pos]}, _zone);
+          return new ImmutableZonedDateTimeDoubleTimeSeries(new long[] {startTime }, new double[] {_values[pos] }, _zone);
         }
       }
       return ofEmpty(_zone);

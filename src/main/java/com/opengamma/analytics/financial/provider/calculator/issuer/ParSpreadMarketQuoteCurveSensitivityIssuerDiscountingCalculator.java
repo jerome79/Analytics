@@ -22,13 +22,13 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multicu
  * transaction version of instruments like bonds and bills, as the purchase price
  * information is necessary to calculate a meaningful par spread.
  */
-public final class ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator 
-  extends InstrumentDerivativeVisitorDelegate<ParameterIssuerProviderInterface, MulticurveSensitivity> {
+public final class ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator
+    extends InstrumentDerivativeVisitorDelegate<ParameterIssuerProviderInterface, MulticurveSensitivity> {
 
   /**
    * The unique instance of the calculator.
    */
-  private static final ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator INSTANCE = 
+  private static final ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator INSTANCE =
       new ParSpreadMarketQuoteCurveSensitivityIssuerDiscountingCalculator();
 
   /**

@@ -37,7 +37,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the pricing methods for OIS coupon in the discounting method with data in MarketBundle.
  */
@@ -83,14 +82,15 @@ public class CouponONDiscountingMethodTest {
   @Test
   public void presentValueStarted() {
     final double fixing = 0.0015;
-    final ZonedDateTimeDoubleTimeSeries TS_ON = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 5, 20), DateUtils.getUTCDate(2011, 5, 23)}, new double[]{
-        0.0010, fixing});
+    final ZonedDateTimeDoubleTimeSeries TS_ON = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 5, 20), DateUtils.getUTCDate(2011, 5, 23) }, new double[] {
+      0.0010, fixing });
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(EFFECTIVE_DATE, 1, TARGET);
     final CouponON cpnOISStarted = (CouponON) CPN_OIS_DEFINITION.toDerivative(referenceDate, TS_ON);
     final double notionalAccrued = NOTIONAL * (1 + fixing * DayCountUtils.yearFraction(EONIA.getDayCount(), EFFECTIVE_DATE, referenceDate));
     assertEquals("CouponOISDiscountingMarketMethod: present value", notionalAccrued, cpnOISStarted.getNotionalAccrued(), TOLERANCE_PV);
     final MultiCurrencyAmount pvComputed = METHOD_CPN_OIS.presentValue(cpnOISStarted, MULTICURVES);
-    final double forward = MULTICURVES.getSimplyCompoundForwardRate(EONIA, cpnOISStarted.getFixingPeriodStartTime(), cpnOISStarted.getFixingPeriodEndTime(), cpnOISStarted.getFixingPeriodAccrualFactor());
+    final double forward = MULTICURVES.getSimplyCompoundForwardRate(EONIA, cpnOISStarted.getFixingPeriodStartTime(), cpnOISStarted.getFixingPeriodEndTime(),
+        cpnOISStarted.getFixingPeriodAccrualFactor());
     final double pvExpected = (cpnOISStarted.getNotionalAccrued() * (1 + cpnOISStarted.getFixingPeriodAccrualFactor() * forward) - NOTIONAL)
         * MULTICURVES.getDiscountFactor(cpnOISStarted.getCurrency(), cpnOISStarted.getPaymentTime());
     assertEquals("CouponOISDiscountingMarketMethod: present value", pvExpected, pvComputed.getAmount(EUR).getAmount(), TOLERANCE_PV);

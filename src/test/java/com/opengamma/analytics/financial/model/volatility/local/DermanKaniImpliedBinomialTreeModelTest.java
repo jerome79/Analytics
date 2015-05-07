@@ -24,7 +24,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -62,9 +61,9 @@ public class DermanKaniImpliedBinomialTreeModelTest {
   @Test
   public void test() {
     final Double[][] expectedSpot = new Double[][] {new Double[] {100. }, new Double[] {86.07, 116.18 }, new Double[] {70.49, 100., 131.94 }, new Double[] {60.63, 85.97, 116.32, 148.04 },
-        new Double[] {44.05, 70.46, 100., 132.13, 163.24 }, new Double[] {41.04, 60.47, 85.86, 116.47, 148.14, 177.53 } };
+      new Double[] {44.05, 70.46, 100., 132.13, 163.24 }, new Double[] {41.04, 60.47, 85.86, 116.47, 148.14, 177.53 } };
     final Double[][] expectedLocalVol = new Double[][] {new Double[] {.145 }, new Double[] {.163, .128 }, new Double[] {.174, .146, .110 }, new Double[] {.205, .164, .128, .091 },
-        new Double[] {.172, .175, .147, .109, .073 } };
+      new Double[] {.172, .175, .147, .109, .073 } };
     final ImpliedTreeResult result = MODEL.getImpliedTrees(OPTION, DATA);
     final Double[][] spot = result.getSpotPriceTree().getNodes();
     assertEquals(spot.length, expectedSpot.length);

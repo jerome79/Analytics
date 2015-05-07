@@ -26,7 +26,6 @@ import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
 import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * @deprecated Please use SABRModelFitter
  */
@@ -138,6 +137,5 @@ public class SABRNonLinearLeastSquareFitter extends LeastSquareSmileFitter {
       lsRes = new LeastSquareResults(lsRes.getChiSq(), new DoubleMatrix1D(mp), lsRes.getCovariance());
     }
     return new LeastSquareResultsWithTransform(lsRes, transforms);
-    //return new LeastSquareResults(lsRes.getChiSq(), new DoubleMatrix1D(mp), new DoubleMatrix2D(new double[N_PARAMETERS][N_PARAMETERS]), lsRes.getFittingParameterSensitivityToData());
   }
 }

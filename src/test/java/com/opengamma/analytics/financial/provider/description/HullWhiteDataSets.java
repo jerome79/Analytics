@@ -22,8 +22,8 @@ import com.opengamma.strata.basics.currency.Currency;
 public class HullWhiteDataSets {
 
   private static final double MEAN_REVERSION = 0.01;
-  private static final double[] VOLATILITY = new double[] {0.01, 0.011, 0.012, 0.013, 0.014};
-  private static final double[] VOLATILITY_TIME = new double[] {0.5, 1.0, 2.0, 5.0};
+  private static final double[] VOLATILITY = new double[] {0.01, 0.011, 0.012, 0.013, 0.014 };
+  private static final double[] VOLATILITY_TIME = new double[] {0.5, 1.0, 2.0, 5.0 };
   private static final HullWhiteOneFactorPiecewiseConstantParameters MODEL_PARAMETERS = new HullWhiteOneFactorPiecewiseConstantParameters(MEAN_REVERSION, VOLATILITY, VOLATILITY_TIME);
 
   /**
@@ -40,12 +40,12 @@ public class HullWhiteDataSets {
    * @return The hull-White parameters.
    */
   public static HullWhiteOneFactorPiecewiseConstantParameters createHullWhiteParametersCst(final double sigma) {
-    return new HullWhiteOneFactorPiecewiseConstantParameters(MEAN_REVERSION, new double[] {sigma}, new double[0]);
+    return new HullWhiteOneFactorPiecewiseConstantParameters(MEAN_REVERSION, new double[] {sigma }, new double[0]);
   }
 
   private static final Interpolator1D LINEAR_FLAT = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final double[] RATES_TIME = new double[] {0.25, 0.5, 1.0, 2.0, 5.0, 10.0, 30.0};
+  private static final double[] RATES_TIME = new double[] {0.25, 0.5, 1.0, 2.0, 5.0, 10.0, 30.0 };
 
   /**
    * Create constant discounting and forward curves.

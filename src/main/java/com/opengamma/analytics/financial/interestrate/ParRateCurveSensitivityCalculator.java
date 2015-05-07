@@ -196,7 +196,6 @@ public final class ParRateCurveSensitivityCalculator extends InstrumentDerivativ
   public Map<String, List<DoublesPair>> visitCouponIborSpread(final CouponIborSpread payment, final YieldCurveBundle data) {
     final String curveName = payment.getForwardCurveName();
     final YieldAndDiscountCurve curve = data.getCurve(curveName);
-    //    final double ta = payment.getFixingTime();
     final double ta = payment.getFixingPeriodStartTime();
     final double tb = payment.getFixingPeriodEndTime();
     final double delta = payment.getFixingAccrualFactor();

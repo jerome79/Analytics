@@ -71,7 +71,7 @@ public class SensitivityAndReturnDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyReturns() {
-    new SensitivityAndReturnDataBundle(S1, VALUE_DELTA, Collections.<UnderlyingType, DoubleTimeSeries<?>> emptyMap());
+    new SensitivityAndReturnDataBundle(S1, VALUE_DELTA, Collections.<UnderlyingType, DoubleTimeSeries<?>>emptyMap());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
