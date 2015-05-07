@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.volatility.BlackScholesFormulaRepository;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -33,7 +32,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void binomialTrinomialTest() {
     final double[] spotSet2 = new double[] {SPOT * 0.9, SPOT * 1.1 };
     final double sigma2 = 0.15;
@@ -72,7 +70,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * Analytic formula is available if K =0
    */
-  @Test
   public void priceZeroStrikeTest() {
     final double[] spotSet2 = new double[] {SPOT * 0.9, SPOT * 1.1 };
     final double sigma2 = 0.15;
@@ -105,7 +102,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * Reduces into Black-Scholes formula if spot 2 = 0.
    */
-  @Test
   public void priceZeroSpot2Test() {
     final double spot2 = 1.e-10;
     final double sigma2 = 0.15;
@@ -137,7 +133,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void greeksZeroStrikeTest() {
     final double[] spotSet2 = new double[] {SPOT * 0.9, SPOT * 1.1 };
     final double sigma2 = 0.15;
@@ -176,7 +171,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * Reduces into Black-Scholes formula if spot 2 = 0.
    */
-  @Test
   public void greekZeroSpot2Test() {
     final double spot2 = 1.e-10;
     final double sigma2 = 0.15;
@@ -200,7 +194,7 @@ public class EuropeanSpreadOptionFunctionProviderTest {
                 final double[] ref = new double[] {price, delta1, theta, gamma1 };
                 final double[] res = _model.getGreeks(function, SPOT, spot2, vol, sigma2, rho, interest, dividend, div2);
                 final double[] resMod = new double[] {res[0], res[1], res[3], res[4] };
-                //                System.out.println(resMod[3] + "\t" + ref[3]);
+
                 assertGreeks(resMod, ref, 1.e-2);
               }
             }
@@ -213,7 +207,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void negativeStrikeTest() {
     new EuropeanSpreadOptionFunctionProvider(-10., TIME, 202, true);
@@ -222,7 +215,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void negativeTimeTest() {
     new EuropeanSpreadOptionFunctionProvider(10., -TIME, 202, true);
@@ -231,7 +223,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void fewStepsTest() {
     new EuropeanSpreadOptionFunctionProvider(10., TIME, 2, true);
@@ -240,12 +231,11 @@ public class EuropeanSpreadOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider2D ref = new EuropeanSpreadOptionFunctionProvider(100., 1., 53, true);
     final OptionFunctionProvider2D[] function = new OptionFunctionProvider2D[] {ref, new EuropeanSpreadOptionFunctionProvider(100., 1., 53, true),
-        new EuropeanSpreadOptionFunctionProvider(100., 1., 53, false), new EuropeanSpreadOptionFunctionProvider(110., 1., 53, true), new EuropeanSpreadOptionFunctionProvider(100., 2., 53, true),
-        new EuropeanSpreadOptionFunctionProvider(100., 2., 54, true), new AmericanSpreadOptionFunctionProvider(100., 1., 53, true), null };
+      new EuropeanSpreadOptionFunctionProvider(100., 1., 53, false), new EuropeanSpreadOptionFunctionProvider(110., 1., 53, true), new EuropeanSpreadOptionFunctionProvider(100., 2., 53, true),
+      new EuropeanSpreadOptionFunctionProvider(100., 2., 54, true), new AmericanSpreadOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {
@@ -262,7 +252,6 @@ public class EuropeanSpreadOptionFunctionProviderTest {
     final int size = res.length;
     ArgChecker.isTrue(size == ref.length, "wrong data length");
     for (int i = 0; i < size; ++i) {
-      //      System.out.println(i);
       final double error = Math.max(Math.abs(ref[i]), 1.) * eps;
       assertEquals(res[i], ref[i], error);
     }

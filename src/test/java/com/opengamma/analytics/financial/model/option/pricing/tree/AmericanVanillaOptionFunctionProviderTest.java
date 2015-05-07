@@ -33,7 +33,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void smoothingTest() {
     final int nStrikes = STRIKES.length;
     final int nInterests = INTERESTS.length;
@@ -78,7 +77,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void truncationTest() {
     final int nStrikes = STRIKES.length;
     final int nInterests = INTERESTS.length;
@@ -113,7 +111,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void putCallSymmetryTest() {
     /*
      * Two sample lattices are checked 
@@ -148,7 +145,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void putPriceTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
         new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
@@ -193,7 +189,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void putGreeksTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
         new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
@@ -304,7 +299,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void greeksContDividendTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
         new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
@@ -331,7 +325,7 @@ public class AmericanVanillaOptionFunctionProviderTest {
                 final BjerksundStenslandModel bs = new BjerksundStenslandModel();
                 final double[] first = bs.getPriceAdjoint(SPOT, STRIKES[k], INTERESTS[j], INTERESTS[j] - DIVIDENDS[i], time, VOLS[l], tfSet[n]);
                 final double[] deltaGamma = bs.getPriceDeltaGamma(SPOT, STRIKES[k], INTERESTS[j], INTERESTS[j] - DIVIDENDS[i], time, VOLS[l], tfSet[n]);
-                //                System.out.println(SPOT + "\t" + STRIKES[k] + "\t" + INTERESTS[j] + "\t" + DIVIDENDS[i] + "\t" + time + "\t" + VOLS[l] + "\t" + tfSet[n] + "\t" + m);
+
                 assertEquals(resNew.get(Greek.FAIR_PRICE), deltaGamma[0], Math.abs(deltaGamma[0]));
                 assertEquals(resNew.get(Greek.DELTA), deltaGamma[1], Math.abs(deltaGamma[1]));
                 /*
@@ -359,7 +353,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void timeVaryingVolTest() {
     final LatticeSpecification lattice1 = new TimeVaryingLatticeSpecification();
     final double[] time_set = new double[] {0.5, 1.2 };
@@ -422,7 +415,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * Consistency is checked
    */
-  @Test
   public void priceCashMultipleDividendsTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
         new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
@@ -478,7 +470,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * Consistency is checked
    */
-  @Test
   public void pricePropMultipleDividendsTest() {
 
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
@@ -536,7 +527,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * Consistency is checked
    */
-  @Test
   public void greeksDiscreteDividendLatticeTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
         new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
@@ -625,7 +615,7 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void errorVolTest1() {
     new AmericanVanillaOptionFunctionProvider(STRIKES[1], TIME, 10, false, -VOLS[1], INTERESTS[1], DIVIDENDS[1]);
@@ -634,7 +624,7 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void errorVolTest2() {
     new AmericanVanillaOptionFunctionProvider(STRIKES[1], TIME, 10, false, -VOLS[1], INTERESTS[1], DIVIDENDS[1], 4., true);
@@ -643,7 +633,7 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void errorVolTest3() {
     new AmericanVanillaOptionFunctionProvider(STRIKES[1], TIME, 10, false, -VOLS[1], INTERESTS[1], DIVIDENDS[1], 4., false);
@@ -652,7 +642,7 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void errorDiv1Test() {
     new AmericanVanillaOptionFunctionProvider(STRIKES[1], TIME, 10, false, VOLS[1], INTERESTS[1], DIVIDENDS[1], -4., true);
@@ -661,7 +651,7 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void errorDiv2Test() {
     new AmericanVanillaOptionFunctionProvider(STRIKES[1], TIME, 10, false, VOLS[1], INTERESTS[1], DIVIDENDS[1], -4., false);
@@ -670,7 +660,6 @@ public class AmericanVanillaOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider1D ref = new AmericanVanillaOptionFunctionProvider(100., 1., 53, true);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new AmericanVanillaOptionFunctionProvider(100., 1., 53, true),
