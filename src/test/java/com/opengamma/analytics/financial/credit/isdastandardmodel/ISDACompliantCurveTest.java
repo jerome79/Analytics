@@ -25,7 +25,6 @@ public class ISDACompliantCurveTest {
   /**
    * no shift
    */
-  @Test
   public void noShiftTest() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -45,7 +44,6 @@ public class ISDACompliantCurveTest {
   /**
    * Shift less than first knot
    */
-  @Test
   public void baseShiftTest() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -65,7 +63,6 @@ public class ISDACompliantCurveTest {
   /**
    * shift between two knots
    */
-  @Test
   public void baseShiftTest2() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -78,7 +75,7 @@ public class ISDACompliantCurveTest {
       final double time = 4.0 * i / 100.;
       final double rt1 = baseCurve.getRT(time + offset) - rtOffset;
       final double rt2 = offsetCurve.getRT(time);
-      //    System.out.println(time + "\t" + rt1 + "\t" + rt2);
+
       assertEquals(rt1, rt2, 1e-15);
     }
   }
@@ -86,7 +83,6 @@ public class ISDACompliantCurveTest {
   /**
    * shift to just before last knot and extrapolate at long way out 
    */
-  @Test
   public void baseShiftTest3() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -99,7 +95,7 @@ public class ISDACompliantCurveTest {
       final double time = 5.0 * i / 100.;
       final double rt1 = baseCurve.getRT(time + offset) - rtOffset;
       final double rt2 = offsetCurve.getRT(time);
-      //    System.out.println(time + "\t" + rt1 + "\t" + rt2);
+
       assertEquals(rt1, rt2, 1e-14);
     }
   }
@@ -107,7 +103,6 @@ public class ISDACompliantCurveTest {
   /**
    * shift exactly to one of the knots
    */
-  @Test
   public void baseShiftTest4() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 0.5, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -120,7 +115,7 @@ public class ISDACompliantCurveTest {
       final double time = 4.0 * i / 100.;
       final double rt1 = baseCurve.getRT(time + offset) - rtOffset;
       final double rt2 = offsetCurve.getRT(time);
-      //  System.out.println(time + "\t" + rt1 + "\t" + rt2);
+
       assertEquals(rt1, rt2, 1e-14);
     }
   }
@@ -128,7 +123,6 @@ public class ISDACompliantCurveTest {
   /**
    * shift to last knot 
    */
-  @Test
   public void baseShiftTest5() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {0.4, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.5 };
@@ -141,7 +135,7 @@ public class ISDACompliantCurveTest {
       final double time = 4.0 * i / 100.;
       final double rt1 = baseCurve.getRT(time + offset) - rtOffset;
       final double rt2 = offsetCurve.getRT(time);
-      //  System.out.println(time + "\t" + rt1 + "\t" + rt2);
+
       assertEquals(rt1, rt2, 1e-14);
     }
   }
@@ -149,7 +143,6 @@ public class ISDACompliantCurveTest {
   /**
    * shift past last knot 
    */
-  @Test
   public void baseShiftTest6() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -162,7 +155,7 @@ public class ISDACompliantCurveTest {
       final double time = 4.0 * i / 100.;
       final double rt1 = baseCurve.getRT(time + offset) - rtOffset;
       final double rt2 = offsetCurve.getRT(time);
-      //  System.out.println(time + "\t" + rt1 + "\t" + rt2);
+
       assertEquals(rt1, rt2, 1e-14);
     }
   }
@@ -170,7 +163,6 @@ public class ISDACompliantCurveTest {
   /**
    * shift to first knot 
    */
-  @Test
   public void baseShiftTest7() {
     final double[] t = new double[] {0.03, 0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4 };
     final double[] r = new double[] {0.4, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.5 };
@@ -183,12 +175,11 @@ public class ISDACompliantCurveTest {
       final double time = 4.0 * i / 100.;
       final double rt1 = baseCurve.getRT(time + offset) - rtOffset;
       final double rt2 = offsetCurve.getRT(time);
-      //  System.out.println(time + "\t" + rt1 + "\t" + rt2);
+
       assertEquals(rt1, rt2, 1e-15);
     }
   }
 
-  @Test
   public void getRTTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -235,7 +226,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void rtandSenseTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -254,7 +244,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void getNodeSensitivity() {
 
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
@@ -307,7 +296,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void getNodeSensitivityvsFiniteDifferenceTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -334,7 +322,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void getSingleNodeSensitivityvsNodesensitivityTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -355,7 +342,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void getSingleNodeSensitivityvsSingleNodeDiscountFactorsensitivityTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -378,7 +364,6 @@ public class ISDACompliantCurveTest {
 
   }
 
-  @Test
   public void withRatesTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r1 = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -392,7 +377,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void withRateTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r1 = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -407,7 +391,6 @@ public class ISDACompliantCurveTest {
 
   }
 
-  @Test
   public void withDiscountFactorTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r1 = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -422,7 +405,6 @@ public class ISDACompliantCurveTest {
 
   }
 
-  @Test
   public void getZeroRateTest() {
 
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
@@ -436,7 +418,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void getNumberOfKnotsTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -444,7 +425,6 @@ public class ISDACompliantCurveTest {
     assertEquals("length", curve.getNumberOfKnots(), t.length, EPS);
   }
 
-  @Test
   public void offsetTest() {
     final double[] timesFromBase = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {0.04, 0.08, 0.07, 0.12, 0.12, 0.13, 0.12, 0.1, 0.09 };
@@ -476,7 +456,6 @@ public class ISDACompliantCurveTest {
     }
   }
 
-  @Test
   public void forwardRateTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 7.0, 10.0 };
     final double[] r = new double[] {0.04, 0.08, 0.07, 0.12, 0.12, 0.13, 0.12, 0.1, 0.09 };
@@ -490,13 +469,12 @@ public class ISDACompliantCurveTest {
       final double rtUp = c1.getRT(time + eps);
       final double rtDown = c1.getRT(time - eps);
       final double fd = (rtUp - rtDown) / 2 / eps;
-      //  System.out.println(time + "\t" + f + "\t" + fd);
+
       assertEquals(fd, f, 1e-10);
     }
 
   }
 
-  @Test
   public void senseTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -528,7 +506,6 @@ public class ISDACompliantCurveTest {
 
   }
 
-  @Test
   public void discountFactorSenseTest() {
     final double[] t = new double[] {0.1, 0.2, 0.5, 0.7, 1.0, 2.0, 3.0, 3.4, 10.0 };
     final double[] r = new double[] {1.0, 0.8, 0.7, 1.2, 1.2, 1.3, 1.2, 1.0, 0.9 };
@@ -545,17 +522,6 @@ public class ISDACompliantCurveTest {
         assertEquals("Time: " + time, fd[i], anal, 1e-10);
       }
     }
-
-    // // check nodes
-    // for (int jj = 0; jj < n; jj++) {
-    // final double[] anal = curve.getNodeSensitivity(t[jj]);
-    // for (int i = 0; i < n; i++) {
-    // final double anal2 = curve.getSingleNodeSensitivity(t[jj], i);
-    // final double expected = i == jj ? 1.0 : 0.0;
-    // assertEquals(expected, anal[i], 0.0);
-    // assertEquals(expected, anal2, 0.0);
-    // }
-    // }
 
   }
 
@@ -604,8 +570,6 @@ public class ISDACompliantCurveTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
-  @Test
   public void buildTest() {
     final double tol = 1.e-13;
 
@@ -654,9 +618,6 @@ public class ISDACompliantCurveTest {
       assertEquals(cv1.getTimeAtIndex(i), cv3.getTimeAtIndex(i), tol);
       assertEquals(cv1.getRTAtIndex(i), cv3.getRTAtIndex(i), tol);
     }
-
-    final double senseRT1 = cv1.getSingleNodeRTSensitivity(0.05, 0);
-    final double senseRT2 = cv1.getSingleNodeRTSensitivity(0.05, 1);
 
     final double[] T = new double[] {-0.3, -0.1, -0. };
     final double[] RT = new double[] {0.06, 0.1, 0. };

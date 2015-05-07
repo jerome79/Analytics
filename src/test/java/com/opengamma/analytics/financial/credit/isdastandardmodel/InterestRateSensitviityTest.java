@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 /**
  * 
  */
+@Test
 public class InterestRateSensitviityTest extends ISDABaseTest {
 
   private static final LocalDate TRADE_DATE = LocalDate.of(2014, 3, 3);
@@ -27,7 +28,6 @@ public class InterestRateSensitviityTest extends ISDABaseTest {
   private static CDSAnalyticFactory FACTORY = new CDSAnalyticFactory();
   private static InterestRateSensitivityCalculator IRDV01_CAL = new InterestRateSensitivityCalculator();
 
-  @Test
   public void zeroPUFTest() {
     final CDSAnalytic cds = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final double puf = 0.0;
@@ -35,12 +35,11 @@ public class InterestRateSensitviityTest extends ISDABaseTest {
 
     final double irdv01_puf = IRDV01_CAL.parallelIR01(cds, new PointsUpFront(COUPON, puf), YC_BUILDER, RATES);
     final double irdv01_spread = IRDV01_CAL.parallelIR01(cds, new QuotedSpread(COUPON, qs), YC_BUILDER, RATES);
-    //   System.out.println(irdv01_puf + "\t" + irdv01_spread);
+
     assertEquals(0, irdv01_puf, 1e-16);
     assertEquals(0, irdv01_spread, 1e-16);
   }
 
-  @Test
   public void spreadTest() {
 
     final double notional = 1e15;
@@ -55,7 +54,6 @@ public class InterestRateSensitviityTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void pufTest() {
 
     final double notional = 1e15;
@@ -66,7 +64,7 @@ public class InterestRateSensitviityTest extends ISDABaseTest {
     final int n = puf.length;
     for (int i = 0; i < n; i++) {
       final double irdv01_spread = notional * IRDV01_CAL.parallelIR01(cds, new PointsUpFront(COUPON, puf[i] * ONE_PC), YC_BUILDER, RATES);
-      // System.out.println(expIR01[i] + "\t" + irdv01_spread);
+
       assertEquals(expIR01[i], irdv01_spread, 1); //one part in 1e15
     }
   }
@@ -74,7 +72,6 @@ public class InterestRateSensitviityTest extends ISDABaseTest {
   /**
    * This uses a calculator that bumps the yield curve directly, so we only approximate the 'true' IR DV01 numbers 
    */
-  @Test
   public void spread2Test() {
 
     final double notional = 1e15;

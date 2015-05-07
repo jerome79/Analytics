@@ -28,6 +28,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 /**
  * 
  */
+@Test
 public class HedgeRatioCalculatorTest extends ISDABaseTest {
   protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
   protected static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, RANDOM);
@@ -56,7 +57,6 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
     CREDIT_CURVE = calibrator.calibrate(spreads);
   }
 
-  @Test
   public void test() {
     final LocalDate accStart = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR);
     final CDSAnalytic cds = CDS_FACTORY.makeCDS(TRADE_DATE, accStart, MATURITY);
@@ -67,7 +67,6 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
     Arrays.fill(hedgeCoupons, cdsCoupon);
     final DoubleMatrix1D w = HEDGE_CAL.getHedgeRatios(cds, cdsCoupon, HEDGE_CDS, hedgeCoupons, CREDIT_CURVE, YIELD_CURVE);
     final double[] expected = new double[] {-1.1842173839714448E-6, 0.36244465818986815, 0.6376106050590048, 0.0, 0.0, 0.0 };
-    //System.out.println(w);
     //regression test
     for (int i = 0; i < n; i++) {
       assertEquals("", expected[i], w.getEntry(i), 1e-15);
@@ -78,7 +77,6 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
     for (int i = 0; i < n; i++) {
       pv -= w.getEntry(i) * PRICER.pv(HEDGE_CDS[i], YIELD_CURVE, CREDIT_CURVE, hedgeCoupons[i]);
     }
-    //  System.out.println("pv: " + pv);
 
     //perturb the credit curve 
     final double[] t = CREDIT_CURVE.getKnotTimes();
@@ -97,7 +95,6 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
         pvBumped -= w.getEntry(i) * PRICER.pv(HEDGE_CDS[i], YIELD_CURVE, cc, hedgeCoupons[i]);
       }
       final double change = pvBumped - pv;
-      //  System.out.println(change);
       assertTrue(change > 0 && change < 3e-7); //position has positive gamma, so change should always be positive 
     }
   }
@@ -116,7 +113,6 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
     System.out.println(w);
   }
 
-  @Test
   public void lessCDStest() {
     final LocalDate accStart = FOLLOWING.adjust(getPrevIMMDate(TRADE_DATE), DEFAULT_CALENDAR);
     final CDSAnalytic cds = CDS_FACTORY.makeCDS(TRADE_DATE, accStart, MATURITY);
@@ -127,7 +123,6 @@ public class HedgeRatioCalculatorTest extends ISDABaseTest {
     final double[] hedgeCoupons = new double[n];
     Arrays.fill(hedgeCoupons, cdsCoupon);
     final DoubleMatrix1D w = HEDGE_CAL.getHedgeRatios(cds, cdsCoupon, hedgeCDS, hedgeCoupons, CREDIT_CURVE, YIELD_CURVE);
-    //   System.out.println(w);
     final double[] expected = new double[] {0.3877847710928422, 0.026594401620818442 };
     for (int i = 0; i < n; i++) {
       assertEquals("", expected[i], w.getEntry(i), 1e-15);

@@ -79,7 +79,6 @@ public class UpfrontFlatTest {
     YIELD_CURVE = ISDACompliantYieldCurveBuild.build(TODAY, SPOT_DATE, types, tenors, rates, moneyMarketDCC, swapDCC, swapInterval, curveDCC, FOLLOWING);
   }
 
-  @Test
   public void Test() {
     final Period tenor = Period.ofMonths(3);
     final boolean payAccOnDefault = true;
@@ -95,16 +94,10 @@ public class UpfrontFlatTest {
 
     final ISDACompliantCreditCurve creditCurve = builder.calibrateCreditCurve(TODAY, STEPIN_DATE, CASH_SETTLE_DATE, START_DATE, END_DATE, quotedSpread, payAccOnDefault, tenor, stubType,
         protectionStart, YIELD_CURVE, recovery);
-
-    //    System.out.println(creditCurve.getNumberOfKnots() + "\t" + creditCurve.getTimeAtIndex(0) + "\t" + creditCurve.getZeroRateAtIndex(0));
-
     final CDSAnalytic cds = new CDSAnalytic(TODAY, STEPIN_DATE, CASH_SETTLE_DATE, START_DATE, END_DATE, payAccOnDefault, tenor, stubType, protectionStart, recovery);
 
     final double clean = pricer.pv(cds, YIELD_CURVE, creditCurve, coupon, PriceType.CLEAN);
     final double dirty = pricer.pv(cds, YIELD_CURVE, creditCurve, coupon, PriceType.DIRTY);
-
-    //    System.out.println(clean + "\t" + dirty + "\t" + (clean - dirty));
-    //    System.out.println(cds.getAccrued() * coupon + "\t" + cds.getAccuredDays());
 
     //Numbers from Excel
     assertEquals("upfrount", 0.018566047, clean, 1e-9);

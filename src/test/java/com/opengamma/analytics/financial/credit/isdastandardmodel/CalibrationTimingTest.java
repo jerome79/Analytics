@@ -161,7 +161,6 @@ public class CalibrationTimingTest extends ISDABaseTest {
       final DoubleMatrix1D z = new DoubleMatrix1D(temp);
       final DoubleMatrix1D w = (DoubleMatrix1D) MA.multiply(YC_COVAR_SQR, z);
       final DoubleMatrix1D peturbedRates = (DoubleMatrix1D) MA.add(base, w);
-      // System.out.println(peturbedRates);
 
       try {
         @SuppressWarnings("unused")
@@ -205,7 +204,6 @@ public class CalibrationTimingTest extends ISDABaseTest {
       final DoubleMatrix1D z = new DoubleMatrix1D(temp);
       final DoubleMatrix1D w = (DoubleMatrix1D) MA.multiply(CC_COVAR_SQR, z);
       final DoubleMatrix1D peturbedSpreads = (DoubleMatrix1D) MA.add(base, w);
-      // System.out.println(peturbedRates);
 
       try {
         @SuppressWarnings("unused")

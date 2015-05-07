@@ -45,7 +45,7 @@ import com.opengamma.analytics.financial.credit.options.YieldCurveProvider;
  * we have built. Each method (test) demonstrates a new feature and outputs some results to the console - ideally they should 
  * be read and executed in order.  
  */
-@Test
+@Test(enabled=false)
 public class CDSAnalyticsDemo extends ISDABaseTest {
 
   private static final LocalDate TRADE_DATE = LocalDate.of(2014, 6, 30);

@@ -84,7 +84,6 @@ public class MarketQuoteConverterTest {
     YIELD_CURVE = ISDACompliantYieldCurveBuild.build(TODAY, SPOT_DATE, types, tenors, rates, moneyMarketDCC, swapDCC, swapInterval, curveDCC, FOLLOWING);
   }
 
-  @Test
   public void SingleCDSTest() {
     final Period tenor = Period.ofMonths(3);
     final boolean payAccOnDefault = true;
@@ -104,7 +103,6 @@ public class MarketQuoteConverterTest {
 
   }
 
-  @Test
   public void SingleCDSTest2() {
     final Period tenor = Period.ofMonths(6);
     final boolean payAccOnDefault = true;
@@ -124,7 +122,6 @@ public class MarketQuoteConverterTest {
 
   }
 
-  @Test
   public void MultiCDSTest() {
     final Period tenor = Period.ofMonths(3);
     final boolean payAccOnDefault = true;
@@ -145,10 +142,6 @@ public class MarketQuoteConverterTest {
     final double[] quotedSpreads = PUF.pufToQuotedSpreads(cds, permium, YIELD_CURVE, pointsUpFront);
     final double[] parSpreads = PUF.pufToParSpreads(cds, permium, YIELD_CURVE, pointsUpFront);
 
-    //    for (int i = 0; i < n; i++) {
-    //      System.out.println(quotedSpreads[i] * 10000 + "\t" + parSpreads[i] * 10000);
-    //    }
-
     final double[] derivedPUF = PUF.quotedSpreadsToPUF(cds, permium, YIELD_CURVE, quotedSpreads);
     final double[] derivedPUF2 = PUF.parSpreadsToPUF(cds, permium, YIELD_CURVE, parSpreads);
     for (int i = 0; i < n; i++) {
@@ -161,7 +154,6 @@ public class MarketQuoteConverterTest {
   /**
    * 
    */
-  @Test
   public void consistencyTest() {
     final double tol = 1.e-13;
 

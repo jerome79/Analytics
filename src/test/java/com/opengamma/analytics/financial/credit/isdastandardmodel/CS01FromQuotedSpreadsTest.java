@@ -119,7 +119,6 @@ public class CS01FromQuotedSpreadsTest extends ISDABaseTest {
     {-6.710881850224837E-7, -1.942890293094024E-10, 0.0, 1.3877787807814457E-11, 1.3877787807814457E-11, 0.0, -6.938893903907228E-11, -1.3877787807814457E-11, -4.163336342344337E-11, 0.0,
       900.574329413331, 0.0, 0.0, 0.0 } };
 
-  @Test
   public void cashPaymentTest() {
     final double coupon = COUPON * ONE_BP;
 
@@ -128,15 +127,10 @@ public class CS01FromQuotedSpreadsTest extends ISDABaseTest {
       final CDSAnalytic cds = new CDSAnalytic(TRADE_DATE, EFFECTIVE_DATE, CASH_SETTLE_DATE, STARTDATE, MATURITIES[i], PAY_ACC_ON_DEFAULT, PAYMENT_INTERVAL, STUB, PROCTECTION_START, RECOVERY_RATE);
       final PointsUpFront puf = PUF_CONVERTER.convert(cds, new QuotedSpread(coupon, QUOTED_SPREADS[i] * ONE_BP), YIELD_CURVE);
       final double cash = (puf.getPointsUpFront() - cds.getAccruedPremium(coupon)) * NOTIONAL;
-      // System.out.println(cash);
       assertEquals(CASH_PAYMENTS[i], cash, 1e-0); //no dps given on BBG numbers
-
-      //double check
-
     }
   }
 
-  @Test
   public void parellelCS01Test() {
     final double coupon = COUPON * ONE_BP;
     final double scale = NOTIONAL * ONE_BP;
@@ -150,8 +144,6 @@ public class CS01FromQuotedSpreadsTest extends ISDABaseTest {
     }
   }
 
-  @Test
-  //(enabled = false)
   public void bucketedCS01Test() {
     final double scale = NOTIONAL * ONE_BP;
 
@@ -176,7 +168,6 @@ public class CS01FromQuotedSpreadsTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void bucketedCS012Test() {
     final int m = BUCKET_DATES.length;
     final CDSAnalytic[] curveCDSs = new CDSAnalytic[m];
@@ -201,43 +192,6 @@ public class CS01FromQuotedSpreadsTest extends ISDABaseTest {
         assertEquals(MATURITIES[i].toString() + "\t" + BUCKET_DATES[j], bucketedCS01[j], cs01Mat[i][j]);
       }
     }
-  }
-
-  @Test(enabled = false)
-  public void bucketedCS01Print() {
-    System.out.println("CS01FromQuotedSpreadsTest.bucketedCS01Print disabled test before push");
-
-    final double scale = NOTIONAL * ONE_BP;
-
-    final int m = BUCKET_DATES.length;
-    final CDSAnalytic[] curveCDSs = new CDSAnalytic[m];
-    final double[] quotedSpreads = new double[m];
-    for (int i = 0; i < m; i++) {
-      curveCDSs[i] = new CDSAnalytic(TRADE_DATE, EFFECTIVE_DATE, CASH_SETTLE_DATE, TRADE_DATE, BUCKET_DATES[i], PAY_ACC_ON_DEFAULT, PAYMENT_INTERVAL, STUB, PROCTECTION_START, RECOVERY_RATE);
-      quotedSpreads[i] = QUOTED_SPREADS_AT_BUCKET_DATES[i] * ONE_BP;
-    }
-
-    final int n = MATURITIES.length;
-    final CDSAnalytic[] tradedCDSs = new CDSAnalytic[n];
-    for (int i = 0; i < n; i++) {
-      tradedCDSs[i] = new CDSAnalytic(TRADE_DATE, EFFECTIVE_DATE, CASH_SETTLE_DATE, STARTDATE, MATURITIES[i], PAY_ACC_ON_DEFAULT, PAYMENT_INTERVAL, STUB, PROCTECTION_START, RECOVERY_RATE);
-    }
-    final double[][] res = CS01_CAL.bucketedCS01FromQuotedSpreads(tradedCDSs, COUPON * ONE_BP, YIELD_CURVE, curveCDSs, quotedSpreads, ONE_BP, BumpType.ADDITIVE);
-
-    System.out.print("{");
-    for (int i = 0; i < n; i++) {
-      System.out.print("{");
-      for (int j = 0; j < m - 1; j++) {
-        System.out.print(scale * res[i][j] + ", ");
-      }
-      System.out.print(scale * res[i][m - 1] + "}");
-      if (i < n - 1) {
-        System.out.print(",\n");
-      } else {
-        System.out.print("}\n");
-      }
-    }
-
   }
 
 }

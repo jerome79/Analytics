@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.BumpType;
 
-
 /**
  * Test.
  */
@@ -103,7 +102,6 @@ public class CS01FromParSpreadTest extends ISDABaseTest {
     {0.109276238918765, 0.30985157893626, 0.798768104201542, 1.13289067206479, 1.45467003437316, 1.78537413728086, 2.14065271197939, 2.52823849759831, 2.94535236432247, 3.39918437135267,
       897.821618556768, 0, 0, 0 } };
 
-  @Test
   public void parellelCS01FromParSpreadTest() {
     final double coupon = DEAL_SPREAD * ONE_BP;
     final double scale = NOTIONAL * ONE_BP;
@@ -120,12 +118,11 @@ public class CS01FromParSpreadTest extends ISDABaseTest {
     for (int i = 0; i < n; i++) {
       final CDSAnalytic cds = new CDSAnalytic(TODAY, EFFECTIVE_DATE, CASH_SETTLE_DATE, STARTDATE, MATURITIES[i], PAY_ACC_ON_DEFAULT, PAYMENT_INTERVAL, STUB, PROCTECTION_START, RECOVERY_RATE);
       final double cs01 = scale * CS01_CAL.parallelCS01FromParSpreads(cds, coupon, YIELD_CURVE, curveCDSs, parSpreads, ONE_BP, BumpType.ADDITIVE);
-      // System.out.println(MATURITIES[i].toString() + "\t" + cs01);
+
       assertEquals(MATURITIES[i].toString(), PARELLEL_CS01[i], cs01, 1e-14 * NOTIONAL);
     }
   }
 
-  @Test
   public void bucketedCS01TermStructureTest() {
     final double coupon = DEAL_SPREAD * ONE_BP;
     final double scale = NOTIONAL * ONE_BP;
