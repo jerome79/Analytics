@@ -19,7 +19,6 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.Volatil
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -37,7 +36,7 @@ public class SABRPDFTest {
   private static ProbabilityDistribution<Double> BERESTYCKI_DIST;
   private static ProbabilityDistribution<Double> PAULOT_DIST;
   private static ProbabilityDistribution<Double> JOHNSON_DIST;
-  private static final SABRFormulaData DATA = new SABRFormulaData( ALPHA, BETA, RHO, NU);
+  private static final SABRFormulaData DATA = new SABRFormulaData(ALPHA, BETA, RHO, NU);
   private final static Function1D<Double, Double> SABR = new MyFunction(new SABRHaganVolatilityFunction());
   private final static Function1D<Double, Double> SABR_HAGAN = new MyFunction(new SABRHaganAlternativeVolatilityFunction());
   private final static Function1D<Double, Double> SABR_BERESTYCKI = new MyFunction(new SABRBerestyckiVolatilityFunction());
@@ -66,13 +65,9 @@ public class SABRPDFTest {
     final double[] pdf3 = new double[n];
     final double[] pdf4 = new double[n];
     final double[] pdf5 = new double[n];
-    //final double sigmaRootT = ATM_VOL * Math.sqrt(T);
-    //final double sigmaRootT = ALPHA * Math.sqrt(T);
+
     final double step = 20.0 / (n);
-    //System.out.println("Strike \t SABR Vol \t Hagan Vol \t Berestycki vol \t Paulot vol \t Johnson vol \t SABR PDF \t Hagan PDF \t Berestycki PDF \t Paulot PDF \t Johnson");
     for (int i = 0; i < n; i++) {
-      //double z = (i - 3 * n) * step;
-      // double k = F * Math.exp(sigmaRootT * z) * 1.2;
       final double k = 0.0 + (i + 1) * step;
       strike[i] = k;
       impliedVol[i] = SABR.evaluate(k);
@@ -80,14 +75,11 @@ public class SABRPDFTest {
       impliedVol3[i] = SABR_BERESTYCKI.evaluate(k);
       impliedVol4[i] = SABR_PAULOT.evaluate(k);
       impliedVol5[i] = SABR_JOHNSON.evaluate(k);
-      //price[i] = BLACK.callPrice(F, k, 1.0, impliedVol[i], T);
       pdf1[i] = SABR_DIST.getPDF(k);
       pdf2[i] = HAGAN_DIST.getPDF(k);
       pdf3[i] = BERESTYCKI_DIST.getPDF(k);
       pdf4[i] = PAULOT_DIST.getPDF(k);
       pdf5[i] = JOHNSON_DIST.getPDF(k);
-      //System.out.println(strike[i] + "\t" + impliedVol[i] + "\t" + impliedVol2[i] + "\t" + impliedVol3[i] + "\t" + impliedVol4[i] + "\t" + impliedVol5[i] + "\t" + pdf1[i] + "\t" + pdf2[i] + "\t"
-      //    + pdf3[i] + "\t" + pdf4[i] + "\t" + pdf5[i]);
     }
   }
 
@@ -102,7 +94,7 @@ public class SABRPDFTest {
     @Override
     public Double evaluate(final Double k) {
       final EuropeanVanillaOption option = new EuropeanVanillaOption(k, T, true);
-      return _sabr.getVolatilityFunction(option,F).evaluate(DATA);
+      return _sabr.getVolatilityFunction(option, F).evaluate(DATA);
     }
   }
 }
