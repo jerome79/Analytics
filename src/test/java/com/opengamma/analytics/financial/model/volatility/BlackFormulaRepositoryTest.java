@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -53,7 +52,6 @@ public class BlackFormulaRepositoryTest {
     {1.328198130230618E-4, 0.0029567128738985232, 0.04468941116428932, 0.47558224046532205, 3.8091577630027356,
       18.03481967011267, 43.99634090899799 } };
 
-  @Test
   public void zeroVolTest() {
     final boolean isCall = true;
     final int n = STRIKES_INPUT.length;
@@ -64,7 +62,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void zeroExpiryTest() {
     final boolean isCall = false;
     final int n = STRIKES_INPUT.length;
@@ -75,7 +72,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void tinyVolTest() {
     final double vol = 1e-4;
     final boolean isCall = true;
@@ -87,7 +83,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void shortExpiryTest() {
     final double t = 1e-5;
     final double vol = 0.4;
@@ -100,7 +95,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void massiveVolTest() {
     final double vol = 8.0; // 800% vol
     final boolean isCall = true;
@@ -111,7 +105,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void zeroStikeTest() {
     final boolean isCall = true;
     final int n = VOLS.length;
@@ -121,7 +114,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void putCallParityTest() {
     final int n = VOLS.length;
     final int m = STRIKES_INPUT.length;
@@ -135,12 +127,7 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void nonEdgeCaseTest() {
-    final boolean print = false;
-    if (print) {
-      System.out.println("BlackFormulaRepositotyTest");
-    }
     final boolean isCall = true;
     final int n = VOLS.length;
     final int m = STRIKES_INPUT.length;
@@ -148,21 +135,10 @@ public class BlackFormulaRepositoryTest {
       for (int j = 0; j < n; j++) {
         final double price = BlackFormulaRepository.price(FORWARD, STRIKES_INPUT[i], TIME_TO_EXPIRY, VOLS[j], isCall);
         assertEquals(PRE_COMPUTER_PRICES[i][j], price, 1e-13 * price);
-        if (print) {
-          if (j == 0) {
-            System.out.print(price);
-          } else {
-            System.out.print(", " + price);
-          }
-        }
-      }
-      if (print) {
-        System.out.print("\n");
       }
     }
   }
 
-  @Test
   /**
    * Tests the strikes in a range of strikes, volatilities and call/put.
    */
@@ -170,8 +146,6 @@ public class BlackFormulaRepositoryTest {
     final BlackPriceFunction function = new BlackPriceFunction();
     final int nbStrike = STRIKES_INPUT.length;
     final int nbVols = VOLS.length;
-    // double[][] delta = new double[2][nbStrike];
-    // double[][] strikeOutput = new double[2][nbStrike];
     boolean callput = false;
     for (int loopcall = 0; loopcall < 2; loopcall++) {
       callput = !callput;
@@ -193,7 +167,6 @@ public class BlackFormulaRepositoryTest {
 
   // TODO: test the conditions.
 
-  @Test
   /**
    * Tests the strikes in a range of strikes, volatilities and call/put.
    */
@@ -224,54 +197,9 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test(enabled = false)
-  /**
-   * Assess the performance of the derivatives computation.
-   */
-  public void impliedStrikePerformanceDerivatives() {
-    final double[] delta = new double[] {0.25, -0.25, 0.49 };
-    final boolean[] cap = new boolean[] {true, false, true };
-    final double[] forward = new double[] {104, 100, 10 };
-    final double[] time = new double[] {2.5, 5.0, 0.5 };
-    final double[] vol = new double[] {0.25, 0.10, 0.50 };
-    final double[] derivatives = new double[4];
-
-    long startTime, endTime;
-    final int nbTest = 100000;
-    @SuppressWarnings("unused")
-    double strike;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      for (int loop = 0; loop < delta.length; loop++) {
-        strike = BlackFormulaRepository.impliedStrike(delta[loop], cap[loop], forward[loop], time[loop], vol[loop]);
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " implied strike: " + (endTime - startTime) + " ms");
-    // Performance note: strike: 18-Jul-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 70 ms for 100000.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      for (int loop = 0; loop < delta.length; loop++) {
-        strike = BlackFormulaRepository.impliedStrike(delta[loop], cap[loop], forward[loop], time[loop], vol[loop],
-            derivatives);
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " implied strike + derivatives : " + (endTime - startTime) + " ms");
-    // Performance note: strike+derivatives: 18-Jul-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 80 ms for 100000.
-  }
-
-  /*
-   * 
-   * 
-   * New tests added
-   */
   /**
    * finite difference vs greek methods
    */
-  @Test
   public void greeksTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -376,15 +304,9 @@ public class BlackFormulaRepositoryTest {
 
   }
 
-  /*
-   * 
-   * 
-   * Tests for "price" method
-   */
   /**
    * Large/small values for price
    */
-  @Test
   public void exPriceTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -410,13 +332,7 @@ public class BlackFormulaRepositoryTest {
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
 
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
-
         for (int k = 0; k < 4; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -565,7 +481,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
       for (int k = 0; k < 8; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -827,7 +742,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -854,7 +768,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1 };
       final double[] refVec = new double[] {refC1, refP1 };
       for (int k = 0; k < 2; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -907,7 +820,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * Use SimpleOptionData class for price
    */
-  @Test
   public void useSimpleOptionDataTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -963,7 +875,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * Large/small value for delta
    */
-  @Test
   public void exDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -984,11 +895,6 @@ public class BlackFormulaRepositoryTest {
 
         final double[] resVec = new double[] {resC1, resP1, resC2, resP2 };
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2 };
-
-        // System.out.println(resC1 + "\t" + refC1);
-        // System.out.println(resP1 + "\t" + refP1);
-        // System.out.println(resC2 + "\t" + refC2);
-        // System.out.println(resP2 + "\t" + refP2);
 
         for (int k = 0; k < 4; ++k) {
           if (refVec[k] > 1.e10) {
@@ -1173,7 +1079,6 @@ public class BlackFormulaRepositoryTest {
         final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4 };
 
         for (int k = 0; k < 8; ++k) {
-          // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
           } else {
@@ -1344,8 +1249,6 @@ public class BlackFormulaRepositoryTest {
         refC6, refP6, refC7, refP7 };
 
       for (int k = 0; k < 14; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
-
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e12);
@@ -1392,7 +1295,6 @@ public class BlackFormulaRepositoryTest {
       final double[] refVec = new double[] {refC1, refP1, refC2, refP2, refC3, refP3, refC4, refP4, refC5, refP5 };
 
       for (int k = 0; k < 10; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if ((refVec[k] != 0.5) && (refVec[k] != -0.5)) {
           if (refVec[k] > 1.e10) {
             assertTrue(resVec[k] > 1.e10);
@@ -1421,7 +1323,6 @@ public class BlackFormulaRepositoryTest {
       final double[] resVec = new double[] {resC1, resP1 };
       final double[] refVec = new double[] {refC1, refP1 };
       for (int k = 0; k < 2; ++k) {
-        // System.out.println(k + "\t" + refVec[k] + "\t" + resVec[k]);
         if (refVec[k] > 1.e10) {
           assertTrue(resVec[k] > 1.e10);
         } else {
@@ -1442,7 +1343,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void parityDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1498,7 +1398,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void strikeForDeltaRecoveryTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1520,7 +1419,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * Note that the inverse is not necessarily possible because \pm 1, 0 are not taken by strikeForDelta method
    */
-  @Test
   public void exDeltaStrikeForDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1549,7 +1447,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exFwdStrikeForDeltaTest() {
     final int nVols = VOLS.length;
 
@@ -1575,7 +1472,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exTimeStrikeForDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -1613,7 +1509,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exVolStrikeForDeltaTest() {
     final double small = 1.e-12;
     final double inf = Double.POSITIVE_INFINITY;
@@ -1704,7 +1599,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values for dual delta
    */
-  @Test
   public void exDualDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2183,7 +2077,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void parityDualDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2239,7 +2132,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values
    */
-  @Test
   public void exSimpleDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2721,7 +2613,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void paritySimpleDeltaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -2777,7 +2668,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values
    */
-  @Test
   public void exGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3207,7 +3097,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small values
    */
-  @Test
   public void exDualGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -3637,7 +3526,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small value
    */
-  @Test
   public void exCrossGammaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -4067,7 +3955,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exThetaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -5159,7 +5046,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exDriftlessThetaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -5618,7 +5504,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exthetaModTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -6702,7 +6587,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * 
    */
-  @Test
   public void consistencyWithBlackScholestest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -6735,7 +6619,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exVegaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -7235,7 +7118,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void useSimpleOptionDataVegaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -7275,7 +7157,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void exVannaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -7774,7 +7655,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exDualVannaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8270,7 +8150,6 @@ public class BlackFormulaRepositoryTest {
   /**
    * large/small input
    */
-  @Test
   public void exVommaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8766,7 +8645,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volgaTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8790,7 +8668,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volRecoveryTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8810,7 +8687,6 @@ public class BlackFormulaRepositoryTest {
     }
   }
 
-  @Test
   public void impliedVolTest() {
 
     final double vol = 0.4342; // Deliberately picked an arbitrary vol
@@ -8878,7 +8754,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volInitialGuessTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8901,7 +8776,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void volRecoveryFromDataTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;
@@ -8934,7 +8808,6 @@ public class BlackFormulaRepositoryTest {
   /**
    *
    */
-  @Test
   public void strikeRecoveryTest() {
     final int nStrikes = STRIKES_INPUT.length;
     final int nVols = VOLS.length;

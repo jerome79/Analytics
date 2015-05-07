@@ -9,16 +9,12 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.Map;
 
+import org.testng.annotations.Test;
+
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
-import org.testng.annotations.Test;
 
-import com.opengamma.analytics.financial.equity.variance.pricing.AffineDividends;
-import com.opengamma.analytics.financial.equity.variance.pricing.EquityDividendsCurvesBundle;
-import com.opengamma.analytics.financial.equity.variance.pricing.EquityVarianceSwapBackwardsPurePDE;
-import com.opengamma.analytics.financial.equity.variance.pricing.EquityVarianceSwapStaticReplication;
-import com.opengamma.analytics.financial.equity.variance.pricing.VolatilitySurfaceConverter;
 import com.opengamma.analytics.financial.model.finitedifference.BoundaryCondition;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DCoefficients;
 import com.opengamma.analytics.financial.model.finitedifference.ConvectionDiffusionPDE1DStandardCoefficients;
@@ -37,17 +33,13 @@ import com.opengamma.analytics.financial.model.finitedifference.applications.Ini
 import com.opengamma.analytics.financial.model.finitedifference.applications.PDE1DCoefficientsProvider;
 import com.opengamma.analytics.financial.model.finitedifference.applications.PDEUtilityTools;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.financial.model.volatility.local.DupireLocalVolatilityCalculator;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceConverter;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceMoneyness;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceStrike;
-import com.opengamma.analytics.financial.model.volatility.local.PureLocalVolatilitySurface;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.SurfaceArrayUtils;
 import com.opengamma.analytics.financial.model.volatility.smile.function.MultiHorizonMixedLogNormalModelData;
-import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.DoubleQuadraticInterpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
@@ -62,54 +54,6 @@ public class MixedLogNormalVolatilitySurfaceTest {
 
   private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
 
-  @Test(enabled = false)
-  public void printTest() {
-    System.out.println("MixedLogNormalVolatilitySurfaceTest. printTest");
-    final double t = 1.5;
-    final double spot = 100.0;
-    final double r = 0.05;
-    final ForwardCurve fc = new ForwardCurve(spot, r);
-    final YieldAndDiscountCurve discountCurve = new YieldCurve("test", ConstantDoublesCurve.from(r));
-    double[] w = new double[] {0.7, 0.25, 0.05 };
-    double[] sigma = new double[] {0.3, 0.6, 1.0 };
-    double[] mu = new double[] {0.0, 0.3, -0.5 };
-    MultiHorizonMixedLogNormalModelData data = new MultiHorizonMixedLogNormalModelData(w, sigma, mu);
-    BlackVolatilitySurfaceStrike ivs = MixedLogNormalVolatilitySurface.getImpliedVolatilitySurface(fc, data);
-    PDEUtilityTools.printSurface("imp vol", ivs.getSurface(), 0.01, 2.0, spot * 0.1, spot * 3.0);
-
-    LocalVolatilitySurfaceStrike lvs = MixedLogNormalVolatilitySurface.getLocalVolatilitySurface(fc, data);
-    PDEUtilityTools.printSurface("local vol", lvs.getSurface(), 0.00, 2.0, spot * 0.1, spot * 3.0);
-
-    DupireLocalVolatilityCalculator cal = new DupireLocalVolatilityCalculator();
-    LocalVolatilitySurfaceStrike lv2 = cal.getLocalVolatility(ivs, fc);
-    //    PDEUtilityTools.printSurface("local vo2l", lv2.getSurface(), 0.01, 2.0, spot * 0.3, spot * 3.0);
-
-    System.out.println("lv: " + lvs.getVolatility(2.0, 1.7 * spot));
-    System.out.println("lv2: " + lv2.getVolatility(2.0, 1.7 * spot));
-
-    EquityVarianceSwapStaticReplication vsPricer = new EquityVarianceSwapStaticReplication();
-    double[] res = vsPricer.expectedVariance(spot, discountCurve, AffineDividends.noDividends(), t, ivs);
-    System.out.println(Math.sqrt(res[0] / t));
-
-    double sum1 = 0.0;
-    double sum2 = 0.0;
-    for (int i = 0; i < 3; i++) {
-      sum1 += w[i] * Math.exp(mu[i] * t);
-      sum2 += w[i] * t * (mu[i] - sigma[i] * sigma[i] / 2);
-    }
-    double temp = Math.sqrt(2 * (Math.log(sum1) - sum2) / t);
-    System.out.println("expected: " + temp);
-
-    PureLocalVolatilitySurface plv = VolatilitySurfaceConverter.convertLocalVolSurface(lv2, new EquityDividendsCurvesBundle(spot, discountCurve, AffineDividends.noDividends()));
-    EquityVarianceSwapBackwardsPurePDE backCal = new EquityVarianceSwapBackwardsPurePDE();
-    res = backCal.expectedVariance(spot, discountCurve, AffineDividends.noDividends(), t, plv);
-    System.out.println(Math.sqrt(res[0] / t));
-
-    double vol = lvs.getVolatility(0.0, 25.0);
-    System.out.println(vol);
-  }
-
-  @Test
   public void flatTest() {
     final double spot = 123.0;
     final double r = 0.05;
@@ -132,7 +76,7 @@ public class MixedLogNormalVolatilitySurfaceTest {
     }
   }
 
-  @Test
+
   public void nonflatTest1() {
     DupireLocalVolatilityCalculator dupire = new DupireLocalVolatilityCalculator();
     final double spot = 0.03;
@@ -157,7 +101,7 @@ public class MixedLogNormalVolatilitySurfaceTest {
     }
   }
 
-  @Test
+
   public void nonflatTest2() {
     DupireLocalVolatilityCalculator dupire = new DupireLocalVolatilityCalculator();
     final double spot = 0.03;
@@ -182,19 +126,13 @@ public class MixedLogNormalVolatilitySurfaceTest {
       double lv2 = lvs2.getVolatility(t, k);
       assertEquals("Local volatility t=" + t + ", k=" + k, lv, lv2, 1e-3); //loss a lot of accuracy going via Dupire formula (since this used finite difference on the implied vol surface)
     }
-
-    //lvs.getVolatility(3.86, 0.177);
-
-    //    PDEUtilityTools.printSurface("implied vol", ivs.getSurface(), 0.01, 4.0, 0.1 * spot, 10.0 * spot);
-    //  PDEUtilityTools.printSurface("local vol", lvs.getSurface(), 0.01, 5.0, 0.1 * spot, 10.0 * spot);
-    //    PDEUtilityTools.printSurface("local vo2l", lvs2.getSurface(), 0.01, 4.0, 0.1 * spot, 10.0 * spot);
-  }
+ }
 
   /**
    * Test the pricing of a 1D option with the local volatility surface produced by the mixed log-normal model solving both the forward and backwards PDE, and compare 
    * with the result from the implied volatility surface. Neither solving the forward nor the backwards PDE give great accuracy
    */
-  @Test
+
   public void shortDatedOptionTest() {
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(0.5, false);
     final PDE1DCoefficientsProvider pdeProvider = new PDE1DCoefficientsProvider();
@@ -217,12 +155,6 @@ public class MixedLogNormalVolatilitySurfaceTest {
     BlackVolatilitySurfaceStrike ivs = MixedLogNormalVolatilitySurface.getImpliedVolatilitySurface(fwdCurve, mlnData);
     LocalVolatilitySurfaceStrike lvs = MixedLogNormalVolatilitySurface.getLocalVolatilitySurface(fwdCurve, mlnData);
     LocalVolatilitySurfaceMoneyness lvsm = LocalVolatilitySurfaceConverter.toMoneynessSurface(lvs, fwdCurve);
-
-    //    PDEUtilityTools.printSurface("imp vol", ivs.getSurface(), 0, t, 0.9, 1.1);
-    //    DupireLocalVolatilityCalculator dupire = new DupireLocalVolatilityCalculator();
-    //    LocalVolatilitySurfaceMoneyness dlv = dupire.getLocalVolatility(BlackVolatilitySurfaceConverter.toMoneynessSurface(ivs, fwdCurve));
-    //    PDEUtilityTools.printSurface("local vol (dupire)", dlv.getSurface(), 0, t, 0.99, 1.01);
-    //    PDEUtilityTools.printSurface("local vol", lvsm.getSurface(), 0, t, 0.99, 1.01);
 
     //set up for solving the forward PDE 
     //TODO shunt this setup into its own class 
@@ -276,8 +208,6 @@ public class MixedLogNormalVolatilitySurfaceTest {
       double vol2 = BlackFormulaRepository.impliedVolatility(price2, s2, k, t, isCall);
       double volBPDE = w * vol1 + (1 - w) * vol2;
 
-      //      double price = BlackFormulaRepository.price(fwd, k, t, vol, isCall);
-      //  System.out.println(x + "\t" + vol + "\t" + volFPDE + "\t" + volBPDE);
       assertEquals("forward PDE " + x, vol, volFPDE, 4e-3); //40bps error
       assertEquals("backwards PDE " + x, vol, volBPDE, 5e-3); //50bps error TODO - why is this so bad 
     }

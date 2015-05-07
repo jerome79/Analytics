@@ -157,7 +157,6 @@ public class LocalVolFittingTest {
           }
         }
         final DoubleMatrix1D debug = new DoubleMatrix1D(vols);
-        //  System.out.println(chi2);
         return debug;
       }
 
@@ -172,7 +171,6 @@ public class LocalVolFittingTest {
     //  DoubleMatrix1D res = MINIMIZER.minimize(objective, new DoubleMatrix1D(start));
     final DoubleMatrix1D observed = new DoubleMatrix1D(totalStrikes, IMP_VOL);
     final LeastSquareResults res = NLLS.solve(observed, volFunc, new DoubleMatrix1D(start), penalty);
-    System.out.println(res);
 
     final double[] weights = new double[nWeights];
     for (int i = 0; i < nWeights; i++) {
@@ -241,7 +239,7 @@ public class LocalVolFittingTest {
           }
         }
         final DoubleMatrix1D debug = new DoubleMatrix1D(vols);
-        //  System.out.println(chi2);
+        //  out.println(chi2);
         return debug;
       }
 
@@ -259,7 +257,6 @@ public class LocalVolFittingTest {
     //  DoubleMatrix1D res = MINIMIZER.minimize(objective, new DoubleMatrix1D(start));
     final DoubleMatrix1D observed = new DoubleMatrix1D(totalStrikes, IMP_VOL);
     final LeastSquareResults res = NLLS.solve(observed, volFunc, new DoubleMatrix1D(start), penalty);
-    System.out.println(res);
 
   }
 
@@ -327,7 +324,6 @@ public class LocalVolFittingTest {
     final PSplineFitter splineFitter = new PSplineFitter();
     final GeneralizedLeastSquareResults<double[]> res = splineFitter.solve(tk, vols, sigmas, new double[] {0.0, 0.0 }, new double[] {2.0, 3.0 }, nKnots, degree, lambda, diff);
 
-    System.out.println(res.getChiSq());
     final Function1D<double[], Double> func = res.getFunction();
 
     final Function<Double, Double> temp2 = new Function<Double, Double>() {

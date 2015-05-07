@@ -429,24 +429,6 @@ public class LocalVolatilityPDEGreekCalculator {
     }
     ps.println("\n");
 
-    //    //debug
-    //    PDEFullResults1D pdeResDebug = runForwardPDESolverDebug(forward, localVol, _isCall, _theta, expiry, maxForward, _timeSteps, _spaceSteps, _timeGridBunching, _spaceGridBunching, forward);
-    //    for (int i = 0; i < n; i++) {
-    //      double k = pdeResDebug.getSpaceValue(i);
-    //      double price = pdeResDebug.getFunctionValue(i);
-    //      double impVol = 0;
-    //      try {
-    //        impVol = BlackFormulaRepository.impliedVolatility(price, forward, k, expiry, _isCall);
-    //      } catch (Exception e) {
-    //      }
-    //      double priceShift = pdeResDebugShift.getFunctionValue(i);
-    //      double impVolShift = 0;
-    //      try {
-    //        impVolShift = BlackFormulaRepository.impliedVolatility(priceShift, forwardShift, k, expiry, _isCall);
-    //      } catch (Exception e) {
-    //      }
-    //      ps.println(k + "\t" + impVol + "\t" + impVolShift);
-    //    }
   }
 
   /**
@@ -511,7 +493,6 @@ public class LocalVolatilityPDEGreekCalculator {
     }
 
     for (int i = 0; i < n; i++) {
-      //  System.out.print(TENORS[i] + "\t");
       final int m = strikes[i].length;
       for (int j = 0; j < m; j++) {
         ps.print(res[i][j] + "\t");
@@ -579,7 +560,6 @@ public class LocalVolatilityPDEGreekCalculator {
     }
 
     for (int i = 0; i < n; i++) {
-      //     System.out.print(TENORS[i] + "\t");
       final int m = strikes[i].length;
       for (int j = 0; j < m; j++) {
         ps.print(res[i][j] + "\t");
