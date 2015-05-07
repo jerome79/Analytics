@@ -103,9 +103,7 @@ public class CapFloorIborLMMDDMethodTest {
 
   private static final double TOLERANCE_PV = 1.0E-2;
 
-  //  private static final double TOLERANCE_PV_DELTA = 1.0E+0; // 0.01 currency unit for 1bp
 
-  @Test
   /**
    * Test the present value explicit formula in the multi-curves framework.
    */
@@ -135,7 +133,7 @@ public class CapFloorIborLMMDDMethodTest {
     assertEquals("Cap/floor: LMM pricing by explicit formula - Multi-curves", pvLastExpected, pvLastExplicit.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Test the present value explicit formula in the multi-curves framework.
    */
@@ -145,7 +143,7 @@ public class CapFloorIborLMMDDMethodTest {
     assertEquals("Cap/floor: LMM pricing by explicit formula", pvLastLong.getAmount(EUR).getAmount(), -pvLastShort.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Test the present value explicit formula in the multi-curves framework.
    */
@@ -157,7 +155,6 @@ public class CapFloorIborLMMDDMethodTest {
     assertEquals("Cap/floor: LMM pricing by explicit formula", -pvIbor.getAmount(EUR).getAmount() - pvFixed.getAmount(EUR).getAmount(), pvCapShort.getAmount(EUR).getAmount() + pvFloorLong.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test(enabled = true)
   /**
    * Test the present value.
    */
@@ -177,7 +174,7 @@ public class CapFloorIborLMMDDMethodTest {
     assertEquals("Cap/floor: LMM pricing by Monte Carlo", pv6Explicit.getAmount(EUR).getAmount(), pv6MC.getAmount(EUR).getAmount(), 1.0E+2);
   }
 
-  @Test
+
   /**
    * Tests long/short parity.
    */
@@ -193,7 +190,7 @@ public class CapFloorIborLMMDDMethodTest {
     assertEquals("Cap/floor - LMM - present value MC- long/short parity", pvLongMC.getAmount(EUR).getAmount(), -pvShortMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Tests payer/receiver/fixed parity.
    */
@@ -211,28 +208,6 @@ public class CapFloorIborLMMDDMethodTest {
     final MultiCurrencyAmount pvFloorMC = methodLmmMc.presentValue(FLOOR_LAST, EUR, LMM_MULTICURVES);
     assertEquals("Cap/floor - LMM - present value - cap/floor/strike/Ibor parity", pvCapMC.getAmount(EUR).getAmount() - pvFloorMC.getAmount(EUR).getAmount() - pvFixedExplicit.getAmount(EUR).getAmount(), pvIborExplicit.getAmount(EUR).getAmount(),
         1.0E+3);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 10;
-
-    LiborMarketModelMonteCarloMethod methodLmmMc;
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
-    final double[] pvMC = new double[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvMC[looptest] = methodLmmMc.presentValue(CAP_LAST, EUR, LMM_MULTICURVES).getAmount(EUR).getAmount();
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " cap/floor LMM Monte Carlo method (" + NB_PATH + " paths): " + (endTime - startTime) + " ms");
-    // Performance note: LMM Monte Carlo: 15-Sep-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 995 ms for 10 cap (12,500 paths).
-
   }
 
 }

@@ -116,7 +116,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E+2; //Testing note: Sensitivity is for a movement of 1. 1E+2 = 1 cent for a 1 bp move.
 
-  @Test
+
   /**
    * Tests the price of CMS coupon and cap/floor using replication in the SABR framework. Values are tested against hard-coded values.
    */
@@ -134,7 +134,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     assertEquals("CapFloorCMSSABRReplicationMethod: present value", priceCMSCap.getAmount(EUR).getAmount() - priceCMSFloor.getAmount(EUR).getAmount(), priceCMSCoupon.getAmount(EUR).getAmount() - priceStrike.getAmount(EUR).getAmount(), 2.0E+3);
   }
 
-  @Test
+
   /**
    * Tests the price of CMS coupon and cap/floor using replication in the SABR framework. Values are tested against hard-coded values.
    */
@@ -144,7 +144,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     assertEquals("CMS cap/floor SABR: Present value : method vs calculator", pvMethod, pvCalculator, TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Tests present value curve sensitivity when the valuation date is on trade date.
    */
@@ -154,7 +154,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests present value curve sensitivity when the valuation date is on trade date.
    */
@@ -164,7 +164,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests the present value SABR parameters sensitivity vs finite difference.
    */
@@ -202,7 +202,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     assertEquals("Nu sensitivity value", expectedNuSensi, pvsCapLong.getNu().getMap().get(expectedExpiryTenor), 2.0E+0);
   }
 
-  @Test
+
   /**
    * Tests the present value SABR parameters sensitivity: Method vs Calculator.
    */
@@ -212,7 +212,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     assertEquals("CMS cap/floor SABR: Present value SABR sensitivity: method vs calculator", pvssMethod, pvssCalculator);
   }
 
-  @Test
+
   /**
    * Tests the present value strike sensitivity: Cap.
    */
@@ -237,7 +237,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     }
   }
 
-  @Test
+
   /**
    * Tests the present value strike sensitivity: Floor.
    */
@@ -262,7 +262,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     }
   }
 
-  @Test
+
   /**
    * Tests the present value of an annuity vs the sum of pv of each caplet.
    */
@@ -284,7 +284,7 @@ public class CapFloorCMSSABRReplicationMethodTest {
     assertEquals("Cap annuity - SABR pv", pvExpected, pvCalculator, 1.0E-2);
   }
 
-  @Test
+
   /**
    * Tests the present value of an annuity vs the sum of pv of each caplet.
    */
@@ -307,36 +307,5 @@ public class CapFloorCMSSABRReplicationMethodTest {
     pvcsExpected = pvcsExpected.cleaned();
     AssertSensitivityObjects.assertEquals("Cap annuity - SABR pv", pvcsExpected, pvcsCalculator, 1.0E-2);
   }
-
-  //  @Test(enabled = false)
-  //  /**
-  //   * Tests of performance. "enabled = false" for the standard testing.
-  //   */
-  //  public void performance() {
-  //    long startTime, endTime;
-  //    final int nbTest = 1000;
-  //
-  //    startTime = System.currentTimeMillis();
-  //    for (int looptest = 0; looptest < nbTest; looptest++) {
-  //      PV.visit(CMS_CAP, SABR_MULTICURVES);
-  //      PVCSC_SABR.visit(CMS_CAP, SABR_MULTICURVES);
-  //      PVSSC_SABR.visit(CMS_CAP, SABR_MULTICURVES);
-  //    }
-  //    endTime = System.currentTimeMillis();
-  //    System.out.println(nbTest + " CMS cap by replication (price+delta+vega): " + (endTime - startTime) + " ms");
-  //    // Performance note: price+delta: 9-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 280 ms for 1000 cap 5Y.
-  //    // Performance note: price+delta+vega: 9-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 790 ms for 1000 cap 5Y.
-  //
-  //    startTime = System.currentTimeMillis();
-  //    for (int looptest = 0; looptest < nbTest; looptest++) {
-  //      PV.visit(CMS_FLOOR, SABR_MULTICURVES);
-  //      PVCSC_SABR.visit(CMS_FLOOR, SABR_MULTICURVES);
-  //      PVSSC_SABR.visit(CMS_FLOOR, SABR_MULTICURVES);
-  //    }
-  //    endTime = System.currentTimeMillis();
-  //    System.out.println(nbTest + " CMS floor by replication (price+delta+vega): " + (endTime - startTime) + " ms");
-  //    // Performance note: price+delta: 9-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 230 ms for 1000 floor 5Y.
-  //    // Performance note: price+delta+vega: 9-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 555 ms for 1000 cap 5Y.
-  //  }
 
 }

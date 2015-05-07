@@ -127,7 +127,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 5.0E+3; // 0.01 currency unit for 1 bp.
 
-  @Test
+
   /**
    * Test the present value for a CMS coupon with pricing by replication in the SABR with extrapolation framework.
    * The present value is tested against hard-coded value and cap of strike 0.
@@ -148,17 +148,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertEquals("Extrapolation: CMS coupon vs Cap 0", priceCouponExtra, priceCap0Extra, TOLERANCE_PV);
   }
 
-  //  @Test
-  //  /**
-  //   * Tests the method against the present value calculator.
-  //   */
-  //  public void presentValueCouponMethodSpecificVsGeneric() {
-  //    final double pvSpecific = METHOD_EXTRAPOLATION_CPN.presentValue(CMS_COUPON, SABR_MULTICURVES).getAmount(EUR).getAmount();
-  //    final CurrencyAmount pvGeneric = METHOD_GENERIC.presentValue(CMS_COUPON, SABR_MULTICURVES);
-  //    assertEquals("Coupon CMS SABR extrapolation: method : Specific vs Generic", pvSpecific, pvGeneric.getAmount(), TOLERANCE_PRICE);
-  //  }
-
-  @Test
+ 
   /**
    * Tests the price of CMS coupon and cap/floor using replication in the SABR framework.  Method v Calculator.
    */
@@ -168,7 +158,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertEquals("CMS cap/floor SABR: Present value : method vs calculator", pvMethod, pvCalculator, TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Test the present value for a CMS cap with pricing by replication in the SABR with extrapolation framework.
    * The present value is tested against hard-coded value and a long/short parity is tested.
@@ -184,7 +174,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertEquals("CMS cap by replication - Extrapolation: long/short parity", -priceCapShortExtra, priceCapLongExtra, TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Test the present value rate sensitivity for a CMS cap with pricing by replication in the SABR with extrapolation framework.
    */
@@ -197,7 +187,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsCapShortExact, pvpsCapShortFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Test the present value rate sensitivity for a CMS cap with pricing by replication in the SABR with extrapolation framework. Method v Calculator.
    */
@@ -207,7 +197,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     AssertSensitivityObjects.assertEquals("CMS cap/floor SABR: Present value : method vs calculator", pvcsMethod, pvcsCalculator, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests the cap present value SABR parameters sensitivity vs finite difference.
    */
@@ -246,7 +236,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertEquals("Nu sensitivity value", expectedNuSensi, pvsCapLong.getNu().getMap().get(expectedExpiryTenor), TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests the coupon present value SABR parameters sensitivity vs finite difference.
    */
@@ -285,7 +275,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertEquals("Nu sensitivity value", expectedNuSensi, pvsCpn.getNu().getMap().get(expectedExpiryTenor), TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests the present value SABR parameters sensitivity: Method vs Calculator.
    */
@@ -295,7 +285,7 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertEquals("CMS cap/floor SABR: Present value SABR sensitivity: method vs calculator", pvssMethod, pvssCalculator);
   }
 
-  @Test
+
   /**
    * Tests the present value strike sensitivity: Cap.
    */
@@ -320,7 +310,6 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     }
   }
 
-  @Test(enabled = true)
   /**
    * Tests to estimate the impact of mu on the CMS coupon pricing. "enabled = false" for the standard testing.
    */
@@ -345,68 +334,6 @@ public class CapFloorCMSSABRExtrapolationRightReplicationMethodTest {
     assertTrue("Extrapolation: comparison with standard method", rateCouponExtra[nbMu - 1] > rateCouponNoAdj);
   }
 
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performanceCoupon() {
-    long startTime, endTime;
-    final int nbTest = 1000;
 
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_STANDARD_CPN.presentValue(CMS_COUPON, SABR_MULTICURVES);
-      METHOD_STANDARD_CPN.presentValueCurveSensitivity(CMS_COUPON, SABR_MULTICURVES);
-      METHOD_STANDARD_CPN.presentValueSABRSensitivity(CMS_COUPON, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS coupon by replication SABR standard (price+delta+vega): " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_EXTRAPOLATION_CPN.presentValue(CMS_COUPON, SABR_MULTICURVES);
-      METHOD_EXTRAPOLATION_CPN.presentValueCurveSensitivity(CMS_COUPON, SABR_MULTICURVES);
-      METHOD_EXTRAPOLATION_CPN.presentValueSABRSensitivity(CMS_COUPON, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS coupon by replication SABR with extrapolation (price+delta+vega): " + (endTime - startTime) + " ms");
-    // Performance note: price (standard SABR): 15-Nov-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 55 ms for 1000 CMS coupon 5Y.
-    // Performance note: price (SABR with extrapolation): 15-Nov-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 80 ms for 1000 CMS coupon 5Y.
-    // Performance note: price+delta (standard SABR): 15-Nov-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 215 ms for 1000 CMS coupon 5Y.
-    // Performance note: price+delta (SABR with extrapolation): 15-Nov-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 455 ms for 1000 CMS coupon 5Y.
-    // Performance note: price+delta+vega (standard SABR): 18-Apr-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 710 ms for 1000 CMS coupon 5Y.
-    // Performance note: price+delta+vega (SABR with extrapolation): 18-Apr-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 690 ms for 1000 CMS coupon 5Y.
-
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performanceCap() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_STANDARD_CAP.presentValue(CMS_CAP_LONG, SABR_MULTICURVES);
-      METHOD_STANDARD_CAP.presentValueCurveSensitivity(CMS_CAP_LONG, SABR_MULTICURVES);
-      METHOD_STANDARD_CAP.presentValueSABRSensitivity(CMS_CAP_LONG, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS cap by replication SABR standard (price+delta+vega): " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      METHOD_EXTRAPOLATION_CAP.presentValue(CMS_CAP_LONG, SABR_MULTICURVES);
-      METHOD_EXTRAPOLATION_CAP.presentValueCurveSensitivity(CMS_CAP_LONG, SABR_MULTICURVES);
-      METHOD_EXTRAPOLATION_CAP.presentValueSABRSensitivity(CMS_CAP_LONG, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS cap by replication SABR with extrapolation (price+delta+vega): " + (endTime - startTime) + " ms");
-    // Performance note: price+delta+vega (standard SABR): 28-Nov-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 675 ms for 1000 CMS cap 5Y.
-    // Performance note: price+delta+vega (SABR with extrapolation): 28-Nov-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 515 ms for 1000 CMS cap 5Y.
-
-  }
 
 }

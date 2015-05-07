@@ -81,7 +81,7 @@ public class CapFloorIborHullWhiteMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E+0; // 0.01 currency unit for 1bp
 
-  @Test
+
   public void presentValueStandard() {
     final double tp = CAP_LONG.getPaymentTime();
     final double t0 = CAP_LONG.getFixingPeriodStartTime();
@@ -106,14 +106,14 @@ public class CapFloorIborHullWhiteMethodTest {
 
   //TODO: present value in arrears
 
-  @Test
+
   public void presentValueLongShort() {
     final MultiCurrencyAmount priceLong = METHOD_HW.presentValue(CAP_LONG, HW_MULTICURVES);
     final MultiCurrencyAmount priceShort = METHOD_HW.presentValue(CAP_SHORT, HW_MULTICURVES);
     assertEquals("Cap/floor: Hull-White pricing", priceLong.getAmount(EUR).getAmount(), -priceShort.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Tests present value curve sensitivity when the valuation date is on trade date.
    */
@@ -123,7 +123,7 @@ public class CapFloorIborHullWhiteMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests the Hull-White parameters sensitivity.
    */
@@ -160,7 +160,6 @@ public class CapFloorIborHullWhiteMethodTest {
     }
   }
 
-  @Test(enabled = true)
   /**
    * Compare explicit formula with Monte-Carlo and long/short and payer/receiver parities.
    */
@@ -178,28 +177,6 @@ public class CapFloorIborHullWhiteMethodTest {
     assertEquals("Swaption physical - Hull-White - Monte Carlo", -pvMC.getAmount(EUR).getAmount(), pvShortMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test(enabled = false)
-  /**
-   * Performance for a high number of paths.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final MultiCurrencyAmount pvExplicit = METHOD_HW.presentValue(CAP_LONG, HW_MULTICURVES);
-    HullWhiteMonteCarloMethod methodMC;
-    final int nbPath = 1000000;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
-    final int nbTest = 10;
-    final double[] pv = new double[nbTest];
-    final double[] pvDiff = new double[nbTest];
 
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pv[looptest] = methodMC.presentValue(CAP_LONG, EUR, HW_MULTICURVES).getAmount(EUR).getAmount();
-      pvDiff[looptest] = pv[looptest] - pvExplicit.getAmount(EUR).getAmount();
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv cap/floor Hull-White MC method (" + nbPath + " paths): " + (endTime - startTime) + " ms. Error: " + pvDiff[0]);
-    // Performance note: price: 12-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 2400 ms for 10 cap with 1,000,000 paths.
-  }
 
 }
