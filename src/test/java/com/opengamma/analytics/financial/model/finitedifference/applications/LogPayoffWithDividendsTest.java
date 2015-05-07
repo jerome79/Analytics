@@ -36,7 +36,6 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 
-
 /**
  * Test.
  */
@@ -103,9 +102,6 @@ public class LogPayoffWithDividendsTest {
         final double rtT = DIV_CURVES.getR(t);
         final double dtT = DIV_CURVES.getD(t);
         final double ftT = DIV_CURVES.getF(t);
-        //        if (f < d) {
-        //          return 0.0;
-        //        }
         final double x = f / rtT / (ftT - dtT);
         return PURE_LOCAL_VOL.getVolatility(t, x);
       }
@@ -135,33 +131,28 @@ public class LogPayoffWithDividendsTest {
    * Check the the log-contract is correctly prices using a backwards PDE expressed in terms of (the log of) the 'pure' stock price
    * - this avoids having jumps conditions in the PDE. The pure local volatility surface is flat.
    */
-  @Test
   public void backwardsLogPureSpotPDEtest() {
     final double fT = DIV_CURVES.getF(EXPIRY);
     final double lnFT = Math.log(fT);
     final double val = logContactPriceFromPureSpot(PURE_LOCAL_VOL_FLAT);
     assertEquals(PURE_VOL, Math.sqrt(-2 * (val - lnFT) / EXPIRY), 1e-6);
-    //   System.out.println(val + "\t" + Math.sqrt(-2 * (val - lnFT) / EXPIRY));
   }
 
   /**
    * Check the the log-contract is correctly prices using a backwards PDE expressed in terms of (the log of) the real stock price
    * - this requires having jumps conditions in the PDE. The local volatility surface is derived from the flat pure local volatility surface.
    */
-  @Test
   public void backwardsLogSpotPDEtest() {
     final double fT = DIV_CURVES.getF(EXPIRY);
     final double lnFT = Math.log(fT);
     final double val = logContractPriceFromSpotPDE(LOCAL_VOL);
     assertEquals(PURE_VOL, Math.sqrt(-2 * (val - lnFT) / EXPIRY), 1e-4);
-    //   System.out.println(val + "\t" + Math.sqrt(-2 * (val - lnFT) / EXPIRY));
   }
 
   /**
    * Price the log-contact using the PDE in spot (with the jump conditions) with a flat local volatility surface, and the PDE in pure spot using the pure local volatility
    * surface derived from the flat surface. They MUST give the same answer
    */
-  @Test
   public void backwardsPDETest() {
     final double fT = DIV_CURVES.getF(EXPIRY);
     final double lnFT = Math.log(fT);
@@ -171,14 +162,12 @@ public class LogPayoffWithDividendsTest {
     final double vol1 = Math.sqrt(-2 * (val1 - lnFT) / EXPIRY);
     final double vol2 = Math.sqrt(-2 * (val2 - lnFT) / EXPIRY);
     assertEquals(vol1, vol2, 1e-3);
-    //   System.out.println(vol1 + "\t" + vol2);
   }
 
   /**
    * Check the the log-contract is correctly prices using a backwards PDE expressed in terms of (the log of) the forward F(t,T)
    * - this requires NO jumps conditions in the PDE
    */
-  @Test
   public void backwardsDebugPDEtest() {
     final double fT = DIV_CURVES.getF(EXPIRY);
     final double lnFT = Math.log(fT);
@@ -191,8 +180,6 @@ public class LogPayoffWithDividendsTest {
       }
     };
 
-    // ZZConvectionDiffusionPDEDataBundle pdeBundle1 = getBackwardsPDEDataBundle(EXPIRY, LOCAL_VOL, payoff);
-    // ConvectionDiffusionPDE1DCoefficients pde = PDE_PROVIDER.getLogBackwardsLocalVol(FORWARD_CURVE, EXPIRY, LOCAL_VOL);
     final ConvectionDiffusionPDE1DCoefficients pde = PDE_PROVIDER.getLogBackwardsLocalVol(0.0, 0.0, EXPIRY, LOCAL_VOL_SPECIAL);
 
     final double theta = 0.5;
@@ -211,7 +198,6 @@ public class LogPayoffWithDividendsTest {
     final double[] sNodes = grid.getSpaceNodes();
 
     //run the PDE solver backward to the dividend date
-    // PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients> db1 = new PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients>(pde, initialCon, lower1, upper1, grid1);
     final PDE1DDataBundle<ConvectionDiffusionPDE1DCoefficients> db1 = new PDE1DDataBundle<>(pde, payoff, lower, upper, grid);
     final PDETerminalResults1D res = (PDETerminalResults1D) solver.solve(db1);
 
@@ -219,7 +205,6 @@ public class LogPayoffWithDividendsTest {
 
     final double val = INTEPOLATOR1D.interpolate(interpolDB, lnFT);
     assertEquals(0.41491529, Math.sqrt(-2 * (val) / EXPIRY), 5e-4); //Number from backwardsPDETest
-    //   System.out.println(val + "\t" + Math.sqrt(-2 * val / EXPIRY));
   }
 
   private double logContactPriceFromPureSpot(final LocalVolatilitySurfaceMoneyness lv) {

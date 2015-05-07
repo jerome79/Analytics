@@ -42,8 +42,7 @@ public class HestonPDETestCase {
   private static final double T = 1.0;
   private static final double RATE = 0.0;
 
-  // private static final ZonedDateTime DATE = DateUtil.getUTCDate(2010, 7, 1);
-  // private static final OptionDefinition OPTION;
+
   private static final ConvectionDiffusion2DPDEDataBundle DATA;
 
   private static Cube<Double, Double, Double, Double> A;
@@ -55,35 +54,11 @@ public class HestonPDETestCase {
 
   static {
 
-    // final Function<Double, Double> volZeroBoundary = new Function<Double, Double>() {
-    // @Override
-    // public Double evaluate(final Double... tx) {
-    // ArgChecker.isTrue(tx.length == 2);
-    // double x = tx[1];
-    // return Math.max(x - STRIKE, 0);
-    // }
-    // };
-    //
-    // final Function<Double, Double> volInfiniteBoundary = new Function<Double, Double>() {
-    // @Override
-    // public Double evaluate(final Double... tx) {
-    // ArgChecker.isTrue(tx.length == 2);
-    // double x = tx[1];
-    // return x;
-    // }
-    // };
 
     F_LOWER = new DirichletBoundaryCondition2D(0.0, 0.0); // option worth zero if spot is zero
     F_UPPER = new SecondDerivativeBoundaryCondition2D(0.0, 5 * F0); // option price linear in spot for spot -> infinity
     V_LOWER = new SecondDerivativeBoundaryCondition2D(0.0, 0.0);
     V_UPPER = new SecondDerivativeBoundaryCondition2D(0.0, 5 * V0);
-    // F_UPPER = new DirichletBoundaryCondition2D(0.0, 5 * F0); // a knock-out barrier
-    // V_LOWER = new DirichletBoundaryCondition2D(0.0, 0.0);
-    // V_UPPER = new DirichletBoundaryCondition2D(0.0, 5 * V0);
-
-    // TODO these more sophisticated boundary conditions don't work
-    // V_LOWER = new DirichletBoundaryCondition2D(FunctionalDoublesSurface.from(volZeroBoundary), 0); // TODO should be solving the convection PDE on this boundary
-    // V_UPPER = new DirichletBoundaryCondition2D(FunctionalDoublesSurface.from(volInfiniteBoundary), 5 * V0); // option the same as underlying for vol -> infinity
 
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
@@ -185,7 +160,6 @@ public class HestonPDETestCase {
     // TODO There is no guarantee that F0 and V0 are grid points (it depends on the chosen step sizes), so we should do a surface interpolation (what fun!)
     final double pdfPrice = res[(int) (F0 / deltaX)][(int) (V0 / deltaY)];
 
-    // System.out.print("\n");
     final FFTPricer pricer = new FFTPricer();
     final MartingaleCharacteristicExponent heston = new HestonCharacteristicExponent(KAPPA, THETA, V0, OMEGA, RHO);
 
@@ -209,13 +183,7 @@ public class HestonPDETestCase {
 
     final double fftPrice = interpolator.interpolate(dataBundle, STRIKE);
 
-    // System.out.println(fftPrice + "\t" + pdfPrice);
     assertEquals(fftPrice, pdfPrice, 2e-6);
-
-    // for (int i = 0; i < strikeNprice.length; i++) {
-    // System.out.println(strikeNprice[i][0] + "\t" + strikeNprice[i][1]);
-    // }
-
   }
 
 }
