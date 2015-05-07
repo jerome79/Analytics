@@ -10,8 +10,9 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import cern.jet.random.engine.MersenneTwister;
 import org.testng.annotations.Test;
+
+import cern.jet.random.engine.MersenneTwister;
 
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCapFloorIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
@@ -36,7 +37,6 @@ import com.opengamma.analytics.financial.provider.description.interestrate.HullW
 import com.opengamma.analytics.financial.provider.description.interestrate.HullWhiteOneFactorProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
 import com.opengamma.analytics.financial.provider.sensitivity.hullwhite.ParameterSensitivityHullWhiteDiscountInterpolatedFDCalculator;
-import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyParameterSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.parameter.ParameterSensitivityParameterCalculator;
 import com.opengamma.analytics.financial.util.AssertSensitivityObjects;
@@ -99,7 +99,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA_MC = 5.0E+3; //Testing note: Sensitivity is for a movement of 1. 1E+2 = 1 cent for a 1 bp move.
 
-  @Test
+
   /**
    * Test the Ratchet present value in the case where the first coupon is fixed. Tested against a previous run number.
    */
@@ -112,7 +112,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(CUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   public void presentValueIbor() {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 8, 18);
     final AnnuityCouponIborRatchet annuityRatchetIbor = ANNUITY_RATCHET_IBOR_DEFINITION.toDerivative(referenceDate, FIXING_TS);
@@ -124,7 +124,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(CUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are fixed (floor=cap).
    */
@@ -146,7 +146,6 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo - Degenerate in Fixed leg", pvFixedExpected.getAmount(CUR).getAmount(), pvFixedMC.getAmount(CUR).getAmount(), 2.0E+2);
   }
 
-  @Test(enabled = true)
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are ibor (no cap/floor, ibor factor=1.0).
    */
@@ -172,7 +171,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo - Degenerate in Ibor leg", pvIborExpected.getAmount(CUR).getAmount(), pvIborMC.getAmount(CUR).getAmount(), 3.0E+3);
   }
 
-  @Test(enabled = true)
+
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are 0.65*Ibor floored.
    */
@@ -203,7 +202,6 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo - Degenerate in floor leg", pvFlooredExpected.getAmount(CUR).getAmount(), pvFloorMC.getAmount(CUR).getAmount(), 2.5E+3);
   }
 
-  @Test(enabled = true)
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are 0.65*Ibor floored.
    */
@@ -240,20 +238,6 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo - Degenerate in floor leg", pvFlooredExpected.getAmount(CUR).getAmount(), pvFlooredMC.getAmount(CUR).getAmount(), 2.5E+3);
   }
 
-  //  @Test(enabled = true)
-  //  /**
-  //   * Tests the pricing with calibration to SABR cap/floor prices.
-  //   */
-  //  public void presentValueFixedWithCalibration() {
-  //    final SABRInterestRateParameters sabrParameter = TestsDataSetsSABR.createSABR1();
-  //    final SABRInterestRateDataBundle sabrBundle = new SABRInterestRateDataBundle(sabrParameter, MULTICURVES);
-  //    final PresentValueSABRHullWhiteMonteCarloCalculator calculatorMC = PresentValueSABRHullWhiteMonteCarloCalculator.getInstance();
-  //    final double pvMC = ANNUITY_RATCHET_FIXED.accept(calculatorMC, sabrBundle);
-  //    final double pvMCPreviousRun = 8400036.210; //50000 paths: 8400036.210 - 12500 paths: 8402639.933;
-  //    assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo", pvMCPreviousRun, pvMC, 1.0E-2);
-  //  }
-
-  @Test
   /**
    * Test the Ratchet present value curve sensitivity in the case where the first coupon is fixed.
    */
@@ -263,47 +247,5 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA_MC);
   }
 
-  @Test(enabled = false)
-  /**
-   * Tests of performance for the price and curve sensitivity by Monte Carlo. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 10;
-    final int nbPath = 12500;
-    final AnnuityCouponIborRatchetDefinition annuityRatchetIbor20Definition = AnnuityCouponIborRatchetDefinition.withFirstCouponIborGearing(SETTLEMENT_DATE, Period.ofYears(5), NOTIONAL, EURIBOR3M,
-        IS_PAYER, MAIN_COEF, FLOOR_COEF, CAP_COEF, TARGET);
-    final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 8, 18);
-    final AnnuityCouponIborRatchet annuityRatchetIbor20 = annuityRatchetIbor20Definition.toDerivative(referenceDate, FIXING_TS);
-    HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
-    final MultiCurrencyAmount[] pvMC = new MultiCurrencyAmount[nbTest];
-    final MultipleCurrencyMulticurveSensitivity[] pvcsMC = new MultipleCurrencyMulticurveSensitivity[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvMC[looptest] = methodMC.presentValue(annuityRatchetIbor20, CUR, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv Ratchet Ibor Hull-White MC method: " + (endTime - startTime) + " ms");
-    // Performance note: HW MC price (12500 paths): 07-Dec-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 565 ms for 10 Ratchet (20 coupons each).
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvcsMC[looptest] = methodMC.presentValueCurveSensitivity(annuityRatchetIbor20, CUR, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " delta Ratchet Ibor Hull-White MC method: " + (endTime - startTime) + " ms");
-    // Performance note: HW MC delta (40 deltas - 12500 paths): 07-Dec-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 1220 ms for 10 Ratchet (20 coupons each).
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvMC[looptest] = methodMC.presentValue(annuityRatchetIbor20, CUR, HW_MULTICURVES);
-      pvcsMC[looptest] = methodMC.presentValueCurveSensitivity(annuityRatchetIbor20, CUR, HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv/delta Ratchet Ibor Hull-White MC method: " + (endTime - startTime) + " ms");
-    // Performance note: HW MC price (12500 paths) - pv/delta: 07-Dec-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 1760 ms for 10 Ratchet (20 coupons each).
-  }
 
 }

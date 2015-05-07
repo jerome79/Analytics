@@ -81,7 +81,6 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_MC = 5.0E+3;
 
-  @Test
   /**
    * Test the Ratchet present value in the case where the first coupon is fixed. Tested against a previous run number.
    */
@@ -94,7 +93,6 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     assertEquals("Annuity Ratchet Ibor - LMM - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   public void presentValueIbor() {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 8, 18);
     final AnnuityCouponIborRatchet annuityRatchetIbor = ANNUITY_RATCHET_IBOR_DEFINITION.toDerivative(referenceDate, FIXING_TS);
@@ -107,7 +105,6 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     assertEquals("Annuity Ratchet Ibor - LMM - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are fixed (floor=cap).
    */
@@ -129,7 +126,6 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     // For 500,000 path the difference is xxx
   }
 
-  @Test(enabled = true)
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are ibor (no cap/floor, ibor factor=1.0).
    */
@@ -157,7 +153,6 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     // For 500,000 path the difference is xxx
   }
 
-  @Test(enabled = true)
   /**
    * Test the Ratchet present value in the degenerate case where the coupon are 0.65*Ibor floored.
    */
@@ -189,31 +184,5 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     // For 500,000 path the difference is xxx
   }
 
-  @Test(enabled = false)
-  /**
-   * Tests of performance for the price and curve sensitivity by Monte Carlo. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 5;
-    final int nbPath = 12500;
-    final AnnuityCouponIborRatchetDefinition annuityRatchetIbor20Definition = AnnuityCouponIborRatchetDefinition.withFirstCouponIborGearing(SETTLEMENT_DATE, Period.ofYears(5), NOTIONAL, EURIBOR3M,
-        IS_PAYER, MAIN_COEF, FLOOR_COEF, CAP_COEF, TARGET);
-    final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 8, 18);
-    final LiborMarketModelDisplacedDiffusionParameters parameterLMM = TestsDataSetLiborMarketModelDisplacedDiffusion.createLMMParameters(referenceDate, annuityRatchetIbor20Definition);
-    final LiborMarketModelDisplacedDiffusionProviderDiscount LMMmulticurves = new LiborMarketModelDisplacedDiffusionProviderDiscount(MULTICURVES, parameterLMM, EUR);
-    final AnnuityCouponIborRatchet annuityRatchetIbor20 = annuityRatchetIbor20Definition.toDerivative(referenceDate, FIXING_TS);
-    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
-    final MultiCurrencyAmount[] pvMC = new MultiCurrencyAmount[nbTest];
-    //    InterestRateCurveSensitivity[] pvcsMC = new InterestRateCurveSensitivity[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvMC[looptest] = methodMC.presentValue(annuityRatchetIbor20, EUR, LMMmulticurves);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv Ratchet Ibor LMM MC method (provider): " + (endTime - startTime) + " ms");
-    // Performance note: HW MC price (12500 paths): 18-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 5900 ms for 5 Ratchet (20 coupons each). ???
-  }
 
 }

@@ -19,7 +19,6 @@ import com.opengamma.analytics.convention.yield.YieldConvention;
 import com.opengamma.analytics.convention.yield.YieldConventionFactory;
 import com.opengamma.analytics.financial.instrument.bond.BondFixedSecurityDefinition;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
-import com.opengamma.analytics.financial.interestrate.future.calculator.FuturesPriceHullWhiteIssuerCalculator;
 import com.opengamma.analytics.financial.interestrate.future.derivative.BondFuturesSecurity;
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantParameters;
 import com.opengamma.analytics.financial.provider.calculator.issuer.MarketQuoteCurveSensitivityHullWhiteIssuerCalculator;
@@ -114,13 +113,11 @@ public class BondFuturesSecurityHullWhiteMethodTest {
 
   private static final BondFuturesSecurityHullWhiteMethod METHOD_FUT_SEC_HW = BondFuturesSecurityHullWhiteMethod.getInstance();
   private static final BondFuturesSecurityHullWhiteNumericalIntegrationMethod METHOD_FUT_SEC_NI = BondFuturesSecurityHullWhiteNumericalIntegrationMethod.getInstance();
-  private static final FuturesPriceHullWhiteIssuerCalculator FPHWIC = FuturesPriceHullWhiteIssuerCalculator.getInstance();
 
   private static final double TOLERANCE_PRICE = 1.0E-8;
   private static final double TOLERANCE_PRICE_NI = 1.0E-6;
   private static final double TOLERANCE_PRICE_DELTA = 1.0E-6;
 
-  @Test
   /**
    * Test price by explicit formula versus a numerical integration.
    */
@@ -130,14 +127,12 @@ public class BondFuturesSecurityHullWhiteMethodTest {
     assertEquals("Bond future security Discounting Method: price from curves", priceExplicit, priceNumInteg, TOLERANCE_PRICE_NI);
   }
 
-  @Test
   public void priceMethodVsCalculator() {
     final double priceMethod = METHOD_FUT_SEC_HW.price(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
     final double priceCalculator = BOND_FUTURE_SEC.accept(MQC, MULTICURVES_HW_ISSUER);
     assertEquals("Bond future security Discounting Method: price from curves", priceCalculator, priceMethod, TOLERANCE_PRICE);
   }
 
-  @Test
   public void price6() {
     final HullWhiteIssuerProviderDiscount hwIssuer6 = new HullWhiteIssuerProviderDiscount(IssuerProviderDiscountDataSets.createIssuerProvider6(), PARAMETERS_HW);
     final double priceMethod = METHOD_FUT_SEC_HW.price(BOND_FUTURE_SEC, hwIssuer6);
@@ -145,21 +140,18 @@ public class BondFuturesSecurityHullWhiteMethodTest {
     assertEquals("Bond future security Discounting Method: price from curves", priceExpected, priceMethod, 5.0E-3);
   }
 
-  @Test
   public void priceCurveSensitivity() {
     final SimpleParameterSensitivity pcsAD = SPS_HW_C.calculateSensitivity(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER, MULTICURVES_HW_ISSUER.getIssuerProvider().getAllNames());
     final SimpleParameterSensitivity pcsFD = SPS_HW_FDC.calculateSensitivity(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
     AssertSensitivityObjects.assertEquals("Bond future security Discounting Method: price from curves", pcsAD, pcsFD, TOLERANCE_PRICE_DELTA);
   }
 
-  @Test
   public void priceCurveSensitivityMethodVsCalculator() {
     final MulticurveSensitivity pcsMethod = METHOD_FUT_SEC_HW.priceCurveSensitivity(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
     final MulticurveSensitivity pcsCalculator = BOND_FUTURE_SEC.accept(MQCSC, MULTICURVES_HW_ISSUER);
     AssertSensitivityObjects.assertEquals("Bond future security Discounting Method: price from curves", pcsCalculator, pcsMethod, TOLERANCE_PRICE_DELTA);
   }
 
-  @Test
   /**
    * Test price and price curve sensitivity as one result using AD.
    */
@@ -169,69 +161,6 @@ public class BondFuturesSecurityHullWhiteMethodTest {
     final Pair<Double, MulticurveSensitivity> priceAD = METHOD_FUT_SEC_HW.priceAD(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
     assertEquals("Bond future security Discounting Method: price from curves", price, priceAD.getFirst(), TOLERANCE_PRICE);
     AssertSensitivityObjects.assertEquals("Bond future security Discounting Method: price from curves", pcs, priceAD.getSecond(), TOLERANCE_PRICE_DELTA);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 10000;
-    @SuppressWarnings("unused")
-    double priceFuture = 0.0;
-    @SuppressWarnings("unused")
-    MulticurveSensitivity pcs;
-    @SuppressWarnings("unused")
-    Pair<Double, MulticurveSensitivity> priceAD;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      priceFuture = METHOD_FUT_SEC_HW.price(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("BondFuturesSecurityHullWhiteMethodTest: " + nbTest + " price Bond Future Hull-White (Default number of points): " + (endTime - startTime) + " ms");
-    // Performance note: HW price: 30-Dec-13: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 4100 ms for 10000 futures.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pcs = METHOD_FUT_SEC_HW.priceCurveSensitivity(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("BondFuturesSecurityHullWhiteMethodTest: " + nbTest + " price curve sensi Bond Future Hull-White (Default number of points): " + (endTime - startTime) + " ms");
-    // Performance note: HW price: 30-Dec-13: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 4100 ms for 10000 futures.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      priceAD = METHOD_FUT_SEC_HW.priceAD(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("BondFuturesSecurityHullWhiteMethodTest: " + nbTest + " price and price curve sensi Bond Future Hull-White (Default number of points): " + (endTime - startTime) + " ms");
-    // Performance note: HW price: 30-Dec-13: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 4100 ms for 10000 futures.
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance with different level of precision in the numerical procedure. "enabled = false" for the standard testing.
-   */
-  public void performanceNbPts() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    final int[] nbPoint = new int[] {41, 61, 81, 101, 151, 201, 501 };
-    final int nbRange = nbPoint.length;
-    final double[] priceRange = new double[nbRange];
-
-    for (int looprange = 0; looprange < nbRange; looprange++) {
-      startTime = System.currentTimeMillis();
-      for (int looptest = 0; looptest < nbTest; looptest++) {
-        priceRange[looprange] = FPHWIC.visitBondFuturesSecurity(BOND_FUTURE_SEC, MULTICURVES_HW_ISSUER, nbPoint[looprange]);
-      }
-      endTime = System.currentTimeMillis();
-      System.out.println("BondFuturesSecurityHullWhiteMethodTest: " + nbTest + " price Bond Future Hull-White: with " + nbPoint[looprange] + " points: " + (endTime - startTime) + " ms - price: " +
-          priceRange[looprange]);
-    }
-
   }
 
 }

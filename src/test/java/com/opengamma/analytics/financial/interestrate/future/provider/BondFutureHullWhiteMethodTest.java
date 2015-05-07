@@ -38,7 +38,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the bond future figures computed with the Hull-White one factor model for the delivery option.
  */
@@ -62,7 +61,7 @@ public class BondFutureHullWhiteMethodTest {
   private static final int NB_BOND = 7;
   private static final Period[] BOND_TENOR = new Period[] {Period.ofYears(5), Period.ofYears(5), Period.ofYears(5), Period.ofYears(8), Period.ofYears(5), Period.ofYears(5), Period.ofYears(5) };
   private static final ZonedDateTime[] START_ACCRUAL_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2010, 11, 30), DateUtils.getUTCDate(2010, 12, 31), DateUtils.getUTCDate(2011, 1, 31),
-      DateUtils.getUTCDate(2008, 2, 29), DateUtils.getUTCDate(2011, 3, 31), DateUtils.getUTCDate(2011, 4, 30), DateUtils.getUTCDate(2011, 5, 31) };
+    DateUtils.getUTCDate(2008, 2, 29), DateUtils.getUTCDate(2011, 3, 31), DateUtils.getUTCDate(2011, 4, 30), DateUtils.getUTCDate(2011, 5, 31) };
   private static final double[] RATE = new double[] {0.01375, 0.02125, 0.0200, 0.02125, 0.0225, 0.0200, 0.0175 };
   private static final double[] CONVERSION_FACTOR = new double[] {.8317, .8565, .8493, .8516, .8540, .8417, .8292 };
   private static final ZonedDateTime[] MATURITY_DATE = new ZonedDateTime[NB_BOND];
@@ -106,7 +105,6 @@ public class BondFutureHullWhiteMethodTest {
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E-0;
 
-  @Test
   public void price() {
     final HullWhiteIssuerProviderDiscount hwIssuer6 = new HullWhiteIssuerProviderDiscount(IssuerProviderDiscountDataSets.createIssuerProvider6(), PARAMETERS_HW);
     final double priceComputed = METHOD_HW.price(BOND_FUTURE_DERIV, hwIssuer6);
@@ -114,41 +112,9 @@ public class BondFutureHullWhiteMethodTest {
     assertEquals("Bond future security Discounting Method: price from curves", priceExpected, priceComputed, 5.0E-3);
   }
 
-  @Test(enabled = false)
   /**
-   * Tests of performance. "enabled = false" for the standard testing.
+   * Tests the present value method for bond futures transactions. 
    */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-    double priceFuture = 0.0;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      priceFuture = METHOD_HW.price(BOND_FUTURE_DERIV, HW_ISSUER);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " price Bond Future Hull-White (Default number of points): " + (endTime - startTime) + " ms");
-    // Performance note: HW price: 25-Aug-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 190 ms for 1000 futures.
-
-    final int[] nbPoint = new int[] {41, 61, 81, 101, 151, 201, 501 };
-    final int nbRange = nbPoint.length;
-    final double[] priceRange = new double[nbRange];
-
-    for (int looprange = 0; looprange < nbRange; looprange++) {
-      startTime = System.currentTimeMillis();
-      for (int looptest = 0; looptest < nbTest; looptest++) {
-        priceRange[looprange] = METHOD_HW.price(BOND_FUTURE_DERIV, HW_ISSUER, nbPoint[looprange]);
-      }
-      endTime = System.currentTimeMillis();
-      System.out.println(nbTest + " price Bond Future Hull-White: with " + nbPoint[looprange] + " points: " + (endTime - startTime) + " ms - price: " + priceRange[looprange]);
-    }
-
-    System.out.println("Bond futures - price - Hull-White one factor - delivery option: " + priceFuture);
-  }
-
-  @Test(enabled = true)
-  /** Tests the present value method for bond futures transactions. */
   public void presentValue() {
     final MultiCurrencyAmount pvComputed = METHOD_HW.presentValue(BOND_FUTURE_DERIV, HW_ISSUER);
     final double priceFuture = METHOD_HW.price(BOND_FUTURE_DERIV, HW_ISSUER);
@@ -156,8 +122,9 @@ public class BondFutureHullWhiteMethodTest {
     assertEquals("Bond future HW Method: present value amount", pvExpected, pvComputed.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
 
-  @Test(enabled = true)
-  /** Tests the present value method for bond futures transactions. */
+  /**
+   * Tests the present value method for bond futures transactions.
+   */
   public void presentValueFromPrice() {
     final double quotedPrice = 1.05;
     final MultiCurrencyAmount presentValueMethod = METHOD_HW.presentValueFromPrice(BOND_FUTURE_DERIV, quotedPrice);
@@ -167,15 +134,6 @@ public class BondFutureHullWhiteMethodTest {
     assertEquals("Bond future transaction Method: present value from price", presentValueMethod.getAmount(USD).getAmount(), presentValueCalculator);
   }
 
-  //  @Test
-  //  /**
-  //   * Tests the curve sensitivity.
-  //   */
-  //  public void presentValueCurveSensitivity() {
-  // TODO
-  //  }
-
-  @Test(enabled = true)
   /**
    * Tests the present value curve sensitivity method for bond futures.
    */

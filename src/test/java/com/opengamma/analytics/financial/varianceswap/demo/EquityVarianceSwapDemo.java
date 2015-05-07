@@ -83,6 +83,7 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
  * forward curve. We have a model to handle discrete dividends @see <a>href ="http://developers.opengamma.com/quantitative-research/Equity-Variance-Swaps-with-Dividends-OpenGamma.pdf">here</a> 
  * but do not give examples in this demo.
  */
+@Test(enabled = false)
 public class EquityVarianceSwapDemo {
   private static final RealizedVariance REALIZED_VOL_CAL = new RealizedVariance();
   private static final VarianceSwapStaticReplication PRICER = new VarianceSwapStaticReplication();
@@ -110,7 +111,7 @@ public class EquityVarianceSwapDemo {
    * Demonstrate building an equity variance swap and adding time series of observations. Check that the realized variance
    * and present value of the swap are as expected when all the observations are known
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void buildSwap() {
     EquityVarianceSwapDefinition def = new EquityVarianceSwapDefinition(s_ObsStartTime, s_ObsEndTime, s_SettlementTime, s_Ccy, s_Calendar, s_AnnualizationFactor, s_VolStrike, s_VolNotional, false);
 
@@ -181,7 +182,7 @@ public class EquityVarianceSwapDemo {
    * derived from a volatility surface which is flat at 30% - hence we should recover (up to some numerical tolerance)
    * 0.3^2 for the expected variance.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void flatVolPrice() {
     VarianceSwapDefinition def = new VarianceSwapDefinition(s_ObsStartTime, s_ObsEndTime, s_SettlementTime, s_Ccy, s_Calendar, s_AnnualizationFactor, s_VolStrike, s_VolNotional);
     ZonedDateTime valueDate = ZonedDateTime.of(2013, 7, 25, 12, 0, 0, 0, UTC); // before first observation
@@ -245,7 +246,7 @@ public class EquityVarianceSwapDemo {
    * A mixed log-normal model can give realistic looking smiles. It also allows a very simple analytic calculation of the
    * expected variance. This can be compared with the calculator that just 'sees' a volatility surface
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void testMixedLogNormalVolSurface() {
 
     final double sigma1 = 0.2;
@@ -291,14 +292,13 @@ public class EquityVarianceSwapDemo {
    * will have a finite set of vanilla option prices. Assume initially that the expiry of these options coincides with the
    * expiry of the variance swap.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void discreteOptionPricesTest() {
 
     VarianceSwapDefinition def = new VarianceSwapDefinition(s_ObsStartTime, s_ObsEndTime, s_SettlementTime, s_Ccy, s_Calendar, s_AnnualizationFactor, s_VolStrike, s_VolNotional);
     VarianceSwap varSwap = def.toDerivative(s_ObsStartTime);
     double expiry = varSwap.getTimeToObsEnd();
     double fwd = s_FwdCurve.getForward(expiry);
-    double df = s_DiscountCurve.getDiscountFactor(varSwap.getTimeToSettlement());
     double[] strikes = new double[] {50.0, 60.0, 70.0, 80.0, fwd, 90.0, 100.0, 120.0, 150.0 };
 
     double alpha = 0.2;
@@ -316,12 +316,12 @@ public class EquityVarianceSwapDemo {
     StaticReplicationDataBundle market = new StaticReplicationDataBundle(volSurface, s_DiscountCurve, s_FwdCurve);
 
     //For the case of  beta = 1.0 & rho = 0.0, we know exactly the expected variance of a variance swap under SABR dynamics 
-    double alpha2 = alpha*alpha;
-    double nu2 = nu*nu;
-    double analExpVar = alpha2*(Math.exp(nu2*expiry)-1)/nu2/expiry; 
+    double alpha2 = alpha * alpha;
+    double nu2 = nu * nu;
+    double analExpVar = alpha2 * (Math.exp(nu2 * expiry) - 1) / nu2 / expiry;
 
     double expVar = PRICER.expectedVariance(varSwap, market);
-    System.out.println("Expected variance - exact value: "+ analExpVar+", calculated value: "+expVar);
+    System.out.println("Expected variance - exact value: " + analExpVar + ", calculated value: " + expVar);
 
     //now use a different smile interpolator - get a slightly different answer 
     smileInterpolator = new SmileInterpolatorSABR();
@@ -329,16 +329,16 @@ public class EquityVarianceSwapDemo {
     volSurface = makeSurfaceFromSmile(smileFunc);
     market = new StaticReplicationDataBundle(volSurface, s_DiscountCurve, s_FwdCurve);
     expVar = PRICER.expectedVariance(varSwap, market);
-    System.out.println("Expected variance - exact value: "+ analExpVar+", calculated value: "+expVar);
+    System.out.println("Expected variance - exact value: " + analExpVar + ", calculated value: " + expVar);
   }
 
-  private  BlackVolatilitySurface<?> makeSurfaceFromSmile(final Function1D<Double, Double> smileFunc) {
+  private BlackVolatilitySurface<?> makeSurfaceFromSmile(final Function1D<Double, Double> smileFunc) {
     Function<Double, Double> volFunc = new Function2D<Double, Double>() {
       @Override
       public Double evaluate(Double t, Double k) {
         return smileFunc.evaluate(k);
       }
     };
-    return  new BlackVolatilitySurfaceStrike(FunctionalDoublesSurface.from(volFunc));
+    return new BlackVolatilitySurfaceStrike(FunctionalDoublesSurface.from(volFunc));
   }
 }
