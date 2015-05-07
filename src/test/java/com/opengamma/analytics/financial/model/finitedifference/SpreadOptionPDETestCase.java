@@ -7,6 +7,8 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import org.testng.annotations.Test;
+
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackPriceFunction;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
@@ -59,12 +61,7 @@ public class SpreadOptionPDETestCase {
     };
 
     A_LOWER = new DirichletBoundaryCondition2D(0.0, 0.0);
-    // A_UPPER = new DirichletBoundaryCondition2D(0.0, 5 * SPOT_A);
-    // B_LOWER = new DirichletBoundaryCondition2D(0.0, 0.0);
-    // B_UPPER = new DirichletBoundaryCondition2D(0.0, 5 * SPOT_B);
-
     A_UPPER = new SecondDerivativeBoundaryCondition2D(0.0, 5 * SPOT_A);
-    // B_LOWER = new SecondDerivativeBoundaryCondition2D(0.0, 0);
     B_LOWER = new DirichletBoundaryCondition2D(FunctionalDoublesSurface.from(bZeroBoundary), 0.0);// option value = Spot_A when Spot_B = 0
     B_UPPER = new SecondDerivativeBoundaryCondition2D(0.0, 5 * SPOT_B);
 
@@ -144,15 +141,7 @@ public class SpreadOptionPDETestCase {
   }
 
   public void testAgaintBSPrice(final ConvectionDiffusionPDESolver2D solver, final int timeSteps, final int spotASteps, final int spotBSteps) {
-
     final double[][] res = solver.solve(DATA, timeSteps, spotASteps, spotBSteps, T, A_LOWER, A_UPPER, B_LOWER, B_UPPER);
-
-    // for (int i = 0; i <= spotASteps; i++) {
-    // for (int j = 0; j <= spotBSteps; j++) {
-    // System.out.print(res[i][j] + "\t");
-    // }
-    // System.out.print("\n");
-    // }
 
     final double vol = Math.sqrt(VOL_A * VOL_A + VOL_B * VOL_B - 2 * RHO * VOL_A * VOL_B);
     final double forward = SPOT_A / SPOT_B;
@@ -164,8 +153,6 @@ public class SpreadOptionPDETestCase {
     final double price = func.evaluate(data);
 
     final double pdfPrice = res[(int) (SPOT_A * spotASteps / (A_UPPER.getLevel() - A_LOWER.getLevel()))][(int) (SPOT_B * spotBSteps / (B_UPPER.getLevel() - B_LOWER.getLevel()))];
-
-    // System.out.println(price+"\t"+pdfPrice);
 
     assertEquals(price, pdfPrice, 1e-1);
 

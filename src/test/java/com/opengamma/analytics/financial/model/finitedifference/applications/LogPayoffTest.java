@@ -39,7 +39,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 
-
 /**
  * This test computes the value of options that pays the log of the underlying at expiry using a backwards PDE with a flat local volatility,
  * and compares it to the theoretical value. In the second example a 'realistic' local volatility surface is generated from a mixed log-normal model
@@ -61,17 +60,14 @@ public class LogPayoffTest {
   private static final ForwardCurve FORWARD_CURVE;
   private static final ConvectionDiffusionPDE1DCoefficients PDE;
   private static final Function1D<Double, Double> INITIAL_COND;
-  // private static final ZZConvectionDiffusionPDEDataBundle PDE_DATA;
 
   static {
     FORWARD_CURVE = new ForwardCurve(SPOT, DRIFT);
     LOCAL_VOL = new LocalVolatilitySurfaceMoneyness(ConstantDoublesSurface.from(FLAT_VOL), FORWARD_CURVE);
     PDE = PDE_DATA_PROVIDER.getLogBackwardsLocalVol(EXPIRY, LOCAL_VOL);
     INITIAL_COND = INT_COND_PROVIDER.getLogContractPayoffInLogCoordinate();
-    // PDE_DATA = PDE_DATA_PROVIDER.getBackwardsLocalVolLogPayoff(EXPIRY, LOCAL_VOL);
   }
 
-  @Test
   public void testFlatSurface() {
     final double theta = 0.5;
     final double ft = FORWARD_CURVE.getForward(EXPIRY);
@@ -83,7 +79,6 @@ public class LogPayoffTest {
     final BoundaryCondition lower = new NeumannBoundaryCondition(1.0, fL, true);
     final BoundaryCondition upper = new NeumannBoundaryCondition(1.0, fH, false);
 
-    // MeshingFunction timeMesh = new ExponentialMeshing(0.0, expiry, nTimeNodes, timeMeshLambda);
     final MeshingFunction timeMesh = new ExponentialMeshing(0, EXPIRY, 100, 0.0);
     final MeshingFunction spaceMesh = new ExponentialMeshing(fL, fH, 101, 0.0);
 
@@ -92,14 +87,9 @@ public class LogPayoffTest {
     final PDEResults1D res = solver.solve(db);
 
     final int n = res.getNumberSpaceNodes();
-    //    for (int i = 0; i < n; i++) {
-    //      System.out.println(res.getSpaceValue(i) + "\t" + res.getFunctionValue(i));
-    //    }
-
-    //System.out.println("debug " + res.getFunctionValue(n / 2));
 
     final double kVol = Math.sqrt(-2 * (res.getFunctionValue(n / 2) - Math.log(ft)) / EXPIRY);
-    //  System.out.println("expected:" + FLAT_VOL + " actual:" + kVol);
+
     assertEquals(FLAT_VOL, kVol, 1e-6);
 
     //test the new backwards local vol method for expected variance
@@ -114,7 +104,6 @@ public class LogPayoffTest {
     assertEquals(FLAT_VOL, kVol2, 1e-6);
   }
 
-  @Test
   public void testMixedLogNormalVolSurface() {
 
     final double[] weights = new double[] {0.9, 0.1 };
@@ -130,21 +119,14 @@ public class LogPayoffTest {
     final double fL = Math.log(ft / 30);
     final double fH = Math.log(30 * ft);
 
-    // PDEUtilityTools.printSurface("lv", lvm.getSurface(), 0.0, 2e-9, 0.9999, 1.0001);
-
     final ConvectionDiffusionPDESolver solver = new ThetaMethodFiniteDifference(theta, false);
 
     final BoundaryCondition lower = new NeumannBoundaryCondition(1.0, fL, true);
     final BoundaryCondition upper = new NeumannBoundaryCondition(1.0, fH, false);
-    //    BoundaryCondition lower = new FixedSecondDerivativeBoundaryCondition(0.0, xL, true);
-    //    BoundaryCondition upper = new FixedSecondDerivativeBoundaryCondition(0.0, xH, false);
 
-    // MeshingFunction timeMesh = new ExponentialMeshing(0.0, expiry, nTimeNodes, timeMeshLambda);
     final MeshingFunction timeMesh = new ExponentialMeshing(0, EXPIRY, 50, 0.0);
-    //  final MeshingFunction spaceMesh = new ExponentialMeshing(fL, fH, 101, 0.0);
     final MeshingFunction spaceMesh = new HyperbolicMeshing(fL, fH, (fL + fH) / 2, 101, 0.4);
 
-    // ZZConvectionDiffusionPDEDataBundle pde_data = PDE_DATA_PROVIDER.getBackwardsLocalVolLogPayoff(EXPIRY, lvm);
     final ConvectionDiffusionPDE1DStandardCoefficients pde = PDE_DATA_PROVIDER.getLogBackwardsLocalVol(EXPIRY, lvm);
 
     final PDEGrid1D grid = new PDEGrid1D(timeMesh, spaceMesh);
@@ -154,14 +136,14 @@ public class LogPayoffTest {
     final int n = res.getNumberSpaceNodes();
     final double[] values = new double[n];
     for (int i = 0; i < n; i++) {
-      //      System.out.println(res.getSpaceValue(i) + "\t" + res.getFunctionValue(i));
+
       values[i] = res.getFunctionValue(i);
     }
 
     final Interpolator1DDataBundle idb = INTERPOLATOR.getDataBundle(grid.getSpaceNodes(), values);
     final double elogS = INTERPOLATOR.interpolate(idb, Math.log(ft));
     final double kVol = Math.sqrt(-2 * (elogS - Math.log(ft)) / EXPIRY);
-    //  System.out.println("expected:" + expected + " actual:" + kVol);
+
     assertEquals(expected, kVol, 1e-3); //TODO Improve on 10bps error - local surface is (by construction) very smooth. NOTE: this has got worse since we improved the T -> 0
     //behaviour of the mixed log-normal local volatility surface
   }

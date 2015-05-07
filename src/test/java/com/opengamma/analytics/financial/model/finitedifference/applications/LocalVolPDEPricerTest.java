@@ -19,7 +19,6 @@ import com.opengamma.analytics.financial.model.volatility.surface.MixedLogNormal
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */
@@ -49,13 +48,10 @@ public class LocalVolPDEPricerTest {
 
     final double pdePrice = PRICER.price(spot, k, r, b, t, lv, true, false, sN, tN);
     final double price = Math.exp(-r * t) * BlackFormulaRepository.price(fc.getForward(t), k, t, sigma, isCall);
-
-    //    System.out.println(price + "\t" + pdePrice);
     assertEquals(price, pdePrice, 1e-5 * price);
   }
 
   @Test
-  //(enabled = false)
   public void test() {
     //generate a local volatility surface using a mixed log-normal density as this allows us to have an analytical option price that we can compare with the numerical value
     final double t = 1.5;
@@ -64,7 +60,6 @@ public class LocalVolPDEPricerTest {
     final double q = 0.07;
     final double b = r - q;
     final double k = 120.0;
-    final boolean isCall = true;
     final ForwardCurve fc = new ForwardCurve(spot, b);
     final YieldAndDiscountCurve discountCurve = new YieldCurve("test", ConstantDoublesCurve.from(r));
     final double[] w = new double[] {0.7, 0.25, 0.05 };
@@ -80,10 +75,6 @@ public class LocalVolPDEPricerTest {
 
     final double pdePrice = PRICER.price(spot, k, r, b, t, lv, true, false, sN, tN);
     final double price = MixedLogNormalVolatilitySurface.getPriceSurface(fc, discountCurve, data).getPrice(t, k);
-    final double vol = MixedLogNormalVolatilitySurface.getImpliedVolatilitySurface(fc, data).getVolatility(t, k);
-    final double price2 = Math.exp(-r * t) * BlackFormulaRepository.price(spot * Math.exp(b * t), k, t, vol, isCall);
-
-    //System.out.println(price + "\t" + price2 + "\t" + pdePrice);
     assertEquals(price, pdePrice, 1e-3 * price);
 
   }

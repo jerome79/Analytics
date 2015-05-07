@@ -22,7 +22,6 @@ import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatility
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -54,7 +53,7 @@ public class CoupledForwardFiniteDifferenceTest {
   static {
 
     final Function1D<Double, Double> strikeZeroPrice1 = new Function1D<Double, Double>() {
-      @SuppressWarnings({"synthetic-access", "unused" })
+      @SuppressWarnings({"synthetic-access" })
       @Override
       public Double evaluate(final Double t) {
         if (ISCALL) {
@@ -65,7 +64,7 @@ public class CoupledForwardFiniteDifferenceTest {
     };
 
     final Function1D<Double, Double> strikeZeroPrice2 = new Function1D<Double, Double>() {
-      @SuppressWarnings({"synthetic-access", "unused" })
+      @SuppressWarnings({"synthetic-access" })
       @Override
       public Double evaluate(final Double t) {
         if (ISCALL) {
@@ -77,13 +76,9 @@ public class CoupledForwardFiniteDifferenceTest {
 
     LOWER1 = new DirichletBoundaryCondition(strikeZeroPrice1, 0.0);
     LOWER2 = new DirichletBoundaryCondition(strikeZeroPrice2, 0.0);
-    //LOWER = new FixedSecondDerivativeBoundaryCondition(0, 0, true);
 
     if (ISCALL) {
-      //UPPER = new DirichletBoundaryCondition(0, 6.0 * SPOT * Math.exp(T * RATE));
       UPPER = new NeumannBoundaryCondition(0, 10.0 * SPOT * Math.exp(T * RATE), false);
-      //UPPER = new FixedSecondDerivativeBoundaryCondition(0, 6.0 * SPOT * Math.exp(T * RATE), false);
-      // UPPER = new NeumannBoundaryCondition(0.0, 10.0 * SPOT * Math.exp(T * RATE), false);
     } else {
       UPPER = new NeumannBoundaryCondition(1.0, 5.0 * SPOT * Math.exp(T * RATE), false);
     }
@@ -104,101 +99,6 @@ public class CoupledForwardFiniteDifferenceTest {
 
   }
 
-  @Test(enabled = false)
-  public void testMCSmile() {
-    final int timeNodes = 51;
-    final int spaceNodes = 151;
-
-    final MeshingFunction timeMesh = new ExponentialMeshing(0.00, T, timeNodes, 7.5);
-    final MeshingFunction spaceMesh = new HyperbolicMeshing(LOWER1.getLevel(), UPPER.getLevel(), SPOT, spaceNodes, 0.01);
-    // MeshingFunction spaceMesh = new ExponentialMeshing(SPOT / 10., SPOT * 5, spaceNodes, 0.0);
-
-    final double[] expiries = Arrays.copyOfRange(timeMesh.getPoints(), 0, timeNodes);
-    final double[] strikes = spaceMesh.getPoints();
-    final double[] forwards = new double[timeNodes];
-    final double[] df = new double[timeNodes];
-    for (int i = 0; i < timeNodes; i++) {
-      df[i] = YIELD_CURVE.getDiscountFactor(expiries[i]);
-      forwards[i] = SPOT / df[i];
-    }
-
-    final MarkovChain mc = new MarkovChain(VOL1, VOL2, LAMBDA12, LAMBDA21, PROB_STATE1);
-    double impVol;
-
-    final double weight = Math.exp(-LAMBDA12 * 0.004);
-    double[][] mcSims = mc.simulate(expiries, 10000, 0.0, weight);
-    final double[][] pricesA = mc.price(forwards, df, strikes, expiries, mcSims);
-
-    mcSims = mc.simulate(expiries, 1000, weight, 1.0);
-    final double[][] pricesB = mc.price(forwards, df, strikes, expiries, mcSims);
-
-    for (int i = 0; i < spaceNodes; i++) {
-      System.out.print("\t" + strikes[i]);
-    }
-    System.out.print("\n");
-    for (int j = 0; j < timeNodes; j++) {
-      final BlackFunctionData data = new BlackFunctionData(forwards[j], df[j], 0.0);
-      System.out.print(expiries[j]);
-      for (int i = 0; i < spaceNodes; i++) {
-        try {
-          final EuropeanVanillaOption option = new EuropeanVanillaOption(strikes[i], expiries[j], true);
-          impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, option, weight * pricesA[j][i] + (1 - weight) * pricesB[j][i]);
-        } catch (final Exception e) {
-          impVol = 0.0;
-        }
-        System.out.print("\t" + impVol);
-      }
-      System.out.print("\n");
-    }
-
-  }
-
-  @Test(enabled = false)
-  public void testApproxSmile() {
-    final int timeNodes = 11;
-    final int spaceNodes = 151;
-
-    final MeshingFunction timeMesh = new ExponentialMeshing(0, 0.04, timeNodes, 0.0);
-    // MeshingFunction spaceMesh = new HyperbolicMeshing(LOWER1.getLevel(), UPPER.getLevel(), SPOT, spaceNodes, 0.1);
-    final MeshingFunction spaceMesh = new ExponentialMeshing(SPOT / 10., SPOT * 5, spaceNodes, 0.0);
-
-    final double[] expiries = Arrays.copyOfRange(timeMesh.getPoints(), 0, timeNodes);
-    final double[] strikes = spaceMesh.getPoints();
-    final double[] forwards = new double[timeNodes];
-    final double[] df = new double[timeNodes];
-    for (int i = 0; i < timeNodes; i++) {
-      df[i] = YIELD_CURVE.getDiscountFactor(expiries[i]);
-      forwards[i] = SPOT / df[i];
-    }
-
-    final MarkovChainSmallTimeApprox mc = new MarkovChainSmallTimeApprox(VOL1, VOL2, LAMBDA12, LAMBDA21, PROB_STATE1);
-
-    double impVol;
-
-    for (int i = 0; i < spaceNodes; i++) {
-      System.out.print("\t" + strikes[i]);
-    }
-    System.out.print("\n");
-    for (int j = 0; j < timeNodes; j++) {
-      final BlackFunctionData data = new BlackFunctionData(forwards[j], df[j], 0.0);
-      System.out.print(expiries[j]);
-      for (int i = 0; i < spaceNodes; i++) {
-        final double price = mc.price(forwards[j], df[j], strikes[i], expiries[j]);
-        try {
-
-          final EuropeanVanillaOption option = new EuropeanVanillaOption(strikes[i], expiries[j], true);
-          impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, option, price);
-        } catch (final Exception e) {
-          impVol = 0.0;
-        }
-        System.out.print("\t" + impVol);
-      }
-      System.out.print("\n");
-    }
-
-  }
-
-  @Test
   public void testDegenerate() {
     //NOTE vols equal 
     final TwoStateMarkovChainDataBundle mcData = new TwoStateMarkovChainDataBundle(VOL1, VOL1, LAMBDA12, LAMBDA21, PROB_STATE1);
@@ -210,8 +110,6 @@ public class CoupledForwardFiniteDifferenceTest {
 
     final MeshingFunction timeMesh = new ExponentialMeshing(0, T, tNodes, 7.5);
     final MeshingFunction spaceMesh = new HyperbolicMeshing(LOWER1.getLevel(), UPPER.getLevel(), SPOT, xNodes, 0.01);
-    //MeshingFunction spaceMesh = new ExponentalMeshing(LOWER1.getLevel(), UPPER.getLevel(), xNodes, 0.0);
-
     final PDEGrid1D grid = new PDEGrid1D(timeMesh, spaceMesh);
 
     final CoupledPDEDataBundle d1 = new CoupledPDEDataBundle(pdeData[0], INITIAL_COND1, LOWER1, UPPER, grid);
@@ -243,7 +141,6 @@ public class CoupledForwardFiniteDifferenceTest {
             } catch (final Exception e) {
               impVol = 0.0;
             }
-            //System.out.println(t + "\t" + k);
             assertEquals(VOL1, impVol, 5e-3);
           }
         }
@@ -251,7 +148,6 @@ public class CoupledForwardFiniteDifferenceTest {
     }
   }
 
-  @Test
   public void testSmile() {
 
     final CoupledFiniteDifference solver = new CoupledFiniteDifference(0.55, true);
@@ -264,7 +160,6 @@ public class CoupledForwardFiniteDifferenceTest {
 
     final MeshingFunction timeMesh = new ExponentialMeshing(0, T, tNodes, 7.5);
     final MeshingFunction spaceMesh = new HyperbolicMeshing(LOWER1.getLevel(), UPPER.getLevel(), SPOT, xNodes, 0.01);
-    //MeshingFunction spaceMesh = new ExponentalMeshing(LOWER1.getLevel(), UPPER.getLevel(), xNodes, 0.0);
 
     final double[] expiries = Arrays.copyOfRange(timeMesh.getPoints(), 1, tNodes);
     final double[] strikes = spaceMesh.getPoints();
@@ -306,7 +201,6 @@ public class CoupledForwardFiniteDifferenceTest {
           if (Math.abs(z) < zMax) {
             price = res1.getFunctionValue(i, j) + res2.getFunctionValue(i, j);
             mcPrice = mcPrices[j - 1][i];
-            //  System.out.println(t + "\t" + k);
             assertEquals(mcPrice, price, 1e-1 * mcPrice);
             final EuropeanVanillaOption option = new EuropeanVanillaOption(k, t, ISCALL);
             try {
@@ -320,71 +214,6 @@ public class CoupledForwardFiniteDifferenceTest {
         }
       }
     }
-  }
-
-  @Test(enabled = false)
-  public void testSmilePrint() {
-    //final boolean print = true;
-    final CoupledFiniteDifference solver = new CoupledFiniteDifference(0.55, true);
-
-    final TwoStateMarkovChainDataBundle mcData = new TwoStateMarkovChainDataBundle(VOL1, VOL2, LAMBDA12, LAMBDA21, PROB_STATE1);
-    final ConvectionDiffusionPDE1DCoupledCoefficients[] pdeData = PDE_DATA_PROVIDER.getCoupledForwardPair(FORWARD, mcData);
-
-    final int tNodes = 51;
-    final int xNodes = 151;
-    //final double lowerMoneyness = 0.0;
-    //final double upperMoneyness = 3.0;
-
-    //  MarkovChain mc = new MarkovChain(VOL1, VOL2, lambda12, lambda21, 1.0);
-    // double[] mcSims = mc.simulate(T, 10000); // simulate the vol path
-
-    final MeshingFunction timeMesh = new ExponentialMeshing(0, T, tNodes, 7.5);
-    final MeshingFunction spaceMesh = new HyperbolicMeshing(LOWER1.getLevel(), UPPER.getLevel(), SPOT, xNodes, 0.01);
-    //MeshingFunction spaceMesh = new ExponentialMeshing(LOWER1.getLevel(), UPPER.getLevel(), xNodes, 0.0);
-
-    final PDEGrid1D grid = new PDEGrid1D(timeMesh, spaceMesh);
-    final CoupledPDEDataBundle d1 = new CoupledPDEDataBundle(pdeData[0], INITIAL_COND1, LOWER1, UPPER, grid);
-    final CoupledPDEDataBundle d2 = new CoupledPDEDataBundle(pdeData[1], INITIAL_COND2, LOWER2, UPPER, grid);
-
-    final PDEResults1D[] res = solver.solve(d1, d2);
-    final PDEFullResults1D res1 = (PDEFullResults1D) res[0];
-    final PDEFullResults1D res2 = (PDEFullResults1D) res[1];
-    double t, k;
-    double price;
-    double impVol;
-    //final double lowerK, upperK;
-    //final double tMin = 0.02;
-
-    //Combined price
-
-    for (int i = 0; i < xNodes; i++) {
-      System.out.print("\t" + res1.getSpaceValue(i));
-    }
-    System.out.print("\n");
-
-    for (int j = 0; j < tNodes; j++) {
-      t = res1.getTimeValue(j);
-      //final double p1 = probState1(LAMBDA12, LAMBDA21, 1.0, t);
-      final double df = YIELD_CURVE.getDiscountFactor(t);
-      final BlackFunctionData data = new BlackFunctionData(SPOT / df, df, 0.0);
-
-      System.out.print(t);
-
-      for (int i = 0; i < xNodes; i++) {
-        k = res1.getSpaceValue(i);
-        price = res1.getFunctionValue(i, j) + res2.getFunctionValue(i, j);
-        final EuropeanVanillaOption option = new EuropeanVanillaOption(k, t, ISCALL);
-        try {
-          impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, option, price);
-        } catch (final Exception e) {
-          impVol = 0.0;
-        }
-        System.out.print("\t" + impVol);
-      }
-      System.out.print("\n");
-    }
-    System.out.print("\n");
-
   }
 
   private static double probState1(final double lambda12, final double lambda21, final double pState1T0, final double t) {
