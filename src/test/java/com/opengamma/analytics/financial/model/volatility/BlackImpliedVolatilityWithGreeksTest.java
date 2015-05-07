@@ -45,7 +45,6 @@ public class BlackImpliedVolatilityWithGreeksTest {
    * Check implied volatility agrees with the original volatility which is used for computing the sample option price. 
    * Then check the resulting greeks are also consistent.  
    */
-  @Test
   public void recoveryTest() {
     final boolean[] isCall = new boolean[] {true, false };
     for (final boolean call : isCall) {
@@ -84,7 +83,6 @@ public class BlackImpliedVolatilityWithGreeksTest {
   /**
    * 
    */
-  @Test
   public void priceTest() {
     final boolean[] isCall = new boolean[] {true, false };
     for (final boolean call : isCall) {
@@ -119,7 +117,7 @@ public class BlackImpliedVolatilityWithGreeksTest {
    * Assumption on the interest rate is encoded to discount factor by exp(-r*t) and forward by spot*exp(r*t), 
    * which are inputs of getImpliedVolatilityAndGreeksDiscountFactor (or getPriceAndGreeksDiscountFactor) and getImpliedVolatilityAndGreeksForward (or getPriceAndGreeksForward), respectively.
    */
-  @Test
+  @Test(enabled = false)
   public void sampleTest() {
     //    boolean print = true;
     boolean print = false;
