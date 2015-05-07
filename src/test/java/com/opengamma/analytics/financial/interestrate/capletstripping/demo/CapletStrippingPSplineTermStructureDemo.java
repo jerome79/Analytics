@@ -25,9 +25,10 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
  * sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot (or imported into some other 
  * visualisation tool).    
  */
+@Test(enabled = false)
 public class CapletStrippingPSplineTermStructureDemo extends CapletStrippingSetup {
 
-  @Test(description = "Demo of infering a caplet volatility surface by seperate P-spline fit of absolute strike quotes")
+  @Test(description = "Demo of infering a caplet volatility surface by seperate P-spline fit of absolute strike quotes", enabled = false)
   public void singleStrikeTest() {
     final BasisSplineVolatilityTermStructureProvider vtsp = new BasisSplineVolatilityTermStructureProvider(0, 10.0, 10, 2);
     final int size = vtsp.getNumModelParameters();

@@ -21,6 +21,7 @@ import com.opengamma.analytics.financial.interestrate.capletstripping.MultiCapFl
  * market cap values exactly, however since there is no coupling across strikes, the resultant caplet volatility
  * surface is highly non-smooth in the strike direction.
  */
+@Test(enabled=false)
 public class InterpolatedTermStructureDemo extends CapletStrippingSetup {
 
   /**
@@ -29,7 +30,7 @@ public class InterpolatedTermStructureDemo extends CapletStrippingSetup {
    * The output is this surface sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot
    *  (or imported into some other visualisation tool).
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled=false)
   public void singleStrikeExATMTest() {
 
     final int n = getNumberOfStrikes();
@@ -56,7 +57,7 @@ public class InterpolatedTermStructureDemo extends CapletStrippingSetup {
    * The output is this surface sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot (or
    * imported into some other visualisation tool).
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled=false)
   public void singleStrikeSWithATMTest() {
 
     final int n = getNumberOfStrikes();

@@ -24,6 +24,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
  * caplet volatilities. Since there are more caplets volatilities than caps, a penalty on the curvature of the caplet vols
  * in both the strike and expiry direction is applied.
  */
+@Test(enabled = false)
 public class GlobalDirectFitDemo extends CapletStrippingSetup {
 
   /**
@@ -32,7 +33,7 @@ public class GlobalDirectFitDemo extends CapletStrippingSetup {
    * The output is this surface sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot
    *  (or imported into some other visualisation tool).
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled = false)
   public void globalVolFitExATMDemo() {
     final double lambda = 0.03; // this is chosen to give a chi2/DoF of around 1
     final MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(getAllCapsExATM(), getYieldCurves());
@@ -59,7 +60,7 @@ public class GlobalDirectFitDemo extends CapletStrippingSetup {
    * Fit the ATM caps only. Since there are only 7 such caps (in our data set), the resultant 'surface' is close to a flat plane; this
    * recovers the & cap vols and satisfies the curvature penalties
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled = false)
   public void atmCapsOnlyDemo() {
     final double lambda = 0.7; // this is chosen to give a chi2/DoF of around 1
     final MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(getATMCaps(), getYieldCurves());
@@ -83,7 +84,7 @@ public class GlobalDirectFitDemo extends CapletStrippingSetup {
    * the ATM quotes lying off a smooth curve through the absolute strikes), we fit ATM quotes with an error of 1bps and everything else with an error
    * of 10bps. However, the resultant caplet volatility surface is less smooth (in the strike direction) than that made excluding ATM.
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled = false)
   public void globalVolFitDemo() {
     final double lambdaT = 0.01; // this is chosen to give a chi2/DoF of around 1
     final double lambdaK = 0.0002;
@@ -114,7 +115,7 @@ public class GlobalDirectFitDemo extends CapletStrippingSetup {
     // res.printCapletVols(System.out);
   }
 
-  @Test(description = "Demo to show number of (phantom) caplets")
+  @Test(description = "Demo to show number of (phantom) caplets", enabled = false)
   public void sizeDemo() {
     final MultiCapFloorPricer pricer1 = new MultiCapFloorPricer(getAllCapsExATM(), getYieldCurves());
     System.out.println("number of caplet ex ATM " + pricer1.getNumCaplets());
