@@ -19,84 +19,6 @@ import org.testng.annotations.Test;
 @Test
 public class AnalyticCDSPricerTest extends ISDABaseTest {
 
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  public void timingTest() {
-
-    final int warmup = 1000;
-    final int benchmark = 10000;
-
-    final double fracSpred = 0.01;
-
-    final double[] ccTimes = new double[] {0.25, 0.5, 1.00000001, 2.0, 3.0, 5.0, 7.2, 10.0, 20.0 };
-    final double[] ccRates = new double[] {0.05, 0.06, 0.07, 0.05, 0.09, 0.09, 0.07, 0.065, 0.06 };
-    final double[] ycTimes = new double[] {1 / 52., 1 / 12., 1 / 4., 1 / 2., 3 / 4., 1.0, 2.1, 5.2, 11.0, 30.0 };
-    final double[] ycRates = new double[] {0.005, 0.006, 0.007, 0.01, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05 };
-
-    final ISDACompliantCreditCurve creditCurve = new ISDACompliantCreditCurve(ccTimes, ccRates);
-    final ISDACompliantYieldCurve yieldCurve = new ISDACompliantYieldCurve(ycTimes, ycRates);
-
-    final LocalDate today = LocalDate.of(2013, 7, 2); // Tuesday
-    final LocalDate stepin = today.plusDays(1);
-    final LocalDate valueDate = today.plusDays(3); // Friday
-    final LocalDate startDate = today.plusMonths(1); // protection starts in a month
-    final LocalDate endDate1 = LocalDate.of(2018, 6, 20);
-    final LocalDate endDate2 = LocalDate.of(2023, 6, 20);
-
-    final CDSAnalytic cds1 = new CDSAnalytic(today, stepin, valueDate, startDate, endDate1, true, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-    final CDSAnalytic cds2 = new CDSAnalytic(today, stepin, valueDate, startDate, endDate2, true, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-
-    for (int i = 0; i < warmup; i++) {
-      final double p1 = PRICER.pv(cds1, yieldCurve, creditCurve, fracSpred);
-      final double p2 = PRICER.pv(cds2, yieldCurve, creditCurve, fracSpred);
-    }
-    long timer = System.nanoTime();
-    double p1 = 0;
-    for (int i = 0; i < benchmark; i++) {
-      p1 += PRICER.pv(cds1, yieldCurve, creditCurve, fracSpred);
-    }
-    System.out.println(p1);
-    double time = (System.nanoTime() - timer) / 1e6;
-    System.out.println("time for " + benchmark + " 5 year CDS: " + time + "ms");
-
-    timer = System.nanoTime();
-    double p2 = 0;
-    for (int i = 0; i < benchmark; i++) {
-      p2 += PRICER.pv(cds2, yieldCurve, creditCurve, fracSpred);
-    }
-    System.out.println(p2);
-    time = (System.nanoTime() - timer) / 1e6;
-    System.out.println("time for " + benchmark + " 10 year CDS: " + time + "ms");
-
-    // now do the date logic
-    for (int i = 0; i < warmup; i++) {
-      final CDSAnalytic cds1temp = new CDSAnalytic(today, stepin, valueDate, startDate, endDate1, true, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-      final CDSAnalytic cds2temp = new CDSAnalytic(today, stepin, valueDate, startDate, endDate2, true, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-    }
-
-    timer = System.nanoTime();
-    double p3 = 0;
-    for (int i = 0; i < benchmark; i++) {
-      final CDSAnalytic cds = new CDSAnalytic(today, stepin, valueDate, startDate, endDate1, true, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-      p3 += PRICER.pv(cds, yieldCurve, creditCurve, fracSpred);
-    }
-    System.out.println(p3);
-    time = (System.nanoTime() - timer) / 1e6;
-    System.out.println("time for " + benchmark + " 5 year CDS with date logic: " + time + "ms");
-
-    timer = System.nanoTime();
-    double p4 = 0;
-    for (int i = 0; i < benchmark; i++) {
-      final CDSAnalytic cds = new CDSAnalytic(today, stepin, valueDate, startDate, endDate2, true, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-      p4 += PRICER.pv(cds, yieldCurve, creditCurve, fracSpred);
-    }
-    System.out.println(p3);
-    time = (System.nanoTime() - timer) / 1e6;
-    System.out.println("time for " + benchmark + " 10 year CDS with date logic: " + time + "ms");
-
-  }
-
-  @Test
   public void creditCurveSensitivityTest() {
     final double[] ccTimes = new double[] {0.25, 0.5, 1.001, 2.0, 3.0, 5.0, 7.2, 10.0, 20.0 };
     final double[] ccNormalRates = new double[] {0.05, 0.06, 0.07, 0.08, 0.09, 0.09, 0.07, 0.065, 0.06 };
@@ -129,7 +51,6 @@ public class AnalyticCDSPricerTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void yieldCurveSenseTest() {
 
     final double coupon = 0.01;
@@ -151,47 +72,20 @@ public class AnalyticCDSPricerTest extends ISDABaseTest {
     for (int i = 0; i < n; i++) {
       double fd = fdProtectionLegYieldSense(PRICER_MARKIT_FIX, cds, yieldCurveNorm, creditCurveNorm, i);
       double anal = PRICER_MARKIT_FIX.protectionLegYieldSensitivity(cds, yieldCurveNorm, creditCurveNorm, i);
-      // System.out.println(fd + "\t" + anal);
+
       assertEquals(fd, anal, 1e-10);
 
       fd = fdPremiumLegYieldSense(PRICER_MARKIT_FIX, cds, yieldCurveNorm, creditCurveNorm, i);
       anal = PRICER_MARKIT_FIX.pvPremiumLegYieldSensitivity(cds, yieldCurveNorm, creditCurveNorm, i);
-      //   System.out.println(fd + "\t" + anal);
+
       assertEquals(fd, anal, 1e-9);
 
       fd = fdPVYieldSense(PRICER_MARKIT_FIX, cds, yieldCurveNorm, creditCurveNorm, coupon, i);
       anal = PRICER_MARKIT_FIX.pvYieldSensitivity(cds, yieldCurveNorm, creditCurveNorm, coupon, i);
-      //  System.out.println(fd + "\t" + anal);
+
       assertEquals(fd, anal, 1e-10);
     }
 
-  }
-
-  @Test(enabled = false)
-  void spreadSensitivityTest() {
-    System.out.println("spreadSensitivityTest");
-
-    final double[] ccTimes = new double[] {0.25, 0.5, 1.001, 2.0, 3.0, 5.0, 7.2, 10.0, 20.0 };
-    final double[] ccNormalRates = new double[] {0.05, 0.06, 0.07, 0.08, 0.09, 0.09, 0.07, 0.065, 0.06 };
-    final double[] ycTimes = new double[] {1 / 52., 1 / 12., 1 / 4., 1 / 2., 3 / 4., 1.0, 2.1, 5.0, 11.0, 30.0 };
-    final double[] ycNormalRates = new double[] {0.004, 0.006, 0.007, 0.01, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05 };
-    final ISDACompliantCreditCurve creditCurveNorm = new ISDACompliantCreditCurve(ccTimes, ccNormalRates);
-    final ISDACompliantYieldCurve yieldCurveNorm = new ISDACompliantYieldCurve(ycTimes, ycNormalRates);
-
-    final LocalDate today = LocalDate.of(2013, 7, 2); // Tuesday
-    final LocalDate stepin = today.plusDays(1); // this is usually 1
-    final LocalDate valueDate = today.plusDays(3); // Friday
-    final LocalDate startDate = today; // protection starts now
-    final LocalDate endDate = LocalDate.of(2017, 9, 20);
-
-    final boolean payAccOnDefault = true;
-
-    final CDSAnalytic cds = new CDSAnalytic(today, stepin, valueDate, startDate, endDate, payAccOnDefault, Period.ofMonths(3), StubType.FRONTSHORT, false, 0.4);
-
-    for (int i = 0; i < ccTimes.length; i++) {
-      final double dSdH = PRICER.parSpreadCreditSensitivity(cds, yieldCurveNorm, creditCurveNorm, i);
-      System.out.println(dSdH);
-    }
   }
 
   private void creditCurveSenseTest(final AnalyticCDSPricer pricer, final CDSAnalytic cds, final ISDACompliantYieldCurve yieldCurve, final ISDACompliantCreditCurve creditCurve) {
@@ -206,8 +100,6 @@ public class AnalyticCDSPricerTest extends ISDABaseTest {
     }
   }
 
-  @Test
-  // (enabled=false)
   public void sensitivityParallelShiftTest() {
     final double[] ccTimes = new double[] {0.25, 0.5, 1.00000001, 2.0, 3.0, 5.0, 7.2, 10.0, 20.0 };
     final double[] ccRates = new double[] {0.05, 0.06, 0.07, 0.05, 0.09, 0.09, 0.07, 0.065, 0.06 };

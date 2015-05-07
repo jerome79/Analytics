@@ -44,6 +44,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * on the ISDA Model</i>. Tests either produce tables for Latex (directly using dumpLatexTable or via the Exce2LaTeX pluin)
  * or data sets used to produce graphs in Excel.  
  */
+@Test(enabled = false)
 public class CDSPaperExamples extends ISDABaseTest {
   private static final MatrixAlgebra MA = new OGMatrixAlgebra();
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MMM-yy");
@@ -113,7 +114,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * Print out the knots times (year fractions) and corresponding zero rates for the calibrated yield curve used in these
    * examples
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void yieldCurveDump() {
     int n = YIELD_CURVE.getNumberOfKnots();
     System.out.println("Tenor\tRate\tYear Fraction\tZero Rate");
@@ -125,7 +126,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   /**
    * Print on the credit curve pillar dates and their spreads, along with the year fractions and (calibrated) survival probabilities
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void creditCurveDump() {
     int n = PILLAR_DATES.length;
     System.out.println("Tenor\tMaturity\tSpread (bps)\tYear Fraction\tSurvival Probability");
@@ -138,7 +139,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   /**
    * Price a set of CDSs using standard ISDA model (1.8.2), OG's suggested fix and the (incorrect) Markit 'fit'
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void threeWayPriceTest() {
     double notional = 1e7;
     Period[] tenors = new Period[] {Period.ofMonths(3), Period.ofMonths(6), Period.ofYears(1), Period.ofYears(5), Period.ofYears(10) };
@@ -157,7 +158,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   /**
    * Plots price against hazard rate for various recovery rates
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void priceVsHazardRate() {
     double[] recoveryRates = new double[] {0, 0.25, 0.5, 0.75, 1.0 };
     CDSAnalyticFactory factory = new CDSAnalyticFactory();
@@ -184,7 +185,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   /**
    * Plots points-up-front (PUF) against quoted spread for coupons of 0bps, 100bps and 500bps
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void pufVsQuotedSpread() {
     CDSAnalyticFactory factory = new CDSAnalyticFactory(0.4);
     CDSAnalytic cds = factory.makeIMMCDS(TRADE_DATE, Period.ofYears(10));
@@ -201,7 +202,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   /**
    * Print a table of the par rate sensitivity to the to zero hazard rates at the credit curve nodes for a set of CDSs with recovery rate 40\%
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void parRateSensitivityTest() {
     CDSAnalyticFactory factory = new CDSAnalyticFactory();
     int nPillars = PILLAR_DATES.length;
@@ -228,7 +229,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * Print the present value sensitivity of CDSs with coupons of 100bps to the zero hazard rates at the credit curve nodes.
    * <b>Note:</b> This does not appear as a table in the paper.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void pvSensitivityTest() {
     double coupon = 0.01;
     CDSAnalyticFactory factory = new CDSAnalyticFactory(0.4);
@@ -258,7 +259,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * CDS in question IS a pillar CDS, the hedge ratio is of course exactly 1.0 for that pillar 9and zero everywhere else)
    * <b>Note:</b> This does not appear as a table in the paper, however it does provide hedge ratios for the hedgingPerformanceDemo.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void pvHedgingDemo() {
     double coupon = 0.01;
 
@@ -307,7 +308,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * and compute its change in PV for both parallel shifts and tilts to the credit curve. The results are shown for a
    * notional of 10MM. 
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void hedgingPerformanceDemo() {
     double coupon = 0.01;
     double notional = 1e7;
@@ -323,7 +324,7 @@ public class CDSPaperExamples extends ISDABaseTest {
 
     double basePVH = 0;
     for (int i = 0; i < 3; i++) {
-      basePVH += notional*  hedgeRatios[i] * PRICER.pv(cdsPort[i], YIELD_CURVE, CREDIT_CURVE, coupon);
+      basePVH += notional * hedgeRatios[i] * PRICER.pv(cdsPort[i], YIELD_CURVE, CREDIT_CURVE, coupon);
     }
 
     System.out.println("Basis Points\tParallel\tTilt");
@@ -335,10 +336,10 @@ public class CDSPaperExamples extends ISDABaseTest {
       double pvH = 0;
       double pvTilt = 0;
       for (int i = 0; i < 3; i++) {
-        pvH += notional* hedgeRatios[i] * PRICER .pv(cdsPort[i], YIELD_CURVE, cc, coupon);
-        pvTilt += notional* hedgeRatios[i] * PRICER.pv(cdsPort[i], YIELD_CURVE, ccTilt, coupon);
+        pvH += notional * hedgeRatios[i] * PRICER.pv(cdsPort[i], YIELD_CURVE, cc, coupon);
+        pvTilt += notional * hedgeRatios[i] * PRICER.pv(cdsPort[i], YIELD_CURVE, ccTilt, coupon);
       }
-      System.out.println(bump + "\t" + (pvH - basePVH) + "\t" + (pvTilt - basePVH) );
+      System.out.println(bump + "\t" + (pvH - basePVH) + "\t" + (pvTilt - basePVH));
     }
   }
 
@@ -348,7 +349,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * All CDSs have a recovery rate of 40\% and the Trade date is 13-Jun-2011. <p>
    * This uses the method dumpLatexTable to format the output into a Latex table. 
    */
-  @Test (description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void analyticCS01test() {
 
     int nMat = MATURITIES_6M_STEP.length;
@@ -384,7 +385,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * methods are analytic and forward finite difference (or bump and reprice). The bump in the forward difference is 1bps.<p>
    *  This uses the method dumpLatexTable to format the output into a Latex table. 
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   void analyticVFDCS01Test() {
     LocalDate mat = LocalDate.of(2019, Month.JUNE, 20);
     CDSAnalytic cds = CDS_FACTORY.makeCDS(TRADE_DATE, STARTDATE, mat);
@@ -420,7 +421,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * numerical tolerances) as from  pvHedgingDemo, but this involves a lot more work (i.e. calculating the CS01). <p>
    *  <b>Note:</b> This does not appear as a table in the paper. 
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void spreadHedgeDemo() {
     LUDecompositionCommons decomp = new LUDecompositionCommons();
     int nPillars = PILLAR_CDSS.length;
@@ -447,7 +448,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * This demonstrates that a constant (flat) hazard rate does not correspond to the same par spread for all maturities - 
    * in this example the spread varies between 59.3 and 59.4bps 
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void flatHazardTest() {
     ISDACompliantCreditCurve flat = new ISDACompliantCreditCurve(1.0, 0.01);
     int nMat = IMM_DATES.length;
@@ -465,7 +466,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * to a constant value, a credit curve is bootstrapped and the CDS prices; the spread and each pillar is then bumped
    * up by 1bps an the calculation repeated. The difference from the base is the (bucketed)  CS01  
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void bucketedCS01FromFlatSpreadDemo() {
     MarketQuoteConverter puf_con = new MarketQuoteConverter();
     int nMat = MATURITIES_1Y_STEP.length;
@@ -498,7 +499,7 @@ public class CDSPaperExamples extends ISDABaseTest {
   /**
    * Compute bucketed and parallel CS01 by bumping 'quoted' by 1bps - see paper for details 
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void bucketedCS01FromQuotedSpreadDemo() {
     MarketQuoteConverter puf_con = new MarketQuoteConverter();
     int nMat = MATURITIES_1Y_STEP.length;
@@ -517,7 +518,6 @@ public class CDSPaperExamples extends ISDABaseTest {
       double[] bCS01 = FD_SPREAD_SENSE_CAL.bucketedCS01FromQuotedSpreads(cds[i], COUPON, YIELD_CURVE, PILLAR_CDSS, SPREADS, ONE_BP, BumpType.ADDITIVE);
       double pCS01 = FD_SPREAD_SENSE_CAL.parallelCS01FromQuotedSpread(cds[i], COUPON, YIELD_CURVE, cds[i], qs, ONE_BP, BumpType.ADDITIVE);
 
-
       System.out.print(MATURITIES_1Y_STEP[i].format(DATE_FORMAT));
       double sum = 0;
       for (int j = 0; j < nPillars; j++) {
@@ -533,7 +533,7 @@ public class CDSPaperExamples extends ISDABaseTest {
    * The PV sensitivity to zero rates at the yield curve nodes for a set of standard CDSs with a coupon of 100bps and a
    *  recovery rate 40%. The trade date is 13-Jun-2011.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void yieldSenseTest() {
     String[] ycPoints = new String[] {"1M", "3M", "6M", "1Y", "3Y", "5Y", "7Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     String[] instuments = new String[] {"M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
@@ -556,7 +556,6 @@ public class CDSPaperExamples extends ISDABaseTest {
       System.out.print("\n");
     }
   }
-
 
   /*
    * Better tables can be produced using the Exce2LaTeX plugin

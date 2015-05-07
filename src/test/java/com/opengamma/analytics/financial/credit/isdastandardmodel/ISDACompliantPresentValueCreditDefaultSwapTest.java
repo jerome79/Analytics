@@ -19,7 +19,6 @@ import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -37,12 +36,11 @@ public class ISDACompliantPresentValueCreditDefaultSwapTest {
 
   // points related to the yield curve (note: here we use yield curve points directly rather than fit from IR instruments)
   private static final LocalDate[] YC_DATES = new LocalDate[] {LocalDate.of(2013, 6, 27), LocalDate.of(2013, 8, 27), LocalDate.of(2013, 11, 27), LocalDate.of(2014, 5, 27), LocalDate.of(2015, 5, 27),
-      LocalDate.of(2016, 5, 27), LocalDate.of(2018, 5, 27), LocalDate.of(2020, 5, 27), LocalDate.of(2023, 5, 27), LocalDate.of(2028, 5, 27), LocalDate.of(2033, 5, 27), LocalDate.of(2043, 5, 27) };
+    LocalDate.of(2016, 5, 27), LocalDate.of(2018, 5, 27), LocalDate.of(2020, 5, 27), LocalDate.of(2023, 5, 27), LocalDate.of(2028, 5, 27), LocalDate.of(2033, 5, 27), LocalDate.of(2043, 5, 27) };
 
   private static final double[] DISCOUNT_FACT;
   private static final double[] YC_TIMES;
-  // private static final ISDADateCurve YIELD_CURVE_ZERO_FLAT;
-  // private static final ISDADateCurve YIELD_CURVE_5PC_FLAT;
+
   private static final ISDACompliantDateYieldCurve YIELD_CURVE_ZERO_FLAT;
   private static final ISDACompliantDateYieldCurve YIELD_CURVE_5PC_FLAT;
 
@@ -64,23 +62,13 @@ public class ISDACompliantPresentValueCreditDefaultSwapTest {
     for (int i = 0; i < ycPoints; i++) {
       YC_TIMES[i] = ACT365.yearFraction(BASE_DATE, YC_DATES[i]);
     }
-    // YIELD_CURVE_ZERO_FLAT = new ISDADateCurve("ISDA", BASE_DATE, YC_DATES, zeros, OFFSET); // Remake: this constructor assumes ACT/365
-    // YIELD_CURVE_5PC_FLAT = new ISDADateCurve("ISDA", BASE_DATE, YC_DATES, fivePC, OFFSET);
-    // CURVES = new ISDAYieldCurveAndHazardRateCurveProvider(YIELD_CURVE_ZERO_FLAT, HAZARD_RATE_CURVE);
     YIELD_CURVE_ZERO_FLAT = new ISDACompliantDateYieldCurve(BASE_DATE, YC_DATES, zeros);
     YIELD_CURVE_5PC_FLAT = new ISDACompliantDateYieldCurve(BASE_DATE, YC_DATES, fivePC);
 
   }
 
   private void testISDA_Results(final ISDAModelDatasets.ISDA_Results[] data, final ISDACompliantDateYieldCurve yieldCurve, final boolean debug) {
-    if (debug) {
-      System.out.println("ISDACompliantPremiumLegCalculatorAgaintISDATest2.testISDA_Results DO NOT PUSH WITH DEBUG ON\n");
-    }
-    int failCount = 0;
-    final int constructionFailCount = 0;
-
     final int nEx = data.length;
-    final int[] failedList = new int[nEx];
     for (int count = 0; count < nEx; count++) {
 
       final ISDAModelDatasets.ISDA_Results res = data[count];
@@ -128,70 +116,36 @@ public class ISDACompliantPresentValueCreditDefaultSwapTest {
       // back out the accrued-days by inverting the accrued premium formula (which is ACT/360) - this matched the formula on the ISDA spread sheet
       final int accruedDays = (int) Math.round(360 * rpv01_accrued / NOTIONAL);
 
-      if (debug) {
-        System.out.println(count + "\t" + res.premiumLeg + "\t" + premLeg_clean_ISDA + "\t" + premLeg_clean_new + "\t\t" + res.protectionLeg + "\t" + contLeg_ISDA + "\t" + protectionLeg_new + "\t\t" +
-            res.defaultAcc + "\t" + defaultAcc + "\t\t" + res.accruedPremium + "\t" + accruedPrem + "\t\t" + res.accruedDays + "\t" + accruedDays);
-        try {
-          // tests against ISDA c
-          assertEquals("Premium Leg:", res.premiumLeg, premLeg_clean_ISDA, 1e-12 * NOTIONAL); // This should be 1e-15*NOTIONAL
-          assertEquals("Protection Leg:", res.protectionLeg, contLeg_ISDA, 1e-11 * NOTIONAL); // ditto
-          assertEquals("Default Acc:", res.defaultAcc, defaultAcc, 1e-13 * NOTIONAL);
-          assertEquals("Accrued Premium: ", res.accruedPremium, accruedPrem, 1e-15 * NOTIONAL); // the accrued is trivial, so should be highly accurate
-          assertEquals("Accrued Days: ", res.accruedDays, accruedDays);
+      // tests against ISDA c
+      assertEquals("Premium Leg:", res.premiumLeg, premLeg_clean_ISDA, 1e-12 * NOTIONAL); // This should be 1e-15*NOTIONAL
+      assertEquals("Protection Leg:", res.protectionLeg, contLeg_ISDA, 1e-11 * NOTIONAL); // ditto
+      assertEquals("Default Acc:", res.defaultAcc, defaultAcc, 1e-13 * NOTIONAL);
+      assertEquals("Accrued Premium: ", res.accruedPremium, accruedPrem, 1e-15 * NOTIONAL); // the accrued is trivial, so should be highly accurate
+      assertEquals("Accrued Days: ", res.accruedDays, accruedDays);
 
-          // tests date free vs date-full code
-          assertEquals("Premium Leg:", premLeg_clean_ISDA, premLeg_clean_new, 1e-13 * NOTIONAL);
-          assertEquals("Protection Leg:", contLeg_ISDA, protectionLeg_new, 1e-16 * NOTIONAL);
-        } catch (final AssertionError e) {
-          failedList[failCount++] = count;
-        }
-      } else {
-        // tests against ISDA c
-        assertEquals("Premium Leg:", res.premiumLeg, premLeg_clean_ISDA, 1e-12 * NOTIONAL); // This should be 1e-15*NOTIONAL
-        assertEquals("Protection Leg:", res.protectionLeg, contLeg_ISDA, 1e-11 * NOTIONAL); // ditto
-        assertEquals("Default Acc:", res.defaultAcc, defaultAcc, 1e-13 * NOTIONAL);
-        assertEquals("Accrued Premium: ", res.accruedPremium, accruedPrem, 1e-15 * NOTIONAL); // the accrued is trivial, so should be highly accurate
-        assertEquals("Accrued Days: ", res.accruedDays, accruedDays);
-
-        // tests date free vs date-full code
-        assertEquals("Premium Leg:", premLeg_clean_ISDA, premLeg_clean_new, 1e-13 * NOTIONAL);
-        assertEquals("Protection Leg:", contLeg_ISDA, protectionLeg_new, 1e-15 * NOTIONAL);
-      }
-    }
-    if (debug) {
-      System.out.println("\nFailed to construct: " + constructionFailCount + " Failed: " + failCount);
-      if (failCount > 0) {
-        System.out.print("failed index:");
-        for (int i = 0; i < failCount; i++) {
-          System.out.print("\t" + failedList[i]);
-        }
-        System.out.print("\n");
-      }
-      System.out.print("\n");
+      // tests date free vs date-full code
+      assertEquals("Premium Leg:", premLeg_clean_ISDA, premLeg_clean_new, 1e-13 * NOTIONAL);
+      assertEquals("Protection Leg:", contLeg_ISDA, protectionLeg_new, 1e-15 * NOTIONAL);
 
     }
   }
 
   @Test
-  // (enabled = false)
   public void example1Test() {
     testISDA_Results(EXAMPLE1, YIELD_CURVE_ZERO_FLAT, false);
   }
 
   @Test
-  // (enabled = false)
   public void example3Test() {
     testISDA_Results(EXAMPLE3, YIELD_CURVE_ZERO_FLAT, false);
   }
 
   @Test
-  // (enabled = false)
   public void exampleSheet1Test() {
     testISDA_Results(ISDAModelDatasetsSheetReader.loadSheet("yield_curve_flat_0pc.csv", RECOVERY_RATE), YIELD_CURVE_ZERO_FLAT, false);
   }
 
   @Test
-  // (enabled = false)
   public void exampleSheet2Test() {
     testISDA_Results(ISDAModelDatasetsSheetReader.loadSheet("yield_curve_flat_5pc.csv", RECOVERY_RATE), YIELD_CURVE_5PC_FLAT, false);
   }

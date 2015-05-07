@@ -54,8 +54,7 @@ public class ISDACompliantCreditCurveCalibratorTest {
     YIELD_CURVE = new ISDACompliantDateYieldCurve(BASE_DATE, YC_DATES, YC_RATES);
   }
 
-  @SuppressWarnings({"unused", "deprecation" })
-  @Test
+  @SuppressWarnings({"deprecation" })
   public void test() {
 
     final LocalDate today = LocalDate.of(2013, 2, 2);
@@ -81,16 +80,6 @@ public class ISDACompliantCreditCurveCalibratorTest {
     final ISDACompliantCreditCurve hc = calibrator.calibrateCreditCurve(today, stepinDate, valueDate, startDate, endDates, coupons, payAccOndefault, tenor, stubType, protectionStart, YIELD_CURVE,
         recovery);
 
-    // final int m = hc.getNumberOfCurvePoints();
-    // double[] t = hc.getTimes();
-    // double[] fittedRates = hc.getRates();
-    // for (int i = 0; i < m; i++) {
-    // double df = Math.exp(-t[i] * fittedRates[i]);
-    // double df2 = hc.getSurvivalProbability(t[i]);
-    // // System.out.println(t[i] + "\t" + fittedRates[i] + "\t" + df + "\t" + df2);
-    // }
-    // System.out.println();
-
     final ISDACompliantDateCreditCurve hcDate = new ISDACompliantDateCreditCurve(today, endDates, hc.getKnotZeroRates());
 
     final CDSAnalytic[] cds = new CDSAnalytic[n];
@@ -107,38 +96,5 @@ public class ISDACompliantCreditCurveCalibratorTest {
       assertEquals(0.0, pv2, 1e-7); // we drop a slight bit of accuracy here
     }
 
-    final int warmup = 1;
-    final int benchmark = 0;
-
-    for (int k = 0; k < warmup; k++) {
-      final ISDACompliantCreditCurve hc2 = calibrator.calibrateCreditCurve(today, stepinDate, valueDate, startDate, endDates, coupons, payAccOndefault, tenor, stubType, protectionStart, YIELD_CURVE,
-          recovery);
-    }
-
-    if (benchmark > 0) {
-      long t0 = System.nanoTime();
-      for (int k = 0; k < benchmark; k++) {
-        final ISDACompliantCreditCurve hc2 = calibrator.calibrateCreditCurve(today, stepinDate, valueDate, startDate, endDates, coupons, payAccOndefault, tenor, stubType, protectionStart,
-            YIELD_CURVE, recovery);
-      }
-      long time = System.nanoTime() - t0;
-      double timePerCalibration = (time) / 1e6 / benchmark;
-      System.out.println("time per calibration: " + timePerCalibration + "ms");
-
-      for (int k = 0; k < warmup; k++) {
-        final ISDACompliantCreditCurve hc2 = calibrator.calibrateCreditCurve(cds, coupons, YIELD_CURVE);
-      }
-
-      if (benchmark > 0) {
-        t0 = System.nanoTime();
-        for (int k = 0; k < benchmark; k++) {
-          final ISDACompliantCreditCurve hc2 = calibrator.calibrateCreditCurve(cds, coupons, YIELD_CURVE);
-        }
-        time = System.nanoTime() - t0;
-        timePerCalibration = (time) / 1e6 / benchmark;
-        System.out.println("time per calibration: " + timePerCalibration + "ms");
-
-      }
-    }
   }
 }

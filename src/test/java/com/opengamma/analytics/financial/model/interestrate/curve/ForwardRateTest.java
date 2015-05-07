@@ -15,7 +15,6 @@ import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 
-
 /**
  * Test.
  */
@@ -44,16 +43,8 @@ public class ForwardRateTest {
 
   }
 
-  @Test
   public void test() {
     final int n = T.length;
-    //    final double range = T[n - 1] - T[0];
-    //    for (int i = 0; i < 300; i++) {
-    //      final double t = T[0] + (range) * i / (299.);
-    //      final double r = YIELD_CURVE.getInterestRate(t);
-    //      final double f = YIELD_CURVE.getForwardRate(t);
-    //      System.out.println(t + "\t" + r + "\t" + f);
-    //    }
 
     final Function1D<Double, Double> fwd1 = new Function1D<Double, Double>() {
       @Override
