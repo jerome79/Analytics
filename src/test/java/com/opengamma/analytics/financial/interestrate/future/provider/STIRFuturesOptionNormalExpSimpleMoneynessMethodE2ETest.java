@@ -57,6 +57,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 /**
  * E2E test for STIR futures option using volatility surface with simple moneyness on rate. 
  */
+@Test
 public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
   private static final BondAndSTIRFuturesE2EExamplesData DATA = new BondAndSTIRFuturesE2EExamplesData();
 
@@ -149,7 +150,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
   /**
    * E2E test for PV and all the risk measures.
    */
-  @Test
+
   public void E2ETest() {
     double tol = 1.0e-10;
     MultiCurrencyAmount pv = TRANSACTION_1.accept(PVNFC, NORMAL_MULTICURVES);
@@ -200,7 +201,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
   /**
    * Check data points are correctly stored.
    */
-  @Test
+
   public void nodePointTest() {
     double tol = 1.0e-14;
     /* sample points randomly chosen */
@@ -215,7 +216,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
   /**
    * Check flat extrapolation on volatility.
    */
-  @Test
+
   public void extrapolationTest() {
     double tol = 1.0e-14;
     /* sample points randomly chosen */
@@ -232,7 +233,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
   /**
    * Check non-uniformly distributed date points are correctly interpolated. 
    */
-  @Test
+
   public void InterpolatorTest() {
     double tol = 1.0e-10;
 
@@ -267,37 +268,6 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessMethodE2ETest {
     computed2 = surface.getZValue(keyExpiry / 365.0, 0.0);
     assertRelative("Interpolation2DTest, time", exp2, computed2, tol);
   }
-
-  /**
-   * Print volatility surface.
-   */
-  @Test(enabled = false)
-  public void volatilitySurfacePrintTest() {
-    int nSample = 100;
-    double minExpiry = EXPIRY[0] * 0.8;
-    double maxExpiry = EXPIRY[EXPIRY.length - 1] * 1.2;
-    double intervalExpiry = (maxExpiry - minExpiry) / (nSample - 1.0);
-
-    double minMoney = SIMPLEMONEY[0] * 1.2;
-    double maxMoney = SIMPLEMONEY[SIMPLEMONEY.length - 1] * 1.2;
-    double intervalMoney = (maxMoney - minMoney) / (nSample - 1.0);
-
-    for (int j = 0; j < nSample; ++j) {
-      double moneyness = minMoney + intervalMoney * j;
-      System.out.print("\t" + moneyness);
-    }
-    System.out.print("\n");
-    for (int i = 0; i < nSample; ++i) {
-      double expiry = minExpiry + intervalExpiry * i;
-      System.out.print(expiry);
-      for (int j = 0; j < nSample; ++j) {
-        double moneyness = minMoney + intervalMoney * j;
-        System.out.print("\t" + VOL_SURFACE_SIMPLEMONEY.getZValue(expiry, moneyness));
-      }
-      System.out.print("\n");
-    }
-  }
-
 
   private void assertRelative(String message, double expected, double obtained, double relativeTol) {
     double ref = Math.max(Math.abs(expected), 1.0);
