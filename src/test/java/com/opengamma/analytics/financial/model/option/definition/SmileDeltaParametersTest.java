@@ -44,7 +44,6 @@ public class SmileDeltaParametersTest {
     new SmileDeltaParameters(TIME_TO_EXPIRY, ATM, DELTA, RISK_REVERSAL, new double[3]);
   }
 
-  @Test
   /**
    * Tests the constructor directly from volatilities (not RR and S).
    */
@@ -54,7 +53,6 @@ public class SmileDeltaParametersTest {
     assertEquals("Smile by delta: constructor", SMILE, smileFromVolatility);
   }
 
-  @Test
   /**
    * Tests the getters.
    */
@@ -65,7 +63,6 @@ public class SmileDeltaParametersTest {
     assertEquals("Smile by delta: volatility", SMILE.getVolatility(), smile2.getVolatility());
   }
 
-  @Test
   /**
    * Tests the volatility computations.
    */
@@ -79,7 +76,6 @@ public class SmileDeltaParametersTest {
     }
   }
 
-  @Test
   /**
    * Tests the strikes computations.
    */
@@ -106,28 +102,5 @@ public class SmileDeltaParametersTest {
     assertEquals("Strike: ATM", dCall[1] + dPut[1], 0.0, 1.0E-8);
   }
 
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    int nbDelta = DELTA.length;
-    long startTime, endTime;
-    final int nbTest = 1000;
-    SmileDeltaParameters[] smile = new SmileDeltaParameters[nbTest];
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      smile[looptest] = new SmileDeltaParameters(TIME_TO_EXPIRY, ATM, DELTA, RISK_REVERSAL, STRANGLE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " smile from ATM/RR/S in delta term: " + (endTime - startTime) + " ms");
-    startTime = System.currentTimeMillis();
-    double[][] strikes = new double[nbTest][2 * nbDelta + 1];
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      strikes[looptest] = SMILE.getStrike(FORWARD);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " smile from ATM/RR/S in delta term: " + (endTime - startTime) + " ms");
-  }
 
 }

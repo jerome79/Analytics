@@ -30,28 +30,19 @@ import com.opengamma.analytics.util.AssertMatrix;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Bjerksund and Stensland model test.
  */
 @Test
 public class BjerksundStenslandModelTest {
-  
-  private static  final BjerksundStenslandModel model = new BjerksundStenslandModel();
-  
+
+  private static final BjerksundStenslandModel model = new BjerksundStenslandModel();
+
   private static final ScalarFieldFirstOrderDifferentiator SCALAR_FIELD_DIFF = new ScalarFieldFirstOrderDifferentiator();
   private static final VectorFieldFirstOrderDifferentiator VEC_FIELD_DIFF = new VectorFieldFirstOrderDifferentiator();
-  
+
   private static final ProbabilityDistribution<double[]> BIVARIATE_NORMAL = new BivariateNormalDistribution();
 
-  private static final Function1D<DoubleMatrix1D, Double> CALL_PRICE_FUNC = new Function1D<DoubleMatrix1D, Double>() {
-    @Override
-    public Double evaluate(DoubleMatrix1D parms) {
-      double[] p = parms.getData();
-      return model.price(p[0], p[1], p[2], p[3], p[4], p[5], true);
-    }
-  };
-  
   private static final Function1D<DoubleMatrix1D, Double> PUT_PRICE_FUNC = new Function1D<DoubleMatrix1D, Double>() {
     @Override
     public Double evaluate(DoubleMatrix1D parms) {
@@ -59,23 +50,12 @@ public class BjerksundStenslandModelTest {
       return model.price(p[0], p[1], p[2], p[3], p[4], p[5], false);
     }
   };
-  
-  private static final Function1D<DoubleMatrix1D,DoubleMatrix1D> CALL_SENSE_FUNC = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
+
+  private static final Function1D<DoubleMatrix1D, DoubleMatrix1D> PUT_SENSE_FUNC = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
     @Override
     public DoubleMatrix1D evaluate(DoubleMatrix1D parms) {
       double[] p = parms.getData();
-      double[] adj =  model.getPriceAdjoint(p[0], p[1], p[2], p[3], p[4], p[5], true);
-      double[] temp = new double[6];
-      System.arraycopy(adj, 1, temp, 0, 6);
-      return new DoubleMatrix1D(temp);
-    }
-  };
-  
-  private static final Function1D<DoubleMatrix1D,DoubleMatrix1D> PUT_SENSE_FUNC = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
-    @Override
-    public DoubleMatrix1D evaluate(DoubleMatrix1D parms) {
-      double[] p = parms.getData();
-      double[] adj =  model.getPriceAdjoint(p[0], p[1], p[2], p[3], p[4], p[5], false);
+      double[] adj = model.getPriceAdjoint(p[0], p[1], p[2], p[3], p[4], p[5], false);
       double[] temp = new double[6];
       System.arraycopy(adj, 1, temp, 0, 6);
       return new DoubleMatrix1D(temp);
@@ -90,12 +70,8 @@ public class BjerksundStenslandModelTest {
     }
   };
 
-  
-
-  private static final Function1D<DoubleMatrix1D, DoubleMatrix1D> CALL_ADJOINT_FD = SCALAR_FIELD_DIFF.differentiate(CALL_PRICE_FUNC, DOMAIN);
   private static final Function1D<DoubleMatrix1D, DoubleMatrix1D> PUT_ADJOINT_FD = SCALAR_FIELD_DIFF.differentiate(PUT_PRICE_FUNC, DOMAIN);
 
-  @Test
   public void priceTest() {
     final double s0 = 120;
     final double r = 0.08;
@@ -108,13 +84,10 @@ public class BjerksundStenslandModelTest {
     final BjerksundStenslandModel bs = new BjerksundStenslandModel();
     final double eurPrice = Math.exp(-r * t) * BlackFormulaRepository.price(s0 * Math.exp(b * t), k, t, sigma, true);
     final double amPrice = bs.price(s0, k, r, b, t, sigma, true);
-    //System.out.println(eurPrice + "\t" + amPrice);
     assertTrue(amPrice > eurPrice);
     assertEquals(20.193913138412203, amPrice, 1e-15);
   }
 
-  @Test
-  //(enabled = false)
   public void priceAdjointBsRecapTest() {
     final double s0 = 120;
     final double r = -0.12;
@@ -137,7 +110,6 @@ public class BjerksundStenslandModelTest {
    * Check the sensitivity calculated by getPriceAdjoint and getPriceDeltaGamma agree with the finite-difference 
    * calculation
    */
-  @Test
   public void priceAdjointBsTest() {
     final double s0 = 120;
     final double r = -0.12;
@@ -149,14 +121,14 @@ public class BjerksundStenslandModelTest {
     Function1D<DoubleMatrix1D, DoubleMatrix2D> fd2OrderFunc = VEC_FIELD_DIFF.differentiate(PUT_SENSE_FUNC, DOMAIN);
     for (final double sigma : sigmas) {
       for (final double b : costs) {
-        DoubleMatrix1D pVec = new DoubleMatrix1D(s0, k, r, b, t, sigma );
-        double price = PUT_PRICE_FUNC.evaluate(pVec);       
-        double[] res = model.getPriceAdjoint(s0, k, r, b, t, sigma, false);  
+        DoubleMatrix1D pVec = new DoubleMatrix1D(s0, k, r, b, t, sigma);
+        double price = PUT_PRICE_FUNC.evaluate(pVec);
+        double[] res = model.getPriceAdjoint(s0, k, r, b, t, sigma, false);
         assertEquals(b + "\t" + sigma, price, res[0], Math.abs(price) * 1e-14);
         double[] temp = new double[6];
         System.arraycopy(res, 1, temp, 0, 6);
         DoubleMatrix1D priceAdj = new DoubleMatrix1D(temp);
-        
+
         //compute adjoint by FD
         DoubleMatrix1D fdPriceAdj = PUT_ADJOINT_FD.evaluate(pVec);
         AssertMatrix.assertEqualsVectors(fdPriceAdj, priceAdj, 1e-8);
@@ -165,10 +137,10 @@ public class BjerksundStenslandModelTest {
         final double[] resGamma = model.getPriceDeltaGamma(s0, k, r, b, t, sigma, false);
         assertEquals(b + "\t" + sigma, price, resGamma[0], Math.max(1.e-14, Math.abs(price) * 1e-14));
         assertEquals(res[1], resGamma[1], Math.max(1.e-14, Math.abs(res[1]) * 1e-14));
-              
-        double fd_gamma = fd2OrderFunc.evaluate(pVec).getEntry(0,0);
+
+        double fd_gamma = fd2OrderFunc.evaluate(pVec).getEntry(0, 0);
         assertEquals(fd_gamma, resGamma[2], Math.abs(fd_gamma) * 1e-8);
-     }
+      }
     }
   }
 
@@ -176,14 +148,13 @@ public class BjerksundStenslandModelTest {
    * Discontinuity of derivative value exists at b=r for call, where the switch from Bjerksund-Stensland model to Black model takes place.
    * In our implementation we use the derivative values of the Black model at the transition point
    */
-  @Test
   public void priceAdjointDiscontTest() {
     final double s0 = 120;
     final double r = -0.12;
     final double[] costs = new double[] {-0.12 };
     final double k = 100.0;
     final double t = 0.25;
-    final double[] sigmas = new double[] { 0.3 };
+    final double[] sigmas = new double[] {0.3 };
 
     final BjerksundStenslandModel bs = new BjerksundStenslandModel();
     for (final double sigma : sigmas) {
@@ -222,7 +193,6 @@ public class BjerksundStenslandModelTest {
   }
 
   // [PLAT-2944]
-  @Test
   public void earlyExciseTest() {
     final double s0 = 10.0;
     final double r = 0.0;
@@ -237,7 +207,6 @@ public class BjerksundStenslandModelTest {
     assertTrue(amPrice >= (k - s0));
   }
 
-  @Test
   public void adjointTest() {
     final double[] s0Set = new double[] {60, 90, 100, 110, 160 };
     final double k = 100;
@@ -293,10 +262,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-
-
-  @Test
-  // (enabled = false)
   public void deltaGammaTest() {
     final BjerksundStenslandModel bs = new BjerksundStenslandModel();
     final double[] s0Set = new double[] {60, 90, 100, 110, 160 };
@@ -325,7 +290,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void phiTest() {
     final double s0 = 100;
     final double[] x2Set = new double[] {130, 150, 170 };
@@ -349,7 +313,6 @@ public class BjerksundStenslandModelTest {
           final double impA = bs.getPhi(s0, t1, gamma, x1, x2, r, b, sigma);
           final double[] sense = bs.getPhiAdjoint(s0, t, gamma, x1, x2, r, b, sigma);
 
-          // System.out.println(impA + "\t" + sense[0]);
           assertEquals(impA, sense[0], 1e-12);
           final double eps = 1e-5;
           for (int i = 0; i < 8; i++) {
@@ -360,7 +323,6 @@ public class BjerksundStenslandModelTest {
             temp[i] -= 2 * delta;
             final double down = bs.getPhiAdjoint(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7])[0];
             final double fd = (up - down) / 2 / delta;
-            // System.out.println(fd + "\t" + sense[i + 1]);
             assertEquals(i + " " + x2 + " " + b + " " + gamma, fd, sense[i + 1], Math.abs(fd) * 2e-8);
           }
         }
@@ -369,7 +331,6 @@ public class BjerksundStenslandModelTest {
 
   }
 
-  @Test
   public void psiTest() {
     final double s0 = 100;
     final double[] kSet = new double[] {90, 100, 110 };
@@ -407,8 +368,6 @@ public class BjerksundStenslandModelTest {
             temp[i] -= 2 * delta;
             final double down = bs.getPsiAdjoint(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8])[0];
             final double fd = (up - down) / 2 / delta;
-            // System.out.println(fd + "\t" + sense[i + 1]);
-
             assertEquals(i + " " + k + " " + b + " " + gamma, fd, sense[i + 1], Math.abs(fd) * 1e-4); // TODO would expect better agreement than this
 
           }
@@ -417,7 +376,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void psiDeltaTest() {
     final BjerksundStenslandModel bs = new BjerksundStenslandModel();
     final double s0 = 100;
@@ -441,7 +399,6 @@ public class BjerksundStenslandModelTest {
 
           final double psi = bs.getPsi(s0, t1, t, gamma, k, x2, x1, r, b, sigma);
           final double[] sense = bs.getPsiDelta(s0, t, gamma, k, x2, x1, r, b, sigma);
-          // double psi = sense[0];
           assertEquals("psi", psi, sense[0], Math.abs(psi) * 1e-15);
           final double up = bs.getPsi(s0 + eps, t1, t, gamma, k, x2, x1, r, b, sigma);
           final double down = bs.getPsi(s0 - eps, t1, t, gamma, k, x2, x1, r, b, sigma);
@@ -455,7 +412,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void biVarNormTest() {
 
     final double rho = Math.sqrt(0.5 * (Math.sqrt(5) - 1));
@@ -489,7 +445,6 @@ public class BjerksundStenslandModelTest {
     assertEquals("d^2B/dadb", fd, sense[4], Math.abs(fd) * 2e-4);
   }
 
-  @Test
   public void alphaTest() {
     final double k = 123;
     final double x = 204;
@@ -512,7 +467,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void betaTest() {
     final double r = 0.1;
     final double b = 0.04;
@@ -537,7 +491,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void lambdaTest() {
     final double[] gammaSet = new double[] {0, 1, 0.9, 2.3 };
     final double r = 0.1;
@@ -567,7 +520,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void kappaTest() {
     final double[] gammaSet = new double[] {0, 1, 0.9, 2.3 };
     final double[] bSet = {-0.03, 0, 0.04 };
@@ -596,7 +548,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void i1Test() {
     final double k = 100.04;
     final double[] rSet = {-0.03, 0.1 };
@@ -612,7 +563,6 @@ public class BjerksundStenslandModelTest {
         if (r >= b) {
 
           final double[] sense = bs.getI1Adjoint(k, r, b, sigma, t);
-          // System.out.println(sense[0]);
           final double[] parms = new double[] {k, r, b, sigma, t };
           final int n = parms.length;
           final double eps = 1e-5;
@@ -623,7 +573,6 @@ public class BjerksundStenslandModelTest {
             temp[i] -= 2 * eps;
             final double down = bs.getI1Adjoint(temp[0], temp[1], temp[2], temp[3], temp[4])[0];
             final double fd = (up - down) / 2 / eps;
-            // System.out.println(up + "\t" + down);
             assertEquals(i + "\t" + r + "\t" + b, fd, sense[i + 1], Math.abs(fd) * 1e-5);
           }
         }
@@ -631,7 +580,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void i2Test() {
     final double k = 100.04;
     final double r = 0.1;
@@ -659,7 +607,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void phiDeltaTest() {
     final BjerksundStenslandModel bs = new BjerksundStenslandModel();
     final double s0 = 100;
@@ -693,7 +640,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void function1DTest() {
     final double[] s0Set = new double[] {60, 90, 100, 110, 160 };
     final double k = 100;
@@ -723,7 +669,6 @@ public class BjerksundStenslandModelTest {
     }
   }
 
-  @Test
   public void impliedVolSimpletest() {
     final double modSpot = 30.405;
     final double strike = 30.0;
@@ -752,7 +697,6 @@ public class BjerksundStenslandModelTest {
     assertEquals(optionPrice, bs.price(modSpot, strike, discountRate, costOfCarry, timeToExpiry, vol, isCall), 1.e-5);
   }
 
-  @Test
   void zeroVolTest() {
     double spot = 100;
     double strike = 96;
