@@ -31,7 +31,7 @@ public class AdaptiveCompositeIntegrator1DTest extends Integrator1DTestCase {
   @Test
   public void sampleDataTest() {
     final Integrator1D<Double, Double> localInt = new AdaptiveCompositeIntegrator1D(new SimpsonIntegrator1D(), 10., 1.e-4);
-    assertEquals(-1.426025, localInt.integrate(sampleFunc(), 1., 3.), 1.e-6);
+    assertEquals(-0.368924186060527, localInt.integrate(sampleFunc(), 1.1, 3.), 1.e-6); // answer from quadpack
   }
 
   private Function1D<Double, Double> sampleFunc() {

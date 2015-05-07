@@ -32,7 +32,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public class ExtendedTrapezoidIntegrator1D extends Integrator1D<Double, Double> {
   private static final Logger s_logger = LoggerFactory.getLogger(ExtendedTrapezoidIntegrator1D.class);
   private static final UnivariateIntegrator INTEGRATOR = new TrapezoidIntegrator();
-  private static final int MAX_EVAL = TrapezoidIntegrator.TRAPEZOID_MAX_ITERATIONS_COUNT;
+  private static final int MAX_EVAL = 10000;
 
   /**
    * Trapezoid integration method. Note that the Commons implementation fails if the lower bound is larger than the upper - 

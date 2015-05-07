@@ -34,7 +34,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public class SimpsonIntegrator1D extends Integrator1D<Double, Double> {
   private static final Logger s_logger = LoggerFactory.getLogger(SimpsonIntegrator1D.class);
   private final UnivariateIntegrator _integrator = new SimpsonIntegrator();
-  private static final int MAX_EVAL = SimpsonIntegrator.SIMPSON_MAX_ITERATIONS_COUNT;
+  private static final int MAX_EVAL = 1000;
 
   /**
    * Simpson's integration method. Note that the Commons implementation fails if the lower bound is larger than the upper - 

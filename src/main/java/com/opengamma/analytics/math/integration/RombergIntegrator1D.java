@@ -28,7 +28,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public class RombergIntegrator1D extends Integrator1D<Double, Double> {
   private static final Logger s_logger = LoggerFactory.getLogger(RombergIntegrator1D.class);
   private final UnivariateIntegrator _integrator = new RombergIntegrator();
-  private static final int MAX_EVAL = RombergIntegrator.ROMBERG_MAX_ITERATIONS_COUNT;
+  private static final int MAX_EVAL = 10000;
 
   /**
    * Romberg integration method. Note that the Commons implementation fails if the lower bound is larger than the upper - 

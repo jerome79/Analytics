@@ -21,7 +21,7 @@ import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
  */
 public class RidderSingleRootFinder extends RealSingleRootFinder {
 
-  private static final int MAX_ITER = 10000;
+  private static final int MAX_ITER = 100000;
   private final RiddersSolver _ridder;
 
   /**
