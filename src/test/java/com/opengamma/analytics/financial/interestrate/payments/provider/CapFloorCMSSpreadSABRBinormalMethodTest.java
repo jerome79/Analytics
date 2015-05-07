@@ -160,7 +160,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     new CapFloorCMSSpreadSABRBinormalMethod(null, METHOD_CMS_CAP, METHOD_CMS_COUPON);
   }
 
-  @Test
   public void getter() {
     final double correlation = 0.80;
     final DoubleFunction1D correlationFunction = new RealPolynomialFunction1D(new double[] {correlation}); // Constant function
@@ -168,7 +167,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread binormal method: correlation function getter", correlationFunction, method.getCorrelation());
   }
 
-  @Test
   /**
    * Tests the present value against the price explicitly computed for constant correlation.
    */
@@ -209,7 +207,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread: price with constant correlation", cmsSpreadPriceExpected, cmsSpreadPrice, TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value with default method and with method without extrapolation.
    */
@@ -221,7 +218,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread: price with constant correlation", pvDefault.getAmount(EUR).getAmount(), pvNoExtrapolation.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value with right extrapolation against a hard-coded price.
    */
@@ -231,7 +227,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread: price with constant correlation", pvHardCoded, pvExtrapolation.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value long/short parity (cap and floor).
    */
@@ -255,7 +250,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread: Long/Short parity", pvFloorLongExtra.getAmount(EUR).getAmount(), -pvFloorShortExtra.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value cap/floor parity (Cap - Floor = (cms1 - cms2) - strike).
    */
@@ -279,7 +273,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
         TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value. Method vs Calculator.
    */
@@ -293,7 +286,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread: present value Method vs Calculator", pvExtraMethod.getAmount(EUR).getAmount(), pvExtraCalculator.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the implied correlation computation for a range of correlations.
    */
@@ -310,7 +302,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     }
   }
 
-  @Test
   /**
    * Tests the price curve sensitivity of CMS coupon and cap/floor using replication in the SABR framework. Values are tested against finite difference values.
    */
@@ -320,7 +311,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CapFloorCMSSpreadSABRBinormalMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Tests the price curve sensitivity of CMS coupon and cap/floor using replication in the SABR framework. Values are tested against finite difference values.
    */
@@ -330,7 +320,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CapFloorCMSSpreadSABRBinormalMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Tests the price curve sensitivity of CMS coupon and cap/floor using replication in the SABR framework. Values are tested against finite difference values.
    */
@@ -340,7 +329,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CapFloorCMSSpreadSABRBinormalMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Tests the present value against the price explicitly computed for constant correlation.
    */
@@ -354,7 +342,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CMS spread: curve sensitivity Method vs Calculator", pvcsMethodExtra, pvcsCalculatorExtra, TOLERANCE_PV_DELTA);
   }
 
-  @Test
   /**
    * Tests the long/short parity for the present value curve sensitivity of a cap.
    */
@@ -369,7 +356,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CMS cap spread: Long/Short parity", pvcsLong, pvcsShort, TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the long/short parity for the present value curve sensitivity of a floor.
    */
@@ -384,7 +370,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CMS floor spread: Long/Short parity", pvcsLong, pvcsShort, TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value curve sensitivity cap/floor parity (Cap - Floor = (cms1 - cms2) - strike).
    */
@@ -408,7 +393,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     AssertSensitivityObjects.assertEquals("CMS spread: curve sensitivity - Cap/Floor parity", pvcsParity1, pvcsParity2, TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests the present value SABR parameters sensitivity vs finite difference.
    */
@@ -453,7 +437,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("Nu sensitivity value", expectedNuSensi, pvsCapLong.getNu().getMap().get(expectedExpiryTenor1) + pvsCapLong.getNu().getMap().get(expectedExpiryTenor2), 2.0E+2);
   }
 
-  @Test
   /**
    * Tests the present value SABR parameters sensitivity vs finite difference.
    */
@@ -498,7 +481,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("Nu sensitivity value", expectedNuSensi, pvsCapLong.getNu().getMap().get(expectedExpiryTenor1) + pvsCapLong.getNu().getMap().get(expectedExpiryTenor2), 2.0E+2);
   }
 
-  @Test
   /**
    * Tests the present value against the price explicitly computed for constant correlation.
    */
@@ -512,7 +494,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     assertEquals("CMS spread: SABR sensitivity Method vs Calculator", pvcsMethodExtra, pvcsCalculatorExtra);
   }
 
-  @Test
   /**
    * Tests the long/short parity for the present value SABR sensitivity.
    */
@@ -523,78 +504,6 @@ public class CapFloorCMSSpreadSABRBinormalMethodTest {
     PresentValueSABRSensitivityDataBundle pvssShort = METHOD_CMS_SPREAD.presentValueSABRSensitivity(cmsSpreadShort, SABR_MULTICURVES);
     pvssShort = pvssShort.multiplyBy(-1);
     assertEquals("CMS spread: Long/Short parity", pvssLong, pvssShort);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-    final double[] pv = new double[nbTest];
-    final PresentValueSABRSensitivityDataBundle[] pvss = new PresentValueSABRSensitivityDataBundle[nbTest];
-    final MultipleCurrencyMulticurveSensitivity[] pvcs = new MultipleCurrencyMulticurveSensitivity[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pv[looptest] = METHOD_CMS_SPREAD.presentValue(CMS_CAP_SPREAD, SABR_MULTICURVES).getAmount(EUR).getAmount();
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS spread cap by SABR replication (price): " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvcs[looptest] = METHOD_CMS_SPREAD.presentValueCurveSensitivity(CMS_CAP_SPREAD, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS spread cap by SABR replication (curve risk): " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvss[looptest] = METHOD_CMS_SPREAD.presentValueSABRSensitivity(CMS_CAP_SPREAD, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS spread cap by SABR replication (sabr risk): " + (endTime - startTime) + " ms");
-    // Performance note: price: 8-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 30 ms for 100 caplet 10Y-2Y.
-    // Performance note: delta: 8-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 135 ms for 100 caplet 10Y-2Y.
-    // Performance note: vega: 8-Dec-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 250 ms for 100 caplet 10Y-2Y.
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performanceExtrapolation() {
-    long startTime, endTime;
-    final int nbTest = 100;
-    final double[] pv = new double[nbTest];
-    final PresentValueSABRSensitivityDataBundle[] pvss = new PresentValueSABRSensitivityDataBundle[nbTest];
-    final MultipleCurrencyMulticurveSensitivity[] pvcs = new MultipleCurrencyMulticurveSensitivity[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pv[looptest] = METHOD_CMS_SPREAD_EXTRAPOLATION.presentValue(CMS_CAP_SPREAD, SABR_MULTICURVES).getAmount(EUR).getAmount();
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS spread cap by SABR extrapolation replication (price): " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvcs[looptest] = METHOD_CMS_SPREAD_EXTRAPOLATION.presentValueCurveSensitivity(CMS_CAP_SPREAD, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS spread cap by SABR extrapolation replication (curve risk): " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvss[looptest] = METHOD_CMS_SPREAD_EXTRAPOLATION.presentValueSABRSensitivity(CMS_CAP_SPREAD, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " CMS spread cap by SABR extrapolation replication (sabr risk): " + (endTime - startTime) + " ms");
-    // Performance note: CMS spread binormal SABR extrapolation price: 13-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: xx ms for 100 caplet 10Y-2Y.
-    // Performance note: CMS spread binormal SABR extrapolation delta: 13-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: xx ms for 100 caplet 10Y-2Y.
-    // Performance note: CMS spread binormal SABR extrapolation vega: 13-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: xx ms for 100 caplet 10Y-2Y.
   }
 
 }
