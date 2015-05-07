@@ -51,7 +51,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
-import com.opengamma.strata.collect.tuple.Triple;
 
 /**
  * Test.
@@ -125,7 +124,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
   /**
    * Tests present value with respect to a hard-coded value. Tests against the explicit formula. Tests long/short parity and payer/receiver/swap parity.
    */
-  @Test
+
   public void testPresentValue() {
     // Swaption pricing.
     final MultiCurrencyAmount priceLongPayer = METHOD_SWPT_SABR.presentValue(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
@@ -155,7 +154,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
   /**
    * Test the absence of arbitrage between swaptions with same cash-flows but different conventions.
    */
-  @Test
+
   public void testPresentValueConventionArbitrage() {
     final double rate360 = 0.0360;
     final IndexSwap index360 = new IndexSwap(EUR1YEURIBOR6M.getFixedLegPeriod(), DayCounts.ACT_360, EURIBOR6M, ANNUITY_TENOR, CALENDAR);
@@ -172,7 +171,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValue", price360.getAmount(EUR).getAmount(), price365.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
+
   /**
    * Tests the method against the present value calculator.
    */
@@ -182,7 +181,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     assertEquals("SwaptionPhysicalFixedIborSABRMethod: present value : method and calculator", pvMethod, pvCalculator);
   }
 
-  @Test
+
   /**
    * Tests present value curve sensitivity when the valuation date is on trade date.
    */
@@ -192,7 +191,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborSABRMethod: presentValueCurveSensitivity ", pvpsExact, pvpsFD, TOLERANCE_PV_DELTA);
   }
 
-  @Test
+
   /**
    * Tests the method against the present value curve sensitivity calculator.
    */
@@ -202,7 +201,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     assertEquals("SwaptionPhysicalFixedIborSABRMethod: present value curve sensitivity: method and calculator", pvcsMethod, pvcsCalculator);
   }
 
-  @Test
+
   public void presentValueSABRSensitivity() {
     // Swaption sensitivity
     final PresentValueSABRSensitivityDataBundle pvsLongPayer = METHOD_SWPT_SABR.presentValueSABRSensitivity(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
@@ -240,7 +239,7 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     assertEquals("Nu sensitivity value", pvsLongPayer.getNu().getMap().get(expectedExpiryTenor), expectedNuSensi, 1.0E+0);
   }
 
-  @Test
+
   /**
    * Tests the present value SABR parameters sensitivity: Method vs Calculator.
    */
@@ -250,7 +249,6 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     assertEquals("Swaption Physical SABR: Present value SABR sensitivity: method vs calculator", pvssMethod, pvssCalculator);
   }
 
-  @Test(enabled = true)
   /**
    * Tests the present value of the Hull-White Monte-Carlo calibrated to SABR swaption.
    */
@@ -261,147 +259,4 @@ public class SwaptionPhysicalFixedIborSABRMethodTest {
     assertEquals("Swaption Physical SABR: Present value using Hull-White by Monte Carlo", pvSABR.getAmount(EUR).getAmount(), pvMC.getAmount(EUR).getAmount(), 2.5E+4);
   }
 
-  //  @Test(enabled = false)
-  //  /**
-  //   * Analyzes the smoothness of sensitivities.
-  //   */
-  //  public void analysisSensitivities() {
-  //    IborIndex USDLIBOR3M = IndexIborMaster.getInstance().getIndex("USDLIBOR3M", CALENDAR);
-  //    Period expiryTenor = Period.ofYears(5);
-  //    Period underlyingTenor = Period.ofYears(10);
-  //    ZonedDateTime expiryDate = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, expiryTenor, USDLIBOR3M);
-  //    ZonedDateTime settleDate = ScheduleCalculator.getAdjustedDate(expiryDate, USDLIBOR3M.getSpotLag(), CALENDAR);
-  //    GeneratorSwapFixedIbor USD6MLIBOR3M = GeneratorSwapFixedIborMaster.getInstance().getGenerator("USD6MLIBOR3M", CALENDAR);
-  //    double notional = 1000000; // 1m
-  //    double strikeRange = 0.1150;
-  //    double strikeStart = 0.0050;
-  //    int nbStrike = 50;
-  //    double[] strikes = new double[nbStrike + 1];
-  //    SwaptionPhysicalFixedIbor[] swaptions = new SwaptionPhysicalFixedIbor[nbStrike + 1];
-  //    double[] pv = new double[nbStrike + 1];
-  //    double[] pv01Dsc = new double[nbStrike + 1];
-  //    double[] pv01Fwd = new double[nbStrike + 1];
-  //    double[] alphaSensi = new double[nbStrike + 1];
-  //    double[] rhoSensi = new double[nbStrike + 1];
-  //    double[] nuSensi = new double[nbStrike + 1];
-  //    for (int loopstrike = 0; loopstrike <= nbStrike; loopstrike++) {
-  //      strikes[loopstrike] = strikeStart + loopstrike * strikeRange / nbStrike;
-  //      SwapFixedIborDefinition swapDefinition = SwapFixedIborDefinition.from(settleDate, underlyingTenor, USD6MLIBOR3M, notional, strikes[loopstrike], true);
-  //      SwaptionPhysicalFixedIborDefinition swaptionDefinition = SwaptionPhysicalFixedIborDefinition.from(expiryDate, swapDefinition, true);
-  //      swaptions[loopstrike] = swaptionDefinition.toDerivative(REFERENCE_DATE, CURVES_NAME);
-  //      pv[loopstrike] = METHOD_SWAT_SABR.presentValue(swaptions[loopstrike], SABR_BUNDLE).getAmount();
-  //      PresentValueSABRSensitivityDataBundle sabrSensi = METHOD_SWAT_SABR.presentValueSABRSensitivity(swaptions[loopstrike], SABR_BUNDLE);
-  //      Map<String, Double> pv01 = PV01C.visit(swaptions[loopstrike], SABR_BUNDLE);
-  //      alphaSensi[loopstrike] = sabrSensi.getAlpha().toSingleValue();
-  //      rhoSensi[loopstrike] = sabrSensi.getRho().toSingleValue();
-  //      nuSensi[loopstrike] = sabrSensi.getNu().toSingleValue();
-  //      pv01Dsc[loopstrike] = pv01.get(CURVES_NAME[0]);
-  //      pv01Fwd[loopstrike] = pv01.get(CURVES_NAME[1]);
-  //    }
-  //    @SuppressWarnings("unused")
-  //    double atm = PRDC.visit(swaptions[0].getUnderlyingSwap(), CURVES);
-  //  }
-
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  /**
-   * Test of performance. In normal testing, "enabled = false".
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 5000;
-    final MultiCurrencyAmount[] pv = new MultiCurrencyAmount[nbTest];
-    final MultipleCurrencyMulticurveSensitivity[] pvcs = new MultipleCurrencyMulticurveSensitivity[nbTest];
-    final PresentValueSABRSensitivityDataBundle[] pvss = new PresentValueSABRSensitivityDataBundle[nbTest];
-    Triple<MultiCurrencyAmount, MultipleCurrencyMulticurveSensitivity, PresentValueSABRSensitivityDataBundle> pvad;
-
-    // 1. Separately compute: Price, Curve Sensitivity and SABR Parameter Sensitivity
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pv[looptest] = METHOD_SWPT_SABR.presentValue(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
-      pvcs[looptest] = METHOD_SWPT_SABR.presentValueCurveSensitivity(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
-      pvss[looptest] = METHOD_SWPT_SABR.presentValueSABRSensitivity(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwaptionPhysicalFixedIborSABRMethodTest: " + nbTest + " physical swaptions SABR (price+delta+vega separately): " + (endTime - startTime) + " ms");
-    // Performance note: price+delta: 16-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 380 ms for 5000 swaptions.
-
-    // 2. Together compute: Price, Curve Sensitivity and SABR Parameter Sensitivity
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvad = METHOD_SWPT_SABR.presentValueAD(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwaptionPhysicalFixedIborSABRMethodTest: " + nbTest + " physical swaptions SABR (price+delta+vega together): " + (endTime - startTime) + " ms");
-    // Performance note: price: 16-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 210 ms for 5000 swaptions.
-
-    // 3. Compute only Present Value
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pv[looptest] = METHOD_SWPT_SABR.presentValue(SWAPTION_LONG_PAYER, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwaptionPhysicalFixedIborSABRMethodTest: " + nbTest + " physical swaptions SABR (price): " + (endTime - startTime) + " ms");
-    // Performance note: price: 16-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 75 ms for 5000 swaptions.
-
-    // 4. Compute present value using Hull-White Monte Carlo. Only for MC testing.
-    final int nbTest2 = 10;
-    final PresentValueSABRHullWhiteMonteCarloCalculator pvcSABRHWMC = PresentValueSABRHullWhiteMonteCarloCalculator.getInstance();
-    final MultiCurrencyAmount[] pvMC = new MultiCurrencyAmount[nbTest2];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest2; looptest++) {
-      pvMC[looptest] = SWAPTION_LONG_PAYER.accept(pvcSABRHWMC, SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("SwaptionPhysicalFixedIborSABRMethodTest: " + nbTest2 + " physical swaptions SABR + Hull-White Monte Carlo: " + (endTime - startTime) + " ms");
-    //     Performance note: price+delta+vega: 12-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 310 ms for 10 swaptions.
-
-    //    double sum = 0.0;
-    //    for (int looptest = 0; looptest < nbTest; looptest++) {
-    //      sum += pv[looptest];
-    //      sum += pvss[looptest].getAlpha().hashCode();
-    //    }
-  }
-
-  //  @Test(enabled = false)
-  //  /**
-  //   * Test of relative performance of constructor, toDerivative and pricing. In normal testing, "enabled = false".
-  //   */
-  //  public void constructorPerformance() {
-  //    final YieldCurveBundle curves = TestsDataSetsSABR.createCurves1();
-  //    final SABRInterestRateParameters sabrParameter = TestsDataSetsSABR.createSABR1();
-  //    final SABRInterestRateDataBundle sabrBundle = new SABRInterestRateDataBundle(sabrParameter, curves);
-  //    SwapFixedIborDefinition swap = SwapFixedIborDefinition.from(SETTLEMENT_DATE, CMS_INDEX, NOTIONAL, RATE, FIXED_IS_PAYER);
-  //    SwaptionPhysicalFixedIborDefinition swaptionDefinition = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, swap, IS_LONG);
-  //    SwaptionPhysicalFixedIbor swaption = swaptionDefinition.toDerivative(REFERENCE_DATE, CURVES_NAME);
-  //    long startTime, endTime;
-  //    final int nbTest = 1000;
-  //    startTime = System.currentTimeMillis();
-  //    for (int looptest = 0; looptest < nbTest; looptest++) {
-  //      swap = SwapFixedIborDefinition.from(SETTLEMENT_DATE, CMS_INDEX, NOTIONAL, RATE, FIXED_IS_PAYER);
-  //      swaptionDefinition = SwaptionPhysicalFixedIborDefinition.from(EXPIRY_DATE, swap, IS_LONG);
-  //    }
-  //    endTime = System.currentTimeMillis();
-  //    System.out.println(nbTest + " physical swaptions SABR (definition construction): " + (endTime - startTime) + " ms");
-  //    startTime = System.currentTimeMillis();
-  //    for (int looptest = 0; looptest < nbTest; looptest++) {
-  //      swaption = swaptionDefinition.toDerivative(REFERENCE_DATE, CURVES_NAME);
-  //    }
-  //    endTime = System.currentTimeMillis();
-  //    System.out.println(nbTest + " physical swaptions SABR (to derivatives): " + (endTime - startTime) + " ms");
-  //    startTime = System.currentTimeMillis();
-  //    for (int looptest = 0; looptest < nbTest; looptest++) {
-  //      PVDC.visit(swaption, sabrBundle);
-  //      PVCSC_SABR.visit(swaption, sabrBundle);
-  //      PVSSC_SABR.visit(swaption, sabrBundle);
-  //    }
-  //    endTime = System.currentTimeMillis();
-  //    System.out.println(nbTest + " physical swaptions SABR (pv+delta+SABR vega): " + (endTime - startTime) + " ms");
-  //    // Performance note: definition construction: 15-Jun-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 45 ms for 1000 swaptions.
-  //    // Performance note: to derivatives: 15-Jun-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 40 ms for 1000 swaptions.
-  //    // Performance note: pv: 15-Jun-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 45 ms for 1000 swaptions.
-  //    // Performance note: pv+delta: 15-Jun-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 130 ms for 1000 swaptions.
-  //    // Performance note: pv+delta+SABR vega: 15-Jun-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 175 ms for 1000 swaptions.
-  //  }
 }
