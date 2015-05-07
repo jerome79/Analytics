@@ -19,7 +19,6 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.optim.PointValuePair;
-import org.apache.poi.ss.formula.eval.NotImplementedException;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.DoubleFunction1D;
@@ -191,7 +190,7 @@ public final class CommonsMathWrapper {
 
       @Override
       public DerivativeStructure value(DerivativeStructure t) throws DimensionMismatchException {
-        throw new NotImplementedException("Not implemented yet");
+        throw new IllegalArgumentException("Not implemented yet");
       }
     };
   }
