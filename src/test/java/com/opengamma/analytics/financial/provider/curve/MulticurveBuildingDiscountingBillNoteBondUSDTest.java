@@ -149,8 +149,8 @@ public class MulticurveBuildingDiscountingBillNoteBondUSDTest {
   }
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_USD_WITH_TODAY };
@@ -176,15 +176,15 @@ public class MulticurveBuildingDiscountingBillNoteBondUSDTest {
   }
 
   /** Market values for the govt USD bill curve */
-  private static final double[] GOVTUS_USD_MARKET_QUOTES = 
+  private static final double[] GOVTUS_USD_MARKET_QUOTES =
       new double[] {0.0010, 0.0015, 0.0020, 0.0015, 0.99642, 0.9981, 0.99587, 0.99466, 0.99496, 0.98489 };
   /** Generators for the govt USD curve */
   private static final int NB_ON_GOVT = 1;
   private static final int NB_BILL_GOVT = 3;
-  private static final GeneratorInstrument<? extends GeneratorAttribute>[] GOVTUS_USD_GENERATORS = 
-      new GeneratorInstrument<?>[] {GENERATOR_DEPOSIT_ON_USGOVT, 
-    GENERATOR_BILL[0], GENERATOR_BILL[1], GENERATOR_BILL[2], 
-    GENERATOR_BOND[0], GENERATOR_BOND[1], GENERATOR_BOND[2], GENERATOR_BOND[3], GENERATOR_BOND[4], GENERATOR_BOND[5] };
+  private static final GeneratorInstrument<? extends GeneratorAttribute>[] GOVTUS_USD_GENERATORS =
+      new GeneratorInstrument<?>[] {GENERATOR_DEPOSIT_ON_USGOVT,
+        GENERATOR_BILL[0], GENERATOR_BILL[1], GENERATOR_BILL[2],
+        GENERATOR_BOND[0], GENERATOR_BOND[1], GENERATOR_BOND[2], GENERATOR_BOND[3], GENERATOR_BOND[4], GENERATOR_BOND[5] };
   /** Tenors for the govt USD curve */
   private static final Period[] GOVTUS_USD_TENOR = new Period[] {Period.ofDays(0) };
   private static final GeneratorAttribute[] GOVTUS_USD_ATTR = new GeneratorAttribute[GOVTUS_USD_GENERATORS.length];
@@ -266,26 +266,10 @@ public class MulticurveBuildingDiscountingBillNoteBondUSDTest {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionCode(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
     }
-  }
-
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQIC, PSMQCSIC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 2 units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 2 units: 16-Aygust-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 270 (no Jac)/951 ms for 100 sets.
-
   }
 
   private void curveConstructionCode(final InstrumentDefinition<?>[][][] definitions, final IssuerProviderDiscount curves, final boolean withToday, final int block) {

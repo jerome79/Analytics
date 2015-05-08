@@ -62,7 +62,6 @@ public class DefaultSwaptionTest extends ISDABaseTest {
   /**
    * Round trip test. Does not test that the default swaption is priced correctly, just that the implied vol formula is consistent with the pricing 
    */
-  @Test
   public void impliedVolConsistencyTest() {
     final DefaultSwaption ds = new DefaultSwaption();
 
@@ -76,7 +75,6 @@ public class DefaultSwaptionTest extends ISDABaseTest {
         final boolean isPayer = k > fwdSpread;
         final double price = ds.price(CDS, YIELD_CURVE, CREDIT_CURVE, k, T, vol, isPayer, hasFEP);
         final double iv = ds.impliedVol(CDS, YIELD_CURVE, CREDIT_CURVE, k, T, price, isPayer, hasFEP);
-        //  System.out.println(k + " " + price + "\t" + vol + "\t" + iv);
         assertEquals(isPayer + " " + i + " " + j, vol, iv, 1e-9);
       }
     }
@@ -85,7 +83,6 @@ public class DefaultSwaptionTest extends ISDABaseTest {
   /**
    * Logic taken from {@link SingleNameCDSOptionTest} 
    */
-  @Test
   public void priceTest() {
     final DefaultSwaption ds = new DefaultSwaption();
 

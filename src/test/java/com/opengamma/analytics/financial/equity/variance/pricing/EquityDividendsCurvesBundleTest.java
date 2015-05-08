@@ -29,15 +29,6 @@ public class EquityDividendsCurvesBundleTest {
   private static final AffineDividends DIVIDENDS = new AffineDividends(TAU, ALPHA, BETA);
   private static final EquityDividendsCurvesBundle DIV_CURVES = new EquityDividendsCurvesBundle(SPOT, DISCOUNT_CURVE, DIVIDENDS);
 
-  @Test(enabled = false)
-  public void printCurves() {
-    for (int i = 0; i < 101; i++) {
-      double t = 3.0 * i / 100.;
-      System.out.println(t + "\t" + DIV_CURVES.getF(t) + "\t" + DIV_CURVES.getR(t) + "\t" + DIV_CURVES.getD(t));
-    }
-  }
-
-  @Test
   public void fowardDropTest() {
     final double eps = 1e-15;
     final int n = TAU.length;

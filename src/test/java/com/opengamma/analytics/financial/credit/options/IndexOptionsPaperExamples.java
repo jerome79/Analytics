@@ -46,6 +46,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 /**
  * These 'tests' produce the data for the figures in the paper "Forward CDS, Indices and Options"
  */
+@Test(enabled = false)
 public class IndexOptionsPaperExamples extends ISDABaseTest {
   private static final MarketQuoteConverter CONVERTER = new MarketQuoteConverter();
   private static final CDSAnalyticFactory FACTORY = new CDSAnalyticFactory();
@@ -64,7 +65,6 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
   private static final CDSAnalytic CDS_5Y;
   private static final CDSAnalytic CDS_7Y;
   private static final CDSAnalytic CDS_10Y;
-  //  private static final CDSAnalytic CDS_1M_5Y; //forward starting CDS 1M into 5Y
 
   private static final PortfolioSwapAdjustment PSA = new PortfolioSwapAdjustment();
   private static final CDSIndexCalculator INDEX_CAL = new CDSIndexCalculator();
@@ -285,8 +285,6 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
    */
   @Test(enabled = false)
   public void blackTest() {
-    final DefaultSwaption ds = new DefaultSwaption();
-
     //this is repeated from above 
     final double indexPrice = 0.021;
     //start by adjusting the curves 
@@ -295,7 +293,7 @@ public class IndexOptionsPaperExamples extends ISDABaseTest {
     final CDSAnalytic[] pillarCDS = new CDSAnalytic[] {CDS_6M, CDS_1Y, CDS_3Y, CDS_5Y, CDS_7Y };
     final ISDACompliantCreditCurve indexCreditCurve = INDEX_CAL.impliedIndexCurve(pillarCDS, INDEX_COUPON, YIELD_CURVE, adjCurves);
     final double price = PRICER.pv(CDS_5Y, YIELD_CURVE, indexCreditCurve, INDEX_COUPON);
-    //System.out.println(price);
+
     assertEquals(indexPrice, price, 1e-16);
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1);

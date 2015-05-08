@@ -34,6 +34,7 @@ import com.opengamma.analytics.math.differentiation.FiniteDifferenceType;
 /**
  * 
  */
+@Test
 public class CDXNAHYTest extends ISDABaseTest {
   private static final double NOTIONAL = 1e8;
 
@@ -42,7 +43,6 @@ public class CDXNAHYTest extends ISDABaseTest {
   private static final LocalDate EXPIRY = LocalDate.of(2014, 3, 19);
   private static final LocalDate EXERCISE_SETTLE = LocalDate.of(2014, 3, 24);
   private static final LocalDate MATURITY = LocalDate.of(2018, 12, 20);
-  private static final double PRICE = 107.62 * ONE_PC;
 
   private static final double INDEX_COUPON = CDSIndexPrvider.CDX_NA_HY_21_COUPON;
   private static final double INDEX_RECOVERY = CDSIndexPrvider.CDX_NA_HY_21_RECOVERY_RATE;
@@ -88,7 +88,6 @@ public class CDXNAHYTest extends ISDABaseTest {
   /**
    * This computes the (default adjusted) forward spread and index value using a pseudo index credit curve and adjusted intrinsic curves 
    */
-  @Test
   public void forwardValueTest() {
     final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
     final double tES = ACT365F.yearFraction(TRADE_DATE, EXERCISE_SETTLE);
@@ -147,7 +146,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     assertEquals("Regression test for adjusted intrinic ATM Fwd spread", expFwdSpread3, fwdSpreadAdj, 1e-15);
   }
 
-  @Test
   void forwardValueWithAccrualTest() {
     final LocalDate expiry = LocalDate.of(2014, 3, 18);
     final CDSAnalytic fwdStartCDS = FACTORY.makeForwardStartingCDS(TRADE_DATE, expiry, MATURITY);
@@ -167,7 +165,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     assertEquals(fwdIndexVal, fwdIndexVal2, NOTIONAL * 1e-15);
   }
 
-  @Test
   void optionPriceTest() {
     final double expFwdVal = -0.07149840399010934;
     final double[] expPayer = new double[] {1166.48464873934, 7845.0135391454, 40556.7856883846, 158851.690745577, 536239.999079741, 1058884.2933964, 1896630.82108264, 2859437.33558545,
@@ -222,7 +219,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void cs01FlatTest() {
     final double[] expCS01 = new double[] {138.946475346697, 781.47013737074, 3269.03852433866, 9939.58490066654, 23642.6842859673, 34507.4999277713, 42497.1607278321, 45100.0176303277,
       45494.3878513171 };
@@ -245,7 +241,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void cs01Test() {
     final double[] expCS01 = new double[] {139.045084643814, 781.921221873803, 3270.49124500207, 9942.71206365506, 23646.9093111734, 34510.8082974714, 42498.5229611971, 45100.2751552152,
       45494.4025851437 };
@@ -265,7 +260,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void cs01FullTest() {
     final double[] expCS01 = new double[] {138.863619033975, 781.087728296301, 3267.78959129945, 9936.82959737445, 23638.7271990648, 34504.0347198934, 42495.0858808288, 45098.7764730417,
       45493.3340286387 };
@@ -294,7 +288,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void deltaTest() {
     final double[] expDelta = new double[] {0.00289580626005673, 0.0164481880047495, 0.0694879134935995, 0.213319724045625, 0.512531360909954, 0.752647383327198, 0.931288304651875, 0.990256794878088,
       0.999316059617505 };
@@ -326,7 +319,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void deltaPrintTest() {
     if (PRINT) {
 
@@ -353,7 +345,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void deltaByCS01Test() {
     final double[] expDelta = new double[] {0.00305222696988043, 0.0171664968361922, 0.0718107280135607, 0.218342127985126, 0.519357100911974, 0.7580237043069, 0.933531993475759, 0.99070875896559,
       0.999371860506079 };
@@ -406,7 +397,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void gammaByCS01Test() {
     if (PRINT) {
       final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
@@ -425,7 +415,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void gammaPrintTest() {
     if (PRINT) {
       final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
@@ -456,7 +445,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void vegaTest() {
     final double[] expVega = new double[] {396.574716989006, 1834.09584242344, 5974.56411533317, 13015.7901309657, 17842.7602031284, 14136.901958007, 5915.92153748407, 1154.027149417,
       89.7029953619661 };
@@ -507,7 +495,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void thetaTest() {
     final double[] expTheta = new double[] {-166.324597258476, -787.075048874065, -2610.1855614945, -5754.7887100487, -7928.53905375824, -6259.3422579046, -2580.19372964511, -480.551350985972,
       -20.0888668935861 };
@@ -535,7 +522,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void thetaWithoutDefaultTest() {
     final double[] expTheta = new double[] {-171.779302723284, -819.593563605345, -2752.95177577143, -6205.34070023028, -9030.51153313318, -7885.03115126178, -4590.44271716863, -2613.77608014867,
       -2171.22546743581 };
@@ -551,8 +537,6 @@ public class CDXNAHYTest extends ISDABaseTest {
       indexPUF[i] = PILLAR_PUF[i].getPointsUpFront();
     }
     final IntrinsicIndexDataBundle adjCurves = PSA.adjustCurves(indexPUF, PILLAR_CDX, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
-    final double atmFwd = INDEX_CAL.defaultAdjustedForwardIndexValue(FWD_START_CDX, tE, YIELD_CURVE, INDEX_COUPON, adjCurves);
-    //System.out.println("ATM FWD\t" + atmFwd);
 
     final double vol = 0.3;
     for (int i = 0; i < STRIKES.length; i++) {
@@ -566,7 +550,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void irDV01Test() {
     final double[] expIR01 = new double[] {1.53050161177664, 12.0242139330876, 65.5557026436111, 247.553870009976, 716.909943688972, 1166.39438932867, 1553.4092320784, 1696.56799845659,
       1713.3387819529 };
@@ -592,7 +575,6 @@ public class CDXNAHYTest extends ISDABaseTest {
 
   }
 
-  @Test
   public void irDV01FullTest() {
     final double[] expIR01 = new double[] {1.52646334094705, 12.0006324213253, 65.4562450567238, 247.258505507242, 716.252880789743, 1165.50127736789, 1552.39497727707, 1695.54046945928,
       1712.31479267827 };
@@ -622,7 +604,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void defaultSenseTest() {
     if (PRINT) {
       final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
@@ -672,7 +653,6 @@ public class CDXNAHYTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void defaultSense2Test() {
     if (PRINT) {
       final double tE = ACT365F.yearFraction(TRADE_DATE, EXPIRY);
