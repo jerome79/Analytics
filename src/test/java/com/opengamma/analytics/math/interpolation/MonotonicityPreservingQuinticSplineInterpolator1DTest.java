@@ -30,7 +30,6 @@ public class MonotonicityPreservingQuinticSplineInterpolator1DTest {
   /**
    * Recovery test on polynomial, rational, exponential functions, and node sensitivity test by finite difference method
    */
-  @Test
   public void sampleFunctionTest() {
     final int nData = 10;
     final double[] xValues = new double[nData];
@@ -76,7 +75,6 @@ public class MonotonicityPreservingQuinticSplineInterpolator1DTest {
       yValues5Up[i] = yValues5[i];
       yValues5Dw[i] = yValues5[i];
     }
-    //    System.out.println(new DoubleMatrix1D(xValues));
 
     final double xMin = xValues[0];
     final double xMax = xValues[nData - 1];
@@ -165,7 +163,6 @@ public class MonotonicityPreservingQuinticSplineInterpolator1DTest {
   /**
    * Primary interpolation with Clamped endpoint condition
    */
-  @Test
   public void clampedTest() {
     final int nData = 10;
     final double[] xValues = new double[nData];
@@ -314,7 +311,6 @@ public class MonotonicityPreservingQuinticSplineInterpolator1DTest {
   /**
    * Data contain zero yValues
    */
-  @Test
   public void zeroValuetest() {
     final int nData = 10;
     final double[] xValues = new double[nData];
@@ -406,7 +402,6 @@ public class MonotonicityPreservingQuinticSplineInterpolator1DTest {
   /**
    * Data are monotone
    */
-  @Test
   public void MonotoneTest() {
     final int nData = 10;
     final double[] xValues = new double[nData];

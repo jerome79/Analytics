@@ -52,7 +52,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in GBP.
  * Those examples can be used for tutorials. 
  */
-@Test
+@Test(enabled=false)
 public class SwapRiskAnalysisJuly16Gbp {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
@@ -149,7 +149,7 @@ public class SwapRiskAnalysisJuly16Gbp {
   //  private static final double TOLERANCE_PV_2 = 1.0E+4;
   private static final double BP1 = 1.0E-4;
 
-  @Test
+  @Test(enabled=false)
   public void compareCurves() {
     final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> stdCurveAndBundle =
         GbpDatasetJuly16.getStandardCurve(VALUATION_DATE);

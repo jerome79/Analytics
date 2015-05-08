@@ -24,7 +24,6 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
   /**
    * 
    */
-  @Test
   public void sameIntervalsTest() {
 
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6., 7., 8. };
@@ -105,7 +104,6 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
   /**
    * 
    */
-  @Test
   public void differentIntervalsTest() {
     final double[] xValues = new double[] {1.0328724558967068, 1.2692381049172323, 2.8611430465380905, 4.296118458251132, 7.011992052151352, 7.293354144919639, 8.557971037612713, 8.77306861567384,
         10.572470371584489, 12.96945799507056 };
@@ -142,8 +140,6 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
         final double res1 = combined1.interpolate(bundle1, xKeys[i]);
         final double res2 = combined2.interpolate(bundle2, xKeys[i]);
         assertEquals(res1, res2);
-
-        //        System.out.println(xKeys[i] + "\t" + res1);
       }
 
       final Interpolator1DDataBundle bundleInterp = interp.getDataBundle(xValues, yValues[k]);

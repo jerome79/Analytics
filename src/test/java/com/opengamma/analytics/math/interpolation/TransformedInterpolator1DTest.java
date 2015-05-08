@@ -41,7 +41,6 @@ public class TransformedInterpolator1DTest {
     TRANS_DATA_BUNDLE = INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, YSTAR_DATA);
   }
 
-  @Test
   public void testCorrectAtNodes() {
     final int n = Y_DATA.length;
     for (int i = 0; i < n; i++) {
@@ -50,7 +49,6 @@ public class TransformedInterpolator1DTest {
     }
   }
 
-  @Test
   public void testInRange() {
     for (int i = 0; i < 200; i++) {
       double x = 5.0 * i / 199.0;
@@ -59,7 +57,6 @@ public class TransformedInterpolator1DTest {
     }
   }
 
-  @Test
   public void testSensitivity() {
     for (int i = 0; i < 20; i++) {
       double x = 5.0 * i / 19.0;
@@ -70,16 +67,6 @@ public class TransformedInterpolator1DTest {
       }
     }
 
-  }
-
-  @Test(enabled = false)
-  public void test() {
-    System.out.println("TransformedInterpolator1DTest");
-    for (int i = 0; i < 200; i++) {
-      double x = 5.0 * i / 199.0;
-      System.out.println(x + "\t" + INTERPOLATOR_BASE.interpolate(DATA_BUNDLE, x) + "\t" + INTERPOLATOR.interpolate(TRANS_DATA_BUNDLE, x)+
-          "\t"+INTERPOLATOR.interpolate(DATA_BUNDLE, x));
-    }
   }
 
 }

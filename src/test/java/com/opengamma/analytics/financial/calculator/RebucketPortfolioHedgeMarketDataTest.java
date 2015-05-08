@@ -44,7 +44,6 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
@@ -57,6 +56,7 @@ import com.opengamma.strata.collect.tuple.Pair;
 /**
  * 
  */
+@Test
 public class RebucketPortfolioHedgeMarketDataTest {
 
   private static final IndexIborMaster MASTER_IBOR_INDEX = IndexIborMaster.getInstance();
@@ -403,7 +403,6 @@ public class RebucketPortfolioHedgeMarketDataTest {
   /**
    * 
    */
-  @Test
   public void FRATest() {
     HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
     //    FRA 1x4 2x5 3x6 4x7 5x8
@@ -440,32 +439,18 @@ public class RebucketPortfolioHedgeMarketDataTest {
     MultipleCurrencyParameterSensitivity sum = pvpsDepositExact[0].plus(pvpsDepositExact[1]).plus(pvpsDepositExact[2]).plus(pvpsDepositExact[3]).plus(pvpsDepositExact[4]);
     double[] objectiveNodes = new double[] {2, 5, 10, 30 };
     DoubleMatrix2D matrix = matrixCalc.projectCurveNodes(ALL_CURVES, order, objectiveNodes);
-    //    DoubleMatrix2D matrixSmall = matrixCalc.projectCurvesAndNodes(ALL_CURVES, order, objectiveNodes); //Summing up for each maturity over all the curves
-    double[] res = PortfolioHedgingCalculator.hedgeQuantity(sum, pvpsDepositExact, matrix, order, FX_MATRIX);
+     double[] res = PortfolioHedgingCalculator.hedgeQuantity(sum, pvpsDepositExact, matrix, order, FX_MATRIX);
     /*
      * Consistency check
      */
     for (int i = 0; i < res.length; ++i) {
       assertEquals(-1.0, res[i], 5.0e-2);
     }
-
-    /*
-     * Print test  
-     */
-    boolean printTest = false;
-    if (printTest) {
-      double[] res1 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExact[2], new MultipleCurrencyParameterSensitivity[] {pvpsDepositExact[0], pvpsDepositExact[1], pvpsDepositExact[3],
-          pvpsDepositExact[4] }, matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res1));
-      double[] res2 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExact[2], new MultipleCurrencyParameterSensitivity[] {pvpsDepositExact[1], pvpsDepositExact[3] }, matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res2));
-    }
   }
 
   /**
    * 
    */
-  @Test
   public void SwapTest() {
     HolidayCalendar cldr = HolidayCalendars.SAT_SUN;
     IborIndex index = INDEX_9;
@@ -508,24 +493,11 @@ public class RebucketPortfolioHedgeMarketDataTest {
     for (int i = 0; i < res.length; ++i) {
       assertEquals(-1.0, res[i], 1.0e-8);
     }
-
-    /*
-     * Print test
-     */
-    boolean printTest = false;
-    if (printTest) {
-      double[] res1 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExact[3], new MultipleCurrencyParameterSensitivity[] {pvpsDepositExact[0], pvpsDepositExact[1], pvpsDepositExact[2] },
-          matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res1));
-      double[] res2 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExact[1], new MultipleCurrencyParameterSensitivity[] {pvpsDepositExact[0], pvpsDepositExact[2] }, matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res2));
-    }
   }
 
   /**
    * 
    */
-  @Test
   public void OISTest() {
     HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     GeneratorSwapFixedON swapEonia = new GeneratorSwapFixedON("EUR1YEONIA", INDEX_8, Period.ofMonths(12), INDEX_8.getDayCount(), BusinessDayConventions.MODIFIED_FOLLOWING, true, 2,
@@ -562,24 +534,11 @@ public class RebucketPortfolioHedgeMarketDataTest {
     for (int i = 0; i < res.length; ++i) {
       assertEquals(-1.0, res[i], 1.0e-3);
     }
-
-    /*
-     * Print test
-     */
-    boolean printTest = false;
-    if (printTest) {
-      double[] res1 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExact[1], new MultipleCurrencyParameterSensitivity[] {pvpsDepositExact[0], pvpsDepositExact[2], pvpsDepositExact[3] },
-          matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res1));
-      double[] res2 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExact[2], new MultipleCurrencyParameterSensitivity[] {pvpsDepositExact[1], pvpsDepositExact[3] }, matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res2));
-    }
   }
 
   /**
    * 
    */
-  @Test
   public void MixedTest() {
     double notinal = 1000000; //1m
     HolidayCalendar CALENDAR_GBP = HolidayCalendars.SAT_SUN;
@@ -649,17 +608,6 @@ public class RebucketPortfolioHedgeMarketDataTest {
      */
     for (int i = 0; i < res.length; ++i) {
       assertEquals(-0.5, res[i], 1.0e-2);
-    }
-
-    /*
-     * Print test
-     */
-    boolean printTest = false;
-    if (printTest) {
-      double[] res1 = PortfolioHedgingCalculator.hedgeQuantity(pvpsDepositExactFRAs[1].plus(pvpsDepositExactSwaps[1]), new MultipleCurrencyParameterSensitivity[] {pvpsDepositExactFRAs[0],
-          pvpsDepositExactFRAs[2], pvpsDepositExactSwaps[0], pvpsDepositExactSwaps[2] },
-          matrix, order, FX_MATRIX);
-      System.out.println(new DoubleMatrix1D(res1));
     }
   }
 }

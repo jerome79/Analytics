@@ -25,14 +25,10 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in USD.
  * Those examples can be used for tutorials. 
  */
-@Test
+@Test(enabled=false)
 public class SwapRiskAnalysisAug21Usd {
-
-
-  public SwapRiskAnalysisAug21Usd() {
-  }
   
-  @Test
+  @Test(enabled=false)
   public void FraCurveCalibration() {
     ZonedDateTime evalDate = DateUtils.getUTCDate(2014, 8, 21);
     Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> curveBundle = 

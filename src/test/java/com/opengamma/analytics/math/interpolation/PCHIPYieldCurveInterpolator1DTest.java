@@ -37,18 +37,6 @@ public class PCHIPYieldCurveInterpolator1DTest {
     }
   }
 
-  @Test(enabled=false)
-  public void printTest() {
-    System.out.println("PCHIPYieldCurveInterpolator1DTest");
-    final int nSamples = 201;
-    for (int i = 0; i < nSamples; i++) {
-      final double t = 30.0 * i / ((nSamples - 1));
-      final double r = INTERPOLATOR.interpolate(DATA, t);
-      System.out.println(t + "\t" + r);
-    }
-  }
-
-  @Test
   public void test() {
     final int n = T.length;
     for(int i=1;i<n;i++) { //cannot recover the t=0 value

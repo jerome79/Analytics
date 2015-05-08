@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 
-
 /**
  * Test.
  */
@@ -25,7 +24,6 @@ public class SemiLocalCubicSplineInterpolatorTest {
   /**
    * Recovering linear test
    */
-  @Test
   public void linearTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final int nData = xValues.length;
@@ -35,7 +33,7 @@ public class SemiLocalCubicSplineInterpolatorTest {
     }
 
     final double[][] coefsMatExp = new double[][] { {0., 0., 1. / 7., yValues[0] }, {0., 0., 1. / 7., yValues[1] }, {0., 0., 1. / 7., yValues[2] }, {0., 0., 1. / 7., yValues[3] },
-        {0., 0., 1. / 7., yValues[4] } };
+      {0., 0., 1. / 7., yValues[4] } };
 
     PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
 
@@ -58,14 +56,12 @@ public class SemiLocalCubicSplineInterpolatorTest {
       final double key = 1. + 5. / (nKeys - 1) * i;
       final double ref = key / 7. + 1 / 11.;
       assertEquals(function.evaluate(result, key).getData()[0], ref, ref * EPS);
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(result, key).getData()[0]);
     }
   }
 
   /**
    * Recovering quadratic function
    */
-  @Test
   public void quadraticTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final int nData = xValues.length;
@@ -75,9 +71,9 @@ public class SemiLocalCubicSplineInterpolatorTest {
     }
 
     final double[][] coefsMatExp = new double[][] { {0., 1. / 7., 2. / 7. * xValues[0] + 1. / 13., yValues[0] }, {0., 1. / 7., 2. / 7. * xValues[1] + 1. / 13., yValues[1] },
-        {0., 1. / 7., 2. / 7. * xValues[2] + 1. / 13., yValues[2] },
-        {0., 1. / 7., 2. / 7. * xValues[3] + 1. / 13., yValues[3] },
-        {0., 1. / 7., 2. / 7. * xValues[4] + 1. / 13., yValues[4] } };
+      {0., 1. / 7., 2. / 7. * xValues[2] + 1. / 13., yValues[2] },
+      {0., 1. / 7., 2. / 7. * xValues[3] + 1. / 13., yValues[3] },
+      {0., 1. / 7., 2. / 7. * xValues[4] + 1. / 13., yValues[4] } };
 
     PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
 
@@ -100,14 +96,13 @@ public class SemiLocalCubicSplineInterpolatorTest {
       final double key = 1. + 5. / (nKeys - 1) * i;
       final double ref = key * key / 7. + key / 13. + 1 / 11.;
       assertEquals(function.evaluate(result, key).getData()[0], ref, ref * EPS);
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(result, key).getData()[0]);
+
     }
   }
 
   /**
    * 
    */
-  @Test
   public void quadraticMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final int nData = xValues.length;
@@ -120,10 +115,10 @@ public class SemiLocalCubicSplineInterpolatorTest {
     }
 
     final double[][] coefsMatExp = new double[][] { {0., 1. / 7., 2. / 7. * xValues[0] + 1. / 13., yValues[0][0] }, {0., 1. / 3., 2. / 3. * xValues[0] + 1. / 7., yValues[1][0] },
-        {0., 1. / 7., 2. / 7. * xValues[1] + 1. / 13., yValues[0][1] }, {0., 1. / 3., 2. / 3. * xValues[1] + 1. / 7., yValues[1][1] },
-        {0., 1. / 7., 2. / 7. * xValues[2] + 1. / 13., yValues[0][2] }, {0., 1. / 3., 2. / 3. * xValues[2] + 1. / 7., yValues[1][2] },
-        {0., 1. / 7., 2. / 7. * xValues[3] + 1. / 13., yValues[0][3] }, {0., 1. / 3., 2. / 3. * xValues[3] + 1. / 7., yValues[1][3] },
-        {0., 1. / 7., 2. / 7. * xValues[4] + 1. / 13., yValues[0][4] }, {0., 1. / 3., 2. / 3. * xValues[4] + 1. / 7., yValues[1][4] } };
+      {0., 1. / 7., 2. / 7. * xValues[1] + 1. / 13., yValues[0][1] }, {0., 1. / 3., 2. / 3. * xValues[1] + 1. / 7., yValues[1][1] },
+      {0., 1. / 7., 2. / 7. * xValues[2] + 1. / 13., yValues[0][2] }, {0., 1. / 3., 2. / 3. * xValues[2] + 1. / 7., yValues[1][2] },
+      {0., 1. / 7., 2. / 7. * xValues[3] + 1. / 13., yValues[0][3] }, {0., 1. / 3., 2. / 3. * xValues[3] + 1. / 7., yValues[1][3] },
+      {0., 1. / 7., 2. / 7. * xValues[4] + 1. / 13., yValues[0][4] }, {0., 1. / 3., 2. / 3. * xValues[4] + 1. / 7., yValues[1][4] } };
 
     PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
 
@@ -146,14 +141,13 @@ public class SemiLocalCubicSplineInterpolatorTest {
       final double key = 1. + 5. / (nKeys - 1) * i;
       final double ref = key * key / 7. + key / 13. + 1 / 11.;
       assertEquals(function.evaluate(result, key).getData()[0], ref, ref * EPS);
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(result, key).getData()[0]);
+
     }
   }
 
   /**
    * Sample data given in the original paper, consisting of constant part and monotonically increasing part
    */
-  @Test
   public void sampleDataTest() {
     final double[] xValues = new double[] {0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10. };
     final double[] yValues = new double[] {10., 10., 10., 10., 10., 10., 10.5, 15., 50., 60., 85. };
@@ -417,64 +411,6 @@ public class SemiLocalCubicSplineInterpolatorTest {
     interpPos.interpolate(xValues, yValues);
   }
 
-  /*
-   * Tests below are for debugging
-   */
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void print3Test() {
-    final double[] xValues = new double[] {0.1, 1., 4., 9., 20., 30. };
-    final double[][] yValues = new double[][] {{8.1, 7., 4.4, 7., 4., 3. } };
-
-    PiecewisePolynomialInterpolator interp = new CubicSplineInterpolator();
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-    PiecewisePolynomialInterpolator interpPos = new SemiLocalCubicSplineInterpolator();
-    PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-    System.out.println(resultPos.getCoefMatrix());
-
-    final int nKeys = 101;
-    for (int i = 0; i < nKeys; ++i) {
-      final double key = +30. / (nKeys - 1) * i;
-      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-    }
-
-  }
-
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void print4Test() {
-    //    final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
-    //    final double[] yValues = new double[] {3. * 1, 3. * 8., 3. * 27., 3. * 64., 3. * 125., 3. * 216. };
-
-    final double[] xValues = new double[] {1., 2. };
-    final double[] yValues = new double[] {3. * 1, 3. * 8. };
-
-    PiecewisePolynomialInterpolator interp = new CubicSplineInterpolator();
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
-
-    PiecewisePolynomialInterpolator interpPos = new SemiLocalCubicSplineInterpolator();
-    PiecewisePolynomialResult resultPos = interpPos.interpolate(xValues, yValues);
-    System.out.println(resultPos.getCoefMatrix());
-
-    final int nKeys = 101;
-    for (int i = 0; i < nKeys; ++i) {
-      final double key = 1. + 5. / (nKeys - 1) * i;
-      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(resultPos, key).getData()[0]);
-    }
-
-  }
-
   /**
    * 
    */
@@ -482,7 +418,6 @@ public class SemiLocalCubicSplineInterpolatorTest {
   public void notReconnectedTest() {
     double[] xValues = new double[] {1., 2.0000000001, 2., 4. };
     double[] yValues = new double[] {2., 400., 3., 500000000. };
-
     PiecewisePolynomialInterpolator interpPos = new SemiLocalCubicSplineInterpolator();
     interpPos.interpolate(xValues, yValues);
   }
@@ -494,7 +429,6 @@ public class SemiLocalCubicSplineInterpolatorTest {
   public void notReconnectedMultiTest() {
     double[] xValues = new double[] {1., 2., 4., 2.0000000001 };
     double[][] yValues = new double[][] {{2., 3., 500000000., 400. } };
-
     PiecewisePolynomialInterpolator interpPos = new SemiLocalCubicSplineInterpolator();
     interpPos.interpolate(xValues, yValues);
   }

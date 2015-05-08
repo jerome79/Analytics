@@ -15,6 +15,7 @@ import java.util.List;
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
+
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -34,6 +35,7 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * Test.
  */
+@SuppressWarnings("deprecation")
 @Test
 public class GeneralizedLeastSquareTest {
   private static boolean PRINT = false;
@@ -41,7 +43,6 @@ public class GeneralizedLeastSquareTest {
   protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
   private static final NormalDistribution NORMAL = new NormalDistribution(0, 1.0, RANDOM);
   private static final double[] WEIGHTS = new double[] {1.0, -0.5, 2.0, 0.23, 1.45 };
-  // private static final double[] WEIGHTS = new double[] {1.0, 1.0, 0.0, 0.0, 0};
   private static final Double[] X;
   private static final double[] Y;
   private static final double[] SIGMA;
@@ -133,38 +134,8 @@ public class GeneralizedLeastSquareTest {
     BASIS_FUNCTIONS = generator.generateSet(0.0, 2.0, 20, 3);
     BASIS_FUNCTIONS_2D = generator.generateSet(new double[] {0.0, 0.0 }, new double[] {10.0, 10.0 }, new int[] {10, 10 }, new int[] {3, 3 });
 
-    // for (int i = 0; i < 101; i++) {
-    // double xx = 0 + 2.0 * i / 100.0;
-    // System.out.println(xx + "\t" + TEST_FUNCTION.evaluate(xx));
-    // }
-
-    // double[] x = new double[2];
-    // for (int i = 0; i < 101; i++) {
-    // x[0] = 0 + i * 10.0 / 100.0;
-    // System.out.print("\t" + x[0]);
-    // }
-    // System.out.print("\n");
-    // for (int i = 0; i < 101; i++) {
-    // x[0] = -0. + i * 10 / 100.0;
-    // System.out.print(x[0]);
-    // for (int j = 0; j < 101; j++) {
-    // x[1] = -0.0 + j * 10.0 / 100.0;
-    // double y = COS_EXP_FUNCTION.evaluate(x);
-    // System.out.print("\t" + y);
-    // }
-    // System.out.print("\n");
-    // }
-
   }
 
-  @Test
-  public void printTest() {
-    if (PRINT) {
-      System.out.println("GeneralizedLeastSquareTest: true PRINT to false");
-    }
-  }
-
-  @Test
   public void testPerfectFit() {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
     final LeastSquareResults results = gls.solve(X, Y, SIGMA, SIN_FUNCTIONS);
@@ -175,7 +146,6 @@ public class GeneralizedLeastSquareTest {
     }
   }
 
-  @Test
   public void testPerfectFitVector() {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
     final LeastSquareResults results = gls.solve(X_TRIG, Y_TRIG, SIGMA_TRIG, VECTOR_TRIG_FUNCTIONS);
@@ -186,7 +156,6 @@ public class GeneralizedLeastSquareTest {
     }
   }
 
-  @Test
   public void testFit() {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
     final double[] y = new double[Y.length];
@@ -199,7 +168,6 @@ public class GeneralizedLeastSquareTest {
 
   }
 
-  @Test
   public void testBSplineFit() {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
 
@@ -222,7 +190,6 @@ public class GeneralizedLeastSquareTest {
     }
   }
 
-  @Test
   public void testBSplineFit2D() {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
 
@@ -258,7 +225,6 @@ public class GeneralizedLeastSquareTest {
     }
   }
 
-  @Test
   public void testPSplineFit() {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
 
@@ -284,7 +250,6 @@ public class GeneralizedLeastSquareTest {
     }
   }
 
-  @Test
   public void testPSplineFit2() {
     final BasisFunctionGenerator generator = new BasisFunctionGenerator();
     List<Function1D<Double, Double>> basisFuncs = generator.generateSet(0, 12, 100, 3);
@@ -293,9 +258,6 @@ public class GeneralizedLeastSquareTest {
     final GeneralizedLeastSquare gls = new GeneralizedLeastSquare();
 
     final Interpolator1D interpolator = new CombinedInterpolatorExtrapolator(new DoubleQuadraticInterpolator1D(), new FlatExtrapolator1D());
-
-    //  final double[] xData = new double[] {0.4, 0.9, 1.0, 1.8, 2.8, 5 };
-    //  final double[] yData = new double[] {0.8, 4., 4.1, 5.6, 7., 8.1 };
 
     final double[] xData = new double[] {7. / 365, 14 / 365., 21 / 365., 1 / 12., 3 / 12., 0.5, 0.75, 1, 5, 10 };
     final double[] yData = new double[] {0.972452371,
@@ -353,7 +315,6 @@ public class GeneralizedLeastSquareTest {
 
   }
 
-  @Test
   public void testPSplineFit2D() {
 
     final PSplineFitter psf = new PSplineFitter();

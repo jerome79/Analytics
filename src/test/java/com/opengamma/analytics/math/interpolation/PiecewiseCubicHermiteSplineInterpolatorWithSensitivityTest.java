@@ -73,7 +73,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorWithSensitivityTest {
 
   }
 
-  @Test
   public void baseInterpolationTest() {
     final int nExamples = Y.length;
     final int n = XX.length;
@@ -87,7 +86,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorWithSensitivityTest {
     }
   }
 
-  @Test
   public void interpolationTest() {
     final int nExamples = Y.length;
     final int n = XX.length;
@@ -96,14 +94,12 @@ public class PiecewiseCubicHermiteSplineInterpolatorWithSensitivityTest {
       PiecewisePolynomialResult pp = PCHIP_S.interpolateWithSensitivity(X, Y[example]);
       for (int i = 0; i < n; i++) {
         final double y = PPVAL_S.evaluate(pp, XX[i]).getEntry(0);
-        // System.out.println(XX[i] + "\t" + y);
+
         assertEquals("example: " + example + ", index:" + i, YY[example][i], y, 1e-14);
       }
     }
   }
 
-  @Test
-  // (enabled=false)
   public void sensitivityTest() {
     final int nExamples = Y.length;
     final int n = XX.length;
@@ -117,11 +113,8 @@ public class PiecewiseCubicHermiteSplineInterpolatorWithSensitivityTest {
       for (int i = 0; i < n; i++) {
         DoubleMatrix1D res = PPVAL_S.nodeSensitivity(pp, XX[i]);
         for (int j = 0; j < nData; j++) {
-          // System.out.print(res.getEntry(j) + ", ");
-          // System.out.print(fdRes[j].getEntry(i) + ", ");
           assertEquals("example: " + example + ", sample: " + i + ", node: " + j, fdRes[j].getEntry(i), res.getEntry(j), 1e-4);
         }
-        // System.out.println();
       }
     }
   }

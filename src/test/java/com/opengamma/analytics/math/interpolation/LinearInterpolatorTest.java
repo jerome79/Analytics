@@ -25,7 +25,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov2ptsTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[] yValues = new double[] {6., 1. };
@@ -58,7 +57,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov4ptsTest() {
     final double[] xValues = new double[] {1., 2., 4., 7. };
     final double[] yValues = new double[] {6., 1., 8., -2. };
@@ -212,7 +210,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov2ptsMultiTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[][] yValues = new double[][] { {6., 1. }, {2., 5. } };
@@ -245,7 +242,6 @@ public class LinearInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void recov4ptsMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4 };
     final double[][] yValues = new double[][] { {6., 1., 8., -2. }, {1., 1. / 3., 2. / 11., 1. / 7. } };
@@ -399,7 +395,6 @@ public class LinearInterpolatorTest {
   /**
    * Derive value of the underlying cubic spline function at the value of xKey
    */
-  @Test
   public void InterpolantsTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {6., 25. / 6., 10. / 3., 4. }, {6., 1., 0., 0. } };
@@ -512,7 +507,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -529,7 +523,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -546,7 +539,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -563,7 +555,6 @@ public class LinearInterpolatorTest {
     LinearInterpolator interp = new LinearInterpolator();
 
     interp.interpolate(xValues, yValues, xKey);
-
   }
 
   /**
@@ -576,10 +567,6 @@ public class LinearInterpolatorTest {
 
     PiecewisePolynomialInterpolator interpPos = new LinearInterpolator();
     interpPos.interpolate(xValues, yValues);
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1. - EPS)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1.)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1. + .00000000001)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[2]));
   }
 
   /**

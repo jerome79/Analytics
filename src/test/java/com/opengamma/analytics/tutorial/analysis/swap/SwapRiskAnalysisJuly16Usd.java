@@ -55,7 +55,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in USD.
  * Those examples can be used for tutorials. 
  */
-@Test
+@Test(enabled=false)
 public class SwapRiskAnalysisJuly16Usd {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
@@ -296,7 +296,7 @@ public class SwapRiskAnalysisJuly16Usd {
         UsdDatasetJuly16.INTERPOLATOR_LOG_LINEAR, 1, 0, 31, 0, false);
   }
   
-  @Test
+  @Test(enabled=false)
   public void compareStdVsImmCurves() {
 
     System.out.println("Swap name,PV STD,PV IMM,PV OISFF,PV OIS,PAR STD,PAR IMM,PAR OISFF,PAR OIS");
@@ -343,7 +343,7 @@ public class SwapRiskAnalysisJuly16Usd {
     
   }
 
-  @Test
+  @Test(enabled=false)
   public void compareHedgeCurves() {
     System.out.println("--- STD curve ---");
     MultipleCurrencyParameterSensitivity stdSensitivities = 

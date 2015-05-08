@@ -37,17 +37,14 @@ public class PCHIPInterpolator1DTest {
     INTERPOLATOR.interpolate(DATA, null);
   }
 
-  @Test
   public void testDataBundleType1() {
     assertEquals(INTERPOLATOR.getDataBundle(X_DATA, Y_DATA).getClass(), Interpolator1DPiecewisePoynomialDataBundle.class);
   }
 
-  @Test
   public void testDataBundleType2() {
     assertEquals(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, Y_DATA).getClass(), Interpolator1DPiecewisePoynomialDataBundle.class);
   }
 
-  @Test
   public void dataBundleTest() {
     Interpolator1DDataBundle db = INTERPOLATOR.getDataBundle(X_DATA, Y_DATA);
     double[] keys = db.getKeys();
@@ -61,13 +58,7 @@ public class PCHIPInterpolator1DTest {
     }
   }
 
-  @Test
   public void montonicTest() {
-    final boolean print = false;
-    if (print) {
-      System.out.println("MonotonicCubicInterpolator1DTest");
-    }
-
     final int n = 100;
     final double low = X_DATA[0];
     final double range = X_DATA[X_DATA.length - 1] - X_DATA[0];
@@ -77,9 +68,6 @@ public class PCHIPInterpolator1DTest {
       double y = INTERPOLATOR.interpolate(DATA, x);
       assertTrue(y > value);
       value = y;
-      if (print) {
-        System.out.println(x + "\t" + y);
-      }
     }
   }
 

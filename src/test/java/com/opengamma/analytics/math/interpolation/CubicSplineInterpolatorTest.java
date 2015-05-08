@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -23,7 +22,6 @@ public class CubicSplineInterpolatorTest {
   /**
    * All of the recovery tests for normal values with Clamped endpoint condition
    */
-  @Test
   public void ClampedRecoverTest() {
 
     final double[] xValues = new double[] {1, 3, 2, 4 };
@@ -126,7 +124,6 @@ public class CubicSplineInterpolatorTest {
   /**
    * All of the recovery tests for normal values with Not-A-Knot endpoint conditions
    */
-  @Test
   public void NotAKnotRecoverTest() {
 
     final double[] xValues = new double[] {1, 3, 2, 4 };
@@ -230,7 +227,6 @@ public class CubicSplineInterpolatorTest {
    * For a small number of DataPoints with Not-A-Knot endpoint conditions, spline may reduce into linear or quadratic
    * Knots and coefficient Matrix are also reduced in these cases
    */
-  @Test
   public void LinearAndQuadraticNakTest() {
     final double[] xValuesForLin = new double[] {1., 2. };
     final double[][] yValuesForLin = new double[][] { {3., 7. }, {2, -6 } };
@@ -879,7 +875,7 @@ public class CubicSplineInterpolatorTest {
 
     CubicSplineInterpolator interp = new CubicSplineInterpolator();
 
-    System.out.println(interp.interpolate(xValues, yValues, key));
+    interp.interpolate(xValues, yValues, key);
 
   }
 
@@ -894,8 +890,7 @@ public class CubicSplineInterpolatorTest {
     final double[] key = new double[] {1., 3., 3.e103 };
 
     CubicSplineInterpolator interp = new CubicSplineInterpolator();
-
-    System.out.println(interp.interpolate(xValues, yValues, key));
+    interp.interpolate(xValues, yValues, key);
 
   }
 
@@ -908,11 +903,8 @@ public class CubicSplineInterpolatorTest {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {8., 6., 7., 8. }, {3., 12., 1., 8. } };
     final double key = 3.e103;
-
     CubicSplineInterpolator interp = new CubicSplineInterpolator();
-
-    System.out.println(interp.interpolate(xValues, yValues, key));
-
+    interp.interpolate(xValues, yValues, key);
   }
 
   /**
@@ -924,11 +916,8 @@ public class CubicSplineInterpolatorTest {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {8., 6., 7., 8. }, {3., 12., 1., 8. } };
     final double[] key = new double[] {1., 3., 3.e103 };
-
     CubicSplineInterpolator interp = new CubicSplineInterpolator();
-
-    System.out.println(interp.interpolate(xValues, yValues, key));
-
+    interp.interpolate(xValues, yValues, key);
   }
 
   /**
@@ -943,7 +932,7 @@ public class CubicSplineInterpolatorTest {
 
     CubicSplineInterpolator interp = new CubicSplineInterpolator();
 
-    System.out.println(interp.interpolate(xValues, yValues, key));
+    interp.interpolate(xValues, yValues, key);
 
   }
 
@@ -959,7 +948,7 @@ public class CubicSplineInterpolatorTest {
 
     CubicSplineInterpolator interp = new CubicSplineInterpolator();
 
-    System.out.println(interp.interpolate(xValues, yValues, key));
+    interp.interpolate(xValues, yValues, key);
 
   }
 
@@ -1031,53 +1020,4 @@ public class CubicSplineInterpolatorTest {
 
   }
 
-  /**
-   * Print test below is for debugging
-   */
-  @Test
-      (enabled = false)
-      public void printTest() {
-
-    //    final double[] xValues = new double[] {1, 2, 3, 4, 5, 6 };
-    //    final double[][] yValues = new double[][] { {1, 3, 5, 9, 10, 21 }, {5, 3, 2, 1, 1, 4 }, {1, 3, 5, 9, 3, -1 } };
-    //  final double[] yValues = new double[] {1, 3, 5, 9, 10, 21 };
-    //    final double[] xx = new double[] {-1., 3., 4.27, 11. / 3., 7 };
-    //    final double[][] xx = new double[][] { {-1, 3., 4.27, 11. / 3., 7 }, {1.5, 2.5, 3.5, 4.5, 5.5 } };
-    //    final int nL = xx[0].length;
-
-    final double[] xValues = new double[] {1., 2., 2.00001, 4. };
-    //    final double[][] yValues = new double[][] { {1, 3, 6 }, {5, 3, 4 } };
-    //final double[] yValues = new double[] {1., 6.000000001, 2.e250, 6.000000002 };
-    final double[] yValues = new double[] {2., 3., 4., 5. };
-
-    CubicSplineInterpolator interp = new CubicSplineInterpolator();
-
-    PiecewisePolynomialResult result = interp.interpolate(xValues, yValues);
-
-    System.out.println(result.getCoefMatrix());
-    System.out.println(result.getKnots());
-    System.out.println(result.getNumberOfIntervals());
-    System.out.println(result.getOrder());
-    System.out.println(result.getDimensions());
-    //    System.out.println(interp.interpolate(xValues, yValues, xValues[1]));
-    //    System.out.println(interp.interpolate(xValues, yValues, xValues[2]));
-    System.out.println(interp.interpolate(xValues, yValues, 3.9999));
-
-    //    double[] keys = new double[3001];
-    //    for (int i = 0; i < 3001; ++i) {
-    //      keys[i] = 1. + 0.001 * i;
-    //    }
-    //    final double[] res = interp.interpolate(xValues, yValues, keys).getData();
-    //    //    System.out.println(new DoubleMatrix1D(keys));
-    //    System.out.println(new DoubleMatrix1D(res));
-
-    //    System.out.println(interp.interpolate(xValues, yValues, 0.));
-    //System.out.println(interp.interpolate(xValues, yValues, xx));
-    //    System.out.println(interp.interpolate(xValues, yValues, 3.5));
-
-    //    DoubleMatrix2D[] res = interp.interpolate(xValues, yValues, xx);
-    //    for (int i = 0; i < nL; ++i) {
-    //      System.out.println(res[i]);
-    //    }
-  }
 }

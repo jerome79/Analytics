@@ -7,11 +7,7 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.Assert.assertEquals;
 
-import java.util.Random;
-
 import org.testng.annotations.Test;
-
-import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 
 
 /**
@@ -25,7 +21,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * data points interpolated by linear function
    */
-  @Test
   public void linearTest() {
 
     final double[] xValues = new double[] {0., 1., 2., 3., 4., 5. };
@@ -90,7 +85,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * Positions of extra knots are modified 
    */
-  @Test
   public void correctedExtraKnotsTest() {
     final double[] xValues = new double[] {0., 1., 2., 3., 4., 5. };
     final double[] yValues = new double[] {5.117767385717404, 6.448193771622548, 2.2821942943281783, 6.26865829460428, 8.66539745601466, 0.4684081305693999 };
@@ -108,7 +102,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * zeroBetaTests below are for checking all the branches in double sweep method
    */
-  @Test
   public void zeroBeta1Test() {
 
     final double[] xValues = new double[] {0., 1., 2., 3., 4., 5., 6., 7., 7.5, 8., 8.3, 8.4 };
@@ -145,7 +138,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void zeroBeta2Test() {
 
     final double[] xValues = new double[] {0., 1., 2., 3., 4., 5., 6., 7., 7.5, 8., 8.3, 8.4 };
@@ -182,7 +174,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void zeroBeta3Test() {
 
     final double[] xValues = new double[] {3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19., 20. };
@@ -223,7 +214,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void zeroBeta4Test() {
 
     final double[] xValues = new double[] {0., 1., 1.1, 1.3, 3., 4., 4.1, 4.6, 4.8, 5., 6.2, 7.9 };
@@ -255,7 +245,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void zeroBeta5Test() {
 
     final double[] xValues = new double[] {3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 12.1 };
@@ -286,7 +275,6 @@ public class ShapePreservingCubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void zeroBeta6Test() {
 
     final double[] xValues = new double[] {3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 12.1 };
@@ -508,159 +496,7 @@ public class ShapePreservingCubicSplineInterpolatorTest {
 
     PiecewisePolynomialInterpolator interpPos = new ShapePreservingCubicSplineInterpolator();
     interpPos.interpolate(xValues, yValues);
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1. - EPS)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1.)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[1] * (1. + .00000000001)));
-    //    System.out.println(interpPos.interpolate(xValues, yValues, xValues[2]));
   }
 
-  /**
-   * Tests below are for debugging
-   */
-  @Test
-      (enabled = false)
-      public void printTest() {
-
-    final double[] xValues = new double[] {0., 1., 1.1, 1.3, 3., 4., 4.1, 4.6, 4.8, 5., 6.2, 7.9 };
-    //    final double[] yValues = new double[] {-0.017368531235435615, -0.0700802853761212, -0.05408456435017034, -0.05913192596181248, -0.08417269025678796, -0.09519817187545818, -0.08392176115961013, -0.0273334463566804, -0.027814969452007822, -0.07487636330653216, -0.08932053011417443, -0.06799921678834817 };
-    final int nData = xValues.length;
-    double[] yValues = new double[nData];
-    Random randObj = new Random();
-
-    //    boolean done = false;
-    //    while (done == false) {
-    //      try {
-    //        int k = 0;
-    //        while (k < 10000) {
-    //
-    //          for (int i = 0; i < nData; ++i) {
-    //            yValues[i] = randObj.nextDouble();
-    //          }
-    //          System.out.println(new DoubleMatrix1D(yValues));
-    //          ShapePreservingCubicSplineInterpolator intp = new ShapePreservingCubicSplineInterpolator();
-    //
-    //          intp.interpolate(xValues, yValues);
-    //          System.out.println("\n");
-    //          ++k;
-    //        }
-    //      } catch (IllegalArgumentException e) {
-    //        if (e.getMessage() == "Spline is not found!") {
-    //          done = true;
-    //        }
-    //      }
-    //    }
-
-    int ctr = 0;
-    int ctr2 = 0;
-    int n = 0;
-    int k = 0;
-    while (n < 1000) {
-      try {
-        k = 0;
-        while (k < 10000) {
-
-          for (int i = 0; i < nData; ++i) {
-            yValues[i] = randObj.nextDouble();
-          }
-          System.out.println(new DoubleMatrix1D(yValues));
-          ShapePreservingCubicSplineInterpolator intp = new ShapePreservingCubicSplineInterpolator();
-
-          intp.interpolate(xValues, yValues);
-          System.out.println("\n");
-          ++k;
-        }
-      } catch (IllegalArgumentException e) {
-        if (e.getMessage() == "Spline is not found" | e.getMessage() == "Local monotonicity can not be preserved") {
-          ctr2 += (k + 1);
-          ++ctr;
-        }
-      }
-      ++n;
-    }
-    System.out.println(ctr + " / " + ctr2);
-
-    //    final int nPts = 301;
-    //    double[] keys = new double[nPts];
-    //    for (int i = 0; i < nPts; ++i) {
-    //      keys[i] = -1. + 11. / (nPts - 1) * i;
-    //    }
-    //
-    //    double[] values = intp.interpolate(xValues, yValues, keys).getData();
-
-    //    System.out.println(intp.interpolate(xValues, yValues).getCoefMatrix());
-    //    System.out.println(intp.interpolate(xValues, yValues).getKnots());
-    //
-    //    for (int i = 0; i < nPts; ++i) {
-    //      System.out.println(keys[i] + "\t" + values[i]);
-    //    }
-
-  }
-
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void print2Test() {
-
-    final double[] xValues = new double[] {0., 1., 1.1, 1.3, 3., 4., 4.1, 4.6, 4.8, 5., 6.2, 7.9 };
-    //    final double[] yValues = new double[] {-0.012571907543470618, -0.04883756776089532, -0.014388941042652703, -0.05064825621670973, -0.051504458856219196, -0.05365750284016134, -0.07570239700636491,
-    //        -0.09682884295882602, -0.046370358425074934, -0.0890250059480754, -0.037570713349090526, -0.09150855513318415 };
-    final double[] yValues = new double[] {0.46608273840991754, 0.8312159840478093, 0.9194772023433536, 0.6757561802041987, 0.6796484240935459, 0.30926871248752386, 0.10127356457226167,
-        0.37084482298919885, 0.4707389784307331, 0.45361468489333356, 0.9307438159899785, 0.3902599731656107 };
-
-    System.out.println(new DoubleMatrix1D(yValues));
-    ShapePreservingCubicSplineInterpolator intp = new ShapePreservingCubicSplineInterpolator();
-
-    intp.interpolate(xValues, yValues);
-    System.out.println("\n");
-
-    //    final int nPts = 301;
-    //    double[] keys = new double[nPts];
-    //    for (int i = 0; i < nPts; ++i) {
-    //      keys[i] = -1. + 11. / (nPts - 1) * i;
-    //    }
-    //
-    //    double[] values = intp.interpolate(xValues, yValues, keys).getData();
-
-    //    System.out.println(intp.interpolate(xValues, yValues).getCoefMatrix());
-    //    System.out.println(intp.interpolate(xValues, yValues).getKnots());
-    //
-    //    for (int i = 0; i < nPts; ++i) {
-    //      System.out.println(keys[i] + "\t" + values[i]);
-    //    }
-
-  }
-
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void print3Test() {
-
-    final double[] xValues = new double[] {0., 0.1, 2., 3., 4., 9., 20., 30. };
-    final double[] yValues = new double[] {0., 6., 5., 5., 5., 6.5, 6., 6. };
-
-    ShapePreservingCubicSplineInterpolator intp = new ShapePreservingCubicSplineInterpolator();
-
-    intp.interpolate(xValues, yValues);
-
-    final int nPts = 301;
-    double[] keys = new double[nPts];
-    for (int i = 0; i < nPts; ++i) {
-      keys[i] = 0.01 + 30. / (nPts - 1) * i;
-    }
-
-    double[] values = intp.interpolate(xValues, yValues, keys).getData();
-
-    System.out.println(intp.interpolate(xValues, yValues).getCoefMatrix());
-    System.out.println(intp.interpolate(xValues, yValues).getKnots());
-
-    for (int i = 0; i < nPts; ++i) {
-      System.out.println(keys[i] + "\t" + values[i]);
-    }
-
-  }
 
 }
