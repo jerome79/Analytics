@@ -5,8 +5,9 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.math.linear.CholeskyDecomposition;
-import org.apache.commons.math.linear.DecompositionSolver;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.CholeskyDecomposition;
+import org.apache.commons.math3.linear.DecompositionSolver;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -49,7 +50,7 @@ public class CholeskyDecompositionCommonsResult implements CholeskyDecomposition
   @Override
   public double[] solve(double[] b) {
     ArgChecker.notNull(b, "b");
-    return _solver.solve(b);
+    return _solver.solve(new ArrayRealVector(b)).toArray();
   }
 
   /**

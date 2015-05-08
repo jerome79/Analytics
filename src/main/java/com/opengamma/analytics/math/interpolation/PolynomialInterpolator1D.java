@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.interpolation;
 
 import java.util.Arrays;
 
-import org.apache.commons.math.analysis.interpolation.NevilleInterpolator;
-import org.apache.commons.math.analysis.polynomials.PolynomialFunctionLagrangeForm;
+import org.apache.commons.math3.analysis.interpolation.NevilleInterpolator;
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
@@ -69,7 +69,7 @@ public class PolynomialInterpolator1D extends Interpolator1D {
     try {
       final PolynomialFunctionLagrangeForm lagrange = _interpolator.interpolate(x, y);
       return CommonsMathWrapper.unwrap(lagrange).evaluate(value);
-    } catch (final org.apache.commons.math.MathException e) {
+    } catch (Exception e) {
       throw new MathException(e);
     }
   }

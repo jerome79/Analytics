@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.method;
 
-import org.apache.commons.math.stat.descriptive.rank.Min;
+import org.apache.commons.math3.stat.descriptive.rank.Min;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InterestRateCurveSensitivity;

@@ -111,30 +111,4 @@ public class SuccessiveRootFinderSwaptionPhysicalHullWhiteCalibrationObjectiveTe
     }
   }
 
-  @Test(enabled = false)
-  /**
-   * Test of performance. In normal testing, "enabled = false".
-   */
-  public void performance() {
-    final double meanReversion = 0.01;
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(meanReversion, new double[] {0.01}, new double[0]);
-      final SuccessiveRootFinderHullWhiteCalibrationObjective objective = new SuccessiveRootFinderHullWhiteCalibrationObjective(hwParameters, EUR);
-      final SuccessiveRootFinderHullWhiteCalibrationEngine<SABRSwaptionProviderInterface> calibrationEngine = new SuccessiveRootFinderHullWhiteCalibrationEngine<>(objective);
-      for (int loopexp = 0; loopexp < EXPIRY_TENOR.length; loopexp++) {
-        calibrationEngine.addInstrument(SWAPTION_LONG_PAYER[loopexp], PVSSC);
-      }
-      calibrationEngine.calibrate(SABR_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " Hull-White calibration to swaption (5 swaptions): " + (endTime - startTime) + " ms");
-    // Performance note: calibration: 29-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 940 ms for 100 calibration with 5 swaptions.
-    // TODO: Why is the time 2x the one with "CurveBundle"?
-
-  }
-
 }

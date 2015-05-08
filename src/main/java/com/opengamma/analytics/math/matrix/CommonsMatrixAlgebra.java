@@ -5,15 +5,12 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.math.linear.Array2DRowRealMatrix;
-import org.apache.commons.math.linear.EigenDecomposition;
-import org.apache.commons.math.linear.EigenDecompositionImpl;
-import org.apache.commons.math.linear.LUDecomposition;
-import org.apache.commons.math.linear.LUDecompositionImpl;
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealVector;
-import org.apache.commons.math.linear.SingularValueDecomposition;
-import org.apache.commons.math.linear.SingularValueDecompositionImpl;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.linear.SingularValueDecomposition;
 
 import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
 import com.opengamma.strata.collect.ArgChecker;
@@ -31,7 +28,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
     ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
-      final SingularValueDecomposition svd = new SingularValueDecompositionImpl(temp);
+      final SingularValueDecomposition svd = new SingularValueDecomposition(temp);
       return svd.getConditionNumber();
     }
     throw new IllegalArgumentException("Can only find condition number of DoubleMatrix2D; have " + m.getClass());
@@ -45,7 +42,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
     ArgChecker.notNull(m, "m");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
-      final LUDecomposition lud = new LUDecompositionImpl(temp);
+      final LUDecomposition lud = new LUDecomposition(temp);
       return lud.getDeterminant();
     }
     throw new IllegalArgumentException("Can only find determinant of DoubleMatrix2D; have " + m.getClass());
@@ -74,7 +71,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
     ArgChecker.notNull(m, "matrix was null");
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
-      final SingularValueDecomposition sv = new SingularValueDecompositionImpl(temp);
+      final SingularValueDecomposition sv = new SingularValueDecomposition(temp);
       final RealMatrix inv = sv.getSolver().getInverse();
       return CommonsMathWrapper.unwrap(inv);
     }
@@ -115,7 +112,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
       return temp.getNorm();
     } else if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
-      final SingularValueDecomposition svd = new SingularValueDecompositionImpl(temp);
+      final SingularValueDecomposition svd = new SingularValueDecomposition(temp);
       return svd.getNorm();
     }
     throw new IllegalArgumentException("Can only find norm2 of DoubleMatrix2D; have " + m.getClass());
@@ -179,7 +176,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
   public DoubleMatrix2D getPower(final Matrix<?> m, final double p) {
     if (m instanceof DoubleMatrix2D) {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
-      final EigenDecomposition eigen = new EigenDecompositionImpl(temp, 0.0);
+      final EigenDecomposition eigen = new EigenDecomposition(temp, 0.0);
       final double[] rEigenValues = eigen.getRealEigenvalues();
       final double[] iEigenValues = eigen.getImagEigenvalues();
       final int n = rEigenValues.length;

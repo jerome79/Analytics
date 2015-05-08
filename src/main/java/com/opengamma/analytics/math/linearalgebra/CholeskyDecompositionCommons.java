@@ -5,9 +5,8 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.math.linear.CholeskyDecomposition;
-import org.apache.commons.math.linear.CholeskyDecompositionImpl;
-import org.apache.commons.math.linear.RealMatrix;
+import org.apache.commons.math3.linear.CholeskyDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -29,7 +28,7 @@ public class CholeskyDecompositionCommons extends Decomposition<CholeskyDecompos
     final RealMatrix temp = CommonsMathWrapper.wrap(x);
     CholeskyDecomposition cholesky;
     try {
-      cholesky = new CholeskyDecompositionImpl(temp);
+      cholesky = new CholeskyDecomposition(temp);
     } catch (Exception e) {
       throw new MathException(e.toString());
     }

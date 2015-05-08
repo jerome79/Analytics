@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.statistics.leastsquare;
 
-import static org.apache.commons.math.util.MathUtils.binomialCoefficient;
+import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficient;
 
 import java.util.List;
 

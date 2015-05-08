@@ -43,8 +43,8 @@ public abstract class Minimizer1DTestCase {
 
   public void assertMinimizer(final ScalarMinimizer minimizer) {
     double result = minimizer.minimize(QUADRATIC, 0.0, -10., 10.);
-    assertEquals(result, -3.5, EPS);
+    assertEquals(-3.5, result, EPS);
     result = minimizer.minimize(QUINTIC, 0.0, 0.5, 2.);
-    assertEquals(result, 1.06154, EPS);
+    assertEquals(1.06154, result, EPS);
   }
 }

@@ -5,8 +5,9 @@
  */
 package com.opengamma.analytics.math.linearalgebra;
 
-import org.apache.commons.math.linear.DecompositionSolver;
-import org.apache.commons.math.linear.QRDecomposition;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.DecompositionSolver;
+import org.apache.commons.math3.linear.QRDecomposition;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -18,7 +19,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * Wrapper for results of the Commons implementation of QR Decomposition ({@link QRDecompositionCommons}).
  */
 public class QRDecompositionCommonsResult implements QRDecompositionResult {
-  private final DoubleMatrix2D _h;
   private final DoubleMatrix2D _q;
   private final DoubleMatrix2D _r;
   private final DoubleMatrix2D _qTranspose;
@@ -29,19 +29,10 @@ public class QRDecompositionCommonsResult implements QRDecompositionResult {
    */
   public QRDecompositionCommonsResult(final QRDecomposition qr) {
     ArgChecker.notNull(qr, "qr");
-    _h = CommonsMathWrapper.unwrap(qr.getH());
     _q = CommonsMathWrapper.unwrap(qr.getQ());
     _r = CommonsMathWrapper.unwrap(qr.getR());
     _qTranspose = DoubleMatrixUtils.getTranspose(_q);
     _solver = qr.getSolver();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public DoubleMatrix2D getH() {
-    return _h;
   }
 
   /**
@@ -83,7 +74,7 @@ public class QRDecompositionCommonsResult implements QRDecompositionResult {
   @Override
   public double[] solve(final double[] b) {
     ArgChecker.notNull(b, "b");
-    return _solver.solve(b);
+    return _solver.solve(new ArrayRealVector(b)).toArray();
   }
 
   /**

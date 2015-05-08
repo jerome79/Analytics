@@ -5,9 +5,10 @@
  */
 package com.opengamma.analytics.math.integration;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.analysis.integration.TrapezoidIntegrator;
-import org.apache.commons.math.analysis.integration.UnivariateRealIntegrator;
+import org.apache.commons.math3.analysis.integration.TrapezoidIntegrator;
+import org.apache.commons.math3.analysis.integration.UnivariateIntegrator;
+import org.apache.commons.math3.exception.MathIllegalArgumentException;
+import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,12 +26,13 @@ import com.opengamma.strata.collect.ArgChecker;
  * \end{align*}
  * $$
  * <p> 
- * This class is a wrapper for the <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/analysis/integration/TrapezoidIntegrator.html">Commons Math library implementation</a> 
+ * This class is a wrapper for the <a href="http://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/analysis/integration/TrapezoidIntegrator.html">Commons Math library implementation</a> 
  * of trapezoidal integration.
  */
 public class ExtendedTrapezoidIntegrator1D extends Integrator1D<Double, Double> {
   private static final Logger s_logger = LoggerFactory.getLogger(ExtendedTrapezoidIntegrator1D.class);
-  private static final UnivariateRealIntegrator INTEGRATOR = new TrapezoidIntegrator();
+  private static final UnivariateIntegrator INTEGRATOR = new TrapezoidIntegrator();
+  private static final int MAX_EVAL = 10000;
 
   /**
    * Trapezoid integration method. Note that the Commons implementation fails if the lower bound is larger than the upper - 
@@ -44,13 +46,12 @@ public class ExtendedTrapezoidIntegrator1D extends Integrator1D<Double, Double> 
     ArgChecker.notNull(upper, "upper");
     try {
       if (lower < upper) {
-        return INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariate(f), lower, upper);
+        return INTEGRATOR.integrate(MAX_EVAL, CommonsMathWrapper.wrapUnivariate(f), lower, upper);
       }
       s_logger.info("Upper bound was less than lower bound; swapping bounds and negating result");
-      return -INTEGRATOR.integrate(CommonsMathWrapper.wrapUnivariate(f), upper, lower);
-    } catch (final FunctionEvaluationException e) {
-      throw new MathException(e);
-    } catch (final org.apache.commons.math.ConvergenceException e) {
+      return -INTEGRATOR.integrate(MAX_EVAL, CommonsMathWrapper.wrapUnivariate(f), upper, lower);
+    } catch (MaxCountExceededException |
+        MathIllegalArgumentException e) {
       throw new MathException(e);
     }
   }

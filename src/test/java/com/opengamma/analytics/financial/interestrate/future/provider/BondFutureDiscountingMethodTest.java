@@ -10,7 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import org.apache.commons.math.stat.descriptive.rank.Min;
+import org.apache.commons.math3.stat.descriptive.rank.Min;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;

@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
-import org.apache.commons.math.FunctionEvaluationException;
-import org.apache.commons.math.MaxIterationsExceededException;
-import org.apache.commons.math.analysis.UnivariateRealFunction;
-import org.apache.commons.math.analysis.solvers.RiddersSolver;
+import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.apache.commons.math3.analysis.solvers.RiddersSolver;
+import org.apache.commons.math3.exception.NoBracketingException;
+import org.apache.commons.math3.exception.TooManyEvaluationsException;
 
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
@@ -16,13 +16,13 @@ import com.opengamma.analytics.math.util.wrapper.CommonsMathWrapper;
 
 /**
  * Finds a single root of a function using Ridder's method. This class is a wrapper for the
- * <a href="http://commons.apache.org/math/api-2.1/org/apache/commons/math/analysis/solvers/RiddersSolver.html">Commons Math library implementation</a>
+ * <a href="http://commons.apache.org/proper/commons-math/javadocs/api-3.5/org/apache/commons/math3/analysis/solvers/RiddersSolver.html">Commons Math library implementation</a>
  * of Ridder's method.
  */
 public class RidderSingleRootFinder extends RealSingleRootFinder {
 
-  private static final int MAX_ITER = 10000;
-  private final RiddersSolver _ridder = new RiddersSolver();
+  private static final int MAX_ITER = 100000;
+  private final RiddersSolver _ridder;
 
   /**
    * Sets the accuracy to 10<sup>-15</sup>
@@ -35,8 +35,7 @@ public class RidderSingleRootFinder extends RealSingleRootFinder {
    * @param functionValueAccuracy The accuracy of the function evaluations.
    */
   public RidderSingleRootFinder(final double functionValueAccuracy) {
-    _ridder.setFunctionValueAccuracy(functionValueAccuracy);
-    _ridder.setMaximalIterationCount(MAX_ITER);
+    _ridder = new RiddersSolver(functionValueAccuracy);
   }
 
   /**
@@ -44,9 +43,7 @@ public class RidderSingleRootFinder extends RealSingleRootFinder {
    * @param absoluteAccurary The maximum absolute error of the variable.
    */
   public RidderSingleRootFinder(final double functionValueAccuracy, final double absoluteAccurary) {
-    _ridder.setAbsoluteAccuracy(absoluteAccurary);
-    _ridder.setFunctionValueAccuracy(functionValueAccuracy);
-    _ridder.setMaximalIterationCount(MAX_ITER);
+    _ridder = new RiddersSolver(functionValueAccuracy, absoluteAccurary);
   }
 
   /**
@@ -56,10 +53,10 @@ public class RidderSingleRootFinder extends RealSingleRootFinder {
   @Override
   public Double getRoot(final Function1D<Double, Double> function, final Double xLow, final Double xHigh) {
     checkInputs(function, xLow, xHigh);
-    final UnivariateRealFunction wrapped = CommonsMathWrapper.wrapUnivariate(function);
+    final UnivariateFunction wrapped = CommonsMathWrapper.wrapUnivariate(function);
     try {
-      return _ridder.solve(wrapped, xLow, xHigh);
-    } catch (final MaxIterationsExceededException | FunctionEvaluationException e) {
+      return _ridder.solve(MAX_ITER, wrapped, xLow, xHigh);
+    } catch (TooManyEvaluationsException  | NoBracketingException  e) {
       throw new MathException(e);
     }
   }

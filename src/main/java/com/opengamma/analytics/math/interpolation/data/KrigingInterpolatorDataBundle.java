@@ -112,13 +112,7 @@ public class KrigingInterpolatorDataBundle extends InterpolatorNDDataBundle {
     y[n] = 0;
 
     double[] res;
-    try {
-      res = solve(v, y, _decomp);
-    } catch (final IllegalArgumentException e) {
-      final Decomposition<?> decomp = DecompositionFactory.SV_COMMONS;
-      res = solve(v, y, decomp);
-    }
-
+    res = solve(v, y, _decomp);
     return res;
   }
 
