@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.provider.curve;
 import static com.opengamma.strata.basics.currency.Currency.BRL;
 import static org.testng.AssertJUnit.assertEquals;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -19,13 +17,11 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttribute;
 import com.opengamma.analytics.financial.instrument.index.GeneratorAttributeIR;
-import com.opengamma.analytics.financial.instrument.index.GeneratorDepositON;
 import com.opengamma.analytics.financial.instrument.index.GeneratorInstrument;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompounded;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedCompoundedONCompoundedMaster;
@@ -40,15 +36,12 @@ import com.opengamma.analytics.financial.provider.calculator.discounting.Present
 import com.opengamma.analytics.financial.provider.calculator.generic.LastTimeCalculator;
 import com.opengamma.analytics.financial.provider.curve.multicurve.MulticurveDiscountBuildingRepository;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
-import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
-import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
@@ -78,8 +71,6 @@ public class MulticurveBuildingDiscountingBrazilianONTest2 {
 
   private static final GeneratorSwapFixedCompoundedONCompounded GENERATOR_OIS_BRL = GeneratorSwapFixedCompoundedONCompoundedMaster.getInstance().getGenerator("BRLCDI", NYC);
   private static final IndexON INDEX_ON_BRL = GENERATOR_OIS_BRL.getIndex();
-  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_BRL = new GeneratorDepositON("BRL Deposit ON", BRL, NYC, INDEX_ON_BRL.getDayCount());
-
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2013, 10, 7);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
@@ -166,21 +157,7 @@ public class MulticurveBuildingDiscountingBrazilianONTest2 {
     }
   }
 
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
 
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("MulticurveBuidingDiscountingBrazilianONTest - " + nbTest + " curve construction Brazilian CDI EUR 1 units: " + (endTime - startTime) + " ms");
-    // Performance note: curve construction Price index EUR 1 units: 23-Aug-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 3094 ms for 100 sets.
-  }
-
-  @Test
   public void curveConstructionGeneratorOtherBlocks() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
@@ -199,50 +176,6 @@ public class MulticurveBuildingDiscountingBrazilianONTest2 {
           assertEquals("Curve construction: block " + block + ", unit " + loopblock + " - instrument " + loopins, 0, pv[loopcurve][loopins], TOLERANCE_CAL);
         }
       }
-    }
-  }
-
-  @Test(enabled = false)
-  /**
-    * Analyzes the shape of the forward curve.
-    */
-  public void forwardAnalysis() {
-    final MulticurveProviderInterface marketDsc = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getFirst();
-    final int jump = 1;
-    final int startIndex = 0;
-    final int nbDate = 100;
-    ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(NOW, INDEX_ON_BRL.getPublicationLag() + startIndex * jump, NYC);
-    final double[] dscstart = new double[nbDate];
-    final double[] dscend = new double[nbDate];
-    final double[] rateDsc = new double[nbDate];
-    final double[] rateDsc2 = new double[nbDate];
-    final double[] rateDscNormal = new double[nbDate];
-    final double[] startTime = new double[nbDate];
-    final double[] startTime2 = new double[nbDate];
-    final double[] accrualFactor = new double[nbDate];
-    final double[] accrualFactorActAct = new double[nbDate];
-    try {
-      final FileWriter writer = new FileWriter("fwd-dsc.csv");
-      for (int loopdate = 0; loopdate < nbDate; loopdate++) {
-        startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
-        startTime2[loopdate] = DayCountUtils.yearFraction(INDEX_ON_BRL.getDayCount(), NOW, startDate, NYC);
-        final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, INDEX_ON_BRL.getPublicationLag(), NYC);
-        final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double endTime2 = DayCountUtils.yearFraction(INDEX_ON_BRL.getDayCount(), NOW, endDate, NYC);
-        accrualFactor[loopdate] = DayCountUtils.yearFraction(INDEX_ON_BRL.getDayCount(), startDate, endDate, NYC);
-        accrualFactorActAct[loopdate] = TimeCalculator.getTimeBetween(startDate, endDate);
-        dscstart[loopdate] = marketDsc.getDiscountFactor(BRL, startTime2[loopdate]);
-        dscend[loopdate] = marketDsc.getDiscountFactor(BRL, endTime2);
-        rateDsc[loopdate] = marketDsc.getSimplyCompoundForwardRate(INDEX_ON_BRL, startTime2[loopdate], endTime2, accrualFactor[loopdate]);
-        rateDsc2[loopdate] = marketDsc.getSimplyCompoundForwardRate(INDEX_ON_BRL, startTime[loopdate], endTime, accrualFactor[loopdate]);
-        rateDscNormal[loopdate] = marketDsc.getSimplyCompoundForwardRate(INDEX_ON_BRL, startTime[loopdate], endTime, accrualFactorActAct[loopdate]);
-        startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, NYC);
-        writer.append(0.0 + "," + startTime[loopdate] + "," + dscstart[loopdate] + "," + dscend[loopdate] + "," + rateDsc[loopdate] + "," + rateDsc2[loopdate] + "," + rateDscNormal[loopdate] + "\n");
-      }
-      writer.flush();
-      writer.close();
-    } catch (final IOException e) {
-      e.printStackTrace();
     }
   }
 
