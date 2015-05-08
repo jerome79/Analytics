@@ -52,7 +52,7 @@ public class IncompleteGammaFunction extends Function1D<Double, Double> {
   public Double evaluate(final Double x) {
     try {
       return Gamma.regularizedGammaP(_a, x, _eps, _maxIter);
-    } catch (final MaxCountExceededException e) {
+    } catch (MaxCountExceededException e) {
       throw new MathException(e);
     }
   }

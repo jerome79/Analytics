@@ -69,7 +69,7 @@ public class PolynomialInterpolator1D extends Interpolator1D {
     try {
       final PolynomialFunctionLagrangeForm lagrange = _interpolator.interpolate(x, y);
       return CommonsMathWrapper.unwrap(lagrange).evaluate(value);
-    } catch (final Exception e) {
+    } catch (Exception e) {
       throw new MathException(e);
     }
   }

@@ -84,7 +84,7 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
     final double logX = Math.log(halfX);
     try {
       regGammaStart = Gamma.regularizedGammaP(_dofOverTwo + _k, halfX);
-    } catch (final MaxCountExceededException ex) {
+    } catch (MaxCountExceededException ex) {
       throw new MathException(ex);
     }
 

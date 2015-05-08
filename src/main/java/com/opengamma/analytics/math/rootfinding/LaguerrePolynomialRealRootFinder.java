@@ -46,7 +46,7 @@ public class LaguerrePolynomialRealRootFinder implements Polynomial1DRootFinder<
         throw new MathException("Could not find any real roots");
       }
       return realRoots.toArray(new Double[realRoots.size()]);
-    } catch (final TooManyEvaluationsException e) {
+    } catch (TooManyEvaluationsException e) {
       throw new MathException(e);
     }
   }

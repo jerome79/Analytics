@@ -56,7 +56,7 @@ public class RidderSingleRootFinder extends RealSingleRootFinder {
     final UnivariateFunction wrapped = CommonsMathWrapper.wrapUnivariate(function);
     try {
       return _ridder.solve(MAX_ITER, wrapped, xLow, xHigh);
-    } catch (final TooManyEvaluationsException  | NoBracketingException  e) {
+    } catch (TooManyEvaluationsException  | NoBracketingException  e) {
       throw new MathException(e);
     }
   }
