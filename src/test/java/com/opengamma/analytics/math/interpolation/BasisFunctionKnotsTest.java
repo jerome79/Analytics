@@ -10,8 +10,6 @@ import static org.testng.AssertJUnit.assertEquals;
 import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
-
-
 /**
  * 
  */
@@ -71,7 +69,7 @@ public class BasisFunctionKnotsTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDegreeToHigh1() {
-    BasisFunctionKnots.fromUniform(0.0, 10.0, 11,  11);
+    BasisFunctionKnots.fromUniform(0.0, 10.0, 11, 11);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

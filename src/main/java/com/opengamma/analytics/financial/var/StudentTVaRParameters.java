@@ -20,7 +20,7 @@ public class StudentTVaRParameters {
   private final double _mult;
   private final double _scale;
   private final ProbabilityDistribution<Double> _studentT;
-  
+
   public StudentTVaRParameters(final double horizon, final double periods, final double quantile, final double dof) {
     ArgChecker.isTrue(horizon > 0, "horizon");
     ArgChecker.isTrue(periods > 0, "periods");
@@ -34,27 +34,27 @@ public class StudentTVaRParameters {
     _mult = Math.sqrt((_dof - 2) * horizon / dof / periods) * _studentT.getInverseCDF(quantile);
     _scale = horizon / periods;
   }
-  
+
   public double getMult() {
     return _mult;
   }
-  
+
   public double getScale() {
     return _scale;
   }
-  
+
   public double getHorizon() {
     return _horizon;
   }
-  
+
   public double getPeriods() {
     return _periods;
   }
-  
+
   public double getQuantile() {
     return _quantile;
   }
-  
+
   public double getDegreesOfFreedom() {
     return _dof;
   }
@@ -100,5 +100,5 @@ public class StudentTVaRParameters {
     }
     return true;
   }
-  
+
 }

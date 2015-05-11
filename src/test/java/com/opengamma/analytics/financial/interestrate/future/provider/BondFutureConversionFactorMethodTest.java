@@ -25,7 +25,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -44,9 +43,9 @@ public class BondFutureConversionFactorMethodTest {
   private static final int G_SETTLEMENT_DAYS = 2;
   private static final int G_EX_COUPON = 7;
   private static final YieldConvention G_YIELD_CONVENTION = YieldConventionFactory.INSTANCE.getYieldConvention("UK:BUMP/DMO METHOD");
-  private static final Period[] G_BOND_TENOR = new Period[] {Period.ofYears(4), Period.ofYears(4), Period.ofYears(4)};
-  private static final ZonedDateTime[] G_START_ACCRUAL_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2010, 3, 7), DateUtils.getUTCDate(2010, 9, 7), DateUtils.getUTCDate(2011, 1, 22)};
-  private static final double[] G_RATE = new double[] {0.0225, 0.0500, 0.0275};
+  private static final Period[] G_BOND_TENOR = new Period[] {Period.ofYears(4), Period.ofYears(4), Period.ofYears(4) };
+  private static final ZonedDateTime[] G_START_ACCRUAL_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2010, 3, 7), DateUtils.getUTCDate(2010, 9, 7), DateUtils.getUTCDate(2011, 1, 22) };
+  private static final double[] G_RATE = new double[] {0.0225, 0.0500, 0.0275 };
   private static final int G_NB_BOND = G_BOND_TENOR.length;
   private static final ZonedDateTime[] G_MATURITY_DATE = new ZonedDateTime[G_NB_BOND];
   private static final BondFixedSecurityDefinition[] G_BASKET_DEFINITION = new BondFixedSecurityDefinition[G_NB_BOND];
@@ -57,7 +56,7 @@ public class BondFutureConversionFactorMethodTest {
           1.0, G_EX_COUPON, G_CALENDAR, G_DAY_COUNT, G_BUSINESS_DAY, G_YIELD_CONVENTION, G_IS_EOM, "UK Govt", "UK Govt");
     }
   }
-  private static final ZonedDateTime[] G_FIRST_DELIVERY_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 12, 1), DateUtils.getUTCDate(2012, 3, 1)};
+  private static final ZonedDateTime[] G_FIRST_DELIVERY_DATE = new ZonedDateTime[] {DateUtils.getUTCDate(2011, 12, 1), DateUtils.getUTCDate(2012, 3, 1) };
   // Note: March contract involves ex-coupon periods.
   private static final double TOLERANCE_FACTOR_LIFFE = 1.0E-7;
   private static final double TOLERANCE_FACTOR_EURONEXT = 1.0E-6;
@@ -65,7 +64,7 @@ public class BondFutureConversionFactorMethodTest {
   @Test
   public void conversionFactorLiffe() {
     double notionalCoupon = 0.03; // 3% notional coupon on short Gilt as of Dec 11 contract.
-    double[][] conversionFactorExternal = new double[][] { {0.9836635, 1.0526713, 0.9925377}, {0.9854333, 1.0481364, 0.9931048}}; // Mar12
+    double[][] conversionFactorExternal = new double[][] { {0.9836635, 1.0526713, 0.9925377 }, {0.9854333, 1.0481364, 0.9931048 } }; // Mar12
     double[][] conversionFactorComputed = new double[G_FIRST_DELIVERY_DATE.length][G_NB_BOND];
     double[][] diff = new double[G_FIRST_DELIVERY_DATE.length][G_NB_BOND];
     for (int loopexp = 0; loopexp < G_FIRST_DELIVERY_DATE.length; loopexp++) {
@@ -89,11 +88,11 @@ public class BondFutureConversionFactorMethodTest {
   private static final YieldConvention YIELD_CONVENTION_GER = YieldConventionFactory.INSTANCE.getYieldConvention("STREET CONVENTION"); //???
 
   private static final ZonedDateTime[] MATURITY_DATE_BUXL = new ZonedDateTime[] {DateUtils.getUTCDate(2037, 1, 4), DateUtils.getUTCDate(2039, 7, 4), DateUtils.getUTCDate(2040, 7, 4),
-      DateUtils.getUTCDate(2042, 7, 4)};
+    DateUtils.getUTCDate(2042, 7, 4) };
   private static final int NB_BOND_BUXL = MATURITY_DATE_BUXL.length;
   private static final ZonedDateTime[] START_ACCURAL_DATE_BUXL = new ZonedDateTime[] {DateUtils.getUTCDate(2005, 1, 4), DateUtils.getUTCDate(2007, 1, 26), DateUtils.getUTCDate(2008, 7, 4),
-      DateUtils.getUTCDate(2010, 7, 4)};
-  private static final double[] RATE_BUXL = new double[] {0.04, 0.0425, 0.0475, 0.0325};
+    DateUtils.getUTCDate(2010, 7, 4) };
+  private static final double[] RATE_BUXL = new double[] {0.04, 0.0425, 0.0475, 0.0325 };
   private static final BondFixedSecurityDefinition[] BASKET_DEFINITION_BUXL = new BondFixedSecurityDefinition[NB_BOND_BUXL];
   static {
     for (int loopbasket = 0; loopbasket < NB_BOND_BUXL; loopbasket++) {
@@ -102,15 +101,15 @@ public class BondFutureConversionFactorMethodTest {
     }
   }
 
-  private static final ZonedDateTime[] FIRST_DELIVERY_DATE_UNADJUSTED_BUXL = new ZonedDateTime[] {DateUtils.getUTCDate(2012, 3, 10), DateUtils.getUTCDate(2012, 6, 10)};
+  private static final ZonedDateTime[] FIRST_DELIVERY_DATE_UNADJUSTED_BUXL = new ZonedDateTime[] {DateUtils.getUTCDate(2012, 3, 10), DateUtils.getUTCDate(2012, 6, 10) };
   private static final ZonedDateTime[] FIRST_DELIVERY_DATE_BUXL = new ZonedDateTime[] {
-      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GER, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[0], TARGET),
-      BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GER, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[1], TARGET)};
+    BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GER, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[0], TARGET),
+    BusinessDayDateUtils.applyConvention(BUSINESS_DAY_GER, FIRST_DELIVERY_DATE_UNADJUSTED_BUXL[1], TARGET) };
 
   @Test
   public void conversionFactorEuronext() {
     double notionalCoupon = 0.04; // 4% notional coupon on BUXL
-    double[][] conversionFactorExternal = new double[][] { {0.999882, 1.040908, 1.125532, 0.869471}, {0.999807, 1.040828, 1.125072, 0.870130}}; // Mar12 - Jun12 
+    double[][] conversionFactorExternal = new double[][] { {0.999882, 1.040908, 1.125532, 0.869471 }, {0.999807, 1.040828, 1.125072, 0.870130 } }; // Mar12 - Jun12 
     double[][] conversionFactorComputed = new double[FIRST_DELIVERY_DATE_BUXL.length][NB_BOND_BUXL];
     double[][] diff = new double[FIRST_DELIVERY_DATE_BUXL.length][NB_BOND_BUXL];
     for (int loopexp = 0; loopexp < FIRST_DELIVERY_DATE_BUXL.length; loopexp++) {

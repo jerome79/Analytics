@@ -351,7 +351,7 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
     _period = null;
     _businessDayTenor = businessDayTenor;
   }
-  
+
   /**
    * Gets the tenor period.
    * @return the period
@@ -375,7 +375,7 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
     }
     return _businessDayTenor;
   }
-  
+
   /**
    * Returns true if the tenor is a business day tenor.
    * @return True if the tenor is a business day tenor
@@ -383,7 +383,7 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
   public boolean isBusinessDayTenor() {
     return _period == null;
   }
-  
+
   //-------------------------------------------------------------------------
   /**
    * Returns a formatted string representing the tenor.
@@ -396,7 +396,7 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
   public String toFormattedString() {
     if (_period != null) {
       return getPeriod().toString();
-    } 
+    }
     return getBusinessDayTenor().toString();
   }
 
@@ -442,7 +442,7 @@ public class ComparableTenor implements Comparable<ComparableTenor>, Serializabl
     if (_period == null) {
       if (other._period == null) {
         return _businessDayTenor == other._businessDayTenor;
-      } 
+      }
       return false;
     }
     if (other._period == null) {

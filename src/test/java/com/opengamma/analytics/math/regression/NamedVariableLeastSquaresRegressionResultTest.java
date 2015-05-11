@@ -21,7 +21,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function2D;
 
-
 /**
  * Test.
  */
@@ -44,7 +43,7 @@ public class NamedVariableLeastSquaresRegressionResultTest {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNonMatchingInputs() {
     final List<String> names = Arrays.asList("A", "B");
-    final double[] array = new double[] {1.};
+    final double[] array = new double[] {1. };
     final LeastSquaresRegressionResult result = new LeastSquaresRegressionResult(array, array, 0., array, 0., 0.,
         array, array, false);
     new NamedVariableLeastSquaresRegressionResult(names, result);
@@ -93,7 +92,7 @@ public class NamedVariableLeastSquaresRegressionResultTest {
     } catch (final IllegalArgumentException e) {
       // Expected
     }
-    assertEquals(result1.getPredictedValue(Collections.<String, Double> emptyMap()), 0., 1e-16);
+    assertEquals(result1.getPredictedValue(Collections.<String, Double>emptyMap()), 0., 1e-16);
     try {
       final Map<String, Double> map = new HashMap<>();
       map.put("1", 0.);

@@ -32,7 +32,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -63,7 +62,7 @@ public class CapFloorInflationZeroCouponMonthlyDefinitionTest {
   private static final DayCount ACT_ACT = DayCounts.ACT_ACT_ISDA;
 
   private static final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-      new ZonedDateTime[]{DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30)}, new double[]{108.23, 128.23, 128.43});
+      new ZonedDateTime[] {DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30) }, new double[] {108.23, 128.23, 128.43 });
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurrency() {

@@ -25,7 +25,6 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Class describing a European swaption on a vanilla swap with physical delivery.
  */
@@ -172,7 +171,7 @@ public final class SwaptionPhysicalFixedCompoundedONCompoundedDefinition impleme
     final double expiryTime = TimeCalculator.getTimeBetween(dateTime, _expiry.getExpiry());
     final double settlementTime = TimeCalculator.getTimeBetween(dateTime, _settlementDate);
     final Swap<CouponFixedAccruedCompounding, CouponONCompounded> underlyingSwap = (Swap<CouponFixedAccruedCompounding, CouponONCompounded>)
-        _underlyingSwap.toDerivative(dateTime, new ZonedDateTimeDoubleTimeSeries[] {ts});
+        _underlyingSwap.toDerivative(dateTime, new ZonedDateTimeDoubleTimeSeries[] {ts });
     return SwaptionPhysicalFixedCompoundedONCompounded.from(expiryTime, underlyingSwap, settlementTime, _isCall, _isLong);
   }
 

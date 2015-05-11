@@ -424,7 +424,6 @@ public abstract class Greek implements Comparable<Greek> {
   /** A set containing all greeks that can be calculated */
   private static final Set<Greek> ALL_GREEKS;
 
-  //REVIEW elaine 9-7-2010 This is not ideal, because adding a new greek definition means remembering to put it in here
   static {
     ALL_GREEKS = new HashSet<>();
     ALL_GREEKS.add(CARRY_RHO);

@@ -124,9 +124,7 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModel {
     final double factor1 = (Math.exp(-a * v) - Math.exp(-a * tp)) * (Math.exp(-a * v) - Math.exp(-a * u));
     final double numerator = 2 * a * a * a;
     int indexStart = Math.abs(Arrays.binarySearch(parameters.getVolatilityTime(), startExpiry) + 1);
-    // Period in which the time startExpiry is; _volatilityTime[i-1] <= startExpiry < _volatilityTime[i];
     int indexEnd = Math.abs(Arrays.binarySearch(parameters.getVolatilityTime(), endExpiry) + 1);
-    // Period in which the time endExpiry is; _volatilityTime[i-1] <= endExpiry < _volatilityTime[i];
     int sLen = indexEnd - indexStart + 1;
     double[] s = new double[sLen + 1];
     s[0] = startExpiry;
@@ -156,9 +154,7 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModel {
     double factor1 = Math.exp(-data.getMeanReversion() * numeraireTime) - Math.exp(-data.getMeanReversion() * bondMaturity);
     double numerator = 2 * data.getMeanReversion() * data.getMeanReversion() * data.getMeanReversion();
     int indexStart = Math.abs(Arrays.binarySearch(data.getVolatilityTime(), startExpiry) + 1);
-    // Period in which the time startExpiry is; _volatilityTime[i-1] <= startExpiry < _volatilityTime[i];
     int indexEnd = Math.abs(Arrays.binarySearch(data.getVolatilityTime(), endExpiry) + 1);
-    // Period in which the time endExpiry is; _volatilityTime[i-1] <= endExpiry < _volatilityTime[i];
     int sLen = indexEnd - indexStart + 1;
     double[] s = new double[sLen + 1];
     s[0] = startExpiry;
@@ -196,9 +192,7 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModel {
     double factor1 = Math.exp(-data.getMeanReversion() * numeraireTime) - Math.exp(-data.getMeanReversion() * bondMaturity);
     double numerator = 2 * data.getMeanReversion() * data.getMeanReversion() * data.getMeanReversion();
     int indexStart = Math.abs(Arrays.binarySearch(data.getVolatilityTime(), startExpiry) + 1);
-    // Period in which the time startExpiry is; _volatilityTime[i-1] <= startExpiry < _volatilityTime[i];
     int indexEnd = Math.abs(Arrays.binarySearch(data.getVolatilityTime(), endExpiry) + 1);
-    // Period in which the time endExpiry is; _volatilityTime[i-1] <= endExpiry < _volatilityTime[i];
     int sLen = indexEnd - indexStart + 1;
     double[] s = new double[sLen + 1];
     s[0] = startExpiry;
@@ -588,7 +582,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModel {
     double g2 = g * g;
     double g3 = g * g2;
     double g4 = g * g3;
-    //    double dx2 = -((df2 * g - f * dg2) / g2 - (df * g - f * dg) * 2 * dg / g3);
     // Backward sweep
     double dx2Bar = 1.0;
     double gBar = (df2 / g2 - 2 * f * dg2 / g3 - 4 * df * dg / g3 + 6 * dg * dg * f / g4) * dx2Bar;
@@ -653,7 +646,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModel {
     double g2 = g * g;
     double g3 = g * g2;
     double g4 = g * g3;
-    //    double dx2 = -((df2 * g - f * dg2) / g2 - (df * g - f * dg) * 2 * dg / g3);
     // Backward sweep
     double dx2Bar = 1.0;
     double gBar = (df2 / g2 - 2 * f * dg2 / g3 - 4 * df * dg / g3 + 6 * dg * dg * f / g4) * dx2Bar;

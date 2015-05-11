@@ -140,6 +140,4 @@ public class ForexPriceQuoteConverter {
     return true;
   }
 
-
-
 }

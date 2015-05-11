@@ -66,11 +66,11 @@ public class EquityE2ETestMaster {
 
   // yield curve
   private static final double[] SINGLE_CURVE_TIME = new double[] {0.002739726, 0.093150685, 0.257534247, 0.515068493,
-      1.005479452, 2.009416873, 3.005479452, 4.005479452, 5.005479452, 6.006684632, 7.010958904, 8.008219178,
-      9.005479452, 10.00668463, 12.00547945, 15.00547945, 20.00547945 };
+    1.005479452, 2.009416873, 3.005479452, 4.005479452, 5.005479452, 6.006684632, 7.010958904, 8.008219178,
+    9.005479452, 10.00668463, 12.00547945, 15.00547945, 20.00547945 };
   private static final double[] SINGLE_CURVE_RATE = new double[] {0.001774301, 0.000980829, 0.000940143, 0.001061566,
-      0.001767578, 0.005373189, 0.009795971, 0.013499667, 0.016397755, 0.018647803, 0.020528999, 0.022002859,
-      0.023322553, 0.024538027, 0.026482704, 0.028498622, 0.030369559 };
+    0.001767578, 0.005373189, 0.009795971, 0.013499667, 0.016397755, 0.018647803, 0.020528999, 0.022002859,
+    0.023322553, 0.024538027, 0.026482704, 0.028498622, 0.030369559 };
   private static final String SINGLE_CURVE_NAME = "Single Curve";
   private static final Interpolator1D YIELD_INTERPOLATOR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(
       Interpolator1DFactory.DOUBLE_QUADRATIC, Interpolator1DFactory.LINEAR_EXTRAPOLATOR,
@@ -78,7 +78,7 @@ public class EquityE2ETestMaster {
   private static final InterpolatedDoublesCurve INTERPOLATED_CURVE = InterpolatedDoublesCurve.from(SINGLE_CURVE_TIME,
       SINGLE_CURVE_RATE, YIELD_INTERPOLATOR);
   protected static final YieldAndDiscountCurve SINGLE_CURVE = new YieldCurve(SINGLE_CURVE_NAME, INTERPOLATED_CURVE);
-  
+
   // tools for vol surface
   private static final BjerksundStenslandModel AMERICAN_MODEL = new BjerksundStenslandModel();
   private final static CombinedInterpolatorExtrapolator EXPIRY_INTERPOLATOR = getInterpolator(
@@ -89,7 +89,7 @@ public class EquityE2ETestMaster {
       Interpolator1DFactory.LINEAR_EXTRAPOLATOR);
 
   protected static final String[] COMPUTE_VALUES = new String[] {"pv per contract", "pv", "delta", "gamma", "theta",
-      "rho", "vega", "position delta", "position gamma", "position theta", "position rho", "position vega" };
+    "rho", "vega", "position delta", "position gamma", "position theta", "position rho", "position vega" };
   protected static final double TOL = 1.0e-10;
 
   /**
@@ -195,7 +195,7 @@ public class EquityE2ETestMaster {
     double positionRho = rho * unitAmount * notional;
     double positionVega = vega * unitAmount * notional;
     double[] res = new double[] {pvPerContract, pv, delta, gamma, theta, rho, vega, positionDelta,
-        positionGamma, positionTheta, positionRho, positionVega };
+      positionGamma, positionTheta, positionRho, positionVega };
     assertEqualsArray(COMPUTE_VALUES, expected, res, TOL);
   }
 

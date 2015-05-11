@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.minimization;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

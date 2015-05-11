@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -98,7 +97,7 @@ public class YieldAndDiscountCurveUtils {
     final double rate = -Math.log(df) / timeDc;
     return rate;
   }
-  
+
   /**
    * Compute the zero coupon for a given payment date.
    * @param curve The curve.

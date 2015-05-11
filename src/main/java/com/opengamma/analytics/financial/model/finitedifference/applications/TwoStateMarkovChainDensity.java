@@ -51,9 +51,7 @@ public class TwoStateMarkovChainDensity {
 
   PDEFullResults1D[] solve(final PDEGrid1D grid) {
 
-    //BoundaryCondition lower = new FixedSecondDerivativeBoundaryCondition(0, grid.getSpaceNode(0), true);
     final BoundaryCondition lower = new NeumannBoundaryCondition(0.0, grid.getSpaceNode(0), true);
-    //BoundaryCondition lower = new DirichletBoundaryCondition(0.0, grid.getSpaceNode(0));//TODO for beta < 0.5 zero is accessible and thus there will be non-zero 
     //density there
     final BoundaryCondition upper = new DirichletBoundaryCondition(0.0, grid.getSpaceNode(grid.getNumSpaceNodes() - 1));
 

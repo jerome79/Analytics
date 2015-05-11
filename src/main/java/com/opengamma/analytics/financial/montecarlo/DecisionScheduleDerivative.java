@@ -80,12 +80,4 @@ public class DecisionScheduleDerivative extends DecisionSchedule {
     return true;
   }
 
-  //  /**
-  //   * Sets the derivative of the cash flow equivalent for each decision time.
-  //   * @param impactAmountDerivative  The derivative of the cash flow equivalent for each decision time.
-  //   */
-  //  public void setImpactAmountDerivative(ArrayList<Map<Double, PresentValueSensitivity>> impactAmountDerivative) {
-  //    this._impactAmountDerivative = impactAmountDerivative;
-  //  }
-
 }

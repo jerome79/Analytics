@@ -139,7 +139,6 @@ public class SwapFixedCompoundingONCompoundingDiscountingMethod {
     CouponFixedAccruedCompounding cpnFixed = fixedCouponSwap.getFirstLeg().getNthPayment(0);
     CurrencyAmount pvLegFloating = METHOD_COUPON_ON_CMP.presentValue(fixedCouponSwap.getSecondLeg().getNthPayment(0), curves);
     double dfPay = curves.getCurve(cpnFixed.getFundingCurveName()).getDiscountFactor(cpnFixed.getPaymentTime());
-    //    double rate = -pvLegFloating.getAmount() / (dfPay * cpnFixed.getNotional()) - 1.0d;
     // Backward sweep
     double rateBar = 1.0;
     double pvFloatingBar = -1.0d / (dfPay * cpnFixed.getNotional()) * rateBar;

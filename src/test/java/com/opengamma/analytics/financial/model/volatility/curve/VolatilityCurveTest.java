@@ -16,13 +16,12 @@ import com.opengamma.analytics.math.curve.InterpolatedCurveShiftFunction;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
 @Test
 public class VolatilityCurveTest {
-  private static final InterpolatedDoublesCurve CURVE = InterpolatedDoublesCurve.from(new double[] {1, 2, 3}, new double[] {4, 5, 6}, new LinearInterpolator1D());
+  private static final InterpolatedDoublesCurve CURVE = InterpolatedDoublesCurve.from(new double[] {1, 2, 3 }, new double[] {4, 5, 6 }, new LinearInterpolator1D());
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurve() {
@@ -53,8 +52,8 @@ public class VolatilityCurveTest {
     shifted2 = f.evaluate(CURVE, 1, 3.);
     assertArrayEquals(shifted1.getCurve().getXData(), shifted2.getXData());
     assertArrayEquals(shifted1.getCurve().getYData(), shifted2.getYData());
-    shifted1 = vol.withMultipleShifts(new double[] {1, 2}, new double[] {3, 4});
-    shifted2 = f.evaluate(CURVE, new double[] {1, 2}, new double[] {3, 4});
+    shifted1 = vol.withMultipleShifts(new double[] {1, 2 }, new double[] {3, 4 });
+    shifted2 = f.evaluate(CURVE, new double[] {1, 2 }, new double[] {3, 4 });
     assertArrayEquals(shifted1.getCurve().getXData(), shifted2.getXData());
     assertArrayEquals(shifted1.getCurve().getYData(), shifted2.getYData());
   }

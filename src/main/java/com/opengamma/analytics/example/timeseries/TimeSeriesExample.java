@@ -26,7 +26,6 @@ public class TimeSeriesExample {
     LocalDateDoubleTimeSeries ts2 = ts1.build();
     out.println("ts2: " + ts2);
 
-
     final LocalDateDoubleTimeSeries ts3 = ts2.subSeries(LocalDate.of(2010, 1, 2), LocalDate.of(2010, 1, 3));
     out.println("ts3: " + ts3);
   }

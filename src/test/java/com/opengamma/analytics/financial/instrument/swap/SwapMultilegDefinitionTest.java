@@ -32,7 +32,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test the swaps with multiple legs constructor and to derivative.
  */
@@ -102,8 +101,8 @@ public class SwapMultilegDefinitionTest {
   @Test
   public void toDerivative() {
     final ZonedDateTimeDoubleTimeSeries fixingTsF = ImmutableZonedDateTimeDoubleTimeSeries.ofEmpty(ZoneId.of("UTC"));
-    final ZonedDateTimeDoubleTimeSeries fixingTs3 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{((CouponIborDefinition) LEGS_DEFINITION[1].getNthPayment(0)).getFixingDate()},
-        new double[]{0.0123});
+    final ZonedDateTimeDoubleTimeSeries fixingTs3 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {((CouponIborDefinition) LEGS_DEFINITION[1].getNthPayment(0)).getFixingDate() },
+        new double[] {0.0123 });
     final ZonedDateTimeDoubleTimeSeries fixingTs6 = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {((CouponIborDefinition) LEGS_DEFINITION[2].getNthPayment(0)).getFixingDate() },
         new double[] {0.0135 });
     final ZonedDateTimeDoubleTimeSeries[] fixingTs = new ZonedDateTimeDoubleTimeSeries[] {fixingTsF, fixingTs3, fixingTs6 };

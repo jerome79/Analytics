@@ -43,11 +43,6 @@ public final class InterestRateFutureTransactionHullWhiteMethod extends Interest
 
   private static final InterestRateFutureSecurityHullWhiteMethod METHOD_SECURITY = InterestRateFutureSecurityHullWhiteMethod.getInstance();
 
-  //  /**
-  //   * The Hull-White model.
-  //   */
-  //  private static final HullWhiteOneFactorPiecewiseConstantInterestRateModel MODEL = new HullWhiteOneFactorPiecewiseConstantInterestRateModel();
-
   public CurrencyAmount presentValue(final InterestRateFutureTransaction future, final HullWhiteOneFactorPiecewiseConstantDataBundle curves) {
     final double pv = presentValueFromPrice(future, METHOD_SECURITY.price(future.getUnderlyingSecurity(), curves));
     return CurrencyAmount.of(future.getCurrency(), pv);

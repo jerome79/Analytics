@@ -121,7 +121,6 @@ public final class BillTransactionDiscountingMethod implements PricingMethod {
     final double dfDscSettle = curves.getCurve(bill.getBillPurchased().getDiscountingCurveName()).getDiscountFactor(bill.getBillPurchased().getSettlementTime());
     final double pricePar = dfCreditEnd / dfDscSettle;
     //    double spread = METHOD_SECURITY.yieldFromPrice(bill.getBillPurchased(), pricePar)
-    //        - METHOD_SECURITY.yieldFromPrice(bill.getBillPurchased(), -bill.getSettlementAmount() / (bill.getQuantity() * bill.getBillPurchased().getNotional()));
     // Backward sweep
     final double spreadBar = 1.0;
     final double priceParBar = METHOD_SECURITY.yieldFromPriceDerivative(bill.getBillPurchased(), pricePar) * spreadBar;

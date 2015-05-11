@@ -48,15 +48,15 @@ public class UniformMeshing extends MeshingFunction {
     // sort and remove duplicates, preserving order
     _fpValues = FunctionUtils.unique(fixedPoints);
     // remove any fixed points on the boundary
-//    int nn = temp.length;
-//    if (nn > 0 && temp[0] == 0.0) {
-//      temp = Arrays.copyOfRange(temp, 1, nn - 1);
-//    }
-//    nn = temp.length;
-//    if (nn > 0 && temp[nn - 1] == 1.0) {
-//      temp = Arrays.copyOfRange(temp, 0, nn - 2);
-//    }
-//    _fpValues = temp;
+    //    int nn = temp.length;
+    //    if (nn > 0 && temp[0] == 0.0) {
+    //      temp = Arrays.copyOfRange(temp, 1, nn - 1);
+    //    }
+    //    nn = temp.length;
+    //    if (nn > 0 && temp[nn - 1] == 1.0) {
+    //      temp = Arrays.copyOfRange(temp, 0, nn - 2);
+    //    }
+    //    _fpValues = temp;
     final int m = _fpValues.length;
     if (m == 0) {
       _db = null;

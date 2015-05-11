@@ -220,7 +220,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
     // Nominal construction
     ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
     final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
-        new PaymentFixedDefinition(priceIndex.getCurrency(), adjusted, notional)};
+      new PaymentFixedDefinition(priceIndex.getCurrency(), adjusted, notional) };
 
     final AnnuityDefinition<PaymentFixedDefinition> nominalAnnuity = new AnnuityDefinition<>(nominalPayment, calendar);
     // Coupon construction
@@ -294,7 +294,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
     // Nominal construction
     ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
     final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
-        new PaymentFixedDefinition(priceIndex.getCurrency(), adjusted, notional)};
+      new PaymentFixedDefinition(priceIndex.getCurrency(), adjusted, notional) };
 
     final AnnuityDefinition<PaymentFixedDefinition> nominalAnnuity = new AnnuityDefinition<>(nominalPayment, calendar);
     // Coupon construction
@@ -370,7 +370,7 @@ public class BondInterestIndexedSecurityDefinition<N extends PaymentFixedDefinit
     // Nominal construction
     ZonedDateTime adjusted = BusinessDayDateUtils.applyConvention(businessDay, maturityDate, calendar);
     final PaymentFixedDefinition[] nominalPayment = new PaymentFixedDefinition[] {
-        new PaymentFixedDefinition(priceIndex.getCurrency(), adjusted, notional)};
+      new PaymentFixedDefinition(priceIndex.getCurrency(), adjusted, notional) };
 
     final AnnuityDefinition<PaymentFixedDefinition> nominalAnnuity = new AnnuityDefinition<>(nominalPayment, calendar);
     // Coupon construction

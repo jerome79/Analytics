@@ -33,7 +33,6 @@ import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the pricing and sensitivities of Ibor coupon with spread in the discounting method.
  */

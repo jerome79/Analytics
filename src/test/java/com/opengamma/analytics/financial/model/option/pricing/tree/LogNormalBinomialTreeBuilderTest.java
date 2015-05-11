@@ -31,7 +31,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -93,7 +92,6 @@ public class LogNormalBinomialTreeBuilderTest {
 
       final double f = tk[1];
       final double sigma = SIGMA_BETA * Math.pow(f, BETA - 1);
-      // return Math.min(sigma,100*ATM_VOL);
       return sigma;
     }
   };
@@ -101,7 +99,6 @@ public class LogNormalBinomialTreeBuilderTest {
   private static final GeneralLogNormalOptionDataBundle DATA = new GeneralLogNormalOptionDataBundle(YIELD_CURVE, DRIFTLESS, new VolatilitySurface(FunctionalDoublesSurface.from(FLAT_LOCAL_VOL)),
       FORWARD, DATE);
 
-  @Test
   public void testPriceFlat() {
     final RecombiningBinomialTree<BinomialTreeNode<Double>> assetPriceTree = BUILDER.buildAssetTree(T, DATA, 200);
     RecombiningBinomialTree<BinomialTreeNode<Double>> optionPriceTree = BUILDER.buildOptionPriceTree(OPTION, DATA, assetPriceTree);
@@ -110,7 +107,6 @@ public class LogNormalBinomialTreeBuilderTest {
     final BlackFunctionData data = new BlackFunctionData(FORWARD, YIELD_CURVE.getDiscountFactor(T), 0);
     double impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, o, optionPriceTree.getNode(0, 0).getValue());
 
-    //double impVol = BlackImpliedVolFormula.impliedVol(optionPriceTree.getNode(0, 0).getValue(), FORWARD, FORWARD, YIELD_CURVE.getDiscountFactor(T), T, true);
     assertEquals(ATM_VOL, impVol, 1e-3);
     for (int i = 0; i < 10; i++) {
       final double m = -1.5 + 3.0 * i / 10.0;
@@ -120,13 +116,10 @@ public class LogNormalBinomialTreeBuilderTest {
       o = new EuropeanVanillaOption(strike, T, OPTION.isCall());
       optionPriceTree = BUILDER.buildOptionPriceTree(option, DATA, assetPriceTree);
       impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(data, o, optionPriceTree.getNode(0, 0).getValue());
-      //      impVol = BlackImpliedVolFormula.impliedVol(optionPriceTree.getNode(0, 0).getValue(), FORWARD, strike, YIELD_CURVE.getDiscountFactor(T), T, true);
-      // System.out.println(strike+"\t"+impVol);
       assertEquals(ATM_VOL, impVol, 1e-3);
     }
   }
 
-  @Test
   public void testPriceTimeDependent() {
     final GeneralLogNormalOptionDataBundle data = new GeneralLogNormalOptionDataBundle(YIELD_CURVE, DRIFTLESS, new VolatilitySurface(FunctionalDoublesSurface.from(TIME_DEPENDENT_LOCAL_VOL)), FORWARD,
         DATE);
@@ -136,7 +129,6 @@ public class LogNormalBinomialTreeBuilderTest {
     EuropeanVanillaOption o = new EuropeanVanillaOption(FORWARD, T, true);
     final BlackFunctionData bfd = new BlackFunctionData(FORWARD, YIELD_CURVE.getDiscountFactor(T), 0);
     double impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(bfd, o, optionPriceTree.getNode(0, 0).getValue());
-    //    double impVol = BlackImpliedVolFormula.impliedVol(optionPriceTree.getNode(0, 0).getValue(), FORWARD, FORWARD, df, T, true);
     assertEquals(vol, impVol, 1e-3);
     for (int i = 0; i < 10; i++) {
       final double m = -1.5 + 3.0 * i / 10.0;
@@ -146,13 +138,10 @@ public class LogNormalBinomialTreeBuilderTest {
       o = new EuropeanVanillaOption(strike, T, OPTION.isCall());
       optionPriceTree = BUILDER.buildOptionPriceTree(option, DATA, assetPriceTree);
       impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(bfd, o, optionPriceTree.getNode(0, 0).getValue());
-      //      impVol = BlackImpliedVolFormula.impliedVol(optionPriceTree.getNode(0, 0).getValue(), FORWARD, strike, df, T, true);
-      // System.out.println(strike+"\t"+impVol);
       assertEquals(vol, impVol, 1e-3);
     }
   }
 
-  @Test
   public void testCEV() {
     final GeneralLogNormalOptionDataBundle data = new GeneralLogNormalOptionDataBundle(YIELD_CURVE, DRIFTLESS, new VolatilitySurface(FunctionalDoublesSurface.from(CEV_LOCAL_VOL)), FORWARD, DATE);
     final RecombiningBinomialTree<BinomialTreeNode<Double>> assetPriceTree = BUILDER.buildAssetTree(T, data, 200);
@@ -169,10 +158,6 @@ public class LogNormalBinomialTreeBuilderTest {
       final double cevPrice = CEV_PRICE.getPriceFunction(o).evaluate(cfd);
       final double cevVol = BLACK_IMPLIED_VOL.getImpliedVolatility(new BlackFunctionData(FORWARD, YIELD_CURVE.getDiscountFactor(T), SIGMA_BETA), o, cevPrice);
       final double impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(new BlackFunctionData(FORWARD, YIELD_CURVE.getDiscountFactor(T), SIGMA_BETA), o, optionPriceTree.getNode(0, 0).getValue());
-      //      final double cevPrice = CEVFormula.optionPrice(FORWARD, strike, BETA, df, SIGMA_BETA, T, true);
-      //      final double cevVol = BlackImpliedVolFormula.impliedVol(cevPrice, FORWARD, strike, df, T, true);
-      //      final double impVol = BlackImpliedVolFormula.impliedVol(optionPriceTree.getNode(0, 0).getValue(), FORWARD, strike, df, T, true);
-      // System.out.println(strike + "\t" + cevVol  + "\t" + impVol);
       assertEquals(cevVol, impVol, 1e-3);
     }
   }

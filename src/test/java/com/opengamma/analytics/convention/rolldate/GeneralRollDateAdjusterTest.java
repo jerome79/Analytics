@@ -12,7 +12,6 @@ import java.time.temporal.TemporalAdjuster;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */

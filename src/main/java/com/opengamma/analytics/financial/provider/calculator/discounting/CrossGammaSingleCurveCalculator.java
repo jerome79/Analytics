@@ -38,7 +38,7 @@ public class CrossGammaSingleCurveCalculator {
 
   /** Default size of bump: 1 basis point. */
   private static final double BP1 = 1.0E-4;
-  
+
   /** The tool used to differentiate the delta. */
   private final VectorFieldFirstOrderDifferentiator _differentiator;
   /** The sensitivity calculator to the curve parameters used for the delta computation */
@@ -140,12 +140,12 @@ public class CrossGammaSingleCurveCalculator {
     for (int loopnode1 = 1; loopnode1 < nbNode; loopnode1++) {
       for (int loopnode2 = loopnode1; loopnode2 < nbNode; loopnode2++) {
         gammaArray[loopnode2][loopnode1] = gammaArray[loopnode1][loopnode2];
-      }      
+      }
     }
     DoubleMatrix2D gammaMat = new DoubleMatrix2D(gammaArray);
     return gammaMat;
   }
-  
+
   /**
    * Computes the gamma "sum-of-column" for a given instrument. See the documentation for the definition.
    * The curve provider should contain only one curve which should be of the 
@@ -179,7 +179,7 @@ public class CrossGammaSingleCurveCalculator {
 /**
  * Inner class to compute the delta for a given parallel shift of the curve.
  */
-class Delta extends Function1D<DoubleMatrix1D, DoubleMatrix1D> {  
+class Delta extends Function1D<DoubleMatrix1D, DoubleMatrix1D> {
   private final double[] _x;
   private final double[] _y;
   private final int _nbNode;
@@ -189,8 +189,8 @@ class Delta extends Function1D<DoubleMatrix1D, DoubleMatrix1D> {
   private final Currency _ccy;
   private final InterpolatedDoublesCurve _interpolatedCurve;
   private final ParameterSensitivityParameterCalculator<ParameterProviderInterface> _psc;
-  
-  public Delta(MulticurveProviderDiscount multicurve, InstrumentDerivative instrument, 
+
+  public Delta(MulticurveProviderDiscount multicurve, InstrumentDerivative instrument,
       ParameterSensitivityParameterCalculator<ParameterProviderInterface> psc) {
     _multicurve = multicurve;
     _name = multicurve.getAllNames().iterator().next();
@@ -229,5 +229,5 @@ class Delta extends Function1D<DoubleMatrix1D, DoubleMatrix1D> {
     double[] ps = psShift.getSensitivity(_name, _ccy).getData();
     return new DoubleMatrix1D(ps);
   }
-  
+
 }

@@ -14,7 +14,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 import com.opengamma.analytics.util.ArrayUtils;
 
-
 /**
  * Test.
  */

@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBu
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DCubicSplineDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test.
  */

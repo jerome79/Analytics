@@ -11,11 +11,9 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 public class ContinuousInterestRate extends InterestRate {
-  //  private final double _annualEquivalent;
 
   public ContinuousInterestRate(final double rate) {
     super(rate);
-    //    _annualEquivalent = Math.exp(getRate()) - 1;
   }
 
   @Override

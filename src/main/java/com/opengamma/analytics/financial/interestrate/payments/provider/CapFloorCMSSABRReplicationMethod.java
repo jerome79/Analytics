@@ -418,7 +418,7 @@ public class CapFloorCMSSABRReplicationMethod extends CapFloorCMSSABRReplication
       final double hpp = (_eta - 1.0) * _tau * hp / periodFactor;
       final double kp = hp / g - h * gp / g2;
       final double kpp = hpp / g - 2 * hp * gp / g2 - h * (gpp / g2 - 2 * (gp * gp) / (g2 * g));
-      return new double[] {kp, kpp};
+      return new double[] {kp, kpp };
     }
 
     /**

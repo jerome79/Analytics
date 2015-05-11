@@ -19,7 +19,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.number.ComplexNumber;
 
-
 /**
  * Test.
  */
@@ -94,7 +93,7 @@ public class FFTPricerTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongHighStrike() {
-    PRICER.price(FORWARD, DF, T, true, CEF, FORWARD, FORWARD-1, 10, SIGMA, ALPHA, TOL);
+    PRICER.price(FORWARD, DF, T, true, CEF, FORWARD, FORWARD - 1, 10, SIGMA, ALPHA, TOL);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -109,7 +108,7 @@ public class FFTPricerTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNegativeStrikesAboveATM() {
-    PRICER.price(FORWARD, DF, T, true, CEF, 10, -10,  ALPHA, 0.5, 64, 20);
+    PRICER.price(FORWARD, DF, T, true, CEF, 10, -10, ALPHA, 0.5, 64, 20);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -119,7 +118,7 @@ public class FFTPricerTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNegativeDelta() {
-    PRICER.price(FORWARD, DF, T, true, CEF, 10, 10,  ALPHA, -0.5, 64, 20);
+    PRICER.price(FORWARD, DF, T, true, CEF, 10, 10, ALPHA, -0.5, 64, 20);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -132,7 +131,6 @@ public class FFTPricerTest {
     PRICER.price(FORWARD, DF, T, true, CEF, 10, 10, ALPHA, 0.5, 64, 128);
   }
 
-  @Test
   public void testLargeNumberOfStrikes() {
     final boolean isCall = true;
     final int n = 1024;
@@ -146,7 +144,6 @@ public class FFTPricerTest {
     assertEquals(n + 1, temp.length);
   }
 
-  @Test
   public void test() {
     final boolean isCall = true;
     final int nStrikes = 21;
@@ -173,7 +170,6 @@ public class FFTPricerTest {
     }
   }
 
-  @Test
   public void testPutsAndCalls() {
     boolean isCall = true;
     final double tol = 1e-10;
@@ -193,7 +189,6 @@ public class FFTPricerTest {
   /**
    * This test that the same price is produced when the alpha, tolerance and limitSigma are changed 
    */
-  @Test
   public void testStability() {
     final boolean isCall = false;
     final int nStrikes = 21;
@@ -227,7 +222,6 @@ public class FFTPricerTest {
 
   }
 
-  @Test
   public void testDirect() {
     final double alpha = 0.5;
     final EuropeanCallFourierTransform callFT = new EuropeanCallFourierTransform(CEF);
@@ -256,17 +250,4 @@ public class FFTPricerTest {
     assertEquals(SIGMA, impVol, 1e-5);
   }
 
-  @Test
-  public void testEuropeanCallFT() {
-
-    final Function1D<ComplexNumber, ComplexNumber> callFT = new EuropeanCallFourierTransform(CEF).getFunction(T);
-    for (int i = 0; i < 101; i++) {
-      final double x = -10.0 + 20.0 * i / 100;
-      final ComplexNumber z = new ComplexNumber(x, -1.5);
-      @SuppressWarnings("unused")
-      final ComplexNumber u = callFT.evaluate(z);
-      //System.out.println(x + "\t" + u.getReal() + "\t" + u.getImaginary());
-    }
-
-  }
 }

@@ -13,7 +13,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.NormalFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.NormalPriceFunction;
 
-
 /**
  * Test related to the implied volatility from the price in a normally distributed asset price world.
  */

@@ -38,8 +38,6 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
   private static final double RHO_EPS_NEGATIVE = 1e-8;
   private static final double ATM_EPS = 1e-7;
 
-  //  private static final double EPS = 1e-15;
-
   @Override
   public Function1D<SABRFormulaData, Double> getVolatilityFunction(final EuropeanVanillaOption option, final double forward) {
     ArgChecker.notNull(option, "option");
@@ -152,7 +150,6 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     }
     //There is nothing to prevent the nu * nu * (2 - 3 * rho * rho) / 24 part taking the third term, and hence the volatility negative
     return vol;
-    // return Math.max(0.0, vol);
   }
 
   public double getVolatility(final double forward, final double strike, final double timeToExpiry, final double alpha, final double beta, final double rho, final double nu) {
@@ -213,7 +210,6 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     final double sf1Bar = -alpha / (sf1 * sf1) * zOverChi[0] * sf2 * vBar;
     final double rzxzBar = alpha / sf1 * sf2 * vBar;
     final double zBar = zOverChi[2] * rzxzBar;
-    //    double xzBar = 0;
 
     final double sfKBar = nu / alpha * lnrfK * zBar + sf1 / sfK * sf1Bar - (Math.pow(betaStar * alpha, 2) / Math.pow(sfK, 3) / 12 + (rho * beta * nu * alpha) / 4 / (sfK * sfK)) * timeToExpiry
         * sf2Bar;
@@ -466,7 +462,6 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
       sigmaD2ff[1][2] = alpha / f1 * theta * (1.0 / x - f2 * xp / (x * x));
     }
     sigmaD2ff[2][2] = 0.0;
-    //     final double sigma = alpha / f1 * f2x * (1 + f3 * theta);
     // Second level
     final double[] f1Dh = new double[3];
     final double[] f2Dh = new double[3];

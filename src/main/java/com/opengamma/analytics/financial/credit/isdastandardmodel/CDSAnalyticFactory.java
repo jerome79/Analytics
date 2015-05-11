@@ -741,7 +741,6 @@ public class CDSAnalyticFactory {
     ArgChecker.notNull(tradeDate, "tradeDate");
     ArgChecker.notEmpty(matIndices, "matIndicies");
 
-    //final LocalDate nextIMM = isIMMDate(tradeDate) ? tradeDate : getNextIMMDate(tradeDate);
     final LocalDate nextIMM = IMMDateLogic.getNextIMMDate(tradeDate);
     final LocalDate stepinDate = tradeDate.plusDays(_stepIn);
     final LocalDate valueDate = addWorkDays(tradeDate, _cashSettle, _calendar);

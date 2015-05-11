@@ -16,7 +16,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 public class SimpleFXFuturePresentValueCalculator implements SimpleInstrumentVisitor<SimpleFXFutureDataBundle, CurrencyAmount> {
-  
+
   @Override
   public CurrencyAmount visit(final SimpleInstrument derivative, final SimpleFXFutureDataBundle data) {
     ArgChecker.notNull(derivative, "derivative");
@@ -31,7 +31,7 @@ public class SimpleFXFuturePresentValueCalculator implements SimpleInstrumentVis
 
   @Override
   public CurrencyAmount visitSimpleFXFuture(final SimpleFXFuture future, final SimpleFXFutureDataBundle data) {
-    final double t = future.getExpiry();  
+    final double t = future.getExpiry();
     final double payRate = data.getPayCurve().getInterestRate(t);
     final double receiveRate = data.getReceiveCurve().getInterestRate(t);
     return CurrencyAmount.of(future.getReceiveCurrency(), future.getUnitAmount() * data.getSpot() * Math.exp(t * (receiveRate - payRate)));

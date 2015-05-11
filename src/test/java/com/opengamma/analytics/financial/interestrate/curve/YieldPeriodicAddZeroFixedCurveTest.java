@@ -19,7 +19,6 @@ import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolat
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 
-
 /**
  * Test {@link YieldPeriodicAddZeroFixedCurve}.
  */
@@ -27,23 +26,23 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 public class YieldPeriodicAddZeroFixedCurveTest {
   private static final Interpolator1D LINEAR_FLAT = CombinedInterpolatorExtrapolatorFactory.getInterpolator(
       Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  
+
   private static final double[] TIME = new double[] {0.0, 0.5, 1.0, 2.0, 5.0, 10.0, 30.00 };
   private static final double[] RATE = new double[] {0.0250, 0.0225, 0.0250, 0.0275, 0.0250, 0.0250, 0.0250 };
   private static final String CURVE_NAME = "Curve base";
   /* Curve with annually compounded rates. */
   private static final int FREQ = 1;
   private static final DoublesCurve CURVE_INT = new InterpolatedDoublesCurve(TIME, RATE, LINEAR_FLAT, true, CURVE_NAME);
-  private static final YieldPeriodicCurve CURVE_ANNUAL = new YieldPeriodicCurve(CURVE_NAME, FREQ,CURVE_INT);
+  private static final YieldPeriodicCurve CURVE_ANNUAL = new YieldPeriodicCurve(CURVE_NAME, FREQ, CURVE_INT);
   private static final double CST = 0.0123;
   private static final DoublesCurve CURVE_CST = new ConstantDoublesCurve(CST, "Spread");
-  private static final YieldAndDiscountCurve CURVE_ANNUAL_SPREAD = 
-      new YieldPeriodicAddZeroFixedCurve("Total", false, CURVE_ANNUAL, CURVE_CST);  
+  private static final YieldAndDiscountCurve CURVE_ANNUAL_SPREAD =
+      new YieldPeriodicAddZeroFixedCurve("Total", false, CURVE_ANNUAL, CURVE_CST);
 
   private static final double[] TEST_TIME = new double[] {-0.01, 0.0, 0.01, 1.0, 2.5, 31.00 };
   private static final int NB_TEST = TEST_TIME.length;
   private static final Double TOLERANCE_RATE = 1.0E-8;
-  
+
   @Test
   public void interestRateCC() {
     for (int i = 0; i < NB_TEST; i++) {
@@ -69,5 +68,5 @@ public class YieldPeriodicAddZeroFixedCurveTest {
           dfExpected, dfComputed, TOLERANCE_RATE);
     }
   }
-  
+
 }

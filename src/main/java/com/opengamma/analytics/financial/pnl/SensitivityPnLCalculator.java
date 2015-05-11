@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  *
  */

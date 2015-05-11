@@ -23,7 +23,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 public abstract class AmericanAnalyticOptionModelTest extends AnalyticOptionModelTest {
   private static final ZonedDateTime DATE = DateUtils.getUTCDate(2009, 1, 1);
   private static final Expiry NINE_MONTHS = new Expiry(DateUtils.getDateOffsetWithYearFraction(DATE, 0.75));

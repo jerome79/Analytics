@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurve;
 import com.opengamma.analytics.financial.curve.inflation.generator.GeneratorPriceIndexCurveInterpolated;
@@ -78,8 +77,8 @@ public class InflationBuildingCurveSimpleWithIssuerTestUS {
 
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2012, 9, 28);
 
-  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28), DateUtils.getUTCDate(2012, 6, 30), DateUtils.getUTCDate(2012, 7, 31), DateUtils.getUTCDate(2012, 8, 30)}, new double[]{200, 200, 200, 200, 200});
+  private static final ZonedDateTimeDoubleTimeSeries TS_PRICE_INDEX_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28), DateUtils.getUTCDate(2012, 6, 30), DateUtils.getUTCDate(2012, 7, 31), DateUtils.getUTCDate(2012, 8, 30) }, new double[] {200, 200, 200, 200, 200 });
   private static final String CURVE_NAME_CPI_USD = "USD CPI";
 
   /** Market values for the CPI USD curve */
@@ -161,21 +160,6 @@ public class InflationBuildingCurveSimpleWithIssuerTestUS {
     }
   }
 
-  @Test(enabled = true)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSIMQC, PSIMQCSC);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("InflationBuildingCurveSimpleTestEUR - " + nbTest + " curve construction Price index EUR 1 units: " + (endTime - startTime) + " ms");
-    // Performance note: curve construction Price index EUR 1 units: 27-Mar-13: On Dell Precision T1850 3.5 GHz Quad-Core Intel Xeon: 3564 ms for 1000 sets.
-  }
-
-  @Test
   public void curveConstructionGeneratorOtherBlocks() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), loopblock);

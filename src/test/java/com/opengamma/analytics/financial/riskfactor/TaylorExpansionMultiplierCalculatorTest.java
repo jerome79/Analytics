@@ -99,7 +99,7 @@ public class TaylorExpansionMultiplierCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyMap() {
-    getTimeSeries(Collections.<UnderlyingType, DoubleTimeSeries<?>> emptyMap(), FIRST_ORDER);
+    getTimeSeries(Collections.<UnderlyingType, DoubleTimeSeries<?>>emptyMap(), FIRST_ORDER);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -109,17 +109,17 @@ public class TaylorExpansionMultiplierCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullKey() {
-    getTimeSeries(Collections.<UnderlyingType, DoubleTimeSeries<?>> singletonMap(null, X), FIFTH_ORDER);
+    getTimeSeries(Collections.<UnderlyingType, DoubleTimeSeries<?>>singletonMap(null, X), FIFTH_ORDER);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullValue() {
-    getTimeSeries(Collections.<UnderlyingType, DoubleTimeSeries<?>> singletonMap(UnderlyingType.SPOT_PRICE, null), FIFTH_ORDER);
+    getTimeSeries(Collections.<UnderlyingType, DoubleTimeSeries<?>>singletonMap(UnderlyingType.SPOT_PRICE, null), FIFTH_ORDER);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongTSLength() {
-    final DoubleTimeSeries<?> z = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4, 5}, new double[] {1, 1, 1, 1, 1}, UTC);
+    final DoubleTimeSeries<?> z = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4, 5 }, new double[] {1, 1, 1, 1, 1 }, UTC);
     final Map<UnderlyingType, DoubleTimeSeries<?>> m = new HashMap<>();
     m.put(UnderlyingType.SPOT_PRICE, X);
     m.put(UnderlyingType.IMPLIED_VOLATILITY, z);

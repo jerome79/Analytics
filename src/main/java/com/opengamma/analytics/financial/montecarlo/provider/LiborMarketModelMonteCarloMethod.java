@@ -236,7 +236,7 @@ public class LiborMarketModelMonteCarloMethod extends MonteCarloMethod {
       // Intermediary jumps
       double[] jumpIn;
       if (jumpTimeA[loopjump + 1] - jumpTimeA[loopjump] < _maxJump) {
-        jumpIn = new double[] {jumpTimeA[loopjump], jumpTimeA[loopjump + 1]};
+        jumpIn = new double[] {jumpTimeA[loopjump], jumpTimeA[loopjump + 1] };
       } else {
         final double jump = jumpTimeA[loopjump + 1] - jumpTimeA[loopjump];
         final int nbJumpIn = (int) Math.ceil(jump / _maxJump);

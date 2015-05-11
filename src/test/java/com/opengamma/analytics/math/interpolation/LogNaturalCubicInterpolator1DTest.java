@@ -16,7 +16,6 @@ import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityF
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * 
  */

@@ -20,7 +20,6 @@ import com.opengamma.analytics.financial.model.option.definition.Barrier.Observa
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

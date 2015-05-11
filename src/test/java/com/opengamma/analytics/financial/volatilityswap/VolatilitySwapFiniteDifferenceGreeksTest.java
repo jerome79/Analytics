@@ -30,8 +30,6 @@ import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
-
 /**
  * Test class for all of the Greek calculators based on finite difference method
  */

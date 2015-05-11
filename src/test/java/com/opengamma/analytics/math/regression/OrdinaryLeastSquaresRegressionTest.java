@@ -13,8 +13,6 @@ import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -31,8 +29,8 @@ public class OrdinaryLeastSquaresRegressionTest {
     final double[][] x = new double[n][5];
     final double[] y1 = new double[n];
     final double[] y2 = new double[n];
-    final double[] a1 = new double[] {3.4, 1.2, -0.62, -0.44, 0.65};
-    final double[] a2 = new double[] {0.98, 3.4, 1.2, -0.62, -0.44, 0.65};
+    final double[] a1 = new double[] {3.4, 1.2, -0.62, -0.44, 0.65 };
+    final double[] a2 = new double[] {0.98, 3.4, 1.2, -0.62, -0.44, 0.65 };
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < 5; j++) {
         x[i][j] = RANDOM.nextDouble() + (RANDOM.nextDouble() - 0.5) / FACTOR;

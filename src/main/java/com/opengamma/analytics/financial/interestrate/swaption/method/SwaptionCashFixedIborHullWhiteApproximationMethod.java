@@ -256,7 +256,6 @@ public class SwaptionCashFixedIborHullWhiteApproximationMethod implements Pricin
         + (-3 * derivativesRate[0] * (derivativesAnnuity[0]) - 2 * derivativesAnnuity[0] * derivativesRate[0] + (swaption.getStrike() - rate) * (3 * derivativesAnnuity[1] * derivativesRate[0]))
         * uBar[3];
     derivativesRateBar[2] = ((swaption.getStrike() - rate) * derivativesAnnuity[0] - rate) * uBar[3];
-    //    double kappaBar = 0.0;
     final double[] alphaFixedBar = new double[nbFixed];
     final double[] alphaIborBar = new double[cfeIbor.getNumberOfPayments()];
     swapRateAdjointAlpha(x0, discountedCashFlowFixed, alphaFixed, discountedCashFlowIbor, alphaIbor, rateBar, derivativesRateBar, derivativesRate, alphaFixedBar, alphaIborBar);
@@ -395,7 +394,6 @@ public class SwaptionCashFixedIborHullWhiteApproximationMethod implements Pricin
         + (-3 * derivativesRate[0] * (derivativesAnnuity[0]) - 2 * derivativesAnnuity[0] * derivativesRate[0] + (swaption.getStrike() - rate) * (3 * derivativesAnnuity[1] * derivativesRate[0]))
         * uBar[3];
     derivativesRateBar[2] = ((swaption.getStrike() - rate) * derivativesAnnuity[0] - rate) * uBar[3];
-    //    double kappaBar = 0.0;
     final double[] discountedCashFlowFixedBar = new double[nbFixed];
     final double[] discountedCashFlowIborBar = new double[cfeIbor.getNumberOfPayments()];
     swapRateAdjointDiscountedCF(x0, discountedCashFlowFixed, alphaFixed, discountedCashFlowIbor, alphaIbor, rateBar, derivativesRateBar, derivativesRate, discountedCashFlowFixedBar,

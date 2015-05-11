@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
 
-
 /**
  * Test.
  */
@@ -68,8 +67,8 @@ public class EndOfMonthQuarterlyScheduleCalculatorTest {
     LocalDate start1 = LocalDate.of(1994, 8, 31);
     LocalDate end1 = LocalDate.of(1998, 8, 31);
     final LocalDate[] expected = new LocalDate[] {LocalDate.of(1994, 8, 31), LocalDate.of(1994, 11, 30), LocalDate.of(1995, 2, 28), LocalDate.of(1995, 5, 31), LocalDate.of(1995, 8, 31),
-        LocalDate.of(1995, 11, 30), LocalDate.of(1996, 2, 29), LocalDate.of(1996, 5, 31), LocalDate.of(1996, 8, 31), LocalDate.of(1996, 11, 30), LocalDate.of(1997, 2, 28), LocalDate.of(1997, 5, 31),
-        LocalDate.of(1997, 8, 31), LocalDate.of(1997, 11, 30), LocalDate.of(1998, 2, 28), LocalDate.of(1998, 5, 31), LocalDate.of(1998, 8, 31)};
+      LocalDate.of(1995, 11, 30), LocalDate.of(1996, 2, 29), LocalDate.of(1996, 5, 31), LocalDate.of(1996, 8, 31), LocalDate.of(1996, 11, 30), LocalDate.of(1997, 2, 28), LocalDate.of(1997, 5, 31),
+      LocalDate.of(1997, 8, 31), LocalDate.of(1997, 11, 30), LocalDate.of(1998, 2, 28), LocalDate.of(1998, 5, 31), LocalDate.of(1998, 8, 31) };
     LocalDate[] result = CALCULATOR.getSchedule(start1, end1, true);
     assertArrayEquals(expected, result);
     result = CALCULATOR.getSchedule(start1, end1, false);
@@ -77,13 +76,13 @@ public class EndOfMonthQuarterlyScheduleCalculatorTest {
     start1 = LocalDate.of(1994, 6, 30);
     end1 = LocalDate.of(1998, 8, 31);
     final LocalDate[] backward = new LocalDate[] {LocalDate.of(1994, 8, 31), LocalDate.of(1994, 11, 30), LocalDate.of(1995, 2, 28), LocalDate.of(1995, 5, 31), LocalDate.of(1995, 8, 31),
-        LocalDate.of(1995, 11, 30), LocalDate.of(1996, 2, 29), LocalDate.of(1996, 5, 31), LocalDate.of(1996, 8, 31), LocalDate.of(1996, 11, 30), LocalDate.of(1997, 2, 28), LocalDate.of(1997, 5, 31),
-        LocalDate.of(1997, 8, 31), LocalDate.of(1997, 11, 30), LocalDate.of(1998, 2, 28), LocalDate.of(1998, 5, 31), LocalDate.of(1998, 8, 31)};
+      LocalDate.of(1995, 11, 30), LocalDate.of(1996, 2, 29), LocalDate.of(1996, 5, 31), LocalDate.of(1996, 8, 31), LocalDate.of(1996, 11, 30), LocalDate.of(1997, 2, 28), LocalDate.of(1997, 5, 31),
+      LocalDate.of(1997, 8, 31), LocalDate.of(1997, 11, 30), LocalDate.of(1998, 2, 28), LocalDate.of(1998, 5, 31), LocalDate.of(1998, 8, 31) };
     result = CALCULATOR.getSchedule(start1, end1, true);
     assertArrayEquals(backward, result);
     final LocalDate[] forward = new LocalDate[] {LocalDate.of(1994, 6, 30), LocalDate.of(1994, 9, 30), LocalDate.of(1994, 12, 31), LocalDate.of(1995, 3, 31), LocalDate.of(1995, 6, 30),
-        LocalDate.of(1995, 9, 30), LocalDate.of(1995, 12, 31), LocalDate.of(1996, 3, 31), LocalDate.of(1996, 6, 30), LocalDate.of(1996, 9, 30), LocalDate.of(1996, 12, 31), LocalDate.of(1997, 3, 31),
-        LocalDate.of(1997, 6, 30), LocalDate.of(1997, 9, 30), LocalDate.of(1997, 12, 31), LocalDate.of(1998, 3, 31), LocalDate.of(1998, 6, 30)};
+      LocalDate.of(1995, 9, 30), LocalDate.of(1995, 12, 31), LocalDate.of(1996, 3, 31), LocalDate.of(1996, 6, 30), LocalDate.of(1996, 9, 30), LocalDate.of(1996, 12, 31), LocalDate.of(1997, 3, 31),
+      LocalDate.of(1997, 6, 30), LocalDate.of(1997, 9, 30), LocalDate.of(1997, 12, 31), LocalDate.of(1998, 3, 31), LocalDate.of(1998, 6, 30) };
     result = CALCULATOR.getSchedule(start1, end1, false);
     assertArrayEquals(forward, result);
   }
@@ -93,9 +92,9 @@ public class EndOfMonthQuarterlyScheduleCalculatorTest {
     ZonedDateTime start1 = DateUtils.getUTCDate(1994, 8, 31);
     ZonedDateTime end1 = DateUtils.getUTCDate(1998, 8, 31);
     final ZonedDateTime[] expected = new ZonedDateTime[] {DateUtils.getUTCDate(1994, 8, 31), DateUtils.getUTCDate(1994, 11, 30), DateUtils.getUTCDate(1995, 2, 28), DateUtils.getUTCDate(1995, 5, 31),
-        DateUtils.getUTCDate(1995, 8, 31), DateUtils.getUTCDate(1995, 11, 30), DateUtils.getUTCDate(1996, 2, 29), DateUtils.getUTCDate(1996, 5, 31), DateUtils.getUTCDate(1996, 8, 31),
-        DateUtils.getUTCDate(1996, 11, 30), DateUtils.getUTCDate(1997, 2, 28), DateUtils.getUTCDate(1997, 5, 31), DateUtils.getUTCDate(1997, 8, 31), DateUtils.getUTCDate(1997, 11, 30),
-        DateUtils.getUTCDate(1998, 2, 28), DateUtils.getUTCDate(1998, 5, 31), DateUtils.getUTCDate(1998, 8, 31)};
+      DateUtils.getUTCDate(1995, 8, 31), DateUtils.getUTCDate(1995, 11, 30), DateUtils.getUTCDate(1996, 2, 29), DateUtils.getUTCDate(1996, 5, 31), DateUtils.getUTCDate(1996, 8, 31),
+      DateUtils.getUTCDate(1996, 11, 30), DateUtils.getUTCDate(1997, 2, 28), DateUtils.getUTCDate(1997, 5, 31), DateUtils.getUTCDate(1997, 8, 31), DateUtils.getUTCDate(1997, 11, 30),
+      DateUtils.getUTCDate(1998, 2, 28), DateUtils.getUTCDate(1998, 5, 31), DateUtils.getUTCDate(1998, 8, 31) };
     ZonedDateTime[] result = CALCULATOR.getSchedule(start1, end1, true);
     assertArrayEquals(expected, result);
     result = CALCULATOR.getSchedule(start1, end1, false);
@@ -103,15 +102,15 @@ public class EndOfMonthQuarterlyScheduleCalculatorTest {
     start1 = DateUtils.getUTCDate(1994, 6, 30);
     end1 = DateUtils.getUTCDate(1998, 8, 31);
     final ZonedDateTime[] backward = new ZonedDateTime[] {DateUtils.getUTCDate(1994, 8, 31), DateUtils.getUTCDate(1994, 11, 30), DateUtils.getUTCDate(1995, 2, 28), DateUtils.getUTCDate(1995, 5, 31),
-        DateUtils.getUTCDate(1995, 8, 31), DateUtils.getUTCDate(1995, 11, 30), DateUtils.getUTCDate(1996, 2, 29), DateUtils.getUTCDate(1996, 5, 31), DateUtils.getUTCDate(1996, 8, 31),
-        DateUtils.getUTCDate(1996, 11, 30), DateUtils.getUTCDate(1997, 2, 28), DateUtils.getUTCDate(1997, 5, 31), DateUtils.getUTCDate(1997, 8, 31), DateUtils.getUTCDate(1997, 11, 30),
-        DateUtils.getUTCDate(1998, 2, 28), DateUtils.getUTCDate(1998, 5, 31), DateUtils.getUTCDate(1998, 8, 31)};
+      DateUtils.getUTCDate(1995, 8, 31), DateUtils.getUTCDate(1995, 11, 30), DateUtils.getUTCDate(1996, 2, 29), DateUtils.getUTCDate(1996, 5, 31), DateUtils.getUTCDate(1996, 8, 31),
+      DateUtils.getUTCDate(1996, 11, 30), DateUtils.getUTCDate(1997, 2, 28), DateUtils.getUTCDate(1997, 5, 31), DateUtils.getUTCDate(1997, 8, 31), DateUtils.getUTCDate(1997, 11, 30),
+      DateUtils.getUTCDate(1998, 2, 28), DateUtils.getUTCDate(1998, 5, 31), DateUtils.getUTCDate(1998, 8, 31) };
     result = CALCULATOR.getSchedule(start1, end1, true);
     assertArrayEquals(backward, result);
     final ZonedDateTime[] forward = new ZonedDateTime[] {DateUtils.getUTCDate(1994, 6, 30), DateUtils.getUTCDate(1994, 9, 30), DateUtils.getUTCDate(1994, 12, 31), DateUtils.getUTCDate(1995, 3, 31),
-        DateUtils.getUTCDate(1995, 6, 30), DateUtils.getUTCDate(1995, 9, 30), DateUtils.getUTCDate(1995, 12, 31), DateUtils.getUTCDate(1996, 3, 31), DateUtils.getUTCDate(1996, 6, 30),
-        DateUtils.getUTCDate(1996, 9, 30), DateUtils.getUTCDate(1996, 12, 31), DateUtils.getUTCDate(1997, 3, 31), DateUtils.getUTCDate(1997, 6, 30), DateUtils.getUTCDate(1997, 9, 30),
-        DateUtils.getUTCDate(1997, 12, 31), DateUtils.getUTCDate(1998, 3, 31), DateUtils.getUTCDate(1998, 6, 30)};
+      DateUtils.getUTCDate(1995, 6, 30), DateUtils.getUTCDate(1995, 9, 30), DateUtils.getUTCDate(1995, 12, 31), DateUtils.getUTCDate(1996, 3, 31), DateUtils.getUTCDate(1996, 6, 30),
+      DateUtils.getUTCDate(1996, 9, 30), DateUtils.getUTCDate(1996, 12, 31), DateUtils.getUTCDate(1997, 3, 31), DateUtils.getUTCDate(1997, 6, 30), DateUtils.getUTCDate(1997, 9, 30),
+      DateUtils.getUTCDate(1997, 12, 31), DateUtils.getUTCDate(1998, 3, 31), DateUtils.getUTCDate(1998, 6, 30) };
     result = CALCULATOR.getSchedule(start1, end1, false);
     assertArrayEquals(forward, result);
   }

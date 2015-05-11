@@ -163,6 +163,7 @@ public class ZSpreadCalculatorTest {
   public void testNullCurves5() {
     CALCULATOR.calculateZSpreadSensitivityToCurve(PAYMENTS, null, 0.04);
   }
+
   @Test
   public void testZeroSpread() {
     double price = 0;

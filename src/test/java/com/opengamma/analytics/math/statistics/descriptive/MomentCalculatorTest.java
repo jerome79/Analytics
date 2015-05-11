@@ -97,7 +97,7 @@ public class MomentCalculatorTest {
 
   private void assertInsufficientData(final Function<double[], Double> f) {
     try {
-      f.apply(new double[]{1.});
+      f.apply(new double[] {1. });
       Assert.fail();
     } catch (final IllegalArgumentException e) {
       // Expected
@@ -106,7 +106,7 @@ public class MomentCalculatorTest {
 
   private void assertInsufficientData(final Function1D<double[], Double> f) {
     try {
-      f.evaluate(new double[]{1.});
+      f.evaluate(new double[] {1. });
       Assert.fail();
     } catch (final IllegalArgumentException e) {
       // Expected

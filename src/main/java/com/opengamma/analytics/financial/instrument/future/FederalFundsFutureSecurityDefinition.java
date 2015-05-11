@@ -257,7 +257,7 @@ public class FederalFundsFutureSecurityDefinition extends FuturesSecurityDefinit
       double fixedRate = indexFixingDateSeries.get(currentDate)
           .orElseThrow(() -> new IllegalStateException(
               "Could not get fixing value of index " + _index.getName() + " for date " + currentDate +
-              ". The last data is available on " + indexFixingDateSeries.getLatestDate()));
+                  ". The last data is available on " + indexFixingDateSeries.getLatestDate()));
 
       accruedInterest += _fixingPeriodAccrualFactor[fixedPeriod] * fixedRate;
       fixedPeriod++;

@@ -23,7 +23,7 @@ public class E2EUtils {
 
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_RATE = 1.0E-8;
-  
+
   /**
    * Test the present value versus a hard-coded number.
    * @param ins The instrument to test.
@@ -37,7 +37,7 @@ public class E2EUtils {
     MultiCurrencyAmount pvComputed = ins.accept(PVDC, multicurve);
     assertEquals(msg, expectedPv, multicurve.getFxRates().convert(pvComputed, ccy).getAmount(), TOLERANCE_PV);
   }
-  
+
   /**
    * Test the present value versus a hard-coded number.
    * @param ins The instrument to test.
@@ -46,7 +46,7 @@ public class E2EUtils {
    * @param expectedPv The expected PV amount.
    * @param msg The assert message.
    */
-  public static void parRateTest(InstrumentDerivative ins, MulticurveProviderDiscount multicurve, 
+  public static void parRateTest(InstrumentDerivative ins, MulticurveProviderDiscount multicurve,
       double expectedPr, String msg) {
     double prComputed = ins.accept(PRDC, multicurve);
     assertEquals(msg, expectedPr, prComputed, TOLERANCE_RATE);

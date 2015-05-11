@@ -26,8 +26,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Tests related to the building of compounded Ibor coupons with spread: "Compounding treating spread as simple interest"
  */

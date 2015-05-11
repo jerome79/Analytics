@@ -30,7 +30,6 @@ import com.opengamma.analytics.math.integration.Integrator1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 
-
 /**
  * Test.
  */
@@ -98,7 +97,6 @@ public class LocalVolatilityBackwardsPDEPricerTest {
   /**
    * Here the vol surface is flat in the spot direction
    */
-  @Test
   public void volTermStructureTest() {
 
     final double k = 14.0;
@@ -114,9 +112,6 @@ public class LocalVolatilityBackwardsPDEPricerTest {
     final EuropeanVanillaOption option = new EuropeanVanillaOption(k, T, isCall);
 
     double pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, LOCAL_VOL_SUR, isCall, xNodes, tNodes);
-    //    double relErr = Math.abs((pdePrice - bsPrice) / bsPrice);
-
-    // System.out.println(bsPrice+"\t"+pdePrice+"\t"+relErr);
     assertEquals(bsPrice, pdePrice, 1e-5 * bsPrice);
 
     // with a better setup grid we can use one 20th of the number of nodes (i.e. computation is 20 times faster) for the same accuracy
@@ -124,8 +119,6 @@ public class LocalVolatilityBackwardsPDEPricerTest {
     xNodes = nu * tNodes;
 
     pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, LOCAL_VOL_SUR, isCall, xNodes, tNodes, 0.1, 0.0, 5.0);
-    //    relErr = Math.abs((pdePrice - bsPrice) / bsPrice);
-    // System.out.println(bsPrice+"\t"+pdePrice+"\t"+relErr);
     assertEquals(bsPrice, pdePrice, 1e-5 * bsPrice);
   }
 
@@ -136,7 +129,6 @@ public class LocalVolatilityBackwardsPDEPricerTest {
    * $f_t = R_t S_t$ where $R_t = \exp(\int_t^T r_s dt)$. The dynamics of spot are $\frac{dS_t}{S_t} = r_t dt + \sigma_{\beta} (R_t S_t)^{\beta-1} dW$.
    * This means we can treat the local volatility as $\sigma(t,S_t) = \sigma_{\beta} (R_t S_t)^{\beta-1}$
    */
-  @Test
   public void cevTest() {
     final CEVPriceFunction cev = new CEVPriceFunction();
     final double k = 14.0;
@@ -168,29 +160,20 @@ public class LocalVolatilityBackwardsPDEPricerTest {
     final double cevPrice = priceFunc.evaluate(data);
 
     double pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, volSurf, isCall, xNodes, tNodes);
-    //    double relErr = Math.abs((pdePrice - cevPrice) / cevPrice);
-
-    // System.out.println(cevPrice + "\t" + pdePrice + "\t" + relErr);
     assertEquals(cevPrice, pdePrice, 1e-5 * cevPrice);
 
     // here only a 5 times speed up is possible
     nu = 15;
     xNodes = nu * tNodes;
     pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, volSurf, isCall, xNodes, tNodes, 0.1, 0.0, 4.0);
-    //    relErr = Math.abs((pdePrice - cevPrice) / cevPrice);
-    // System.out.println(cevPrice + "\t" + pdePrice + "\t" + relErr);
     assertEquals(cevPrice, pdePrice, 1e-5 * cevPrice);
   }
 
-  @Test
   public void mixedLogNormalTest() {
 
     final double[] w = new double[] {0.7, 0.25, 0.05 };
     final double[] sigma = new double[] {0.3, 0.6, 1.0 };
     final double[] mu = new double[] {0.0, 0.3, -0.5 };
-    //    double[] w = new double[] {0.99, 0.01, 0.0000};
-    //    double[] sigma = new double[] {0.3, 0.5, 0.8};
-    //  double[] mu = new double[] {0.0, 0.0, -0.0};
     final MultiHorizonMixedLogNormalModelData data = new MultiHorizonMixedLogNormalModelData(w, sigma, mu);
     final PriceSurface priceSurf = MixedLogNormalVolatilitySurface.getPriceSurface(FWD_CURVE, DIS_CURVE, data);
     final LocalVolatilitySurfaceStrike locVol = MixedLogNormalVolatilitySurface.getLocalVolatilitySurface(FWD_CURVE, data);
@@ -206,8 +189,6 @@ public class LocalVolatilityBackwardsPDEPricerTest {
     final double pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, locVol, isCall, xNodes, tNodes, 0.05, 0.0, 8.0);
     final double mlnPrice = priceSurf.getPrice(T, k);
 
-    //    double relErr = Math.abs((pdePrice - mlnPrice) / mlnPrice);
-    //     System.out.println(mlnPrice + "\t" + pdePrice + "\t" + relErr);
     assertEquals(mlnPrice, pdePrice, 5e-3 * mlnPrice);
   }
 

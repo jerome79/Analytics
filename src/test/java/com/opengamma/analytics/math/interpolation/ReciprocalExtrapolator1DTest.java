@@ -37,9 +37,9 @@ public class ReciprocalExtrapolator1DTest {
   @Test
   public void notClampedTest() {
     double[][] xValuesSet = new double[][] { {-5.0, -1.4, 3.2, 3.5, 7.6 }, {1., 2., 4.5, 12.1, 14.2 },
-        {-5.2, -3.4, -3.2, -0.9, -0.2 } };
+      {-5.2, -3.4, -3.2, -0.9, -0.2 } };
     double[][] yValuesSet = new double[][] { {-2.2, 1.1, 1.9, 2.3, -0.1 }, {3.4, 5.2, 4.3, 1.1, 0.2 },
-        {1.4, 2.2, 4.1, 1.9, 0.99 } };
+      {1.4, 2.2, 4.1, 1.9, 0.99 } };
 
     for (int k = 0; k < xValuesSet.length; ++k) {
       double[] xValues = Arrays.copyOf(xValuesSet[k], xValuesSet[k].length);

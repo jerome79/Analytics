@@ -21,12 +21,11 @@ public class InterestRateFutureOptionPremiumSecurity extends InterestRateFutureO
    * @param isCall The cap (true) / floor (false) flag.
    */
   public InterestRateFutureOptionPremiumSecurity(InterestRateFutureSecurity underlyingFuture,
-                                                 double expirationTime,
-                                                 double strike,
-                                                 boolean isCall) {
+      double expirationTime,
+      double strike,
+      boolean isCall) {
     super(underlyingFuture, expirationTime, strike, isCall);
   }
-
 
   @Override
   public <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data) {

@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Here we use the following notation
  * h_i = xValues[i+1] - xValues[i]
@@ -29,7 +28,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Test for the case with boundary value d_0 = 0
    */
-  @Test
   public void BvCase1Test() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[] yValues = new double[] {1., 2., 10., 11. };
@@ -62,7 +60,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Test for the case with boundary value d_0 = 3 * delta_0
    */
-  @Test
   public void BvCase2Test() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[] yValues = new double[] {9., 10., 1., 3. };
@@ -95,7 +92,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Test for the case with boundary value d_0 = ((2 * h_0 + h_1) * delta_0 - h_0 * delta_1)/(h_0 + h_1)
    */
-  @Test
   public void BvCase3Test() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[] yValues = new double[] {2., 3., 2., 3. };
@@ -128,7 +124,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Test for the case with boundary value d_0 = ((2 * h_0 + h_1) * delta_0 - h_0 * delta_1)/(h_0 + h_1) corresponding to the other branch
    */
-  @Test
   public void BvCase3AnotherTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[] yValues = new double[] {2., 3., 2., 1. };
@@ -161,7 +156,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * d_i =0 if delta_i = 0 or delta_{i-1} = 0
    */
-  @Test
   public void CoincideYvaluesTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[] yValues = new double[] {1., 2., 2., 3. };
@@ -194,7 +188,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Intervals have different length
    */
-  @Test
   public void diffIntervalsTest() {
     final double[] xValues = new double[] {1., 2., 5., 8. };
     final double[] yValues = new double[] {2., 3., 2., 1. };
@@ -227,7 +220,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Linear interpolation for 2 data points
    */
-  @Test
   public void LinearTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[] yValues = new double[] {1., 4. };
@@ -257,12 +249,11 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
     }
   }
 
-  @Test
   //(enabled=false)
   public void monotonicTest() {
     final boolean print = false; //turn to false before pushing 
     if (print) {
-      System.out.println(" PiecewiseCubicHermiteSplineInterpolatorTest");
+
     }
 
     PiecewiseCubicHermiteSplineInterpolator interpolator = new PiecewiseCubicHermiteSplineInterpolator();
@@ -275,7 +266,7 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
       final double key = 0.0 + i * 5.9 / (nPts - 1);
       final double value = interpolator.interpolate(xValues, yValues, key);
       if (print) {
-        System.out.println(key + "\t" + value);
+
       }
       assertTrue(value >= old);
       old = value;
@@ -406,7 +397,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    *  Tests for multi-dimensions with all of the endpoint conditions
    */
-  @Test
   public void AllBvsMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {1., 2., 10., 11. }, {9., 10., 1., 3. }, {2., 3., 2., 3. }, {1., 2., 2., 3. }, {2., 3., 2., 1. } };
@@ -415,8 +405,8 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
     final int orderExp = 4;
     final int dimExp = 5;
     final double[][] coefsMatExp = new double[][] { {-2. / 9., 11. / 9., 0., 1. }, {1., -3., 3., 9. }, {0., -1., 2., 2. }, {-1. / 2., 0., 1.5, 1. }, {0., -1., 2., 2. },
-        {-112. / 9., 56. / 3., 16. / 9., 2. }, {18., -27., 0., 10. }, {2., -3., 0., 3. }, {0., 0., 0., 2. }, {1., -2., 0., 3. },
-        {-2. / 9., -80. / 144., 16. / 9., 10. }, {2., 0., 0., 1. }, {0., 1., 0., 2. }, {-0.5, 1.5, 0., 2. }, {0., 0., -1., 2. } };
+      {-112. / 9., 56. / 3., 16. / 9., 2. }, {18., -27., 0., 10. }, {2., -3., 0., 3. }, {0., 0., 0., 2. }, {1., -2., 0., 3. },
+      {-2. / 9., -80. / 144., 16. / 9., 10. }, {2., 0., 0., 1. }, {0., 1., 0., 2. }, {-0.5, 1.5, 0., 2. }, {0., 0., -1., 2. } };
 
     PiecewisePolynomialInterpolator interp = new PiecewiseCubicHermiteSplineInterpolator();
 
@@ -441,7 +431,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Linear interpolation for 2 data points
    */
-  @Test
   public void LinearMultiTest() {
     final double[] xValues = new double[] {1., 2. };
     final double[][] yValues = new double[][] { {1., 4. }, {1., 1. / 3. } };
@@ -474,7 +463,6 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Intervals have different length
    */
-  @Test
   public void diffIntervalsMultiTest() {
     final double[] xValues = new double[] {1., 2., 5., 8. };
     final double[][] yValues = new double[][] { {2., 3., 2., 1. }, {-1., 3., 6., 7. } };
@@ -483,7 +471,7 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
     final int orderExp = 4;
     final int dimExp = 2;
     final double[][] coefsMatExp = new double[][] { {-2. / 3., 1. / 3., 4. / 3., 2. }, {-53. / 36, 13. / 18., 19. / 4., -1. }, {1. / 27., -2. / 9., 0., 3. }, {5. / 162., -19. / 54., 16. / 9., 3. },
-        {0., 0., -1. / 3., 2. }, {-1. / 54., 0., 1. / 2., 6. } };
+      {0., 0., -1. / 3., 2. }, {-1. / 54., 0., 1. / 2., 6. } };
 
     PiecewiseCubicHermiteSplineInterpolator interp = new PiecewiseCubicHermiteSplineInterpolator();
 
@@ -629,14 +617,13 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
   /**
    * Derive value of the underlying cubic spline function at the value of xKey
    */
-  @Test
   public void InterpolantsTest() {
     final double[] xValues = new double[] {1., 2., 3., 4. };
     final double[][] yValues = new double[][] { {2., 3., 2., 1. }, {1., 2., 10., 11. } };
     final double[][] xKey = new double[][] { {-1., 0.5, 1.5 }, {2.5, 3.5, 4.5 } };
 
     final double[][][] resultValuesExpected = new double[][][] { { {-6., 21. / 8. }, {23. / 3., 6. } }, { {3. / 4., 3. / 2. }, {4. / 3., 193. / 18. } },
-        { {11. / 4., 1. / 2. }, {23. / 18., 32. / 3. } } };
+      { {11. / 4., 1. / 2. }, {23. / 18., 32. / 3. } } };
 
     final int yDim = yValues.length;
     final int keyLength = xKey[0].length;
@@ -823,18 +810,4 @@ public class PiecewiseCubicHermiteSplineInterpolatorTest {
     interp.interpolate(xValues, yValues[0], 1.e308);
   }
 
-  /**
-  * For debugging
-  */
-  @Test(enabled = false)
-  public void printTest() {
-    final double[] xValues = new double[] {1., 2., 5., 8. };
-    final double[] yValues = new double[] {2., 3., 2., 1. };
-
-    PiecewiseCubicHermiteSplineInterpolator interpMatrix = new PiecewiseCubicHermiteSplineInterpolator();
-
-    PiecewisePolynomialResult resultMatrix = interpMatrix.interpolate(xValues, yValues);
-
-    System.out.println(resultMatrix.getCoefMatrix());
-  }
 }

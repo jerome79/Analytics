@@ -88,7 +88,8 @@ public class TwoAssetCorrelationOptionModel extends TwoAssetAnalyticOptionModel<
         final double df1 = Math.exp(t * (b2 - r));
         final double df2 = Math.exp(-r * t);
         final int sign = definition.isCall() ? 1 : -1;
-        return sign * (s2 * df1 * BIVARIATE.getCDF(new double[] {sign * (d2 + sigmaT2), sign * (d1 + rho * sigmaT2), rho}) - payout * df2 * BIVARIATE.getCDF(new double[] {sign * d2, sign * d1, rho}));
+        return sign *
+            (s2 * df1 * BIVARIATE.getCDF(new double[] {sign * (d2 + sigmaT2), sign * (d1 + rho * sigmaT2), rho }) - payout * df2 * BIVARIATE.getCDF(new double[] {sign * d2, sign * d1, rho }));
 
       }
 

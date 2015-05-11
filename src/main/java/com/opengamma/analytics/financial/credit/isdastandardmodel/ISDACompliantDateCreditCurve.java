@@ -94,24 +94,7 @@ public class ISDACompliantDateCreditCurve
     this.dayCount = dayCount;
   }
 
-  //  /**
-  //  * Converter from the old HazardRateCurve to ISDACompliantDateCreditCurve. Not this only works if offset = 0.0.
-  //  * @param hazardCurve a HazardRateCurve hazard curve
-  //  * @return A ISDACompliantDateCreditCurve
-  //  */
-  //  public static ISDACompliantDateCreditCurve fromHazardRateCurve(final HazardRateCurve hazardCurve) {
-  //
-  //    ArgChecker.isTrue(hazardCurve.getOffset() == 0, "offset not zero - cannot convert");
-  //    final LocalDate[] dates = ISDACompliantScheduleGenerator.toLocalDate(hazardCurve.getCurveTenors());
-  //    final double[] t = hazardCurve.getTimes();
-  //    ISDACompliantCreditCurve temp = new ISDACompliantCreditCurve(t, hazardCurve.getRates());
-  //
   //    // back out the missing baseDate (assuming ACT/365 was used)
-  //    int days = (int) Math.round(365 * t[0]);
-  //    LocalDate baseDate = dates[0].minusDays(days);
-  //
-  //    return new ISDACompliantDateCreditCurve(baseDate, dates, ACT_365, temp);
-  //  }
 
   //-------------------------------------------------------------------------
   @Override

@@ -101,17 +101,16 @@ public class TrigonometricFunctionUtilsTest {
     assertComplexEquals(TrigonometricFunctionUtils.acosh(TrigonometricFunctionUtils.cosh(Z)), Z);
     assertComplexEquals(TrigonometricFunctionUtils.asinh(TrigonometricFunctionUtils.sinh(Z)), Z);
     assertComplexEquals(TrigonometricFunctionUtils.atanh(TrigonometricFunctionUtils.tanh(Z)), Z);
-    //    assertComplexEquals(TrigonometricFunctionUtils.acosh(0.25), TrigonometricFunctionUtils.acosh(new ComplexNumber(0.25, 0)));
   }
-  
+
   @Test
   public void testAtanh() {
     double x = 0.76;
     ComplexNumber z = new ComplexNumber(x);
-    double real = 0.5*Math.log((1+x)/(1-x));
+    double real = 0.5 * Math.log((1 + x) / (1 - x));
     ComplexNumber res = TrigonometricFunctionUtils.atanh(z);
-    assertEquals(real,res.getReal(),1e-15);
-    assertEquals(0.0,res.getImaginary(),0);
+    assertEquals(real, res.getReal(), 1e-15);
+    assertEquals(0.0, res.getImaginary(), 0);
   }
 
   private void assertComplexEquals(final ComplexNumber z1, final ComplexNumber z2) {

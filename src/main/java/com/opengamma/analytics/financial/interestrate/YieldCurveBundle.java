@@ -16,6 +16,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * A bundle of curves and forex exchange rates used for pricing. The curves are stored as a map <String, YieldAndDiscountCurve>.
  * @deprecated Use {@link MulticurveProviderDiscount}
@@ -316,6 +317,5 @@ public class YieldCurveBundle {
     }
     return true;
   }
-
 
 }

@@ -117,22 +117,22 @@ public class CouponPaymentYearFractionVisitor extends InstrumentDerivativeVisito
   public Double visitCouponIborAverageFlatCompoundingSpread(final CouponIborAverageFixingDatesCompoundingFlatSpread payment) {
     return payment.getPaymentYearFraction();
   }
-  
+
   @Override
   public Double visitCouponONArithmeticAverage(CouponONArithmeticAverage payment) {
     return payment.getPaymentYearFraction();
   }
-  
+
   @Override
   public Double visitCouponONArithmeticAverageSpreadSimplified(CouponONArithmeticAverageSpreadSimplified payment) {
     return payment.getPaymentYearFraction();
   }
-  
+
   @Override
   public Double visitCouponONSpread(CouponONSpread payment) {
     return payment.getPaymentYearFraction();
   }
-  
+
   @Override
   public Double visitCouponIborCompoundingSimpleSpread(CouponIborCompoundingSimpleSpread payment) {
     return payment.getPaymentYearFraction();

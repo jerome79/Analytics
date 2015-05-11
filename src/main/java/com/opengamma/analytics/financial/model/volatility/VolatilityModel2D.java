@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
-
 /**
  *  Interface for any model where the option's (Black) volatility is a function of the forward, the strike, timeToExpiry and an additional 
  *  period (i.e. swap length for swaption). The model itself will most likely have a set of parameters (e.g. the alpha, beta, nu & rho of SABR), 

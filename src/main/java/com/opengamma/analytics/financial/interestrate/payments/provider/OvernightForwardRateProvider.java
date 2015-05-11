@@ -15,17 +15,17 @@ public final class OvernightForwardRateProvider implements ForwardRateProvider<I
    * Singleton instance.
    */
   private static final OvernightForwardRateProvider INSTANCE = new OvernightForwardRateProvider();
-  
+
   /**
    * Singleton constructor.
    */
   private OvernightForwardRateProvider() {
   }
-  
+
   public static OvernightForwardRateProvider getInstance() {
     return INSTANCE;
   }
-  
+
   @Override
   public <T extends DepositIndexCoupon<IndexON>> double getRate(MulticurveProviderInterface multicurves, T coupon, double fixingPeriodStartTime, double fixingPeriodEndTime,
       double fixingPeriodYearFraction) {

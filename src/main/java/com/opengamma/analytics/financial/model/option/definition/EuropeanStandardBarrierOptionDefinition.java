@@ -12,7 +12,6 @@ import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockTy
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  */
 

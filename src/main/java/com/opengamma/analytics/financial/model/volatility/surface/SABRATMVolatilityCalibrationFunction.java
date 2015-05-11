@@ -42,9 +42,9 @@ public class SABRATMVolatilityCalibrationFunction {
     final double a3 = beta1 * beta1 * t / 24 / f1 / f1;
     Double[] roots;
     if (CompareUtils.closeEquals(a3, 0, 1e-16)) {
-      roots = QUADRATIC_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2}));
+      roots = QUADRATIC_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2 }));
     } else {
-      roots = ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2, a3}));
+      roots = ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2, a3 }));
     }
     Arrays.sort(roots);
     if (roots[0] > 0) {

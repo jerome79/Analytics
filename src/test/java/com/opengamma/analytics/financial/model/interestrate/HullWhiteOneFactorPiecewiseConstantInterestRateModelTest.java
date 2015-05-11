@@ -53,7 +53,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
 
   private static final IborIndex EURIBOR3M = IndexIborMaster.getInstance().getIndex("EURIBOR3M");
 
-  @Test
   /**
    * Tests the class getters.
    */
@@ -68,7 +67,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     }
   }
 
-  @Test
   /**
    * Tests the class setters.
    */
@@ -82,7 +80,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     }
   }
 
-  @Test
   /**
    * Tests the equal and hash code methods.
    */
@@ -94,7 +91,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     assertFalse("Hull-White model equals", MODEL_PARAMETERS.equals(modifiedParameter));
   }
 
-  @Test
   /**
    * Test the future convexity adjustment factor v a hard-coded value.
    */
@@ -104,7 +100,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     final ZonedDateTime LAST_TRADING_DATE = ScheduleCalculator.getAdjustedDate(SPOT_LAST_TRADING_DATE, -EURIBOR3M.getSpotLag(), calendar);
     final double noitonal = 1000000.0; // 1m
     final double futuresAccrualFactor = 0.25;
-    final double referencePrice = 0.99;
     final String name = "ERU2";
     final LocalDate REFERENCE_DATE = LocalDate.of(2010, 8, 18);
     final ZonedDateTime REFERENCE_DATE_ZONED = ZonedDateTime.of(LocalDateTime.of(REFERENCE_DATE, LocalTime.MIDNIGHT), ZoneOffset.UTC);
@@ -133,7 +128,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     }
   }
 
-  @Test
   /**
    * Test the payment delay convexity adjustment factor.
    */
@@ -165,7 +159,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     assertEquals("Hull-White one factor: payment delay adjustment factor", factorPExpected, factorPComputed, TOLERANCE_RATE);
   }
 
-  @Test
   /**
    * Test the bond volatility (called alpha) vs a hard-coded value.
    */
@@ -187,7 +180,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     assertEquals("Hull-White one factor: bond volatility (alpha) - today and expiry numeraire", 0.0d, alpha, TOLERANCE_ALPHA);
   }
 
-  @Test
   /**
    * Test the adjoint algorithmic differentiation version of alpha.
    */
@@ -220,7 +212,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     }
   }
 
-  @Test
   /**
    * Test the swaption exercise boundary.
    */
@@ -245,7 +236,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     assertEquals("Exercise boundary", 0.0, swapValue, 1.0E-1);
   }
 
-  @Test
   public void swapRate() {
     final double shift = 1.0E-4;
     final double x = 0.1;
@@ -270,7 +260,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     assertEquals("Hull-White model: swap rate", swapRateDx2Expected, swapRateDx2Computed, TOLERANCE_RATE_DELTA2);
   }
 
-  @Test
   public void swapRateDdcf() {
     final double shift = 1.0E-8;
     final double x = 0.0;
@@ -300,7 +289,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     ArrayAsserts.assertArrayEquals("Hull-White model: swap rate", ddcfiExpected, ddcfiComputed, TOLERANCE_RATE_DELTA);
   }
 
-  @Test
   public void swapRateDa() {
     final double shift = 1.0E-8;
     final double x = 0.0;
@@ -330,7 +318,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     ArrayAsserts.assertArrayEquals("Hull-White model: swap rate dAlphaIbor", daiExpected, daiComputed, TOLERANCE_RATE_DELTA);
   }
 
-  @Test
   public void swapRateDx2Ddcf() {
     final double shift = 1.0E-7;
     final double x = 0.0;
@@ -357,7 +344,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
     ArrayAsserts.assertArrayEquals("Hull-White model: swap rate", dx2DdcfiExpected, dx2ddcfComputed.getSecond(), TOLERANCE_RATE_DELTA2);
   }
 
-  @Test
   public void swapRateDx2Da() {
     final double shift = 1.0E-7;
     final double x = 0.0;
@@ -384,82 +370,6 @@ public class HullWhiteOneFactorPiecewiseConstantInterestRateModelTest {
       dx2DaiExpected[loopcf] = (swapRatePlus - swapRateMinus) / (2 * shift);
     }
     ArrayAsserts.assertArrayEquals("Hull-White model: swap rate - dx2 dAlphaIbor", dx2DaiExpected, dx2DaComputed.getSecond(), TOLERANCE_RATE_DELTA2);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performanceAlphaAdjoint() {
-    final double expiry1 = 0.25;
-    final double expiry2 = 2.25;
-    final double numeraire = 10.0;
-    final double maturity = 9.0;
-    final int nbVolatility = VOLATILITY.length;
-    final double[] alphaDerivatives = new double[nbVolatility];
-    long startTime, endTime;
-    final int nbTest = 100000;
-    double alpha = 0.0;
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      alpha = MODEL.alpha(MODEL_PARAMETERS, expiry1, expiry2, numeraire, maturity);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " alpha Hull-White: " + (endTime - startTime) + " ms");
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      alpha = MODEL.alpha(MODEL_PARAMETERS, expiry1, expiry2, numeraire, maturity, alphaDerivatives);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " alpha Hull-White adjoint (value+" + nbVolatility + " derivatives): " + (endTime - startTime) + " ms");
-    // Performance note: value: 31-Aug-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 75 ms for 1000000 swaptions.
-    // Performance note: value+derivatives: 31-Aug-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 100 ms for 1000000 swaptions.
-    System.out.println("Alpha: " + alpha);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Test the payment delay convexity adjustment factor. Analysis of the size. 
-   * In normal test, should have (enabled=false)
-   */
-  public void paymentDelayConvexityFactorAnalysis() {
-
-    final double hwMeanReversion = 0.01;
-    final double rate = 0.02;
-
-    final double[] tenorTime = {0.25, 0.50 };
-    final int nbTenors = tenorTime.length;
-    final double[] lagPayTime = {1.0d / 365.0d, 2.0d / 365.0d, 7.0d / 365.0d };
-    final int nbLags = lagPayTime.length;
-    final double lagFixTime = 2.0d / 365.0d;
-    final int nbPeriods = 120;
-    final double startTimeFirst = 0.25;
-    final double startTimeStep = 0.25;
-    final double[] startTime = new double[nbPeriods];
-    for (int loopp = 0; loopp < nbPeriods; loopp++) {
-      startTime[loopp] = startTimeFirst + loopp * startTimeStep;
-    }
-
-    // Constant volatility
-    final double hwEta = 0.02;
-    final HullWhiteOneFactorPiecewiseConstantParameters parameters = new HullWhiteOneFactorPiecewiseConstantParameters(hwMeanReversion, new double[] {hwEta }, new double[0]);
-
-    final double[][][] factor = new double[nbTenors][nbLags][nbPeriods];
-    final double[][][] adj = new double[nbTenors][nbLags][nbPeriods];
-    for (int loopt = 0; loopt < nbTenors; loopt++) {
-      for (int loopl = 0; loopl < nbLags; loopl++) {
-        for (int loopp = 0; loopp < nbPeriods; loopp++) {
-          factor[loopt][loopl][loopp] = MODEL.paymentDelayConvexityFactor(parameters, 0, startTime[loopp] - lagFixTime, startTime[loopp], startTime[loopp] + tenorTime[loopt],
-              startTime[loopp] + tenorTime[loopt] - lagPayTime[loopl]);
-          adj[loopt][loopl][loopp] = (1.0d / tenorTime[loopt] - rate) * (factor[loopt][loopl][loopp] - 1);
-        }
-      }
-    }
-
-    @SuppressWarnings("unused")
-    int t = 0;
-    t++;
-
   }
 
 }

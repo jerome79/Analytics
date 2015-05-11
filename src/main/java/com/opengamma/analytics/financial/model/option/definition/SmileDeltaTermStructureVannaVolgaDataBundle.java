@@ -13,7 +13,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Class describing the data required to price instruments with the volatility delta and time dependent.
  * @deprecated Use {@link BlackForexVannaVolgaProvider}
@@ -24,6 +23,7 @@ public class SmileDeltaTermStructureVannaVolgaDataBundle extends ForexOptionData
   public static SmileDeltaTermStructureVannaVolgaDataBundle from(final YieldCurveBundle ycBundle, final SmileDeltaTermStructureParameters smile, final Pair<Currency, Currency> currencyPair) {
     return new SmileDeltaTermStructureVannaVolgaDataBundle(ycBundle, smile, currencyPair);
   }
+
   /**
    * Constructor from the smile parameters and the curves.
    * @param ycBundle The curves bundle, not null

@@ -24,11 +24,9 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedC
 import com.opengamma.analytics.financial.provider.calculator.discounting.CrossGammaMultiCurveCalculator;
 import com.opengamma.analytics.financial.provider.calculator.discounting.CrossGammaSingleCurveCalculator;
 import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueCurveSensitivityDiscountingCalculator;
-import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueDiscountingCalculator;
 import com.opengamma.analytics.financial.provider.curve.CurveBuildingBlockBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
-import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyParameterSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.parameter.ParameterSensitivityParameterCalculator;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
@@ -38,7 +36,6 @@ import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.tutorial.datasets.AnalysisMarketDataEURJun13Sets;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
-import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -68,7 +65,6 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
   private static final SwapFixedIborDefinition SWAP_EUR_DEFINITION = SwapFixedIborDefinition.from(START_DATE, TENOR_SWAP, EUR1YEURIBOR3M, NOTIONAL, 0.02, IS_PAYER);
   private static final SwapFixedCoupon<Coupon> SWAP_EUR = SWAP_EUR_DEFINITION.toDerivative(REFERENCE_DATE);
 
-  private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = PresentValueCurveSensitivityDiscountingCalculator.getInstance();
   private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = new ParameterSensitivityParameterCalculator<>(PVCSDC);
   private static final CrossGammaMultiCurveCalculator CGMCC = new CrossGammaMultiCurveCalculator(PVCSDC);
@@ -233,38 +229,6 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
     } catch (final IOException e) {
       e.printStackTrace();
     }
-  }
-
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      MultiCurrencyAmount pv = SWAP_EUR.accept(PVDC, MULTICURVE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaMultiCurveCalculator - " + nbTest + " pv - 2 curves: " + (endTime - startTime) + " ms");
-    // Performance note: PVD: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 20 ms for 1000 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      MultipleCurrencyMulticurveSensitivity pvcs = SWAP_EUR.accept(PVCSDC, MULTICURVE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaMultiCurveCalculator - " + nbTest + " pvcs - 2 curves: " + (endTime - startTime) + " ms");
-    // Performance note: PVCSD: 04-Aug-2014: On Mac Book Pro 2.6 GHz Intel Core i7: 25 ms for 1000 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      HashMap<String, DoubleMatrix2D> crossGammaIntra = CGMCC.calculateCrossGammaIntraCurve(SWAP_EUR, MULTICURVE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaMultiCurveCalculator - " + nbTest + " intro-curve x-gamma - 2 curves: " + (endTime - startTime) + " ms");
-    // Performance note: Cross-gamma intra-curve 2 curves: 07-Nov-12: On Mac Book Pro 2.6 GHz Intel Core i7: 1450 ms for 1000 sets.
-
   }
 
 }

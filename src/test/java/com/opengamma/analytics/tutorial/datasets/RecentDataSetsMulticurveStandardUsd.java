@@ -141,7 +141,7 @@ public class RecentDataSetsMulticurveStandardUsd {
     0.0037,
     0.0008, 0.0008, 0.0008, 0.0008, 0.0008,
     0.0008, 0.0009, 0.0009, 0.0009, 0.0009, 0.0009, 0.0009 };
-  
+
   /** Generators for the dsc USD curve */
   private static final GeneratorInstrument<? extends GeneratorAttribute>[] DSC_USD_GENERATORS =
       CurveCalibrationConventionDataSets.generatorUsdOnOisFfs(2, 20, 0);

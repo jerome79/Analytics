@@ -33,8 +33,8 @@ import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
  */
 @SuppressWarnings({"deprecation", "unused" })
 public class CoupledFokkerPlankExample {
-//CSOFF
-  
+  //CSOFF
+
   public static final CoupledPDEDataBundleProvider PDE_DATA_PROVIDER = new CoupledPDEDataBundleProvider();
   public static final BoundaryCondition LOWER;
   public static final BoundaryCondition UPPER;

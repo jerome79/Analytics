@@ -34,8 +34,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Tests related to the bond future figures computed by discounting.
  */
@@ -143,7 +141,6 @@ public class BondFuturesSecurityDiscountingMethodTest {
    * Tests the net basis of all bonds computed from the curves.
    */
   public void netBasisAllBonds() {
-    //final double priceFuture = 1.0320;
     final double priceFuture = METHOD_FUT_SEC_DSC.price(BOND_FUTURE, ISSUER_MULTICURVES);
     final double[] netBasisComputed = METHOD_FUT_SEC_DSC.netBasisAllBonds(BOND_FUTURE, ISSUER_MULTICURVES, priceFuture);
     final double[] netBasisExpected = new double[NB_BOND];

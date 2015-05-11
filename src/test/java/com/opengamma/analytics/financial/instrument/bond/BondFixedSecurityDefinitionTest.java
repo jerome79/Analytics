@@ -38,7 +38,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Tests related to the construction of fixed coupon bond security Definition and conversion to Derivative.
  */
@@ -68,7 +67,6 @@ public class BondFixedSecurityDefinitionTest {
   private static final String CREDIT_CURVE_NAME = "Credit";
   private static final String REPO_CURVE_NAME = "Repo";
   private static final String[] CURVES_NAME = {CREDIT_CURVE_NAME, REPO_CURVE_NAME };
-  //  private static final YieldCurveBundle CURVES = TestsDataSets.createCurves1();
   private static final ZonedDateTime REFERENCE_DATE_1 = DateUtils.getUTCDate(2011, 8, 18);
 
   private static final double TOLERANCE_PRICE = 1.0E-10;
@@ -149,7 +147,7 @@ public class BondFixedSecurityDefinitionTest {
         CALENDAR, DAY_COUNT, BUSINESS_DAY, IS_EOM, 1.0, RATE, false);
     assertEquals(coupon, BOND_SECURITY_DEFINITION.getCoupons());
     final AnnuityDefinition<PaymentFixedDefinition> nominal = new AnnuityDefinition<>(new PaymentFixedDefinition[] {new PaymentFixedDefinition(CUR,
-            BusinessDayDateUtils.applyConvention(BUSINESS_DAY, MATURITY_DATE, CALENDAR), 1.0)}, CALENDAR);
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY, MATURITY_DATE, CALENDAR), 1.0) }, CALENDAR);
     assertEquals(nominal.getCurrency(), BOND_SECURITY_DEFINITION.getNominal().getCurrency());
     assertEquals(nominal.getNthPayment(0).getPaymentDate(), BOND_SECURITY_DEFINITION.getNominal().getNthPayment(0).getPaymentDate());
     assertEquals(nominal.getNthPayment(0).getReferenceAmount(), BOND_SECURITY_DEFINITION.getNominal().getNthPayment(0).getReferenceAmount());
@@ -343,7 +341,6 @@ public class BondFixedSecurityDefinitionTest {
   private static final YieldConvention US_STREET = SimpleYieldConvention.US_STREET;
   private static final int SETTLEMENT_DAYS_MON = 3;
   private static final Period PAYMENT_TENOR_MON = Period.ofMonths(6);
-  //  private static final int COUPON_PER_YEAR_MON = 2;
   private static final ZonedDateTime BOND_MATURITY_MON = DateUtils.getUTCDate(2014, 12, 11);
   private static final ZonedDateTime BOND_START_MON = DateUtils.getUTCDate(2009, 3, 11);
   private static final ZonedDateTime BOND_FIRSTCPN_MON = DateUtils.getUTCDate(2009, 12, 11);

@@ -35,9 +35,6 @@ public abstract class CommodityFuture implements InstrumentDerivative {
   /** Settlement type - PHYISCAL or CASH */
   private final SettlementType _settlementType;
 
-  // extra variables taken from SimpleFuture
-  // TODO: Check they are needed
-
   /** settlement time (in y*/
   private final double _settlement;
   /** reference price */
@@ -120,7 +117,7 @@ public abstract class CommodityFuture implements InstrumentDerivative {
    * @return the amount
    */
   public double getAmount() {
-    return _amount; // FIXME Resolve confusion about _amount and _unitAmount - What is _amount? Speak to Casey. Also need to look at Converters (Security > Definition > Derivative)
+    return _amount; // FIXME Resolve confusion about _amount and _unitAmount - What is _amount? Also need to look at Converters (Security > Definition > Derivative)
   }
 
   /**

@@ -8,8 +8,6 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
-
-
 /**
  * @param <T> Type of the data 
  */

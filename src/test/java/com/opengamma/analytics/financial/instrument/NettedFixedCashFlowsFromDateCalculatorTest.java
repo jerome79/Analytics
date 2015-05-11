@@ -38,7 +38,6 @@ import org.testng.annotations.Test;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
-
 /**
  * Test.
  */

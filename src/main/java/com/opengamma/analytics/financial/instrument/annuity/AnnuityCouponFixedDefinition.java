@@ -78,7 +78,8 @@ public class AnnuityCouponFixedDefinition extends AnnuityDefinition<CouponFixedD
    * @param isPayer The payer flag.
    * @return The fixed annuity.
    */
-  public static AnnuityCouponFixedDefinition from(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod, final HolidayCalendar calendar,
+  public static AnnuityCouponFixedDefinition from(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
+      final HolidayCalendar calendar,
       final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional, final double fixedRate, final boolean isPayer) {
     return from(currency, settlementDate, maturityDate, paymentPeriod, calendar, dayCount, businessDay, isEOM, notional, fixedRate, isPayer, StubConvention.SHORT_INITIAL);
   }
@@ -99,7 +100,8 @@ public class AnnuityCouponFixedDefinition extends AnnuityDefinition<CouponFixedD
    * @param stub The stub type.
    * @return The fixed annuity.
    */
-  public static AnnuityCouponFixedDefinition from(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod, final HolidayCalendar calendar,
+  public static AnnuityCouponFixedDefinition from(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period paymentPeriod,
+      final HolidayCalendar calendar,
       final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional, final double fixedRate, final boolean isPayer, final StubConvention stub) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -139,7 +141,8 @@ public class AnnuityCouponFixedDefinition extends AnnuityDefinition<CouponFixedD
    * @param isPayer The payer flag.
    * @return The fixed annuity.
    */
-  public static AnnuityCouponFixedDefinition from(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Frequency frequency, final HolidayCalendar calendar,
+  public static AnnuityCouponFixedDefinition from(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Frequency frequency,
+      final HolidayCalendar calendar,
       final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM, final double notional, final double fixedRate, final boolean isPayer) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -278,7 +281,8 @@ public class AnnuityCouponFixedDefinition extends AnnuityDefinition<CouponFixedD
    * @return The fixed annuity.
    */
   public static AnnuityCouponFixedDefinition fromAccrualUnadjusted(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate, final Period period,
-      final int nbPaymentPerYear, final boolean stubShort, final boolean fromEnd, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay, final boolean isEOM,
+      final int nbPaymentPerYear, final boolean stubShort, final boolean fromEnd, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay,
+      final boolean isEOM,
       final double notional, final double fixedRate, final boolean isPayer) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");
@@ -356,6 +360,5 @@ public class AnnuityCouponFixedDefinition extends AnnuityDefinition<CouponFixedD
     }
     return new AnnuityCouponFixedDefinition(cpn, getCalendar());
   }
-
 
 }

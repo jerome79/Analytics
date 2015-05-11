@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.util.timeseries.zdt;
 
-
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.function.DoubleBinaryOperator;
@@ -48,152 +47,197 @@ public interface ZonedDateTimeDoubleTimeSeries
    * 
    * @return the iterator, not null
    */
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleEntryIterator iterator();
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries subSeries(ZonedDateTime startTime, ZonedDateTime endTime);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries subSeries(ZonedDateTime startTime, boolean includeStart, ZonedDateTime endTime, boolean includeEnd);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries subSeriesFast(long startTime, long endTime);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries subSeriesFast(long startTime, boolean includeStart, long endTime, boolean includeEnd);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries head(int numItems);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries tail(int numItems);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries lag(int lagCount);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries operate(DoubleUnaryOperator operator);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries operate(double other, DoubleBinaryOperator operator);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries operate(PreciseDoubleTimeSeries<?> otherTimeSeries, DoubleBinaryOperator operator);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionOperate(PreciseDoubleTimeSeries<?> otherTimeSeries, DoubleBinaryOperator operator);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries add(double amountToAdd);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries add(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionAdd(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries subtract(double amountToSubtract);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries subtract(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionSubtract(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries multiply(double amountToMultiplyBy);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries multiply(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionMultiply(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries divide(double amountToDivideBy);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries divide(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionDivide(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries power(double power);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries power(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionPower(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries minimum(double minValue);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries minimum(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionMinimum(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries maximum(double maxValue);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries maximum(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionMaximum(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries average(double value);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries average(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries unionAverage(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries intersectionFirstValue(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries intersectionSecondValue(DoubleTimeSeries<?> other);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries noIntersectionOperation(DoubleTimeSeries<?> other);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries negate();
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries reciprocal();
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries log();
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries log10();
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries abs();
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder toBuilder();
 
 }

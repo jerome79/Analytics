@@ -64,7 +64,6 @@ public class SwaptionPhysicalFixedIborBlackMethodTest {
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor GENERATOR_EUR1YEURIBOR6M = GENERATOR_SWAP_MASTER.getGenerator("EUR1YEURIBOR6M", CALENDAR);
 
-
   private static final BlackFlatSwaptionParameters BLACK = BlackDataSets.createBlackSwaptionEUR6();
   private static final BlackSwaptionFlatProviderDiscount BLACK_MULTICURVES = new BlackSwaptionFlatProviderDiscount(MULTICURVES, BLACK);
   // Swaption
@@ -172,7 +171,8 @@ public class SwaptionPhysicalFixedIborBlackMethodTest {
     final BlackSwaptionFlatProviderDiscount curvesBlackM = new BlackSwaptionFlatProviderDiscount(MULTICURVES, BlackM);
     final MultiCurrencyAmount pvM = METHOD_BLACK.presentValue(SWAPTION_LONG_REC, curvesBlackM);
     final DoublesPair point = DoublesPair.of(SWAPTION_LONG_REC.getTimeToExpiry(), SWAPTION_LONG_REC.getMaturityTime());
-    assertEquals("Swaption Black method: present value volatility sensitivity", (pvP.getAmount(EUR).getAmount() - pvM.getAmount(EUR).getAmount()) / (2 * shift), pvbvs.getSensitivity().getMap().get(point), TOLERANCE_PV_DELTA);
+    assertEquals("Swaption Black method: present value volatility sensitivity", (pvP.getAmount(EUR).getAmount() - pvM.getAmount(EUR).getAmount()) / (2 * shift),
+        pvbvs.getSensitivity().getMap().get(point), TOLERANCE_PV_DELTA);
   }
 
   @Test

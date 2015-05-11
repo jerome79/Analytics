@@ -24,8 +24,6 @@ import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Tests the interest rate future security description.
  */

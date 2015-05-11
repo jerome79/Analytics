@@ -21,7 +21,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Calculator of the sensitivity to the market quotes of instruments used to build the curves.
  * The sensitivities are computed as a block (vector) for each curve/currency pair.

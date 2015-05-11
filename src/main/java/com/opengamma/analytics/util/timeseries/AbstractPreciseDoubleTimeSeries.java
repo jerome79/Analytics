@@ -102,10 +102,12 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
   public Iterator<T> timesIterator() {
     return new Iterator<T>() {
       private int _index = -1;
+
       @Override
       public boolean hasNext() {
         return (_index + 1) < size();
       }
+
       @Override
       public T next() {
         if (!hasNext()) {
@@ -114,6 +116,7 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
         _index++;
         return getTimeAtIndex(_index);
       }
+
       @Override
       public void remove() {
         throw new UnsupportedOperationException("Immutable");
@@ -128,10 +131,12 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
       public T get(int index) {
         return getTimeAtIndex(index);
       }
+
       @Override
       public int size() {
         return AbstractPreciseDoubleTimeSeries.this.size();
       }
+
       @Override
       public Iterator<T> iterator() {
         return timesIterator();
@@ -153,10 +158,12 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
   public Iterator<Double> valuesIterator() {
     return new Iterator<Double>() {
       private int _index = -1;
+
       @Override
       public boolean hasNext() {
         return (_index + 1) < size();
       }
+
       @Override
       public Double next() {
         if (!hasNext()) {
@@ -165,6 +172,7 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
         _index++;
         return getValueAtIndex(_index);
       }
+
       @Override
       public void remove() {
         throw new UnsupportedOperationException("Immutable");
@@ -179,10 +187,12 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
       public Double get(int index) {
         return getValueAtIndex(index);
       }
+
       @Override
       public int size() {
         return AbstractPreciseDoubleTimeSeries.this.size();
       }
+
       @Override
       public Iterator<Double> iterator() {
         return valuesIterator();
@@ -209,7 +219,7 @@ public abstract class AbstractPreciseDoubleTimeSeries<T> implements PreciseDoubl
     if (obj instanceof PreciseDoubleTimeSeries) {
       PreciseDoubleTimeSeries<?> other = (PreciseDoubleTimeSeries<?>) obj;
       return Arrays.equals(timesArrayFast(), other.timesArrayFast()) &&
-              Arrays.equals(valuesArrayFast(), other.valuesArrayFast());
+          Arrays.equals(valuesArrayFast(), other.valuesArrayFast());
     }
     return false;
   }

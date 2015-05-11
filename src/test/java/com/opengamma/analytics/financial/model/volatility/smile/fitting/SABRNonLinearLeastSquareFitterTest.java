@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */
@@ -17,7 +16,7 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHag
 @Test
 public class SABRNonLinearLeastSquareFitterTest extends LeastSquareSmileFitterTestCase {
   private static final SABRNonLinearLeastSquareFitter FITTER = new SABRNonLinearLeastSquareFitter(new SABRHaganVolatilityFunction());
-  private static final double[] INITIAL_VALUES = new double[] {0.5, 1, 0.2, 0};
+  private static final double[] INITIAL_VALUES = new double[] {0.5, 1, 0.2, 0 };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFormula() {

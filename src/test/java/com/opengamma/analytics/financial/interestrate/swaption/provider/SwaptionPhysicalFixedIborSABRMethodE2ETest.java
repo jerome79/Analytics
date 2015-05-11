@@ -49,7 +49,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Test related to swaption end-to-end using standardized market data.
  */

@@ -59,10 +59,12 @@ import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.Pair;
+
 /**
  * Examples of risk analysis for different swaps in GBP.
  * Those examples can be used for tutorials. 
  */
+@Test(enabled = false)
 public class SwapRiskGbpAnalysis {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
@@ -75,11 +77,11 @@ public class SwapRiskGbpAnalysis {
   private static final Currency GBP = Currency.GBP;
   private static final GeneratorSwapFixedIbor GBP6MLIBOR6M = GENERATOR_IRS_MASTER.getGenerator("GBP6MLIBOR6M", LON);
   private static final IborIndex GBPLIBOR6M = GBP6MLIBOR6M.getIborIndex();
-  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR =
       BusinessDayAdjustment.of(GBP6MLIBOR6M.getBusinessDayConvention(), LON);
   private static final DaysAdjustment OFFSET_ADJ_LIBOR =
       DaysAdjustment.ofBusinessDays(-2, LON, BusinessDayAdjustment.of(GBP6MLIBOR6M.getBusinessDayConvention(), LON));
-  private static final BusinessDayAdjustment ADJUSTED_DATE_SONIA = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_SONIA =
       BusinessDayAdjustment.of(GENERATOR_OIS_GBP.getBusinessDayConvention(), LON);
   private static final DaysAdjustment OFFSET_PAY_SONIA =
       DaysAdjustment.ofBusinessDays(GENERATOR_OIS_GBP.getPaymentLag(), LON,
@@ -212,7 +214,7 @@ public class SwapRiskGbpAnalysis {
   private static final double TOLERANCE_PV_DELTA = 1.0E-1;
   private static final double BP1 = 1.0E-4;
 
-  @Test
+  @Test(enabled = false)
   public void presentValueStdCurve() {
     MultiCurrencyAmount pvFixed = FIXED_LEG_1.accept(PVDC, MULTICURVE_STD);
     MultiCurrencyAmount pvIbor = ON_LEG_1.accept(PVDC, MULTICURVE_STD);
@@ -227,13 +229,13 @@ public class SwapRiskGbpAnalysis {
   }
 
   @SuppressWarnings("unused")
-  @Test
+  @Test(enabled = false)
   public void parRateStdCurve() {
     double pr1 = OIS_1.accept(PRDC, MULTICURVE_STD);
   }
 
   @SuppressWarnings("unused")
-  @Test
+  @Test(enabled = false)
   public void bucketedPv01StdCurve() {
     MultipleCurrencyMulticurveSensitivity pvPointSensi1Std = OIS_1.accept(PVCSDC, MULTICURVE_STD);
     MultipleCurrencyParameterSensitivity pvParameterSensi1Std = PSC.pointToParameterSensitivity(pvPointSensi1Std, MULTICURVE_STD);
@@ -248,7 +250,7 @@ public class SwapRiskGbpAnalysis {
     MultipleCurrencyParameterSensitivity pvmqsIrs1Spread = MQSUBC.fromInstrument(IRS_1, MULTICURVE_STD_SPREAD, BLOCK_STD_SPREAD).multipliedBy(BP1);
   }
 
-  @Test
+  @Test(enabled = false)
   public void presentValueBoeCurve() {
     MultiCurrencyAmount pvFixed = FIXED_LEG_1.accept(PVDC, MULTICURVE_BOE);
     MultiCurrencyAmount pvIbor = ON_LEG_1.accept(PVDC, MULTICURVE_BOE);
@@ -262,14 +264,14 @@ public class SwapRiskGbpAnalysis {
     System.out.println("PV swap," + String.valueOf(pvSwap1Std.getAmount(GBP).getAmount()));
   }
 
-  @Test
+  @Test(enabled = false)
   public void parRateBoeCurve() {
     double pr1 = OIS_1.accept(PRDC, MULTICURVE_BOE);
     System.out.println("--- BOE Break-even rate ---");
     System.out.println("Par rate," + String.valueOf(pr1));
   }
 
-  @Test
+  @Test(enabled = false)
   public void bucketedPv0BoeCurve() {
     MultipleCurrencyParameterSensitivity pvmqs1Boe =
         MQSBC.fromInstrument(OIS_1, MULTICURVE_BOE, BLOCK_BOE).multipliedBy(BP1);

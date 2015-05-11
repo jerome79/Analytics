@@ -23,7 +23,6 @@ import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * For an instrument, computes the sensitivity of a multi-currency value (often the present value) to the 
  * parameters used in the curve.
@@ -36,8 +35,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Reference: Sensitivity computation, OpenGamma Documentation n. 23, September 2014.
  * @param <DATA_TYPE> Data type extending ParameterProviderInterface.
  */
-public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends ParameterProviderInterface> 
-  extends ParameterSensitivityParameterAbstractCalculator<DATA_TYPE> {
+public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends ParameterProviderInterface>
+    extends ParameterSensitivityParameterAbstractCalculator<DATA_TYPE> {
 
   /**
    * Constructor
@@ -49,7 +48,7 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
   }
 
   @Override
-  public MultipleCurrencyParameterSensitivity pointToParameterSensitivity(final MultipleCurrencyMulticurveSensitivity sensitivity, 
+  public MultipleCurrencyParameterSensitivity pointToParameterSensitivity(final MultipleCurrencyMulticurveSensitivity sensitivity,
       final DATA_TYPE parameterMulticurves, final Set<String> sensicurveNamesSet) {
     ArgChecker.notNull(sensitivity, "sensitivity");
     ArgChecker.notNull(parameterMulticurves, "multicurves parameter");
@@ -67,15 +66,14 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
     }
     final int[] nbNewParameters = new int[nbMultiCurve];
     final int[] nbParameters = new int[nbMultiCurve];
-    // Implementation note: nbNewParameters - number of new parameters in the curve, parameters not 
     //   from an underlying curve which is another curve of the bundle.
     for (int loopcur = 0; loopcur < nbMultiCurve; loopcur++) { // loop over all curves in multicurves
-      nbParameters[loopcur] = 
+      nbParameters[loopcur] =
           parameterMulticurves.getMulticurveProvider().getNumberOfParameters(multicurveNamesArray[loopcur]);
       nbNewParameters[loopcur] = nbParameters[loopcur];
     }
     for (int loopcur = 0; loopcur < nbMultiCurve; loopcur++) { // loop over all curves in multicurves
-      final List<String> underlyingCurveNames = 
+      final List<String> underlyingCurveNames =
           parameterMulticurves.getMulticurveProvider().getUnderlyingCurvesNames(multicurveNamesArray[loopcur]);
       for (final String u : underlyingCurveNames) {
         final Integer i = multicurveNum.get(u);
@@ -87,11 +85,10 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
     final int[][] indexOtherMulticurve = new int[nbMultiCurve][];
     // Implementation note: indexOtherMultiCurve - for each curve in the multi-curve, the index of the underlying curves in the same set
     final int[] startOwnParameter = new int[nbMultiCurve];
-    // Implementation note: The start index of the parameters of the own (new) parameters.
     final int[][] startUnderlyingParameter = new int[nbMultiCurve][];
     // Implementation note: The start index of the parameters of the underlying curves
     for (int loopcur = 0; loopcur < nbMultiCurve; loopcur++) { // loop over all curves in multicurves
-      final List<String> underlyingCurveNames = 
+      final List<String> underlyingCurveNames =
           parameterMulticurves.getMulticurveProvider().getUnderlyingCurvesNames(multicurveNamesArray[loopcur]);
       final IntArrayList indexOtherMulticurveList = new IntArrayList();
       for (final String u : underlyingCurveNames) {
@@ -106,7 +103,7 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
       int loopstart = 0;
       final int num = multicurveNum.get(multicurveNamesArray[loopcurve]);
       final IntArrayList startUnderlyingParamList = new IntArrayList();
-      final List<String> underlyingCurveNames = 
+      final List<String> underlyingCurveNames =
           parameterMulticurves.getMulticurveProvider().getUnderlyingCurvesNames(multicurveNamesArray[loopcurve]);
       for (final String u : underlyingCurveNames) {
         final Integer i = multicurveNum.get(u);
@@ -125,15 +122,15 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
     int nbCcy = ccySet.size();
     double[][][] sensiDirty = new double[nbCcy][nbMultiCurve][];
     for (int loopccy = 0; loopccy < nbCcy; loopccy++) {
-      final Map<String, List<DoublesPair>> sensitivityDsc = 
+      final Map<String, List<DoublesPair>> sensitivityDsc =
           sensitivity.getSensitivity(ccyArray[loopccy]).getYieldDiscountingSensitivities();
-      final Map<String, List<ForwardSensitivity>> sensitivityFwd = 
+      final Map<String, List<ForwardSensitivity>> sensitivityFwd =
           sensitivity.getSensitivity(ccyArray[loopccy]).getForwardSensitivities();
       for (int loopcurve = 0; loopcurve < nbMultiCurve; loopcurve++) { // loop over all curves
         sensiDirty[loopccy][loopcurve] = new double[nbParameters[loopcurve]];
-        final double[] sDsc1Name = parameterMulticurves.parameterSensitivity(multicurveNamesArray[loopcurve], 
+        final double[] sDsc1Name = parameterMulticurves.parameterSensitivity(multicurveNamesArray[loopcurve],
             sensitivityDsc.get(multicurveNamesArray[loopcurve]));
-        final double[] sFwd1Name = parameterMulticurves.parameterForwardSensitivity(multicurveNamesArray[loopcurve], 
+        final double[] sFwd1Name = parameterMulticurves.parameterForwardSensitivity(multicurveNamesArray[loopcurve],
             sensitivityFwd.get(multicurveNamesArray[loopcurve]));
         for (int loopp = 0; loopp < nbParameters[loopcurve]; loopp++) {
           sensiDirty[loopccy][loopcurve][loopp] = sDsc1Name[loopp] + sFwd1Name[loopp];
@@ -156,7 +153,7 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
         // Underlying (indirect) sensitivity
         for (int loopu = 0; loopu < startUnderlyingParameter[loopcurve].length; loopu++) {
           for (int loopi = 0; loopi < nbNewParameters[indexOtherMulticurve[loopcurve][loopu]]; loopi++) {
-            sensiClean[loopccy][indexOtherMulticurve[loopcurve][loopu]][loopi] += 
+            sensiClean[loopccy][indexOtherMulticurve[loopcurve][loopu]][loopi] +=
                 sensiDirty[loopccy][loopcurve][startUnderlyingParameter[loopcurve][loopu] + loopi];
           }
         }
@@ -176,7 +173,7 @@ public class ParameterSensitivityUnderlyingParameterCalculator<DATA_TYPE extends
   public MultipleCurrencyParameterSensitivity pointToParameterSensitivity(
       final MultipleCurrencyMulticurveSensitivity sensitivity, final DATA_TYPE parameterMulticurves) {
     ArgChecker.notNull(parameterMulticurves, "multicurves parameter");
-    return pointToParameterSensitivity(sensitivity, parameterMulticurves, 
+    return pointToParameterSensitivity(sensitivity, parameterMulticurves,
         parameterMulticurves.getMulticurveProvider().getAllCurveNames());
   }
 }

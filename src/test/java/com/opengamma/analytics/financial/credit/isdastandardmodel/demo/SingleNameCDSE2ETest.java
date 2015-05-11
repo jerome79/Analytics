@@ -33,7 +33,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.InterestRateSe
 import com.opengamma.analytics.financial.credit.isdastandardmodel.PriceType;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 
-
 /**
  * End-to-end test for single name CDSs
  */
@@ -59,24 +58,24 @@ public class SingleNameCDSE2ETest extends ISDABaseTest {
   // Yield curve
   private static final LocalDate SPOT_DATE = LocalDate.of(2011, Month.JUNE, 15);
   private static final String[] YIELD_CURVE_POINTS = new String[] {"1M", "2M", "3M", "6M", "9M", "1Y", "2Y", "3Y",
-      "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
+    "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
   private static final String[] YIELD_CURVE_INSTRUMENTS = new String[] {"M", "M", "M", "M", "M", "M", "S", "S", "S",
-      "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
+    "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
   private static final double[] YIELD_CURVE_RATES = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935,
-      0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017,
-      0.03092, 0.0316, 0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
+    0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017,
+    0.03092, 0.0316, 0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
   private static final ISDACompliantYieldCurve YIELD_CURVE = makeYieldCurve(TRADE_DATE, SPOT_DATE, YIELD_CURVE_POINTS,
       YIELD_CURVE_INSTRUMENTS, YIELD_CURVE_RATES, ACT360, D30360, Period.ofYears(1));
 
   // Credit curve form pillar CDSs
   private static final Period[] TENORS = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(3),
-      Period.ofYears(5), Period.ofYears(7), Period.ofYears(10) };
+    Period.ofYears(5), Period.ofYears(7), Period.ofYears(10) };
   private static final LocalDate[] PILLAR_DATES = getIMMDateSet(NEXT_IMM, TENORS);
   private static final LocalDate[] IMM_DATES = getIMMDateSet(NEXT_IMM, 41);
   private static final LocalDate[] MATURITIES_6M_STEP;
   private static final LocalDate[] MATURITIES_1Y_STEP;
   private static final double[] SPREADS = new double[] {0.007926718, 0.007926718, 0.012239372, 0.016978579,
-      0.019270856, 0.02086048 };
+    0.019270856, 0.02086048 };
   private static final CDSAnalytic[] PILLAR_CDSS;
   private static final ISDACompliantCreditCurve CREDIT_CURVE;
   static {
@@ -111,15 +110,15 @@ public class SingleNameCDSE2ETest extends ISDABaseTest {
 
   // Bucket CDSs
   private static final Period[] BUCKETS = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(2),
-      Period.ofYears(3), Period.ofYears(4), Period.ofYears(5), Period.ofYears(6), Period.ofYears(7), Period.ofYears(8),
-      Period.ofYears(9), Period.ofYears(10), Period.ofYears(12), Period.ofYears(15), Period.ofYears(20),
-      Period.ofYears(25), Period.ofYears(30) };
+    Period.ofYears(3), Period.ofYears(4), Period.ofYears(5), Period.ofYears(6), Period.ofYears(7), Period.ofYears(8),
+    Period.ofYears(9), Period.ofYears(10), Period.ofYears(12), Period.ofYears(15), Period.ofYears(20),
+    Period.ofYears(25), Period.ofYears(30) };
   private static final LocalDate[] BUCKET_DATES = getIMMDateSet(NEXT_IMM, BUCKETS);
   private static final CDSAnalytic[] BUCKET_CDSS = CDS_FACTORY.makeCDS(TRADE_DATE, STARTDATE, BUCKET_DATES);
 
   // Hedge CDSs
   private static final Period[] HEDGES = new Period[] {Period.of(1, 6, 0), Period.of(2, 0, 0), Period.of(6, 0, 0),
-      Period.of(9, 0, 0), Period.of(20, 0, 0) };
+    Period.of(9, 0, 0), Period.of(20, 0, 0) };
   private static final LocalDate[] HEDGE_DATES = getIMMDateSet(NEXT_IMM, HEDGES);
   private static final CDSAnalytic[] HEDGE_CDSS = CDS_FACTORY.makeCDS(TRADE_DATE, STARTDATE, HEDGE_DATES);
   private static final double[] HEDGE_COUPON = new double[HEDGES.length];
@@ -128,7 +127,7 @@ public class SingleNameCDSE2ETest extends ISDABaseTest {
   }
 
   private static final double TOL = 1.0e-8;
-  
+
   /**
    * Standard CDS with short maturity
    */
@@ -169,12 +168,12 @@ public class SingleNameCDSE2ETest extends ISDABaseTest {
         CREDIT_CURVE, YIELD_CURVE);
 
     double[] expectedBIR01 = new double[] {-3.554654175175198E-4, -0.011674986050841385, 0.027624587315561167,
-        0.02670611760208219, 0.03873563315243134, -0.1856733208432937, -0.4532763188576372, 0.05369920429154629, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.02670611760208219, 0.03873563315243134, -0.1856733208432937, -0.4532763188576372, 0.05369920429154629, 0.0,
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     double[] expectedBCS01 = new double[] {-0.0598207645016724, -0.17567436897888977, 146.42339811065176,
-        74.44971215266743, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      74.44971215266743, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     double[] expectedRatio = new double[] {-0.4961595903306217, 1.496146243832723, 1.4643659774973175E-10,
-        -1.7784851094986757E-11, 1.6747710535268755E-11 };
+      -1.7784851094986757E-11, 1.6747710535268755E-11 };
 
     assertEquals("accrual days", 86, accrualDays);
     assertEqualsRelativeTol("accrued premium", 2388.888888888889, accruedPremium, TOL);
@@ -233,16 +232,16 @@ public class SingleNameCDSE2ETest extends ISDABaseTest {
         CREDIT_CURVE, YIELD_CURVE);
 
     double[] expectedBIR01 = new double[] {0.10195891236852717, -0.011674986061249726, 0.027624587339847295,
-        0.026706117595143297, 0.03873563314549244, -0.1856733208294159, -0.8543973007979488, -2.568224954563325,
-        -5.036815800052441, -6.087580077140942, -7.045275780076521, -7.52983564417109, -7.836262445909403,
-        -8.103245255519642, -8.297088633868466, -8.394421414925635, -15.941139568542706, -25.22143603045368,
-        -3.6720683527224907, 0.0, 0.0 };
+      0.026706117595143297, 0.03873563314549244, -0.1856733208294159, -0.8543973007979488, -2.568224954563325,
+      -5.036815800052441, -6.087580077140942, -7.045275780076521, -7.52983564417109, -7.836262445909403,
+      -8.103245255519642, -8.297088633868466, -8.394421414925635, -15.941139568542706, -25.22143603045368,
+      -3.6720683527224907, 0.0, 0.0 };
     double[] expectedBCS01 = new double[] {-0.2488307417891633, -0.8251527622848975, -2.0651772812685376,
-        -2.5937087356209254, -3.333937820704236, -4.131638490473266, -5.022628897066728, -6.003569124668484,
-        -7.0661200600175, -8.199981770373732, -14.139374540145244, -30.47380986237469, 482.1018269742794,
-        496.1353877235286, 0.0, 0.0 };
+      -2.5937087356209254, -3.333937820704236, -4.131638490473266, -5.022628897066728, -6.003569124668484,
+      -7.0661200600175, -8.199981770373732, -14.139374540145244, -30.47380986237469, 482.1018269742794,
+      496.1353877235286, 0.0, 0.0 };
     double[] expectedRatio = new double[] {3.7335290727514284E-4, -9.055784969918724E-4, -9.918711889929754E-4,
-        0.16704483857139465, 0.8382732358018894 };
+      0.16704483857139465, 0.8382732358018894 };
 
     assertEquals("accrual days", 86, accrualDays);
     assertEqualsRelativeTol("accrued premium", 2388.888888888889, accruedPremium, TOL);
@@ -302,14 +301,14 @@ public class SingleNameCDSE2ETest extends ISDABaseTest {
         CREDIT_CURVE, YIELD_CURVE);
 
     double[] expectedBIR01 = new double[] {-0.006036998789760162, -0.00868633129313956, 0.09937045325481009,
-        0.16375497519094395, 0.24138012230667805, 0.48729564533500636, 1.2036552658745148, 0.37070870320676796,
-        -1.3907831437343088, -1.8674246091698876, -2.3723618600424157, -2.4828678812094385, -2.561667216488539,
-        -2.595901377966392, -0.017970836957426073, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.16375497519094395, 0.24138012230667805, 0.48729564533500636, 1.2036552658745148, 0.37070870320676796,
+      -1.3907831437343088, -1.8674246091698876, -2.3723618600424157, -2.4828678812094385, -2.561667216488539,
+      -2.595901377966392, -0.017970836957426073, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     double[] expectedBCS01 = new double[] {2.770988993816559E-5, -3.717554042381721E-6, 6.128880736255837E-5,
-        3.365298040236553E-4, 6.236849925400634E-4, 2.3975163521150478E-4, 5.054209273325228E-4, 6.192977519692278E-4,
-        2.2397053656142418E-4, 11.28402038486076, 758.7836222882893, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      3.365298040236553E-4, 6.236849925400634E-4, 2.3975163521150478E-4, 5.054209273325228E-4, 6.192977519692278E-4,
+      2.2397053656142418E-4, 11.28402038486076, 758.7836222882893, 0.0, 0.0, 0.0, 0.0, 0.0 };
     double[] expectedRatio = new double[] {-0.01656660944695296, 0.06035788587176887, 0.05918772036678788,
-        0.887754035080094, 0.14988679402430255 };
+      0.887754035080094, 0.14988679402430255 };
 
     assertEquals("accrual days", 0, accrualDays);
     assertEqualsRelativeTol("accrued premium", 0.0, accruedPremium, TOL);

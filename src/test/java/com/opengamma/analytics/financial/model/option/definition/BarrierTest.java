@@ -14,7 +14,6 @@ import com.opengamma.analytics.financial.model.option.definition.Barrier.Barrier
 import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockType;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.ObservationType;
 
-
 /**
  * Test.
  */

@@ -15,7 +15,7 @@ import com.opengamma.strata.collect.tuple.Triple;
  * A cube that is defined by a function <i>value = f(x, y, z)</i>, where <i>f(x, y, z)</i> is supplied.
  */
 public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> {
-  
+
   /**
    * @param function The function that defines the cube, not null
    * @return A functional cube with an automatically-generated name

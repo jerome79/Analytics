@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test.
  */
@@ -26,7 +25,7 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 public class PolynomialInterpolator1DTest {
   private static final Interpolator1D INTERPOLATOR_NO_OFFSET = new PolynomialInterpolator1D(3);
   private static final Interpolator1D INTERPOLATOR_WITH_OFFSET = new PolynomialInterpolator1D(3, 2);
-  private static final Interpolator1DDataBundle MODEL = INTERPOLATOR_NO_OFFSET.getDataBundle(new double[] {1, 2, 3, 4, 5}, new double[] {6, 7, 8, 9, 10});
+  private static final Interpolator1DDataBundle MODEL = INTERPOLATOR_NO_OFFSET.getDataBundle(new double[] {1, 2, 3, 4, 5 }, new double[] {6, 7, 8, 9, 10 });
   private static final double EPS = 1e-15;
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -61,7 +60,7 @@ public class PolynomialInterpolator1DTest {
 
   @Test(expectedExceptions = MathException.class)
   public void testInsufficientData() {
-    INTERPOLATOR_WITH_OFFSET.interpolate(INTERPOLATOR_WITH_OFFSET.getDataBundle(new double[] {1, 2, 3}, new double[] {4, 5, 6}), 1.5);
+    INTERPOLATOR_WITH_OFFSET.interpolate(INTERPOLATOR_WITH_OFFSET.getDataBundle(new double[] {1, 2, 3 }, new double[] {4, 5, 6 }), 1.5);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -81,12 +80,12 @@ public class PolynomialInterpolator1DTest {
 
   @Test
   public void testDataBundleType1() {
-    assertEquals(INTERPOLATOR_NO_OFFSET.getDataBundle(new double[] {1, 2, 3}, new double[] {1, 2, 3}).getClass(), ArrayInterpolator1DDataBundle.class);
+    assertEquals(INTERPOLATOR_NO_OFFSET.getDataBundle(new double[] {1, 2, 3 }, new double[] {1, 2, 3 }).getClass(), ArrayInterpolator1DDataBundle.class);
   }
 
   @Test
   public void testDataBundleType2() {
-    assertEquals(INTERPOLATOR_NO_OFFSET.getDataBundleFromSortedArrays(new double[] {1, 2, 3}, new double[] {1, 2, 3}).getClass(), ArrayInterpolator1DDataBundle.class);
+    assertEquals(INTERPOLATOR_NO_OFFSET.getDataBundleFromSortedArrays(new double[] {1, 2, 3 }, new double[] {1, 2, 3 }).getClass(), ArrayInterpolator1DDataBundle.class);
   }
 
   @Test
@@ -102,8 +101,8 @@ public class PolynomialInterpolator1DTest {
 
   @Test
   public void testInterpolation() {
-    final Function1D<Double, Double> quadratic = new RealPolynomialFunction1D(new double[] {-4., 3., 1.});
-    final Function1D<Double, Double> quartic = new RealPolynomialFunction1D(new double[] {-4., 3., 1., 1., 1.});
+    final Function1D<Double, Double> quadratic = new RealPolynomialFunction1D(new double[] {-4., 3., 1. });
+    final Function1D<Double, Double> quartic = new RealPolynomialFunction1D(new double[] {-4., 3., 1., 1., 1. });
     final TreeMap<Double, Double> quadraticMap = new TreeMap<>();
     final TreeMap<Double, Double> quarticMap = new TreeMap<>();
     double x;

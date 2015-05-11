@@ -13,7 +13,6 @@ import com.opengamma.analytics.util.amount.CubeValue;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
-
 /**
  * Class describing the present value Black volatility sensitivity (Black volatilities dependent of expiration/delay/strike).
  */

@@ -58,5 +58,4 @@ public class ConvectionDiffusionPDE1DCoupledCoefficients extends ConvectionDiffu
     return true;
   }
 
-
 }

@@ -92,9 +92,7 @@ public class StandardDataSetsMulticurveEUR {
   private static final IborIndex EUREURIBOR3M = EUR1YEURIBOR3M.getIborIndex();
   private static final IborIndex EUREURIBOR6M = IBOR_MASTER.getIndex("EURIBOR6M");
   private static final GeneratorDepositIbor GENERATOR_EUREURIBOR3M = new GeneratorDepositIbor("GENERATOR_EUREURIBOR3M", EUREURIBOR3M, TARGET);
-  //  private static final GeneratorDepositIbor GENERATOR_EUREURIBOR6M = new GeneratorDepositIbor("GENERATOR_EUREURIBOR6M", EUREURIBOR6M, TARGET);
   private static final GeneratorFRA GENERATOR_FRA3M = new GeneratorFRA("GENERATOR_FRA", EUREURIBOR3M, TARGET);
-  //  private static final GeneratorFRA GENERATOR_FRA6M = new GeneratorFRA("GENERATOR_FRA", EUREURIBOR6M, TARGET);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
@@ -104,18 +102,18 @@ public class StandardDataSetsMulticurveEUR {
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_EUR_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_EUR_WITH_TODAY };
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_EUR_WITHOUT_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_EUR_WITHOUT_TODAY };
 
-  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_EUR3M_WITH_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_EUR3M_WITH_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-          new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27), DateUtils.getUTCDate(2011, 9, 28) }, 
+          new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27), DateUtils.getUTCDate(2011, 9, 28) },
           new double[] {0.0035, 0.0036 });
-  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_EUR3M_WITHOUT_TO = 
+  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_EUR3M_WITHOUT_TO =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
           new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27) },
-      new double[] {0.0035 });
+          new double[] {0.0035 });
 
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_EUR3M_WITH_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_EUR3M_WITH_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_IBOR_EUR3M_WITH_TODAY };
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_EUR3M_WITHOUT_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_EUR3M_WITHOUT_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_IBOR_EUR3M_WITHOUT_TO };
 
   private static final String CURVE_NAME_DSC_EUR = "EUR-DSCON-OIS";
@@ -129,11 +127,11 @@ public class StandardDataSetsMulticurveEUR {
     0.0010555, 0.00143, 0.00249, 0.00428, 0.006325,
     0.01037, 0.01549, 0.0178, 0.020365 }; //16
   /** Generators for the dsc EUR curve */
-  private static final GeneratorInstrument<? extends GeneratorAttribute>[] DSC_1_EUR_GENERATORS = 
+  private static final GeneratorInstrument<? extends GeneratorAttribute>[] DSC_1_EUR_GENERATORS =
       new GeneratorInstrument<?>[] {GENERATOR_DEPOSIT_ON_EUR, GENERATOR_DEPOSIT_ON_EUR,
-    GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR,
-    GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR,
-    GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR };
+        GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR,
+        GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR,
+        GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR, GENERATOR_OIS_EUR };
   /** Tenors for the dsc EUR curve */
   private static final Period[] DSC_1_EUR_TENOR = new Period[] {Period.ofDays(0), Period.ofDays(1),
     Period.ofMonths(1), Period.ofMonths(2), Period.ofMonths(3), Period.ofMonths(6), Period.ofMonths(9),
@@ -156,12 +154,12 @@ public class StandardDataSetsMulticurveEUR {
     0.010655, 0.012655, 0.01448, 0.016122, 0.017565,
     0.0199725, 0.022365, 0.0241245, 0.024807 }; // 17
   /** Generators for the Fwd 3M EUR curve */
-  private static final GeneratorInstrument<? extends GeneratorAttribute>[] FWD3_1_EUR_GENERATORS = 
+  private static final GeneratorInstrument<? extends GeneratorAttribute>[] FWD3_1_EUR_GENERATORS =
       new GeneratorInstrument<?>[] {GENERATOR_EUREURIBOR3M,
-    GENERATOR_FRA3M, GENERATOR_FRA3M,
-    EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M,
-    EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M,
-    EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M };
+        GENERATOR_FRA3M, GENERATOR_FRA3M,
+        EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M,
+        EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M,
+        EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M };
   /** Tenors for the Fwd 3M EUR curve */
   private static final Period[] FWD3_1_EUR_TENOR = new Period[] {Period.ofMonths(0),
     Period.ofMonths(6), Period.ofMonths(9),

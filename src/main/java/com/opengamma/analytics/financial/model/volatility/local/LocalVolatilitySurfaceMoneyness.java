@@ -88,5 +88,4 @@ public class LocalVolatilitySurfaceMoneyness extends LocalVolatilitySurface<Mone
     return true;
   }
 
-
 }

@@ -566,7 +566,7 @@ public class BondCapitalIndexedSecurityDefinition<C extends CouponInflationDefin
     } else {
       throw new IllegalStateException("Unsupported coupon type " + getNominal().getNthPayment(0).getClass());
     }
-    return new BondCapitalIndexedSecurity<>(nominalStandard, couponStandard, settlementTime, accruedInterest, 
+    return new BondCapitalIndexedSecurity<>(nominalStandard, couponStandard, settlementTime, accruedInterest,
         factorToNextCoupon, ratioPeriodToNextCoupon, _yieldConvention, _couponPerYear,
         settlement, _indexStartValue, lasKnownIndexFixing, lasKnownFixingTime, indexRatio, getIssuerEntity());
   }

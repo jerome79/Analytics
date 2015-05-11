@@ -19,13 +19,13 @@ public interface DepositIndexCompoundingCoupon<T extends IndexDeposit> extends D
    * @return The times.
    */
   double[] getFixingTimes();
-  
+
   /**
    * Gets the fixing period start times (in years).
    * @return The times.
    */
   double[] getFixingPeriodStartTimes();
-  
+
   /**
    * Gets the fixing period end times (in years).
    * @return The times.

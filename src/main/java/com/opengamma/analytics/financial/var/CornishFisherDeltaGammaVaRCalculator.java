@@ -62,7 +62,7 @@ public class CornishFisherDeltaGammaVaRCalculator<T> implements VaRCalculator<No
     final double kurtosis = _kurtosisCalculator.evaluate(data);
     final double x = z + skew * (zSq - 1) / 6. + kurtosis * z * (zSq - 3) / 24. - skew * skew * z * (2 * zSq - 5) / 36.;
     final double value = x * std * mult + mean * mult * mult;
-    // REVIEW kirk 2012-06-22 -- Can we use "std" as the standard deviation?
+    // Can we use "std" as the standard deviation?
     return new VaRCalculationResult(value, null);
   }
 

@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  */

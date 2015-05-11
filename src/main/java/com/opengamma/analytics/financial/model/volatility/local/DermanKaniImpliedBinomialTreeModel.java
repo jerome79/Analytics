@@ -18,7 +18,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Implementation of the paper by Derman and Kani, The Volatility Smile and its Implied Tree (1994)
  */
@@ -30,6 +29,7 @@ public class DermanKaniImpliedBinomialTreeModel implements ImpliedTreeModel<Opti
     ArgChecker.isTrue(n > 0);
     _n = n;
   }
+
   @Override
   public ImpliedTreeResult getImpliedTrees(final OptionDefinition definition, final StandardOptionDataBundle data) {
     ArgChecker.notNull(definition, "definition");
@@ -38,7 +38,6 @@ public class DermanKaniImpliedBinomialTreeModel implements ImpliedTreeModel<Opti
     final int m1 = RecombiningBinomialTree.NODES.evaluate(_n);
     final int m2 = RecombiningBinomialTree.NODES.evaluate(_n - 1);
     final double[][] impliedTree = new double[_n + 1][m1]; //TODO this wastes space
-
 
     final double[] transitionProbabilities = new double[m2];
     double[] arrowDebreu = new double[m1];

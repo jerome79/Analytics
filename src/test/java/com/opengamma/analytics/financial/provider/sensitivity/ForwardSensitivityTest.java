@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.ForwardSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.SimplyCompoundedForwardSensitivity;
 
-
 /**
  * Test.
  */

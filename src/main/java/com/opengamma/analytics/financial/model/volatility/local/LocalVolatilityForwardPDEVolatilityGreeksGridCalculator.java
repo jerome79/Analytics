@@ -53,12 +53,6 @@ public abstract class LocalVolatilityForwardPDEVolatilityGreeksGridCalculator im
       greeks[i] = getResultForMoneyness(pdeGrid, pdeGridUp, pdeGridDown, pdeGridUpUp, pdeGridUpDown, pdeGridDownUp, pdeGridDownDown, i, forward, option);
     }
     //    //debug
-    //    double[] t = new double[] {7. / 365, 14 / 365., 21 / 365., 1 / 12., 3 / 12., 0.5, 0.75, 1, 5, 10 };
-    //    int m = t.length;
-    //    double[] debug = new double[m];
-    //    for (int i = 0; i < m; i++) {
-    //      debug[i] = forwardCurve.getForward(t[i]);
-    //    }
 
     return _interpolator.getDataBundleFromSortedArrays(strikes, greeks);
   }

@@ -213,7 +213,6 @@ public class FiniteDifferenceSpreadSensitivityCalculator {
       }
     }
 
-    //build a new curve from the implied spreads
     final ISDACompliantCreditCurve baseCurve = _curveBuilder.calibrateCreditCurve(pillarCDSs, impSpreads, yieldCurve);
     final double basePrice = _pricer.pv(cds, yieldCurve, baseCurve, cdsCoupon);
     final double[] bumpedSpreads = makeBumpedSpreads(impSpreads, fracBumpAmount, BumpType.ADDITIVE);
@@ -483,7 +482,6 @@ public class FiniteDifferenceSpreadSensitivityCalculator {
     }
     index = Math.min(index, n - 1);
 
-    //build a new curve from the implied spreads
     final ISDACompliantCreditCurve baseCurve = _curveBuilder.calibrateCreditCurve(bucketCDSs, impSpreads, yieldCurve);
     final double basePrice = _pricer.pv(cds, yieldCurve, baseCurve, cdsCoupon);
     final double[] res = new double[n];

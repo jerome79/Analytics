@@ -513,7 +513,7 @@ public class MixedBivariateLogNormalFitter {
           res[j][i] += -fwdX *
               (BlackFormulaRepository.price(relativeForwardsX[l], dataStrs[j] / fwdX, time, sigmasX[l], true) - relativeForwardsX[l] *
                   BlackFormulaRepository.delta(relativeForwardsX[l], dataStrs[j] / fwdX, time, sigmasX[l], true)) * weightsJacobianX[l][i - 2 * nNorms] /
-                  BlackFormulaRepository.vega(fwdX, dataStrs[j], time, impVolX);
+              BlackFormulaRepository.vega(fwdX, dataStrs[j], time, impVolX);
         }
       }
       for (int i = 3 * nNorms - 1; i < 4 * nNorms - 2; ++i) {

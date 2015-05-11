@@ -10,7 +10,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Differentiates a scalar field (i.e. there is a scalar value for every point
  * in some vector space) with respect to the vector space using finite

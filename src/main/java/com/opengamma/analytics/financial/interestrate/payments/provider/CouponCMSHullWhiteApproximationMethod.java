@@ -147,7 +147,6 @@ public final class CouponCMSHullWhiteApproximationMethod {
     final double x0 = -alphaPayment;
     final double a0 = MODEL.swapRate(x0, discountedCashFlowFixed, alphaFixed, discountedCashFlowIbor, alphaIbor);
     final double a2 = MODEL.swapRateDx2(x0, discountedCashFlowFixed, alphaFixed, discountedCashFlowIbor, alphaIbor);
-    //    final double pv = (a0 + a2 / 2) * dfPayment * cms.getNotional() * cms.getPaymentYearFraction();
     // Backward sweep
     final double pvBar = 1.0;
     final double a2Bar = 0.5 * dfPayment * cms.getNotional() * cms.getPaymentYearFraction() * pvBar;

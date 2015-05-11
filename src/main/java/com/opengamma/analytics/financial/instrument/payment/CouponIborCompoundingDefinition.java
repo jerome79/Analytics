@@ -79,7 +79,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
    * The accrual factors (or year fraction) associated with the fixing periods in the Index day count convention.
    */
   private final double[] _fixingPeriodAccrualFactors;
-  
+
   /**
    * The rate of the first compounded period.
    */
@@ -462,7 +462,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
   public double[] getFixingPeriodAccrualFactors() {
     return _fixingPeriodAccrualFactors;
   }
-  
+
   /**
    * Returns the rate of the first compound period.  This is an optional field and may return {@link Double#NaN}.
    * @return the rate of the first compound period.
@@ -498,7 +498,7 @@ public class CouponIborCompoundingDefinition extends CouponDefinition implements
       ratioAccrued *= 1.0 + _paymentAccrualFactors[0] * _initialRate;
       nbFixed++;
     }
-    
+
     while ((nbFixed < nbSubPeriods) && (dateConversion.isAfter(_fixingDates[nbFixed].toLocalDate()))) {
       final ZonedDateTime rezonedFixingDate = _fixingDates[nbFixed].toLocalDate().atStartOfDay(ZoneOffset.UTC);
       final Double fixedRate = indexFixingTimeSeries.getValue(rezonedFixingDate);

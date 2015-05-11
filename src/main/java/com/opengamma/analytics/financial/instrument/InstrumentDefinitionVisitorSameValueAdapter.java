@@ -1038,7 +1038,6 @@ public class InstrumentDefinitionVisitorSameValueAdapter<DATA_TYPE, RESULT_TYPE>
     return _value;
   }
 
-
   @Override
   public RESULT_TYPE visitForexDefinition(final ForexDefinition fx, final DATA_TYPE data) {
     return _value;

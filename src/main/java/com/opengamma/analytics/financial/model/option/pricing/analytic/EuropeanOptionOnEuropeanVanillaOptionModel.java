@@ -21,7 +21,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  */
@@ -59,18 +58,18 @@ public class EuropeanOptionOnEuropeanVanillaOptionModel extends AnalyticOptionMo
         if (definition.isCall()) {
           final double rho = Math.sqrt(t1 / t2);
           if (underlying.isCall()) {
-            return s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {d3, d1, rho}) - k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {d4, d2, rho}) - k1 * Math.exp(-r * t1)
+            return s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {d3, d1, rho }) - k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {d4, d2, rho }) - k1 * Math.exp(-r * t1)
                 * NORMAL.getCDF(d2);
           }
-          return k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {-d4, -d2, rho}) - s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {-d3, -d1, rho}) - k1 * Math.exp(-r * t1)
+          return k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {-d4, -d2, rho }) - s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {-d3, -d1, rho }) - k1 * Math.exp(-r * t1)
               * NORMAL.getCDF(-d2);
         }
         final double rho = -Math.sqrt(t1 / t2);
         if (underlying.isCall()) {
-          return k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {d4, -d2, rho}) - s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {d3, -d1, rho}) + k1 * Math.exp(-r * t1)
+          return k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {d4, -d2, rho }) - s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {d3, -d1, rho }) + k1 * Math.exp(-r * t1)
               * NORMAL.getCDF(-d2);
         }
-        return s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {-d3, d1, rho}) - k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {-d4, d2, rho}) + k1 * Math.exp(-r * t1)
+        return s * Math.exp(t2 * (b - r)) * BIVARIATE.getCDF(new double[] {-d3, d1, rho }) - k2 * Math.exp(-r * t2) * BIVARIATE.getCDF(new double[] {-d4, d2, rho }) + k1 * Math.exp(-r * t1)
             * NORMAL.getCDF(d2);
       }
 

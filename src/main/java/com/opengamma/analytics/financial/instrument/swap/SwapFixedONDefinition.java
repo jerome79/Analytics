@@ -104,7 +104,7 @@ public class SwapFixedONDefinition extends SwapDefinition {
    * @return The swap.
    */
   public static SwapFixedONDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final NotionalProvider notionalFixed, final NotionalProvider notionalOIS,
-                                           final GeneratorSwapFixedON generator, final double fixedRate, final boolean isPayer) {
+      final GeneratorSwapFixedON generator, final double fixedRate, final boolean isPayer) {
     final AnnuityCouponONDefinition oisLeg = AnnuityCouponONDefinition.from(settlementDate, endFixingPeriodDate, notionalOIS, generator, !isPayer);
     return from(oisLeg, notionalFixed, fixedRate, generator.getOvernightCalendar(), isPayer);
   }
@@ -156,7 +156,6 @@ public class SwapFixedONDefinition extends SwapDefinition {
   @Override
   public SwapFixedCoupon<Coupon> toDerivative(final ZonedDateTime date, final ZonedDateTimeDoubleTimeSeries[] indexDataTS) {
     ArgChecker.notNull(indexDataTS, "index data time series array");
-    // ArgChecker.isTrue(indexDataTS.length > 0, "index data time series must contain at least one element");
     final Annuity<CouponFixed> fixedLeg = this.getFixedLeg().toDerivative(date);
     final Annuity<? extends Coupon> oisLeg = this.getOISLeg().toDerivative(date, indexDataTS[0]);
     return new SwapFixedCoupon<>(fixedLeg, (Annuity<Coupon>) oisLeg);

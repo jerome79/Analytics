@@ -236,16 +236,12 @@ public class IndexOptionPricer {
    * @return An integrand function to be used by <b>Gauss-Hermite only</b>
    */
   private Function1D<Double, Double> getGaussHermiteIntegrand(final double x0, final double vol) {
-    //      final double sigmaRoot2T = vol * Math.sqrt(2 * _expiry);
-    //      final double sigmaSqrTOver2 = vol * vol * _expiry / 2;
     final Function1D<Double, Double> func = getFiForZ(x0, vol);
 
     return new Function1D<Double, Double>() {
       @Override
       public Double evaluate(final Double zeta) {
         return func.evaluate(zeta * Math.sqrt(2)) * ONE_OVER_ROOT_PI;
-        //          final double x = x0 * Math.exp(sigmaRoot2T * z - sigmaSqrTOver2);
-        //          return (x - _coupon) * _annuityFunc.evaluate(x) * oneOverRootPi;
       }
     };
   }

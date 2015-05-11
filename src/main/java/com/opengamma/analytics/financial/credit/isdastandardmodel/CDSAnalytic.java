@@ -141,7 +141,6 @@ public class CDSAnalytic {
     ArgChecker.isFalse(stepinDate.isBefore(tradeDate), "Require stepin >= today");
     //TODO should not allow the accrual start to be after the stepin (protection start), since this is 'free' protection. Currently some tests have this
     //and need to be changed 
-    //ArgChecker.isFalse(stepinDate.isBefore(accStartDate), "Require stepin >= accStartDate");
     ArgChecker.isFalse(tradeDate.isAfter(endDate), "CDS has expired");
 
     _payAccOnDefault = payAccOnDefault;
@@ -183,9 +182,6 @@ public class CDSAnalytic {
    * Gets the protectionFromStartOfDay.
    * @return the protectionFromStartOfDay
    */
-  //  public boolean isProtectionFromStartOfDay() {
-  //    return _protectionFromStartOfDay;
-  //  }
 
   /**
    * The loss-given-default. This is 1 - recovery rate

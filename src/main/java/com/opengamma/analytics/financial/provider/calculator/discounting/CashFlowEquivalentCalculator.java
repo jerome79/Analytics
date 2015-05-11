@@ -53,13 +53,13 @@ public class CashFlowEquivalentCalculator extends InstrumentDerivativeVisitorAda
   @Override
   public AnnuityPaymentFixed visitFixedPayment(final PaymentFixed payment, final MulticurveProviderInterface multicurves) {
     ArgChecker.notNull(payment, "Payment");
-    return new AnnuityPaymentFixed(new PaymentFixed[] {payment});
+    return new AnnuityPaymentFixed(new PaymentFixed[] {payment });
   }
 
   @Override
   public AnnuityPaymentFixed visitCouponFixed(final CouponFixed coupon, final MulticurveProviderInterface multicurves) {
     ArgChecker.notNull(coupon, "Coupon");
-    return new AnnuityPaymentFixed(new PaymentFixed[] {coupon.toPaymentFixed()});
+    return new AnnuityPaymentFixed(new PaymentFixed[] {coupon.toPaymentFixed() });
   }
 
   @Override
@@ -74,7 +74,7 @@ public class CashFlowEquivalentCalculator extends InstrumentDerivativeVisitorAda
         * multicurves.getDiscountFactor(ccy, paymentTime) / multicurves.getDiscountFactor(ccy, fixingStartTime);
     final PaymentFixed paymentStart = new PaymentFixed(payment.getCurrency(), fixingStartTime, beta * payment.getNotional() * payment.getPaymentYearFraction() / payment.getFixingAccrualFactor());
     final PaymentFixed paymentEnd = new PaymentFixed(payment.getCurrency(), paymentTime, -payment.getNotional() * payment.getPaymentYearFraction() / payment.getFixingAccrualFactor());
-    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd});
+    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd });
   }
 
   @Override
@@ -90,7 +90,7 @@ public class CashFlowEquivalentCalculator extends InstrumentDerivativeVisitorAda
     final PaymentFixed paymentStart = new PaymentFixed(payment.getCurrency(), fixingStartTime, beta * payment.getNotional() * payment.getPaymentYearFraction() / payment.getFixingAccrualFactor());
     final PaymentFixed paymentEnd = new PaymentFixed(payment.getCurrency(), paymentTime, (-payment.getNotional() + payment.getSpreadAmount()) * payment.getPaymentYearFraction()
         / payment.getFixingAccrualFactor());
-    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd});
+    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd });
   }
 
   @Override
@@ -107,7 +107,7 @@ public class CashFlowEquivalentCalculator extends InstrumentDerivativeVisitorAda
         / payment.getFixingAccrualFactor());
     final PaymentFixed paymentEnd = new PaymentFixed(payment.getCurrency(), paymentTime, (-payment.getFactor() / payment.getFixingAccrualFactor() + payment.getSpread()) *
         payment.getPaymentYearFraction() * payment.getNotional());
-    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd});
+    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd });
   }
 
   @Override

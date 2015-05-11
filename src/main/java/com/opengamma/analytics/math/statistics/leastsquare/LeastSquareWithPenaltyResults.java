@@ -15,7 +15,6 @@ import com.opengamma.strata.collect.ArgChecker;
 public class LeastSquareWithPenaltyResults extends LeastSquareResults {
   private final double _penalty;
 
-
   /**
    * Holder for the results of minimising $\sum_{i=1}^N (y_i - f_i(\mathbf{x}))^2 + \mathbf{x}^T\mathbf{P}\mathbf{x}$
    * WRT $\mathbf{x}$  (the vector of model parameters). 

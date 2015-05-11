@@ -22,22 +22,14 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 /**
  * 
  */
+@Test
 public class AnalyticBondPricerTest extends ISDABaseTest {
 
-  private static boolean PRINT = false;
-  static {
-    if (PRINT) {
-      System.out.println("BondEquivalentCDSSpreadTest - Set PRINT to false");
-    }
-  }
-
-  @Test
   public void bondPriceTest() {
 
     final double recoveryRate = 0.4;
     final CDSAnalyticFactory factory = new CDSAnalyticFactory(recoveryRate);
     final LocalDate tradeDate = LocalDate.of(2014, 3, 14);
-    final CDSAnalytic cds = factory.makeIMMCDS(tradeDate, Period.ofYears(5));
 
     final double bondCoupon = 0.05;
     //for now use the CDS mechanics to generate bond payment schedule 
@@ -65,22 +57,12 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
 
     assertEquals("Hazard rate limit", recoveryRate, bondSpreadCal.bondPriceForHazardRate(bond, yieldCurve, 1000.0, PriceType.DIRTY), 2e-5);
 
-    //ramp up the hazard rate
-    if (PRINT) {
-      for (int i = 0; i < 100; i++) {
-        final double lambda = i * 1.0 / 99;
-        final double rPrice = bondPriceFunc.evaluate(lambda);
-        final double s = bondSpreadCal.getEquivalentCDSSpread(bond, yieldCurve, rPrice, PriceType.CLEAN, cds);
-        System.out.println(lambda + "\t" + rPrice + "\t" + s);
-      }
-    }
   }
 
   /**
    * Check our bond price is consistent with the CDS price. To do this we must price the protection leg of a CDS with protection from start true, but the annuity with
    * protection from start false (the annuity must also not have accrual-on-default)
    */
-  @Test
   public void bondPriceTest2() {
 
     final ISDACompliantYieldCurve yieldCurve = YieldCurveProvider.ISDA_USD_20140205;
@@ -117,8 +99,7 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
       final double q = cc.getSurvivalProbability(exp);
       final double p = yieldCurve.getDiscountFactor(exp);
       final double bondPriceAsCDS = cdsAnnuity * bondCoupon + q * p + recoveryRate * cdsProtLeg;
-      //    System.out.println(cdsProtLeg);
-      //    System.out.println(bondPrice + "\t" + bondPriceAsCDS);
+
       assertEquals(bondPriceAsCDS, bondPrice, 1e-15);
     }
   }
@@ -252,11 +233,11 @@ public class AnalyticBondPricerTest extends ISDABaseTest {
 
     final double hr = 0.11;
     final ISDACompliantYieldCurve yc1 = new ISDACompliantYieldCurve(new double[] {0.3 * bondPaymentTimeLast, 0.7 * bondPaymentTimeLast,
-        bondPaymentTimeLast, 1.2 * bondPaymentTimeLast, 2. * bondPaymentTimeLast }, new double[] {-hr, 0.11, 0.044, 0.1, 0.12 });
+      bondPaymentTimeLast, 1.2 * bondPaymentTimeLast, 2. * bondPaymentTimeLast }, new double[] {-hr, 0.11, 0.044, 0.1, 0.12 });
     final ISDACompliantYieldCurve yc2 = new ISDACompliantYieldCurve(new double[] {1.1 * bondPaymentTimeLast, 1.2 * bondPaymentTimeLast,
-        1.3 * bondPaymentTimeLast, 1.5 * bondPaymentTimeLast, 2.1 * bondPaymentTimeLast }, new double[] {0.1, 0.11, 0.08, 0.12, 0.12 });
+      1.3 * bondPaymentTimeLast, 1.5 * bondPaymentTimeLast, 2.1 * bondPaymentTimeLast }, new double[] {0.1, 0.11, 0.08, 0.12, 0.12 });
     final ISDACompliantYieldCurve yc3 = new ISDACompliantYieldCurve(new double[] {bondPaymentTimeLast, 1.2 * bondPaymentTimeLast,
-        1.3 * bondPaymentTimeLast, 1.5 * bondPaymentTimeLast, 2.1 * bondPaymentTimeLast }, new double[] {0.12, 0.11, 0.08, 0.12, 0.12 });
+      1.3 * bondPaymentTimeLast, 1.5 * bondPaymentTimeLast, 2.1 * bondPaymentTimeLast }, new double[] {0.12, 0.11, 0.08, 0.12, 0.12 });
     final ISDACompliantYieldCurve[] ycArr = new ISDACompliantYieldCurve[] {yc1, yc2, yc3 };
     final int nyc = ycArr.length;
 

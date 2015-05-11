@@ -30,18 +30,10 @@ public class G2ppMonteCarloMethod extends MonteCarloMethod {
    * The decision schedule calculator (calculate the exercise dates, the cash flow dates and the reference amounts).
    */
   private static final DecisionScheduleCalculator DC = DecisionScheduleCalculator.getInstance();
-  //  /**
-  //   * The decision schedule derivative calculator (calculate the exercise dates, the cash flow dates, the reference amounts and the sensitivity of the reference amount to the curves).
-  //   */
-  //  private static final DecisionScheduleDerivativeCalculator DDC = DecisionScheduleDerivativeCalculator.getInstance();
   /**
    * The calculator from discount factors (calculate the price from simulated discount factors and the reference amounts).
    */
   private static final MonteCarloDiscountFactorCalculator MCC = MonteCarloDiscountFactorCalculator.getInstance();
-  //  /**
-  //   * The calculator of price and derivatives from discount factors and reference amounts.
-  //   */
-  //  private static final MonteCarloDiscountFactorDerivativeCalculator MCDC = MonteCarloDiscountFactorDerivativeCalculator.getInstance();
   /**
    * The Hull-White one factor model.
    */

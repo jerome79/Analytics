@@ -34,10 +34,10 @@ public class FunctionalSurfaceAdditiveShiftFunction implements SurfaceShiftFunct
   }
 
   private static class ShiftedFunction implements Function<Double, Double> {
-    
+
     private final double _shift;
     private final Function<Double, Double> _f;
-    
+
     public ShiftedFunction(double shift, Function<Double, Double> f) {
       this._shift = shift;
       this._f = f;
@@ -47,9 +47,9 @@ public class FunctionalSurfaceAdditiveShiftFunction implements SurfaceShiftFunct
     public Double evaluate(final Double... xy) {
       return _f.evaluate(xy) + _shift;
     }
-    
+
   }
-  
+
   /**
    * {@inheritDoc}
    * @return Not supported

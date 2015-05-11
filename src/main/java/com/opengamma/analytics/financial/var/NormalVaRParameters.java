@@ -19,7 +19,7 @@ public class NormalVaRParameters {
   private final double _quantile;
   private final double _z;
   private final double _timeScaling;
-  
+
   public NormalVaRParameters(final double horizon, final double periods, final double quantile) {
     ArgChecker.isTrue(horizon > 0, "horizon");
     ArgChecker.isTrue(periods > 0, "periods");
@@ -30,23 +30,23 @@ public class NormalVaRParameters {
     _z = NORMAL.getInverseCDF(quantile);
     _timeScaling = Math.sqrt(horizon / periods);
   }
-  
+
   public double getZ() {
     return _z;
   }
-  
+
   public double getTimeScaling() {
     return _timeScaling;
   }
-  
+
   public double getHorizon() {
     return _horizon;
   }
-  
+
   public double getPeriods() {
     return _periods;
   }
-  
+
   public double getQuantile() {
     return _quantile;
   }

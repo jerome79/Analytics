@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
@@ -48,7 +47,7 @@ public class ConstantDoublesCurveTest {
     assertEquals(CURVE.getName(), NAME1);
     assertEquals(CURVE.getYValue(30.1), Y1, 0);
     assertEquals(CURVE.size(), 1);
-    assertArrayEquals(CURVE.getYData(), new Double[] {Y1});
+    assertArrayEquals(CURVE.getYData(), new Double[] {Y1 });
   }
 
   @Test
@@ -65,8 +64,8 @@ public class ConstantDoublesCurveTest {
   @Test
   public void testConvert() {
     final double eps = 1e-15;
-    final double[] x = new double[] {0, 1, 2};
-    final double[] y = new double[] {Y1, Y1, Y1};
+    final double[] x = new double[] {0, 1, 2 };
+    final double[] y = new double[] {Y1, Y1, Y1 };
     final LinearInterpolator1D interpolator = new LinearInterpolator1D();
     InterpolatedDoublesCurve other = CURVE.toInterpolatedDoublesCurve(x, interpolator);
     assertArrayEquals(other.getXDataAsPrimitive(), x, eps);

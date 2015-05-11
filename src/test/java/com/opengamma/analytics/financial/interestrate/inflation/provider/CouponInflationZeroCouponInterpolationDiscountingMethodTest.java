@@ -36,7 +36,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests the present value and its sensitivities for zero-coupon with reference index interpolated between months.
  */
@@ -64,9 +63,9 @@ public class CouponInflationZeroCouponInterpolationDiscountingMethodTest {
   private static final double TOLERANCE_PV_DELTA = 1.0E+2;
 
   private static final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-      new ZonedDateTime[]{DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2008, 6, 30), DateUtils.getUTCDate(2011, 5, 31), DateUtils.getUTCDate(2011, 6, 30),
-          DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30)}, new double[]{108.23, 108.64, 225.964, 225.722,
-          128.23, 128.43});
+      new ZonedDateTime[] {DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2008, 6, 30), DateUtils.getUTCDate(2011, 5, 31), DateUtils.getUTCDate(2011, 6, 30),
+        DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30) }, new double[] {108.23, 108.64, 225.964, 225.722,
+        128.23, 128.43 });
 
   private static final CouponInflationZeroCouponInterpolationDefinition ZERO_COUPON_1_DEFINITION = CouponInflationZeroCouponInterpolationDefinition.from(START_DATE, PAYMENT_DATE, NOTIONAL,
       PRICE_INDEX_EUR, MONTH_LAG, MONTH_LAG, false);

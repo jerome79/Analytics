@@ -18,8 +18,8 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multicu
  * The notion of "rate" will depend of each instrument. The "market quote" will be used for most instruments. 
  * The exceptions are: STIR futures, Fed Funds futres,
  */
-public final class ParSpreadRateCurveSensitivityDiscountingCalculator 
-  extends InstrumentDerivativeVisitorDelegate<ParameterProviderInterface, MulticurveSensitivity> {
+public final class ParSpreadRateCurveSensitivityDiscountingCalculator
+    extends InstrumentDerivativeVisitorDelegate<ParameterProviderInterface, MulticurveSensitivity> {
 
   /**
    * The unique instance of the calculator.

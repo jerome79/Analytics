@@ -37,7 +37,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the constructor of annuities of Ibor ratchets.
  */
@@ -74,7 +73,8 @@ public class AnnuityCouponIborRatchetDefinitionTest {
     final CouponDefinition[] cpn = new CouponDefinition[NB_COUPON];
     cpn[0] = new CouponFixedDefinition(CUR, paymentDates[0], SETTLEMENT_DATE, paymentDates[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, paymentDates[0]), NOTIONAL, FIRST_CPN_RATE);
     for (int loopcpn = 1; loopcpn < NB_COUPON; loopcpn++) {
-      cpn[loopcpn] = new CouponIborRatchetDefinition(CUR, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, paymentDates[loopcpn - 1], paymentDates[loopcpn]), NOTIONAL, ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR), IBOR_INDEX, MAIN_COEF, FLOOR_COEF, CAP_COEF, CALENDAR);
+      cpn[loopcpn] = new CouponIborRatchetDefinition(CUR, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, paymentDates[loopcpn - 1],
+          paymentDates[loopcpn]), NOTIONAL, ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR), IBOR_INDEX, MAIN_COEF, FLOOR_COEF, CAP_COEF, CALENDAR);
     }
     final AnnuityCouponIborRatchetDefinition annuity = new AnnuityCouponIborRatchetDefinition(cpn, CALENDAR);
     for (int loopcpn = 0; loopcpn < NB_COUPON; loopcpn++) {
@@ -89,10 +89,12 @@ public class AnnuityCouponIborRatchetDefinitionTest {
   public void constructorIborGearing() {
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(SETTLEMENT_DATE, ANNUITY_TENOR, INDEX_TENOR, BUSINESS_DAY, CALENDAR, IS_EOM);
     final CouponDefinition[] cpn = new CouponDefinition[NB_COUPON];
-    cpn[0] = CouponIborGearingDefinition.from(SETTLEMENT_DATE, paymentDates[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, paymentDates[0]), NOTIONAL, IBOR_INDEX, MAIN_COEF[2], MAIN_COEF[1],
+    cpn[0] = CouponIborGearingDefinition.from(SETTLEMENT_DATE, paymentDates[0], DayCountUtils.yearFraction(DAY_COUNT, SETTLEMENT_DATE, paymentDates[0]), NOTIONAL, IBOR_INDEX, MAIN_COEF[2],
+        MAIN_COEF[1],
         CALENDAR);
     for (int loopcpn = 1; loopcpn < NB_COUPON; loopcpn++) {
-      cpn[loopcpn] = new CouponIborRatchetDefinition(CUR, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, paymentDates[loopcpn - 1], paymentDates[loopcpn]), NOTIONAL, ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR), IBOR_INDEX, MAIN_COEF, FLOOR_COEF, CAP_COEF, CALENDAR);
+      cpn[loopcpn] = new CouponIborRatchetDefinition(CUR, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn], DayCountUtils.yearFraction(DAY_COUNT, paymentDates[loopcpn - 1],
+          paymentDates[loopcpn]), NOTIONAL, ScheduleCalculator.getAdjustedDate(paymentDates[loopcpn - 1], -SETTLEMENT_DAYS, CALENDAR), IBOR_INDEX, MAIN_COEF, FLOOR_COEF, CAP_COEF, CALENDAR);
     }
     final AnnuityCouponIborRatchetDefinition annuity = new AnnuityCouponIborRatchetDefinition(cpn, CALENDAR);
     for (int loopcpn = 0; loopcpn < NB_COUPON; loopcpn++) {

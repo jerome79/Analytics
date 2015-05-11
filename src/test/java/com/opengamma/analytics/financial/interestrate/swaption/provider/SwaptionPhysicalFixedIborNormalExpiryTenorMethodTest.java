@@ -58,7 +58,6 @@ import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the pricing of swaptions with a normal (Bachelier) model.
  */
@@ -72,17 +71,17 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();
   private static final Currency USD = USDLIBOR3M.getCurrency();
-  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR =
       BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC);
   private static final DaysAdjustment OFFSET_ADJ_LIBOR =
       DaysAdjustment.ofBusinessDays(-2, NYC, BusinessDayAdjustment.of(USD6MLIBOR3M.getBusinessDayConvention(), NYC));
   /** Data */
   private static final MulticurveProviderDiscount MULTICURVE = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
-  private static final InterpolatedDoublesSurface NORMAL_SURFACE_SWAPTION_EXP_TENOR = 
+  private static final InterpolatedDoublesSurface NORMAL_SURFACE_SWAPTION_EXP_TENOR =
       NormalDataSets.normalSurfaceSwaptionExpiryTenor();
-  private static final NormalSwaptionExpiryTenorProvider MULTICURVE_NEG_NORMAL = 
+  private static final NormalSwaptionExpiryTenorProvider MULTICURVE_NEG_NORMAL =
       new NormalSwaptionExpiryTenorProvider(MULTICURVE, NORMAL_SURFACE_SWAPTION_EXP_TENOR, USD6MLIBOR3M);
-  
+
   /** Swaption */
   private static final ZonedDateTime EXPIRY_1_DATE = DateUtils.getUTCDate(2016, 7, 14);
   private static final LocalDate SWAP_1_EFFECTIVE_DATE = LocalDate.of(2016, 7, 18);;
@@ -92,9 +91,9 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
   private static final double NOTIONAL_1 = 10_000_000;
   private static final boolean PAYER_1 = true;
   private static final boolean LONG_1 = true;
-  private static final SwapFixedIborDefinition SWAP_1_P_DEFINITION = 
+  private static final SwapFixedIborDefinition SWAP_1_P_DEFINITION =
       swap(SWAP_1_EFFECTIVE_DATE, SWAP_1_MATURITY_DATE, RATE_1, NOTIONAL_1, PAYER_1);
-  private static final SwapFixedIborDefinition SWAP_1_R_DEFINITION = 
+  private static final SwapFixedIborDefinition SWAP_1_R_DEFINITION =
       swap(SWAP_1_EFFECTIVE_DATE, SWAP_1_MATURITY_DATE, RATE_1, NOTIONAL_1, !PAYER_1);
   private static final SwaptionPhysicalFixedIborDefinition SWAPTION_1_P_L_DEFINITION =
       SwaptionPhysicalFixedIborDefinition.from(EXPIRY_1_DATE, SWAP_1_P_DEFINITION, PAYER_1, LONG_1);
@@ -114,43 +113,43 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
   private static final double NOTIONAL_2 = 10_000_000;
   private static final boolean PAYER_2 = false;
   private static final boolean LONG_2 = true;
-  private static final SwapFixedIborDefinition SWAP_2_DEFINITION = 
+  private static final SwapFixedIborDefinition SWAP_2_DEFINITION =
       swap(SWAP_2_EFFECTIVE_DATE, SWAP_2_MATURITY_DATE, RATE_2, NOTIONAL_2, PAYER_2);
   private static final SwaptionPhysicalFixedIborDefinition SWAPTION_2_DEFINITION =
       SwaptionPhysicalFixedIborDefinition.from(EXPIRY_2_DATE, SWAP_2_DEFINITION, PAYER_2, LONG_2);
   private static final SwaptionPhysicalFixedIbor SWAPTION_2 = SWAPTION_2_DEFINITION.toDerivative(VALUATION_DATE);
-  
+
   /** Calculators and methods */
   private static final SwapFixedCouponDiscountingMethod METHOD_SWAP = SwapFixedCouponDiscountingMethod.getInstance();
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final PresentValueNormalSwaptionCalculator PVNSC = PresentValueNormalSwaptionCalculator.getInstance();
-  private static final PresentValueCurveSensitivityNormalSwaptionCalculator PVCSNSC = 
+  private static final PresentValueCurveSensitivityNormalSwaptionCalculator PVCSNSC =
       PresentValueCurveSensitivityNormalSwaptionCalculator.getInstance();
   private static final SwaptionPhysicalFixedIborNormalMethod METHOD_SWPT_NORMAL =
       SwaptionPhysicalFixedIborNormalMethod.getInstance();
-  private static final ParameterSensitivityParameterCalculator<NormalSwaptionProviderInterface> PS = 
+  private static final ParameterSensitivityParameterCalculator<NormalSwaptionProviderInterface> PS =
       new ParameterSensitivityParameterCalculator<>(PVCSNSC);
   private static final double SHIFT_FD = 1.0E-6;
   private static final ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFDCalculator PS_FD =
       new ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFDCalculator(PVNSC, SHIFT_FD);
-  
+
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_PV_DELTA = 1.0E+2;
   private static final double TOLERANCE_VOL = 1.0E-8;
-  
+
   @Test
   public void impliedVolatility() {
-    double volatilityExpected = NORMAL_SURFACE_SWAPTION_EXP_TENOR.getZValue(SWAPTION_1_P_L.getTimeToExpiry(), 
+    double volatilityExpected = NORMAL_SURFACE_SWAPTION_EXP_TENOR.getZValue(SWAPTION_1_P_L.getTimeToExpiry(),
         SWAPTION_1_P_L.getMaturityTime());
     double volatilityComputedLong = METHOD_SWPT_NORMAL.impliedVolatility(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: implied vol", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: implied vol",
         volatilityExpected, volatilityComputedLong, TOLERANCE_VOL);
     double volatilityComputedShort = METHOD_SWPT_NORMAL.impliedVolatility(SWAPTION_1_P_S, MULTICURVE_NEG_NORMAL);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: implied vol", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: implied vol",
         volatilityExpected, volatilityComputedShort, TOLERANCE_VOL);
   }
-  
+
   @Test
   public void presentValue() {
     MultiCurrencyAmount pvComputed = METHOD_SWPT_NORMAL.presentValue(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
@@ -163,10 +162,10 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
     NormalPriceFunction normalFunction = new NormalPriceFunction();
     Function1D<NormalFunctionData, Double> func = normalFunction.getPriceFunction(option);
     double pvExpected = func.evaluate(normalData) * (SWAPTION_1_P_L.isLong() ? 1.0 : -1.0);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value",
         pvExpected, pvComputed.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void presentValueNegativeStrike() {
     MultiCurrencyAmount pvComputed = METHOD_SWPT_NORMAL.presentValue(SWAPTION_2, MULTICURVE_NEG_NORMAL);
@@ -179,33 +178,33 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
     NormalPriceFunction normalFunction = new NormalPriceFunction();
     Function1D<NormalFunctionData, Double> func = normalFunction.getPriceFunction(option);
     double pvExpected = func.evaluate(normalData) * (SWAPTION_2.isLong() ? 1.0 : -1.0);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value",
         pvExpected, pvComputed.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void presentValueLongShortParity() {
     MultiCurrencyAmount pvComputedLong = METHOD_SWPT_NORMAL.presentValue(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
     MultiCurrencyAmount pvComputedShort = METHOD_SWPT_NORMAL.presentValue(SWAPTION_1_P_S, MULTICURVE_NEG_NORMAL);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value",
         pvComputedLong.getAmount(USD).getAmount(), -pvComputedShort.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void presentValuePayerReceiverParity() {
     MultiCurrencyAmount pvComputedPayerLong = METHOD_SWPT_NORMAL.presentValue(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
     MultiCurrencyAmount pvComputedReceShort = METHOD_SWPT_NORMAL.presentValue(SWAPTION_1_R_S, MULTICURVE_NEG_NORMAL);
     MultiCurrencyAmount pvSwapPayer = SWAPTION_1_P_L.getUnderlyingSwap().accept(PVDC, MULTICURVE);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value",
         pvComputedPayerLong.getAmount(USD).getAmount() + pvComputedReceShort.getAmount(USD).getAmount(),
         pvSwapPayer.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
-  
+
   @Test
   public void presentValueMethodVsCalculator() {
     MultiCurrencyAmount pvMethod = METHOD_SWPT_NORMAL.presentValue(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
     MultiCurrencyAmount pvMCalculator = SWAPTION_1_P_L.accept(PVNSC, MULTICURVE_NEG_NORMAL);
-    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value", 
+    assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value",
         pvMethod.getAmount(USD).getAmount(), pvMCalculator.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
 
@@ -213,7 +212,7 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
   public void presentValueCurveSensitivity() {
     MultipleCurrencyParameterSensitivity pvcsAD = PS.calculateSensitivity(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
     MultipleCurrencyParameterSensitivity pvcsFD = PS_FD.calculateSensitivity(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
-    AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest: CurveSensitivity ", 
+    AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest: CurveSensitivity ",
         pvcsAD, pvcsFD, TOLERANCE_PV_DELTA);
   }
 
@@ -232,17 +231,17 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
     assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethod: present value",
         pvvsExpected, pvvsComputed, TOLERANCE_PV_DELTA);
   }
-  
+
   @Test
   public void presentValueCurveSensitivityMethodVsCalculator() {
-    MultipleCurrencyMulticurveSensitivity pvcsMethod = 
+    MultipleCurrencyMulticurveSensitivity pvcsMethod =
         METHOD_SWPT_NORMAL.presentValueCurveSensitivity(SWAPTION_1_P_L, MULTICURVE_NEG_NORMAL);
     MultipleCurrencyMulticurveSensitivity pvcsCalculator = SWAPTION_1_P_L.accept(PVCSNSC, MULTICURVE_NEG_NORMAL);
-    AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest: CurveSensitivity ", 
+    AssertSensitivityObjects.assertEquals("SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest: CurveSensitivity ",
         pvcsMethod, pvcsCalculator, TOLERANCE_PV_DELTA);
   }
-  
-  static SwapFixedIborDefinition swap(final LocalDate effectiveDate, final LocalDate maturityDate, final double rate, 
+
+  static SwapFixedIborDefinition swap(final LocalDate effectiveDate, final LocalDate maturityDate, final double rate,
       final double notional, final boolean payer) {
     NotionalProvider notionalProvider = new NotionalProvider() {
       @Override
@@ -255,10 +254,10 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
         endDate(maturityDate).dayCount(USD6MLIBOR3M.getFixedLegDayCount()).
         accrualPeriodFrequency(USD6MLIBOR3M.getFixedLegPeriod()).rate(rate).
         accrualPeriodParameters(ADJUSTED_DATE_LIBOR).build();
-    AnnuityCouponFixedDefinition fixegLeg = 
-        new AnnuityCouponFixedDefinition((CouponFixedDefinition[])fixedGeneric.getPayments(), NYC);
+    AnnuityCouponFixedDefinition fixegLeg =
+        new AnnuityCouponFixedDefinition((CouponFixedDefinition[]) fixedGeneric.getPayments(), NYC);
     /** Ibor leg */
-    AnnuityDefinition<? extends CouponDefinition> iborGeneric = 
+    AnnuityDefinition<? extends CouponDefinition> iborGeneric =
         (AnnuityDefinition<? extends CouponDefinition>)
         new FloatingAnnuityDefinitionBuilder().payer(!payer).notional(notionalProvider).startDate(effectiveDate).
             endDate(maturityDate).index(USDLIBOR3M).accrualPeriodFrequency(USDLIBOR3M.getTenor()).
@@ -271,5 +270,5 @@ public class SwaptionPhysicalFixedIborNormalExpiryTenorMethodTest {
     SwapFixedIborDefinition irs = new SwapFixedIborDefinition(fixegLeg, iborLeg);
     return irs;
   }
-  
+
 }

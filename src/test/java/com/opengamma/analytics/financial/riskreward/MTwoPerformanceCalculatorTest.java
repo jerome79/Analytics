@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */

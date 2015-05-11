@@ -30,7 +30,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -100,7 +99,6 @@ public class BondFixedTransactionTest {
   public void testGetters1() {
     assertEquals(BOND_TR_DESCRIPTION, BOND_TRANSACTION.getBondTransaction());
     assertEquals(QUANTITY, BOND_TRANSACTION.getQuantity());
-    //    assertEquals(-PRICE * QUANTITY, BOND_TRANSACTION.getSettlementAmount());
     assertEquals(BOND_STD_DESCRIPTION, BOND_TRANSACTION.getBondStandard());
     assertEquals(STANDARD_SETTLEMENT_TIME, BOND_TRANSACTION.getBondStandard().getSettlementTime());
     assertEquals(BOND_SETTLEMENT_TIME, BOND_TRANSACTION.getBondTransaction().getSettlementTime());

@@ -10,8 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -25,13 +23,13 @@ public class ArrayInterpolator1DDataBundleTest extends Interpolator1DDataBundleT
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullKeys() {
-    new ArrayInterpolator1DDataBundle(null, new double[] { 1., 2. });
+    new ArrayInterpolator1DDataBundle(null, new double[] {1., 2. });
   }
 
   @Test
   public void particularSort() {
-    double[] keys = new double[] { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
-    double[] values = new double[] { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
+    double[] keys = new double[] {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
+    double[] values = new double[] {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
 
     Interpolator1DDataBundle model = new ArrayInterpolator1DDataBundle(keys, values);
     double[] resultKeys = model.getKeys();
@@ -40,8 +38,8 @@ public class ArrayInterpolator1DDataBundleTest extends Interpolator1DDataBundleT
 
   @Test
   public void brokenSort_ANA_102() {
-    double[] keys = new double[] { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
-    double[] values = new double[] { 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
+    double[] keys = new double[] {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
+    double[] values = new double[] {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1 };
     Interpolator1DDataBundle model = new ArrayInterpolator1DDataBundle(keys, values);
     // If the array isn't sorted properly, the binary search doesn't find the keys
     for (double key : keys) {

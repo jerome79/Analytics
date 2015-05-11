@@ -30,8 +30,6 @@ public class Moneyness implements StrikeType {
     return _value;
   }
 
-
-
   @Override
   public Moneyness with(double value) {
     return new Moneyness(value);

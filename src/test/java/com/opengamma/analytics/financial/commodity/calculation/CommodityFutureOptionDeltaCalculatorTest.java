@@ -22,7 +22,6 @@ import com.opengamma.analytics.financial.commodity.derivative.MetalFuture;
 import com.opengamma.analytics.financial.commodity.derivative.MetalFutureOption;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Checks the wiring of the  CommodityFutureOptionPresentValueCalculator
  */

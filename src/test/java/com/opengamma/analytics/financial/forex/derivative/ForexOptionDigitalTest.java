@@ -20,7 +20,6 @@ import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Tests related to the construction of Digital Forex options (derivative version).
  */

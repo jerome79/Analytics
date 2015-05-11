@@ -76,7 +76,7 @@ public final class EqyOptBaroneAdesiWhaleyPresentValueCalculator extends Instrum
   public Double visitEquityIndexFutureOption(final EquityIndexFutureOption option, final StaticReplicationDataBundle data) {
     ArgChecker.notNull(option, "option");
     ArgChecker.notNull(data, "data");
-    
+
     final double strike = option.getStrike();
     final double time = option.getExpiry();
     final double sigma = data.getVolatilitySurface().getVolatility(time, strike);

@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.finitedifference;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * 
  */

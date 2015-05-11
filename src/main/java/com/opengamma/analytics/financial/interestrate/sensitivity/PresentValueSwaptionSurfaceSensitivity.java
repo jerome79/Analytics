@@ -44,7 +44,7 @@ public class PresentValueSwaptionSurfaceSensitivity {
    * @param sensitivity The volatility sensitivity as a map.
    * @param generatorSwap The standard swap generator for which the volatility surface is valid.
    */
-  public PresentValueSwaptionSurfaceSensitivity(final Map<DoublesPair, Double> sensitivity, 
+  public PresentValueSwaptionSurfaceSensitivity(final Map<DoublesPair, Double> sensitivity,
       final GeneratorInstrument<GeneratorAttributeIR> generatorSwap) {
     ArgChecker.notNull(sensitivity, "Sensitivity");
     ArgChecker.notNull(generatorSwap, "Swap generator");
@@ -57,7 +57,7 @@ public class PresentValueSwaptionSurfaceSensitivity {
    * @param sensitivity The volatility sensitivity as a SurfaceValue.
    * @param generatorSwap The standard swap generator for which the volatility surface is valid.
    */
-  public PresentValueSwaptionSurfaceSensitivity(final SurfaceValue sensitivity, 
+  public PresentValueSwaptionSurfaceSensitivity(final SurfaceValue sensitivity,
       final GeneratorInstrument<GeneratorAttributeIR> generatorSwap) {
     ArgChecker.notNull(sensitivity, "Sensitivity");
     ArgChecker.notNull(generatorSwap, "Swap generator");
@@ -81,7 +81,7 @@ public class PresentValueSwaptionSurfaceSensitivity {
    * @param factor The multiplicative factor.
    * @return The multiplied sensitivity.
    */
-  public static PresentValueSwaptionSurfaceSensitivity multiplyBy(final PresentValueSwaptionSurfaceSensitivity sensi, 
+  public static PresentValueSwaptionSurfaceSensitivity multiplyBy(final PresentValueSwaptionSurfaceSensitivity sensi,
       final double factor) {
     return new PresentValueSwaptionSurfaceSensitivity(SurfaceValue.multiplyBy(sensi._sensitivity, factor), sensi._generatorSwap);
   }
@@ -92,7 +92,7 @@ public class PresentValueSwaptionSurfaceSensitivity {
    * @param sensi2 The second Black sensitivity.
    * @return The sum sensitivity.
    */
-  public static PresentValueSwaptionSurfaceSensitivity plus(final PresentValueSwaptionSurfaceSensitivity sensi1, 
+  public static PresentValueSwaptionSurfaceSensitivity plus(final PresentValueSwaptionSurfaceSensitivity sensi1,
       final PresentValueSwaptionSurfaceSensitivity sensi2) {
     ArgChecker.isTrue(sensi1._generatorSwap.equals(sensi2._generatorSwap), "Swap generators should be equal to add sensitivities");
     return new PresentValueSwaptionSurfaceSensitivity(SurfaceValue.plus(sensi1._sensitivity, sensi2._sensitivity), sensi1._generatorSwap);

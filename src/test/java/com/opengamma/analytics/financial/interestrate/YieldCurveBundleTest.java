@@ -17,14 +17,13 @@ import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscou
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 
-
 /**
  * @deprecated This class tests deprecated functionality.
  */
 @Deprecated
 @Test
 public class YieldCurveBundleTest {
-  private static final String[] NAMES = new String[] {"A", "B", "C"};
+  private static final String[] NAMES = new String[] {"A", "B", "C" };
   private static final YieldAndDiscountCurve[] CURVES = new YieldAndDiscountCurve[3];
   private static final Map<String, YieldAndDiscountCurve> MAP = new HashMap<>();
   private static final YieldCurveBundle BUNDLE;
@@ -51,22 +50,22 @@ public class YieldCurveBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongNameArrayLength() {
-    new YieldCurveBundle(new String[] {"A", "B"}, CURVES);
+    new YieldCurveBundle(new String[] {"A", "B" }, CURVES);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongCurveArrayLength() {
-    new YieldCurveBundle(NAMES, new YieldAndDiscountCurve[] {CURVES[0], CURVES[1]});
+    new YieldCurveBundle(NAMES, new YieldAndDiscountCurve[] {CURVES[0], CURVES[1] });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullNameInArray() {
-    new YieldCurveBundle(new String[] {"A", "B", null}, CURVES);
+    new YieldCurveBundle(new String[] {"A", "B", null }, CURVES);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurveInArray() {
-    new YieldCurveBundle(NAMES, new YieldAndDiscountCurve[] {CURVES[0], CURVES[1], null});
+    new YieldCurveBundle(NAMES, new YieldAndDiscountCurve[] {CURVES[0], CURVES[1], null });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -132,7 +131,7 @@ public class YieldCurveBundleTest {
     other = new YieldCurveBundle(MAP);
     assertEquals(BUNDLE, other);
     assertEquals(BUNDLE.hashCode(), other.hashCode());
-    other = new YieldCurveBundle(new String[] {NAMES[0], NAMES[1]}, new YieldAndDiscountCurve[] {CURVES[0], CURVES[1]});
+    other = new YieldCurveBundle(new String[] {NAMES[0], NAMES[1] }, new YieldAndDiscountCurve[] {CURVES[0], CURVES[1] });
     assertFalse(other.equals(BUNDLE));
   }
 

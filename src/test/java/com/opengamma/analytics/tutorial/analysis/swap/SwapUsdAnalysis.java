@@ -62,6 +62,7 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in USD.
  * Those examples can be used for tutorials. 
  */
+@Test(enabled = false)
 public class SwapUsdAnalysis {
 
   private static final ZonedDateTime VALUATION_DATE = DateUtils.getUTCDate(2014, 7, 16);
@@ -276,7 +277,7 @@ public class SwapUsdAnalysis {
   private static final double BP1 = 1.0E-4;
 
   @SuppressWarnings("unused")
-  @Test
+  @Test(enabled = false)
   public void presentValue() {
     MultiCurrencyAmount pvFixed = FIXED_LEG_1.accept(PVDC, MULTICURVE_STD);
     MultiCurrencyAmount pvIbor = IBOR_LEG_1.accept(PVDC, MULTICURVE_STD);
@@ -292,14 +293,14 @@ public class SwapUsdAnalysis {
     assertEquals("SwapRiskUsdAnalysis: present value", pvSwap1Fut.getAmount(USD).getAmount(), pvSwap1Ffs2.getAmount(USD).getAmount(), TOLERANCE_PV_2);
     MultiCurrencyAmount pvSwap2Fut = IRS_2.accept(PVDC, MULTICURVE_FUT);
     MultiCurrencyAmount pvOis1Ffs = OIS_1.accept(PVDC, MULTICURVE_FFS);
-  
+
     System.out.println("--- PVs ---");
     System.out.println("SWAP1 PV swap," + String.valueOf(IRS_1.accept(PVDC, MULTICURVE_FFS_2).getAmount(USD)));
     System.out.println("SWAP2 PV swap," + String.valueOf(IRS_2.accept(PVDC, MULTICURVE_FFS_2).getAmount(USD)));
   }
 
   @SuppressWarnings("unused")
-  @Test
+  @Test(enabled = false)
   public void parRate() {
     double pr1Std = IRS_1.accept(PRDC, MULTICURVE_STD);
     double pr1Fut = IRS_1.accept(PRDC, MULTICURVE_FUT);
@@ -309,15 +310,14 @@ public class SwapUsdAnalysis {
     double pr2Std = IRS_2.accept(PRDC, MULTICURVE_STD);
     double pr2Fut = IRS_2.accept(PRDC, MULTICURVE_FUT);
     int t = 0;
-    
+
     System.out.println("--- Break-even rate ---");
     System.out.println("SWAP1 Par rate," + String.valueOf(IRS_1.accept(PRDC, MULTICURVE_FFS_2)));
     System.out.println("SWAP2 Par rate," + String.valueOf(IRS_2.accept(PRDC, MULTICURVE_FFS_2)));
 
-
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void bucketedPv01() {
     System.out.println("--- IRS1 swap ---");
     MultipleCurrencyParameterSensitivity pvmqs1Std = MQSBC.fromInstrument(IRS_1, MULTICURVE_STD, BLOCK_STD).multipliedBy(BP1);

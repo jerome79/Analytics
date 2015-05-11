@@ -10,6 +10,7 @@ import com.opengamma.analytics.math.linearalgebra.LUDecompositionResult;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  *
  */

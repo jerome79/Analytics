@@ -108,7 +108,8 @@ public class ConjugateGradientVectorMinimizer implements MinimizerWithGradient<F
 
       if (Math.sqrt(deltaNew) < _relTol * delta0 + _absTol
           // in practice may never get exactly zero gradient (especially if using finite difference to find it), so it shouldn't be the critical stopping criterion
-          && OG_ALGEBRA.getNorm2(deltaX) < _relTol * OG_ALGEBRA.getNorm2(x) + _absTol) {
+          &&
+          OG_ALGEBRA.getNorm2(deltaX) < _relTol * OG_ALGEBRA.getNorm2(x) + _absTol) {
 
         boolean flag = true;
         for (int i = 0; i < n; i++) {

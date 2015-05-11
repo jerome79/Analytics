@@ -115,33 +115,4 @@ public class SuccessiveRootFinderSwaptionPhysicalG2ppCalibrationObjectiveTest {
     }
   }
 
-  @Test(enabled = false)
-  /**
-   * Test of performance. In normal testing, "enabled = false".
-   */
-  public void performance() {
-    final double[] meanReversion = new double[] {0.01, 0.30 };
-    final double ratio = 4.0;
-    final double correlation = -0.50;
-    long startTime, endTime;
-    final int nbTest = 100;
-    final MultiCurrencyAmount[] pv = new MultiCurrencyAmount[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      final G2ppPiecewiseConstantParameters g2Parameters = new G2ppPiecewiseConstantParameters(meanReversion, new double[][] { {0.01 }, {0.01 / ratio } }, new double[0], correlation);
-      final SuccessiveRootFinderG2ppCalibrationObjective objective = new SuccessiveRootFinderG2ppCalibrationObjective(g2Parameters, EUR, ratio);
-      final SuccessiveRootFinderG2ppCalibrationEngine<SABRSwaptionProviderInterface> calibrationEngine = new SuccessiveRootFinderG2ppCalibrationEngine<>(objective);
-      for (int loopexp = 0; loopexp < EXPIRY_TENOR.length; loopexp++) {
-        calibrationEngine.addInstrument(SWAPTION_LONG_PAYER[loopexp], PVSSC);
-      }
-      calibrationEngine.calibrate(SABR_MULTICURVES);
-      pv[looptest] = METHOD_G2PP.presentValue(SWAPTION_LONG_PAYER[EXPIRY_TENOR.length - 1], objective.getG2Provider());
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " G2++ calibration to swaption (5 swaptions) + price: " + (endTime - startTime) + " ms");
-    // Performance note: calibration: 12-Dec-2012: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 550 ms for 100 calibration with 5 swaptions.
-    // TODO: Why is the time 4x the one with "CurveBundle"?
-  }
-
 }

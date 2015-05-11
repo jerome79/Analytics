@@ -17,7 +17,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 
-
 public class BillDataSets {
 
   private final static Currency EUR = Currency.EUR;

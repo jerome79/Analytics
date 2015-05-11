@@ -47,7 +47,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests the present value of Capital inflation indexed bonds.
  */
@@ -66,18 +65,12 @@ public class BondCapitalIndexedSecurityDiscountingMethodGBPTest {
   private static final ZonedDateTime PRICING_DATE = DateUtils.getUTCDate(2011, 8, 8);
   private static final BondCapitalIndexedSecurityDiscountingMethod METHOD_BOND_INFLATION = new BondCapitalIndexedSecurityDiscountingMethod();
   private static final CouponInflationZeroCouponMonthlyGearingDiscountingMethod METHOD_INFLATION_ZC_MONTHLY = new CouponInflationZeroCouponMonthlyGearingDiscountingMethod();
-  //  private static final CouponInflationZeroCouponInterpolationGearingDiscountingMethod METHOD_INFLATION_ZC_INTERPOLATION = new CouponInflationZeroCouponInterpolationGearingDiscountingMethod();
   private static final PresentValueDiscountingInflationCalculator PVDIC = PresentValueDiscountingInflationCalculator.getInstance();
-  //  private static final NetAmountInflationCalculator NADIC = NetAmountInflationCalculator.getInstance();
   private static final PresentValueDiscountingInflationIssuerCalculator PVDIIC = PresentValueDiscountingInflationIssuerCalculator.getInstance();
-  private static final ParameterSensitivityInflationMulticurveDiscountInterpolatedFDCalculator PS_PV_FDC = 
+  private static final ParameterSensitivityInflationMulticurveDiscountInterpolatedFDCalculator PS_PV_FDC =
       new ParameterSensitivityInflationMulticurveDiscountInterpolatedFDCalculator(PVDIC, SHIFT_FD);
-  //  private static final ParameterSensitivityIssuerInflationMulticurveDiscountInterpolatedFDCalculator PS_PV_FDIC = new ParameterSensitivityIssuerInflationMulticurveDiscountInterpolatedFDCalculator(
-  //      PVDIIC, SHIFT_FD);
   private static final PresentValueCurveSensitivityDiscountingInflationCalculator PVCSDC = PresentValueCurveSensitivityDiscountingInflationCalculator.getInstance();
   private static final ParameterSensitivityInflationParameterCalculator<ParameterInflationProviderInterface> PSC = new ParameterSensitivityInflationParameterCalculator<>(PVCSDC);
-  //  private static final PresentValueCurveSensitivityIssuerDiscountingInflationCalculator PVCSDIC = PresentValueCurveSensitivityIssuerDiscountingInflationCalculator.getInstance();
-  //  private static final ParameterInflationSensitivityParameterCalculator<InflationIssuerProviderInterface> PSIC = new ParameterInflationSensitivityParameterCalculator<>(PVCSDIC);
 
   // Index-Lined Gilt 2% Index-linked Treasury Stock 2035 - GB0031790826
   // UK Old convention (8m delay, semi-annual)
@@ -125,7 +118,7 @@ public class BondCapitalIndexedSecurityDiscountingMethodGBPTest {
     }
     final MultiCurrencyAmount pvExpectd = pvNominal.plus(pvCoupon);
     final MultiCurrencyAmount pv = METHOD_BOND_INFLATION.presentValue(BOND_SECURITY_GILT_1, MARKET);
-    assertEquals("Inflation Capital Indexed bond: present value", 
+    assertEquals("Inflation Capital Indexed bond: present value",
         pvExpectd.getAmount(BOND_SECURITY_GILT_1.getCurrency()).getAmount(),
         pv.getAmount(BOND_SECURITY_GILT_1.getCurrency()).getAmount(), TOLERANCE_PV);
   }

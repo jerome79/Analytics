@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.finitedifference.ExponentialMeshing;
@@ -28,17 +26,14 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
-import com.opengamma.analytics.util.monitor.OperationTimer;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
-
 
 /**
  * Test.
  */
 @Test
 public class TwoStateMarkovChainFitterTest {
-  //TODO just put this in to stop failures
   private static final Interpolator1D INTERPOLATOR_1D =
       CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC, Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
   private static final GridInterpolator2D GRID_INTERPOLATOR2D = new GridInterpolator2D(INTERPOLATOR_1D, INTERPOLATOR_1D);
@@ -115,49 +110,10 @@ public class TwoStateMarkovChainFitterTest {
     }
   }
 
-  @Test(enabled = false)
-  public void timeTest() {
-    final int warmups = 3;
-    final int benchmarkCycles = 10;
-    final Logger logger = LoggerFactory.getLogger(TwoStateMarkovChainFitterTest.class);
-
-    final TwoStateMarkovChainPricer mc = new TwoStateMarkovChainPricer(FORWARD_CURVE, MARKOV_CHAIN_DATA);
-
-    final int tNodes = 20;
-    final int xNodes = 100;
-    final MeshingFunction timeMesh = new ExponentialMeshing(0, 5, tNodes, 5.0);
-    final MeshingFunction spaceMesh = new HyperbolicMeshing(0, 6 * SPOT, SPOT, xNodes, 0.01);
-    final PDEGrid1D grid = new PDEGrid1D(timeMesh, spaceMesh);
-
-    for (int i = 0; i < warmups; i++) {
-      mc.solve(grid, 0.5);
-    }
-    if (benchmarkCycles > 0) {
-      final OperationTimer timer = new OperationTimer(logger, "processing {} cycles on timeTest", benchmarkCycles);
-      for (int i = 0; i < benchmarkCycles; i++) {
-        mc.solve(grid, 0.5);
-      }
-      timer.finished();
-    }
-
-  }
-
-  @Test(enabled = false)
-  public void dumpPDESurfaceTest() {
-    PDEUtilityTools.printSurface("dumpPDESurfaceTest", PDE_RESULTS);
-  }
-
-  @Test(enabled = false)
-  public void dumpSurfaceTest() {
-    PDEUtilityTools.printSurface("dumpSurfaceTest", DATABUNDLE, 0, 5, SPOT / 10, SPOT * 6, 100, 100);
-  }
-
-  @Test(enabled = false)
   public void test() {
     final DoubleMatrix1D initalGuess = new DoubleMatrix1D(new double[] {0.2, 0.8, 0.3, 2.0, 0.9, 0.9 });
     final TwoStateMarkovChainFitter fitter = new TwoStateMarkovChainFitter(THETA);
     final LeastSquareResultsWithTransform res = fitter.fit(FORWARD_CURVE, MARKET_VOLS, initalGuess);
-    //System.out.println("chi^2:" + res.getChiSq() + "\n params: " + res.getParameters().toString());
     final double[] modelParms = res.getModelParameters().getData();
 
     assertEquals(0.0, res.getChiSq(), 1e-3);

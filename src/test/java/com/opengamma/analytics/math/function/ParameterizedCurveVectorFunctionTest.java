@@ -14,7 +14,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * Test simple a simple function a * Math.sinh(b * x)
  */

@@ -20,10 +20,10 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 public class FuturesTransactionBlackBondFuturesMethod extends FuturesTransactionMethod {
 
   /** The calculator used to compute the present value curve sensitivity from the price curve sensitivity **/
-  private static final FuturesPVCurveSensitivityFromPriceCurveSensitivityCalculator PVCSIC = 
+  private static final FuturesPVCurveSensitivityFromPriceCurveSensitivityCalculator PVCSIC =
       FuturesPVCurveSensitivityFromPriceCurveSensitivityCalculator.getInstance();
   /** The calculator used to compute the present value Black sensitivity from the price Black sensitivity **/
-  private static final FuturesPVBlackBondFuturesSensitivityFromPriceBlackSensitivityCalculator PVBSIC = 
+  private static final FuturesPVBlackBondFuturesSensitivityFromPriceBlackSensitivityCalculator PVBSIC =
       FuturesPVBlackBondFuturesSensitivityFromPriceBlackSensitivityCalculator.getInstance();
 
   /**
@@ -32,7 +32,7 @@ public class FuturesTransactionBlackBondFuturesMethod extends FuturesTransaction
   public FuturesTransactionBlackBondFuturesMethod() {
     super(new FuturesSecurityBlackBondFuturesMethod());
   }
-  
+
   /**
    * Constructor from futures method.
    * @param methodFutures The method to compute price and price curve sensitivity of futures.

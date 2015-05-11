@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
@@ -27,7 +26,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * Generator (or template) for leg paying a fixed rate.
  */
 public class GeneratorLegFixed extends GeneratorLeg {
-  
+
   /** The offset in business days between trade and settlement date (usually 2 or 0). */
   private final int _spotOffset;
   /** The period between two payments. */
@@ -46,7 +45,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
   private final boolean _isExchangeNotional;
   /** The calendar used for the payments. */
   private final HolidayCalendar _paymentCalendar;
-  
+
   /**
    * Constructor.
    * @param name The generator name.
@@ -61,8 +60,8 @@ public class GeneratorLegFixed extends GeneratorLeg {
    * @param isExchangeNotional Whether the notional exchanged (at start and at end).
    * @param paymentCalendar The calendar used to adjust the payments.
    */
-  public GeneratorLegFixed(String name, Currency ccy, int spotOffset, Period paymentPeriod, DayCount dayCount, 
-      BusinessDayConvention businessDayConvention, int paymentOffset, boolean endOfMonth, StubConvention stubType, 
+  public GeneratorLegFixed(String name, Currency ccy, int spotOffset, Period paymentPeriod, DayCount dayCount,
+      BusinessDayConvention businessDayConvention, int paymentOffset, boolean endOfMonth, StubConvention stubType,
       boolean isExchangeNotional, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(paymentPeriod, "payment period");
@@ -159,7 +158,7 @@ public class GeneratorLegFixed extends GeneratorLeg {
     ArgChecker.notNull(date, "Reference date");
     ArgChecker.notNull(attribute, "Attributes");
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, _spotOffset, _paymentCalendar);
-    final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(), 
+    final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(),
         _businessDayConvention, _paymentCalendar, _endOfMonth);
     final ZonedDateTime endDate = startDate.plus(attribute.getEndPeriod());
     NotionalProvider notionalProvider = new NotionalProvider() {

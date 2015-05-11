@@ -33,7 +33,6 @@ import com.opengamma.analytics.math.integration.Integrator1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 
-
 /**
  * Check that the pde solver correctly prices the forward
  */
@@ -43,7 +42,6 @@ public class TermStructureRatesTest {
 
   private static final LocalVolatilityBackwardsPDEPricer PRICER = new LocalVolatilityBackwardsPDEPricer();
   private static final ForwardCurve FWD_CURVE;
-  // private static final YieldAndDiscountCurve DIS_CURVE;
   private static final Curve<Double, Double> RISK_FREE_CURVE;
   private static final LocalVolatilitySurfaceStrike LOCAL_VOL_SUR;
   private static final double S0 = 10.0;
@@ -78,7 +76,6 @@ public class TermStructureRatesTest {
   /**
    * Check a forward is priced correctly by the PDE solver
    */
-  @Test
   public void forwardTest() {
     //forward (how much would you pay now to receive the asset at time T) is just a zero strike call
     final EuropeanVanillaOption option = new EuropeanVanillaOption(0.0, T, true);
@@ -90,7 +87,6 @@ public class TermStructureRatesTest {
     final double pvFwd = DF * FWD_CURVE.getForward(T);
 
     final double pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, LOCAL_VOL_SUR, false, xNodes, tNodes);
-    //System.out.println(pdePrice);
 
     //can recover accurate forward price with moderate grid
     assertEquals(pvFwd, pdePrice, pvFwd * 5e-6);
@@ -100,7 +96,6 @@ public class TermStructureRatesTest {
    * Check a zero coupon bond is priced correctly by the PDE solver. Note, as this is not something one normally prices this way, there
    * is no helper class for the set up
    */
-  @Test
   public void zeroCouponBondTest() {
     final ConvectionDiffusionPDE1DStandardCoefficients coef = PDE.getBackwardsLocalVol(RISK_FREE_CURVE, FWD_CURVE.getDriftCurve(), T, LOCAL_VOL_SUR);
     final Function1D<Double, Double> payoff = new Function1D<Double, Double>() {
@@ -127,11 +122,9 @@ public class TermStructureRatesTest {
     final int index = Arrays.binarySearch(grid.getSpaceNodes(), S0);
     final double pdePrice = res.getFunctionValue(index);
 
-    //System.out.println(DF+"\t"+pdePrice);
     assertEquals(DF, pdePrice, DF * 5e-5);
   }
 
-  @Test
   public void optionTest() {
     final double k = 6.0;
     final boolean isCall = false;
@@ -145,8 +138,6 @@ public class TermStructureRatesTest {
     final double bsPrice = DF * BlackFormulaRepository.price(FWD_CURVE.getForward(T), k, T, SIGMA, isCall);
 
     double pdePrice = PRICER.price(FWD_CURVE, RISK_FREE_CURVE, option, LOCAL_VOL_SUR, false, xNodes, tNodes, 0.1, 0.0, 5.0);
-    //   double resErr = Math.abs((pdePrice-bsPrice)/bsPrice);
-    //  System.out.println(bsPrice +"\t"+pdePrice+"\t"+resErr);
 
     assertEquals(bsPrice, pdePrice, bsPrice * 1e-4);
 
@@ -155,8 +146,6 @@ public class TermStructureRatesTest {
     final ConstantDoublesCurve r = ConstantDoublesCurve.from(0.0);
     pdePrice = DF * PRICER.price(fc, r, option, LOCAL_VOL_SUR, false, xNodes, tNodes, 0.1, 0.0, 5.0);
 
-    // resErr = Math.abs((pdePrice-bsPrice)/bsPrice);
-    // System.out.println(bsPrice +"\t"+pdePrice+"\t"+resErr);
     assertEquals(bsPrice, pdePrice, bsPrice * 3e-5);
   }
 

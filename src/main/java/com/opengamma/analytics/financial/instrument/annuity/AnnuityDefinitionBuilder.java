@@ -107,7 +107,8 @@ public class AnnuityDefinitionBuilder {
    * @param isMaturity is this the last coupon (needed for 30E/360 ISDA)
    * @return the accrual factor
    */
-  public static double getDayCountFraction(Period paymentPeriod, HolidayCalendar calendar, DayCount dayCount, StubConvention startStub, StubConvention endStub, ZonedDateTime from, ZonedDateTime to, boolean isFirstCoupon, boolean isMaturity) {
+  public static double getDayCountFraction(Period paymentPeriod, HolidayCalendar calendar, DayCount dayCount, StubConvention startStub, StubConvention endStub, ZonedDateTime from, ZonedDateTime to,
+      boolean isFirstCoupon, boolean isMaturity) {
     // only pass in stub if at first or last period.
     StubConvention stub = null;
     if (isFirstCoupon) {

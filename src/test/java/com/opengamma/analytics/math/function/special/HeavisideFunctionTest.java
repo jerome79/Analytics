@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -28,6 +27,7 @@ public class HeavisideFunctionTest {
   public void testZero() {
     F.evaluate(0.);
   }
+
   @Test
   public void test() {
     assertEquals(F.evaluate(-2.), 0, 0);

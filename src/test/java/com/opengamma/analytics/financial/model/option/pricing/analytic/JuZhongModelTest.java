@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

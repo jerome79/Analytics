@@ -132,7 +132,7 @@ public final class SwaptionCashFixedCompoundedONCompoundingDefinition implements
     final double expiryTime = TimeCalculator.getTimeBetween(dateTime, _expiry.getExpiry());
     final double settlementTime = TimeCalculator.getTimeBetween(dateTime, _settlementDate);
     final Swap<CouponFixedAccruedCompounding, CouponONCompounded> underlyingSwap = (Swap<CouponFixedAccruedCompounding, CouponONCompounded>)
-        _underlyingSwap.toDerivative(dateTime, new ZonedDateTimeDoubleTimeSeries[] {ts});
+        _underlyingSwap.toDerivative(dateTime, new ZonedDateTimeDoubleTimeSeries[] {ts });
     return SwaptionCashFixedCompoundedONCompounded.from(expiryTime, underlyingSwap, settlementTime, _isLong, _strike, _isCall);
   }
 

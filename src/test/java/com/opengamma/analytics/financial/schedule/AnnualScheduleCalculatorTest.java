@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
 
-
 /**
  * Test.
  */
@@ -113,9 +112,9 @@ public class AnnualScheduleCalculatorTest extends ScheduleCalculatorTestCase {
     final LocalDate[] forward = CALCULATOR.getSchedule(startDate, endDate, true, false);
     assertArrayEquals(forward, CALCULATOR.getSchedule(startDate, endDate, false, false));
     final LocalDate[] recursive = new LocalDate[] {LocalDate.of(2000, 2, 29), LocalDate.of(2001, 2, 28), LocalDate.of(2002, 2, 28), LocalDate.of(2003, 2, 28), LocalDate.of(2004, 2, 28),
-        LocalDate.of(2005, 2, 28), LocalDate.of(2006, 2, 28), LocalDate.of(2007, 2, 28), LocalDate.of(2008, 2, 28)};
+      LocalDate.of(2005, 2, 28), LocalDate.of(2006, 2, 28), LocalDate.of(2007, 2, 28), LocalDate.of(2008, 2, 28) };
     final LocalDate[] nonRecursive = new LocalDate[] {LocalDate.of(2000, 2, 29), LocalDate.of(2001, 2, 28), LocalDate.of(2002, 2, 28), LocalDate.of(2003, 2, 28), LocalDate.of(2004, 2, 29),
-        LocalDate.of(2005, 2, 28), LocalDate.of(2006, 2, 28), LocalDate.of(2007, 2, 28), LocalDate.of(2008, 2, 29)};
+      LocalDate.of(2005, 2, 28), LocalDate.of(2006, 2, 28), LocalDate.of(2007, 2, 28), LocalDate.of(2008, 2, 29) };
     assertArrayEquals(forward, nonRecursive);
     assertArrayEquals(CALCULATOR.getSchedule(startDate, endDate, false, true), recursive);
   }
@@ -127,11 +126,12 @@ public class AnnualScheduleCalculatorTest extends ScheduleCalculatorTestCase {
     final ZonedDateTime[] forward = CALCULATOR.getSchedule(startDate, endDate, true, false);
     assertArrayEquals(forward, CALCULATOR.getSchedule(startDate, endDate, false, false));
     final ZonedDateTime[] recursive = new ZonedDateTime[] {DateUtils.getUTCDate(2000, 2, 29), DateUtils.getUTCDate(2001, 2, 28), DateUtils.getUTCDate(2002, 2, 28), DateUtils.getUTCDate(2003, 2, 28),
-        DateUtils.getUTCDate(2004, 2, 28),
-        DateUtils.getUTCDate(2005, 2, 28), DateUtils.getUTCDate(2006, 2, 28), DateUtils.getUTCDate(2007, 2, 28), DateUtils.getUTCDate(2008, 2, 28)};
-    final ZonedDateTime[] nonRecursive = new ZonedDateTime[] {DateUtils.getUTCDate(2000, 2, 29), DateUtils.getUTCDate(2001, 2, 28), DateUtils.getUTCDate(2002, 2, 28), DateUtils.getUTCDate(2003, 2, 28),
-        DateUtils.getUTCDate(2004, 2, 29),
-        DateUtils.getUTCDate(2005, 2, 28), DateUtils.getUTCDate(2006, 2, 28), DateUtils.getUTCDate(2007, 2, 28), DateUtils.getUTCDate(2008, 2, 29)};
+      DateUtils.getUTCDate(2004, 2, 28),
+      DateUtils.getUTCDate(2005, 2, 28), DateUtils.getUTCDate(2006, 2, 28), DateUtils.getUTCDate(2007, 2, 28), DateUtils.getUTCDate(2008, 2, 28) };
+    final ZonedDateTime[] nonRecursive = new ZonedDateTime[] {DateUtils.getUTCDate(2000, 2, 29), DateUtils.getUTCDate(2001, 2, 28), DateUtils.getUTCDate(2002, 2, 28),
+      DateUtils.getUTCDate(2003, 2, 28),
+      DateUtils.getUTCDate(2004, 2, 29),
+      DateUtils.getUTCDate(2005, 2, 28), DateUtils.getUTCDate(2006, 2, 28), DateUtils.getUTCDate(2007, 2, 28), DateUtils.getUTCDate(2008, 2, 29) };
     assertArrayEquals(forward, nonRecursive);
     assertArrayEquals(CALCULATOR.getSchedule(startDate, endDate, false, true), recursive);
   }

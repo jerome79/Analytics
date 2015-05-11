@@ -88,8 +88,8 @@ public class MarkovChainApprox {
     w = delta2 / (delta1 + delta2);
     ArgChecker.isTrue(w >= 0.0 && w <= 1.0, "weight not physical");
 
-    _weights = new double[] {wMin, wMax, w * (1 - wMin - wMax), (1 - w) * (1 - wMin - wMax)};
-    _vols = new double[] {_vol1, _vol2, Math.sqrt(modM1 - delta1), Math.sqrt(modM1 + delta2)};
+    _weights = new double[] {wMin, wMax, w * (1 - wMin - wMax), (1 - w) * (1 - wMin - wMax) };
+    _vols = new double[] {_vol1, _vol2, Math.sqrt(modM1 - delta1), Math.sqrt(modM1 + delta2) };
   }
 
   /**
@@ -156,7 +156,7 @@ public class MarkovChainApprox {
     final double m2 = getM2(expiry);
     final double m3 = getM3(expiry);
 
-    return new double[] {m1, m2, m3};
+    return new double[] {m1, m2, m3 };
   }
 
   /**

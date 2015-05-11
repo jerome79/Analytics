@@ -12,7 +12,6 @@ import java.util.function.BiFunction;
 
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 
-
 /**
  * Base class for calculating the covariance of two time series.
  */

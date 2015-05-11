@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 
-
 /**
  * Test.
  */
@@ -26,7 +25,6 @@ public class ConstrainedCubicSplineInterpolatorTest {
    * Recovering linear test
    * Note that quadratic function is not generally recovered
    */
-  @Test
   public void linearTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final int nData = xValues.length;
@@ -36,7 +34,7 @@ public class ConstrainedCubicSplineInterpolatorTest {
     }
 
     final double[][] coefsMatExp = new double[][] { {0., 0., 1. / 7., yValues[0] }, {0., 0., 1. / 7., yValues[1] }, {0., 0., 1. / 7., yValues[2] }, {0., 0., 1. / 7., yValues[3] },
-        {0., 0., 1. / 7., yValues[4] } };
+      {0., 0., 1. / 7., yValues[4] } };
 
     PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
 
@@ -59,14 +57,12 @@ public class ConstrainedCubicSplineInterpolatorTest {
       final double key = 1. + 5. / (nKeys - 1) * i;
       final double ref = key / 7. + 1 / 11.;
       assertEquals(function.evaluate(result, key).getData()[0], ref, ref * EPS);
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(result, key).getData()[0]);
     }
   }
 
   /**
    * 
    */
-  @Test
   public void linearMultiTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6. };
     final int nData = xValues.length;
@@ -77,8 +73,8 @@ public class ConstrainedCubicSplineInterpolatorTest {
     }
 
     final double[][] coefsMatExp = new double[][] { {0., 0., 1. / 7., yValues[0][0] }, {0., 0., 1. / 13., yValues[1][0] }, {0., 0., 1. / 7., yValues[0][1] }, {0., 0., 1. / 13., yValues[1][1] },
-        {0., 0., 1. / 7., yValues[0][2] }, {0., 0., 1. / 13., yValues[1][2] }, {0., 0., 1. / 7., yValues[0][3] }, {0., 0., 1. / 13., yValues[1][3] },
-        {0., 0., 1. / 7., yValues[0][4] }, {0., 0., 1. / 13., yValues[1][4] } };
+      {0., 0., 1. / 7., yValues[0][2] }, {0., 0., 1. / 13., yValues[1][2] }, {0., 0., 1. / 7., yValues[0][3] }, {0., 0., 1. / 13., yValues[1][3] },
+      {0., 0., 1. / 7., yValues[0][4] }, {0., 0., 1. / 13., yValues[1][4] } };
 
     PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
 
@@ -101,14 +97,13 @@ public class ConstrainedCubicSplineInterpolatorTest {
       final double key = 1. + 5. / (nKeys - 1) * i;
       final double ref = key / 7. + 1 / 11.;
       assertEquals(function.evaluate(result, key).getData()[0], ref, ref * EPS);
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(result, key).getData()[0]);
+
     }
   }
 
   /**
    * 
    */
-  @Test
   public void extremumTest() {
     final double[] xValues = new double[] {1., 2., 3., 4., 5., 6., 7. };
     final double[] yValues = new double[] {1., 1., 4., 5., 4., 1., 1. };
@@ -128,7 +123,7 @@ public class ConstrainedCubicSplineInterpolatorTest {
       final double key = 1. + 3. / (nKeys - 1) * i;
       assertTrue(function.evaluate(result, key).getData()[0] - function.evaluate(result, key0).getData()[0] >= 0.);
       key0 = 1. + 3. / (nKeys - 1) * i;
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] );
+
     }
 
     key0 = 4.;
@@ -136,14 +131,13 @@ public class ConstrainedCubicSplineInterpolatorTest {
       final double key = 4. + 3. / (nKeys - 1) * i;
       assertTrue(function.evaluate(result, key).getData()[0] - function.evaluate(result, key0).getData()[0] <= 0.);
       key0 = 4. + 3. / (nKeys - 1) * i;
-      //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0] );
+
     }
   }
 
   /**
    * Sample data
    */
-  @Test
   public void sampleDataTest() {
     final double[] xValues = new double[] {0., 10., 30., 50., 70., 90., 100. };
     final double[] yValues = new double[] {30., 130., 150., 150., 170., 220., 320. };
@@ -165,19 +159,10 @@ public class ConstrainedCubicSplineInterpolatorTest {
     double key0 = 0.;
     for (int i = 1; i < nKeys; ++i) {
       final double key = 0. + 100. / (nKeys - 1) * i;
-      //      System.out.println(function.evaluate(result, key).getData()[0] + "\t" + function.evaluate(result, key0).getData()[0]);
+
       assertTrue(function.evaluate(result, key).getData()[0] - function.evaluate(result, key0).getData()[0] >= -EPS);
       key0 = 0. + 100. / (nKeys - 1) * i;
     }
-    //
-    //    System.out.println(result.getCoefMatrix());
-    //
-    //    nKeys = 101;
-    //    for (int i = 0; i < nKeys; ++i) {
-    //      final double key = +100. / (nKeys - 1) * i;
-    //      System.out.println(key + "\t" + function.evaluate(result, key).getData()[0]);
-    //    }
-
   }
 
   /*

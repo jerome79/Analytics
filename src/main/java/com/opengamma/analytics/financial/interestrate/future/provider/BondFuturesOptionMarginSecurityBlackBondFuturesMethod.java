@@ -24,12 +24,12 @@ import com.opengamma.strata.collect.ArgChecker;
 public final class BondFuturesOptionMarginSecurityBlackBondFuturesMethod extends FuturesSecurityBlackBondFuturesMethod {
 
   /** The method default instance. */
-  private static final BondFuturesOptionMarginSecurityBlackBondFuturesMethod DEFAULT = 
+  private static final BondFuturesOptionMarginSecurityBlackBondFuturesMethod DEFAULT =
       new BondFuturesOptionMarginSecurityBlackBondFuturesMethod();
 
   /** The Black function used in the pricing. */
   private static final BlackPriceFunction BLACK_FUNCTION = new BlackPriceFunction();
-  
+
   /** The method used to compute the future price. */
   private final FuturesSecurityIssuerMethod _methodFutures;
 
@@ -39,7 +39,7 @@ public final class BondFuturesOptionMarginSecurityBlackBondFuturesMethod extends
   private BondFuturesOptionMarginSecurityBlackBondFuturesMethod() {
     _methodFutures = BondFuturesSecurityDiscountingMethod.getInstance();
   }
-  
+
   /**
    * Constructor from a particular bond futures method. The method is used to compute the price and price curve
    * sensitivity of the underlying futures.
@@ -89,7 +89,7 @@ public final class BondFuturesOptionMarginSecurityBlackBondFuturesMethod extends
    * @param price The underlying futures price.
    * @return The security price curve sensitivity.
    */
-  public MulticurveSensitivity priceCurveSensitivity(final BondFuturesOptionMarginSecurity security, 
+  public MulticurveSensitivity priceCurveSensitivity(final BondFuturesOptionMarginSecurity security,
       final BlackBondFuturesProviderInterface black, final double price) {
     ArgChecker.notNull(security, "security");
     ArgChecker.notNull(black, "Black data");
@@ -103,7 +103,7 @@ public final class BondFuturesOptionMarginSecurityBlackBondFuturesMethod extends
     // Backward sweep
     final double priceBar = 1.0;
     final double priceFutureBar = priceAdjoint[1] * priceBar;
-    final MulticurveSensitivity priceFutureDerivative = 
+    final MulticurveSensitivity priceFutureDerivative =
         _methodFutures.priceCurveSensitivity(security.getUnderlyingFuture(), black.getIssuerProvider());
     return priceFutureDerivative.multipliedBy(priceFutureBar);
   }
@@ -153,7 +153,7 @@ public final class BondFuturesOptionMarginSecurityBlackBondFuturesMethod extends
     final double[] priceAdjoint = BLACK_FUNCTION.getPriceAdjoint(option, dataBlack);
     return priceAdjoint[1];
   }
-  
+
   /**
    * The theoretical gamma of the option with respect to the underlying futures price.
    * @param security The future option security, not null
@@ -174,7 +174,7 @@ public final class BondFuturesOptionMarginSecurityBlackBondFuturesMethod extends
     BLACK_FUNCTION.getPriceAdjoint2(option, dataBlack, firstDerivs, secondDerivs);
     return secondDerivs[0][0];
   }
-  
+
   /**
    * The theoretical vega of the option with respect to the underlying futures price.
    * @param security The future option security, not null

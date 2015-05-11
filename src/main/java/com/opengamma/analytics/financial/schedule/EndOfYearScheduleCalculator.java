@@ -30,7 +30,7 @@ public class EndOfYearScheduleCalculator extends Schedule {
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
       if (startDate.getDayOfMonth() == 31 && startDate.getMonth() == Month.DECEMBER) {
-        return new LocalDate[] {startDate};
+        return new LocalDate[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but neither was the last day of the year");
     }
@@ -54,7 +54,7 @@ public class EndOfYearScheduleCalculator extends Schedule {
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
       if (startDate.getDayOfMonth() == 31 && startDate.getMonth() == Month.DECEMBER) {
-        return new ZonedDateTime[] {startDate};
+        return new ZonedDateTime[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but neither was the last day of the year");
     }

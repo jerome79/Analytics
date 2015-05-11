@@ -45,7 +45,6 @@ public class LocalVolPDEPricer {
       final int spaceNodes, final int timeNodes) {
 
     final double q = r - b;
-    // final double s0 = fwdCurve.getSpot();
     final double sigma0 = locVol.getVolatility(t, k);
     final double mult = Math.exp(6.0 * sigma0 * Math.sqrt(t));
     final double sMin = Math.min(0.8 * k, s0 / mult);
@@ -55,7 +54,7 @@ public class LocalVolPDEPricer {
     final double tBurn = USE_BURNIN ? BURNIN_FRACTION * t * t / timeNodes : 0.0;
 
     // set up a near-uniform mesh that includes spot and strike
-    MeshingFunction xMesh = new ExponentialMeshing(sMin, sMax, spaceNodes, 0.0, new double[] {s0, k});
+    MeshingFunction xMesh = new ExponentialMeshing(sMin, sMax, spaceNodes, 0.0, new double[] {s0, k });
     MeshingFunction tMeshBurn = USE_BURNIN ? new ExponentialMeshing(0.0, tBurn, tBurnNodes, 0.0) : null;
     MeshingFunction tMesh = new ExponentialMeshing(tBurn, t, timeNodes - tBurnNodes, 0.0);
     PDEGrid1D gridBurn = USE_BURNIN ? new PDEGrid1D(tMeshBurn, xMesh) : null;

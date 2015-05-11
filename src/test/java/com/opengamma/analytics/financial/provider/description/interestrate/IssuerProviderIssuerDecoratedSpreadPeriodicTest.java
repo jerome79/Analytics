@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Test {@link IssuerProviderIssuerDecoratedSpreadPeriodicTest}
  */
@@ -138,7 +137,7 @@ public class IssuerProviderIssuerDecoratedSpreadPeriodicTest {
         ISSUER_PROVIDER.getNumberOfParameters(CURVE_NAME_YLD));
     assertEquals("spreadTest", providerWithSpread2.getNumberOfParameters(CURVE_NAME_PRD),
         ISSUER_PROVIDER.getNumberOfParameters(CURVE_NAME_PRD));
-    
+
     assertEquals("spreadTest", new ArrayList<>(), providerWithSpread2.getUnderlyingCurvesNames(CURVE_NAME_DSC));
     assertEquals("spreadTest", new ArrayList<>(), providerWithSpread1.getUnderlyingCurvesNames(CURVE_NAME_YLD));
 
@@ -147,7 +146,7 @@ public class IssuerProviderIssuerDecoratedSpreadPeriodicTest {
         providerWithSpread2.getName(Pair.of((Object) ISSUER_NAME_DSC, filter)));
     assertEquals("accesserTest", CURVE_NAME_YLD,
         providerWithSpread2.getName(Pair.of((Object) ISSUER_NAME_YLD, filter)));
-    
+
     IssuerProviderIssuerDecoratedSpreadPeriodic providerWithTinySpread = new IssuerProviderIssuerDecoratedSpreadPeriodic(
         ISSUER_PROVIDER, ISSUER_DSC, TOL, 1);
 
@@ -246,7 +245,6 @@ public class IssuerProviderIssuerDecoratedSpreadPeriodicTest {
         ISSUER_PROVIDER.parameterSensitivity(CURVE_NAME_PRD, POINT_SENSITIVITY_LIST),
         providerWithSpreadDouble.parameterSensitivity(CURVE_NAME_PRD, POINT_SENSITIVITY_LIST), TOL);
   }
-
 
   private double addShiftToPrdCmpRates(double interstRate, double spread, int nPeriod) {
     return nPeriod * Math.log(Math.exp(interstRate / nPeriod) + spread / nPeriod);

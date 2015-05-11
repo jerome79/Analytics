@@ -11,6 +11,4 @@ package com.opengamma.analytics.financial.model.finitedifference;
  */
 public interface PDE1DCoefficients {
 
-  // void accept(PDE1DSolver<?> solver);
-
 }

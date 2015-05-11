@@ -17,7 +17,7 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * Class describing a generic floating payment coupon with a unique fixing date.
  */
-public abstract class CouponFloatingDefinition extends CouponDefinition 
+public abstract class CouponFloatingDefinition extends CouponDefinition
     implements InstrumentDefinitionWithData<Payment, DoubleTimeSeries<ZonedDateTime>> {
 
   /**

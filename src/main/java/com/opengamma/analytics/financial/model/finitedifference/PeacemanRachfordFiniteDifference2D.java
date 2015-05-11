@@ -15,9 +15,7 @@ import com.opengamma.strata.collect.ArgChecker;
 @SuppressWarnings("deprecation")
 public class PeacemanRachfordFiniteDifference2D implements ConvectionDiffusionPDESolver2D {
 
-  //private static final Decomposition<?> DCOMP = new LUDecompositionCommons();
   // Theta = 0 - explicit
-  // private static final double THETA = 0.5;
 
   @Override
   public double[][] solve(final ConvectionDiffusion2DPDEDataBundle pdeData, final int tSteps, final int xSteps, final int ySteps, final double tMax, final BoundaryCondition2D xLowerBoundary,
@@ -68,7 +66,6 @@ public class PeacemanRachfordFiniteDifference2D implements ConvectionDiffusionPD
     double a, b, c, d, f;
 
     for (int n = 0; n < tSteps; n++) {
-      // t += dt / 2;
 
       // stag 1 Explicit in y, implicit in x
       for (int i = 1; i < xSteps; i++) {
@@ -134,14 +131,10 @@ public class PeacemanRachfordFiniteDifference2D implements ConvectionDiffusionPD
             min = (l == xSteps ? 0 : Math.max(0, l - 1));
             max = (l == 0 ? xSteps : Math.min(xSteps, l + 1));
             sum = 0;
-            // for (int k = 0; k <= xSteps; k++) {
             for (int k = min; k <= max; k++) { // mx is tri-diagonal so only need 3 steps here
               sum += mx[l][k] * v[k][j];
             }
             final double correction = omega / mx[l][l] * (q[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             v[l][j] += correction;
             scale += v[l][j] * v[l][j];
@@ -182,10 +175,6 @@ public class PeacemanRachfordFiniteDifference2D implements ConvectionDiffusionPD
       }
 
       // // copy the boundary points from the previous level
-      // for (int i = 0; i <= xSteps; i++) {
-      // vStar[i][0] = v[i][0];
-      // vStar[i][ySteps] = v[i][ySteps];
-      // }
 
       // stag 2 explicit in x, implicit in y
       for (int j = 1; j < ySteps; j++) {
@@ -253,14 +242,10 @@ public class PeacemanRachfordFiniteDifference2D implements ConvectionDiffusionPD
             min = (l == ySteps ? 0 : Math.max(0, l - 1));
             max = (l == 0 ? ySteps : Math.min(ySteps, l + 1));
             sum = 0;
-            // for (int k = 0; k <= ySteps; k++) {
             for (int k = min; k <= max; k++) {
               sum += my[l][k] * v[i][k];
             }
             final double correction = omega / my[l][l] * (r[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             v[i][l] += correction;
             scale += v[i][l] * v[i][l];
@@ -305,5 +290,4 @@ public class PeacemanRachfordFiniteDifference2D implements ConvectionDiffusionPD
 
   }
 
-  // private double[][] solveSOR(double[][] m, double[][] v)
 }

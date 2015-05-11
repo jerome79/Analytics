@@ -69,7 +69,7 @@ public class CapFloorHullWhiteCalibrationObjectiveTest {
    */
   public void calibration() {
     final double meanReversion = 0.01;
-    final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(meanReversion, new double[] {0.01}, new double[0]);
+    final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(meanReversion, new double[] {0.01 }, new double[0]);
     final SuccessiveRootFinderHullWhiteCalibrationObjective objective = new SuccessiveRootFinderHullWhiteCalibrationObjective(hwParameters, EUR);
     final SuccessiveRootFinderHullWhiteCalibrationEngine<SABRCapProviderInterface> calibrationEngine = new SuccessiveRootFinderHullWhiteCalibrationEngine<>(objective);
     for (int loopexp = 0; loopexp < CAP.getNumberOfPayments(); loopexp++) {

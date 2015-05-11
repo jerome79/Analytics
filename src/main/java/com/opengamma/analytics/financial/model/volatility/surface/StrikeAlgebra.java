@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-
 /**
  * 
  * @param <T> The strike type (e.g. delta)

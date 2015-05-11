@@ -46,7 +46,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Test.
  */
@@ -101,7 +100,6 @@ public class InterestRateFutureOptionMarginHullWhiteMethodTest {
   private static final double TRADE_PRICE_1 = 0.0050;
   private static final double TRADE_PRICE_2 = 0.0100;
   private static final double LAST_MARGIN_1 = 0.0055;
-  //  private static final double LAST_MARGIN_2 = 0.0105;
   private static final ZonedDateTime TRADE_DATE_1 = DateUtils.getUTCDate(2012, 12, 17, 13, 00);
   private static final ZonedDateTime TRADE_DATE_2 = DateUtils.getUTCDate(2012, 12, 18, 9, 30);
   private static final InterestRateFutureOptionMarginTransactionDefinition OPT_ERH3_CALL_9900_TRA_1_DEFINITION = new InterestRateFutureOptionMarginTransactionDefinition(OPT_ERH3_CALL_9900_DEFINITION,
@@ -298,12 +296,14 @@ public class InterestRateFutureOptionMarginHullWhiteMethodTest {
     final MultiCurrencyAmount pvLongCallStd = METHOD_OPT_TRA.presentValue(OPT_ERH3_CALL_9900_TRA_1, HW_MULTICURVES);
     final MultiCurrencyAmount pvShortPutStd = METHOD_OPT_TRA.presentValue(OPT_ERH3_PUT_9900_TRA_1, HW_MULTICURVES);
     final double priceFuturesH3 = METHOD_FUT.price(ERH3, HW_MULTICURVES);
-    assertEquals("InterestRateFutureOptionMarginSecurityHullWhiteMethod: price", pvLongCallStd.getAmount(EUR).getAmount() - pvShortPutStd.getAmount(EUR).getAmount(), (priceFuturesH3 - STRIKE_1) * QUANTITY_1 * NOTIONAL
+    assertEquals("InterestRateFutureOptionMarginSecurityHullWhiteMethod: price", pvLongCallStd.getAmount(EUR).getAmount() - pvShortPutStd.getAmount(EUR).getAmount(), (priceFuturesH3 - STRIKE_1) *
+        QUANTITY_1 * NOTIONAL
         * FUTURE_FACTOR, TOLERANCE_PV);
     final MultiCurrencyAmount pvLongCallMid = METHOD_OPT_TRA.presentValue(OPT_ERM4_MID_CALL_9875_TRA_1, HW_MULTICURVES);
     final MultiCurrencyAmount pvShortPutMid = METHOD_OPT_TRA.presentValue(OPT_ERM4_MID_PUT_9875_TRA_1, HW_MULTICURVES);
     final double priceFuturesM4 = METHOD_FUT.price(ERM4, HW_MULTICURVES);
-    assertEquals("InterestRateFutureOptionMarginSecurityHullWhiteMethod: price", pvLongCallMid.getAmount(EUR).getAmount() - pvShortPutMid.getAmount(EUR).getAmount(), (priceFuturesM4 - STRIKE_2) * QUANTITY_2 * NOTIONAL
+    assertEquals("InterestRateFutureOptionMarginSecurityHullWhiteMethod: price", pvLongCallMid.getAmount(EUR).getAmount() - pvShortPutMid.getAmount(EUR).getAmount(), (priceFuturesM4 - STRIKE_2) *
+        QUANTITY_2 * NOTIONAL
         * FUTURE_FACTOR, TOLERANCE_PV);
   }
 

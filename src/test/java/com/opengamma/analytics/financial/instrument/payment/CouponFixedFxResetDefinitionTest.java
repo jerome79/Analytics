@@ -21,13 +21,12 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Tests the constructors and equal/hash for CouponFixedFxResetDefinition.
  */
 @Test
 public class CouponFixedFxResetDefinitionTest {
-  
+
   /** Details coupon. */
   private static final Currency CUR_REF = Currency.EUR;
   private static final Currency CUR_PAY = Currency.USD;
@@ -39,44 +38,44 @@ public class CouponFixedFxResetDefinitionTest {
   private static final double ACCRUAL_FACTOR = 0.267;
   private static final double NOTIONAL = 1000000; //1m
   private static final double RATE = 0.04;
-  
+
   private static final CouponFixedFxResetDefinition CPN = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE,
       ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
-  
+
   private static final double FX_FIXING_RATE = 1.40;
   private static final DoubleTimeSeries<ZonedDateTime> FX_FIXING_TS_10 =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-          new ZonedDateTime[]{FX_FIXING_DATE.minusDays(11), FX_FIXING_DATE.minusDays(10)},
-          new double[]{1.38, 1.39});
-  private static final DoubleTimeSeries<ZonedDateTime> FX_FIXING_TS_1 = 
-      ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-          new ZonedDateTime[] {FX_FIXING_DATE.minusDays(2), FX_FIXING_DATE.minusDays(1) }, 
+          new ZonedDateTime[] {FX_FIXING_DATE.minusDays(11), FX_FIXING_DATE.minusDays(10) },
           new double[] {1.38, 1.39 });
-  private static final DoubleTimeSeries<ZonedDateTime> FX_FIXING_TS0 = 
+  private static final DoubleTimeSeries<ZonedDateTime> FX_FIXING_TS_1 =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-          new ZonedDateTime[] {FX_FIXING_DATE.minusDays(2), FX_FIXING_DATE.minusDays(1), FX_FIXING_DATE }, 
+          new ZonedDateTime[] {FX_FIXING_DATE.minusDays(2), FX_FIXING_DATE.minusDays(1) },
+          new double[] {1.38, 1.39 });
+  private static final DoubleTimeSeries<ZonedDateTime> FX_FIXING_TS0 =
+      ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
+          new ZonedDateTime[] {FX_FIXING_DATE.minusDays(2), FX_FIXING_DATE.minusDays(1), FX_FIXING_DATE },
           new double[] {1.38, 1.39, FX_FIXING_RATE });
-  
+
   private static final double TOLERANCE_AMOUNT = 1.0E-6;
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullReferenceCurrency() {
-    new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, 
+    new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR,
         NOTIONAL, RATE, null, FX_FIXING_DATE, FX_DELIVERY_DATE);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullFixingDate() {
-    new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, 
+    new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR,
         NOTIONAL, RATE, CUR_REF, null, FX_DELIVERY_DATE);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullDeliveryDate() {
-    new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, 
+    new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR,
         NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE, null);
   }
-  
+
   @Test
   public void getter() {
     assertEquals("CouponFixedFxResetDefinition: getter", RATE, CPN.getRate());
@@ -84,7 +83,7 @@ public class CouponFixedFxResetDefinitionTest {
     assertEquals("CouponFixedFxResetDefinition: getter", FX_FIXING_DATE, CPN.getFxFixingDate());
     assertEquals("CouponFixedFxResetDefinition: getter", FX_DELIVERY_DATE, CPN.getFxDeliveryDate());
   }
-  
+
   @Test
   public void paymentAmount() {
     double amountExpected = NOTIONAL * FX_FIXING_RATE * RATE * ACCRUAL_FACTOR;
@@ -98,25 +97,25 @@ public class CouponFixedFxResetDefinitionTest {
     assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(CUR_REF));
     CouponFixedDefinition cpnOther = new CouponFixedDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE,
         ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FX_FIXING_RATE);
-   assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(cpnOther));
-    CouponFixedFxResetDefinition other = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, 
+    assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(cpnOther));
+    CouponFixedFxResetDefinition other = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE,
         ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
     assertEquals("CouponFixedFxResetDefinition: hash-equal", CPN, other);
     assertEquals("CouponFixedFxResetDefinition: hash-equal", CPN.hashCode(), other.hashCode());
     CouponFixedFxResetDefinition modified;
-    modified = new CouponFixedFxResetDefinition(Currency.AUD, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, 
+    modified = new CouponFixedFxResetDefinition(Currency.AUD, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE,
         ACCRUAL_FACTOR, NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
     assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(modified));
-    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, 
-        ACCRUAL_FACTOR, NOTIONAL, RATE+0.01, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
+    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE,
+        ACCRUAL_FACTOR, NOTIONAL, RATE + 0.01, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE);
     assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(modified));
-    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, 
+    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE,
         ACCRUAL_FACTOR, NOTIONAL, RATE, Currency.AUD, FX_FIXING_DATE, FX_DELIVERY_DATE);
     assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(modified));
-    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, 
+    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE,
         ACCRUAL_FACTOR, NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE.plusDays(1), FX_DELIVERY_DATE);
     assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(modified));
-    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, 
+    modified = new CouponFixedFxResetDefinition(CUR_PAY, PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE,
         ACCRUAL_FACTOR, NOTIONAL, RATE, CUR_REF, FX_FIXING_DATE, FX_DELIVERY_DATE.plusDays(1));
     assertFalse("CouponFixedFxResetDefinition: hash-equal", CPN.equals(modified));
   }
@@ -129,7 +128,7 @@ public class CouponFixedFxResetDefinitionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void toDerivativeNullFixing() {
-    CPN.toDerivative(FX_FIXING_DATE, (DoubleTimeSeries<ZonedDateTime>)null);
+    CPN.toDerivative(FX_FIXING_DATE, (DoubleTimeSeries<ZonedDateTime>) null);
   }
 
   @Test
@@ -138,58 +137,58 @@ public class CouponFixedFxResetDefinitionTest {
     double paymentTime = TimeCalculator.getTimeBetween(valuationDate, PAYMENT_DATE);
     double fixingTime = TimeCalculator.getTimeBetween(valuationDate, FX_FIXING_DATE);
     double deliveryTime = TimeCalculator.getTimeBetween(valuationDate, FX_DELIVERY_DATE);
-    CouponFixedFxReset cpnExpected = new CouponFixedFxReset(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE, 
-       CUR_REF, fixingTime, deliveryTime);
+    CouponFixedFxReset cpnExpected = new CouponFixedFxReset(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE,
+        CUR_REF, fixingTime, deliveryTime);
     CouponFixedFxReset cpnConverted = CPN.toDerivative(valuationDate);
     assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);
-  }  
-  
+  }
+
   @Test
   public void toDerivativeBeforeFixing() {
     ZonedDateTime valuationDate = FX_FIXING_DATE.minusDays(10);
     double paymentTime = TimeCalculator.getTimeBetween(valuationDate, PAYMENT_DATE);
     double fixingTime = TimeCalculator.getTimeBetween(valuationDate, FX_FIXING_DATE);
     double deliveryTime = TimeCalculator.getTimeBetween(valuationDate, FX_DELIVERY_DATE);
-    CouponFixedFxReset cpnExpected = new CouponFixedFxReset(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE, 
-       CUR_REF, fixingTime, deliveryTime);   
+    CouponFixedFxReset cpnExpected = new CouponFixedFxReset(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE,
+        CUR_REF, fixingTime, deliveryTime);
     Payment cpnConverted = CPN.toDerivative(valuationDate, FX_FIXING_TS_10);
-    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);     
+    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);
   }
 
   @Test(expectedExceptions = IllegalStateException.class)
   public void toDerivativeAfterFixingNotAvailable() {
     ZonedDateTime valuationDate = FX_FIXING_DATE.plusDays(1);
     CPN.toDerivative(valuationDate, FX_FIXING_TS_1);
-  } 
-  
+  }
+
   @Test
   public void toDerivativeOnFixingNotAvailable() {
     ZonedDateTime valuationDate = FX_FIXING_DATE;
     double paymentTime = TimeCalculator.getTimeBetween(valuationDate, PAYMENT_DATE);
     double fixingTime = TimeCalculator.getTimeBetween(valuationDate, FX_FIXING_DATE);
     double deliveryTime = TimeCalculator.getTimeBetween(valuationDate, FX_DELIVERY_DATE);
-    CouponFixedFxReset cpnExpected = new CouponFixedFxReset(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE, 
-       CUR_REF, fixingTime, deliveryTime);
+    CouponFixedFxReset cpnExpected = new CouponFixedFxReset(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL, RATE,
+        CUR_REF, fixingTime, deliveryTime);
     Payment cpnConverted = CPN.toDerivative(valuationDate, FX_FIXING_TS_1);
-    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);     
+    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);
   }
-  
+
   @Test
   public void toDerivativeOnFixingAvailable() {
     ZonedDateTime valuationDate = FX_FIXING_DATE;
     double paymentTime = TimeCalculator.getTimeBetween(valuationDate, PAYMENT_DATE);
-    CouponFixed cpnExpected = new CouponFixed(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL*FX_FIXING_RATE, RATE);
+    CouponFixed cpnExpected = new CouponFixed(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL * FX_FIXING_RATE, RATE);
     Payment cpnConverted = CPN.toDerivative(valuationDate, FX_FIXING_TS0);
-    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);     
+    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);
   }
-  
+
   @Test
   public void toDerivativeAfterFixing() {
     ZonedDateTime valuationDate = FX_FIXING_DATE.plusDays(1);
     double paymentTime = TimeCalculator.getTimeBetween(valuationDate, PAYMENT_DATE);
-    CouponFixed cpnExpected = new CouponFixed(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL*FX_FIXING_RATE, RATE);
+    CouponFixed cpnExpected = new CouponFixed(CUR_PAY, paymentTime, ACCRUAL_FACTOR, NOTIONAL * FX_FIXING_RATE, RATE);
     Payment cpnConverted = CPN.toDerivative(valuationDate, FX_FIXING_TS0);
-    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);     
+    assertEquals("CouponFixedFxResetDefinition: toDerivative", cpnExpected, cpnConverted);
   }
-  
+
 }

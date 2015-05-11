@@ -33,8 +33,6 @@ public abstract class SmileSurfaceDataBundle {
 
   public abstract ForwardCurve getForwardCurve();
 
-  //  public abstract boolean isCallData();
-
   public abstract SmileSurfaceDataBundle withBumpedPoint(int expiryIndex, int strikeIndex, double amount);
 
   /**

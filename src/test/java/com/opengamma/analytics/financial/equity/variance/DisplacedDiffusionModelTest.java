@@ -28,7 +28,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 
-
 /**
  * Test.
  */
@@ -38,14 +37,8 @@ public class DisplacedDiffusionModelTest {
   // -------------------------------- SETUP ------------------------------------------
 
   // The derivative
-  //  private static final double varStrike = 0.05;
-  //  private static final double varNotional = 3150;
   private static final double expiry1 = 1;
   private static final double expiry5 = 5;
-  //  private static final int nObsExpected = 750;
-  //  private static final int nObsDisrupted = 0;
-  //  private static final double[] observations = {};
-  //  private static final double[] obsWeights = {};
 
   /*
   final VarianceSwap swap1 = new VarianceSwap(0, expiry1, expiry1, varStrike, varNotional, Currency.EUR, 250, nObsExpected, nObsDisrupted, observations, obsWeights);
@@ -59,9 +52,6 @@ public class DisplacedDiffusionModelTest {
   private static final double SPOT = 80;
   private static final double DRIFT = -0.01;
   private static final ForwardCurve FORWARD_CURVE = new ForwardCurve(SPOT, DRIFT);
-  //double forward = 100;
-  //private static final YieldCurveBundle curves = TestsDataSetsSABR.createCurves1();
-  //private static final YieldAndDiscountCurve curveDiscount = curves.getCurve("Funding");
 
   private static final double[] EXPIRIES = new double[] {0.5, 0.5, 0.5, 0.5,
     1.0, 1.0, 1.0, 1.0,
@@ -164,63 +154,5 @@ public class DisplacedDiffusionModelTest {
     assertEquals(displacement, logBlackDef.getShift(), 1e-6);
   }
 
-  //  @Test
-  //  public void testPricingAndImpVol() {
-  //    double vol1 = STRIKE_VOLSURFACE.getVolatility(expiry5, 40);
-  //    double vol2 = STRIKE_VOLSURFACE.getVolatility(expiry5, 41);
-  //    final ShiftedLognormalVolModel shiftedBlack = new ShiftedLognormalVolModel(forward, expiry5, 40, vol1, 41, vol2);
-  //
-  //    assertEquals(0.2123433522914358, shiftedBlack.getVol(), 1e-8);
-  //    assertEquals(8.977510042076403, shiftedBlack.getShift(), 1e-8);
-  //
   //    double[] targets = {0.8579743918497895, 0.2403423824470046, 0.23181972642559168, 0.22833151007347832, 0.22634625564003685, 0.2250331292507572, 0.2240855895344658,
-  //        0.22336179752396107, 0.22278625617056824, 0.22231472625418022, 0.2219193953132662 };
-  //
-  //    final double highStrike = 5.0 * forward;
-  //    final double lowStrike = 1e-4 * forward;
-  //    final int nSamples = 10;
-  //    final double[] strikes = new double[nSamples + 1];
-  //    final double[] prices = new double[nSamples + 1];
-  //    final double[] vols = new double[nSamples + 1];
-  //    for (int i = 0; i <= nSamples; i++) {
-  //      strikes[i] = lowStrike + (double) i / nSamples * (highStrike - lowStrike);
-  //      prices[i] = shiftedBlack.priceFromFixedStrike(strikes[i]);
-  //      vols[i] = new BlackFormula(forward, strikes[i], expiry5, null, prices[i], strikes[i] > forward).computeImpliedVolatility();
-  //      assertEquals(targets[i], vols[i], 1e-8);
-  //    }
-  //  }
-  //
-  //  @Test
-  //  public void testImpactOfShiftOnImpliedVols() {
-  //
-  //    final double highStrike = 5.0 * forward;
-  //    final double lowStrike = 1e-4 * forward;
-  //    final int nSamples = 10;
-  //    final double[] strikes = new double[nSamples + 1];
-  //    final double[] prices = new double[nSamples + 1];
-  //    final double[] vols = new double[nSamples + 1];
-  //
-  //    double lowVol = 0.1;
-  //    double highVol = 0.1;
-  //    double lowShift = 0;
-  //    double highShift = 0.5 * forward;
-  //
-  //    final double[] lnVols = new double[nSamples + 1];
-  //    final double[] shifts = new double[nSamples + 1];
-  //
-  //    for (int j = 0; j <= nSamples; j++) {
-  //      lnVols[j] = lowVol + (double) j / nSamples * (highVol - lowVol);
-  //      shifts[j] = lowShift + (double) j / nSamples * (highShift - lowShift);
-  //      ShiftedLognormalVolModel shiftedBlack = new ShiftedLognormalVolModel(forward, expiry5, lnVols[j], shifts[j]);
-  //
-  //      for (int i = 0; i <= nSamples; i++) {
-  //        strikes[i] = lowStrike + (double) i / nSamples * (highStrike - lowStrike);
-  //        prices[i] = shiftedBlack.priceFromFixedStrike(strikes[i]);
-  //        vols[i] = new BlackFormula(forward, strikes[i], expiry5, null, prices[i], strikes[i] > forward).computeImpliedVolatility();
-  //
-  //        // System.err.println(lnVols[j] + "," + shifts[j] + "," + strikes[i] + "," + vols[i]);
-  //      }
-  //    }
-  //  }
 }
-

@@ -19,7 +19,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test.
  */

@@ -5,7 +5,6 @@ import static org.testng.AssertJUnit.assertEquals;
 import org.testng.annotations.Test;
 import org.testng.internal.junit.ArrayAsserts;
 
-
 /**
  * Test.
  */
@@ -51,7 +50,7 @@ public class LiborMarketModelDisplacedDiffusionParametersTest {
    * Tests the class setters.
    */
   public void setter() {
-    double[][] volReplaced = new double[][] { {0.01, 0.01}, {0.011, 0.009}, {0.012, 0.008}};
+    double[][] volReplaced = new double[][] { {0.01, 0.01 }, {0.011, 0.009 }, {0.012, 0.008 } };
     int indexStart = 10;
     double[][] vol2 = new double[NB_PERIOD][2];
     for (int loopperiod = 0; loopperiod < NB_PERIOD; loopperiod++) {

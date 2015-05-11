@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.function;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -35,7 +33,7 @@ public class Function1DTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testInputListWithNulls() {
-    F.evaluate(new Double[] {null});
+    F.evaluate(new Double[] {null });
   }
 
 }

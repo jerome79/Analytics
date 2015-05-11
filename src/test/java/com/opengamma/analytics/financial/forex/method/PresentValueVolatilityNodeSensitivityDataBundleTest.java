@@ -90,12 +90,12 @@ public class PresentValueVolatilityNodeSensitivityDataBundleTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongExpiriesNumber() {
-    new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, new DoubleMatrix1D(new double[] {1, 2}), new DoubleMatrix1D(STRIKES), new DoubleMatrix2D(VEGA));
+    new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, new DoubleMatrix1D(new double[] {1, 2 }), new DoubleMatrix1D(STRIKES), new DoubleMatrix2D(VEGA));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongStrikesNumber() {
-    new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, new DoubleMatrix1D(EXPIRIES), new DoubleMatrix1D(new double[] {1, 2}), new DoubleMatrix2D(VEGA));
+    new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, new DoubleMatrix1D(EXPIRIES), new DoubleMatrix1D(new double[] {1, 2 }), new DoubleMatrix2D(VEGA));
   }
 
   @Test
@@ -144,10 +144,10 @@ public class PresentValueVolatilityNodeSensitivityDataBundleTest {
     vegaModified.getData()[0][1] = vegaModified.getData()[0][1] * 1000;
     other = new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, expiries, strikes, vegaModified);
     assertFalse(other.equals(sensi));
-    final DoubleMatrix1D expiriesModified = new DoubleMatrix1D(new double[] {5, 6, 7, 8});
+    final DoubleMatrix1D expiriesModified = new DoubleMatrix1D(new double[] {5, 6, 7, 8 });
     other = new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, expiriesModified, strikes, vega);
     assertFalse(other.equals(sensi));
-    final DoubleMatrix1D strikesModified = new DoubleMatrix1D(new double[] {5, 6, 7, 8, 9});
+    final DoubleMatrix1D strikesModified = new DoubleMatrix1D(new double[] {5, 6, 7, 8, 9 });
     other = new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_2, expiries, strikesModified, vega);
     assertFalse(other.equals(sensi));
     other = new PresentValueForexBlackVolatilityNodeSensitivityDataBundle(CUR_1, CUR_3, expiries, strikes, vega);

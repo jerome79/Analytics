@@ -248,7 +248,6 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
     ArgChecker.notNull(date, "date");
     ArgChecker.isTrue(date.isBefore(getFixingDate()), "Do not have any fixing data but are asking for a derivative after the fixing date");
     ArgChecker.isTrue(!date.isAfter(getPaymentDate()), "date is after payment date");
-    // First curve used for discounting. If two curves, the same forward is used for both swaps;
     // if more than two curves, the second is used for the forward of the first swap and the third for the forward of the second swap.
     final double paymentTime = TimeCalculator.getTimeBetween(date, getPaymentDate());
     // CMS spread is not fixed yet, all the details are required.
@@ -263,7 +262,6 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
   public Coupon toDerivative(final ZonedDateTime date, final DoubleTimeSeries<ZonedDateTime> data) {
     ArgChecker.notNull(date, "date");
     ArgChecker.isTrue(!date.isAfter(getPaymentDate()), "date is after payment date");
-    // First curve used for discounting. If two curves, the same forward is used for both swaps;
     // if more than two curves, the second is used for the forward of the first swap and the third for the forward of the second swap.
     final double paymentTime = TimeCalculator.getTimeBetween(date, getPaymentDate());
     if (date.isAfter(getFixingDate()) || date.equals(getFixingDate())) { // The CMS coupon has already fixed, it is now a fixed coupon.
@@ -284,7 +282,6 @@ public class CapFloorCMSSpreadDefinition extends CouponFloatingDefinition implem
         }
         if (fixedRate == null) {
           fixedRate = data.getLatestValue(); //TODO remove me as soon as possible
-          //throw new OpenGammaRuntimeException("Could not get fixing value for date " + getFixingDate());
         }
       }
 

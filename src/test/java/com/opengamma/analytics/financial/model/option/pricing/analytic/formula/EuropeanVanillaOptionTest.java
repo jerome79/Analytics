@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -21,10 +20,6 @@ public class EuropeanVanillaOptionTest {
   private static final boolean IS_CALL = true;
   private static final EuropeanVanillaOption OPTION = new EuropeanVanillaOption(K, T, IS_CALL);
 
-  //  @Test(expected = IllegalArgumentException.class)
-  //  public void testNegativeStrike() {
-  //    new EuropeanVanillaOption(-K, T, IS_CALL);
-  //  }
   // Test temporarily removed.
 
   @Test(expectedExceptions = IllegalArgumentException.class)

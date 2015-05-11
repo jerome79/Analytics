@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DPiecewisePoynomialDataBundle;
 
-
 /**
  * Test.
  */
@@ -22,8 +21,8 @@ public class PCHIPInterpolator1DTest {
 
   private static final Interpolator1D INTERPOLATOR = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.PCHIP);
 
-  private static final double[] X_DATA = new double[] {0, 0.4, 1.0, 1.8, 2.8, 5};
-  private static final double[] Y_DATA = new double[] {3., 4., 4.1, 4.5, 7.2, 8.0};
+  private static final double[] X_DATA = new double[] {0, 0.4, 1.0, 1.8, 2.8, 5 };
+  private static final double[] Y_DATA = new double[] {3., 4., 4.1, 4.5, 7.2, 8.0 };
 
   private static final Interpolator1DDataBundle DATA = INTERPOLATOR.getDataBundle(X_DATA, Y_DATA);
 
@@ -37,17 +36,14 @@ public class PCHIPInterpolator1DTest {
     INTERPOLATOR.interpolate(DATA, null);
   }
 
-  @Test
   public void testDataBundleType1() {
     assertEquals(INTERPOLATOR.getDataBundle(X_DATA, Y_DATA).getClass(), Interpolator1DPiecewisePoynomialDataBundle.class);
   }
 
-  @Test
   public void testDataBundleType2() {
     assertEquals(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, Y_DATA).getClass(), Interpolator1DPiecewisePoynomialDataBundle.class);
   }
 
-  @Test
   public void dataBundleTest() {
     Interpolator1DDataBundle db = INTERPOLATOR.getDataBundle(X_DATA, Y_DATA);
     double[] keys = db.getKeys();
@@ -61,13 +57,7 @@ public class PCHIPInterpolator1DTest {
     }
   }
 
-  @Test
   public void montonicTest() {
-    final boolean print = false;
-    if (print) {
-      System.out.println("MonotonicCubicInterpolator1DTest");
-    }
-
     final int n = 100;
     final double low = X_DATA[0];
     final double range = X_DATA[X_DATA.length - 1] - X_DATA[0];
@@ -77,16 +67,13 @@ public class PCHIPInterpolator1DTest {
       double y = INTERPOLATOR.interpolate(DATA, x);
       assertTrue(y > value);
       value = y;
-      if (print) {
-        System.out.println(x + "\t" + y);
-      }
     }
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void samexNodesTest() {
-    final double[] xData = new double[] {0.4, 0.7, 0.9, 0.9, 1.3, 1.8};
-    final double[] yData = new double[] {0.4, 0.5, 0.6, 0.7, 0.8, 1.0};
+    final double[] xData = new double[] {0.4, 0.7, 0.9, 0.9, 1.3, 1.8 };
+    final double[] yData = new double[] {0.4, 0.5, 0.6, 0.7, 0.8, 1.0 };
     final Interpolator1DDataBundle data = INTERPOLATOR.getDataBundle(xData, yData);
     double y = INTERPOLATOR.interpolate(data, 1.0);
     assertTrue("y: " + y, !Double.isNaN(y));

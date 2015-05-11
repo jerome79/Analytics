@@ -37,7 +37,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -158,7 +157,7 @@ public class CouponONArithmeticAverageDefinitionTest {
    */
   public void toDerivativeFixingBeforeStart() {
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(TRADE_DATE, 1, NYC);
-    final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 7)}, new double[]{0.01});
+    final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 7) }, new double[] {0.01 });
     final CouponONArithmeticAverage cpnConverted = (CouponONArithmeticAverage) FEDFUND_CPN_3M_DEF.toDerivative(referenceDate, fixingTS);
     final double paymentTime = TimeCalculator.getTimeBetween(referenceDate, PAYMENT_DATE_3M);
     final double[] fixingPeriodStartTimes = TimeCalculator.getTimeBetween(referenceDate, FEDFUND_CPN_3M_DEF.getFixingPeriodStartDates());

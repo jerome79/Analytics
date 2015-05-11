@@ -72,7 +72,6 @@ import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
-
 /**
  * Test.
  */

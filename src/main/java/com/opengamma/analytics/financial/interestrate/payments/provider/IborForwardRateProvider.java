@@ -14,12 +14,12 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
  * fraction.
  */
 public final class IborForwardRateProvider implements ForwardRateProvider<IborIndex> {
-  
+
   private static final IborForwardRateProvider INSTANCE = new IborForwardRateProvider();
-  
+
   private IborForwardRateProvider() {
   }
-  
+
   public static IborForwardRateProvider getInstance() {
     return INSTANCE;
   }

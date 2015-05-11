@@ -178,7 +178,7 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
       final double initialRate) {
     return new CouponIborCompoundingFlatSpreadDefinition(
         currency,
-        paymentDate, 
+        paymentDate,
         accrualStartDate,
         accrualEndDate,
         paymentAccrualFactor,
@@ -296,7 +296,7 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
    * @return The compounded coupon.
    */
   public static CouponIborCompoundingFlatSpreadDefinition from(final double notional, final ZonedDateTime accrualStartDate, final ZonedDateTime accrualEndDate, final IborIndex index,
-                                                               final double spread, final StubConvention stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, RollDateAdjuster adjuster) {
+      final double spread, final StubConvention stub, final BusinessDayConvention businessDayConvention, final boolean endOfMonth, final HolidayCalendar calendar, RollDateAdjuster adjuster) {
     ArgChecker.notNull(accrualStartDate, "Accrual start date");
     ArgChecker.notNull(accrualEndDate, "Accrual end date");
     ArgChecker.notNull(index, "Index");
@@ -305,7 +305,7 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
     final boolean isStubShort = stub.equals(StubConvention.SHORT_FINAL) || stub.equals(StubConvention.SHORT_INITIAL);
     final boolean isStubStart = stub.equals(StubConvention.LONG_INITIAL) || stub.equals(StubConvention.SHORT_INITIAL); // Implementation note: dates computed from the end.
     final ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(accrualStartDate, accrualEndDate, index.getTenor(), isStubShort, isStubStart,
-                                                                                       businessDayConvention, calendar, endOfMonth, adjuster);
+        businessDayConvention, calendar, endOfMonth, adjuster);
     final int nbSubPeriod = accrualEndDates.length;
     final ZonedDateTime[] accrualStartDates = new ZonedDateTime[nbSubPeriod];
     accrualStartDates[0] = accrualStartDate;
@@ -316,7 +316,7 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
     }
     return from(accrualEndDates[nbSubPeriod - 1], notional, index, accrualStartDates, accrualEndDates, paymentAccrualFactors, spread, calendar);
   }
-  
+
   public static CouponIborCompoundingFlatSpreadDefinition from(
       double notional,
       ZonedDateTime accrualStartDate, ZonedDateTime accrualEndDate,
@@ -330,23 +330,23 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
       DateRelativeTo paymentRelativeTo,
       RollDateAdjuster rollDateAdjuster) {
     boolean isEOM = true;
-    
+
     ZonedDateTime paymentDate = DateRelativeTo.START == paymentRelativeTo ? accrualStartDate : accrualEndDate;
     double paymentAccrualFactor = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDate, paymentDate, accrualCalendar);
-    
+
     ZonedDateTime[] accrualEndDates = ScheduleCalculator.getAdjustedDateSchedule(
-          accrualStartDate,
-          accrualEndDate,
-          index.getTenor(),
-          stubType,
-          accrualBusinessDayConvention,
-          accrualCalendar,
-          isEOM,
-          rollDateAdjuster);
+        accrualStartDate,
+        accrualEndDate,
+        index.getTenor(),
+        stubType,
+        accrualBusinessDayConvention,
+        accrualCalendar,
+        isEOM,
+        rollDateAdjuster);
     ZonedDateTime[] accrualStartDates = new ZonedDateTime[accrualEndDates.length];
     accrualStartDates[0] = accrualStartDate;
     System.arraycopy(accrualEndDates, 0, accrualStartDates, 1, accrualEndDates.length - 1);
-    
+
     double[] paymentAccrualFactors = new double[accrualEndDates.length];
     for (int i = 0; i < paymentAccrualFactors.length; i++) {
       paymentAccrualFactors[i] = DayCountUtils.yearFraction(index.getDayCount(), accrualStartDates[i], accrualEndDates[i], accrualCalendar);
@@ -359,22 +359,22 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
         fixingBusinessDayConvention,
         fixingCalendar,
         null);
-//    ZonedDateTime[] fixingEndDates = ScheduleCalculator.getAdjustedDateSchedule(
-//        accrualStartDate,
-//        accrualEndDate,
-//        index.getTenor(),
-//        stubType,
-//        fixingBusinessDayConvention,
-//        fixingCalendar,
-//        isEOM,
-//        rollDateAdjuster);
-//    ZonedDateTime[] fixingStartDates = new ZonedDateTime[fixingEndDates.length];
-//    fixingStartDates[0] = accrualStartDate;
-//    System.arraycopy(fixingEndDates, 0, fixingStartDates, 1, fixingEndDates.length - 1);
-    
+    //    ZonedDateTime[] fixingEndDates = ScheduleCalculator.getAdjustedDateSchedule(
+    //        accrualStartDate,
+    //        accrualEndDate,
+    //        index.getTenor(),
+    //        stubType,
+    //        fixingBusinessDayConvention,
+    //        fixingCalendar,
+    //        isEOM,
+    //        rollDateAdjuster);
+    //    ZonedDateTime[] fixingStartDates = new ZonedDateTime[fixingEndDates.length];
+    //    fixingStartDates[0] = accrualStartDate;
+    //    System.arraycopy(fixingEndDates, 0, fixingStartDates, 1, fixingEndDates.length - 1);
+
     ZonedDateTime[] resetDates = ScheduleCalculator.getAdjustedDate(
         DateRelativeTo.START == resetRelativeTo ? accrualStartDates : accrualEndDates, -index.getSpotLag(), resetCalendar);
-    
+
     double[] fixingAccrualFactors = new double[accrualEndDates.length];
     for (int i = 0; i < fixingAccrualFactors.length; i++) {
       fixingAccrualFactors[i] = DayCountUtils.yearFraction(index.getDayCount(), fixingStartDates[i], fixingEndDates[i], fixingCalendar);
@@ -470,7 +470,7 @@ public class CouponIborCompoundingFlatSpreadDefinition extends CouponDefinition 
   public double getSpread() {
     return _spread;
   }
-  
+
   /**
    * Returns the rate of the first compounded period.
    * @return the rate of the first compounded period.

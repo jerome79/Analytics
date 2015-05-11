@@ -6,7 +6,6 @@
 
 package com.opengamma.analytics.financial.instrument.payment;
 
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;

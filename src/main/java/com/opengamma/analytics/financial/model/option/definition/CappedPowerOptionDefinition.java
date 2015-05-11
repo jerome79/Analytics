@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.model.option.definition;
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * A capped power option is a power option with a cap on the maximum payoff.
  * <p>

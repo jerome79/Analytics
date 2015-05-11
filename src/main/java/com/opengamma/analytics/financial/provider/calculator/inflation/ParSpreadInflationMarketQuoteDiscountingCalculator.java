@@ -31,8 +31,8 @@ import com.opengamma.strata.collect.ArgChecker;
  * Compute the spread to be added to the market standard quote of the instrument for which the present value of the instrument is zero.
  * The notion of "market quote" will depend of each instrument.
  */
-public final class ParSpreadInflationMarketQuoteDiscountingCalculator 
-  extends InstrumentDerivativeVisitorAdapter<ParameterInflationProviderInterface, Double> {
+public final class ParSpreadInflationMarketQuoteDiscountingCalculator
+    extends InstrumentDerivativeVisitorAdapter<ParameterInflationProviderInterface, Double> {
 
   /**
    * The unique instance of the calculator.
@@ -107,7 +107,7 @@ public final class ParSpreadInflationMarketQuoteDiscountingCalculator
       return Math.pow(pvInflationLeg / discountFactor / notional + 1, 1 / tenor) - 1 - cpn.getFixedRate();
     }
     final MulticurveProviderInterface multicurves = inflation.getMulticurveProvider();
-    return -multicurves.getFxRates().convert(swap.accept(PVMC, multicurves), swap.getFirstLeg().getCurrency()).getAmount() 
+    return -multicurves.getFxRates().convert(swap.accept(PVMC, multicurves), swap.getFirstLeg().getCurrency()).getAmount()
         / swap.getFirstLeg().accept(PVMQSC, multicurves);
   }
 

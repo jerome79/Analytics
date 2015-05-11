@@ -24,12 +24,12 @@ import com.opengamma.strata.collect.tuple.Pair;
  * The dates of the returned time series are the dates of the end of the period on which the difference is computed.
  */
 public class TimeSeriesDifferenceOperator implements UnaryOperator<LocalDateDoubleTimeSeries> {
-  
+
   /** The default lag: 1 time series element. */
   private static final int DEFAULT_LAG = 1;
   /** The lag between the element of the times series on which the difference is taken. */
   private final int lag;
-  
+
   /**
    * Constructor with the default lag of 1 element.
    */
@@ -44,7 +44,7 @@ public class TimeSeriesDifferenceOperator implements UnaryOperator<LocalDateDoub
   public TimeSeriesDifferenceOperator(int lag) {
     this.lag = lag;
   }
-  
+
   @Override
   public LocalDateDoubleTimeSeries apply(final LocalDateDoubleTimeSeries ts) {
     ArgChecker.notNull(ts, "time series");

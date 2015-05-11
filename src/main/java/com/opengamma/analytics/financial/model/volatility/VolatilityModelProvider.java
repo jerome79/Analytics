@@ -11,6 +11,5 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 /**
  * 
  */
-public abstract class VolatilityModelProvider extends Function1D<DoubleMatrix1D, VolatilityModel1D> { }
-
-
+public abstract class VolatilityModelProvider extends Function1D<DoubleMatrix1D, VolatilityModel1D> {
+}

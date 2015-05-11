@@ -127,7 +127,6 @@ public final class CapFloorIborHullWhiteMethod {
     final double kappa = (Math.log((1 + deltaF * k) / (1.0 + deltaF * forward)) - (alpha1 * alpha1 - alpha0 * alpha0) / 2.0) / (alpha1 - alpha0);
     final double n0 = NORMAL.getCDF(omega * (-kappa - alpha0));
     final double n1 = NORMAL.getCDF(omega * (-kappa - alpha1));
-    //    double pv = deltaP / deltaF * dfPay * omega * ((1.0 + deltaF * forward) * n0 - (1.0 + deltaF * k) * n1) * cap.getNotional();
     // Backward sweep
     final double pvBar = 1.0;
     //    double kappaBar = 0.0; // kappa is the optimal exercise boundary

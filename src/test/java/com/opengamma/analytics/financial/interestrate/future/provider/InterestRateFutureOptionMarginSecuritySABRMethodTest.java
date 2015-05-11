@@ -30,7 +30,6 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests the method for interest rate future option with SABR volatility parameter surfaces.
  */

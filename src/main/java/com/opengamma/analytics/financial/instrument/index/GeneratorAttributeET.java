@@ -10,7 +10,7 @@ package com.opengamma.analytics.financial.instrument.index;
  * The attributes are composed of the flag indicating if the quote is price-like or yield-like.
  */
 public class GeneratorAttributeET extends GeneratorAttribute {
-  
+
   /** The Price/Yield flag: True for Price and False for Yield/Rate */
   private final boolean _isPrice;
 

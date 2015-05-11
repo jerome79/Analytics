@@ -82,17 +82,6 @@ public class TwoStateMarkovChainLocalVolFitter {
     //**** DO NOT REMOVE ****************************************************************************************************
     //TODO This is not used because we are passing in the market Vol Surface - this should be replaced by a "smart" interpolator to get vol surface
     //interpolate the market vol surface.
-    //    final Map<Double, Interpolator1DDoubleQuadraticDataBundle> dataBundle = GRID_INTERPOLATOR2D.getDataBundle(marketVolsMap);
-    //    @SuppressWarnings("unused")
-    //    Function<Double, Double> mrkVolFunc = new Function<Double, Double>() {
-    //      @Override
-    //      public Double evaluate(Double... ts) {
-    //        double t = ts[0];
-    //        double s = ts[1];
-    //        return GRID_INTERPOLATOR2D.interpolate(dataBundle, DoublesPair.of(t, s));
-    //      }
-    //    };
-    // BlackVolatilitySurface marketVolSurface = new BlackVolatilitySurface(FunctionalDoublesSurface.from(mrkVolFunc));
     //******************************************************************************************************************
 
     final int tNodes = 50;
@@ -198,11 +187,7 @@ public class TwoStateMarkovChainLocalVolFitter {
     @SuppressWarnings("unused")
     final Map<Double, Interpolator1DDataBundle> volData = GRID_INTERPOLATOR2D.getDataBundle(modelVols);
 
-    //    final Iterator<Entry<DoublesPair, Double>> iter = marketVolsMap.entrySet().iterator();
     //    while (iter.hasNext()) {
-    //      final Entry<DoublesPair, Double> entry = iter.next();
-    //      final double vol = GRID_INTERPOLATOR2D.interpolate(volData, entry.getKey());
-    //    }
 
   }
 
@@ -216,68 +201,6 @@ public class TwoStateMarkovChainLocalVolFitter {
     }
     return error < 1e-5; //TODO arbitrary error
   }
-
-  //  private void printSurface(PDEFullResults1D res) {
-  //    int tNodes = res.getNumberTimeNodes();
-  //    int xNodes = res.getNumberSpaceNodes();
-  //
-  //    for (int i = 0; i < xNodes; i++) {
-  //      double k = res.getSpaceValue(i);
-  //      System.out.print("\t" + k);
-  //    }
-  //    System.out.print("\n");
-  //
-  //    for (int j = 0; j < tNodes; j++) {
-  //      double t = res.getTimeValue(j);
-  //      System.out.print(t);
-  //      for (int i = 0; i < xNodes; i++) {
-  //        System.out.print("\t" + res.getFunctionValue(i, j));
-  //      }
-  //      System.out.print("\n");
-  //    }
-  //  }
-
-  //  private void printSurface(Map<Double, Interpolator1DDoubleQuadraticDataBundle> dataBundle, double tMin, double tMax, double kMin, double kMax) {
-  //
-  //    for (int i = 0; i < 101; i++) {
-  //      double k = kMin + (kMax - kMin) * i / 100.;
-  //      System.out.print("\t" + k);
-  //    }
-  //    System.out.print("\n");
-  //
-  //    for (int j = 0; j < 101; j++) {
-  //      double t = tMin + (tMax - tMin) * j / 100.;
-  //      System.out.print(t);
-  //      for (int i = 0; i < 101; i++) {
-  //        double k = kMin + (kMax - kMin) * i / 100.;
-  //        DoublesPair tk = DoublesPair.of(t, k);
-  //
-  //        System.out.print("\t" + GRID_INTERPOLATOR2D.interpolate(dataBundle, tk));
-  //      }
-  //      System.out.print("\n");
-  //    }
-  //  }
-
-  //  private void printSurface(Surface<Double, Double, Double> surface, double tMin, double tMax, double kMin, double kMax) {
-  //
-  //    System.out.print("\n");
-  //    for (int i = 0; i < 101; i++) {
-  //      double k = kMin + (kMax - kMin) * i / 100.;
-  //      System.out.print("\t" + k);
-  //    }
-  //    System.out.print("\n");
-  //
-  //    for (int j = 0; j < 101; j++) {
-  //      double t = tMin + (tMax - tMin) * j / 100.;
-  //      System.out.print(t);
-  //      for (int i = 0; i < 101; i++) {
-  //        double k = kMin + (kMax - kMin) * i / 100.;
-  //        System.out.print("\t" + surface.getZValue(t, k));
-  //      }
-  //      System.out.print("\n");
-  //    }
-  //    System.out.print("\n");
-  //  }
 
   @SuppressWarnings("unused")
   private PDEFullResults1D getLocalVol(final PDEFullResults1D[] denRes, final TwoStateMarkovChainDataBundle chainData) {

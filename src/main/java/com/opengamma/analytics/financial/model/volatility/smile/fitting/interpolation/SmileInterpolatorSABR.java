@@ -247,7 +247,6 @@ public class SmileInterpolatorSABR extends SmileInterpolator<SABRFormulaData> {
     return modelParameters;
   }
 
-
   @Override
   public Function1D<Double, Double> getVolatilityFunction(final double forward, final double[] strikes, final double expiry, final double[] impliedVols) {
 

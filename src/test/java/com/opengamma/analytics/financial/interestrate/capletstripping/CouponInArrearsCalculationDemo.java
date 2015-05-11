@@ -77,8 +77,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  * the price is determined from the smile extrapolation.</li>
  * </ul>
  */
-@Test
-public class CouponInArrearsCalculationTest {
+@Test(enabled = false)
+public class CouponInArrearsCalculationDemo {
 
   private static final MulticurveProviderDiscount CURVES = CapletStrippingSetup.getYieldCurves();
 
@@ -201,7 +201,6 @@ public class CouponInArrearsCalculationTest {
   /**
    * Minimal consistency test for subsequent demos
    */
-  @Test
   public void consistencyCapCouponTest() {
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
@@ -265,7 +264,6 @@ public class CouponInArrearsCalculationTest {
   /**
    * BDK can not be used if forward is outside strike range
    */
-  @Test
   public void consistencySwapTest() {
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
@@ -358,10 +356,10 @@ public class CouponInArrearsCalculationTest {
     DoubleMatrix1D guess = new DoubleMatrix1D(pricer.getGridSize(), avVol); // set the initial guess equal to the average cap vol
 
     double[] pvExp = new double[] {-999256.6452057632, -999612.9915298112, -999719.000398742, -999767.3095724229,
-        -999796.3194925257, -999816.7613261989, -999832.1593903063, -999844.8322095645, -999855.1842177836,
-        -999864.2914286759, -999872.796355135, -999300.6017961318, -999638.3711596527, -999738.9160627383,
-        -999784.9565502962, -999812.6365483969, -999832.0825131405, -999847.0944008618, -999859.0744759005,
-        -999869.2581859969, -999877.6731890535, -999885.2848242149 };
+      -999796.3194925257, -999816.7613261989, -999832.1593903063, -999844.8322095645, -999855.1842177836,
+      -999864.2914286759, -999872.796355135, -999300.6017961318, -999638.3711596527, -999738.9160627383,
+      -999784.9565502962, -999812.6365483969, -999832.0825131405, -999847.0944008618, -999859.0744759005,
+      -999869.2581859969, -999877.6731890535, -999885.2848242149 };
     int pos = 0;
 
     /*
@@ -426,7 +424,7 @@ public class CouponInArrearsCalculationTest {
     }
     System.out.println();
   }
-  
+
   /**
    * BDK can not be used if forward is outside strike range
    */
@@ -452,11 +450,11 @@ public class CouponInArrearsCalculationTest {
     DoubleMatrix1D guess = new DoubleMatrix1D(pricer.getGridSize(), avVol); // set the initial guess equal to the average cap vol
 
     double[] pvExp = new double[] {6520434.641867844, 6398669.449687583, 6362290.156999622,
-        6346915.570986342, 6338521.628707422, 6333136.846634999, 6329318.698859148,
-        6326428.057337409, 6324137.781339593, 6322263.637458503, 6320684.844994415,
-        6485449.284607982, 6386210.883078229, 6356269.952578809, 6343375.078376908,
-        6336185.403058179, 6331484.482977858, 6328101.927802069, 6325505.240991287,
-        6323426.590608101, 6321706.978522498, 6320251.668892078 };
+      6346915.570986342, 6338521.628707422, 6333136.846634999, 6329318.698859148,
+      6326428.057337409, 6324137.781339593, 6322263.637458503, 6320684.844994415,
+      6485449.284607982, 6386210.883078229, 6356269.952578809, 6343375.078376908,
+      6336185.403058179, 6331484.482977858, 6328101.927802069, 6325505.240991287,
+      6323426.590608101, 6321706.978522498, 6320251.668892078 };
     int pos = 0;
     /*
      * lambda = 0.02
@@ -517,11 +515,11 @@ public class CouponInArrearsCalculationTest {
       SmileInterpolatorSABRWithExtrapolation sabrExtrapQuiet2 = new SmileInterpolatorSABRWithExtrapolation(provider);
       System.out.println(calLarge.presentValueCurveSensitivity(SWAP_FIXED_3M, BLOCK_FFS, sabrExtrapQuiet2)
           .multipliedBy(
-          oneBP));
+              oneBP));
     }
     System.out.println();
   }
-  
+
   /**
    * Use CapletStripperDirect as the caplet stripper, then model the smile with a SABR interpolator and
    * Benaim-Dodgson-Kainth extrapolation
@@ -534,8 +532,6 @@ public class CouponInArrearsCalculationTest {
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
     // ATMs are not consistent absolute strike caps, thus excluded
-    //    List<CapFloor> caps = CapletStrippingSetup.getAllCaps();
-    //    double[] capVols = CapletStrippingSetup.getAllCapVols();
     MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(caps, CURVES);
 
     // Setting up errors and guess values
@@ -618,8 +614,6 @@ public class CouponInArrearsCalculationTest {
 
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
-    //    List<CapFloor> caps = CapletStrippingSetup.getAllCaps();
-    //    double[] capVols = CapletStrippingSetup.getAllCapVols();
     double oneBP = 1e-4;
     int nCaps = caps.size();
 
@@ -638,18 +632,18 @@ public class CouponInArrearsCalculationTest {
     for (CapFloorIbor caplet : new CapFloorIbor[] {CAPLET_LONG, FLOORLET_SHORT }) {
       System.out.println("isCap: " + caplet.isCap());
       System.out.println("non corrected price: " + cal.simpleCapletPrice(caplet) * caplet.getNotional());
-    for (int i = 0; i < 11; i++) {
-      double mu = 1.0 + 0.25 * i;
-      BenaimDodgsonKainthExtrapolationFunctionProvider provider = new BenaimDodgsonKainthExtrapolationFunctionProvider(mu, mu);
-      SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
-      double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-      System.out.println("mu: " + mu + ", pv: " + pv);
-    }
+      for (int i = 0; i < 11; i++) {
+        double mu = 1.0 + 0.25 * i;
+        BenaimDodgsonKainthExtrapolationFunctionProvider provider = new BenaimDodgsonKainthExtrapolationFunctionProvider(mu, mu);
+        SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
+        double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
+        System.out.println("mu: " + mu + ", pv: " + pv);
+      }
       System.out.println();
     }
     System.out.println("\n");
   }
-  
+
   /**
    * Global Direct stripper with local SABR + shifted lognormal
    */
@@ -659,8 +653,6 @@ public class CouponInArrearsCalculationTest {
 
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
-    //    List<CapFloor> caps = CapletStrippingSetup.getAllCaps();
-    //    double[] capVols = CapletStrippingSetup.getAllCapVols();
 
     MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(caps, CURVES);
 
@@ -693,17 +685,17 @@ public class CouponInArrearsCalculationTest {
       System.out.println("isCap: " + caplet.isCap());
       System.out.println("non corrected price: " + cal.simpleCapletPrice(caplet) * caplet.getNotional());
 
-    ShiftedLogNormalExtrapolationFunctionProvider provider = new ShiftedLogNormalExtrapolationFunctionProvider(
-        "Quiet");
-    SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
-    double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-    System.out.println("pv(Quiet): " + pv);
+      ShiftedLogNormalExtrapolationFunctionProvider provider = new ShiftedLogNormalExtrapolationFunctionProvider(
+          "Quiet");
+      SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
+      double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
+      System.out.println("pv(Quiet): " + pv);
 
-    provider = new ShiftedLogNormalExtrapolationFunctionProvider("Flat");
-    sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
-    pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-    System.out.println("pv(Flat): " + pv);
-    System.out.println();
+      provider = new ShiftedLogNormalExtrapolationFunctionProvider("Flat");
+      sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
+      pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
+      System.out.println("pv(Flat): " + pv);
+      System.out.println();
     }
     System.out.println();
 
@@ -726,12 +718,12 @@ public class CouponInArrearsCalculationTest {
           "Quiet");
       SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
       double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-    System.out.println("pv(Quiet): " + pv);
+      System.out.println("pv(Quiet): " + pv);
 
-    provider = new ShiftedLogNormalExtrapolationFunctionProvider("Flat");
-    sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
-    pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-    System.out.println("pv(Flat): " + pv);
+      provider = new ShiftedLogNormalExtrapolationFunctionProvider("Flat");
+      sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
+      pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
+      System.out.println("pv(Flat): " + pv);
       System.out.println();
     }
     System.out.println("\n");
@@ -746,15 +738,12 @@ public class CouponInArrearsCalculationTest {
 
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
-    //    List<CapFloor> caps = CapletStrippingSetup.getAllCaps();
-    //    double[] capVols = CapletStrippingSetup.getAllCapVols();
     MultiCapFloorPricer pricer = new MultiCapFloorPricer(caps, CURVES);
 
     double oneBP = 1e-4;
     int nCaps = caps.size();
     double[] errors = new double[nCaps];
     Arrays.fill(errors, oneBP); // 1bps
-
 
     CapletStripper stripper = new CapletStripperSABRModel(pricer, s_providers);
     CouponInArrearsCalculation cal = new CouponInArrearsCalculation(stripper, caps, capVols, MarketDataType.VOL,
@@ -767,16 +756,16 @@ public class CouponInArrearsCalculationTest {
       System.out.println("isCap: " + caplet.isCap());
       System.out.println("non corrected price: " + cal.simpleCapletPrice(caplet) * caplet.getNotional());
 
-    ShiftedLogNormalExtrapolationFunctionProvider provider = new ShiftedLogNormalExtrapolationFunctionProvider(
-        "Quiet");
-    SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
-    double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-    System.out.println("pv(Quiet): " + pv);
+      ShiftedLogNormalExtrapolationFunctionProvider provider = new ShiftedLogNormalExtrapolationFunctionProvider(
+          "Quiet");
+      SmileInterpolatorSABRWithExtrapolation sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
+      double pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
+      System.out.println("pv(Quiet): " + pv);
 
-    provider = new ShiftedLogNormalExtrapolationFunctionProvider("Flat");
-    sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
-    pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
-    System.out.println("pv(Flat): " + pv);
+      provider = new ShiftedLogNormalExtrapolationFunctionProvider("Flat");
+      sabrExtrap = new SmileInterpolatorSABRWithExtrapolation(provider);
+      pv = cal.presentValue(caplet, sabrExtrap).getAmount(USD).getAmount();
+      System.out.println("pv(Flat): " + pv);
       System.out.println();
     }
     System.out.println("\n");
@@ -882,8 +871,6 @@ public class CouponInArrearsCalculationTest {
     System.out.println("***Interpolated SABR parameter stripper***");
     List<CapFloor> caps = CapletStrippingSetup.getAllCapsExATM();
     double[] capVols = CapletStrippingSetup.getAllCapVolsExATM();
-    //    List<CapFloor> caps = CapletStrippingSetup.getAllCaps();
-    //    double[] capVols = CapletStrippingSetup.getAllCapVols();
     double oneBP = 1e-4;
     int nCaps = caps.size();
 

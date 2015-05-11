@@ -19,7 +19,6 @@ import com.opengamma.analytics.util.timeseries.AbstractPreciseDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.PreciseDoubleTimeSeries;
 
-
 /**
  * Abstract implementation of {@code ZonedDateTimeDoubleTimeSeries}.
  */
@@ -566,12 +565,12 @@ abstract class AbstractZonedDateTimeDoubleTimeSeries
     if (obj instanceof AbstractZonedDateTimeDoubleTimeSeries) {
       AbstractZonedDateTimeDoubleTimeSeries other = (AbstractZonedDateTimeDoubleTimeSeries) obj;
       return Arrays.equals(timesArrayFast0(), other.timesArrayFast0()) &&
-              Arrays.equals(valuesArrayFast0(), other.valuesArrayFast0());
+          Arrays.equals(valuesArrayFast0(), other.valuesArrayFast0());
     }
     if (obj instanceof PreciseDoubleTimeSeries) {
       PreciseDoubleTimeSeries<?> other = (PreciseDoubleTimeSeries<?>) obj;
       return Arrays.equals(timesArrayFast0(), other.timesArrayFast()) &&
-              Arrays.equals(valuesArrayFast0(), other.valuesArrayFast());
+          Arrays.equals(valuesArrayFast0(), other.valuesArrayFast());
     }
     return false;
   }

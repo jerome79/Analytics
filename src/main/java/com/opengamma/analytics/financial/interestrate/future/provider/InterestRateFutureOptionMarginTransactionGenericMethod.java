@@ -47,7 +47,8 @@ public abstract class InterestRateFutureOptionMarginTransactionGenericMethod<DAT
    */
   public MultiCurrencyAmount presentValueFromPrice(final InterestRateFutureOptionMarginTransaction option, final double price) {
     ArgChecker.notNull(option, "Option on STIR futures");
-    double pv = (price - option.getReferencePrice()) * option.getUnderlyingSecurity().getUnderlyingFuture().getPaymentAccrualFactor() * option.getUnderlyingSecurity().getUnderlyingFuture().getNotional()
+    double pv = (price - option.getReferencePrice()) * option.getUnderlyingSecurity().getUnderlyingFuture().getPaymentAccrualFactor() *
+        option.getUnderlyingSecurity().getUnderlyingFuture().getNotional()
         * option.getQuantity();
     return MultiCurrencyAmount.of(option.getUnderlyingSecurity().getCurrency(), pv);
   }

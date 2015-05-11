@@ -26,10 +26,8 @@ public class PDE1DCoefficientsProvider {
   private static final Surface<Double, Double, Double> ZERO_SURFACE = ConstantDoublesSurface.from(0.0);
   private static final Surface<Double, Double, Double> UNITY_SURFACE = ConstantDoublesSurface.from(1.0);
 
-  // ******************************************************************************************************************************
   // Backwards PDEs - the initial condition is the option payoff at expiry, T, and the PDE is solved backwards in time, t.
   // In this setup, the time coordinate is time-to-expiry tau = T-t, so this initial condition is at tau = 0
-  // ******************************************************************************************************************************
 
   /**
    * Sets up a standard Black-Scholes PDE
@@ -455,11 +453,9 @@ public class PDE1DCoefficientsProvider {
     return new ConvectionDiffusionPDE1DStandardCoefficients(FunctionalDoublesSurface.from(a), FunctionalDoublesSurface.from(b), ZERO_SURFACE);
   }
 
-  // ******************************************************************************************************************************
   // Forward PDEs - the initial condition is at expiry, T = 0, and the PDE is solved forward in expiry time, T (calendar time t remains zero).
   // In this setup the coordinates are T and strike, k, so solving the PDE gives a set rather that a single option price
   // (NOTE: only option prices with European call and put payoffs can be transformed into a forward PDE)
-  // ******************************************************************************************************************************
 
   /**
    * Classic (i.e. formulated in terms of constant instantaneous short rates) forward PDE setup for option price under a BlackSholes framework.
@@ -581,9 +577,7 @@ public class PDE1DCoefficientsProvider {
     return getForwardLocalVol(lvm);
   }
 
-  // ******************************************************************************************************************************
   // Forward PDEs for the transition density $P(t,S_t,T,S_T)$
-  // ******************************************************************************************************************************
 
   /**
    * The Fokker-Plank equation with a deterministic (time dependent) short-rate and a local volatility (i.e. a instantaneous volatility that is

@@ -76,7 +76,7 @@ public class LaguerrePolynomialFunctionTest {
 
   };
 
-  private static final DoubleFunction1D[] L = new DoubleFunction1D[] {L0, L1, L2, L3, L4, L5, L6};
+  private static final DoubleFunction1D[] L = new DoubleFunction1D[] {L0, L1, L2, L3, L4, L5, L6 };
   private static final LaguerrePolynomialFunction LAGUERRE = new LaguerrePolynomialFunction();
   private static final double EPS = 1e-12;
 

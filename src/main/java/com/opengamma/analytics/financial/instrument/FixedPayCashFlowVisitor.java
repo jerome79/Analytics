@@ -173,6 +173,7 @@ public final class FixedPayCashFlowVisitor extends InstrumentDefinitionVisitorSa
   public Map<LocalDate, MultiCurrencyAmount> visitCouponIborSpreadDefinition(final CouponIborSpreadDefinition coupon) {
     return visitCouponIborSpreadDefinition(coupon, null);
   }
+
   /**
    * If the notional is positive (i.e. the coupon will be received), returns an empty map.
    * If the fixing date is before the last date in the index fixing time series (i.e. the fixing has taken place),

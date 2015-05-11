@@ -104,7 +104,6 @@ public final class EquityOptionBlackMethod {
     return -ttm * pv;
   }
 
-
   /**
    * Computes the sensitivity of the present value wrt the discounting rate assuming one is hedging with the Spot underlying, S. <p>
    * This differs from rhoBlack in which one forms a hedging portfolio with a discount bond and the Forward, F.

@@ -17,8 +17,6 @@ import org.testng.annotations.Test;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
-
 /**
  * Test.
  */
@@ -30,7 +28,6 @@ public class JPYTest extends ISDABaseTest {
   private static final CDSAnalyticFactory FACTORY = new CDSAnalyticFactory(0.35).with(TYO_CAL);
   private static final FiniteDifferenceSpreadSensitivityCalculator CS01_CAL = new FiniteDifferenceSpreadSensitivityCalculator();
 
-  @Test
   public void test() {
     final double coupon = 0.01;
     final double tradeLevel = 0.012;
@@ -57,13 +54,6 @@ public class JPYTest extends ISDABaseTest {
     assertEquals(7.5e9, accAmt);
     assertEquals("cashSettle", 91814571779.0, cashSettle, 1);
     assertEquals("CS01", 4924458158.0, cs01, 1);
-
-    //    System.out.println("Accrued Days: " + cds.getAccuredDays());
-    //    System.out.println("Accrued Amt: " + accAmt);
-    //    System.out.println("PUF: " + 100 * puf.getPointsUpFront() + "%");
-    //    System.out.println("clean price: " + 100 * (1 - puf.getPointsUpFront()) + "%");
-    //    System.out.println("Cash Settlement: " + cashSettle);
-    //    System.out.println("CS01: " + cs01);
   }
 
 }

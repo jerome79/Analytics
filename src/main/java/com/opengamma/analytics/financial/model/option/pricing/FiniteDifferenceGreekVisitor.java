@@ -19,7 +19,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * @param <S> Type of the option data bundle
  * @param <T> Type of the option definition

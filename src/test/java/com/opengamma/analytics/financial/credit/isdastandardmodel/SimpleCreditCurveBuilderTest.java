@@ -7,8 +7,6 @@ package com.opengamma.analytics.financial.credit.isdastandardmodel;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

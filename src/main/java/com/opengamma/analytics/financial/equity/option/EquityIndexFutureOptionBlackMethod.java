@@ -100,7 +100,7 @@ public final class EquityIndexFutureOptionBlackMethod {
     final double securityPrice = presentValue(derivative, marketData);
     return securityPrice - derivative.getPointValue() * derivative.getReferencePrice();
   }
-  
+
   /**
    * Computes the sensitivity of the present value wrt the discounting rate assuming one is hedging with the Forward, F. <p>
    * In this case, the arguments d1,d2 in the cumulative normal calls have no rates dependence.
@@ -115,7 +115,7 @@ public final class EquityIndexFutureOptionBlackMethod {
     final double pv = presentValue(derivative, marketData) / derivative.getPointValue();
     return -ttm * pv;
   }
-  
+
   /**
    * Computes the sensitivity of the present value wrt the discounting rate assuming one is hedging with the Spot underlying, S. <p>
    * This differs from rhoBlack in which one forms a hedging portfolio with a discount bond and the Forward, F.

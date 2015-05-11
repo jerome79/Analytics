@@ -288,7 +288,6 @@ public class EquityDerivativeSensitivityCalculator {
           final Function1D<Double, Double>[] scenarioSmileFits = Arrays.copyOf(smileFitsBase, smileFitsBase.length);
           scenarioSmileFits[t] = thisExpirysSmile;
           final BlackVolatilitySurfaceMoneynessFcnBackedByGrid shiftedSurface = surfaceInterpolator.combineIndependentSmileFits(scenarioSmileFits, volGrid);
-          //BlackVolatilitySurfaceMoneynessFcnBackedByGrid shiftedSurface = surfaceInterpolator.getBumpedVolatilitySurface(volGrid, t, k, -shift);
           final StaticReplicationDataBundle shiftedMarket = market.withShiftedSurface(shiftedSurface);
           final Double pvScenario = option.accept(_pricer, shiftedMarket);
 

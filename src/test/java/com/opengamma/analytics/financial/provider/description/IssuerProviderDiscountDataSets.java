@@ -40,7 +40,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.strata.basics.location.Country;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Sets of market data used in tests. With issuers.
  */

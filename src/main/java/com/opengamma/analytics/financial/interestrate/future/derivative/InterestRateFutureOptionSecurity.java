@@ -40,9 +40,9 @@ public abstract class InterestRateFutureOptionSecurity extends FuturesSecurity {
    * @param isCall The cap (true) / floor (false) flag.
    */
   public InterestRateFutureOptionSecurity(InterestRateFutureSecurity underlyingFuture,
-                                          double expirationTime,
-                                          double strike,
-                                          boolean isCall) {
+      double expirationTime,
+      double strike,
+      boolean isCall) {
     super(expirationTime);
     _underlyingFuture = ArgChecker.notNull(underlyingFuture, "underlying future");
     _expirationTime = ArgChecker.notNull(expirationTime, "expirationTime");
@@ -90,7 +90,6 @@ public abstract class InterestRateFutureOptionSecurity extends FuturesSecurity {
   public Currency getCurrency() {
     return _underlyingFuture.getCurrency();
   }
-
 
   @Override
   public String toString() {

@@ -166,9 +166,7 @@ public class CapletStrippingCore {
     return leastSqrSolveForCapVols(capVols, errors, start);
   }
 
-  // ************************************************************************************************************
   // Least Square Methods
-  // ************************************************************************************************************
 
   /**
    * This solves for cap price in an (unweighed) least-square sense
@@ -240,9 +238,7 @@ public class CapletStrippingCore {
     return new CapletStrippingResultLeastSquare(res, _volFunc, _pricer);
   }
 
-  // ************************************************************************************************************
   // Root Finding Methods
-  // ************************************************************************************************************
 
   /**
    * Root-find for the cap prices
@@ -279,9 +275,7 @@ public class CapletStrippingCore {
     return new CapletStrippingResultRootFind(res, _volFunc, _pricer);
   }
 
-  // ************************************************************************************************************
   // Penalty Methods
-  // ************************************************************************************************************
 
   /**
    * This solves for cap price in a penalised least-square sense (weighted by the errors).
@@ -384,9 +378,7 @@ public class CapletStrippingCore {
     }
   }
 
-  // ************************************************************************************************************
   // Functions
-  // ************************************************************************************************************
 
   /**
    * get the cap price function which takes a set of model parameters and returns cap prices. <b>Note:</b> protected

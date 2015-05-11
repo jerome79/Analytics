@@ -7,6 +7,7 @@ package com.opengamma.analytics.financial.provider.description.interestrate;
 
 import com.opengamma.analytics.financial.model.interestrate.definition.HullWhiteOneFactorPiecewiseConstantParameters;
 import com.opengamma.strata.basics.currency.Currency;
+
 /**
  * Interface for a Hull-White one-factor parameters provider.
  */

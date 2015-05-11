@@ -81,7 +81,6 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
     ZonedDateTime[] accrualEndDates = getAccrualEndDates();
     ZonedDateTime startDate = getStartDate();
     //    startDate = getAccrualPeriodAdjustmentParameters().getBusinessDayConvention().adjustDate(
-    //        getAccrualPeriodAdjustmentParameters().getCalendar(), startDate);
     ZonedDateTime[] accrualStartDates = ScheduleCalculator.getStartDates(startDate, accrualEndDates);
     resetNotionalProvider(accrualStartDates);
 
@@ -115,12 +114,6 @@ public class FixedAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuil
     CouponDefinition[] coupons;
 
     if (Math.abs(_rate) < 1e-16) {
-      //        coupons = new CouponDefinition[exchangeNotionalCoupons];
-      //        if (isExchangeInitialNotional()) {
-      //          coupons[0] = getExchangeInitialNotionalCoupon();
-      //        } else if (isExchangeFinalNotional()) {
-      //          coupons[coupons.length - 1] = getExchangeFinalNotionalCoupon();
-      //        }
       coupons = new CouponDefinition[1];
       coupons[0] = getExchangeFinalNotionalCoupon();
     } else {

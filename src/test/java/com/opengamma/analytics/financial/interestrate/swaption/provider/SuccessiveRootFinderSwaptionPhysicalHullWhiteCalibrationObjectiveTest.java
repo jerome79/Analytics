@@ -64,7 +64,7 @@ public class SuccessiveRootFinderSwaptionPhysicalHullWhiteCalibrationObjectiveTe
   private static final int SWAP_TENOR_YEAR = 9;
   private static final IndexSwap SWAP_INDEX = new IndexSwap(EUR1YEURIBOR3M, Period.ofYears(SWAP_TENOR_YEAR));
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2011, 8, 18);
-  private static final int[] EXPIRY_TENOR = new int[] {1, 2, 3, 4, 5};
+  private static final int[] EXPIRY_TENOR = new int[] {1, 2, 3, 4, 5 };
   private static final ZonedDateTime[] EXPIRY_DATE = new ZonedDateTime[EXPIRY_TENOR.length];
   private static final ZonedDateTime[] SETTLEMENT_DATE = new ZonedDateTime[EXPIRY_TENOR.length];
   private static final SwapFixedIborDefinition[] SWAP_PAYER_DEFINITION = new SwapFixedIborDefinition[EXPIRY_TENOR.length];
@@ -95,7 +95,7 @@ public class SuccessiveRootFinderSwaptionPhysicalHullWhiteCalibrationObjectiveTe
    */
   public void calibration() {
     final double meanReversion = 0.01;
-    final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(meanReversion, new double[] {0.01}, new double[0]);
+    final HullWhiteOneFactorPiecewiseConstantParameters hwParameters = new HullWhiteOneFactorPiecewiseConstantParameters(meanReversion, new double[] {0.01 }, new double[0]);
     final SuccessiveRootFinderHullWhiteCalibrationObjective objective = new SuccessiveRootFinderHullWhiteCalibrationObjective(hwParameters, EUR);
     final SuccessiveRootFinderHullWhiteCalibrationEngine<SABRSwaptionProviderInterface> calibrationEngine = new SuccessiveRootFinderHullWhiteCalibrationEngine<>(objective);
     for (int loopexp = 0; loopexp < EXPIRY_TENOR.length; loopexp++) {

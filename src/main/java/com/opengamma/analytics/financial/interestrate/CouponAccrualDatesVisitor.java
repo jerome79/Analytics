@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-
 import java.time.LocalDate;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitorAdapter;
@@ -127,7 +126,7 @@ public class CouponAccrualDatesVisitor extends InstrumentDefinitionVisitorAdapte
       CouponONSpreadDefinition payment) {
     return Pair.of(payment.getAccrualStartDate().toLocalDate(), payment.getAccrualEndDate().toLocalDate());
   }
-  
+
   @Override
   public Pair<LocalDate, LocalDate> visitCouponArithmeticAverageONDefinition(
       CouponONArithmeticAverageDefinition payment) {

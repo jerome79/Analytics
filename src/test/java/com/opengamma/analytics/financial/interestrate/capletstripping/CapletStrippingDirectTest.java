@@ -25,7 +25,6 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquareWithPenalty;
 
-
 /**
  * 
  */
@@ -108,7 +107,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
     Arrays.fill(errors, 1e-4); // 1bps
     DoubleMatrix1D guess = new DoubleMatrix1D(pricer.getGridSize(), 0.7);
 
-    CapletStrippingResult  res = stripper.solve(capVols, MarketDataType.VOL, errors, guess);
+    CapletStrippingResult res = stripper.solve(capVols, MarketDataType.VOL, errors, guess);
     double expectedChi2 = 106.90744994488705;
     assertEquals(expectedChi2, res.getChiSqr(), expectedChi2 * 1e-8);
   }
@@ -118,7 +117,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
    */
   @Test
   public void unitErrorVolTest() {
-    double lambda = 1e-8 *  0.03; //scale lambda
+    double lambda = 1e-8 * 0.03; //scale lambda
     MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(getAllCapsExATM(), getYieldCurves());
     CapletStripperDirect stripper = new CapletStripperDirect(pricer, lambda);
 
@@ -136,7 +135,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
    */
   @Test
   public void defaultGuessUnitErrorVolTest() {
-    double lambda = 1e-8 *  0.03; //scale lambda
+    double lambda = 1e-8 * 0.03; //scale lambda
     MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(getAllCapsExATM(), getYieldCurves());
     CapletStripperDirect stripper = new CapletStripperDirect(pricer, lambda);
 
@@ -146,7 +145,6 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
     double expectedChi2 = 1.0691292714566707E-6;
     assertEquals(expectedChi2, res.getChiSqr(), expectedChi2 * 1e-8);
   }
-
 
   @Test
   public void atmCapsVolTest() {
@@ -161,7 +159,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
     DoubleMatrix1D guess = new DoubleMatrix1D(pricer.getGridSize(), 0.7);
 
     CapletStrippingResult res = stripper.solve(capVols, MarketDataType.VOL, errors, guess);
-    // System.out.println(res);
+
     assertEquals(5.7604902403614915, res.getChiSqr(), 1e-8);
   }
 
@@ -241,7 +239,6 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
       pos += m;
     }
     guess = new DoubleMatrix1D(data);
-    // System.out.println(guess);
     CapletStrippingResult res = stripper.solve(capVols, MarketDataType.VOL, errors, guess);
     double expChi2 = 106.90677987330128;
     assertEquals(expChi2, res.getChiSqr(), expChi2 * 1e-8);
@@ -318,84 +315,6 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
       compareJacobianFunc(pJacFun, pJacFunFD, x, 1e-11);
       compareJacobianFunc(vJacFun, vJacFunFD, x, 1e-4);
     }
-  }
-
-  /**
-   * Calculate the jacobian (for price and volatility) at a random set of points to establish the average time to
-   * compute. This is about 7ms and 0.3ms for vol and price Jacobian respectively (for 975 by 975 matrices)
-   */
-  @Test(enabled = false)
-  public void timingTest() {
-    MultiCapFloorPricerGrid pricer = new MultiCapFloorPricerGrid(getAllCaps(), getYieldCurves());
-    int size = pricer.getGridSize();
-    DiscreteVolatilityFunctionProvider volPro = new DiscreteVolatilityFunctionProviderDirect();
-    CapletStrippingCore imp = new CapletStrippingCore(pricer, volPro);
-
-    Function1D<DoubleMatrix1D, DoubleMatrix1D> vFunc = imp.getCapVolFunction();
-    Function1D<DoubleMatrix1D, DoubleMatrix1D> pFunc = imp.getCapPriceFunction();
-    Function1D<DoubleMatrix1D, DoubleMatrix2D> vJacFunc = imp.getCapVolJacobianFunction();
-    Function1D<DoubleMatrix1D, DoubleMatrix2D> pJacFunc = imp.getCapPriceJacobianFunction();
-
-    int warmup = 200;
-    int hotspot = 1000;
-
-    double tvFun = funcTiming(size, vFunc, warmup, hotspot);
-    double tvJacFun = jacTiming(size, vJacFunc, warmup, hotspot);
-    double tpFun = funcTiming(size, pFunc, warmup, hotspot);
-    double tpJacFun = jacTiming(size, pJacFunc, warmup, hotspot);
-
-    System.out.println("Time for vol function: " + tvFun + "s. Time for vol Jacobian: " + tvJacFun + "s");
-    System.out.println("Time for price function: " + tpFun + "s. Time for price Jacobian: " + tpJacFun + "s");
-  }
-
-  private double funcTiming(int nParms, Function1D<DoubleMatrix1D, DoubleMatrix1D> func, int warmup, int hotspot) {
-
-    for (int i = 0; i < warmup; i++) {
-      genFunc(nParms, func);
-    }
-
-    long tStart = System.nanoTime();
-    for (int i = 0; i < hotspot; i++) {
-      genFunc(nParms, func);
-    }
-    long tEnd = System.nanoTime();
-    return (1e-9 * (tEnd - tStart)) / hotspot;
-  }
-
-  private double genFunc(int nParms, Function1D<DoubleMatrix1D, DoubleMatrix1D> func) {
-    DoubleMatrix1D x = new DoubleMatrix1D(new double[nParms]);
-    double[] data = x.getData();
-
-    for (int i = 0; i < nParms; i++) {
-      data[i] = 0.05 + RANDOM.nextDouble();
-    }
-    DoubleMatrix1D y = func.evaluate(x);
-    return y.getEntry(0) * 2.0;
-  }
-
-  private double jacTiming(int nParms, Function1D<DoubleMatrix1D, DoubleMatrix2D> jacFunc, int warmup, int hotspot) {
-
-    for (int i = 0; i < warmup; i++) {
-      genJac(nParms, jacFunc);
-    }
-
-    long tStart = System.nanoTime();
-    for (int i = 0; i < hotspot; i++) {
-      genJac(nParms, jacFunc);
-    }
-    long tEnd = System.nanoTime();
-    return (1e-9 * (tEnd - tStart)) / hotspot;
-  }
-
-  private double genJac(int nParms, Function1D<DoubleMatrix1D, DoubleMatrix2D> jacFunc) {
-    DoubleMatrix1D x = new DoubleMatrix1D(new double[nParms]);
-    double[] data = x.getData();
-
-    for (int i = 0; i < nParms; i++) {
-      data[i] = RANDOM.nextDouble();
-    }
-    DoubleMatrix2D jac = jacFunc.evaluate(x);
-    return jac.getEntry(0, 0) * 2.0;
   }
 
 }

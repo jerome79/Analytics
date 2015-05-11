@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.provider;
 
-
 /**
  * Methods for the pricing of Federal Funds futures transactions by discounting (no convexity adjustment).
  */

@@ -600,7 +600,6 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
     return getValue(xyz.getFirst(), xyz.getSecond(), xyz.getThird());
   }
 
-
   /**
    * @return The plane of the surfaces
    */

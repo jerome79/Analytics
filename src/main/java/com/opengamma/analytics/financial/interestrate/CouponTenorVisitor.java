@@ -77,37 +77,37 @@ public final class CouponTenorVisitor extends InstrumentDefinitionVisitorAdapter
       CouponIborCompoundingFlatSpreadDefinition definition) {
     return Sets.newHashSet(ComparableTenor.of(definition.getIndex().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborCompoundingSimpleSpreadDefinition(
       CouponIborCompoundingSimpleSpreadDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborRatchetDefinition(CouponIborRatchetDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborAverageDefinition(CouponIborAverageIndexDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex1().getTenor()), ComparableTenor.of(payment.getIndex2().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborAverageCompoundingDefinition(
-        CouponIborAverageFixingDatesCompoundingDefinition payment) {
+      CouponIborAverageFixingDatesCompoundingDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborAverageFixingDatesDefinition(CouponIborAverageFixingDatesDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborAverageFlatCompoundingSpreadDefinition(
-        CouponIborAverageFixingDatesCompoundingFlatSpreadDefinition payment) {
+      CouponIborAverageFixingDatesCompoundingFlatSpreadDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex().getTenor()));
   }
 
@@ -115,12 +115,12 @@ public final class CouponTenorVisitor extends InstrumentDefinitionVisitorAdapter
   public Set<ComparableTenor> visitCouponOISDefinition(CouponONDefinition definition) {
     return Sets.newHashSet(ComparableTenor.ON);
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponOISSimplifiedDefinition(CouponONSimplifiedDefinition payment) {
     return Sets.newHashSet(ComparableTenor.ON);
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponArithmeticAverageONDefinition(CouponONArithmeticAverageDefinition payment) {
     return Sets.newHashSet(ComparableTenor.ON);
@@ -131,7 +131,7 @@ public final class CouponTenorVisitor extends InstrumentDefinitionVisitorAdapter
       CouponONArithmeticAverageSpreadDefinition definition) {
     return Sets.newHashSet(ComparableTenor.ON);
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponArithmeticAverageONSpreadSimplifiedDefinition(
       CouponONArithmeticAverageSpreadSimplifiedDefinition payment) {
@@ -142,12 +142,12 @@ public final class CouponTenorVisitor extends InstrumentDefinitionVisitorAdapter
   public Set<ComparableTenor> visitCouponONSpreadDefinition(final CouponONSpreadDefinition definition) {
     return Sets.newHashSet(ComparableTenor.ON);
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponONSpreadSimplifiedDefinition(CouponONSpreadSimplifiedDefinition payment) {
     return Sets.newHashSet(ComparableTenor.ON);
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponONCompoundedDefinition(CouponONCompoundedDefinition payment) {
     return Sets.newHashSet(ComparableTenor.ON);
@@ -157,17 +157,17 @@ public final class CouponTenorVisitor extends InstrumentDefinitionVisitorAdapter
   public Set<ComparableTenor> visitCouponFixedDefinition(final CouponFixedDefinition definition) {
     return Collections.emptySet();
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponIborCompoundingSpreadDefinition(CouponIborCompoundingSpreadDefinition payment) {
     return Sets.newHashSet(ComparableTenor.of(payment.getIndex().getTenor()));
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponFixedAccruedCompoundingDefinition(CouponFixedAccruedCompoundingDefinition payment) {
     return Collections.emptySet();
   }
-  
+
   @Override
   public Set<ComparableTenor> visitCouponFixedCompoundingDefinition(CouponFixedCompoundingDefinition payment) {
     return Collections.emptySet();

@@ -134,7 +134,6 @@ public class DepositCounterpartDefinition extends CashDefinition {
     return _name;
   }
 
-
   @Override
   public DepositCounterpart toDerivative(final ZonedDateTime date) {
     ArgChecker.isTrue(!date.isAfter(getEndDate()), "date is after end date");

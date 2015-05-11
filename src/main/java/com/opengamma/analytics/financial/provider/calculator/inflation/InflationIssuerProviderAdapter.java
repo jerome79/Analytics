@@ -16,9 +16,9 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  * @param <RESULT_TYPE> The result-type for the provider.
  */
-public class InflationIssuerProviderAdapter<RESULT_TYPE> 
-  extends InstrumentDerivativeVisitorSameMethodAdapter<ParameterInflationIssuerProviderInterface, RESULT_TYPE> {
-  
+public class InflationIssuerProviderAdapter<RESULT_TYPE>
+    extends InstrumentDerivativeVisitorSameMethodAdapter<ParameterInflationIssuerProviderInterface, RESULT_TYPE> {
+
   private final InstrumentDerivativeVisitor<ParameterInflationProviderInterface, RESULT_TYPE> _visitor;
 
   public InflationIssuerProviderAdapter(final InstrumentDerivativeVisitor<ParameterInflationProviderInterface, RESULT_TYPE> visitor) {

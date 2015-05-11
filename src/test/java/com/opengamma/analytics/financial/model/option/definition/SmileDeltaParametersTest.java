@@ -13,7 +13,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.B
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackPriceFunction;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 
-
 /**
  * Tests related to the construction of the data required to describe a delta dependent smile from ATM, risk reversal and strangle as used in Forex market.
  */
@@ -23,9 +22,9 @@ public class SmileDeltaParametersTest {
   private static final double TIME_TO_EXPIRY = 2.0;
   private static final double FORWARD = 1.40;
   private static final double ATM = 0.185;
-  private static final double[] DELTA = new double[] {0.10, 0.25};
-  private static final double[] RISK_REVERSAL = new double[] {-0.0130, -0.0050};
-  private static final double[] STRANGLE = new double[] {0.0300, 0.0100};
+  private static final double[] DELTA = new double[] {0.10, 0.25 };
+  private static final double[] RISK_REVERSAL = new double[] {-0.0130, -0.0050 };
+  private static final double[] STRANGLE = new double[] {0.0300, 0.0100 };
 
   private static final SmileDeltaParameters SMILE = new SmileDeltaParameters(TIME_TO_EXPIRY, ATM, DELTA, RISK_REVERSAL, STRANGLE);
 
@@ -44,7 +43,6 @@ public class SmileDeltaParametersTest {
     new SmileDeltaParameters(TIME_TO_EXPIRY, ATM, DELTA, RISK_REVERSAL, new double[3]);
   }
 
-  @Test
   /**
    * Tests the constructor directly from volatilities (not RR and S).
    */
@@ -54,7 +52,6 @@ public class SmileDeltaParametersTest {
     assertEquals("Smile by delta: constructor", SMILE, smileFromVolatility);
   }
 
-  @Test
   /**
    * Tests the getters.
    */
@@ -65,7 +62,6 @@ public class SmileDeltaParametersTest {
     assertEquals("Smile by delta: volatility", SMILE.getVolatility(), smile2.getVolatility());
   }
 
-  @Test
   /**
    * Tests the volatility computations.
    */
@@ -79,7 +75,6 @@ public class SmileDeltaParametersTest {
     }
   }
 
-  @Test
   /**
    * Tests the strikes computations.
    */
@@ -104,30 +99,6 @@ public class SmileDeltaParametersTest {
     EuropeanVanillaOption optionCall = new EuropeanVanillaOption(strike[nbDelta], TIME_TO_EXPIRY, true);
     double[] dCall = function.getPriceAdjoint(optionCall, data);
     assertEquals("Strike: ATM", dCall[1] + dPut[1], 0.0, 1.0E-8);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    int nbDelta = DELTA.length;
-    long startTime, endTime;
-    final int nbTest = 1000;
-    SmileDeltaParameters[] smile = new SmileDeltaParameters[nbTest];
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      smile[looptest] = new SmileDeltaParameters(TIME_TO_EXPIRY, ATM, DELTA, RISK_REVERSAL, STRANGLE);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " smile from ATM/RR/S in delta term: " + (endTime - startTime) + " ms");
-    startTime = System.currentTimeMillis();
-    double[][] strikes = new double[nbTest][2 * nbDelta + 1];
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      strikes[looptest] = SMILE.getStrike(FORWARD);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " smile from ATM/RR/S in delta term: " + (endTime - startTime) + " ms");
   }
 
 }

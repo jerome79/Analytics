@@ -41,7 +41,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test related to the construction of annuities definition of different types.
  */
@@ -378,7 +377,6 @@ public class AnnuityDefinitionBuilderTest {
   public void couponIborStandardNotionalStartEnd() {
     ZonedDateTime settlementDate = DateUtils.getUTCDate(2013, 9, 20);
     ZonedDateTime maturityDate = settlementDate.plusYears(2);
-    //    Period paymentPeriod = Period.ofMonths(6);
     final StubConvention stub = StubConvention.SHORT_INITIAL;
     AnnuityDefinition<CouponDefinition> leg = AnnuityDefinitionBuilder.couponIborWithNotional(settlementDate, maturityDate, NOTIONAL,
         USDLIBOR6M, true, NYC, stub, 0, true, true);
@@ -404,7 +402,6 @@ public class AnnuityDefinitionBuilderTest {
   public void couponIborStandardNotionalConventionStartEnd() {
     ZonedDateTime settlementDate = DateUtils.getUTCDate(2013, 9, 20);
     ZonedDateTime maturityDate = settlementDate.plusYears(2);
-    //    Period paymentPeriod = Period.ofMonths(6);
     final StubConvention stub = StubConvention.SHORT_INITIAL;
     AnnuityDefinition<CouponDefinition> leg = AnnuityDefinitionBuilder.couponIborWithNotional(settlementDate, maturityDate, NOTIONAL,
         USDLIBOR6M, ACT_365, PRECEDING, false, USDLIBOR6M.getTenor(), true, NYC, stub, 0, true, true);
@@ -745,7 +742,6 @@ public class AnnuityDefinitionBuilderTest {
   public void couponIborSpreadStandardNotionalStartEnd() {
     ZonedDateTime settlementDate = DateUtils.getUTCDate(2013, 9, 20);
     ZonedDateTime maturityDate = settlementDate.plusYears(2);
-    //    Period paymentPeriod = Period.ofMonths(6);
     final StubConvention stub = StubConvention.SHORT_INITIAL;
     AnnuityDefinition<CouponDefinition> leg = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(settlementDate, maturityDate, NOTIONAL,
         SPREAD, USDLIBOR6M, true, NYC, stub, 0, true, true);
@@ -771,7 +767,6 @@ public class AnnuityDefinitionBuilderTest {
   public void couponIborSpreadStandardNotionalConventionStartEnd() {
     ZonedDateTime settlementDate = DateUtils.getUTCDate(2013, 9, 20);
     ZonedDateTime maturityDate = settlementDate.plusYears(2);
-    //    Period paymentPeriod = Period.ofMonths(6);
     final StubConvention stub = StubConvention.SHORT_INITIAL;
     AnnuityDefinition<CouponDefinition> leg = AnnuityDefinitionBuilder.couponIborSpreadWithNotional(settlementDate, maturityDate, NOTIONAL,
         SPREAD, USDLIBOR6M, ACT_365, PRECEDING, false, USDLIBOR6M.getTenor(), true, NYC, stub, 0, true, true);

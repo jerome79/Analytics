@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.util.time.DateUtils;
 
-
 /**
  * Abstract test.
  */

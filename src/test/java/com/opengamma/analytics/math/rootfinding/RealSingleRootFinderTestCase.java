@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Abstract test.
  */
@@ -26,17 +25,17 @@ public abstract class RealSingleRootFinderTestCase {
   protected static final double EPS = 1e-9;
 
   protected abstract RealSingleRootFinder getRootFinder();
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFunction() {
     getRootFinder().checkInputs(null, 1., 2.);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullLower() {
     getRootFinder().checkInputs(F, null, 2.);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullUpper() {
     getRootFinder().checkInputs(F, 1., null);
@@ -46,12 +45,12 @@ public abstract class RealSingleRootFinderTestCase {
   public void testOutsideRoots() {
     getRootFinder().getRoot(F, 10., 100.);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testBracketTwoRoots() {
     getRootFinder().getRoot(F, 1.5, 3.5);
   }
-  
+
   @Test
   public void test() {
     RealSingleRootFinder finder = getRootFinder();

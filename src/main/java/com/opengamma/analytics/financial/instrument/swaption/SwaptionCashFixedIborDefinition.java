@@ -112,7 +112,6 @@ public final class SwaptionCashFixedIborDefinition implements InstrumentDefiniti
     return SwaptionCashFixedIbor.from(expiryTime, underlyingSwap, settlementTime, _isCall, _isLong);
   }
 
-
   /**
    * Gets the underlying swap field.
    * @return The underlying swap.

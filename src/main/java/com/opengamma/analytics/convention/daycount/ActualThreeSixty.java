@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.convention.daycount;
 
-
 import java.time.LocalDate;
 import java.time.temporal.JulianFields;
 

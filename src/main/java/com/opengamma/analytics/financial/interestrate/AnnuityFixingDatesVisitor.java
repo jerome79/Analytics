@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Gets the fixing period start and end dates for annuity from a particular date.
  */

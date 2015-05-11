@@ -8,8 +8,6 @@ package com.opengamma.analytics.math.regression;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -47,21 +45,21 @@ public class LeastSquaresRegressionTest {
     } catch (final IllegalArgumentException e) {
       // Expected
     }
-    x = new double[][] {new double[] {1., 2., 3.}, new double[] {4., 5.}, new double[] {6., 7., 8.}, new double[] {9., 0., 0.}};
+    x = new double[][] {new double[] {1., 2., 3. }, new double[] {4., 5. }, new double[] {6., 7., 8. }, new double[] {9., 0., 0. } };
     try {
       regression.checkData(x, (double[]) null, y);
       Assert.fail();
     } catch (final IllegalArgumentException e) {
       // Expected
     }
-    x[1] = new double[] {4., 5., 6.};
+    x[1] = new double[] {4., 5., 6. };
     try {
       regression.checkData(x, (double[]) null, y);
       Assert.fail();
     } catch (final IllegalArgumentException e) {
       // Expected
     }
-    y = new double[] {1., 2., 3., 4.};
+    y = new double[] {1., 2., 3., 4. };
     double[] w1 = new double[0];
     try {
       regression.checkData(x, w1, y);
@@ -90,7 +88,7 @@ public class LeastSquaresRegressionTest {
     } catch (final IllegalArgumentException e) {
       // Expected
     }
-    w = new double[][] {new double[] {1., 2., 3.}, new double[] {4., 5.}, new double[] {6., 7., 8.}, new double[] {9., 0., 0.}};
+    w = new double[][] {new double[] {1., 2., 3. }, new double[] {4., 5. }, new double[] {6., 7., 8. }, new double[] {9., 0., 0. } };
     try {
       regression.checkData(x, w, y);
       Assert.fail();

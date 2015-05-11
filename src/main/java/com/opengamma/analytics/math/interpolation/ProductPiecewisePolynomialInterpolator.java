@@ -42,7 +42,7 @@ public class ProductPiecewisePolynomialInterpolator extends PiecewisePolynomialI
     _yValuesClamped = null;
     _isClamped = false;
   }
-  
+
   /**
    * Construct the interpolator with clamped points.
    * @param baseMethod The base interpolator must be not be itself

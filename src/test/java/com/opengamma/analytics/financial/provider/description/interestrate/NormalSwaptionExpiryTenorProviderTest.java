@@ -17,13 +17,12 @@ import com.opengamma.analytics.financial.provider.description.NormalDataSets;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Test of provider with normal implied volatility expiry and tenor dependent.
  */
 @Test
 public class NormalSwaptionExpiryTenorProviderTest {
-  
+
   /** Data */
   private static final MulticurveProviderDiscount MULTICURVE =
       MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
@@ -31,14 +30,14 @@ public class NormalSwaptionExpiryTenorProviderTest {
       NormalDataSets.normalSurfaceSwaptionExpiryTenor();
   /** Conventions. */
   private static final HolidayCalendar NYC = CalendarUSD.NYC;
-  private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER = 
+  private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_FIXED_IBOR_MASTER =
       GeneratorSwapFixedIborMaster.getInstance();
-  private static final GeneratorSwapFixedIbor USD6MLIBOR3M = 
+  private static final GeneratorSwapFixedIbor USD6MLIBOR3M =
       GENERATOR_SWAP_FIXED_IBOR_MASTER.getGenerator(GeneratorSwapFixedIborMaster.USD6MLIBOR3M, NYC);
   /** Provider. */
   private static final NormalSwaptionExpiryTenorProvider MULTICURVE_BACHELIER_SWAPTION =
       new NormalSwaptionExpiryTenorProvider(MULTICURVE, NORMAL_SURFACE, USD6MLIBOR3M);
-  
+
   private static final double TOLERANCE_VOL = 1.0E-8;
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -55,15 +54,14 @@ public class NormalSwaptionExpiryTenorProviderTest {
   public void nullGenerator() {
     new NormalSwaptionExpiryTenorProvider(MULTICURVE, NORMAL_SURFACE, null);
   }
-  
+
   @Test
   public void getter() {
-    assertEquals("NormalSwaptionExpiryTenorProvider: getter", 
+    assertEquals("NormalSwaptionExpiryTenorProvider: getter",
         MULTICURVE_BACHELIER_SWAPTION.getMulticurveProvider(), MULTICURVE);
-    assertEquals("NormalSwaptionExpiryTenorProvider: getter", 
+    assertEquals("NormalSwaptionExpiryTenorProvider: getter",
         MULTICURVE_BACHELIER_SWAPTION.getGeneratorSwap(), USD6MLIBOR3M);
   }
-  
 
   @Test
   public void volatility() {
@@ -72,10 +70,10 @@ public class NormalSwaptionExpiryTenorProviderTest {
     double volatilityExpected = NORMAL_SURFACE.getZValue(expiry, tenor);
     double volatilityComputed = MULTICURVE_BACHELIER_SWAPTION.getVolatility(expiry, tenor, 0.0, 0.0);
     double volatilityComputed2 = MULTICURVE_BACHELIER_SWAPTION.getVolatility(expiry, tenor, 0.10, -0.10);
-    assertEquals("NormalSwaptionExpiryTenorProvider: volatility", 
+    assertEquals("NormalSwaptionExpiryTenorProvider: volatility",
         volatilityExpected, volatilityComputed, TOLERANCE_VOL);
-    assertEquals("NormalSwaptionExpiryTenorProvider: volatility", 
+    assertEquals("NormalSwaptionExpiryTenorProvider: volatility",
         volatilityExpected, volatilityComputed2, TOLERANCE_VOL);
   }
-  
+
 }

@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * 
  */
@@ -381,19 +380,19 @@ public class PenaltyMatrixGeneratorTest {
     int nx = x.length;
     int ny = y.length;
 
-    DoubleMatrix2D p0 = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, 0, 0);
+    DoubleMatrix2D p0 = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, 0, 0);
     AssertMatrix.assertEqualsMatrix(new IdentityMatrix(nx * ny), p0, 1e-14);
-    p0 = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, 0, 1);
+    p0 = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, 0, 1);
     AssertMatrix.assertEqualsMatrix(new IdentityMatrix(nx * ny), p0, 1e-14);
 
     DoubleMatrix2D diffX1DFirstOrder = PenaltyMatrixGenerator.getDerivativeMatrix(x, 1, true);
     DoubleMatrix2D diffY1DFirstOrder = PenaltyMatrixGenerator.getDerivativeMatrix(y, 1, true);
     DoubleMatrix2D diffX1DSecOrder = PenaltyMatrixGenerator.getDerivativeMatrix(x, 2, true);
     DoubleMatrix2D diffY1DSecOrder = PenaltyMatrixGenerator.getDerivativeMatrix(y, 2, true);
-    DoubleMatrix2D diffX2DFirstOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[]{nx, ny}, diffX1DFirstOrder, 0);
-    DoubleMatrix2D diffY2DFirstOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[]{nx, ny}, diffY1DFirstOrder, 1);
-    DoubleMatrix2D diffX2DSecOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[]{nx, ny}, diffX1DSecOrder, 0);
-    DoubleMatrix2D diffY2DSecOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[]{nx, ny}, diffY1DSecOrder, 1);
+    DoubleMatrix2D diffX2DFirstOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[] {nx, ny }, diffX1DFirstOrder, 0);
+    DoubleMatrix2D diffY2DFirstOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[] {nx, ny }, diffY1DFirstOrder, 1);
+    DoubleMatrix2D diffX2DSecOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[] {nx, ny }, diffX1DSecOrder, 0);
+    DoubleMatrix2D diffY2DSecOrder = PenaltyMatrixGenerator.getMatrixForFlattened(new int[] {nx, ny }, diffY1DSecOrder, 1);
 
     DoubleMatrix1D z = new DoubleMatrix1D(nx * ny);
     DoubleMatrix1D dzdx = new DoubleMatrix1D(nx * ny);
@@ -433,10 +432,10 @@ public class PenaltyMatrixGeneratorTest {
     AssertMatrix.assertEqualsVectors(d2zdx2, (DoubleMatrix1D) MA.multiply(diffX2DSecOrder, z), 1e-12);
     AssertMatrix.assertEqualsVectors(d2zdy2, (DoubleMatrix1D) MA.multiply(diffY2DSecOrder, z), 1e-12);
 
-    DoubleMatrix2D p1x = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, 1, 0);
-    DoubleMatrix2D p2x = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, 2, 0);
-    DoubleMatrix2D p1y = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, 1, 1);
-    DoubleMatrix2D p2y = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, 2, 1);
+    DoubleMatrix2D p1x = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, 1, 0);
+    DoubleMatrix2D p2x = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, 2, 0);
+    DoubleMatrix2D p1y = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, 1, 1);
+    DoubleMatrix2D p2y = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, 2, 1);
     double r1x = MA.getInnerProduct(z, MA.multiply(p1x, z));
     double r2x = MA.getInnerProduct(z, MA.multiply(p2x, z));
     double r1y = MA.getInnerProduct(z, MA.multiply(p1y, z));
@@ -453,7 +452,7 @@ public class PenaltyMatrixGeneratorTest {
     double lambdaX = 0.7;
     double lambdaY = Math.PI;
     //second order in x and first order in y
-    DoubleMatrix2D p = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][]{x, y}, new int[]{2, 1}, new double[]{lambdaX, lambdaY});
+    DoubleMatrix2D p = PenaltyMatrixGenerator.getPenaltyMatrix(new double[][] {x, y }, new int[] {2, 1 }, new double[] {lambdaX, lambdaY });
     double r = MA.getInnerProduct(z, MA.multiply(p, z));
     double expR = Math.pow(xRange, 4) * d2zdx2Sum * lambdaX + Math.pow(yRange, 2) * dzdySum * lambdaY;
     assertEquals(expR, r, 1e-9);

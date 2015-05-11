@@ -91,7 +91,7 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
   public double getStrikePrice() {
     return getReferencePrice();
   }
-  
+
   /**
    * Gets the _currency.
    * @return the _currency
@@ -107,7 +107,7 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
   public double getUnitAmount() {
     return _unitAmount;
   }
-  
+
   /**
    * Gets the underlying.
    * @return the underlying
@@ -115,7 +115,7 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
   public StandardId getUnderlying() {
     return _underlying;
   }
-  
+
   /**
    * Gets the settlementType.
    * @return CASH
@@ -194,6 +194,5 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
     final IndexFuture newDeriv = new IndexFuture(timeToFixing, timeToDelivery, referencePrice, getCurrency(), getUnitAmount());
     return newDeriv;
   }
-
 
 }

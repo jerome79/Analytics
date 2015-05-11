@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test related to the description of a bill total return swap with an underlying bill and a funding leg.
  */

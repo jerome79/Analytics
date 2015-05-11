@@ -14,7 +14,6 @@ import com.opengamma.analytics.financial.instrument.TestInstrumentDefinitionsAnd
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 @Test
 public class MulticurveProviderDiscountTest {
 

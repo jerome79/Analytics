@@ -25,12 +25,12 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
  * Instrument derivative visitor implementation for valuing 
  */
 public final class InterpolatedStubPresentValueDiscountingCalculator extends InstrumentDerivativeVisitorAdapter<InterpolatedStubData, MultiCurrencyAmount> {
-  
+
   private static final InterpolatedStubPresentValueDiscountingCalculator INSTANCE = new InterpolatedStubPresentValueDiscountingCalculator();
-  
+
   private InterpolatedStubPresentValueDiscountingCalculator() {
   }
-  
+
   public static InterpolatedStubPresentValueDiscountingCalculator getInstance() {
     return INSTANCE;
   }
@@ -40,50 +40,50 @@ public final class InterpolatedStubPresentValueDiscountingCalculator extends Ins
   private static final CouponIborCompoundingDiscountingMethod METHOD_CPN_IBOR_COMP = CouponIborCompoundingDiscountingMethod.getInstance();
   private static final CouponIborCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_FLAT_SPREAD = CouponIborCompoundingFlatSpreadDiscountingMethod.getInstance();
   private static final CouponIborCompoundingSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_SPREAD = CouponIborCompoundingSpreadDiscountingMethod.getInstance();
-  
+
   private static final CouponONDiscountingMethod METHOD_CPN_ON = CouponONDiscountingMethod.getInstance();
   private static final CouponONSpreadDiscountingMethod METHOD_CPN_ON_SPREAD = CouponONSpreadDiscountingMethod.getInstance();
   private static final CouponONArithmeticAverageDiscountingApproxMethod METHOD_CPN_AAON_APPROX = CouponONArithmeticAverageDiscountingApproxMethod.getInstance();
   private static final CouponONArithmeticAverageSpreadDiscountingMethod METHOD_CPN_AAON_SPREAD = CouponONArithmeticAverageSpreadDiscountingMethod.getInstance();
   private static final CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMethod METHOD_CPN_ONAA_SPREADSIMPL_APPROX =
       CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMethod.getInstance();
-  
+
   @Override
   public MultiCurrencyAmount visitCouponIbor(CouponIbor payment, InterpolatedStubData data) {
     return METHOD_CPN_IBOR.presentValue(payment, data.getMulticurve(), data.getInterpolatedStubCoupon().accept(IborInterpolatedStubForwardRateProviderVisitor.getInstance()));
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponIborSpread(CouponIborSpread payment, InterpolatedStubData data) {
     return METHOD_CPN_IBOR_SPREAD.presentValue(payment, data.getMulticurve(), data.getInterpolatedStubCoupon().accept(IborInterpolatedStubForwardRateProviderVisitor.getInstance()));
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponIborCompounding(CouponIborCompounding payment, InterpolatedStubData data) {
     return METHOD_CPN_IBOR_COMP.presentValue(payment, data.getMulticurve(), data.getInterpolatedStubCoupon().accept(IborInterpolatedStubForwardRateProviderVisitor.getInstance()));
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponIborCompoundingFlatSpread(CouponIborCompoundingFlatSpread payment, InterpolatedStubData data) {
     return METHOD_CPN_IBOR_COMP_FLAT_SPREAD.presentValue(payment, data.getMulticurve(), data.getInterpolatedStubCoupon().accept(IborInterpolatedStubForwardRateProviderVisitor.getInstance()));
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponIborCompoundingSpread(CouponIborCompoundingSpread payment, InterpolatedStubData data) {
     return METHOD_CPN_IBOR_COMP_SPREAD.presentValue(payment, data.getMulticurve(), data.getInterpolatedStubCoupon().accept(IborInterpolatedStubForwardRateProviderVisitor.getInstance()));
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponOIS(CouponON payment, InterpolatedStubData data) {
     return METHOD_CPN_ON.presentValue(payment, data.getMulticurve(), data.getInterpolatedStubCoupon().accept(OvernightIndexInterpolatedStubForwardRateProviderVisitor.getInstance()));
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponONSpread(CouponONSpread payment, InterpolatedStubData data) {
     // TODO Auto-generated method stub
     return super.visitCouponONSpread(payment, data);
   }
-  
+
   @Override
   public MultiCurrencyAmount visitCouponONCompounded(CouponONCompounded payment, InterpolatedStubData data) {
     // TODO Auto-generated method stub

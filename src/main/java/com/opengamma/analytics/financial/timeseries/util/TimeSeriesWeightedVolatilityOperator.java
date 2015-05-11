@@ -31,13 +31,13 @@ public final class TimeSeriesWeightedVolatilityOperator implements UnaryOperator
   private static final TimeSeriesPercentageChangeOperator RELATIVE_CHANGE = new TimeSeriesPercentageChangeOperator();
   /** Return operator as absolute return on one period. */
   private static final TimeSeriesDifferenceOperator ABSOLUTE_CHANGE = new TimeSeriesDifferenceOperator();
-  
+
   private final UnaryOperator<LocalDateDoubleTimeSeries> changeOperator;
   /** The weight used for the Exponentially Weighted Moving Average computation. */
   private final double lambda;
   /** The length of the seed period. In the seed period, the variance is computed with equal weight. */
   private final int seedLength;
-  
+
   /**
    * Constructor with a generic return operator and the weight.
    * @param returnOperator The return operator for time series.
@@ -52,7 +52,7 @@ public final class TimeSeriesWeightedVolatilityOperator implements UnaryOperator
     this.lambda = ArgChecker.inRangeExclusive(lambda, 0d, 1d, "lambda");
     this.seedLength = seedLength;
   }
-  
+
   @Override
   public LocalDateDoubleTimeSeries apply(LocalDateDoubleTimeSeries ts) {
     ArgChecker.notNull(ts, "time series");
@@ -94,7 +94,7 @@ public final class TimeSeriesWeightedVolatilityOperator implements UnaryOperator
         .putAll(volatilityTimes, weightedVolatilities)
         .build();
   }
-  
+
   /**
    * Calculates weighted volatilities using the relative difference series and the default lag of 1 period in the 
    * return computation and no seed period (seed length = 0).

@@ -119,8 +119,6 @@ public class CapFloorCMSSpread extends CouponFloating implements CapFloor {
     _isCap = isCap;
   }
 
-
-
   /**
    * Builder from a floating coupon, the CMS details and the strike and cap/floor flag.
    * @param coupon A floating coupon.

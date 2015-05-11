@@ -21,7 +21,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * the end point.
  */
 public class SmileInterpolatorSpline implements GeneralSmileInterpolator {
-  //  private static final Logger LOG = LoggerFactory.getLogger(ShiftedLogNormalTailExtrapolationFitter.class);
   private static final Interpolator1D DEFAULT_INTERPOLATOR = new DoubleQuadraticInterpolator1D();
   private static final ScalarFirstOrderDifferentiator DIFFERENTIATOR = new ScalarFirstOrderDifferentiator();
   private static final ShiftedLogNormalTailExtrapolationFitter TAIL_FITTER = new ShiftedLogNormalTailExtrapolationFitter();
@@ -69,7 +68,6 @@ public class SmileInterpolatorSpline implements GeneralSmileInterpolator {
     final double kL = strikes[0];
     final double kH = strikes[n - 1];
 
-
     final double[] x = new double[n];
     for (int i = 0; i < n; i++) {
       x[i] = Math.log(strikes[i] / forward);
@@ -96,7 +94,6 @@ public class SmileInterpolatorSpline implements GeneralSmileInterpolator {
 
     // Extrapolation of High and Low Strikes by ShiftedLogNormalTailExtrapolationFitter
 
-    // Solutions contain two parameters: [0] = mu = ln(shiftedForward / originalForward), [1] = theta = new ln volatility to use
     final double[] shiftLnVolHighTail;
     final double[] shiftLnVolLowTail;
 

@@ -22,19 +22,19 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
  * An inflation provider where the underlying multi-curve provider is overridden by another multi-curve provider.
  */
 public class InflationProviderDecoratedMulticurve implements InflationProviderInterface {
-  
+
   /** The base inflation provider. All the inflation information will come from this provider. */
   private final InflationProviderInterface _inflationBase;
   /** The multi-curve provider decorating the inflation. All the information regarding discounting and forward 
    * rates will come from this provider. */
   private final MulticurveProviderInterface _multicurveDecorating;
-  
+
   /**
    * @param inflationBase The base inflation provider. All the inflation information will come from this provider.
    * @param multicurveDecorating The multi-curve provider decorating the inflation. All the information regarding 
    * discounting and forward rates will come from this provider.
    */
-  public InflationProviderDecoratedMulticurve(InflationProviderInterface inflationBase, 
+  public InflationProviderDecoratedMulticurve(InflationProviderInterface inflationBase,
       MulticurveProviderInterface multicurveDecorating) {
     _inflationBase = inflationBase;
     _multicurveDecorating = multicurveDecorating;
@@ -175,5 +175,5 @@ public class InflationProviderDecoratedMulticurve implements InflationProviderIn
   public InflationProviderInterface withForward(IndexON index, YieldAndDiscountCurve replacement) {
     throw new UnsupportedOperationException("withForward not supported for decorated providers");
   }
-  
+
 }

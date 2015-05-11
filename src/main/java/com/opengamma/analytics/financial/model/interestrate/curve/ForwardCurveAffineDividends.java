@@ -82,7 +82,6 @@ public class ForwardCurveAffineDividends extends ForwardCurve {
     return _dividends;
   }
 
-  
   /**
    * Shift the forward curve by a fractional amount, shift, such that the new curve F'(T) = (1 + shift) * F(T), has
    * an unchanged drift.
@@ -92,9 +91,9 @@ public class ForwardCurveAffineDividends extends ForwardCurve {
   @Override
   public ForwardCurveAffineDividends withFractionalShift(final double shift) {
     ArgChecker.isTrue(shift > -1, "shift must be > -1");
-    return new ForwardCurveAffineDividends((1 + shift) * getSpot(),  getRiskFreeCurve(), getDividends());
+    return new ForwardCurveAffineDividends((1 + shift) * getSpot(), getRiskFreeCurve(), getDividends());
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;

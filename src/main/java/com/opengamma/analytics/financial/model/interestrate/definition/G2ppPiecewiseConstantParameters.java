@@ -117,7 +117,7 @@ public class G2ppPiecewiseConstantParameters {
    * @return The last volatility.
    */
   public double[] getLastVolatilities() {
-    return new double[] {_volatility[0].get(_volatility[0].size() - 1), _volatility[1].get(_volatility[1].size() - 1)};
+    return new double[] {_volatility[0].get(_volatility[0].size() - 1), _volatility[1].get(_volatility[1].size() - 1) };
   }
 
   /**

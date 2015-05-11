@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -54,13 +53,11 @@ public class BlackPriceFunctionTest {
     FUNCTION.getVegaFunction(ATM_CALL).evaluate((BlackFunctionData) null);
   }
 
-  @Test
   public void testATMPrice() {
     final double sigmaRootT = ATM_DATA.getBlackVolatility() * Math.sqrt(ATM_CALL.getTimeToExpiry());
     assertEquals(DF * F * (2 * NORMAL.getCDF(sigmaRootT / 2) - 1), FUNCTION.getPriceFunction(ATM_CALL).evaluate(ATM_DATA), 1e-14);
   }
 
-  @Test
   public void testZeroVolPrice() {
     assertEquals(DF * DELTA, FUNCTION.getPriceFunction(ITM_CALL).evaluate(ZERO_VOL_DATA), 1e-15);
     assertEquals(0, FUNCTION.getPriceFunction(OTM_CALL).evaluate(ZERO_VOL_DATA), 1e-15);
@@ -68,7 +65,6 @@ public class BlackPriceFunctionTest {
     assertEquals(0, FUNCTION.getPriceFunction(OTM_PUT).evaluate(ZERO_VOL_DATA), 1e-15);
   }
 
-  @Test
   public void priceAdjoint() {
     // Price
     double price = FUNCTION.getPriceFunction(ITM_CALL).evaluate(ATM_DATA);
@@ -104,38 +100,6 @@ public class BlackPriceFunctionTest {
     assertEquals(derivativeV_FD, priceAdjoint[2], 1E-6);
   }
 
-  @Test(enabled = false)
-  /**
-   * Tests the numerical stability of a finite difference approach to derivativ computation.
-   */
-  public void priceADStability() {
-    final double forward = 1.0;
-    final double df = 1.0; // 0 rate
-    final double sigma = 0.20;
-    final BlackFunctionData dataBlack = new BlackFunctionData(forward, df, sigma);
-    final double expiration = 7.0d / 365.0d; // 1 week
-    final EuropeanVanillaOption atmCall = new EuropeanVanillaOption(forward, expiration, true);
-    final double price = FUNCTION.getPriceFunction(atmCall).evaluate(dataBlack);
-    double startingShift = 1.0E-4;
-    double ratio = Math.sqrt(2.0);
-    final int nbShift = 75;
-    final double[] eps = new double[nbShift + 1];
-    final double[] priceAdjoint = FUNCTION.getPriceAdjoint(atmCall, dataBlack);
-    final double[] derivativeF_FD = new double[nbShift];
-    final double[] diff = new double[nbShift];
-    eps[0] = startingShift;
-    for (int loopshift = 0; loopshift < nbShift; loopshift++) {
-      final BlackFunctionData dataBlackShifted = new BlackFunctionData(forward + eps[loopshift], df, sigma);
-      final double priceShifted = FUNCTION.getPriceFunction(atmCall).evaluate(dataBlackShifted);
-      derivativeF_FD[loopshift] = (priceShifted - price) / eps[loopshift];
-      diff[loopshift] = derivativeF_FD[loopshift] - priceAdjoint[1];
-      eps[loopshift + 1] = eps[loopshift] / ratio;
-    }
-    //    int t = 0;
-    //    t++;
-  }
-
-  @Test
   public void testPriceAdjointStrike0() {
     // Price
     double price = FUNCTION.getPriceFunction(CALL_0).evaluate(ATM_DATA);
@@ -172,27 +136,26 @@ public class BlackPriceFunctionTest {
   private static final double TOLERANCE_2_FWD_VOL = 1.0E-7;
   private static final double TOLERANCE_2_FWD_STR = 1.0E-6;
   private static final double TOLERANCE_2_STR_VOL = 1.0E-6;
-  
+
   /** Tests second order Algorithmic Differentiation version of BlackFunction with several data sets. */
-  @Test
   public void testPriceAdjoint2() {
     // forward, numeraire, sigma, strike, time
     double[][] testData = {
-      {104.0d, 0.9d, 0.50d, 94.0d, 4.5d},
-      {104.0d, 0.9d, 0.50d, 124.0d, 4.5d},
-      {104.0d, 0.9d, 0.50d, 104.0d, 4.5d},
-      {0.0250d, 1000.0d, 0.25d, 0.0150d, 10.0d},
-      {0.0250d, 1000.0d, 0.25d, 0.0400d, 10.0d},
-      {1700.0d, 0.9d, 1.00d, 1500.0d, 0.01d},
-      {1700.0d, 0.9d, 1.00d, 1900.0d, 20.0d}
+      {104.0d, 0.9d, 0.50d, 94.0d, 4.5d },
+      {104.0d, 0.9d, 0.50d, 124.0d, 4.5d },
+      {104.0d, 0.9d, 0.50d, 104.0d, 4.5d },
+      {0.0250d, 1000.0d, 0.25d, 0.0150d, 10.0d },
+      {0.0250d, 1000.0d, 0.25d, 0.0400d, 10.0d },
+      {1700.0d, 0.9d, 1.00d, 1500.0d, 0.01d },
+      {1700.0d, 0.9d, 1.00d, 1900.0d, 20.0d }
     };
     int nbTest = testData.length;
-    for(int i=0; i<nbTest; i++) {
-      testPriceAdjointSecondOrder(testData[i][0],testData[i][1],testData[i][2],testData[i][3],testData[i][4], true, i);
-      testPriceAdjointSecondOrder(testData[i][0],testData[i][1],testData[i][2],testData[i][3],testData[i][4], false, i);
+    for (int i = 0; i < nbTest; i++) {
+      testPriceAdjointSecondOrder(testData[i][0], testData[i][1], testData[i][2], testData[i][3], testData[i][4], true, i);
+      testPriceAdjointSecondOrder(testData[i][0], testData[i][1], testData[i][2], testData[i][3], testData[i][4], false, i);
     }
   }
-  
+
   private void testPriceAdjointSecondOrder(double forward, double numeraire, double sigma, double strike, double time,
       boolean isCall, int i) {
     EuropeanVanillaOption option = new EuropeanVanillaOption(strike, time, isCall);
@@ -215,7 +178,7 @@ public class BlackPriceFunctionTest {
     double[] priceAdjointFP = FUNCTION.getPriceAdjoint(option, dataFP);
     double[] priceAdjointFM = FUNCTION.getPriceAdjoint(option, dataFM);
     double derivativeFF_FD = (priceAdjointFP[1] - priceAdjointFM[1]) / (2 * deltaF);
-    assertEquals("AD Second order: 2nd - fwd-fwd " + i, 
+    assertEquals("AD Second order: 2nd - fwd-fwd " + i,
         derivativeFF_FD, bsD2[0][0], TOLERANCE_2_FWD_FWD * Math.abs(bs / (deltaF * deltaF)));
     // Derivative volatility-volatility.
     double deltaV = 0.00001;
@@ -250,47 +213,7 @@ public class BlackPriceFunctionTest {
     double derivativeKV_FD = (priceAdjointVP[3] - priceAdjointVM[3]) / (2 * deltaV);
     assertEquals("AD Second order: 2nd - str-vol " + i,
         derivativeKV_FD, bsD2[2][1], TOLERANCE_2_STR_VOL * Math.abs(bs / (deltaV * deltaK)));
-    assertEquals("AD Second order: 2nd - str-vol", bsD2[1][2], bsD2[2][1], TOLERANCE_1);    
-  }
-
-  @Test(enabled = false)
-  /**
-   * Assess the performance of the adjoint implementation against a finite difference and a non-optimized adjoint implementation.
-   */
-  public void performanceAdjoint() {
-    // Used only to assess performance
-    double[] bsD = new double[3];
-    double[][] bsD2 = new double[3][3];
-    @SuppressWarnings("unused")
-    double bsP;
-    @SuppressWarnings("unused")
-    double[] bsPD = new double[4];
-
-    long startTime, endTime;
-    int nbTest = 1000000;
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      bsP = FUNCTION.getPriceFunction(ITM_CALL).evaluate(ATM_DATA);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " Black price : " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      bsPD = FUNCTION.getPriceAdjoint(ITM_CALL, ATM_DATA);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " Black price + first order adjoint: " + (endTime - startTime) + " ms");
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      bsP = FUNCTION.getPriceAdjoint2(ITM_CALL, ATM_DATA, bsD, bsD2);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " Black price + adjoint (first and second order): " + (endTime - startTime) + " ms");
-    // Performance note: price: 14-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 175 ms for 1000000.
-    // Performance note: price+1st order derivatives: 14-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 195 ms for 1000000.
-    // Performance note: price+1st and 2nd order derivatives: 14-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 250 ms for 1000000.
+    assertEquals("AD Second order: 2nd - str-vol", bsD2[1][2], bsD2[2][1], TOLERANCE_1);
   }
 
 }

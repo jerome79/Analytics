@@ -665,10 +665,10 @@ public class BaroneAdesiWhaleyModel {
       return getBSPrice(_s0) + a1 * Math.pow(_s0 / _sStar, _q1);
     }
 
-    private double getd1(final double s) { 
+    private double getd1(final double s) {
       ArgChecker.isTrue(s > 0.0, "s is negative");
       return (Math.log(s / _k) + _phi) / _sigmaRootT;
-    } 
+    }
 
     @SuppressWarnings("synthetic-access")
     private double getA1(final double s) {

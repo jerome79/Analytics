@@ -8,14 +8,11 @@ package com.opengamma.analytics.math.interpolation;
 import static com.opengamma.analytics.math.matrix.MatrixAlgebraFactory.OG_ALGEBRA;
 import static org.testng.Assert.assertEquals;
 
-import java.util.Random;
-
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
-
 
 /**
  * Test.
@@ -29,7 +26,6 @@ public class BicubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void linearTest() {
     double[] x0Values = new double[] {1., 2., 3., 4. };
     double[] x1Values = new double[] {-1., 0., 1., 2., 3. };
@@ -42,7 +38,6 @@ public class BicubicSplineInterpolatorTest {
         yValues[i][j] = (x0Values[i] + 2.) * (x1Values[j] + 5.);
       }
     }
-    //    System.out.println(new DoubleMatrix2D(yValues));
 
     CubicSplineInterpolator method = new CubicSplineInterpolator();
     PiecewisePolynomialInterpolator2D interp = new BicubicSplineInterpolator(new CubicSplineInterpolator[] {method, method });
@@ -56,7 +51,7 @@ public class BicubicSplineInterpolatorTest {
     for (int i = 0; i < n0Data - 1; ++i) {
       for (int j = 0; j < n1Data - 1; ++j) {
         coefsExp[i][j] = new DoubleMatrix2D(new double[][] { {0., 0., 0., 0., }, {0., 0., 0., 0., }, {0., 0., 1., (5. + x1Values[j]) },
-            {0., 0., (2. + x0Values[i]), (2. + x0Values[i]) * (5. + x1Values[j]) } });
+          {0., 0., (2. + x0Values[i]), (2. + x0Values[i]) * (5. + x1Values[j]) } });
       }
     }
 
@@ -75,9 +70,6 @@ public class BicubicSplineInterpolatorTest {
     for (int i = 0; i < n1Keys; ++i) {
       x1Keys[i] = -2. + 6. * i / (n1Keys - 1);
     }
-
-    //    PiecewisePolynomialFunction2D func = new PiecewisePolynomialFunction2D();
-    //    final double[][] values = func.evaluate(result, x0Keys, x1Keys).getData();
 
     for (int i = 0; i < n0Data; ++i) {
       final double ref = Math.abs(x0Values[i]) == 0. ? 1. : Math.abs(x0Values[i]);
@@ -109,13 +101,11 @@ public class BicubicSplineInterpolatorTest {
         assertEquals(resValues[i][j], expVal, ref * EPS);
       }
     }
-    //    final PiecewisePolynomialFunction2D func = new PiecewisePolynomialFunction2D();
     for (int i = 0; i < n0Keys; ++i) {
       for (int j = 0; j < n1Keys; ++j) {
         final double expVal = (x0Keys[i] + 2.) * (x1Keys[j] + 5.);
         final double ref = Math.abs(expVal) == 0. ? 1. : Math.abs(expVal);
         assertEquals(resValues[i][j], expVal, ref * EPS);
-        //        assertEquals(resValues[i][j], func.evaluate(result, x0Keys[i], x1Keys[j]), ref * EPS);
       }
     }
     {
@@ -129,25 +119,11 @@ public class BicubicSplineInterpolatorTest {
       assertEquals(interp.interpolate(x0Values, x1Values, yValues, x0Keys[23], x1Keys[20]), expVal, ref * EPS);
     }
 
-    //    for (int i = 0; i < n0Keys; ++i) {
-    //      System.out.print("\t" + x0Keys[i]);
-    //    }
-    //    System.out.print("\n");
-    //    for (int j = 0; j < n1Keys; ++j) {
-    //      System.out.print(x1Keys[j]);
-    //      for (int i = 0; i < n0Keys; ++i) {
-    //        System.out.print("\t" + values[i][j]);
-    //      }
-    //      System.out.print("\n");
-    //    }
-    //
-    //    System.out.print("\n");
   }
 
   /**
    * f(x0,x1) = ( x0 - 1.5)^2 * (x1  - 2.)^2
    */
-  @Test
   public void quadraticTest() {
     double[] x0Values = new double[] {1., 2., 3., 4. };
     double[] x1Values = new double[] {-1., 0., 1., 2., 3. };
@@ -219,8 +195,7 @@ public class BicubicSplineInterpolatorTest {
         assertEquals(resDiffX1[i][j], expVal, ref * EPS);
       }
     }
-    //    System.out.println(new DoubleMatrix2D(expDiffX0));
-    //    System.out.println(new DoubleMatrix2D(resDiffX0));
+
     for (int i = 0; i < n0Data; ++i) {
       for (int j = 0; j < n1Data; ++j) {
         final double expVal = expDiffX0[j][i];
@@ -242,7 +217,6 @@ public class BicubicSplineInterpolatorTest {
   /**
    * f(x0,x1) = ( x0 - 1.)^3 * (x1  + 14./13.)^3
    */
-  @Test
   public void cubicTest() {
     double[] x0Values = new double[] {1., 2., 3., 4. };
     double[] x1Values = new double[] {-1., 0., 1., 2., 3. };
@@ -314,8 +288,7 @@ public class BicubicSplineInterpolatorTest {
         assertEquals(resDiffX1[i][j], expVal, ref * EPS);
       }
     }
-    //    System.out.println(new DoubleMatrix2D(expDiffX0));
-    //    System.out.println(new DoubleMatrix2D(resDiffX0));
+
     for (int i = 0; i < n0Data; ++i) {
       for (int j = 0; j < n1Data; ++j) {
         final double expVal = expDiffX0[j][i];
@@ -337,7 +310,6 @@ public class BicubicSplineInterpolatorTest {
   /**
    * 
    */
-  @Test
   public void crossDerivativeTest() {
     double[] x0Values = new double[] {1., 2., 3., 4. };
     double[] x1Values = new double[] {-1., 0., 1., 2., 3. };
@@ -403,8 +375,7 @@ public class BicubicSplineInterpolatorTest {
         assertEquals(resDiffX1[i][j], expVal, ref * EPS);
       }
     }
-    //    System.out.println(new DoubleMatrix2D(expDiffX0));
-    //    System.out.println(new DoubleMatrix2D(resDiffX0));
+
     for (int i = 0; i < n0Data; ++i) {
       for (int j = 0; j < n1Data; ++j) {
         final double expVal = expDiffX0[j][i];
@@ -645,110 +616,6 @@ public class BicubicSplineInterpolatorTest {
 
     BicubicSplineInterpolator intp = new BicubicSplineInterpolator(new CubicSplineInterpolator());
     intp.interpolate(x0Values, x1Values, yValues);
-  }
-
-  /**
-   * Tests below for debugging
-   */
-  @Test
-      (enabled = false)
-      public void printTest() {
-    //    double[] x0Values = new double[] {0., 1., 2., 3. };
-    //    double[] x1Values = new double[] {0., 0.000000000001, 2. };
-    double[] x0Values = new double[] {0., 1., 2., 3. };
-    double[] x1Values = new double[] {0., 1., 2. };
-    double[][] yValues = new double[][] { {1.e-20, 3.e-120, 5.e-20 }, {2.e-20, 3.e-120, 4.e-120 }, {1.e-20, 1.e-120, 1.e-20 }, {4.e-120, 3.e-20, 2.e-20 } };
-
-    //    double[] x0Values = new double[] {0., 1., 2. };
-    //    double[] x1Values = new double[] {0., 1., 2., 3. };
-    //    double[][] yValues = new double[][] { {1., 3., 5., 7. }, {2., 3., 4., 5. }, {1., 1., 1., 1. } };
-
-    BicubicSplineInterpolator intp = new BicubicSplineInterpolator(new CubicSplineInterpolator());
-    PiecewisePolynomialResult2D result2D = intp.interpolate(x0Values, x1Values, yValues);
-    System.out.println(result2D.getCoefs()[0][0]);
-    System.out.println(result2D.getCoefs()[2][1]);
-
-    final int n0Keys = 31;
-    final int n1Keys = 21;
-    double[] x0Keys = new double[n0Keys];
-    double[] x1Keys = new double[n1Keys];
-    for (int i = 0; i < n0Keys; ++i) {
-      x0Keys[i] = 0. + 3. * i / (n0Keys - 1);
-    }
-    for (int i = 0; i < n1Keys; ++i) {
-      x1Keys[i] = 0. + 2. * i / (n1Keys - 1);
-    }
-
-    //    final int n0Keys = 61;
-    //    final int n1Keys = 101;
-    //    double[] x0Keys = new double[n0Keys];
-    //    double[] x1Keys = new double[n1Keys];
-    //    for (int i = 0; i < n0Keys; ++i) {
-    //      x0Keys[i] = -1. + 4. * i / (n0Keys - 1);
-    //    }
-    //    for (int i = 0; i < n1Keys; ++i) {
-    //      x1Keys[i] = -1. + 5. * i / (n1Keys - 1);
-    //    }
-
-    PiecewisePolynomialFunction2D func = new PiecewisePolynomialFunction2D();
-    final double[][] values = func.evaluate(result2D, x0Keys, x1Keys).getData();
-
-    for (int i = 0; i < n0Keys; ++i) {
-      System.out.print("\t" + x0Keys[i]);
-    }
-    System.out.print("\n");
-    for (int j = 0; j < n1Keys; ++j) {
-      System.out.print(x1Keys[j]);
-      for (int i = 0; i < n0Keys; ++i) {
-        System.out.print("\t" + values[i][j]);
-      }
-      System.out.print("\n");
-    }
-
-    System.out.print("\n");
-
-    for (int i = 0; i < x0Values.length; ++i) {
-      System.out.print("\t" + x0Values[i]);
-    }
-    System.out.print("\n");
-    for (int j = 0; j < x1Values.length; ++j) {
-      System.out.print(x1Values[j]);
-      for (int i = 0; i < x0Values.length; ++i) {
-        System.out.print("\t" + yValues[i][j]);
-      }
-      System.out.print("\n");
-    }
-    System.out.print("\n");
-  }
-
-  /**
-   * 
-   */
-  @Test
-      (enabled = false)
-      public void randomTest() {
-    double[] x0Values = new double[] {1., 2., 3., 4. };
-    double[] x1Values = new double[] {-1., 0., 1., 2., 3. };
-    final int n0Data = x0Values.length;
-    final int n1Data = x1Values.length;
-    double[][] yValues = new double[n0Data][n1Data];
-
-    final Random randObj = new Random();
-    int k = 0;
-    while (k < 100000) {
-      for (int i = 0; i < n0Data; ++i) {
-        for (int j = 0; j < n1Data; ++j) {
-          yValues[i][j] = randObj.nextInt(4) - 2.;
-        }
-      }
-      System.out.println(new DoubleMatrix2D(yValues));
-
-      NaturalSplineInterpolator method = new NaturalSplineInterpolator();
-      PiecewisePolynomialInterpolator2D interp = new BicubicSplineInterpolator(method);
-      interp.interpolate(x0Values, x1Values, yValues);
-
-      ++k;
-    }
   }
 
 }

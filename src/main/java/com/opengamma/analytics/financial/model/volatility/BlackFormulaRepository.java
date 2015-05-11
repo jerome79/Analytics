@@ -458,7 +458,6 @@ public abstract class BlackFormulaRepository {
       sigmaRootT = 1.;
     }
     final int sign = isCall ? 1 : -1;
-    // final double b = 0; // for now set cost of carry to 0
 
     final boolean bFwd = (forward > LARGE);
     final boolean bStr = (strike > LARGE);
@@ -673,7 +672,6 @@ public abstract class BlackFormulaRepository {
     final double nVal = NORMAL.getPDF(d1);
     return nVal == 0. ? 0. : forward * rootT * nVal;
   }
-
 
   public static double vega(final SimpleOptionData data, final double lognormalVol) {
     ArgChecker.notNull(data, "null data");
@@ -943,7 +941,6 @@ public abstract class BlackFormulaRepository {
 
     return solver.impliedVolatility(otmPrice, volGuess);
   }
-
 
   /**
    * The implied volatility of an option

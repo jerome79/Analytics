@@ -13,8 +13,6 @@ import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -32,7 +30,7 @@ public class RadialBasisFunctionInterpolatorNDTest extends InterpolatorNDTestCas
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData() {
-    INTERPOLATOR.interpolate(null, new double[] {1, 2});
+    INTERPOLATOR.interpolate(null, new double[] {1, 2 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -42,7 +40,7 @@ public class RadialBasisFunctionInterpolatorNDTest extends InterpolatorNDTestCas
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongDimension() {
-    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundle(FLAT_DATA), new double[] {1, 2});
+    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundle(FLAT_DATA), new double[] {1, 2 });
   }
 
   @Test

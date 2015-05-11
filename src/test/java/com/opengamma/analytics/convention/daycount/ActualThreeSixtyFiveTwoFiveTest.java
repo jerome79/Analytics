@@ -9,8 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -18,7 +16,7 @@ import org.testng.annotations.Test;
 public class ActualThreeSixtyFiveTwoFiveTest extends DayCountTestCase {
 
   private static final ActualThreeSixtyFiveTwoFive DC = new ActualThreeSixtyFiveTwoFive();
-  
+
   @Override
   protected DayCount getDayCount() {
     return DC;

@@ -68,7 +68,7 @@ public final class Sector implements Bean, Serializable {
   /**
    * For the builder.
    */
-  /* package */ Sector() {
+  /* package */Sector() {
   }
 
   /**

@@ -73,15 +73,6 @@ public class NodalObjectsSurface<T, U, V> extends ObjectsSurface<T, U, V> {
     ArgChecker.notNull(y, "y");
     final T[] xArray = getXData();
     final U[] yArray = getYData();
-    //    final int index = Arrays.binarySearch(xArray, x);
-    //    if (index < 0) {
-    //      throw new IllegalArgumentException("No x-y-z data in surface for (" + x + ", " + y + ")");
-    //    }
-    //    final U[] yArray = getYData();
-    //    if (yArray[index].equals(y)) {
-    //      final V[] zArray = getZData();
-    //      return zArray[index];
-    //    }
 
     final int arrayLength = xArray.length;
     for (int i = 0; i < arrayLength; ++i) {

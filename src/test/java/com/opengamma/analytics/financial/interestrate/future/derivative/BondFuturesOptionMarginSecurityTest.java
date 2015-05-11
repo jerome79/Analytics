@@ -18,8 +18,6 @@ import com.opengamma.analytics.financial.instrument.future.BondFuturesSecurityDe
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 
-
-
 /**
  * Tests related to bond futures option security derivative construction.
  */

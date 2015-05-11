@@ -56,8 +56,8 @@ public class ComplexChooserOptionModel extends AnalyticOptionModel<ComplexChoose
         final double d6 = getD2(d5, sigma, tPut);
         final double rho1 = Math.sqrt(tChoose / tCall);
         final double rho2 = Math.sqrt(tChoose / tPut);
-        return s * Math.exp(tCall * (b - r)) * BIVARIATE_NORMAL.getCDF(new double[] {d1, d3, rho1}) - kCall * Math.exp(-r * tCall) * BIVARIATE_NORMAL.getCDF(new double[] {d2, d4, rho1}) - s
-            * Math.exp(tPut * (b - r)) * BIVARIATE_NORMAL.getCDF(new double[] {-d1, -d5, rho2}) + kPut * Math.exp(-r * tPut) * BIVARIATE_NORMAL.getCDF(new double[] {-d2, -d6, rho2});
+        return s * Math.exp(tCall * (b - r)) * BIVARIATE_NORMAL.getCDF(new double[] {d1, d3, rho1 }) - kCall * Math.exp(-r * tCall) * BIVARIATE_NORMAL.getCDF(new double[] {d2, d4, rho1 }) - s
+            * Math.exp(tPut * (b - r)) * BIVARIATE_NORMAL.getCDF(new double[] {-d1, -d5, rho2 }) + kPut * Math.exp(-r * tPut) * BIVARIATE_NORMAL.getCDF(new double[] {-d2, -d6, rho2 });
       }
 
     };

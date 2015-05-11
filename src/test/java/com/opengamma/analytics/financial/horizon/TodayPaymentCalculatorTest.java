@@ -28,7 +28,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests functionality of TPC, which returns currency amounts paid on provided date
  */
@@ -47,11 +46,11 @@ public class TodayPaymentCalculatorTest {
   // Market
   private static final ZonedDateTimeDoubleTimeSeries FIXING_TS_3 = ImmutableZonedDateTimeDoubleTimeSeries.of(
       new ZonedDateTime[] {DateUtils.getUTCDate(2012, 5, 10),
-      DateUtils.getUTCDate(2012, 5, 14), DateUtils.getUTCDate(2012, 5, 15), DateUtils.getUTCDate(2012, 5, 16), DateUtils.getUTCDate(2012, 8, 15), DateUtils.getUTCDate(2012, 11, 15)},
-      new double[] {0.0080, 0.0090, 0.0100, 0.0110, 0.0140, 0.0160}, ZoneOffset.UTC);
-  private static final ZonedDateTimeDoubleTimeSeries FIXING_TS_6 = ImmutableZonedDateTimeDoubleTimeSeries.of(new ZonedDateTime[]{DateUtils.getUTCDate(2012, 5, 10),
-      DateUtils.getUTCDate(2012, 5, 15), DateUtils.getUTCDate(2012, 5, 16)}, new double[]{0.0095, 0.0120, 0.0130}, ZoneOffset.UTC);
-  private static final ZonedDateTimeDoubleTimeSeries[] FIXING_TS_3_6 = new ZonedDateTimeDoubleTimeSeries[] {FIXING_TS_3, FIXING_TS_6};
+        DateUtils.getUTCDate(2012, 5, 14), DateUtils.getUTCDate(2012, 5, 15), DateUtils.getUTCDate(2012, 5, 16), DateUtils.getUTCDate(2012, 8, 15), DateUtils.getUTCDate(2012, 11, 15) },
+      new double[] {0.0080, 0.0090, 0.0100, 0.0110, 0.0140, 0.0160 }, ZoneOffset.UTC);
+  private static final ZonedDateTimeDoubleTimeSeries FIXING_TS_6 = ImmutableZonedDateTimeDoubleTimeSeries.of(new ZonedDateTime[] {DateUtils.getUTCDate(2012, 5, 10),
+    DateUtils.getUTCDate(2012, 5, 15), DateUtils.getUTCDate(2012, 5, 16) }, new double[] {0.0095, 0.0120, 0.0130 }, ZoneOffset.UTC);
+  private static final ZonedDateTimeDoubleTimeSeries[] FIXING_TS_3_6 = new ZonedDateTimeDoubleTimeSeries[] {FIXING_TS_3, FIXING_TS_6 };
 
   // Tests
   private static final double TOLERANCE_PV = 1.0E-2; // one cent out of 100m

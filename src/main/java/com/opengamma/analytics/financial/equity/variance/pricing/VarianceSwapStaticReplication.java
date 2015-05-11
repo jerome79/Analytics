@@ -190,9 +190,7 @@ public class VarianceSwapStaticReplication {
       return surf.accept(this);
     }
 
-    // ********************************************
     // strike surfaces
-    // ********************************************
 
     @Override
     public Double visitStrike(final BlackVolatilitySurfaceStrike surface, final DoublesPair data) {
@@ -205,9 +203,7 @@ public class VarianceSwapStaticReplication {
       return _cal.getAnnualizedVariance(_f, _t, surface);
     }
 
-    // ********************************************
     // delta surfaces
-    // ********************************************
 
     @Override
     public Double visitDelta(final BlackVolatilitySurfaceDelta surface, final DoublesPair data) {
@@ -220,9 +216,7 @@ public class VarianceSwapStaticReplication {
       return _cal.getAnnualizedVariance(_f, _t, surface);
     }
 
-    // ********************************************
     // moneyness surfaces
-    // ********************************************
 
     @Override
     public Double visitMoneyness(final BlackVolatilitySurfaceMoneyness surface, final DoublesPair data) {
@@ -235,9 +229,7 @@ public class VarianceSwapStaticReplication {
       return _cal.getAnnualizedVariance(_t, surface);
     }
 
-    // ********************************************
     // log-moneyness surfaces
-    // ********************************************
 
     /**
      * Only use if the integral limits have been calculated elsewhere, or you need the contribution from a specific range

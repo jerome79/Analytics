@@ -18,9 +18,9 @@ import com.opengamma.analytics.math.curve.DoublesCurve;
  */
 public class YieldCurveExample {
 
-  // @export constantYieldCurveDemo
   //CSOFF
   public static double y = 0.02;
+
   //CSON
 
   public static void constantYieldCurveDemo(PrintStream out) {
@@ -36,7 +36,6 @@ public class YieldCurveExample {
     out.println(yieldCurve.getDiscountFactor(10.0));
   }
 
-  // @export yieldCurveBundleDemo
   public static void yieldCurveBundleDemo(PrintStream out) {
     DoublesCurve curve = new ConstantDoublesCurve(y);
     YieldCurve yieldCurve = YieldCurve.from(curve);

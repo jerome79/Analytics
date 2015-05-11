@@ -16,7 +16,7 @@ public class EmpiricalDistributionVaRParameters {
   private final double _periods;
   private final double _quantile;
   private final double _mult;
-  private final PercentileCalculator _percentileCalculator;  
+  private final PercentileCalculator _percentileCalculator;
 
   public EmpiricalDistributionVaRParameters(final double horizon, final double periods, final double quantile) {
     ArgChecker.isTrue(horizon > 0, "horizon");
@@ -28,23 +28,23 @@ public class EmpiricalDistributionVaRParameters {
     _quantile = quantile;
     _mult = Math.sqrt(horizon / periods);
   }
-  
+
   public double getMult() {
     return _mult;
   }
-  
+
   public PercentileCalculator getPercentileCalculator() {
     return _percentileCalculator;
   }
-  
+
   public double getHorizon() {
     return _horizon;
   }
-  
+
   public double getPeriods() {
     return _periods;
   }
-  
+
   public double getQuantile() {
     return _quantile;
   }
@@ -86,6 +86,5 @@ public class EmpiricalDistributionVaRParameters {
     }
     return true;
   }
-  
-  
+
 }

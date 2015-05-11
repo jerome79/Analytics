@@ -24,7 +24,6 @@ import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Tests related to the Market bundle with forward provided directly my forward curves.
  */

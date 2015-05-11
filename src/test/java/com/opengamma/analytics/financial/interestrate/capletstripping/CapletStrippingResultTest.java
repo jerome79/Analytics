@@ -18,7 +18,6 @@ import com.opengamma.analytics.math.matrix.IdentityMatrix;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * 
  */

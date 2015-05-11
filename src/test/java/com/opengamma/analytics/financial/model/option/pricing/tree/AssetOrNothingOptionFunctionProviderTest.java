@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -40,7 +39,7 @@ public class AssetOrNothingOptionFunctionProviderTest {
   @Test
   public void priceLatticeTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
@@ -103,7 +102,7 @@ public class AssetOrNothingOptionFunctionProviderTest {
   @Test
   public void priceLatticeTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
@@ -158,7 +157,7 @@ public class AssetOrNothingOptionFunctionProviderTest {
   @Test
   public void priceDiscreteDividendTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification(), new LeisenReimerLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.01, 0.01 };
     final double[] cashDividends = new double[] {5., 10., 8. };
@@ -208,7 +207,7 @@ public class AssetOrNothingOptionFunctionProviderTest {
   @Test(enabled = false)
   public void greekTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
       for (final boolean isCall : tfSet) {
@@ -410,7 +409,7 @@ public class AssetOrNothingOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider1D ref = new AssetOrNothingOptionFunctionProvider(100., 1., 53, true);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new AssetOrNothingOptionFunctionProvider(100., 1., 53, true),
-        new AmericanVanillaOptionFunctionProvider(100., 1., 53, true), null };
+      new AmericanVanillaOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

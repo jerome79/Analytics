@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
@@ -65,8 +64,8 @@ public class GeneratorLegIbor extends GeneratorLeg {
    * @param indexCalendar The calendar associated with the overnight index.
    * @param paymentCalendar The calendar used to adjust the payments.
    */
-  public GeneratorLegIbor(String name, Currency ccy, IborIndex indexIbor, Period paymentPeriod, int spotOffset, 
-      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType, 
+  public GeneratorLegIbor(String name, Currency ccy, IborIndex indexIbor, Period paymentPeriod, int spotOffset,
+      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType,
       boolean isExchangeNotional, HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
     super(name, ccy);
     ArgChecker.notNull(indexIbor, "Index Ibor");
@@ -169,7 +168,7 @@ public class GeneratorLegIbor extends GeneratorLeg {
     ArgChecker.notNull(date, "Reference date");
     ArgChecker.notNull(attribute, "Attributes");
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, _spotOffset, _paymentCalendar);
-    final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(), 
+    final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(),
         _businessDayConvention, _paymentCalendar, _endOfMonth);
     final ZonedDateTime endDate = startDate.plus(attribute.getEndPeriod());
     NotionalProvider notionalProvider = new NotionalProvider() {

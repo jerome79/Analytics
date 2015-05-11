@@ -14,7 +14,6 @@ import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

@@ -21,7 +21,6 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 
-
 /**
  * Test related to the description of a bond total return swap with an underlying bond and a funding leg.
  */

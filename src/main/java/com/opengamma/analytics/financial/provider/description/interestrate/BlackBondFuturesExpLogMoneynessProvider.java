@@ -64,7 +64,7 @@ public class BlackBondFuturesExpLogMoneynessProvider implements BlackBondFutures
   public IssuerProviderInterface getIssuerProvider() {
     return _issuerProvider;
   }
-  
+
   @Override
   /**
    * Gets the Black volatility at a given expiry-delay point. The strike dimension is ignored.

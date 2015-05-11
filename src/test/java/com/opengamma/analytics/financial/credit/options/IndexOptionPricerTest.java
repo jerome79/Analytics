@@ -33,6 +33,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 /**
  * 
  */
+@Test
 public class IndexOptionPricerTest extends ISDABaseTest {
   protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
   protected static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, RANDOM);
@@ -79,7 +80,6 @@ public class IndexOptionPricerTest extends ISDABaseTest {
   /**
    * This is a pure regression test of the intrinsic value of the index 
    */
-  @Test
   public void priceIndexTest() {
     final CDSAnalytic cds = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final double price = INDEX_CAL.indexPV(cds, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
@@ -91,7 +91,6 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     assertEquals(expected, price, 1e-15);
   }
 
-  @Test
   public void indexAdjTest() {
 
     final CDSAnalytic cds = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
@@ -104,7 +103,6 @@ public class IndexOptionPricerTest extends ISDABaseTest {
   /**
    * Price an index option with homogeneous 'flat' credit curves for the individual CDS, and perform a regression test on the results. 
    */
-  @Test
   public void indexOptionTest() {
     final double[] expOTMPrices = new double[] {4.1631007571372696E-5, 2.6973611070343375E-4, 9.295502243146243E-4, 0.0022070362751108927, 0.004085595156615987, 0.002640736254260279,
       0.0016694319443711508, 0.0010387325595910084, 6.392918916192971E-4, 3.907074536166385E-4, 2.3783431950800257E-4, 1.4453687319597615E-4, 8.784959620724592E-5, 5.347507099057006E-5,
@@ -117,9 +115,7 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     Arrays.fill(creditCurves, creditCurve);
     Arrays.fill(recoeryRates, RECOVERY_RATE);
 
-    final double f = 1.0; //the index factor
     //start by adjusting the curves 
-
     final LocalDate optionExpiry = getNextIMMDate(TRADE_DATE).minusDays(1); //make expiry the next IMM - 1 (19/12/2013)
     final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
     final CDSAnalytic fwdStartingCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
@@ -146,7 +142,6 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void putCallTest() {
 
     final LocalDate optionExpiry = TRADE_DATE.plusMonths(1);
@@ -165,76 +160,14 @@ public class IndexOptionPricerTest extends ISDABaseTest {
       final double putCall = df * (atmFwd - exercisePrice);
       final double payer = pricer.getOptionPremium(atmFwd, vol, new ExerciseAmount(exercisePrice), true);
       final double reciver = pricer.getOptionPremium(atmFwd, vol, new ExerciseAmount(exercisePrice), false);
-      //    System.out.println(exercisePrice + "\t" + payer + "\t" + reciver);
       assertEquals(payer - reciver, putCall, 1e-12);
     }
 
   }
 
   /**
-   * This test the time to calculate an option price using two different methods to compute the annuity from a (flat/quoted) spread. 
-   * This was run on R White's Mac Pro on 14/01/2014 using 200 warmups and 1000 hotspots 
-   * Time using ISDA for annuity: 5.814947999999999ms
-   * Time using approximation for annuity: 1.43962ms
-   */
-  @Test
-  public void speedTest() {
-    //this is repeated from above 
-    final CDSAnalytic spotCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
-    final double indexPrice = 0.021;
-    final double f = 1.0; //the index factor
-    //start by adjusting the curves to a single index value 
-    final IntrinsicIndexDataBundle adjCurves = PSA.adjustCurves(indexPrice, spotCDS, INDEX_COUPON, YIELD_CURVE, INTRINSIC_DATA);
-
-    final LocalDate optionExpiry = TRADE_DATE.plusMonths(1); //option expiry/(effective) start of protection is in 1 month
-    final double timeToExpiry = ACT365F.yearFraction(TRADE_DATE, optionExpiry);
-    final CDSAnalytic fwdStartCDS = FACTORY.makeForwardStartingIMMCDS(TRADE_DATE, optionExpiry, Period.ofYears(5));
-    final CDSAnalytic fwdCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
-    final IndexOptionPricer pricerISDA = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, true);//this uses to ISDA model to compute annuity 
-    final IndexOptionPricer pricerApprox = new IndexOptionPricer(fwdCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON); //this uses the credit triangle to compute annuity 
-
-    final double atmFwdVal = INDEX_CAL.defaultAdjustedForwardIndexValue(fwdStartCDS, timeToExpiry, YIELD_CURVE, INDEX_COUPON, adjCurves);
-
-    if (PRINT) {
-      final int warmups = 200;
-      final int hotspots = 1000;
-
-      for (int i = 0; i < warmups; i++) {
-        final double vol = RANDOM.nextDouble();
-        final double k = 0.005 + 0.02 * RANDOM.nextDouble();
-        final double p = pricerISDA.getOptionPriceForSpreadQuotedIndex(atmFwdVal, vol, k, true);
-      }
-
-      long t0 = System.nanoTime();
-      for (int i = 0; i < hotspots; i++) {
-        final double vol = RANDOM.nextDouble();
-        final double k = 0.005 + 0.02 * RANDOM.nextDouble();
-        final double p = pricerISDA.getOptionPriceForSpreadQuotedIndex(atmFwdVal, vol, k, true);
-      }
-      long t1 = System.nanoTime();
-      System.out.println("Time using ISDA for annuity: " + (t1 - t0) * 1e-6 / hotspots + "ms");
-
-      for (int i = 0; i < warmups; i++) {
-        final double vol = RANDOM.nextDouble();
-        final double k = 0.005 + 0.02 * RANDOM.nextDouble();
-        final double p = pricerApprox.getOptionPriceForSpreadQuotedIndex(atmFwdVal, vol, k, true);
-      }
-
-      t0 = System.nanoTime();
-      for (int i = 0; i < hotspots; i++) {
-        final double vol = RANDOM.nextDouble();
-        final double k = 0.005 + 0.02 * RANDOM.nextDouble();
-        final double p = pricerApprox.getOptionPriceForSpreadQuotedIndex(atmFwdVal, vol, k, true);
-      }
-      t1 = System.nanoTime();
-      System.out.println("Time using approximation for annuity: " + (t1 - t0) * 1e-6 / hotspots + "ms");
-    }
-  }
-
-  /**
    * Check options priced with the annuity approximation are close to those using the ISDA model
    */
-  @Test
   public void isdaVApproxTest() {
     final double indexPrice = 0.021;
     final CDSAnalytic spotCDS = FACTORY.makeIMMCDS(TRADE_DATE, Period.ofYears(5));
@@ -265,7 +198,6 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     }
   }
 
-  @Test
   public void defaultedNamesTest() {
     //this is repeated from above 
     final double indexPrice = 0.021;
@@ -308,7 +240,6 @@ public class IndexOptionPricerTest extends ISDABaseTest {
       final double otm = pricerISDA.getOptionPriceForSpreadQuotedIndex(atmFwdVal, vol, k, k >= atmK);
       if (PRINT) {
         System.out.println(k + "\t" + payer1 + "\t" + payer2);
-        //  System.out.println(otm + ",");
       }
       assertEquals(payer1, payer2, 1e-6 + payer1 * 1e-4);
       assertEquals(rec1, rec2, 1e-6 + rec1 * 1e-4);
@@ -316,5 +247,4 @@ public class IndexOptionPricerTest extends ISDABaseTest {
     }
 
   }
-
 }

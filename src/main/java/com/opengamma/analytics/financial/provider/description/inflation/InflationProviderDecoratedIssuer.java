@@ -54,7 +54,7 @@ public class InflationProviderDecoratedIssuer implements InflationProviderInterf
     _inflationIssuerProvider = inflationIssuerProvider;
     _decoratedCurrency = decoratedCurrency;
     _decoratingIssuer = decoratingIssuer;
-    _multicurveDecorated = new MulticurveProviderDiscountingDecoratedIssuer(inflationIssuerProvider.getIssuerProvider(), 
+    _multicurveDecorated = new MulticurveProviderDiscountingDecoratedIssuer(inflationIssuerProvider.getIssuerProvider(),
         decoratedCurrency, decoratingIssuer);
     _inflationDecorated = new InflationProviderDecoratedMulticurve(inflationIssuerProvider.getInflationProvider(), _multicurveDecorated);
   }

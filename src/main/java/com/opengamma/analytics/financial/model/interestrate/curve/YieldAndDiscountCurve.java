@@ -129,7 +129,7 @@ public abstract class YieldAndDiscountCurve implements InterestRateModel<Double>
    */
   @Deprecated
   public YieldAndDiscountCurve withParallelShift(final double shift) {
-    return new YieldAndDiscountAddZeroSpreadCurve(_name + "WithParallelShift", false, this, 
+    return new YieldAndDiscountAddZeroSpreadCurve(_name + "WithParallelShift", false, this,
         YieldCurve.from(ConstantDoublesCurve.from(shift)));
   }
 

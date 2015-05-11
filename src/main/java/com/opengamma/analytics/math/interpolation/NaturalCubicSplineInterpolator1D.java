@@ -65,9 +65,6 @@ public class NaturalCubicSplineInterpolator1D extends Interpolator1D {
       low = n - 1;
       high = n;
     }
-    // if (data.getLowerBoundIndex(value) == n) {
-    // return yData[n];
-    // }
     final double delta = xData[high] - xData[low];
     if (Math.abs(delta) < _eps) {
       throw new MathException("x data points were not distinct");

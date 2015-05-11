@@ -41,7 +41,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Tests the ForwardRateAgreement discounting method with standard data.
  * Demo test - worked-out example on how to use OG-Analytics library for compute standard measure to simple instruments. 
@@ -93,12 +92,12 @@ public class ForwardRateAgreementDiscountingMethodE2ETest {
     final MultiCurrencyAmount pvComputed = FRA.accept(PVDC, MULTICURVE);
     final MultiCurrencyAmount pvExpected = MultiCurrencyAmount.of(Currency.USD, 23182.5437);
     assertEquals("ForwardRateAgreementDiscountingMethod: present value from standard curves",
-                 pvExpected.getAmount(USD).getAmount(), pvComputed.getAmount(USD).getAmount(), TOLERANCE_PV);
+        pvExpected.getAmount(USD).getAmount(), pvComputed.getAmount(USD).getAmount(), TOLERANCE_PV);
 
     final MultiCurrencyAmount pvComputed2 = FRA.accept(PVDC, MULTICURVE_FFS);
     final MultiCurrencyAmount pvExpected2 = MultiCurrencyAmount.of(Currency.USD, 21750.7625);
     assertEquals("ForwardRateAgreementDiscountingMethod: present value Fed Fund swap based curves",
-                 pvExpected2.getAmount(USD).getAmount(), pvComputed2.getAmount(USD).getAmount(), TOLERANCE_PV);
+        pvExpected2.getAmount(USD).getAmount(), pvComputed2.getAmount(USD).getAmount(), TOLERANCE_PV);
   }
 
   @Test

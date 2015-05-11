@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.payments.provider;
 
-
 /**
  *  Class used to compute the price of a CMS coupon by swaption replication on a SABR formula with extrapolation.
  *  Reference: Hagan, P. S. (2003). Convexity conundrums: Pricing CMS swaps, caps, and floors. Wilmott Magazine, March, pages 38--44.

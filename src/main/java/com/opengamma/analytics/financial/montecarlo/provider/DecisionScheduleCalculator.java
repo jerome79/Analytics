@@ -47,7 +47,7 @@ public class DecisionScheduleCalculator extends InstrumentDerivativeVisitorAdapt
 
   @Override
   public DecisionSchedule visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, final MulticurveProviderInterface multicurves) {
-    final double[] decisionTime = new double[] {swaption.getTimeToExpiry()};
+    final double[] decisionTime = new double[] {swaption.getTimeToExpiry() };
     final AnnuityPaymentFixed cfe = swaption.getUnderlyingSwap().accept(CFEC, multicurves);
     final double[][] impactTime = new double[1][cfe.getNumberOfPayments()];
     final double[][] impactAmount = new double[1][cfe.getNumberOfPayments()];
@@ -61,7 +61,7 @@ public class DecisionScheduleCalculator extends InstrumentDerivativeVisitorAdapt
 
   @Override
   public DecisionSchedule visitSwaptionCashFixedIbor(final SwaptionCashFixedIbor swaption, final MulticurveProviderInterface multicurves) {
-    final double[] decisionTime = new double[] {swaption.getTimeToExpiry()};
+    final double[] decisionTime = new double[] {swaption.getTimeToExpiry() };
     final AnnuityPaymentFixed cfeIbor = swaption.getUnderlyingSwap().getSecondLeg().accept(CFEC, multicurves);
     final int nbCfeIbor = cfeIbor.getNumberOfPayments();
     final int nbCpnFixed = swaption.getUnderlyingSwap().getFixedLeg().getNumberOfPayments();
@@ -84,17 +84,17 @@ public class DecisionScheduleCalculator extends InstrumentDerivativeVisitorAdapt
 
   @Override
   public DecisionSchedule visitCapFloorIbor(final CapFloorIbor payment, final MulticurveProviderInterface multicurves) {
-    final double[] decisionTime = new double[] {payment.getFixingTime()};
+    final double[] decisionTime = new double[] {payment.getFixingTime() };
     final double fixingStartTime = payment.getFixingPeriodStartTime();
     final double fixingEndTime = payment.getFixingPeriodEndTime();
     final double paymentTime = payment.getPaymentTime();
     final double[][] impactTime = new double[1][];
-    impactTime[0] = new double[] {fixingStartTime, fixingEndTime, paymentTime};
+    impactTime[0] = new double[] {fixingStartTime, fixingEndTime, paymentTime };
     final double[][] impactAmount = new double[1][];
     double forward = multicurves.getSimplyCompoundForwardRate(payment.getIndex(), payment.getFixingPeriodStartTime(), payment.getFixingPeriodEndTime(), payment.getFixingAccrualFactor());
     final double beta = (1.0 + payment.getFixingAccrualFactor() * forward) * multicurves.getDiscountFactor(payment.getCurrency(), payment.getFixingPeriodEndTime())
         / multicurves.getDiscountFactor(payment.getCurrency(), payment.getFixingPeriodStartTime());
-    impactAmount[0] = new double[] {beta, -1.0, 1.0};
+    impactAmount[0] = new double[] {beta, -1.0, 1.0 };
     final DecisionSchedule decision = new DecisionSchedule(decisionTime, impactTime, impactAmount);
     return decision;
   }

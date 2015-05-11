@@ -11,7 +11,6 @@ import com.opengamma.analytics.financial.provider.description.forex.BlackForexSm
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Class describing the data required to price instruments with the volatility delta and time dependent.
  * @deprecated Use {@link BlackForexSmileProviderDiscount}

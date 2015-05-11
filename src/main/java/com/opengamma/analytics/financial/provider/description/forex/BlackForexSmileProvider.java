@@ -17,6 +17,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
+
 /**
  * Interface for Forex Black with smile parameters provider for a currency pair.
  */

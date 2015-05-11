@@ -59,7 +59,7 @@ public class FastCreditCurveBuilderTest extends CreditCurveCalibrationTest {
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "9M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "11Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     final ISDACompliantYieldCurve yc = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofYears(1));
 
     final ISDACompliantCreditCurve curveFastISDA = BUILDER_ISDA.calibrateCreditCurve(pillar, spreads, yc);
@@ -199,7 +199,7 @@ public class FastCreditCurveBuilderTest extends CreditCurveCalibrationTest {
     String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     double[] rates = new double[] {0.001, 0.002, 0.0025, 0.003, 0.0052, 0.0053, 0.00851, 0.0125, 0.016, 0.02, 0.02, 0.022, 0.024, 0.025, 0.02, 0.031,
-        0.030, 0.031, 0.0323 };
+      0.030, 0.031, 0.0323 };
     ISDACompliantYieldCurve yieldCurve = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofMonths(6));
     LocalDate end = LocalDate.of(2014, 6, 20);
     double spF = 6.726 * 1.e-4;
@@ -228,7 +228,7 @@ public class FastCreditCurveBuilderTest extends CreditCurveCalibrationTest {
     String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
     double[] rates = new double[] {0.00151, 0.0018, 0.0026, 0.0031, 0.0052, 0.0053, 0.00851, 0.0125, 0.016, 0.02, 0.02, 0.022, 0.024, 0.025, 0.02, 0.031,
-        0.030, 0.031, 0.0323 };
+      0.030, 0.031, 0.0323 };
     ISDACompliantYieldCurve yieldCurve = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT360, D30360, Period.ofMonths(6));
 
     LocalDate end = LocalDate.of(2014, 5, 20);
@@ -236,7 +236,7 @@ public class FastCreditCurveBuilderTest extends CreditCurveCalibrationTest {
     double coupon = 500.0 * 1.0e-4;
 
     Period[] buckets = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(2), Period.ofYears(3), Period.ofYears(4), Period.ofYears(5), Period.ofYears(6),
-        Period.ofYears(7), Period.ofYears(8), Period.ofYears(9), Period.ofYears(10), Period.ofYears(12), Period.ofYears(15), Period.ofYears(20), Period.ofYears(25), Period.ofYears(30) };
+      Period.ofYears(7), Period.ofYears(8), Period.ofYears(9), Period.ofYears(10), Period.ofYears(12), Period.ofYears(15), Period.ofYears(20), Period.ofYears(25), Period.ofYears(30) };
     CDSAnalytic cdsS = nonImmCDSFactS.makeCDS(tradeDate, getPrevIMMDate(tradeDate), end);
     CDSAnalytic[] bucketCDSS = nonImmCDSFactS.makeIMMCDS(tradeDate, buckets);
     CDSAnalytic cdsF = nonImmCDSFactF.makeCDS(tradeDate, getPrevIMMDate(tradeDate), end);

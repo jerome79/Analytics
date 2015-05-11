@@ -221,9 +221,6 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
       t = t1 - t0; // t repurposed
 
       // TODO check for s0 == s1 -> zero prob of default (and thus zero PV contribution) from this section
-      // if (s0 == s1) {
-      // continue;
-      // }
 
       final double lambda = Math.log(s0 / s1) / t;
       final double fwdRate = Math.log(df0 / df1) / t;
@@ -308,9 +305,6 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
     final LocalDate[] creditCurveDates = hazardRateCurve.getCurveDates();
     final double[] integrationSchedule = ISDACompliantScheduleGenerator.getIntegrationNodesAsTimes(today, effectiveStartDate, endDate, yieldCurveDates, creditCurveDates);
 
-    // double s1 = hazardRateCurve.getSurvivalProbability(integrationSchedule[0]);
-    // double df1 = yieldCurve.getDiscountFactor(integrationSchedule[0]);
-
     double ht1 = hazardRateCurve.getRT(integrationSchedule[0]);
     double rt1 = yieldCurve.getRT(integrationSchedule[0]);
     double s1 = Math.exp(-ht1);
@@ -340,17 +334,7 @@ public class ISDACompliantPresentValueCreditDefaultSwap {
         dPV = dht / dhrt * (p0 * s0 - p1 * s1);
       }
 
-      // *************
       // ISDA code
-      // **************
-      // final double dt = integrationSchedule[i] - integrationSchedule[i - 1];
-      // final double s0 = s1;
-      // final double df0 = df1;
-      // s1 = hazardRateCurve.getSurvivalProbability(integrationSchedule[i]);
-      // df1 = yieldCurve.getDiscountFactor(integrationSchedule[i]);
-      // final double hazardRate = Math.log(s0 / s1) / dt;
-      // final double interestRate = Math.log(df0 / df1) / dt;
-      // pv += (hazardRate / (hazardRate + interestRate)) * (1.0 - Math.exp(-(hazardRate + interestRate) * dt)) * s0 * df0;
 
       pv += dPV;
 

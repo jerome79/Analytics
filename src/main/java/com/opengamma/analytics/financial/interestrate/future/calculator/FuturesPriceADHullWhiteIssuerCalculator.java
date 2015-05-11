@@ -31,7 +31,6 @@ import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Computes the par rate for different instrument. The meaning of "par rate" is instrument dependent.
  */

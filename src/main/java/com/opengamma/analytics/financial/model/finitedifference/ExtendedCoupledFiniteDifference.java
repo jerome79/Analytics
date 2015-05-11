@@ -55,10 +55,6 @@ public class ExtendedCoupledFiniteDifference extends CoupledFiniteDifference {
     final double lambda1 = pdeData1.getCoupling();
     final double lambda2 = pdeData2.getCoupling();
 
-    //    final double omega = 1.5;
-    //    final int oldCount = 0;
-    //    final boolean omegaIncrease = false;
-
     double dt, t1, t2, x;
     double[] x1st, x2nd;
 
@@ -195,7 +191,6 @@ public class ExtendedCoupledFiniteDifference extends CoupledFiniteDifference {
       if (first) {
         final DoubleMatrix2D mM = new DoubleMatrix2D(m);
         decompRes = dcomp.evaluate(mM);
-        // first = false;
       }
       f = decompRes.solve(q);
 

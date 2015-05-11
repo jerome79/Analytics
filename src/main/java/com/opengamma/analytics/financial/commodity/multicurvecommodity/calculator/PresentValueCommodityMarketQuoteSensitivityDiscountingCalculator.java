@@ -21,6 +21,7 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.Swap;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
 import com.opengamma.analytics.financial.provider.description.commodity.CommodityProviderInterface;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * Computes the sensitivity to the curves (in the Market description of curve bundle) of the market quote sensitivity.
  */

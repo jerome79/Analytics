@@ -27,7 +27,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Tests related to ParameterSensitivity manipulations.
  */
@@ -138,8 +137,8 @@ public class MultipleCurrencyParameterSensitivityTest {
     sensitivity1 = sensitivity1.plus(NAME_1_USD, SENSITIVITY_1_1);
     sensitivity1 = sensitivity1.plus(NAME_1_USD, SENSITIVITY_1_2);
     assertEquals("Add same currency, different sensitivities: ",
-                 MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2),
-                 sensitivity1.getSensitivity(NAME_1_USD));
+        MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2),
+        sensitivity1.getSensitivity(NAME_1_USD));
     MultipleCurrencyParameterSensitivity sensitivity2 = new MultipleCurrencyParameterSensitivity();
     sensitivity2 = sensitivity2.plus(NAME_1_EUR, SENSITIVITY_1_1);
     sensitivity2 = sensitivity2.plus(sensitivity1);
@@ -154,20 +153,20 @@ public class MultipleCurrencyParameterSensitivityTest {
     assertEquals("Add same currency, test sensitivities: ", MATRIX.add(SENSITIVITY_1_1, MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2)), sensitivity2.getSensitivity(NAME_1_USD));
     sensitivity2 = sensitivity2.plus(NAME_2_EUR, SENSITIVITY_2_1);
     assertEquals("Add different currency, test sensitivities of first currency: ",
-                 SENSITIVITY_2_1,
-                 sensitivity2.getSensitivity(NAME_2_EUR));
+        SENSITIVITY_2_1,
+        sensitivity2.getSensitivity(NAME_2_EUR));
     assertEquals("Add different currency, test sensitivities of second currency: ", MATRIX.add(SENSITIVITY_1_1, MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2)), sensitivity2.getSensitivity(NAME_1_USD));
     sensitivity2 = sensitivity2.plus(NAME_2_EUR, SENSITIVITY_2_1);
     assertEquals("Test add same sensitivities: ",
-                 MATRIX.scale(SENSITIVITY_2_1, 2.0),
-                 sensitivity2.getSensitivity(NAME_2_EUR));
+        MATRIX.scale(SENSITIVITY_2_1, 2.0),
+        sensitivity2.getSensitivity(NAME_2_EUR));
     assertEquals("Test other currency: ",
-                 MATRIX.add(SENSITIVITY_1_1, MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2)),
-                 sensitivity2.getSensitivity(NAME_1_USD));
+        MATRIX.add(SENSITIVITY_1_1, MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2)),
+        sensitivity2.getSensitivity(NAME_1_USD));
     sensitivity2 = sensitivity2.plus(NAME_1_EUR, SENSITIVITY_1_1);
     assertEquals("ParameterSensitivity: add",
-                 MATRIX.scale(SENSITIVITY_2_1, 2.0),
-                 sensitivity2.getSensitivity(NAME_2_EUR));
+        MATRIX.scale(SENSITIVITY_2_1, 2.0),
+        sensitivity2.getSensitivity(NAME_2_EUR));
     assertEquals("ParameterSensitivity: add", MATRIX.add(SENSITIVITY_1_1, MATRIX.add(SENSITIVITY_1_1, SENSITIVITY_1_2)), sensitivity2.getSensitivity(NAME_1_USD));
     assertEquals("ParameterSensitivity: add", SENSITIVITY_1_1, sensitivity2.getSensitivity(NAME_1_EUR));
   }
@@ -198,14 +197,14 @@ public class MultipleCurrencyParameterSensitivityTest {
     MultipleCurrencyParameterSensitivity sensitivityUSDExpected = new MultipleCurrencyParameterSensitivity();
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_1_USD, SENSITIVITY_1_1);
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_1_USD,
-                                                         (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_1_2,
-                                                                                       fxMatrix.fxRate(EUR, USD)));
+        (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_1_2,
+            fxMatrix.fxRate(EUR, USD)));
     sensitivityUSDExpected = sensitivityUSDExpected.plus(NAME_2_USD, (DoubleMatrix1D) MATRIX.scale(SENSITIVITY_2_1, fxMatrix.fxRate(EUR, USD)));
     assertTrue("Test convert: ",
-               AssertSensitivityObjects.assertEquals("ParameterSensitivity: convert",
-                                                   sensitivityUSDExpected,
-                                                   sensitivityUSDConverted,
-                                                   TOLERANCE));
+        AssertSensitivityObjects.assertEquals("ParameterSensitivity: convert",
+            sensitivityUSDExpected,
+            sensitivityUSDConverted,
+            TOLERANCE));
   }
 
   @Test
@@ -222,9 +221,9 @@ public class MultipleCurrencyParameterSensitivityTest {
     MultipleCurrencyParameterSensitivity sensitivity3 = new MultipleCurrencyParameterSensitivity();
     sensitivity3 = sensitivity3.plus(NAME_1_USD, SENSITIVITY_1_1);
     AssertSensitivityObjects.assertDoesNotEqual("ParameterSensitivity: compare data with different name / currency pairs",
-                                              sensitivity1,
-                                              sensitivity3,
-                                              TOLERANCE);
+        sensitivity1,
+        sensitivity3,
+        TOLERANCE);
   }
 
   @Test
@@ -237,8 +236,8 @@ public class MultipleCurrencyParameterSensitivityTest {
     assertEquals("ParameterSensitivity: getAllNamesCurrency", sensitivity1.getAllNamesCurrency(), sensitivity1.getSensitivities().keySet());
     assertEquals("ParameterSensitivity: getAllNamesCurrency", sensitivity1.getSensitivity(NAME_1, EUR), sensitivity1.getSensitivity(NAME_1_EUR));
     assertEquals("ParameterSensitivity: getAllNamesCurrency",
-                 sensitivity1.getSensitivity(NAME_2, EUR),
-                 sensitivity1.getSensitivity(NAME_2_EUR));
+        sensitivity1.getSensitivity(NAME_2, EUR),
+        sensitivity1.getSensitivity(NAME_2_EUR));
   }
 
   @Test
@@ -249,11 +248,11 @@ public class MultipleCurrencyParameterSensitivityTest {
     map1.put(NAME_1_USD, SENSITIVITY_2_1);
     final MultipleCurrencyParameterSensitivity sensitivity1 = MultipleCurrencyParameterSensitivity.of(map1);
     assertEquals("ParameterSensitivity: getSensitivityByName",
-                 ImmutableMap.of(EUR, SENSITIVITY_1_1, USD, SENSITIVITY_2_1),
-                 sensitivity1.getSensitivityByName(NAME_1));
+        ImmutableMap.of(EUR, SENSITIVITY_1_1, USD, SENSITIVITY_2_1),
+        sensitivity1.getSensitivityByName(NAME_1));
     assertEquals("ParameterSensitivity: getSensitivityByName",
-                 ImmutableMap.of(EUR, SENSITIVITY_1_2),
-                 sensitivity1.getSensitivityByName(NAME_2));
+        ImmutableMap.of(EUR, SENSITIVITY_1_2),
+        sensitivity1.getSensitivityByName(NAME_2));
   }
 
   @Test

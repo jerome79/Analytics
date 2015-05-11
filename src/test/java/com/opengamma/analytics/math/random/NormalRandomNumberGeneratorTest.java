@@ -12,8 +12,6 @@ import java.util.List;
 import cern.jet.random.engine.MersenneTwister64;
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */

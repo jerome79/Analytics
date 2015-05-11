@@ -36,7 +36,6 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -275,8 +274,6 @@ public class VarianceSwapStaticReplicationTest {
     };
 
     final BlackVolatilitySurface<Strike> surfaceStrike = new BlackVolatilitySurfaceStrike(FunctionalDoublesSurface.from(surf));
-
-    //PDEUtilityTools.printSurface(null, surfaceStrike.getSurface(), 0.1, 4, 5, 300);
 
     final StaticReplicationDataBundle marketStrike = new StaticReplicationDataBundle(surfaceStrike, DISCOUNT, FORWARD_CURVE);
 

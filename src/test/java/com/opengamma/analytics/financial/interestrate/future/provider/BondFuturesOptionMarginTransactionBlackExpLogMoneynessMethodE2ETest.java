@@ -144,7 +144,7 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
     BLACK_PROVIDER_BOB = new BlackBondFuturesExpLogMoneynessProviderDiscount(issuerProvider, VOL_SURFACE_MONEYNESS,
         LEGAL_ENTITY_BOB);
   }
-  
+
   private static final int QUANTITY = 1;
   private static final double NOTIONAL = 1000.0;
   private static final BusinessDayConvention BUSINESS_DAY = BusinessDayConventions.FOLLOWING;
@@ -152,7 +152,7 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
   private static ZonedDateTime TRADE_DATE = ZonedDateTime.of(2008, 8, 27, 1, 0, 0, 0, ZoneId.of("Z")); // 2008-08-27T01:00Z 
   private static final double TRADE_PRICE = 0.0;
   private static final double LAST_MARGIN_PRICE = 0.0;
-  
+
   /* Schatz */
   private static final BondFuturesOptionMarginTransaction TRANSACTION_SCH;
   private static final double BOND_MARKET_PRICE_SCH = 99.825;
@@ -269,7 +269,7 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
       .getInstance();
   private static final PresentValueBlackBondFuturesOptionCalculator PVBFC = PresentValueBlackBondFuturesOptionCalculator
       .getInstance();
-  private static final PresentValueCurveSensitivityBlackBondFuturesOptionCalculator PVCSBFC = 
+  private static final PresentValueCurveSensitivityBlackBondFuturesOptionCalculator PVCSBFC =
       new PresentValueCurveSensitivityBlackBondFuturesOptionCalculator();
   private static final ParameterSensitivityParameterCalculator<BlackBondFuturesProviderInterface> PSSFC =
       new ParameterSensitivityParameterCalculator<>(PVCSBFC);
@@ -310,8 +310,8 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
     double vega = TRANSACTION_SCH.getUnderlyingSecurity().accept(VBFC, blackNew);
 
     double[] bucketExpected = new double[] {0.0, 0.0, 0.0, 0.0, -1.0423326047608712E-5, -0.0019402794580315554,
-        -0.003858201768632529, -0.00575895407513098, -0.007584169326455068, -0.009238481853954652,
-        -0.011014901502395579, -0.012431820569196617, -0.01921332999829044, -1.0042223062140274, 0.0, 0.0, 0.0, 0.0 };
+      -0.003858201768632529, -0.00575895407513098, -0.007584169326455068, -0.009238481853954652,
+      -0.011014901502395579, -0.012431820569196617, -0.01921332999829044, -1.0042223062140274, 0.0, 0.0, 0.0, 0.0 };
 
     assertRelative("SCHTest", 1.8985746330408042, spread, TOL);
     assertRelative("SCHTest", 35.183034488344134, price, TOL);
@@ -350,8 +350,8 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
     double vega = TRANSACTION_BUN.getUnderlyingSecurity().accept(VBFC, blackNew);
 
     double[] bucketExpected = new double[] {0.0, 0.0, 0.0, 0.0, -7.043872687701196E-6, -0.0013112035838708407,
-        -0.002607644487398833, -0.0038928242105677065, -0.005127274086907749, -0.006246485024304067,
-        -0.007448577673891045, -0.008407825293669284, -0.012996416494364633, -0.6793455067559377, 0.0, 0.0, 0.0, 0.0 };
+      -0.002607644487398833, -0.0038928242105677065, -0.005127274086907749, -0.006246485024304067,
+      -0.007448577673891045, -0.008407825293669284, -0.012996416494364633, -0.6793455067559377, 0.0, 0.0, 0.0, 0.0 };
 
     assertRelative("BUNTest", 0.5612849466207794, spread, TOL);
     assertRelative("BUNTest", 30.113033433034087, price, TOL);
@@ -390,8 +390,8 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodE2ETest
     double vega = TRANSACTION_BOB.getUnderlyingSecurity().accept(VBFC, blackNew);
 
     double[] bucketExpected = new double[] {0.0, 0.0, 0.0, 0.0, 3.9939567069155403E-4, 0.0017598422748673222,
-        0.0038884332824756437, 0.005802403467586379, 0.03716178737504283, 0.22340950463905093, 0.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0 };
+      0.0038884332824756437, 0.005802403467586379, 0.03716178737504283, 0.22340950463905093, 0.0, 0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0 };
 
     assertRelative("BOBTest", -3.9954021134091353, spread, TOL);
     assertRelative("BOBTest", 8.837066933825167, price, TOL);

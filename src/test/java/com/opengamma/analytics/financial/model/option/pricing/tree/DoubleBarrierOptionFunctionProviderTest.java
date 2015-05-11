@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -36,7 +35,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void priceTestTrinomial() {
     final LatticeSpecification lattice = new TianLatticeSpecification();
     final double[] vols = new double[] {0.15, 0.25 };
@@ -66,7 +64,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void greeksTrinomialTest() {
     final double eps = 1.e-6;
     final LatticeSpecification lattice = new TianLatticeSpecification();
@@ -108,7 +105,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void putCallSymmetryTest() {
     /*
      * Two sample lattices are checked 
@@ -145,7 +141,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void priceTest() {
     /*
      * Due to slow convergence, only one lattice is used in this test
@@ -178,7 +173,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void priceOutOfRangeTest() {
     final LatticeSpecification lattice = new LeisenReimerLatticeSpecification();
     final double[] vols = new double[] {0.15, 0.25 };
@@ -208,7 +202,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void greeksTest() {
     final double eps = 1.e-6;
     /*
@@ -253,7 +246,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void greeksOutOfRangeTest() {
     final double eps = 1.e-6;
     /*
@@ -299,7 +291,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void binomialTrinomialDiscreteDividendTest() {
     final LatticeSpecification lattice = new TianLatticeSpecification();
 
@@ -355,7 +346,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * non-constant volatility and interest rate
    */
-  @Test
   public void timeVaryingVolTest() {
     final LatticeSpecification lattice1 = new TimeVaryingLatticeSpecification();
     final double[] time_set = new double[] {0.5, 1.2 };
@@ -422,7 +412,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void getLowerBarrierTest() {
     final OptionFunctionProvider1D function = new DoubleBarrierOptionFunctionProvider(100., TIME, 21, true, 88., 121.,
         DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockOut"));
@@ -432,7 +421,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void getUpperBarrierTest() {
     final OptionFunctionProvider1D function = new DoubleBarrierOptionFunctionProvider(100., TIME, 21, true, 88., 121.,
         DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockOut"));
@@ -452,7 +440,7 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void DoubleKnockInTest() {
     new DoubleBarrierOptionFunctionProvider(100., TIME, 21, true, 88., 121., DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockIn"));
@@ -461,7 +449,7 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void negativeUpperBarrierTest() {
     new DoubleBarrierOptionFunctionProvider(100., TIME, 21, true, 88., -121., DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockOut"));
@@ -470,7 +458,7 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @SuppressWarnings("unused")
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void smallUpperBarrierTest() {
     new DoubleBarrierOptionFunctionProvider(100., TIME, 21, true, 188., 121., DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockOut"));
@@ -479,14 +467,13 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * 
    */
-  @Test
   public void hashCodeEqualsTest() {
     final DoubleBarrierOptionFunctionProvider.BarrierTypes type = DoubleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DoubleKnockOut");
     final AmericanSingleBarrierOptionFunctionProvider.BarrierTypes type1 = AmericanSingleBarrierOptionFunctionProvider.BarrierTypes.valueOf("DownAndOut");
     final OptionFunctionProvider1D ref = new DoubleBarrierOptionFunctionProvider(100., 1., 53, true, 90., 120., type);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new DoubleBarrierOptionFunctionProvider(100., 1., 53, true, 90., 120., type),
-        new DoubleBarrierOptionFunctionProvider(100., 1., 53, true, 90., 121., type), new AmericanSingleBarrierOptionFunctionProvider(100., 1., 53, true, 90., type1),
-        new AmericanVanillaOptionFunctionProvider(100., 1., 53, true), null };
+      new DoubleBarrierOptionFunctionProvider(100., 1., 53, true, 90., 121., type), new AmericanSingleBarrierOptionFunctionProvider(100., 1., 53, true, 90., type1),
+      new AmericanVanillaOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {
@@ -598,7 +585,6 @@ public class DoubleBarrierOptionFunctionProviderTest {
   /**
    * test for analytic formula
    */
-  @Test(enabled = false)
   public void functionTest() {
     final boolean[] tfSet = new boolean[] {true, false };
     final double eps = 1.e-6;
@@ -620,30 +606,4 @@ public class DoubleBarrierOptionFunctionProviderTest {
     }
   }
 
-  //  @Test
-  //  public void test() {
-  //    final double spot = 100.;
-  //    final double strike = 100.;
-  //    final double interest = 0.1;
-  //    final double div = 0.;
-  //
-  //    final double[] vol = new double[] {0.15, 0.25, 0.35 };
-  //    final double[] time = new double[] {0.25, 0.5 };
-  //    final double[] upper = new double[] {150., 140., 130., 120., 110. };
-  //    final double[] lower = new double[] {50., 60., 70., 80., 90. };
-  //
-  //    for (int i = 0; i < upper.length; ++i) {
-  //      for (int j = 0; j < time.length; ++j) {
-  //        for (int k = 0; k < vol.length; ++k) {
-  //          final double callPrice = price(spot, strike, time[j], vol[k], interest, div, true, upper[i], lower[i]);
-  //          System.out.print(callPrice + "\t");
-  //          final double dual = price(strike, spot, time[j], vol[k], div, interest, false, spot * strike / lower[i], spot * strike / upper[i]);
-  //          assertEquals(callPrice, dual, Math.max(callPrice, 1.) * 1.e-10);
-  //
-  //        }
-  //      }
-  //      System.out.print("\n");
-  //    }
-  //
-  //  }
 }

@@ -20,18 +20,15 @@ import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborSpreadDefi
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
-import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueCurveSensitivityDiscountingCalculator;
 import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueDiscountingCalculator;
 import com.opengamma.analytics.financial.provider.description.MulticurveProviderDiscountDataSets;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
-import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
-
 
 /**
  * Tests related to the pricing and sensitivities of Swap Ibor with spread in the discounting method.
@@ -70,7 +67,6 @@ public class SwapFixedIborSpreadDiscountingMethodTest {
 
   private static final SwapFixedIborSpreadDiscountingMethod METHOD_SWAP_SPREAD = SwapFixedIborSpreadDiscountingMethod.getInstance();
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
-  private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = PresentValueCurveSensitivityDiscountingCalculator.getInstance();
 
   private static final double TOLERANCE_PV = 1.0E-2;
   private static final double TOLERANCE_RATE = 1.0E-8;
@@ -110,46 +106,6 @@ public class SwapFixedIborSpreadDiscountingMethodTest {
     final double pvAnnuityIbor = SWAP_SPREAD_EUR1Y3M.getSecondLeg().accept(PVDC, MULTICURVES).getAmount(EUR).getAmount();
     final double forwardExpected = -(pvAnnuityIbor - pvAnnuitySpread) / pvbp1Y;
     assertEquals("SwapFixedIborSpreadDiscountingMethod: forwardSwapSpreadModified", forwardExpected, forwardComputed, TOLERANCE_RATE);
-  }
-
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  /**
-   * Test the performance of building swaps and computing their PV and delta.
-   */
-  public void performanceBuildPV() {
-    final int nbSwap = 2500;
-    long startTime, endTime;
-    final double strikeMin = 0.01;
-    final double strikeMax = 0.02;
-    final Period tenor = Period.ofYears(10);
-    final SwapFixedIborSpreadDefinition[] swapDefinition = new SwapFixedIborSpreadDefinition[nbSwap + 1];
-    final double[] pv = new double[nbSwap + 1];
-
-    startTime = System.currentTimeMillis();
-    for (int loopswap = 0; loopswap <= nbSwap; loopswap++) {
-      final double strike = strikeMin + loopswap * (strikeMax - strikeMin) / nbSwap;
-      swapDefinition[loopswap] = SwapFixedIborSpreadDefinition.from(START_DATE, tenor, EUR1YEURIBOR3M, NOTIONAL, strike, SPREAD, IS_PAYER, TARGET);
-      final SwapFixedCoupon<Coupon> swap = swapDefinition[loopswap].toDerivative(REFERENCE_DATE);
-      pv[loopswap] = swap.accept(PVDC, MULTICURVES).getAmount(EUR).getAmount();
-      final MultipleCurrencyMulticurveSensitivity pvcs = swap.accept(PVCSDC, MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbSwap + " swap construction/pv/delta: " + (endTime - startTime) + " ms");
-    // Performance note: build/pv/delta: 22-Dec-2012: On Mac Air 1.86 GHz Core 2 Duo: 900 ms for 1250 swaps.
-
-    startTime = System.currentTimeMillis();
-    for (int loopswap = 0; loopswap <= nbSwap; loopswap++) {
-      final double strike = strikeMin + loopswap * (strikeMax - strikeMin) / nbSwap;
-      swapDefinition[loopswap] = SwapFixedIborSpreadDefinition.from(START_DATE, tenor, EUR1YEURIBOR3M, NOTIONAL, strike, SPREAD, IS_PAYER, TARGET);
-      final SwapFixedCoupon<Coupon> swap = swapDefinition[loopswap].toDerivative(REFERENCE_DATE);
-      pv[loopswap] = swap.accept(PVDC, MULTICURVES).getAmount(EUR).getAmount();
-      final MultipleCurrencyMulticurveSensitivity pvcs = swap.accept(PVCSDC, MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbSwap + " swap construction/pv/delta: " + (endTime - startTime) + " ms");
-    // Performance note: build/pv/delta: 22-Dec-2012: On Mac Air 1.86 GHz Core 2 Duo: xx ms for 1250 swaps.
-
   }
 
 }

@@ -25,7 +25,7 @@ public final class GeneratorSwapIborIborMaster {
    * Reference for a AUD BBSW 3M float vs BBSW 6M float swap.
    */
   public static final String AUDBBSW3MBBSW6M = "AUDBBSW3MBBSW6M";
-  
+
   /**
    * Reference for a JPY LIBOR 3M float vs LIBOR 6M float swap.
    */
@@ -62,17 +62,17 @@ public final class GeneratorSwapIborIborMaster {
     final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
     _generatorSwap = new HashMap<>();
     _generatorSwap.put(AUDBBSW3MBBSW6M,
-                       new GeneratorSwapIborIbor(AUDBBSW3MBBSW6M,
-                                                 _iborIndexMaster.getIndex(IndexIborMaster.AUDBB3M),
-                                                 _iborIndexMaster.getIndex(IndexIborMaster.AUDBB6M),
-                                                 baseCalendar,
-                                                 baseCalendar));
+        new GeneratorSwapIborIbor(AUDBBSW3MBBSW6M,
+            _iborIndexMaster.getIndex(IndexIborMaster.AUDBB3M),
+            _iborIndexMaster.getIndex(IndexIborMaster.AUDBB6M),
+            baseCalendar,
+            baseCalendar));
     _generatorSwap.put(EUREURIBOR3MEURIBOR6M,
-                       new GeneratorSwapIborIbor(EUREURIBOR3MEURIBOR6M,
-                                                 _iborIndexMaster.getIndex(IndexIborMaster.EURIBOR3M),
-                                                 _iborIndexMaster.getIndex(IndexIborMaster.EURIBOR6M),
-                                                 baseCalendar,
-                                                 baseCalendar));
+        new GeneratorSwapIborIbor(EUREURIBOR3MEURIBOR6M,
+            _iborIndexMaster.getIndex(IndexIborMaster.EURIBOR3M),
+            _iborIndexMaster.getIndex(IndexIborMaster.EURIBOR6M),
+            baseCalendar,
+            baseCalendar));
     _generatorSwap.put(JPYLIBOR3MLIBOR6M,
         new GeneratorSwapIborIbor(JPYLIBOR3MLIBOR6M,
             _iborIndexMaster.getIndex(IndexIborMaster.JPYLIBOR3M),
@@ -85,8 +85,8 @@ public final class GeneratorSwapIborIborMaster {
     if (generatorNoCalendar == null) {
       throw new RuntimeException("Could not get Ibor index for " + name);
     }
-    return new GeneratorSwapIborIbor(generatorNoCalendar.getName(), 
-        _iborIndexMaster.getIndex(generatorNoCalendar.getIborIndex1().getName()), 
+    return new GeneratorSwapIborIbor(generatorNoCalendar.getName(),
+        _iborIndexMaster.getIndex(generatorNoCalendar.getIborIndex1().getName()),
         _iborIndexMaster.getIndex(generatorNoCalendar.getIborIndex2().getName()), cal, cal);
   }
 

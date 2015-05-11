@@ -18,6 +18,7 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Multi
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.collect.tuple.Pair;
+
 /**
  * Interface specific to inflation curves.
  * Compose the MulticurveProviderInterface.

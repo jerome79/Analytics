@@ -36,7 +36,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the pricing methods for ON Compounded coupon in the discounting method.
  */
@@ -90,8 +89,8 @@ public class CouponONCompoundedDiscountingMethodTest {
   @Test
   public void presentValueStarted() {
     final double fixing = 0.0015;
-    final ZonedDateTimeDoubleTimeSeries TS_ON = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 5, 20), DateUtils.getUTCDate(2011, 5, 23)}, new double[]{
-        0.0010, fixing});
+    final ZonedDateTimeDoubleTimeSeries TS_ON = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 5, 20), DateUtils.getUTCDate(2011, 5, 23) }, new double[] {
+      0.0010, fixing });
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(EFFECTIVE_DATE, 1, TARGET);
     final CouponONCompounded cpnONCompoundedStarted = (CouponONCompounded) CPN_ON_COMPOUNDED_DEFINITION.toDerivative(referenceDate, TS_ON);
     final double notionalAccrued = NOTIONAL * Math.pow(1 + fixing, CPN_ON_COMPOUNDED_DEFINITION.getFixingPeriodAccrualFactors()[0]);

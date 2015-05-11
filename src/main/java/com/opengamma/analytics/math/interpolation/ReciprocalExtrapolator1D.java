@@ -12,7 +12,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Given a data set {x[i], y[i]}, extrapolate {x[i], x[i] * y[i]} by a linear function by using polynomial coefficients 
  * obtained in ProductPiecewisePolynomialInterpolator1D. 
@@ -63,7 +62,7 @@ public class ReciprocalExtrapolator1D extends ProductPolynomialExtrapolator1D {
   }
 
   private static class LinearlFunction1D extends PiecewisePolynomialFunction1D {
-    
+
     @Override
     public DoubleMatrix1D evaluate(final PiecewisePolynomialResult pp, final double xKey) {
       ArgChecker.notNull(pp, "pp");

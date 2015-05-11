@@ -7,25 +7,18 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatilityFormula;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
-import com.opengamma.analytics.util.monitor.OperationTimer;
 
 /**
  * Test.
  */
 @Test
 public class HestonSpeedTest {
-  private static Logger s_logger = LoggerFactory.getLogger(HestonSpeedTest.class);
-  private static int WARMUP_CYCLES = 0;
-  private static int BENCHMARK_CYCLES = 1;
-
   private static final double FORWARD = 0.04;
   private static final double T = 2.0;
   private static final double DF = 0.93;
@@ -68,72 +61,6 @@ public class HestonSpeedTest {
       assertEquals(fft_vol, integral_vol, EPS);
       assertEquals(fft_vol, integral_vol_corrected, EPS);
     }
-  }
-
-  @Test
-  public void testIntegral() {
-    for (int i = 0; i < WARMUP_CYCLES; i++) {
-      priceWithIntegral();
-    }
-    if (BENCHMARK_CYCLES > 0) {
-      final OperationTimer timer = new OperationTimer(s_logger, "processing {} cycles on integral", BENCHMARK_CYCLES);
-      for (int i = 0; i < BENCHMARK_CYCLES; i++) {
-        priceWithIntegral();
-      }
-      timer.finished();
-    }
-  }
-
-  @Test
-  public void testIntegralCorrection() {
-    for (int i = 0; i < WARMUP_CYCLES; i++) {
-      priceWithIntegralCorrection();
-    }
-    if (BENCHMARK_CYCLES > 0) {
-      final OperationTimer timer = new OperationTimer(s_logger, "processing {} cycles on integral (corrected)", BENCHMARK_CYCLES);
-      for (int i = 0; i < BENCHMARK_CYCLES; i++) {
-        priceWithIntegralCorrection();
-      }
-      timer.finished();
-    }
-  }
-
-  @Test
-  public void testFFT() {
-    for (int i = 0; i < WARMUP_CYCLES; i++) {
-      priceWithFFT();
-    }
-    if (BENCHMARK_CYCLES > 0) {
-      final OperationTimer timer = new OperationTimer(s_logger, "processing {} cycles on FFT", BENCHMARK_CYCLES);
-      for (int i = 0; i < BENCHMARK_CYCLES; i++) {
-        priceWithFFT();
-      }
-      timer.finished();
-    }
-  }
-
-  private void priceWithIntegral() {
-    final int n = 7;
-    final BlackFunctionData data = new BlackFunctionData(FORWARD, DF, SIGMA);
-    for (int i = 0; i < n; i++) {
-      final double k = FORWARD * Math.exp((i - n / 2) * MAX_LOG_MONEYNESS);
-      final EuropeanVanillaOption option = new EuropeanVanillaOption(k, T, true);
-      INTEGRAL_PRICER.price(data, option, HESTON, ALPHA, 0.1 * EPS);
-    }
-  }
-
-  private void priceWithIntegralCorrection() {
-    final int n = 7;
-    for (int i = 0; i < n; i++) {
-      final double k = FORWARD * Math.exp((i - n / 2) * MAX_LOG_MONEYNESS);
-      final EuropeanVanillaOption option = new EuropeanVanillaOption(k, T, true);
-      INTEGRAL_PRICER.price(DATA, option, HESTON, ALPHA, 0.1 * EPS, true);
-    }
-  }
-
-  private void priceWithFFT() {
-    final int n = 7;
-    FFT_PRICER.price(FORWARD, DF, T, true, HESTON, n, MAX_LOG_MONEYNESS, SIGMA, ALPHA, 0.01 * EPS);
   }
 
 }

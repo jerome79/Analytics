@@ -140,7 +140,6 @@ public class SuccessiveRootFinderInflationZeroCouponCapFloorCalibrationObjective
 
     // setting the volatility in the volatility matrix
     _inflationCapZeroCouponParameters.setVolatility(x, _expiryIndex, _strikeIndex);
-    // creating the new volatility surface using the new volatility matrix
     final Interpolator2D interpolator = _inflationCapZeroCouponProvider.getBlackParameters().getVolatilitySurface().getInterpolator();
     final BlackSmileCapInflationZeroCouponParameters blackSmileCapInflationZeroCouponParameters = new BlackSmileCapInflationZeroCouponParameters(_inflationCapZeroCouponParameters, interpolator);
     final BlackSmileCapInflationZeroCouponProvider blackSmileCapInflationZeroCouponProvider = new BlackSmileCapInflationZeroCouponProvider(_inflationCapZeroCouponProvider.getInflationProvider(),

@@ -31,7 +31,7 @@ public class HestonModelFitter extends SmileModelFitter<HestonModelData> {
     DEFAULT_TRANSFORMS[1] = new SingleRangeLimitTransform(0, LimitType.GREATER_THAN); // theta > 0
     DEFAULT_TRANSFORMS[2] = new SingleRangeLimitTransform(0, LimitType.GREATER_THAN); //vol0 > 0
     DEFAULT_TRANSFORMS[3] = new SingleRangeLimitTransform(0, LimitType.GREATER_THAN); // omega > 0
-    DEFAULT_TRANSFORMS[4] = new DoubleRangeLimitTransform(-1.0 , 1.0); // -1 <= rho <= 1
+    DEFAULT_TRANSFORMS[4] = new DoubleRangeLimitTransform(-1.0, 1.0); // -1 <= rho <= 1
   }
 
   public HestonModelFitter(final double forward, final double[] strikes, final double timeToExpiry, final double[] impliedVols, final double[] error,

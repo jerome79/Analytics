@@ -29,7 +29,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -251,9 +250,9 @@ public class CapFloorInflationZeroCouponInterpolationDefinitiontest {
   @Test
   public void toDerivativesStartMonthKnown() {
     final ZonedDateTime pricingDate = DateUtils.getUTCDate(2018, 6, 25);
-    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2017, 5, 1),
-            DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1)},
-        new double[]{127.23, 127.43, 128.23, 128.43});
+    final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2017, 5, 1),
+      DateUtils.getUTCDate(2017, 6, 1), DateUtils.getUTCDate(2018, 5, 1), DateUtils.getUTCDate(2018, 6, 1) },
+        new double[] {127.23, 127.43, 128.23, 128.43 });
     final Coupon zeroCouponConverted = ZERO_COUPON_CAP_DEFINITION.toDerivative(pricingDate, priceIndexTS);
     final double paymentTime = DayCountUtils.yearFraction(ACT_ACT, pricingDate, PAYMENT_DATE);
     final CouponFixed zeroCoupon = new CouponFixed(CUR, paymentTime, 1.0, NOTIONAL, Math.max(

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.forex.provider;
 
-
 import static com.opengamma.strata.basics.currency.Currency.EUR;
 import static com.opengamma.strata.basics.currency.Currency.GBP;
 import static com.opengamma.strata.basics.currency.Currency.USD;

@@ -25,11 +25,11 @@ import com.opengamma.strata.collect.tuple.Triple;
 @Test
 public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
 
-  private static final double[] TIME_TO_EXPIRY = {0.10, 0.25, 0.50, 1.00, 2.00, 3.00};
-  private static final double[] ATM = {0.175, 0.185, 0.18, 0.17, 0.16, 0.17};
-  private static final double[] DELTA = new double[] {0.10, 0.25};
-  private static final double[][] RISK_REVERSAL = new double[][] { {-0.010, -0.0050}, {-0.011, -0.0060}, {-0.012, -0.0070}, {-0.013, -0.0080}, {-0.014, -0.0090}, {-0.014, -0.0090}};
-  private static final double[][] STRANGLE = new double[][] { {0.0300, 0.0100}, {0.0310, 0.0110}, {0.0320, 0.0120}, {0.0330, 0.0130}, {0.0340, 0.0140}, {0.0340, 0.0140}};
+  private static final double[] TIME_TO_EXPIRY = {0.10, 0.25, 0.50, 1.00, 2.00, 3.00 };
+  private static final double[] ATM = {0.175, 0.185, 0.18, 0.17, 0.16, 0.17 };
+  private static final double[] DELTA = new double[] {0.10, 0.25 };
+  private static final double[][] RISK_REVERSAL = new double[][] { {-0.010, -0.0050 }, {-0.011, -0.0060 }, {-0.012, -0.0070 }, {-0.013, -0.0080 }, {-0.014, -0.0090 }, {-0.014, -0.0090 } };
+  private static final double[][] STRANGLE = new double[][] { {0.0300, 0.0100 }, {0.0310, 0.0110 }, {0.0320, 0.0120 }, {0.0330, 0.0130 }, {0.0340, 0.0140 }, {0.0340, 0.0140 } };
   private static final int NB_EXP = TIME_TO_EXPIRY.length;
   private static final SmileDeltaParameters[] VOLATILITY_TERM = new SmileDeltaParameters[NB_EXP];
   static {
@@ -50,18 +50,15 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     new SmileDeltaTermStructureParametersStrikeInterpolation(null, INTERPOLATOR_STRIKE);
   }
 
-  @Test
   public void getter() {
     assertEquals("Smile by delta term structure: volatility", VOLATILITY_TERM, SMILE_TERM.getVolatilityTerm());
   }
 
-  @Test
   public void constructor() {
     final SmileDeltaTermStructureParametersStrikeInterpolation smileTerm2 = new SmileDeltaTermStructureParametersStrikeInterpolation(TIME_TO_EXPIRY, DELTA, ATM, RISK_REVERSAL, STRANGLE);
     assertEquals("Smile by delta term structure: constructor", SMILE_TERM, smileTerm2);
   }
 
-  @Test
   public void constructor2() {
     final double[][] vol = new double[NB_EXP][];
     for (int loopexp = 0; loopexp < NB_EXP; loopexp++) {
@@ -71,7 +68,6 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     assertEquals("Smile by delta term structure: constructor", SMILE_TERM, smileTermVol);
   }
 
-  @Test
   /**
    * Tests the volatility at a point of the grid.
    */
@@ -84,7 +80,6 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     assertEquals("Smile by delta term structure: volatility at a point", volExpected, volComputed, TOLERANCE_VOL);
   }
 
-  @Test
   /**
    * Tests the interpolation in the strike dimension at a time of the grid.
    */
@@ -101,7 +96,6 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     assertEquals("Smile by delta term structure: volatility interpolation on strike", volExpected, volComputed, TOLERANCE_VOL);
   }
 
-  @Test
   /**
    * Tests the extrapolation below the first expiration.
    */
@@ -118,7 +112,6 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     assertEquals("Smile by delta term structure: volatility interpolation on strike", volExpected, volComputed, TOLERANCE_VOL);
   }
 
-  @Test
   /**
    * Tests the extrapolation above the last expiration.
    */
@@ -135,7 +128,6 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     assertEquals("Smile by delta term structure: volatility interpolation on strike", volExpected, volComputed, TOLERANCE_VOL);
   }
 
-  @Test
   /**
    * Tests the interpolation in the time and strike dimensions.
    */
@@ -164,15 +156,14 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     assertEquals("Smile by delta term structure: volatility interpolation on strike", volComputed, volComputed2, TOLERANCE_VOL);
   }
 
-  @Test
   /**
    * Tests the interpolation and its derivative with respect to the data by comparison to finite difference.
    */
   public void volatilityAjoint() {
     final double forward = 1.40;
-    final double[] timeToExpiration = new double[] {0.75, 1.00, 2.50};
-    final double[] strike = new double[] {1.50, 1.70, 2.20};
-    final double[] tolerance = new double[] {3.0E-2, 1.0E-1, 1.0E-5};
+    final double[] timeToExpiration = new double[] {0.75, 1.00, 2.50 };
+    final double[] strike = new double[] {1.50, 1.70, 2.20 };
+    final double[] tolerance = new double[] {3.0E-2, 1.0E-1, 1.0E-5 };
     final int nbTest = strike.length;
     final double shift = 0.00001;
     for (int looptest = 0; looptest < nbTest; looptest++) {
@@ -197,70 +188,6 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
         }
       }
     }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Code to graph the strikes for the given deltas at different expirations. In normal tests, should be (enabled=false).
-   */
-  public void deltaSmile() {
-    final double forward = 1.40;
-    final double expiryMax = 2.0;
-    final int nbExp = 50;
-    final int nbVol = 2 * DELTA.length + 1;
-    final double[][] strikes = new double[nbExp][nbVol];
-    final double[] expiries = new double[nbExp];
-    final double[] variancePeriodT = new double[nbVol];
-    final double[] volatilityT = new double[nbVol];
-    final double[] variancePeriod0 = new double[nbVol];
-    final double[] variancePeriod1 = new double[nbVol];
-    for (int loopexp = 0; loopexp < nbExp; loopexp++) {
-      expiries[loopexp] = loopexp * expiryMax / nbExp;
-      final ArrayInterpolator1DDataBundle interpData = new ArrayInterpolator1DDataBundle(TIME_TO_EXPIRY, new double[NB_EXP]);
-      final int indexLower = interpData.getLowerBoundIndex(expiries[loopexp]);
-      if (expiries[loopexp] < 1.0E-10) {
-        for (int loopvol = 0; loopvol < nbVol; loopvol++) {
-          volatilityT[loopvol] = SMILE_TERM.getVolatilityTerm()[indexLower].getVolatility()[loopvol];
-        }
-      } else {
-        final double weight0 = (TIME_TO_EXPIRY[indexLower + 1] - expiries[loopexp]) / (TIME_TO_EXPIRY[indexLower + 1] - TIME_TO_EXPIRY[indexLower]);
-        // Implementation note: Linear interpolation on variance over the period (s^2*t).
-        for (int loopvol = 0; loopvol < nbVol; loopvol++) {
-          variancePeriod0[loopvol] = SMILE_TERM.getVolatilityTerm()[indexLower].getVolatility()[loopvol] * SMILE_TERM.getVolatilityTerm()[indexLower].getVolatility()[loopvol]
-              * TIME_TO_EXPIRY[indexLower];
-          variancePeriod1[loopvol] = SMILE_TERM.getVolatilityTerm()[indexLower + 1].getVolatility()[loopvol] * SMILE_TERM.getVolatilityTerm()[indexLower + 1].getVolatility()[loopvol]
-              * TIME_TO_EXPIRY[indexLower + 1];
-          variancePeriodT[loopvol] = weight0 * variancePeriod0[loopvol] + (1 - weight0) * variancePeriod1[loopvol];
-          volatilityT[loopvol] = Math.sqrt(variancePeriodT[loopvol] / expiries[loopexp]);
-        }
-      }
-      final SmileDeltaParameters smile = new SmileDeltaParameters(expiries[loopexp], DELTA, volatilityT);
-      strikes[loopexp] = smile.getStrike(forward);
-    }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Analysis the code performance. In normal tests, should be (enabled=false).
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100000;
-
-    final double forward = 1.40;
-    final double timeToExpiration = 0.50;
-    final double strike = 1.50;
-
-    @SuppressWarnings("unused")
-    double volComputed;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      volComputed = SMILE_TERM.getVolatility(timeToExpiration, strike, forward);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " Smile Delta volatility: " + (endTime - startTime) + " ms");
-    // Performance note: price: 18-Jun-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 225 ms for 100000 volatilities.
   }
 
 }

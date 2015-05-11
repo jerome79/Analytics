@@ -60,8 +60,8 @@ public class CouponIborCompoundingSimpleSpreadDiscountingMethodTest {
 
   private static final double[] FIXING_RATES = new double[] {0.0010, 0.0011, 0.0012 };
   private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-      new ZonedDateTime[]{DateUtils.getUTCDate(2012, 8, 23), DateUtils.getUTCDate(2012, 8, 24),
-          DateUtils.getUTCDate(2012, 9, 20)}, FIXING_RATES);
+      new ZonedDateTime[] {DateUtils.getUTCDate(2012, 8, 23), DateUtils.getUTCDate(2012, 8, 24),
+        DateUtils.getUTCDate(2012, 9, 20) }, FIXING_RATES);
   private static final ZonedDateTime REFERENCE_DATE_1 = DateUtils.getUTCDate(2012, 8, 28);
   private static final CouponIborCompoundingSimpleSpread CPN_1 = (CouponIborCompoundingSimpleSpread) CPN_DEFINITION.toDerivative(REFERENCE_DATE_1, FIXING_TS);
 

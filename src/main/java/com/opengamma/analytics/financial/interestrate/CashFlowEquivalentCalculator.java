@@ -98,7 +98,7 @@ public class CashFlowEquivalentCalculator extends InstrumentDerivativeVisitorAda
         payment.getFundingCurveName());
     final PaymentFixed paymentEnd = new PaymentFixed(payment.getCurrency(), paymentTime, (-payment.getNotional() + payment.getSpreadAmount()) * payment.getPaymentYearFraction()
         / payment.getFixingAccrualFactor(), payment.getFundingCurveName());
-    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd});
+    return new AnnuityPaymentFixed(new PaymentFixed[] {paymentStart, paymentEnd });
   }
 
   @Override

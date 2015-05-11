@@ -45,13 +45,13 @@ public class InterquartileRangeCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testInsufficientData() {
-    IQR.apply(new double[]{1., 2.});
+    IQR.apply(new double[] {1., 2. });
   }
 
   @Test
   public void test() {
-    final double[] x1 = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10.};
-    final double[] x2 = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13.};
+    final double[] x1 = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10. };
+    final double[] x2 = new double[] {1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13. };
     assertEquals(IQR.apply(x1), 5, 1e-15);
     assertEquals(IQR.apply(x2), 6, 1e-15);
     assertEquals(IQR.apply(UNIFORM_DATA), 0.5, EPS);

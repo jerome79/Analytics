@@ -42,13 +42,13 @@ public class CubicRootFinder implements Polynomial1DRootFinder<ComplexNumber> {
       final double mult = -2 * Math.sqrt(q);
       final double theta = Math.acos(r / Math.sqrt(qCb));
       return new ComplexNumber[] {new ComplexNumber(mult * Math.cos(theta / 3) - constant, 0), new ComplexNumber(mult * Math.cos((theta + TWO_PI) / 3) - constant, 0),
-        new ComplexNumber(mult * Math.cos((theta - TWO_PI) / 3) - constant, 0)};
+        new ComplexNumber(mult * Math.cos((theta - TWO_PI) / 3) - constant, 0) };
     }
     final double s = -Math.signum(r) * Math.cbrt(Math.abs(r) + Math.sqrt(rSq - qCb));
     final double t = CompareUtils.closeEquals(s, 0, 1e-16) ? 0 : q / s;
     final double sum = s + t;
     final double real = -0.5 * sum - constant;
     final double imaginary = Math.sqrt(3) * (s - t) / 2;
-    return new ComplexNumber[] {new ComplexNumber(sum - constant, 0), new ComplexNumber(real, imaginary), new ComplexNumber(real, -imaginary)};
+    return new ComplexNumber[] {new ComplexNumber(sum - constant, 0), new ComplexNumber(real, imaginary), new ComplexNumber(real, -imaginary) };
   }
 }

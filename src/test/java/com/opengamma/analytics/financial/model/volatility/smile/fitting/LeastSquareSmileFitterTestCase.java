@@ -13,13 +13,11 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 
-
 /**
  * Test.
  */
 @Test
 public abstract class LeastSquareSmileFitterTestCase {
-  //  static final double VARIANCE = 0.3;
   static final double T = 1.3;
   static final double SIGMA = 0.3;// Math.sqrt(VARIANCE / T);
   static final double ERROR = 0.00001; //0.1 bps error

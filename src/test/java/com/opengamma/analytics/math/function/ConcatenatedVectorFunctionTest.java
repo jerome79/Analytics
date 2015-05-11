@@ -12,7 +12,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.AssertMatrix;
 
-
 /**
  * Create a few {@link VectorFunction} (as anonymous inner classes) and check they concatenate correctly 
  */

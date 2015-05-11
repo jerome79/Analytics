@@ -34,7 +34,6 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 
-
 /**
  * Test.
  */
@@ -78,7 +77,7 @@ public class BondFuturesOptionMarginTransactionBlackExpLogMoneynessMethodTest {
   private static final BondFuturesOptionMarginSecurityBlackBondFuturesMethod METHOD_OPT_SEC = BondFuturesOptionMarginSecurityBlackBondFuturesMethod.getDefaultInstance();
   private static final FuturesTransactionBlackBondFuturesMethod METHOD_OPT_TRA = new FuturesTransactionBlackBondFuturesMethod();
   private static final PresentValueBlackBondFuturesOptionCalculator PVBFC = PresentValueBlackBondFuturesOptionCalculator.getInstance();
-  private static final PresentValueCurveSensitivityBlackBondFuturesOptionCalculator PVCSBFC = 
+  private static final PresentValueCurveSensitivityBlackBondFuturesOptionCalculator PVCSBFC =
       new PresentValueCurveSensitivityBlackBondFuturesOptionCalculator();
   private static final double SHIFT = 1.0E-6;
   private static final ParameterSensitivityParameterCalculator<BlackBondFuturesProviderInterface> PSSFC = new ParameterSensitivityParameterCalculator<>(PVCSBFC);

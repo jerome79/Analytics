@@ -53,7 +53,7 @@ public class MultiCapFloorPricer {
    * returning cap values. 
    * @param curves The discount and index curves 
    */
-  public MultiCapFloorPricer(List<CapFloor> caps,  MulticurveProviderInterface curves) {
+  public MultiCapFloorPricer(List<CapFloor> caps, MulticurveProviderInterface curves) {
     ArgChecker.noNulls(caps, "null caps");
     ArgChecker.notNull(curves, "null curve");
 
@@ -117,7 +117,7 @@ public class MultiCapFloorPricer {
    */
   private class CapletsComparator implements Comparator<CapFloorIbor> {
     @Override
-    public int compare(CapFloorIbor o1,  CapFloorIbor o2) {
+    public int compare(CapFloorIbor o1, CapFloorIbor o2) {
       int a = Doubles.compare(o1.getStrike(), o2.getStrike());
       if (a != 0) {
         return a;

@@ -15,15 +15,14 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
 @Test
 public class TridiagonalMatrixTest {
-  private static final double[] A = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-  private static final double[] B = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
-  private static final double[] C = new double[] {2, 3, 4, 5, 6, 7, 8, 9, 10};
+  private static final double[] A = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+  private static final double[] B = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  private static final double[] C = new double[] {2, 3, 4, 5, 6, 7, 8, 9, 10 };
   private static final TridiagonalMatrix M = new TridiagonalMatrix(A, B, C);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -43,12 +42,12 @@ public class TridiagonalMatrixTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongB() {
-    new TridiagonalMatrix(A, new double[] {1, 2, 3, 4, 5, 6, 7, 8}, C);
+    new TridiagonalMatrix(A, new double[] {1, 2, 3, 4, 5, 6, 7, 8 }, C);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongC() {
-    new TridiagonalMatrix(A, B, new double[] {1, 2, 3, 4, 5, 6, 7});
+    new TridiagonalMatrix(A, B, new double[] {1, 2, 3, 4, 5, 6, 7 });
   }
 
   @Test

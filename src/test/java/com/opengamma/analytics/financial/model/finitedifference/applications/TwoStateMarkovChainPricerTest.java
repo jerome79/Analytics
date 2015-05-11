@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.finitedifference.PDEFullResults1D
 import com.opengamma.analytics.financial.model.finitedifference.PDEGrid1D;
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 
-
 /**
  * Test.
  */
@@ -47,7 +46,6 @@ public class TwoStateMarkovChainPricerTest {
     CHAIN = new MarkovChain(VOL1, VOL2, LAMBDA12, LAMBDA21, P0);
   }
 
-  @Test
   public void test() {
     final double theta = 0.55;
     final int tNodes = 51;
@@ -60,7 +58,6 @@ public class TwoStateMarkovChainPricerTest {
     final double[] expiries = timeMesh.getPoints();
     final double[] strikes = spaceMesh.getPoints();
     final double[] forwards = new double[tNodes];
-    // double[] df = new double[tNodes];
     for (int i = 0; i < tNodes; i++) {
 
       forwards[i] = FORWARD_CURVE.getForward(expiries[i]);
@@ -72,7 +69,6 @@ public class TwoStateMarkovChainPricerTest {
       if (strikes[i] < 0.08) {
         final double mcPrice = CHAIN.priceCEV(FORWARD_CURVE.getForward(T), FORWARD_CURVE.getSpot() / FORWARD_CURVE.getForward(T), strikes[i], T, BETA, sims);
         final double price = res.getFunctionValue(i, tNodes - 1);
-        // System.out.println(strikes[i] + "\t" + mcPrice + "\t" + price);
         assertEquals(mcPrice, price, 1e-2 * mcPrice);
       }
 

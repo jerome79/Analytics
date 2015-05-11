@@ -49,11 +49,6 @@ public final class LastFixingStartTimeCalculator extends InstrumentDerivativeVis
 
   // -----     Deposit     ------
 
-  //  @Override
-  //  public Double visitCash(final Cash cash) {
-  //    return cash.getEndTime();
-  //  }
-
   @Override
   public Double visitDepositIbor(final DepositIbor deposit) {
     return deposit.getStartTime();
@@ -75,11 +70,6 @@ public final class LastFixingStartTimeCalculator extends InstrumentDerivativeVis
   public Double visitCouponIbor(final CouponIbor payment) {
     return payment.getFixingPeriodStartTime();
   }
-
-  //  @Override
-  //  public Double visitCouponOIS(final CouponOIS payment) {
-  //    return payment.getFixingPeriodEndTime();
-  //  }
 
   // -----     Annuity     ------
 

@@ -53,7 +53,6 @@ import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test the builder of fixed annuities.
  */
@@ -277,8 +276,8 @@ public class FixedAnnuityDefinitionBuilderTest {
     Period period = Period.ofMonths(22);
     double fixedRate = 0.01;
     ZonedDateTimeDoubleTimeSeries tsLibor = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-        new ZonedDateTime[]{DateUtils.getUTCDate(2013, 12, 10), DateUtils.getUTCDate(2013, 12, 12)},
-        new double[]{0.0024185, 0.0024285});
+        new ZonedDateTime[] {DateUtils.getUTCDate(2013, 12, 10), DateUtils.getUTCDate(2013, 12, 12) },
+        new double[] {0.0024185, 0.0024285 });
     ZonedDateTimeDoubleTimeSeries[] ts = new ZonedDateTimeDoubleTimeSeries[] {tsLibor, tsLibor };
 
     GeneratorLegFixed fixedGnr = new GeneratorLegFixed("LEG_USDFixed1Y", USD, offset,

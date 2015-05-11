@@ -21,7 +21,7 @@ import com.opengamma.analytics.math.function.Function1D;
  * the limits $[0, \infty]$.
  */
 public class GaussLaguerreQuadratureIntegrator1D extends GaussianQuadratureIntegrator1D {
-  private static final Double[] LIMITS = new Double[] {0., Double.POSITIVE_INFINITY};
+  private static final Double[] LIMITS = new Double[] {0., Double.POSITIVE_INFINITY };
 
   public GaussLaguerreQuadratureIntegrator1D(final int n) {
     super(n, new GaussLaguerreWeightAndAbscissaFunction());

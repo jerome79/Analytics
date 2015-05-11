@@ -47,6 +47,7 @@ public class GeneratorSwapIborIbor extends GeneratorInstrument<GeneratorAttribut
    * The holiday calendar for the second ibor leg.
    */
   private final HolidayCalendar _calendar2;
+
   // REVIEW: Do we need stubShort and stubFirst flags?
 
   /**

@@ -50,7 +50,7 @@ public class ConstantDoublesSurfaceTest {
   @Test
   public void testGetters() {
     assertEquals(SURFACE.getName(), NAME1);
-    assertArrayEquals(SURFACE.getZData(), new Double[] {Z1});
+    assertArrayEquals(SURFACE.getZData(), new Double[] {Z1 });
     assertEquals(SURFACE.size(), 1);
     assertEquals(SURFACE.getZValue(1., 2.), Z1, 0);
     assertEquals(SURFACE.getZValue(Pair.of(1.0, 4.0)), Z1, 0);

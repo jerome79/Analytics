@@ -8,3 +8,4 @@
  * e.g. bonds, CDS, equity.
  */
 package com.opengamma.analytics.financial.legalentity;
+

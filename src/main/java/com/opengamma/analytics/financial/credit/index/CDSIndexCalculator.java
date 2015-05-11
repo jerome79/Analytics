@@ -15,6 +15,7 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.InterestRateSe
 import com.opengamma.analytics.financial.credit.isdastandardmodel.PriceType;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.CreditCurveCalibrator;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * 
  */

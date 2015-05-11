@@ -39,13 +39,12 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.StubType;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.SuperFastCreditCurveBuilder;
 import com.opengamma.analytics.financial.credit.options.YieldCurveProvider;
 
-
 /**
  * The purpose of this class is the demonstrate the API for OpenGamma's implementation of the ISDA standard and extensions
  * we have built. Each method (test) demonstrates a new feature and outputs some results to the console - ideally they should 
  * be read and executed in order.  
  */
-@Test
+@Test(enabled = false)
 public class CDSAnalyticsDemo extends ISDABaseTest {
 
   private static final LocalDate TRADE_DATE = LocalDate.of(2014, 6, 30);
@@ -173,7 +172,6 @@ public class CDSAnalyticsDemo extends ISDABaseTest {
     //is a negative Points-Up-Front of -1.87%, and a corresponding quoted spread of 41.5bps
     System.out.format("PUF: %.4f%%, Quoted Spread: %.3fbps\n", puf * ONE_HUNDRED, spread * TEN_THOUSAND);
 
-    //Above we knew the constant hazard rate, so could compute PUF and quoted spread directly from this. In practise 
     //a CDS has a market quoted given as PUF and an equivalent quoted spread is required - this requires solving for the
     //hazard rate
     final ISDACompliantCreditCurveBuilder creditCurveBuilder = new FastCreditCurveBuilder();
@@ -431,7 +429,6 @@ public class CDSAnalyticsDemo extends ISDABaseTest {
 
   //**********************************************************************************
   // Greeks
-  //
   //**********************************************************************************
 
   /**

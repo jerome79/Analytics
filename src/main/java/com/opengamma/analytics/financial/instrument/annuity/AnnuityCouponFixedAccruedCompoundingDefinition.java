@@ -87,7 +87,8 @@ public class AnnuityCouponFixedAccruedCompoundingDefinition extends AnnuityDefin
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, maturityDate, paymentPeriod, true, false, businessDay, calendar, isEOM);
     final CouponFixedAccruedCompoundingDefinition[] coupons = new CouponFixedAccruedCompoundingDefinition[paymentDates.length];
     //First coupon uses settlement date
-    coupons[0] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[0], settlementDate, paymentDates[0], DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar),
+    coupons[0] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[0], settlementDate, paymentDates[0],
+        DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar),
         sign * notional, fixedRate, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
@@ -124,7 +125,8 @@ public class AnnuityCouponFixedAccruedCompoundingDefinition extends AnnuityDefin
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(settlementDate, maturityDate, frequency, true, false, businessDay, calendar, isEOM);
     final CouponFixedAccruedCompoundingDefinition[] coupons = new CouponFixedAccruedCompoundingDefinition[paymentDates.length];
     //First coupon uses settlement date
-    coupons[0] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[0], settlementDate, paymentDates[0], DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar),
+    coupons[0] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[0], settlementDate, paymentDates[0],
+        DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar),
         sign * notional, fixedRate, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
@@ -163,7 +165,8 @@ public class AnnuityCouponFixedAccruedCompoundingDefinition extends AnnuityDefin
     final ZonedDateTime[] paymentDates = ScheduleCalculator.getAdjustedDateSchedule(paymentDatesUnadjusted, businessDay, calendar);
     final CouponFixedAccruedCompoundingDefinition[] coupons = new CouponFixedAccruedCompoundingDefinition[paymentDates.length];
     //First coupon uses settlement date
-    coupons[0] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[0], settlementDate, paymentDates[0], DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar),
+    coupons[0] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[0], settlementDate, paymentDates[0],
+        DayCountUtils.yearFraction(dayCount, settlementDate, paymentDates[0], calendar),
         sign * notional, fixedRate, calendar);
     for (int loopcpn = 1; loopcpn < paymentDates.length; loopcpn++) {
       coupons[loopcpn] = new CouponFixedAccruedCompoundingDefinition(currency, paymentDates[loopcpn], paymentDates[loopcpn - 1], paymentDates[loopcpn],
@@ -234,7 +237,8 @@ public class AnnuityCouponFixedAccruedCompoundingDefinition extends AnnuityDefin
    * @return The fixed annuity.
    */
   public static AnnuityCouponFixedAccruedCompoundingDefinition fromAccrualUnadjusted(final Currency currency, final ZonedDateTime settlementDate, final ZonedDateTime maturityDate,
-      final Period period, final int nbPaymentPerYear, final boolean stubShort, final boolean fromEnd, final HolidayCalendar calendar, final DayCount dayCount, final BusinessDayConvention businessDay,
+      final Period period, final int nbPaymentPerYear, final boolean stubShort, final boolean fromEnd, final HolidayCalendar calendar, final DayCount dayCount,
+      final BusinessDayConvention businessDay,
       final boolean isEOM, final double notional, final double fixedRate, final boolean isPayer) {
     ArgChecker.notNull(currency, "currency");
     ArgChecker.notNull(settlementDate, "settlement date");

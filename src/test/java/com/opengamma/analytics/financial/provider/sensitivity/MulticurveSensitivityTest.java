@@ -147,7 +147,8 @@ public class MulticurveSensitivityTest {
     sensiFwd3.add(new SimplyCompoundedForwardSensitivity(2.5, 2.75, 0.26, 11));
     final Map<String, List<ForwardSensitivity>> sensiFwd23 = new HashMap<>();
     sensiFwd23.put(CURVE_NAME_2, sensiFwd3);
-    AssertSensitivityObjects.assertEquals("CurveSensitivityMarket: plusMultipliedBy", MulticurveSensitivity.of(InterestRateCurveSensitivityUtils.addSensitivity(sensi11, sensi32), sensiFwd23).cleaned(),
+    AssertSensitivityObjects.assertEquals("CurveSensitivityMarket: plusMultipliedBy", MulticurveSensitivity.of(InterestRateCurveSensitivityUtils.addSensitivity(sensi11, sensi32), sensiFwd23)
+        .cleaned(),
         pvSensiDscFwd.plus(pvSensiDscFwd2).cleaned(), TOLERANCE);
 
     final Map<String, List<ForwardSensitivity>> sensiFwd32 = new HashMap<>();

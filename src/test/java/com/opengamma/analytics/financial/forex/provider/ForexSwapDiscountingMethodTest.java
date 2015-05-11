@@ -33,7 +33,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 
-
 /**
  * Test related to the method for Forex Swap transaction by discounting on each payment.
  */

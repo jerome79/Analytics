@@ -91,7 +91,6 @@ public class SABRConjugateGradientLeastSquareFitter extends LeastSquareSmileFitt
     final double chiSquare = function.evaluate(minPos);
     final DoubleMatrix1D res = transforms.inverseTransform(minPos);
     return new LeastSquareResultsWithTransform(new LeastSquareResults(chiSquare, res, new DoubleMatrix2D(new double[N_PARAMETERS][N_PARAMETERS])), transforms);
-    // return new LeastSquareResults(chiSquare, res, new DoubleMatrix2D(new double[N_PARAMETERS][N_PARAMETERS]));
   }
 
   //TODO add method that recovers ATM vol

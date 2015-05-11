@@ -17,7 +17,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Tests related to the exponential interpolator.
  */
@@ -34,27 +33,27 @@ public class ExponentialInterpolator1DTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData() {
-    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundle(Collections.<Double, Double> emptyMap()), null);
+    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundle(Collections.<Double, Double>emptyMap()), null);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testLowValue() {
-    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2}, new double[] {1, 2}), -4.);
+    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2 }, new double[] {1, 2 }), -4.);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testHighValue() {
-    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2}, new double[] {1, 2}), -4.);
+    INTERPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2 }, new double[] {1, 2 }), -4.);
   }
 
   @Test
   public void testDataBundleType1() {
-    assertEquals(INTERPOLATOR.getDataBundle(new double[] {1, 2, 3}, new double[] {1, 2, 3}).getClass(), ArrayInterpolator1DDataBundle.class);
+    assertEquals(INTERPOLATOR.getDataBundle(new double[] {1, 2, 3 }, new double[] {1, 2, 3 }).getClass(), ArrayInterpolator1DDataBundle.class);
   }
 
   @Test
   public void testDataBundleType2() {
-    assertEquals(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2, 3}, new double[] {1, 2, 3}).getClass(), ArrayInterpolator1DDataBundle.class);
+    assertEquals(INTERPOLATOR.getDataBundleFromSortedArrays(new double[] {1, 2, 3 }, new double[] {1, 2, 3 }).getClass(), ArrayInterpolator1DDataBundle.class);
   }
 
   /**
@@ -116,13 +115,13 @@ public class ExponentialInterpolator1DTest {
     func1[0] = createExpFunction(a1[0], b1[0]);
     yData1[0] = func1[0].evaluate(xData1[0]);
     yData1[1] = func1[0].evaluate(xData1[1]);
-    for (int i=1;i<nIntervals;++i) {
+    for (int i = 1; i < nIntervals; ++i) {
       b1[i] = b1[i - 1] - Math.log(a1[i] / a1[i - 1]) / xData1[i];
       func1[i] = createExpFunction(a1[i], b1[i]);
       yData1[i + 1] = func1[i].evaluate(xData1[i + 1]);
     }
     double[] keys1 = new double[] {-2.05, -2.1, -1.8, -1.0 / 11.0, 0.0, 0.05,
-        0.5, 1.2, 3.3, 4.5, 5.2, 7.33, 8.25, 9.2 };
+      0.5, 1.2, 3.3, 4.5, 5.2, 7.33, 8.25, 9.2 };
     int keySize1 = keys1.length;
     double[] expectedValues1 = new double[keySize1];
     for (int i = 0; i < keySize1; ++i) {
@@ -148,7 +147,7 @@ public class ExponentialInterpolator1DTest {
       yData2[i + 1] = func2[i].evaluate(xData2[i + 1]);
     }
     double[] keys2 = new double[] {-2.05, -2.2, -1.8, -1.0 / 22.0, 0.0, 0.05,
-        0.5, 2.2, 3.3, 4.5, 5.2, 7.33, 8.25, 9.2 };
+      0.5, 2.2, 3.3, 4.5, 5.2, 7.33, 8.25, 9.2 };
     int keySize2 = keys2.length;
     double[] expectedValues2 = new double[keySize2];
     for (int i = 0; i < keySize2; ++i) {
@@ -279,8 +278,8 @@ public class ExponentialInterpolator1DTest {
         double upUp = INTERPOLATOR.interpolate(data, keys[i] + 2.0 * EPS);
         expectedGrad = 0.5 * (4.0 * up - 3.0 * result - upUp) / EPS;
       } else {
-      double up = INTERPOLATOR.interpolate(data, keys[i] + EPS);
-      double down = INTERPOLATOR.interpolate(data, keys[i] - EPS);
+        double up = INTERPOLATOR.interpolate(data, keys[i] + EPS);
+        double down = INTERPOLATOR.interpolate(data, keys[i] - EPS);
         expectedGrad = 0.5 * (up - down) / EPS;
       }
       assertEqualsRelative(expectedGrad, INTERPOLATOR.firstDerivative(data, keys[i]), EPS);

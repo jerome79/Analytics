@@ -40,7 +40,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -133,6 +132,7 @@ public class AnnuityCouponONDefinitionTest {
   public void testNullGenerator2() {
     AnnuityCouponONDefinition.from(SETTLEMENT_DATE, MATURITY_DATE, NOTIONAL, (GeneratorSwapFixedON) null, IS_PAYER);
   }
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNoIndexTS() {
     DEFINITION.toDerivative(DATE);
@@ -162,7 +162,8 @@ public class AnnuityCouponONDefinitionTest {
     assertFalse(DEFINITION.equals(definition));
     definition = AnnuityCouponONDefinition.from(SETTLEMENT_DATE, MATURITY_DATE, NOTIONAL / 2, GENERATOR, IS_PAYER);
     assertFalse(DEFINITION.equals(definition));
-    definition = AnnuityCouponONDefinition.from(SETTLEMENT_DATE, MATURITY_DATE, NOTIONAL, new GeneratorSwapFixedON("OIS", INDEX, PAYMENT_PERIOD, DAY_COUNT, BUSINESS_DAY, IS_EOM, 0, CALENDAR), IS_PAYER);
+    definition = AnnuityCouponONDefinition.from(SETTLEMENT_DATE, MATURITY_DATE, NOTIONAL, new GeneratorSwapFixedON("OIS", INDEX, PAYMENT_PERIOD, DAY_COUNT, BUSINESS_DAY, IS_EOM, 0, CALENDAR),
+        IS_PAYER);
     assertFalse(DEFINITION.equals(definition));
     definition = AnnuityCouponONDefinition.from(SETTLEMENT_DATE, MATURITY_DATE, NOTIONAL, GENERATOR, !IS_PAYER);
     assertFalse(DEFINITION.equals(definition));

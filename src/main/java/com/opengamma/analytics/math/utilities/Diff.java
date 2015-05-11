@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.utilities;
 
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -93,8 +92,8 @@ public class Diff {
       }
     }
     return tmp;
-  }  
-  
+  }
+
   /**
    * Finds the numerical difference between value at position (i+1) and (i)
    * returning a vector of what would be needed to be added to the first (n-1) elements of the original vector to get the original vector. 
@@ -134,8 +133,8 @@ public class Diff {
       }
     }
     return tmp;
-  }  
-  
+  }
+
   /**
    * Finds the numerical difference between value at position (i+1) and (i)
    * returning a vector of what would be needed to be added to the first (n-1) elements of the original vector to get the original vector. 
@@ -175,6 +174,6 @@ public class Diff {
       }
     }
     return tmp;
-  }  
-  
+  }
+
 }

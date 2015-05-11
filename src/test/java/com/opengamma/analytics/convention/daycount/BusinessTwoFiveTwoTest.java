@@ -38,12 +38,12 @@ public class BusinessTwoFiveTwoTest {
       "Holiday", ImmutableList.of(LocalDate.of(2012, 7, 19), LocalDate.of(2012, 7, 26)), SATURDAY, SUNDAY);
   private static final BusinessTwoFiveTwo DC = new BusinessTwoFiveTwo();
 
-  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class})
+  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class })
   public void testNullFirstDate1() {
     DayCountUtils.yearFraction(DC, null, D2, WEEKEND_CALENDAR);
   }
 
-  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class})
+  @Test(expectedExceptions = {IllegalArgumentException.class, NullPointerException.class })
   public void testNullSecondDate1() {
     DayCountUtils.yearFraction(DC, D1, null, WEEKEND_CALENDAR);
   }

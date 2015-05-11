@@ -14,7 +14,6 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Tests the IndexOIS class.
  */
@@ -48,7 +47,6 @@ public class IndexONTest {
   public void testNullDayCount() {
     new IndexON(US_OIS_NAME, US_CUR, null, US_PUBLICATION_LAG);
   }
-
 
   @Test
   public void getterUS() {

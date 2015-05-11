@@ -20,11 +20,8 @@ import com.opengamma.analytics.financial.instrument.index.IndexIborMaster;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.provider.calculator.discounting.CrossGammaSingleCurveCalculator;
 import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueCurveSensitivityDiscountingCalculator;
-import com.opengamma.analytics.financial.provider.calculator.discounting.PresentValueDiscountingCalculator;
 import com.opengamma.analytics.financial.provider.curve.CurveBuildingBlockBundle;
 import com.opengamma.analytics.financial.provider.description.MulticurveProviderDiscountDataSets;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
@@ -32,7 +29,6 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyParameterSensitivity;
 import com.opengamma.analytics.financial.provider.sensitivity.parameter.ParameterSensitivityParameterCalculator;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
@@ -41,7 +37,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
-import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -77,7 +72,6 @@ public class SwapGammaSingleCurveProfitAnalysis {
   private static final SwapFixedIborDefinition SWAP_GBP_DEFINITION = SwapFixedIborDefinition.from(START_DATE_GBP, TENOR_SWAP, GBP6MLIBOR6M, NOTIONAL, 0.02, IS_PAYER);
   private static final SwapFixedCoupon<Coupon> SWAP_GBP = SWAP_GBP_DEFINITION.toDerivative(REFERENCE_DATE);
 
-  private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
   private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = PresentValueCurveSensitivityDiscountingCalculator.getInstance();
   private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = new ParameterSensitivityParameterCalculator<>(PVCSDC);
 
@@ -221,80 +215,6 @@ public class SwapGammaSingleCurveProfitAnalysis {
     } catch (final IOException e) {
       e.printStackTrace();
     }
-  }
-
-  @Test(enabled = false)
-  public void crossGammaPerformance() {
-
-    long startTime, endTime;
-    final int nbTest = 5000;
-    final int nbTest2 = 1000;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      SWAP_GBP.accept(PVDC, SINGLECURVE_GBP);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("PresentValue: " + nbTest + " cross-gamma (" + NB_NODE_GBP + " nodes): " + (endTime - startTime) + " ms");
-    // Performance note: Present value: 11-Jul-2014: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 40 ms for 5000 swaps.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      SWAP_GBP.accept(PVCSDC, SINGLECURVE_GBP);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("PresentValueCurveSensitivity: " + nbTest + " cross-gamma (" + NB_NODE_GBP + " nodes): " + (endTime - startTime) + " ms");
-    // Performance note: Curve sensitivity: 11-Jul-2014: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 105 ms for 5000 swaps.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      GC.calculateCrossGamma(SWAP_GBP, SINGLECURVE_GBP);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGammaSingleCurveCalculator: " + nbTest + " cross-gamma (" + NB_NODE_GBP + " nodes): " + (endTime - startTime) + " ms");
-    // Performance note: Cross-gamma: 11-Jul-2014: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 5400 ms for 5000 swaps.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest2; looptest++) {
-      String name = SINGLECURVE_GBP.getAllNames().iterator().next();
-      Currency ccy = SINGLECURVE_GBP.getCurrencyForName(name).get(0);
-      YieldAndDiscountCurve curve = SINGLECURVE_GBP.getCurve(name);
-      ArgChecker.isTrue(curve instanceof YieldCurve, "curve should be YieldCurve");
-      YieldCurve yieldCurve = (YieldCurve) curve;
-      ArgChecker.isTrue(yieldCurve.getCurve() instanceof InterpolatedDoublesCurve, "Yield curve should be based on InterpolatedDoublesCurve");
-      InterpolatedDoublesCurve interpolatedCurve = (InterpolatedDoublesCurve) yieldCurve.getCurve();
-      double[] y = interpolatedCurve.getYDataAsPrimitive();
-      double[] x = interpolatedCurve.getXDataAsPrimitive();
-      double[][] gammaExpected = new double[NB_NODE_GBP][NB_NODE_GBP];
-      for (int i = 0; i < NB_NODE_GBP; i++) {
-        for (int j = i; j < NB_NODE_GBP; j++) {
-          double[][] pv = new double[2][2];
-          for (int pmi = 0; pmi < 2; pmi++) {
-            for (int pmj = 0; pmj < 2; pmj++) {
-              final double[] yieldBumpedPP = y.clone();
-              yieldBumpedPP[i] += ((pmi == 0) ? SHIFT : -SHIFT);
-              yieldBumpedPP[j] += ((pmj == 0) ? SHIFT : -SHIFT);
-              final YieldAndDiscountCurve curveBumped = new YieldCurve(name,
-                  new InterpolatedDoublesCurve(x, yieldBumpedPP, interpolatedCurve.getInterpolator(), true));
-              MulticurveProviderDiscount providerBumped = new MulticurveProviderDiscount();
-              for (Currency loopccy : SINGLECURVE_GBP.getCurrencies()) {
-                providerBumped.setCurve(loopccy, curveBumped);
-              }
-              for (IborIndex loopibor : SINGLECURVE_GBP.getIndexesIbor()) {
-                providerBumped.setCurve(loopibor, curveBumped);
-              }
-              pv[pmi][pmj] = SWAP_GBP.accept(PVDC, providerBumped).getAmount(ccy).getAmount();
-            }
-          }
-          gammaExpected[i][j] = (pv[0][0] - pv[1][0] - pv[0][1] + pv[1][1]) / (2 * SHIFT * 2 * SHIFT);
-          gammaExpected[j][i] = gammaExpected[i][j];
-        }
-      }
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("CrossGamma - bump and recompute: " + nbTest2 + " cross-gamma (" + NB_NODE_GBP + " nodes): " + (endTime - startTime) + " ms");
-    // Performance note: Cross-gamma: 11-Jul-2014: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 13100 ms for 1000 swaps.
-
   }
 
   @Test(enabled = false)

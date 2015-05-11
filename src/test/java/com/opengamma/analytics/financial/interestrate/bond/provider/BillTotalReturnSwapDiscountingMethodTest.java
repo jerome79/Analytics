@@ -49,7 +49,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Test related to the bond total return swap pricing methodology by discounting of the cash-flows.
  */

@@ -27,7 +27,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * For an instrument, computes the sensitivity of a value (often the present value or a par spread) to the parameters used in the curve.
  * The computation is done by shifting each node point in each curve; the curves must be interpolated yield curves for discounting and forward curves.
@@ -70,7 +69,7 @@ public class NormalSTIRFuturesSensitivityFDCalculator {
     ArgChecker.isTrue(normal instanceof NormalSTIRFuturesExpStrikeProviderDiscount ||
         normal instanceof NormalSTIRFuturesExpSimpleMoneynessProviderDiscount,
         "normal should contain MulticurveProviderDiscount");
-    
+
     MultipleCurrencyParameterSensitivity result = new MultipleCurrencyParameterSensitivity();
     final MultiCurrencyAmount pvInit = instrument.accept(_valueCalculator, normal);
     final int nbCcy = pvInit.size();

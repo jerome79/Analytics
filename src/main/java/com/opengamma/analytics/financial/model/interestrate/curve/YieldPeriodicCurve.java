@@ -107,7 +107,6 @@ public class YieldPeriodicCurve extends YieldAndDiscountCurve {
   @Override
   public double[] getInterestRateParameterSensitivity(final double t) {
     final double rp = _curve.getYValue(t);
-    //    double rc = _compoundingPeriodsPerYear * Math.log(1 + rp / _compoundingPeriodsPerYear);
     final double rcBar = 1.0;
     final double rpBar = 1.0 / (1 + rp / _compoundingPeriodsPerYear) * rcBar;
     final Double[] drpdp = _curve.getYValueParameterSensitivity(t);
@@ -135,7 +134,7 @@ public class YieldPeriodicCurve extends YieldAndDiscountCurve {
   public DoublesCurve getCurve() {
     return _curve;
   }
-  
+
   /**
    * Returns the number of compounding periods per year.
    * @return the number of compounding periods per year.

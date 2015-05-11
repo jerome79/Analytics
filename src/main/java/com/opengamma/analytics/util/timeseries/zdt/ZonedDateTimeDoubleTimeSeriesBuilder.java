@@ -12,7 +12,6 @@ import com.opengamma.analytics.util.timeseries.PreciseDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.PreciseDoubleTimeSeriesBuilder;
 import com.opengamma.analytics.util.timeseries.PreciseTimeSeries;
 
-
 /**
  * A builder of time-series that stores {@code double} data values against {@code ZonedDateTime} times.
  * <p>
@@ -21,38 +20,48 @@ import com.opengamma.analytics.util.timeseries.PreciseTimeSeries;
  */
 public interface ZonedDateTimeDoubleTimeSeriesBuilder extends PreciseDoubleTimeSeriesBuilder<ZonedDateTime> {
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleEntryIterator iterator();
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder put(ZonedDateTime time, double value);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder put(long time, double value);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder putAll(ZonedDateTime[] times, double[] values);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder putAll(long[] times, double[] values);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder putAll(PreciseDoubleTimeSeries<?> timeSeries);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder putAll(PreciseDoubleTimeSeries<?> timeSeries, int startPos, int endPos);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder putAll(Map<ZonedDateTime, Double> timeSeriesMap);
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeriesBuilder clear();
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   ZonedDateTimeDoubleTimeSeries build();
 
 }

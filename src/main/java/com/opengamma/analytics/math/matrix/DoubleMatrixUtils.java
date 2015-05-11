@@ -43,7 +43,7 @@ public final class DoubleMatrixUtils {
       return DoubleMatrix2D.EMPTY_MATRIX;
     }
     if (dimension == 1) {
-      return new DoubleMatrix2D(new double[][] {new double[] {1}});
+      return new DoubleMatrix2D(new double[][] {new double[] {1 } });
     }
     final double[][] data = new double[dimension][dimension];
     for (int i = 0; i < dimension; i++) {

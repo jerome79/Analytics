@@ -12,7 +12,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.util.ParallelArrayBinarySort;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Interpolate consecutive two points by a straight line
  * Note that this interpolator is NOT included in {@link Interpolator1DFactory} 

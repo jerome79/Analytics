@@ -19,7 +19,6 @@ import com.opengamma.analytics.math.interpolation.PiecewisePolynomialInterpolato
 import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResultsWithSensitivity;
 import com.opengamma.analytics.math.interpolation.SemiLocalCubicSplineInterpolator;
 
-
 /**
  * Test.
  */
@@ -34,7 +33,7 @@ public class PiecewisePolynomialWithSensitivityFunction1DTest {
   @Test
   public void firstDerivativeFiniteDifferenceTest() {
     final PiecewisePolynomialInterpolator[] interps = new PiecewisePolynomialInterpolator[] {new NaturalSplineInterpolator(), new CubicSplineInterpolator(),
-        new PiecewiseCubicHermiteSplineInterpolator(), new ConstrainedCubicSplineInterpolator(), new SemiLocalCubicSplineInterpolator() };
+      new PiecewiseCubicHermiteSplineInterpolator(), new ConstrainedCubicSplineInterpolator(), new SemiLocalCubicSplineInterpolator() };
     final int nInterps = interps.length;
     for (int k = 0; k < nInterps; ++k) {
       final double[] xValues = new double[] {1., 2.8, 3.1, 5.9, 10., 16. };
@@ -86,7 +85,7 @@ public class PiecewisePolynomialWithSensitivityFunction1DTest {
   @Test
   public void secondDerivativeFiniteDifferenceTest() {
     final PiecewisePolynomialInterpolator[] interps = new PiecewisePolynomialInterpolator[] {new NaturalSplineInterpolator(), new CubicSplineInterpolator(),
-        new PiecewiseCubicHermiteSplineInterpolator(), new ConstrainedCubicSplineInterpolator(), new SemiLocalCubicSplineInterpolator() };
+      new PiecewiseCubicHermiteSplineInterpolator(), new ConstrainedCubicSplineInterpolator(), new SemiLocalCubicSplineInterpolator() };
     final int nInterps = interps.length;
     for (int k = 0; k < nInterps; ++k) {
       final double[] xValues = new double[] {1., 2.8, 3.1, 5.9, 10., 16. };

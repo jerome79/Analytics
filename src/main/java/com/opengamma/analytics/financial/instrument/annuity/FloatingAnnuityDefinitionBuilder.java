@@ -44,31 +44,31 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Generates an annuity of floating rate coupons.
  */
 public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionBuilder<FloatingAnnuityDefinitionBuilder> {
-  
+
   private Double _initialRate;
-  
+
   private IndexDeposit _index;
 
   private Double _spread;
-  
+
   private Double _gearing;
 
   /**
    * Parameters used to adjust the reset dates. This is an optional field.
    */
   private BusinessDayAdjustment _adjustedResetDateParameters;
-  
+
   /**
    * Flag to indicate the fixing date relative to the accrual period. This is an optional field, and will default to the
    * beginning of the accrual period.
    */
   private DateRelativeTo _resetRelativeTo = DateRelativeTo.START;
-  
+
   /**
    * Parameters used to adjust the fixing dates. This is an optional field.
    */
   private DaysAdjustment _adjustedFixingDateParameters;
-  
+
   /**
    * Sets the initial rate of the annuity. This is an optional field.
    * @param initialRate the initial rate of the annuity.
@@ -78,7 +78,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     _initialRate = initialRate;
     return this;
   }
-  
+
   /**
    * Sets the spread of the floating rate coupons. This is an optional field.
    * @param spread the spread of the floating rate coupons.
@@ -88,12 +88,12 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     _spread = spread;
     return this;
   }
-  
+
   public FloatingAnnuityDefinitionBuilder gearing(double gearing) {
     _gearing = gearing;
     return this;
   }
-  
+
   /**
    * Sets the index of the floating rate coupons. This is a required field.
    * @param index the index of the floating rate coupons.
@@ -103,7 +103,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     _index = index;
     return this;
   }
-  
+
   /**
    * Sets the parameters used to adjust the reset dates. This is an optional field.
    * @param resetDateAdjustmentParameters the parameters used to adjust the fixing dates.
@@ -113,41 +113,41 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     _adjustedResetDateParameters = resetDateAdjustmentParameters;
     return this;
   }
-  
+
   public FloatingAnnuityDefinitionBuilder resetRelativeTo(DateRelativeTo resetRelativeTo) {
     _resetRelativeTo = resetRelativeTo;
     return this;
   }
-  
+
   public FloatingAnnuityDefinitionBuilder fixingDateAdjustmentParameters(DaysAdjustment fixingDateAdjustmentParameters) {
     _adjustedFixingDateParameters = fixingDateAdjustmentParameters;
     return this;
   }
-  
+
   private boolean isCompounding() {
     if (getCompoundingMethod() == null) {
       return false;
     }
-    
+
     if (_index instanceof IborIndex) {
       Period resetFrequency = ((IborIndex) _index).getTenor();
       return !getAccrualPeriodFrequency().equals(resetFrequency);
     }
     return CompoundingMethod.NONE != getCompoundingMethod();
   }
-  
+
   private boolean hasInitialRate() {
     return _initialRate != null && !_initialRate.isNaN();
   }
-  
+
   private boolean hasSpread() {
     return _spread != null && !_spread.isNaN();
   }
-  
+
   private boolean hasGearing() {
     return _gearing != null && !_gearing.isNaN();
   }
-  
+
   /**
    * Fall down the various calendars, trying to find the default calendar to use for fixings.
    * <ol>
@@ -166,7 +166,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return fixingCalendar;
   }
-  
+
   /**
    * Generates reset dates relative to a given set of accrual dates, which may be either start or end dates.
    * @param accrualDates start or end accrual dates.
@@ -182,11 +182,11 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         _adjustedFixingDateParameters.getCalendar(),
         _adjustedFixingDateParameters.getDays());
   }
-  
+
   @Override
   public AnnuityDefinition<?> build() {
     CouponDefinition[] coupons;
-    
+
     int exchangeNotionalCouponCount = 0;
     if (isExchangeInitialNotional()) {
       exchangeNotionalCouponCount++;
@@ -205,13 +205,13 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     } else if (getAccrualPeriodAdjustmentParameters() != null) {
       calendar = getAccrualPeriodAdjustmentParameters().getCalendar();
     }
-    
+
     if (Period.ZERO.equals(getAccrualPeriodFrequency())) {
       coupons = generateZeroCouponFlows(exchangeNotionalCouponCount);
     } else {
       coupons = generateFloatFlows(exchangeNotionalCouponCount);
     }
-    
+
     if (isExchangeInitialNotional()) {
       coupons[0] = getExchangeInitialNotionalCoupon();
     }
@@ -219,21 +219,21 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     if (isExchangeFinalNotional()) {
       coupons[coupons.length - 1] = getExchangeFinalNotionalCoupon();
     }
-    
+
     return new AnnuityDefinition<>(coupons, calendar);
   }
 
   private CouponDefinition[] generateFloatFlows(int exchangeNotionalCouponCount) {
     CouponDefinition[] coupons;
     ZonedDateTime startDate = getStartDate();
-    
+
     ZonedDateTime[] unadjustedAccrualEndDates = getAccrualEndDates(false);
     ZonedDateTime[] unadjustedAccrualStartDates = ScheduleCalculator.getStartDates(startDate, unadjustedAccrualEndDates);
-    
+
     ZonedDateTime[] adjustedAccrualEndDates = getAccrualEndDates();
     ZonedDateTime[] adjustedAccrualStartDates = ScheduleCalculator.getStartDates(startDate, adjustedAccrualEndDates);
     resetNotionalProvider(adjustedAccrualStartDates);
-        
+
     ZonedDateTime[] paymentDates;
     if (DateRelativeTo.START == getPaymentDateRelativeTo()) {
       paymentDates = getPaymentDates(adjustedAccrualStartDates);
@@ -244,18 +244,18 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     coupons = new CouponDefinition[exchangeNotionalCouponCount + adjustedAccrualEndDates.length];
 
     int couponOffset = isExchangeInitialNotional() ? 1 : 0;
-    
+
     for (int c = 0; c < adjustedAccrualEndDates.length; c++) {
       CouponDefinition coupon = null;
-      
+
       // common coupon parameters
       ZonedDateTime paymentDate = paymentDates[c];
       ZonedDateTime accrualStartDate = adjustedAccrualStartDates[c];
       ZonedDateTime unadjustedAccrualStartDate = unadjustedAccrualStartDates[c];
       ZonedDateTime unadjustedAccrualEndDate = unadjustedAccrualEndDates[c];
-      
+
       double notional = (isPayer() ? -1 : 1) * getNotional().getAmount(accrualStartDate.toLocalDate());
-      
+
       // Check if we need to handle an interpolated stub
       boolean isStubStart = c == 0 &&
           getStartStub() != null &&
@@ -266,7 +266,6 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
           (StubConvention.SHORT_FINAL == getEndStub().getStubType() || StubConvention.LONG_FINAL == getEndStub().getStubType() || StubConvention.BOTH == getEndStub()
               .getStubType());
 
-      
       if (_index instanceof IborIndex) {
         CouponStub stub = null;
         if (isStubStart) {
@@ -323,7 +322,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return coupons;
   }
-  
+
   /**
    * Function to downcast overnight coupons to help identify vanilla fix/float swaps to downstream code
    *
@@ -346,14 +345,13 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     return coupons;
   }
 
-
   private CouponDefinition[] generateZeroCouponFlows(int exchangeNotionalCouponCount) {
     CouponDefinition[] coupons;
     coupons = new CouponDefinition[exchangeNotionalCouponCount + 1];
 
     int couponOffset = isExchangeInitialNotional() ? 1 : 0;
     CouponDefinition coupon = null;
-    
+
     // common coupon parameters
     ZonedDateTime unadjustedAccrualStartDate = getStartDate();
     ZonedDateTime unadjustedAccrualEndDate = getEndDate();
@@ -362,23 +360,23 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         _adjustedResetDateParameters.getConvention(),
         unadjustedAccrualEndDate,
         _adjustedFixingDateParameters.getCalendar());
-    
+
     ZonedDateTime paymentDate;
     if (DateRelativeTo.START == getPaymentDateRelativeTo()) {
-      paymentDate = getPaymentDates(new ZonedDateTime[] {accrualStartDate})[0];
+      paymentDate = getPaymentDates(new ZonedDateTime[] {accrualStartDate })[0];
     } else {
-      paymentDate = getPaymentDates(new ZonedDateTime[] {accrualEndDate})[0];
+      paymentDate = getPaymentDates(new ZonedDateTime[] {accrualEndDate })[0];
     }
 
     double notional = (isPayer() ? -1 : 1) * getNotional().getAmount(accrualStartDate.toLocalDate());
-    
+
     boolean isStubStart = getStartStub() != null &&
         (StubConvention.SHORT_INITIAL == getStartStub().getStubType() || StubConvention.LONG_INITIAL == getStartStub().getStubType() || StubConvention.BOTH == getStartStub()
             .getStubType());
     boolean isStubEnd = getEndStub() != null &&
-            (StubConvention.SHORT_FINAL == getEndStub().getStubType() || StubConvention.LONG_FINAL == getEndStub().getStubType() || StubConvention.BOTH == getEndStub()
-                .getStubType());
-    
+        (StubConvention.SHORT_FINAL == getEndStub().getStubType() || StubConvention.LONG_FINAL == getEndStub().getStubType() || StubConvention.BOTH == getEndStub()
+            .getStubType());
+
     if (_index instanceof IborIndex) {
       CouponStub stub = null;
       if (isStubStart) {
@@ -410,10 +408,10 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
           true, true);
     }
     coupons[couponOffset] = coupon;
-    
+
     return coupons;
   }
-  
+
   private CouponDefinition getONArithmeticAverageDefinition(
       double notional,
       ZonedDateTime paymentDate,
@@ -453,7 +451,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return coupon;
   }
-  
+
   private CouponDefinition getIborCoupon(
       double notional,
       ZonedDateTime paymentDate,
@@ -462,7 +460,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       CouponStub couponStub,
       boolean isFirstCoupon,
       boolean isLastCoupon) {
-    
+
     IborIndex index;
     if ((isFirstCoupon || isLastCoupon) && couponStub != null && !couponStub.isInterpolated() &&
         couponStub.getFirstIborIndex() != null) {
@@ -474,13 +472,13 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     ZonedDateTime adjustedAccrualStartDate = unadjustedAccrualStartDate;
     // Note do not roll first coupon's start date!
     if (!isFirstCoupon) {
-        adjustedAccrualStartDate = adjustedAccrualStartDate.with(getRollDateAdjuster());
+      adjustedAccrualStartDate = adjustedAccrualStartDate.with(getRollDateAdjuster());
       adjustedAccrualStartDate = BusinessDayDateUtils.applyConvention(
           getAccrualPeriodAdjustmentParameters().getConvention(),
           adjustedAccrualStartDate,
           getAccrualPeriodAdjustmentParameters().getCalendar());
     }
-    
+
     ZonedDateTime adjustedAccrualEndDate = unadjustedAccrualEndDate.with(getRollDateAdjuster());
     adjustedAccrualEndDate = BusinessDayDateUtils.applyConvention(
         getAccrualPeriodAdjustmentParameters().getConvention(),
@@ -515,7 +513,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
             getAccrualPeriodAdjustmentParameters().getCalendar(), getDayCount(), stubType, stubType,
             compoundingAccrualStartDates[i], compoundingAccrualEndDates[i], isFirstCoupon, isLastCoupon);
       }
-      
+
       ZonedDateTime[] compoundingFixingStartDates = compoundingAccrualStartDates;
       if (isFirstCoupon) {
         // Ensure that the forward period dates are adjusted for first compound period
@@ -560,7 +558,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       } else {
         compoundingFixingDates = getFixingDates(compoundingFixingEndDates);
       }
-      
+
       if (couponStub != null && couponStub.isInterpolated()) {
         ZonedDateTime firstInterpolatedDate = ScheduleCalculator.getAdjustedDate(
             compoundingFixingStartDates[0],
@@ -570,7 +568,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         double firstInterpolatedYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(index.getTenor(),
             _adjustedFixingDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(),
             couponStub.getStubType(),
-                                                                                            compoundingFixingStartDates[0], firstInterpolatedDate, isFirstCoupon, isLastCoupon);
+            compoundingFixingStartDates[0], firstInterpolatedDate, isFirstCoupon, isLastCoupon);
         ZonedDateTime secondInterpolatedDate = ScheduleCalculator.getAdjustedDate(
             compoundingFixingStartDates[0],
             couponStub.getSecondIborIndex().getTenor(),
@@ -580,9 +578,9 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         double secondInterpolatedYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(index.getTenor(),
             _adjustedFixingDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(),
             couponStub.getStubType(),
-                                                                                             compoundingFixingStartDates[0], secondInterpolatedDate, isFirstCoupon, isLastCoupon);
-        
-       coupon = getIborCompoundingInterpolatedStubDefinition(
+            compoundingFixingStartDates[0], secondInterpolatedDate, isFirstCoupon, isLastCoupon);
+
+        coupon = getIborCompoundingInterpolatedStubDefinition(
             notional,
             paymentDate,
             adjustedAccrualStartDate,
@@ -638,9 +636,10 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
             paymentDate,
             adjustedAccrualStartDate,
             adjustedAccrualEndDate,
-            AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), getAccrualPeriodAdjustmentParameters().getCalendar(), getDayCount(),
-                                                         couponStub != null ? couponStub.getStubType() : StubConvention.NONE, couponStub != null ? couponStub.getStubType() : StubConvention.NONE,
-                                                         adjustedAccrualStartDate, adjustedAccrualEndDate, isFirstCoupon, isLastCoupon),
+            AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), getAccrualPeriodAdjustmentParameters()
+                .getCalendar(), getDayCount(),
+                couponStub != null ? couponStub.getStubType() : StubConvention.NONE, couponStub != null ? couponStub.getStubType() : StubConvention.NONE,
+                adjustedAccrualStartDate, adjustedAccrualEndDate, isFirstCoupon, isLastCoupon),
             notional,
             initialRate);
       } else {
@@ -662,9 +661,10 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
             _adjustedResetDateParameters.getConvention(), // TODO check that we should be using the reset date bdc // getFixingBusinessDayConvention(),
             _adjustedFixingDateParameters.getCalendar(), // This is using the fixing calendar instead of the reset calendar
             null); // getRollDateAdjuster()); // set to null for forward date roll bug
-        double fixingPeriodYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), _adjustedResetDateParameters.getCalendar(), getDayCount(),
-                                                                                       couponStub != null ? couponStub.getStubType() : StubConvention.NONE, couponStub != null ? couponStub.getStubType() : StubConvention.NONE,
-                                                                                       fixingPeriodStartDate, fixingPeriodEndDate, isFirstCoupon, isLastCoupon);
+        double fixingPeriodYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(),
+            _adjustedResetDateParameters.getCalendar(), getDayCount(),
+            couponStub != null ? couponStub.getStubType() : StubConvention.NONE, couponStub != null ? couponStub.getStubType() : StubConvention.NONE,
+            fixingPeriodStartDate, fixingPeriodEndDate, isFirstCoupon, isLastCoupon);
         ZonedDateTime fixingDate;
         if (DateRelativeTo.START == _resetRelativeTo) {
           fixingDate = ScheduleCalculator.getAdjustedDate(
@@ -679,24 +679,26 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
               _adjustedFixingDateParameters.getCalendar(),
               _adjustedFixingDateParameters.getDays());
         }
-        
+
         if (couponStub != null && couponStub.isInterpolated()) {
           ZonedDateTime firstInterpolatedDate = ScheduleCalculator.getAdjustedDate(
               fixingPeriodStartDate,
               couponStub.getFirstIborIndex().getTenor(),
               _adjustedResetDateParameters.getConvention(), // TODO check that we should be using the reset date bdc // getFixingBusinessDayConvention(),
               _adjustedFixingDateParameters.getCalendar()); // This is using the fixing calendar instead of the reset calendar
-          double firstInterpolatedYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), _adjustedResetDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(), couponStub.getStubType(),
-                                                                                              fixingPeriodStartDate, firstInterpolatedDate, isFirstCoupon, isLastCoupon);
+          double firstInterpolatedYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(),
+              _adjustedResetDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(), couponStub.getStubType(),
+              fixingPeriodStartDate, firstInterpolatedDate, isFirstCoupon, isLastCoupon);
           ZonedDateTime secondInterpolatedDate = ScheduleCalculator.getAdjustedDate(
               fixingPeriodStartDate,
               couponStub.getSecondIborIndex().getTenor(),
               _adjustedResetDateParameters.getConvention(),
               // TODO check that we should be using the reset date bdc // getFixingBusinessDayConvention(),
               _adjustedFixingDateParameters.getCalendar()); // This is using the fixing calendar instead of the reset calendar
-          double secondInterpolatedYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), _adjustedResetDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(), couponStub.getStubType(),
-                                                                                               fixingPeriodStartDate, secondInterpolatedDate, isFirstCoupon, isLastCoupon);
-        
+          double secondInterpolatedYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(),
+              _adjustedResetDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(), couponStub.getStubType(),
+              fixingPeriodStartDate, secondInterpolatedDate, isFirstCoupon, isLastCoupon);
+
           coupon = getIborInterpolatedStubDefinition(
               notional,
               paymentDate,
@@ -718,8 +720,9 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
           ZonedDateTime actualFixingPeriodEndDate;
           if (couponStub != null && couponStub.getEffectiveDate() != null && isFirstCoupon) {
             actualFixingPeriodEndDate = ZonedDateTime.of(couponStub.getEffectiveDate(), LocalTime.of(0, 0), ZoneId.of("UTC"));
-            fixingPeriodYearFraction =  AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(), _adjustedResetDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(), couponStub.getStubType(),
-                                                                                     fixingPeriodStartDate, actualFixingPeriodEndDate, isFirstCoupon, isLastCoupon);
+            fixingPeriodYearFraction = AnnuityDefinitionBuilder.getDayCountFraction(Period.ZERO.equals(getAccrualPeriodFrequency()) ? Period.ofYears(1) : getAccrualPeriodFrequency(),
+                _adjustedResetDateParameters.getCalendar(), getDayCount(), couponStub.getStubType(), couponStub.getStubType(),
+                fixingPeriodStartDate, actualFixingPeriodEndDate, isFirstCoupon, isLastCoupon);
           } else {
             actualFixingPeriodEndDate = fixingPeriodEndDate;
           }
@@ -738,7 +741,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return coupon;
   }
-  
+
   private CouponDefinition getOISCoupon(
       double notional,
       ZonedDateTime paymentDate,
@@ -746,7 +749,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       ZonedDateTime unadjustedAccrualEndDate,
       CouponStub couponStub,
       boolean isFirstCoupon, boolean isLastCoupon) {
-    
+
     ZonedDateTime adjustedAccrualStartDate = unadjustedAccrualStartDate;
     // Note do not roll first coupon's start date!
     if (!isFirstCoupon) {
@@ -756,7 +759,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
         getAccrualPeriodAdjustmentParameters().getConvention(),
         adjustedAccrualStartDate,
         getAccrualPeriodAdjustmentParameters().getCalendar());
-    
+
     ZonedDateTime adjustedAccrualEndDate = unadjustedAccrualEndDate.with(getRollDateAdjuster());
     adjustedAccrualEndDate = BusinessDayDateUtils.applyConvention(
         getAccrualPeriodAdjustmentParameters().getConvention(),
@@ -811,7 +814,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return coupon;
   }
-  
+
   private CouponDefinition getIborDefinition(
       double notional,
       ZonedDateTime paymentDate,
@@ -826,7 +829,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     CouponDefinition coupon;
     if (hasGearing()) {
       coupon = new CouponIborGearingDefinition(
-          getCurrency(), 
+          getCurrency(),
           paymentDate,
           accrualStartDate,
           accrualEndDate,
@@ -871,14 +874,14 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return coupon;
   }
-  
-  private static Pair<Double, Double> getInterpolationWeights(ZonedDateTime accrualStartDate, 
+
+  private static Pair<Double, Double> getInterpolationWeights(ZonedDateTime accrualStartDate,
       ZonedDateTime accrualEndDate, ZonedDateTime firstInterpolatedDate, ZonedDateTime secondInterpolatedDate) {
     ArgChecker.isTrue(!accrualEndDate.isBefore(firstInterpolatedDate),
-        "First interpolated date {} should be before or equal to the accrual end date {}", 
+        "First interpolated date {} should be before or equal to the accrual end date {}",
         firstInterpolatedDate, accrualEndDate);
     ArgChecker.isTrue(!accrualEndDate.isAfter(secondInterpolatedDate),
-        "Second interpolated date {} should be equal to or after the accrual end date {}", 
+        "Second interpolated date {} should be equal to or after the accrual end date {}",
         secondInterpolatedDate, accrualEndDate);
     ArgChecker.isTrue(firstInterpolatedDate.isBefore(secondInterpolatedDate),
         "First interpolated date {} should be strictly before the second interpolated date {}",
@@ -896,7 +899,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
 
     return Pair.of(weightFirstIndex, weightSecondIndex);
   }
-  
+
   private CouponDefinition getIborInterpolatedStubDefinition(
       double notional,
       ZonedDateTime paymentDate,
@@ -914,15 +917,15 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       ZonedDateTime secondInterpolatedDate,
       double secondInterpolatedYearFraction,
       IborIndex secondStubIndex) {
-   
+
     Pair<Double, Double> weights = getInterpolationWeights(accrualStartDate, accrualEndDate, firstInterpolatedDate,
         secondInterpolatedDate);
 
     return CouponIborAverageIndexDefinition.from(
         paymentDate, accrualStartDate, accrualEndDate, accrualYearFraction, notional, fixingDate,
-        firstStubIndex, secondStubIndex, weights.getFirst(), weights.getSecond(), getFixingCalendar(), getFixingCalendar());        
+        firstStubIndex, secondStubIndex, weights.getFirst(), weights.getSecond(), getFixingCalendar(), getFixingCalendar());
   }
-  
+
   private CouponDefinition getIborCompoundingDefinition(
       double notional,
       ZonedDateTime paymentDate,
@@ -938,11 +941,11 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       double[] compoundFixingYearFractions,
       double initialCompoundRate,
       IborIndex index
-  ) {
+      ) {
     final CouponDefinition coupon;
     if (hasGearing()) {
       throw new IllegalStateException("Unsupported ibor gearing compounded definition");
-    } else if (hasSpread())  {
+    } else if (hasSpread()) {
       if (CompoundingMethod.FLAT == getCompoundingMethod()) {
         coupon = CouponIborCompoundingFlatSpreadDefinition.from(
             getCurrency(),
@@ -1002,7 +1005,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       coupon = CouponIborCompoundingDefinition.from(
           getCurrency(),
           paymentDate,
-          accrualStartDate, 
+          accrualStartDate,
           accrualEndDate,
           accrualYearFraction,
           notional,
@@ -1018,7 +1021,7 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
     }
     return coupon;
   }
-  
+
   private CouponDefinition getIborCompoundingInterpolatedStubDefinition(
       double notional,
       ZonedDateTime paymentDate,
@@ -1039,11 +1042,11 @@ public class FloatingAnnuityDefinitionBuilder extends AbstractAnnuityDefinitionB
       ZonedDateTime secondInterpolatedDate,
       double secondInterpolatedYearFraction,
       IborIndex secondStubIndex) {
-   
+
     /// TODO Compounding + interpolated stub not supported yet
-    return getIborCompoundingDefinition(notional, paymentDate, accrualStartDate, 
-        accrualEndDate, accrualYearFraction, compoundAccrualStartDates, compoundAccrualEndDates, 
-        compoundAccrualYearFractions, compoundFixingDates, compoundFixingStartDates, compoundFixingEndDates, 
+    return getIborCompoundingDefinition(notional, paymentDate, accrualStartDate,
+        accrualEndDate, accrualYearFraction, compoundAccrualStartDates, compoundAccrualEndDates,
+        compoundAccrualYearFractions, compoundFixingDates, compoundFixingStartDates, compoundFixingEndDates,
         compoundFixingYearFractions, initialCompoundRate, (IborIndex) _index);
   }
 }

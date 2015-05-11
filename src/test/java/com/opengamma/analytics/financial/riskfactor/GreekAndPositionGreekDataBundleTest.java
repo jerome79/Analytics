@@ -18,7 +18,6 @@ import com.opengamma.analytics.financial.pnl.UnderlyingType;
 import com.opengamma.analytics.financial.sensitivity.PositionGreek;
 import com.opengamma.analytics.financial.trade.OptionTradeData;
 
-
 /**
  * Test.
  */

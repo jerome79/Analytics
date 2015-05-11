@@ -20,7 +20,6 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantDateYieldCurve.Meta;
 
-
 /**
  * 
  */
@@ -198,7 +197,7 @@ public class ISDACompliantYieldCurveTest {
     assertTrue(!(baseCurve.equals(new ISDACompliantDateCurve(baseDate, dates, rates))));
     assertTrue(!(baseCurve.equals(new ISDACompliantDateYieldCurve(baseDate.minusDays(1), dates, rates))));
     assertTrue(!(baseCurve.equals(new ISDACompliantDateYieldCurve(baseDate, new LocalDate[] {LocalDate.of(2012, 12, 3), LocalDate.of(2013, 4, 29), LocalDate.of(2013, 11, 12),
-        LocalDate.of(2014, 5, 19) }, rates))));
+      LocalDate.of(2014, 5, 19) }, rates))));
     assertTrue(!(baseCurve.equals(new ISDACompliantDateYieldCurve(baseDate, dates, rates, DayCounts.ACT_365_25))));
 
     assertTrue(baseCurve.equals(baseCurve));

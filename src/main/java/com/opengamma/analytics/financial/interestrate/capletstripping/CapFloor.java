@@ -65,5 +65,4 @@ public class CapFloor extends Annuity<CapFloorIbor> {
 
   }
 
-
 }

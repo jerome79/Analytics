@@ -32,10 +32,6 @@ public class TwoStateMarkovChainPricer {
   private final Function1D<Double, Double> _initalCond1;
   private final Function1D<Double, Double> _initalCond2;
 
-  //  private final double _lambda12;
-  //  private final double _lambda21;
-  //  private final double _p0;
-
   public TwoStateMarkovChainPricer(final ForwardCurve forward, final TwoStateMarkovChainDataBundle chainDB) {
     ArgChecker.notNull(forward, "null forward curve");
     ArgChecker.notNull(chainDB, "null MC DB");

@@ -209,7 +209,6 @@ public class ISDACompliantYieldCurveBuild {
       return baseCurve;
     }
     return baseCurve.withOffset(_offset);
-    //  return new ISDACompliantYieldCurve(baseCurve.getKnotTimes(), baseCurve.getKnotZeroRates(), _offset);
   }
 
   private ISDACompliantCurve fitSwap(final int curveIndex, final BasicFixedLeg swap, final ISDACompliantCurve curve, final double swapRate) {
@@ -279,7 +278,6 @@ public class ISDACompliantYieldCurveBuild {
       return curve;
     }
     final double[] bracket = BRACKETER.getBracketedPoints(func, 0.8 * guess, 1.25 * guess, 0, Double.POSITIVE_INFINITY);
-    // final double r = ROOTFINDER.getRoot(func, bracket[0], bracket[1]);
     final double r = ROOTFINDER.getRoot(func, grad, bracket[0], bracket[1]);
     return curve.withRate(r, curveIndex);
   }

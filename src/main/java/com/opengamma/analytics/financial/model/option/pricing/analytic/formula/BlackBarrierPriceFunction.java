@@ -92,7 +92,7 @@ public final class BlackBarrierPriceFunction {
         return strike > h ? xA + xE : xB - xC + xD + xE;
       }
       return strike > h ? xA - xB + xD + xE : xC + xE;
-    } 
+    }
     // KnockOut
     if (isDown) {
       if (isCall) {
@@ -312,12 +312,12 @@ public final class BlackBarrierPriceFunction {
         + bDerivatives[5] * xBBar // Same as above - A and B share form/function
         + cDerivatives[5] * xCBar // C additionally has mu dependence on sigma. This is captured in muBar
         + dDerivatives[5] * xDBar
-              + (lambda - Math.log(h / spot) / (sigmaT * sigmaT)) * zBar
-              - Math.log(h / spot) / (sigmaT * sigmaT) * y2Bar
-              - Math.log(h * h / spot / strike) / (sigmaT * sigmaT) * y1Bar
-              - Math.log(spot / h) / (sigmaT * sigmaT) * x2Bar
-              - Math.log(spot / strike) / (sigmaT * sigmaT) * x1Bar
-              + (1 + mu) * m1Bar;
+        + (lambda - Math.log(h / spot) / (sigmaT * sigmaT)) * zBar
+        - Math.log(h / spot) / (sigmaT * sigmaT) * y2Bar
+        - Math.log(h * h / spot / strike) / (sigmaT * sigmaT) * y1Bar
+        - Math.log(spot / h) / (sigmaT * sigmaT) * x2Bar
+        - Math.log(spot / strike) / (sigmaT * sigmaT) * x1Bar
+        + (1 + mu) * m1Bar;
     final double sigmaSqBar = -costOfCarry / (sigmaSq * sigmaSq) * muBar - rate / (sigmaSq * sigmaSq) / lambda * lambdaBar;
     df2Bar += aDerivatives[3] * xABar + bDerivatives[3] * xBBar + cDerivatives[3] * xCBar + dDerivatives[3] * xDBar;
     final double df1Bar = aDerivatives[2] * xABar + bDerivatives[2] * xBBar + cDerivatives[2] * xCBar + dDerivatives[2] * xDBar;

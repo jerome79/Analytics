@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
 
-
 /**
  * Test.
  */
@@ -46,7 +45,7 @@ public class TimeChangeCharacteristicExponentTest {
     assertEquals(other.hashCode(), EXPONENT.hashCode());
     other = new TimeChangedCharacteristicExponent(TIME_CHANGE, TIME_CHANGE);
     assertFalse(other.equals(EXPONENT));
-    other = new TimeChangedCharacteristicExponent(BASE, (StocasticClockCharcteristicExponent)BASE);
+    other = new TimeChangedCharacteristicExponent(BASE, (StocasticClockCharcteristicExponent) BASE);
     assertFalse(other.equals(EXPONENT));
   }
 
@@ -56,7 +55,7 @@ public class TimeChangeCharacteristicExponentTest {
     assertEquals(EXPONENT.getLargestAlpha(), LARGE_ALPHA2, 0);
   }
 
-  private static class MyCharacteristicExponent implements StocasticClockCharcteristicExponent{
+  private static class MyCharacteristicExponent implements StocasticClockCharcteristicExponent {
     private final double _small;
     private final double _large;
 

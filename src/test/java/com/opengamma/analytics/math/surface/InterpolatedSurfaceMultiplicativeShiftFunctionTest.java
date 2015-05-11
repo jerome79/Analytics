@@ -27,11 +27,11 @@ public class InterpolatedSurfaceMultiplicativeShiftFunctionTest {
   private static final double[] Z = new double[] {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
   private static final GridInterpolator2D INTERPOLATOR = new GridInterpolator2D(new LinearInterpolator1D(), new LinearInterpolator1D()) {
 
-        @Override
-        public Double interpolate(Map<Double, Interpolator1DDataBundle> dataBundle, DoublesPair value) {
-          return value.getFirst() + value.getSecond();
-        }
-      };
+    @Override
+    public Double interpolate(Map<Double, Interpolator1DDataBundle> dataBundle, DoublesPair value) {
+      return value.getFirst() + value.getSecond();
+    }
+  };
   private static final String NAME = "K";
   private static final InterpolatedDoublesSurface SURFACE = InterpolatedDoublesSurface.from(X, Y, Z, INTERPOLATOR, NAME);
   private static final InterpolatedSurfaceMultiplicativeShiftFunction F = new InterpolatedSurfaceMultiplicativeShiftFunction();

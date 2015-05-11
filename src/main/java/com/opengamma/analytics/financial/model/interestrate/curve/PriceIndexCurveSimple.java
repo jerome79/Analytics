@@ -51,7 +51,7 @@ public class PriceIndexCurveSimple implements PriceIndexCurve {
    * @param rate The zero-coupon swaps rates.
    * @return The price index curve.
    */
-  public static PriceIndexCurveSimple fromStartOfMonth(final double[] nodeTimeKnown, final double[] indexKnown, 
+  public static PriceIndexCurveSimple fromStartOfMonth(final double[] nodeTimeKnown, final double[] indexKnown,
       final double[] nodeTimeOther, final double[] rate) {
     ArgChecker.notNull(nodeTimeKnown, "node times already fixed");
     ArgChecker.notNull(indexKnown, "index values");

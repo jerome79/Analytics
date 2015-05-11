@@ -30,7 +30,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * <P>
  * Reference: Coupon with FX Reset Notional, OpenGamma Documentation 26, September 2014.
  */
-public class CouponFixedFxResetDefinition extends CouponDefinition 
+public class CouponFixedFxResetDefinition extends CouponDefinition
     implements InstrumentDefinitionWithData<Payment, DoubleTimeSeries<ZonedDateTime>> {
 
   /** The fixed rate of the fixed coupon. */
@@ -42,7 +42,7 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
   private final ZonedDateTime _fxFixingDate;
   /** The spot (delivery) date for the FX transaction underlying the FX fixing. */
   private final ZonedDateTime _fxDeliveryDate;
-  
+
   /**
    * @param currency The payment currency.
    * @param paymentDate Coupon payment date.
@@ -56,7 +56,7 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
    * reference currency (RC) and the payment currency (PC): 1 RC = X . PC.
    * @param fxDeliveryDate The spot or delivery date for the FX transaction underlying the FX fixing.
    */
-  public CouponFixedFxResetDefinition(Currency currency, ZonedDateTime paymentDate, ZonedDateTime accrualStartDate, 
+  public CouponFixedFxResetDefinition(Currency currency, ZonedDateTime paymentDate, ZonedDateTime accrualStartDate,
       ZonedDateTime accrualEndDate, double paymentAccrualFactor, double notional,
       double rate, Currency referenceCurrency, ZonedDateTime fxFixingDate, ZonedDateTime fxDeliveryDate) {
     super(currency, paymentDate, accrualStartDate, accrualEndDate, paymentAccrualFactor, notional);
@@ -117,12 +117,12 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
     LocalDate conversionDate = dateTime.toLocalDate();
     LocalDate fixingDate = _fxFixingDate.toLocalDate();
     ArgChecker.isTrue(!conversionDate.isAfter(fixingDate),
-        "Do not have any fixing data but are asking for a derivative at {} which is after fixing date {}", 
+        "Do not have any fixing data but are asking for a derivative at {} which is after fixing date {}",
         conversionDate, fixingDate);
     double paymentTime = TimeCalculator.getTimeBetween(dateTime, getPaymentDate());
     double fixingTime = TimeCalculator.getTimeBetween(dateTime, _fxFixingDate);
     double deliveryTime = TimeCalculator.getTimeBetween(dateTime, _fxDeliveryDate);
-    return new CouponFixedFxReset(getCurrency(), paymentTime, getPaymentYearFraction(), getNotional(), _rate, 
+    return new CouponFixedFxReset(getCurrency(), paymentTime, getPaymentYearFraction(), getNotional(), _rate,
         _referenceCurrency, fixingTime, deliveryTime);
   }
 
@@ -151,12 +151,12 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
       Double fxRate = fxFixingHts.getValue(rezonedFixingDate);
       if (fxRate != null) { // Fixed notional
         double notional = getNotional() * fxRate;
-        return new CouponFixed(getCurrency(), paymentTime, getPaymentYearFraction(), notional, _rate);        
+        return new CouponFixed(getCurrency(), paymentTime, getPaymentYearFraction(), notional, _rate);
       }
     } // Default: no fixing
     double fixingTime = TimeCalculator.getTimeBetween(dateTime, _fxFixingDate);
     double deliveryTime = TimeCalculator.getTimeBetween(dateTime, _fxDeliveryDate);
-    return new CouponFixedFxReset(getCurrency(), paymentTime, getPaymentYearFraction(), getNotional(), _rate, 
+    return new CouponFixedFxReset(getCurrency(), paymentTime, getPaymentYearFraction(), getNotional(), _rate,
         _referenceCurrency, fixingTime, deliveryTime);
   }
 
@@ -176,12 +176,12 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result +  _fxFixingDate.hashCode();
-    result = prime * result +  _fxDeliveryDate.hashCode();
+    result = prime * result + _fxFixingDate.hashCode();
+    result = prime * result + _fxDeliveryDate.hashCode();
     long temp;
     temp = Double.doubleToLongBits(_rate);
     result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result +  _referenceCurrency.hashCode();
+    result = prime * result + _referenceCurrency.hashCode();
     return result;
   }
 
@@ -207,6 +207,6 @@ public class CouponFixedFxResetDefinition extends CouponDefinition
       return false;
     }
     return true;
-  } 
+  }
 
 }

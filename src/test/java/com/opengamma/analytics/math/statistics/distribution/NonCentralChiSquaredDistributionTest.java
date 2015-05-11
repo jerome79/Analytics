@@ -10,8 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -72,6 +70,7 @@ public class NonCentralChiSquaredDistributionTest {
     other = new NonCentralChiSquaredDistribution(DOF, NON_CENTRALITY + 1);
     assertFalse(other.equals(DIST));
   }
+
   /**
    * Numbers computed from R
    */

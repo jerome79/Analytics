@@ -12,7 +12,6 @@ import java.time.temporal.TemporalAdjuster;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -145,7 +144,7 @@ public class MonthlyIMMRollDateAdjusterTest {
     LocalDate date = LocalDate.of(2013, 12, 19);
     final LocalDate endOfYear = LocalDate.of(2013, 12, 31);
     final LocalDate immDate = LocalDate.of(2014, 1, 15);
-    while(!date.isAfter(endOfYear)) {
+    while (!date.isAfter(endOfYear)) {
       assertEquals(immDate, ADJUSTER.adjustInto(date));
       date = date.plusDays(1);
     }

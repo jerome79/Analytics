@@ -24,8 +24,8 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 /**
  * Calculates the present value of an inflation instruments by discounting for a given MarketBundle
  */
-public final class PresentValueDiscountingInflationIssuerCalculator 
-  extends InstrumentDerivativeVisitorDelegate<ParameterInflationIssuerProviderInterface, MultiCurrencyAmount> {
+public final class PresentValueDiscountingInflationIssuerCalculator
+    extends InstrumentDerivativeVisitorDelegate<ParameterInflationIssuerProviderInterface, MultiCurrencyAmount> {
 
   /**
    * The unique instance of the calculator.
@@ -50,13 +50,13 @@ public final class PresentValueDiscountingInflationIssuerCalculator
   /**
    * Pricing methods.
    */
-  private static final BondCapitalIndexedSecurityDiscountingMethod METHOD_BOND_INFL_SEC = 
+  private static final BondCapitalIndexedSecurityDiscountingMethod METHOD_BOND_INFL_SEC =
       new BondCapitalIndexedSecurityDiscountingMethod();
-  private static final BondCapitalIndexedTransactionDiscountingMethod METHOD_BOND_INFL_TR = 
+  private static final BondCapitalIndexedTransactionDiscountingMethod METHOD_BOND_INFL_TR =
       new BondCapitalIndexedTransactionDiscountingMethod();
-  private static final BillTransactionDiscountingMethod METHOD_BILL_TR = 
+  private static final BillTransactionDiscountingMethod METHOD_BILL_TR =
       BillTransactionDiscountingMethod.getInstance();
-  private static final BondTransactionDiscountingMethod METHOD_BOND_TR = 
+  private static final BondTransactionDiscountingMethod METHOD_BOND_TR =
       BondTransactionDiscountingMethod.getInstance();
 
   @Override

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.payment;
 
-
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
@@ -22,7 +21,6 @@ import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
-
 
 /**
  * Class describing a caplet/floorlet on CMS rate. The notional is positive for long the option and negative for short the option.
@@ -206,7 +204,6 @@ public class CapFloorCMSDefinition extends CouponFloatingDefinition implements C
     final SwapFixedCoupon<Coupon> swap = _underlyingSwap.toDerivative(dateTime);
     return new CapFloorCMS(getCurrency(), paymentTime, getPaymentYearFraction(), getNotional(), fixingTime, swap, settlementTime, _strike, _isCap);
   }
-
 
   @Override
   public <U, V> V accept(final InstrumentDefinitionVisitor<U, V> visitor, final U data) {

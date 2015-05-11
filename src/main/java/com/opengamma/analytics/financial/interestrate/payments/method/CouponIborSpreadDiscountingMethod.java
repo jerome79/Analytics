@@ -99,7 +99,6 @@ public final class CouponIborSpreadDiscountingMethod implements PricingMethod {
     final double dfForwardStart = forwardCurve.getDiscountFactor(coupon.getFixingPeriodStartTime());
     final double dfForwardEnd = forwardCurve.getDiscountFactor(coupon.getFixingPeriodEndTime());
     final double forward = (dfForwardStart / dfForwardEnd - 1.0) / coupon.getFixingAccrualFactor();
-    // final double pv = (coupon.getNotional() * coupon.getPaymentYearFraction() * forward + coupon.getSpreadAmount()) * df;
     // Backward sweep
     final double pvBar = 1.0;
     final double forwardBar = coupon.getNotional() * coupon.getPaymentYearFraction() * df * pvBar;

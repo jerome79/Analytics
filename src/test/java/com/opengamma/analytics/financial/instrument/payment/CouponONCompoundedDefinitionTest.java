@@ -37,7 +37,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the ON compounded coupon definition.
  */
@@ -133,13 +132,13 @@ public class CouponONCompoundedDefinitionTest {
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1; i++) {
       FIXING_PERIOD_START_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, TRADE_DATE, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
       FIXING_PERIOD_END_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, TRADE_DATE, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i],
+          ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
     }
     final CouponONCompounded cpnExpected = new CouponONCompounded(EUR_CUR, paymentTime, EUR_PAYMENT_YEAR_FRACTION, NOTIONAL, EUR_OIS, FIXING_PERIOD_START_TIMES,
         FIXING_PERIOD_END_TIMES, FIXING_PERIOD_ACCRUAL_FACTOR, NOTIONAL);
     assertEquals("CouponONCompounded definition: toDerivative", cpnExpected, cpnConverted);
   }
-
 
   @Test
   /**
@@ -147,7 +146,7 @@ public class CouponONCompoundedDefinitionTest {
    */
   public void toDerivativeFixingBeforeStart() {
     final ZonedDateTime referenceDate = ScheduleCalculator.getAdjustedDate(TRADE_DATE, 1, EUR_CALENDAR);
-    final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 7)}, new double[]{0.01});
+    final DoubleTimeSeries<ZonedDateTime> fixingTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 7) }, new double[] {0.01 });
     final Payment cpnConverted = ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
     final double paymentTime = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, EUR_PAYMENT_DATE, EUR_CALENDAR);
     final double[] FIXING_PERIOD_START_TIMES = new double[ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1];
@@ -156,7 +155,8 @@ public class CouponONCompoundedDefinitionTest {
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1; i++) {
       FIXING_PERIOD_START_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
       FIXING_PERIOD_END_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i],
+          ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
 
     }
     final CouponONCompounded cpnExpected = new CouponONCompounded(EUR_CUR, paymentTime, EUR_PAYMENT_YEAR_FRACTION, NOTIONAL, EUR_OIS, FIXING_PERIOD_START_TIMES,
@@ -183,7 +183,8 @@ public class CouponONCompoundedDefinitionTest {
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 1; i++) {
       FIXING_PERIOD_START_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], EUR_CALENDAR);
       FIXING_PERIOD_END_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i],
+          ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1]);
     }
     final CouponONCompounded cpnExpected = new CouponONCompounded(EUR_CUR, paymentTime, EUR_PAYMENT_YEAR_FRACTION, NOTIONAL, EUR_OIS, FIXING_PERIOD_START_TIMES,
@@ -210,7 +211,8 @@ public class CouponONCompoundedDefinitionTest {
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 2; i++) {
       FIXING_PERIOD_START_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], EUR_CALENDAR);
       FIXING_PERIOD_END_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
+          ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 1],
           ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2]);
     }
@@ -239,7 +241,8 @@ public class CouponONCompoundedDefinitionTest {
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 3; i++) {
       FIXING_PERIOD_START_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], EUR_CALENDAR);
       FIXING_PERIOD_END_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2],
+          ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 2],
           ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3]);
     }
@@ -269,7 +272,8 @@ public class CouponONCompoundedDefinitionTest {
     for (int i = 0; i < ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates().length - 4; i++) {
       FIXING_PERIOD_START_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], EUR_CALENDAR);
       FIXING_PERIOD_END_TIMES[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, referenceDate, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4], EUR_CALENDAR);
-      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3], ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4], EUR_CALENDAR);
+      FIXING_PERIOD_ACCRUAL_FACTOR[i] = DayCountUtils.yearFraction(EUR_DAY_COUNT, ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3],
+          ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4], EUR_CALENDAR);
       FIXING_PERIOD_ACCRUAL_FACTOR_ACT_ACT[i] = TimeCalculator.getTimeBetween(ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 3],
           ON_COMPOUNDED_COUPON_DEFINITION.getFixingPeriodDates()[i + 4]);
     }
@@ -315,7 +319,6 @@ public class CouponONCompoundedDefinitionTest {
     final CouponFixed cpnExpected = new CouponFixed(EUR_CUR, paymentTime, EUR_PAYMENT_YEAR_FRACTION, NOTIONAL, (notionalAccrued / NOTIONAL - 1.0) / EUR_PAYMENT_YEAR_FRACTION);
     assertEquals("CouponONCompounded definition: toDerivative", cpnExpected, cpnConverted);
   }
-
 
   @Test
   /**
@@ -378,6 +381,5 @@ public class CouponONCompoundedDefinitionTest {
       fixingRate, fixingRate, fixingRate, fixingRate, fixingRate, fixingRate, fixingRate });
     ON_COMPOUNDED_COUPON_DEFINITION.toDerivative(referenceDate, fixingTS);
   }
-
 
 }

@@ -25,17 +25,13 @@ import com.opengamma.strata.collect.tuple.Pair;
  * Examples of risk analysis for different swaps in USD.
  * Those examples can be used for tutorials. 
  */
-@Test
+@Test(enabled = false)
 public class SwapRiskAnalysisAug21Usd {
 
-
-  public SwapRiskAnalysisAug21Usd() {
-  }
-  
-  @Test
+  @Test(enabled = false)
   public void FraCurveCalibration() {
     ZonedDateTime evalDate = DateUtils.getUTCDate(2014, 8, 21);
-    Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> curveBundle = 
+    Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> curveBundle =
         UsdDatasetAug21.getFraCurve(evalDate, true,
             UsdDatasetAug21.INTERPOLATOR_LINEAR);
 
@@ -44,19 +40,19 @@ public class SwapRiskAnalysisAug21Usd {
       YieldAndDiscountCurve yieldAndDiscountCurve = curves.getCurve(yieldCurveName);
       Curve<Double, Double> yieldCurveValues = null;
       if (yieldAndDiscountCurve instanceof YieldCurve) {
-        yieldCurveValues = ((YieldCurve)yieldAndDiscountCurve).getCurve();
+        yieldCurveValues = ((YieldCurve) yieldAndDiscountCurve).getCurve();
       } else if (yieldAndDiscountCurve instanceof DiscountCurve) {
-        yieldCurveValues = ((DiscountCurve)yieldAndDiscountCurve).getCurve();
+        yieldCurveValues = ((DiscountCurve) yieldAndDiscountCurve).getCurve();
       }
       Double[] dateFractions = yieldCurveValues.getXData();
       Double[] zeroRates = yieldCurveValues.getYData();
-      
-      System.out.println("Curve name,Curve X,Curve Y,Start date,End date,Forward"); 
-      for(int i = 0; i < dateFractions.length; ++i) {
+
+      System.out.println("Curve name,Curve X,Curve Y,Start date,End date,Forward");
+      for (int i = 0; i < dateFractions.length; ++i) {
         System.out.println(
             yieldCurveName + "," +
                 String.valueOf(dateFractions[i]) + "," +
-                String.valueOf(100. * zeroRates[i]) + "," + 
+                String.valueOf(100. * zeroRates[i]) + "," +
                 UsdDatasetAug21.s_startDates[i].toLocalDate().toString() + "," +
                 UsdDatasetAug21.s_endDates[i].toLocalDate().toString() + "," +
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
@@ -68,13 +64,13 @@ public class SwapRiskAnalysisAug21Usd {
                 String.valueOf(100. * yieldAndDiscountCurve.getForwardRate(
                     DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, UsdDatasetAug21.s_startDates[i]))));
       }
-      
+
       double t1 = DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, DateUtils.getUTCDate(2015, 7, 9));
       double t2 = DayCountUtils.yearFraction(DayCounts.ACT_360, evalDate, DateUtils.getUTCDate(2016, 1, 9));
       System.out.println("t1,t2,forward");
       System.out.println(String.valueOf(t1) + "," + String.valueOf(t2) + "," + String.valueOf(yieldAndDiscountCurve.getForwardRate(t1) * 100));
     }
-    
+
   }
 
 }

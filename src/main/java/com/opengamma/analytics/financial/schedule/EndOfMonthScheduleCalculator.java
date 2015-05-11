@@ -30,7 +30,7 @@ public class EndOfMonthScheduleCalculator extends Schedule {
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
       if (startDate.getDayOfMonth() == startDate.lengthOfMonth()) {
-        return new LocalDate[] {startDate};
+        return new LocalDate[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but neither was the last day of the month");
     }
@@ -54,7 +54,7 @@ public class EndOfMonthScheduleCalculator extends Schedule {
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
       if (startDate.getDayOfMonth() == startDate.toLocalDate().lengthOfMonth()) {
-        return new ZonedDateTime[] {startDate};
+        return new ZonedDateTime[] {startDate };
       }
       throw new IllegalArgumentException("Start date and end date were the same but neither was the last day of the month");
     }

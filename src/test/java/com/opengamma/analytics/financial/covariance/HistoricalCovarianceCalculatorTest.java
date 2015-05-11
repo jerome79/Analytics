@@ -13,13 +13,12 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 
-
 /**
  * Test.
  */
 @Test
 public class HistoricalCovarianceCalculatorTest {
-  private static final DoubleTimeSeries<?> TS1 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[]{1, 2, 3, 4, 5}, new double[]{1, 1, 1, 1, 1}, UTC);
+  private static final DoubleTimeSeries<?> TS1 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4, 5 }, new double[] {1, 1, 1, 1, 1 }, UTC);
   private static final CovarianceCalculator CALCULATOR = new HistoricalCovarianceCalculator();
 
   @Test(expectedExceptions = IllegalArgumentException.class)

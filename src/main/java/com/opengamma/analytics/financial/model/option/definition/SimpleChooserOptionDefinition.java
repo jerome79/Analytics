@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.BlackScho
 import com.opengamma.analytics.util.time.Expiry;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * A simple chooser option gives the holder the right to choose whether the
  * option is to be a standard call or put (both with the same expiry) after a

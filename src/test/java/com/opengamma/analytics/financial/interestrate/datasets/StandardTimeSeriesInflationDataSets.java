@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.datasets;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.util.time.DateUtils;
@@ -17,8 +16,9 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
  */
 public class StandardTimeSeriesInflationDataSets {
 
-  /** ===== USD HICP Index ===== */ /** CPURNSA Index*/
-//TODO : put the right value for 2005, 2006, 2007, 2008
+  /** ===== USD HICP Index ===== */
+  /** CPURNSA Index*/
+  //TODO : put the right value for 2005, 2006, 2007, 2008
   private static final double[] USCPI_VALUE_2005 = new double[] {
     211.143, 212.193, 212.709, 213.240, 213.856, 215.693, 215.351, 215.834, 215.969, 216.177, 216.330, 215.949 };
   private static final double[] USCPI_VALUE_2006 = new double[] {
@@ -56,14 +56,14 @@ public class StandardTimeSeriesInflationDataSets {
   private static final ZonedDateTime[] USCPI_DATES = new ZonedDateTime[USCPI_VALUE.length];
   static
   {
-    for (int i=0; i<USCPI_VALUE.length; i++) {
+    for (int i = 0; i < USCPI_VALUE.length; i++) {
       USCPI_DATES[i] = USCPI_START_DATE.plusMonths(i);
     }
   }
-  
+
   private static final ZonedDateTimeDoubleTimeSeries USCPI_TIME_SERIES =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(USCPI_DATES, USCPI_VALUE);
-  
+
   /**
    * Returns the US CPU index time series from January 2005 up to the endDate (exclusive).
    * @param endDate The end date.
@@ -72,7 +72,7 @@ public class StandardTimeSeriesInflationDataSets {
   public static ZonedDateTimeDoubleTimeSeries timeSeriesUsCpi(ZonedDateTime endDate) {
     return USCPI_TIME_SERIES.subSeries(DateUtils.getUTCDate(2005, 1, 1), endDate);
   }
-  
+
   /**
    * Returns the US CPU index time series from startDate (inclusive) up to the endDate (exclusive).
    * @param startDate The start date.
@@ -82,6 +82,5 @@ public class StandardTimeSeriesInflationDataSets {
   public static ZonedDateTimeDoubleTimeSeries timeSeriesUsCpi(ZonedDateTime startDate, ZonedDateTime endDate) {
     return USCPI_TIME_SERIES.subSeries(startDate, endDate);
   }
-
 
 }

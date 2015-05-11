@@ -92,7 +92,6 @@ public class IntrinsicIndexDataBundle {
     _indexSize = creditCurves.length;
     ArgChecker.isTrue(_indexSize == recoveryRates.length, "Length of recoveryRates ({}) does not match index size ({})", recoveryRates.length, _indexSize);
     // Correction made  PLAT-6323 
-    //    ArgChecker.isTrue(_indexSize == defaulted.length(), "Length of defaulted ({}) does not match index size ({})", defaulted.length(), _indexSize);
     ArgChecker.isTrue(_indexSize >= defaulted.length(), "Length of defaulted ({}) is greater than index size ({})", defaulted.length(), _indexSize);
 
     _nDefaults = defaulted.cardinality();
@@ -115,7 +114,6 @@ public class IntrinsicIndexDataBundle {
     _creditCurves = creditCurves;
     _defaulted = defaulted;
     // Correction made PLAT-6328
-    //    _indexFactor = _nDefaults / ((double) _indexSize);
     _indexFactor = (((double) _indexSize) - _nDefaults) * _weights[0];
   }
 
@@ -129,7 +127,6 @@ public class IntrinsicIndexDataBundle {
     ArgChecker.isTrue(_indexSize == recoveryRates.length, "Length of recoveryRates ({}) does not match index size ({})", recoveryRates.length, _indexSize);
     ArgChecker.isTrue(_indexSize == weights.length, "Length of weights ({}) does not match index size ({})", weights.length, _indexSize);
     // Correction made  PLAT-6323 
-    //    ArgChecker.isTrue(_indexSize == defaulted.length(), "Length of defaulted ({}) does not match index size ({})", defaulted.length(), _indexSize);
     ArgChecker.isTrue(_indexSize >= defaulted.length(), "Length of defaulted ({}) is greater than index size ({})", defaulted.length(), _indexSize);
 
     _nDefaults = defaulted.cardinality();
@@ -252,9 +249,6 @@ public class IntrinsicIndexDataBundle {
   public IntrinsicIndexDataBundle withCreditCurves(final ISDACompliantCreditCurve[] curves) {
     ArgChecker.notNull(curves, "curves");
     //  caught by notNull above
-    //    if (_nDefaults == 0) {
-    //      ArgChecker.noNulls(curves, "curves");
-    //    }
     final int n = curves.length;
     ArgChecker.isTrue(n == _indexSize, "wrong number of curves. Require {}, but {} given", _indexSize, n);
     for (int i = 0; i < n; i++) {

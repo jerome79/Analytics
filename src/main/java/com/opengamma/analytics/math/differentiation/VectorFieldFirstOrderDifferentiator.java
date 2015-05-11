@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.differentiation;
 
-
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;

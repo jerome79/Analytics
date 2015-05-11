@@ -23,8 +23,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 
-
-
 /**
  * Tests for CouponIborFxReset.
  */

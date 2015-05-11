@@ -25,7 +25,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the construction of OIS swaps.
  */
@@ -90,7 +89,7 @@ public class SwapFixedOISSimplifiedDefinitionTest {
       assertEquals(
           "Swap OIS definition: constructor",
           DayCountUtils.yearFraction(EUR_DAY_COUNT, EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualStartDate(), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn)
-          .getAccrualEndDate()), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
+              .getAccrualEndDate()), EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentYearFraction(), 1.0E-10);
       assertFalse("Swap OIS definition: constructor",
           EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getPaymentDate().equals(EONIA_SWAP_3Y_DEFINITION.getFixedLeg().getNthPayment(loopcpn).getAccrualEndDate()));
     }

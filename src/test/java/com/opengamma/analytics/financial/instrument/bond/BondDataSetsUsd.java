@@ -32,7 +32,7 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
  * Examples of bond and bills to be used in tests. Examples in GBP.
  */
 public class BondDataSetsUsd {
-  
+
   private static final String US_GOVT_NAME = "US GOVT";
   private static final Set<CreditRating> RATING = new HashSet<>();
   static {
@@ -51,9 +51,9 @@ public class BondDataSetsUsd {
   private static final boolean IS_EOM = true;
   private static final int SETTLEMENT_DAYS = 1;
   private static final int EX_DIVIDEND_DAYS = 0;
-  private static final YieldConvention YIELD_BOND = 
+  private static final YieldConvention YIELD_BOND =
       YieldConventionFactory.INSTANCE.getYieldConvention("US street");
-  
+
   //UST 0.50 2016-09-30 - ISIN-US912828F478
   private static final ZonedDateTime START_ACCRUAL_DATE_US16 = DateUtils.getUTCDate(2014, 9, 30);
   private static final ZonedDateTime FIRST_COUPON_DATE_US16 = DateUtils.getUTCDate(2015, 3, 31);
@@ -71,7 +71,7 @@ public class BondDataSetsUsd {
   private static final ZonedDateTime FIRST_COUPON_DATE_US24 = DateUtils.getUTCDate(2015, 2, 15);
   private static final ZonedDateTime MATURITY_DATE_US24 = DateUtils.getUTCDate(2024, 8, 15);
   private static final double RATE_US24 = 0.02375;
-  
+
   /**
    * Returns the legal entity used for the US GOVT bonds and bills.
    * @return The legal entity.
@@ -114,7 +114,7 @@ public class BondDataSetsUsd {
   }
 
   /** =====     Bills     ===== */
-  
+
   private static final YieldConvention YIELD_BILL = YieldConventionFactory.INSTANCE.getYieldConvention("DISCOUNT");
   private static final DayCount DAY_COUNT_BILL = DayCounts.ACT_360;
   private static final int SPOT_LAG_BILL = 1;
@@ -126,19 +126,19 @@ public class BondDataSetsUsd {
    * @return
    */
   public static BillSecurityDefinition billUS(double notional, ZonedDateTime maturityDate) {
-    return new BillSecurityDefinition(USD, maturityDate, notional, SPOT_LAG_BILL, NYC, 
+    return new BillSecurityDefinition(USD, maturityDate, notional, SPOT_LAG_BILL, NYC,
         YIELD_BILL, DAY_COUNT_BILL, US_GOVT_LEGAL_ENTITY);
   }
 
   /** =====     TIPS     ===== */
-  
+
   private static final boolean IS_EOM_TIPS = false;
   private static final int MONTH_LAG_TIPS = 3;
   private static final Period COUPON_PERIOD_TIPS = Period.ofMonths(6);
   private static final YieldConvention YIELD_CONVENTION_TIPS = SimpleYieldConvention.US_IL_REAL;
   private static final int SETTLEMENT_DAYS_TIPS = 2;
   private static final double NOTIONAL_TIPS = 1.00;
-  
+
   // 2% 10-YEAR TREASURY INFLATION-PROTECTED SECURITIES (TIPS) Due January 15, 2016 - US912828ET33
   private static final ZonedDateTime START_DATE_TIPS_16 = DateUtils.getUTCDate(2006, 1, 15);
   private static final ZonedDateTime MATURITY_DATE_TIPS_16 = DateUtils.getUTCDate(2016, 1, 15);
@@ -151,14 +151,11 @@ public class BondDataSetsUsd {
    * @return The bond.
    */
   public static BondCapitalIndexedSecurityDefinition<CouponInflationZeroCouponInterpolationGearingDefinition>
-    bondTIPS_20160115(double notional) {
-    return BondCapitalIndexedSecurityDefinition.fromInterpolation(USCPI, MONTH_LAG_TIPS, 
-        START_DATE_TIPS_16, INDEX_START_TIPS_16, MATURITY_DATE_TIPS_16, COUPON_PERIOD_TIPS, NOTIONAL_TIPS, 
-        REAL_RATE_TIPS_16, BUSINESS_DAY, SETTLEMENT_DAYS_TIPS, NYC, DAY_COUNT, YIELD_CONVENTION_TIPS, IS_EOM_TIPS, 
+      bondTIPS_20160115(double notional) {
+    return BondCapitalIndexedSecurityDefinition.fromInterpolation(USCPI, MONTH_LAG_TIPS,
+        START_DATE_TIPS_16, INDEX_START_TIPS_16, MATURITY_DATE_TIPS_16, COUPON_PERIOD_TIPS, NOTIONAL_TIPS,
+        REAL_RATE_TIPS_16, BUSINESS_DAY, SETTLEMENT_DAYS_TIPS, NYC, DAY_COUNT, YIELD_CONVENTION_TIPS, IS_EOM_TIPS,
         US_GOVT_LEGAL_ENTITY);
   }
-  
-  
-  
 
 }

@@ -20,7 +20,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public class PriceIndexCurveAddFixedCurve implements PriceIndexCurve {
 
   /** The curve name. */
-  private final String _name; 
+  private final String _name;
   /**
    * The main underlying curve.
    */

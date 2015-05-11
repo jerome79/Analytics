@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Test.
  */
@@ -31,41 +30,41 @@ public class Integrator1DTest {
     }
 
   };
-  private static final Double[] L = new Double[] {1.3};
-  private static final Double[] U = new Double[] {3.4};
+  private static final Double[] L = new Double[] {1.3 };
+  private static final Double[] U = new Double[] {3.4 };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullFunction() {
     INTEGRATOR.integrate(null, L, U);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullLowerBound() {
     INTEGRATOR.integrate(F, null, U);
   }
-  
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullUpperBound() {
     INTEGRATOR.integrate(F, L, null);
-  }  
-  
+  }
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyLowerBound() {
     INTEGRATOR.integrate(F, new Double[0], U);
-  }  
+  }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyUpperBound() {
     INTEGRATOR.integrate(F, L, new Double[0]);
-  }  
+  }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullLowerBoundValue() {
-    INTEGRATOR.integrate(F, new Double[] {null}, U);
-  }  
+    INTEGRATOR.integrate(F, new Double[] {null }, U);
+  }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullUpperBoundValue() {
-    INTEGRATOR.integrate(F, L, new Double[] {null});
-  }  
+    INTEGRATOR.integrate(F, L, new Double[] {null });
+  }
 }

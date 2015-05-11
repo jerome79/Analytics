@@ -10,7 +10,6 @@ import java.util.Objects;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Class describing an deposit-like index (in particular Ibor and OIS).
  */

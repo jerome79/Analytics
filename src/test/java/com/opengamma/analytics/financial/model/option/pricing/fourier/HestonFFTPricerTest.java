@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatility
 import com.opengamma.analytics.math.interpolation.DoubleQuadraticInterpolator1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
 
-
 /**
  * Test.
  */
@@ -27,7 +26,6 @@ public class HestonFFTPricerTest {
   private static final BlackImpliedVolatilityFormula BLACK_IMPLIED_VOL = new BlackImpliedVolatilityFormula();
   private static final FFTPricer PRICER = new FFTPricer();
 
-  @Test
   public void testLowVolOfVol() {
     final double sigma = 0.36;
 
@@ -51,13 +49,11 @@ public class HestonFFTPricerTest {
       final double price = strikeNprice[i][1];
 
       final double impVol = BLACK_IMPLIED_VOL.getImpliedVolatility(new BlackFunctionData(FORWARD, DF, 0.0), new EuropeanVanillaOption(k, T, true), price);
-      //System.out.println(k + "\t" + impVol);
+
       assertEquals(sigma, impVol, 1e-3);
     }
   }
-  
-  
-  @Test
+
   public void testHestonModelGreeks() {
 
     FFTModelGreeks modelGreekFFT = new FFTModelGreeks();
@@ -78,17 +74,16 @@ public class HestonFFTPricerTest {
     final BlackFunctionData data = new BlackFunctionData(forward, 1, 0.2);
 
     boolean isCall = true;
-    
-   //this contains strike, price then the derivatives of price wrt the parameters 
-    double[][] res = modelGreekFFT.getGreeks(forward, 1.0, t, isCall,heston,0.3,2.0,50,0.2,alpha,1e-16);
-    
+
+    //this contains strike, price then the derivatives of price wrt the parameters 
+    double[][] res = modelGreekFFT.getGreeks(forward, 1.0, t, isCall, heston, 0.3, 2.0, 50, 0.2, alpha, 1e-16);
+
     DoubleQuadraticInterpolator1D interpolator = new DoubleQuadraticInterpolator1D();
-    int size = res.length-2;
+    int size = res.length - 2;
     Interpolator1DDoubleQuadraticDataBundle[] db = new Interpolator1DDoubleQuadraticDataBundle[size];
-    for(int i=0;i<size;i++) {
-      db[i] = interpolator.getDataBundle(res[0], res[i+2]);
+    for (int i = 0; i < size; i++) {
+      db[i] = interpolator.getDataBundle(res[0], res[i + 2]);
     }
-    
 
     for (int i = 0; i < 11; i++) {
       final double k = 0.7 + 0.6 * i / 10.0;
@@ -96,15 +91,13 @@ public class HestonFFTPricerTest {
       final EuropeanVanillaOption option = new EuropeanVanillaOption(k, t, isCall);
       double[] senseFourier = modelGreekFourier.getGreeks(data, option, heston, alpha, 1e-12);
 
-  //    System.out.print(k);
-      for(int j=0;j<size;j++) {
+      for (int j = 0; j < size; j++) {
         double senseFFT = interpolator.interpolate(db[j], k);
-    //    System.out.print("\t"+senseFourier[j]+"\t"+senseFFT);
-        assertEquals(senseFourier[j],senseFFT,1e-5);
+
+        assertEquals(senseFourier[j], senseFFT, 1e-5);
       }
-    //  System.out.print("\n");
-          
+
     }
-    
+
   }
 }

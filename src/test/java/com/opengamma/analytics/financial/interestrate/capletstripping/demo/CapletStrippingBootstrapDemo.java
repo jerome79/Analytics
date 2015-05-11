@@ -24,9 +24,10 @@ import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
  * sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot (or imported into some other
  * visualisation tool).
  */
+@Test(enabled = false)
 public class CapletStrippingBootstrapDemo extends CapletStrippingSetup {
 
-  @Test(description = "Demo of infering a caplet volatility surface by seperate bootstapping of absolute strike quotes")
+  @Test(description = "Demo of infering a caplet volatility surface by seperate bootstapping of absolute strike quotes", enabled = false)
   public void test() {
 
     final int nSamples = 101;

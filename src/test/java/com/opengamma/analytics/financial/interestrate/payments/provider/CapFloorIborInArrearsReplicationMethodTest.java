@@ -39,7 +39,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests regarding the pricing of in-arrears Ibor products by replication.
  */
@@ -90,9 +89,6 @@ public class CapFloorIborInArrearsReplicationMethodTest {
 
   private static final double TOLERANCE_PV = 1.0E-0;
 
-  //  private static final double TOLERANCE_PV_DELTA = 1.0E+2;
-
-  @Test
   /**
    * Tests the present value using the SABR with extrapolation to the right method to price standard cap/floor.
    * It is suggested not to use the standard SABR method as it can lead to exploding prices for long term contracts.
@@ -121,7 +117,6 @@ public class CapFloorIborInArrearsReplicationMethodTest {
     assertEquals("Cap/floor IA - SABR pricing", priceExpected2, price.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Compare the present value by replication to a value without adjustment.
    */
@@ -132,7 +127,6 @@ public class CapFloorIborInArrearsReplicationMethodTest {
         priceIbor.getAmount(EUR).getAmount() > forward * NOTIONAL * CAP_LONG.getPaymentYearFraction() * MULTICURVES.getDiscountFactor(EUR, CAP_LONG.getPaymentTime()));
   }
 
-  @Test
   /**
    * Check different parity relationship for the present value: long/short, coupon with cap with strike 0.
    */
@@ -141,37 +135,16 @@ public class CapFloorIborInArrearsReplicationMethodTest {
     final MultiCurrencyAmount priceCapShort = METHOD_SABREXTRA_CAP_IA.presentValue(CAP_SHORT, SABR_MULTICURVES);
     assertEquals("Cap/floor IA - SABR pricing: long-short parity", priceCapLong.getAmount(EUR).getAmount(), -priceCapShort.getAmount(EUR).getAmount(), TOLERANCE_PV);
     final MultiCurrencyAmount priceIbor = METHOD_SABREXTRA_COUPON_IA.presentValue(COUPON_IBOR, SABR_MULTICURVES);
-    final CapFloorIborDefinition cap0Definition = new CapFloorIborDefinition(EUR, END_ACCRUAL_DATE, START_ACCRUAL_DATE, END_ACCRUAL_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, EURIBOR6M, 0.0, IS_CAP, CALENDAR);
+    final CapFloorIborDefinition cap0Definition = new CapFloorIborDefinition(EUR, END_ACCRUAL_DATE, START_ACCRUAL_DATE, END_ACCRUAL_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, EURIBOR6M, 0.0,
+        IS_CAP, CALENDAR);
     final CapFloorIbor cap0 = (CapFloorIbor) cap0Definition.toDerivative(REFERENCE_DATE);
     final MultiCurrencyAmount priceCap0 = METHOD_SABREXTRA_CAP_IA.presentValue(cap0, SABR_MULTICURVES);
     assertEquals("Coupon IA - SABR pricing: coupon = cap with strike 0", priceCap0.getAmount(EUR).getAmount(), priceIbor.getAmount(EUR).getAmount(), TOLERANCE_PV);
     final MultiCurrencyAmount priceFloorShort = METHOD_SABREXTRA_CAP_IA.presentValue(FLOOR_SHORT, SABR_MULTICURVES);
     final MultiCurrencyAmount priceStrike = COUPON_STRIKE.accept(PVDC, MULTICURVES);
-    assertEquals("Cap/floor IA - SABR pricing: cap/floor parity", priceIbor.getAmount(EUR).getAmount() - priceStrike.getAmount(EUR).getAmount(), priceCapLong.getAmount(EUR).getAmount() + priceFloorShort.getAmount(EUR).getAmount(), 5.0E+4);
+    assertEquals("Cap/floor IA - SABR pricing: cap/floor parity", priceIbor.getAmount(EUR).getAmount() - priceStrike.getAmount(EUR).getAmount(), priceCapLong.getAmount(EUR).getAmount() +
+        priceFloorShort.getAmount(EUR).getAmount(), 5.0E+4);
     //TODO: check further the difference (numerical?)
-  }
-
-  @Test(enabled = false)
-  /**
-   * Performance test. "enabled = false" for the standard testing.
-   */
-  public void sabrExtrapolationPerformance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-    final double[] prices = new double[nbTest];
-    @SuppressWarnings("unused")
-    double sum = 0.0;
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      final CapFloorIborSABRCapExtrapolationRightMethod methodSABRExtraStd = new CapFloorIborSABRCapExtrapolationRightMethod(CUT_OFF_STRIKE, MU); //To start with a "clean" method
-      final CapFloorIborInArrearsSABRCapGenericReplicationMethod methodSABRExtraIA = new CapFloorIborInArrearsSABRCapGenericReplicationMethod(methodSABRExtraStd);
-      prices[looptest] = methodSABRExtraIA.presentValue(CAP_LONG, SABR_MULTICURVES).getAmount(EUR).getAmount();
-      sum += prices[looptest];
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " IA cap by replication (price): " + (endTime - startTime) + " ms");
-    // Performance note: price: 07-Jun-11: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 385 ms for 100 cap 9Y.
-    // TODO: review performance: the SABR extrapolation calibration is done at each integration step: result could be stored.
   }
 
   /**

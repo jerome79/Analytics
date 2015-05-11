@@ -17,7 +17,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantCreditCurveBuilder.ArbitrageHandling;
 
-
 /**
  * Test.
  */
@@ -52,7 +51,6 @@ public class ISDAFixTest extends ISDABaseTest {
     0.0369581573599116, 0.0391958505369267, 0.0413914714774095, 0.0435234698837631, 0.0455936907497847, 0.0476723136393884, 0.0498368066543075, 0.0519373036905721, 0.0539758894867396,
     0.0560213423936182, 0.0580273438957959, 0.0599740156744084, 0.0618839928096648, 0.0637794893777406, 0.0656377709642745, 0.0674405858573872, 0.0691898860799818, 0.0709445474586503 };
 
-  @Test
   public void test() {
     final ISDACompliantCreditCurveBuilder curveBuilder = new FastCreditCurveBuilder(MARKIT_FIX, ArbitrageHandling.ZeroHazardRate);
     final AnalyticCDSPricer pricer = new AnalyticCDSPricer(MARKIT_FIX);
@@ -69,7 +67,6 @@ public class ISDAFixTest extends ISDABaseTest {
     for (int i = 0; i < nMat; i++) {
       final CDSAnalytic cds = new CDSAnalytic(TODAY, EFFECTIVE_DATE, CASH_SETTLE_DATE, STARTDATE, MATURITIES[i], PAY_ACC_ON_DEFAULT, PAYMENT_INTERVAL, STUB, PROCTECTION_START, RECOVERY_RATE);
       final double dPV = pricer.pv(cds, YIELD_CURVE, creditCurve, COUPON, PriceType.DIRTY);
-      //  System.out.println(MATURITIES[i] + "\t" + dPV);
       assertEquals(MATURITIES[i].toString(), EXPECTED_UPFRONT_CHARGE[i], dPV, 1e-15);
     }
 

@@ -14,7 +14,6 @@ import com.opengamma.analytics.financial.ExerciseDecisionType;
 import com.opengamma.analytics.financial.commodity.definition.SettlementType;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */

@@ -72,8 +72,6 @@ public class OrdinaryLeastSquaresRegression extends LeastSquaresRegression {
     final double adjustedRSquared = 1. - (1 - rSquared) * (n - 1.) / (n - k);
     final double meanSquareError = errorSumOfSquares / (n - k);
     final TDistribution studentT = new TDistribution(n - k);
-    // final ProbabilityDistribution<Double> studentT = new
-    // StudentTDistribution(n - k);
     for (int i = 0; i < k; i++) {
       stdErrorBetas[i] = Math.sqrt(meanSquareError * covarianceBetas[i][i]);
       tStats[i] = betas[i] / stdErrorBetas[i];

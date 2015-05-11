@@ -44,7 +44,6 @@ import com.google.common.collect.Iterables;
 import com.opengamma.strata.basics.currency.CurrencyAmount;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 
-
 /**
  * Test.
  */

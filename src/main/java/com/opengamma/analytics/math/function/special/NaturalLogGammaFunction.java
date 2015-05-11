@@ -19,7 +19,6 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class NaturalLogGammaFunction extends Function1D<Double, Double> {
 
-  
   /**
    * @param x The argument of the function, must be greater than zero
    * @return The value of the function 

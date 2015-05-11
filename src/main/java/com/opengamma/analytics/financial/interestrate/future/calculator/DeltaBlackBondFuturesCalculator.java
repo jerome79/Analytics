@@ -21,7 +21,7 @@ public final class DeltaBlackBondFuturesCalculator extends InstrumentDerivativeV
    * The singleton.
    */
   private static final DeltaBlackBondFuturesCalculator INSTANCE = new DeltaBlackBondFuturesCalculator();
-  
+
   /**
    * Returns the calculator instance.
    * @return the calculator.
@@ -29,13 +29,13 @@ public final class DeltaBlackBondFuturesCalculator extends InstrumentDerivativeV
   public static DeltaBlackBondFuturesCalculator getInstance() {
     return INSTANCE;
   }
-  
+
   /**
    * Singleton constructor.
    */
   private DeltaBlackBondFuturesCalculator() {
   }
-  
+
   /** The method used to compute the future option price */
   private static final BondFutureOptionMarginSecurityBlackSmileMethod METHOD_FUTURE_OPTION = BondFutureOptionMarginSecurityBlackSmileMethod
       .getInstance();
@@ -46,7 +46,7 @@ public final class DeltaBlackBondFuturesCalculator extends InstrumentDerivativeV
     ArgChecker.notNull(data, "data");
     return METHOD_FUTURE_OPTION.delta(option, data);
   }
-  
+
   @Override
   public Double visitBondFuturesOptionMarginTransaction(BondFuturesOptionMarginTransaction option, BlackBondFuturesProviderInterface data) {
     ArgChecker.notNull(option, "security");

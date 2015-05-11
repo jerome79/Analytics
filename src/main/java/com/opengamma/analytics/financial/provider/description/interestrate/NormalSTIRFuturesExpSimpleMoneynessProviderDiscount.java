@@ -9,7 +9,6 @@ import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Implementation of a provider of normal volatility (Bachelier model) smile for options on STIR futures. The volatility is time to expiration/strike dependent. 
  */
@@ -22,7 +21,7 @@ public class NormalSTIRFuturesExpSimpleMoneynessProviderDiscount extends NormalS
    * @param moneynessOnPrice Flag indicating if the moneyness is on the price (true) or on the rate (false).
    */
   public NormalSTIRFuturesExpSimpleMoneynessProviderDiscount(MulticurveProviderDiscount multicurveProvider,
-      Surface<Double, Double, Double> parameters, IborIndex index, boolean moneynessOnPrice)  {
+      Surface<Double, Double, Double> parameters, IborIndex index, boolean moneynessOnPrice) {
     super(multicurveProvider, parameters, index, moneynessOnPrice);
   }
 

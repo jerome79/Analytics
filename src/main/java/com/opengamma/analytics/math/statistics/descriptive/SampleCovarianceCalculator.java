@@ -48,4 +48,3 @@ public class SampleCovarianceCalculator implements BiFunction<double[], double[]
     return sum / (n - 1);
   }
 }
-

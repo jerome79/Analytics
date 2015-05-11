@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test class for {@link DividendFunctionProvider} and its subclasses, {@link CashDividendFunctionProvider} and {@link ProportionalDividendFunctionProvider}
  */
@@ -137,8 +136,8 @@ public class DividendFunctionProviderTest {
 
     final DividendFunctionProvider ref = new CashDividendFunctionProvider(_times, _dividends);
     final DividendFunctionProvider[] function = new DividendFunctionProvider[] {ref, new CashDividendFunctionProvider(_times, _dividends),
-        new CashDividendFunctionProvider(times, _dividends), new CashDividendFunctionProvider(_times, dividends),
-        new ProportionalDividendFunctionProvider(_times, _dividends), new ProportionalDividendFunctionProvider(_times, dividends), null };
+      new CashDividendFunctionProvider(times, _dividends), new CashDividendFunctionProvider(_times, dividends),
+      new ProportionalDividendFunctionProvider(_times, _dividends), new ProportionalDividendFunctionProvider(_times, dividends), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {
@@ -161,8 +160,8 @@ public class DividendFunctionProviderTest {
 
     final DividendFunctionProvider ref = new ProportionalDividendFunctionProvider(_times, _dividends);
     final DividendFunctionProvider[] function = new DividendFunctionProvider[] {ref, new ProportionalDividendFunctionProvider(_times, _dividends),
-        new ProportionalDividendFunctionProvider(times, _dividends), new ProportionalDividendFunctionProvider(_times, dividends),
-        new CashDividendFunctionProvider(_times, _dividends), new CashDividendFunctionProvider(_times, dividends), null };
+      new ProportionalDividendFunctionProvider(times, _dividends), new ProportionalDividendFunctionProvider(_times, dividends),
+      new CashDividendFunctionProvider(_times, _dividends), new CashDividendFunctionProvider(_times, dividends), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.horizon;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.bond.BillTotalReturnSwapDefinition;
@@ -23,7 +22,6 @@ import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
-
 
 /**
  * Calculates the difference in the present value of a bill total return swap between two dates without
@@ -56,8 +54,8 @@ public final class BillTrsConstantSpreadHorizonCalculator extends HorizonCalcula
 
   @Override
   public MultiCurrencyAmount getTheta(BillTotalReturnSwapDefinition definition, ZonedDateTime date,
-                                         IssuerProviderInterface data, int daysForward, HolidayCalendar calendar, 
-                                         ZonedDateTimeDoubleTimeSeries fixingSeries) {
+      IssuerProviderInterface data, int daysForward, HolidayCalendar calendar,
+      ZonedDateTimeDoubleTimeSeries fixingSeries) {
     ArgChecker.notNull(definition, "definition");
     ArgChecker.notNull(date, "date");
     ArgChecker.notNull(data, "data");
@@ -86,8 +84,8 @@ public final class BillTrsConstantSpreadHorizonCalculator extends HorizonCalcula
 
   @Override
   public MultiCurrencyAmount getTheta(BillTotalReturnSwapDefinition definition, ZonedDateTime date,
-                                         IssuerProviderInterface data, int daysForward, 
-                                         HolidayCalendar calendar) {
+      IssuerProviderInterface data, int daysForward,
+      HolidayCalendar calendar) {
     return getTheta(definition, date, data, daysForward, calendar, ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC());
   }
 

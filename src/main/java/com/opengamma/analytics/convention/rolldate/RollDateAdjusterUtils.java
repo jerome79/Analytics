@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.convention.rolldate;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.strata.collect.ArgChecker;

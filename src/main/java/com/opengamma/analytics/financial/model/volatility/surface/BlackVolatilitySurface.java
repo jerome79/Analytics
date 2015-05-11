@@ -39,7 +39,7 @@ public abstract class BlackVolatilitySurface<T extends StrikeType> extends Volat
   public abstract <S, U> U accept(final BlackVolatilitySurfaceVisitor<S, U> visitor, final S data);
 
   public abstract <U> U accept(final BlackVolatilitySurfaceVisitor<?, U> visitor);
-  
+
   @Override
   public VolatilitySurface withParallelShift(final double shift) {
     return withSurface(getParallelShiftedSurface(shift));
@@ -69,5 +69,5 @@ public abstract class BlackVolatilitySurface<T extends StrikeType> extends Volat
   public VolatilitySurface withMultipleMultiplicativeShifts(final double[] x, final double[] y, final double[] shifts) {
     return withSurface(getMultipleMultiplicativeShiftsSurface(x, y, shifts));
   }
-  
+
 }

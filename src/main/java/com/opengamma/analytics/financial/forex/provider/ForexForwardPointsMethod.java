@@ -151,7 +151,6 @@ public final class ForexForwardPointsMethod {
       amount2 = fx.getPaymentCurrency1().getAmount();
     }
     final double df2 = multicurves.getDiscountFactor(ccy2, payTime);
-    //    final double pv = df2 * (amount2 + amount1 * fwdRate);
     // Backward sweep
     final double pvBar = 1.0;
     final double df2Bar = (amount2 + amount1 * fwdRate) * pvBar;

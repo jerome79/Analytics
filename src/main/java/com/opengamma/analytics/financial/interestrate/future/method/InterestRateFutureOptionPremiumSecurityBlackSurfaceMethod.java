@@ -67,7 +67,6 @@ public final class InterestRateFutureOptionPremiumSecurityBlackSurfaceMethod ext
     final double rateStrike = 1.0 - security.getStrike();
     final EuropeanVanillaOption option = new EuropeanVanillaOption(rateStrike, security.getExpirationTime(), !security.isCall());
     final double forward = 1 - priceFuture;
-    //    final double delay = security.getUnderlyingFuture().getLastTradingTime() - security.getExpirationTime();
     final double volatility = blackData.getVolatility(security.getExpirationTime(), security.getStrike()); // , delay
     final BlackFunctionData dataBlack = new BlackFunctionData(forward, 1.0, volatility);
     final double priceSecurity = BLACK_FUNCTION.getPriceFunction(option).evaluate(dataBlack);
@@ -124,12 +123,11 @@ public final class InterestRateFutureOptionPremiumSecurityBlackSurfaceMethod ext
    * @return The delta.
    */
   public double optionPriceDelta(final InterestRateFutureOptionPremiumSecurity security, final YieldCurveWithBlackCubeBundle blackData) {
- // Forward sweep
+    // Forward sweep
     final double priceFuture = METHOD_FUTURE.price(security.getUnderlyingFuture(), blackData);
     final double rateStrike = 1.0 - security.getStrike();
     final EuropeanVanillaOption option = new EuropeanVanillaOption(rateStrike, security.getExpirationTime(), !security.isCall());
     final double forward = 1 - priceFuture;
-    //    final double delay = security.getUnderlyingFuture().getLastTradingTime() - security.getExpirationTime();
     final double volatility = blackData.getVolatility(security.getExpirationTime(), security.getStrike());
     final BlackFunctionData dataBlack = new BlackFunctionData(forward, 1.0, volatility);
     final double[] priceAdjoint = BLACK_FUNCTION.getPriceAdjoint(option, dataBlack);

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.forex.calculator;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
@@ -28,7 +27,6 @@ import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockTy
 import com.opengamma.analytics.financial.model.option.definition.Barrier.ObservationType;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
-
 
 /**
  * Contains a set of Forex instruments that can be used in tests.

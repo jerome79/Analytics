@@ -12,16 +12,15 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 
-
 /**
  * Test.
  */
 @Test
 public class TimeSeriesDataTestUtilsTest {
-  private static final DoubleTimeSeries<?> TS1 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[]{1, 2, 3, 4, 5}, new double[]{1, 2, 3, 4, 5}, UTC);
-  private static final DoubleTimeSeries<?> TS2 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {10, 20, 30, 40, 50}, new double[] {1, 2, 3, 4, 5}, UTC);
-  private static final DoubleTimeSeries<?> TS3 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4}, new double[] {1, 2, 3, 4}, UTC);
-  private static final DoubleTimeSeries<?> TS4 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4, 5}, new double[] {10, 20, 30, 40, 50}, UTC);
+  private static final DoubleTimeSeries<?> TS1 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4, 5 }, new double[] {1, 2, 3, 4, 5 }, UTC);
+  private static final DoubleTimeSeries<?> TS2 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {10, 20, 30, 40, 50 }, new double[] {1, 2, 3, 4, 5 }, UTC);
+  private static final DoubleTimeSeries<?> TS3 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4 }, new double[] {1, 2, 3, 4 }, UTC);
+  private static final DoubleTimeSeries<?> TS4 = ImmutableZonedDateTimeDoubleTimeSeries.of(new long[] {1, 2, 3, 4, 5 }, new double[] {10, 20, 30, 40, 50 }, UTC);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullOrEmptyWithNull() {

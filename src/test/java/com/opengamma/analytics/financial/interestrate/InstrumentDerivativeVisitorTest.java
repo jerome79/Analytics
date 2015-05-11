@@ -148,7 +148,6 @@ import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
 import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
 import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 
-
 /**
  *
  */
@@ -431,7 +430,6 @@ public class InstrumentDerivativeVisitorTest {
       return getValue(bond, true);
     }
 
-
     @Override
     public String visitBondFixedSecurity(final BondFixedSecurity bond) {
       return getValue(bond, false);
@@ -546,7 +544,6 @@ public class InstrumentDerivativeVisitorTest {
     public String visitBondCapitalIndexedTransaction(final BondCapitalIndexedTransaction<?> bond) {
       return getValue(bond, false);
     }
-
 
     @Override
     public String visitCouponFixed(final CouponFixed payment, final T data) {
@@ -1155,7 +1152,7 @@ public class InstrumentDerivativeVisitorTest {
 
     @Override
     public String visitEquityIndexFuture(final EquityIndexFuture future) {
-      return getValue(future, false);// TODO Auto-generated method stub
+      return getValue(future, false);
     }
 
     @Override
@@ -1380,121 +1377,110 @@ public class InstrumentDerivativeVisitorTest {
 
     @Override
     public String visitMetalFutureSecurity(final MetalFutureSecurity future, final T data) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitMetalFutureSecurity(final MetalFutureSecurity future) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitEnergyFutureSecurity(final EnergyFutureSecurity future, final T data) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitEnergyFutureSecurity(final EnergyFutureSecurity future) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitAgricultureFutureSecurity(final AgricultureFutureSecurity future, final T data) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitAgricultureFutureSecurity(final AgricultureFutureSecurity future) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitMetalFutureTransaction(final MetalFutureTransaction future, final T data) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitMetalFutureTransaction(final MetalFutureTransaction future) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitEnergyFutureTransaction(final EnergyFutureTransaction future, final T data) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitEnergyFutureTransaction(final EnergyFutureTransaction future) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitAgricultureFutureTransaction(final AgricultureFutureTransaction future, final T data) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitAgricultureFutureTransaction(final AgricultureFutureTransaction future) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitCouponCommodityCashSettle(final CouponCommodityCashSettle coupon, final T data) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitCouponCommodityCashSettle(final CouponCommodityCashSettle coupon) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitCouponCommodityPhysicalSettle(final CouponCommodityPhysicalSettle coupon, final T data) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitCouponCommodityPhysicalSettle(final CouponCommodityPhysicalSettle coupon) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitForwardCommodityCashSettle(final ForwardCommodityCashSettle forward, final T data) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitForwardCommodityCashSettle(final ForwardCommodityCashSettle forward) {
-      // TODO Auto-generated method stub
+
       return null;
     }
 
     @Override
     public String visitForwardCommodityPhysicalSettle(final ForwardCommodityPhysicalSettle forward, final T data) {
-      // TODO Auto-generated method stub
       return null;
     }
 
     @Override
     public String visitForwardCommodityPhysicalSettle(final ForwardCommodityPhysicalSettle forward) {
-      // TODO Auto-generated method stub
       return null;
     }
 

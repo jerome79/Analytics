@@ -73,7 +73,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
         final Curve<Double, Double>[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
         newCurves[index] = CurveShiftFunctionFactory.getShiftedCurve(curves[index], x, shift);
         return InterpolatedFromCurvesDoublesSurface.fromSorted(xzCurves, points, newCurves, surface.getInterpolator(), newName);
-      } 
+      }
       throw new UnsupportedOperationException("Cannot get shift for y-value not in original list of curves: asked for " + y);
     }
     final int index = Arrays.binarySearch(points, x);
@@ -82,7 +82,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
       final Curve<Double, Double>[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
       newCurves[index] = CurveShiftFunctionFactory.getShiftedCurve(curves[index], y, shift);
       return InterpolatedFromCurvesDoublesSurface.fromSorted(xzCurves, points, newCurves, surface.getInterpolator(), newName);
-    } 
+    }
     throw new UnsupportedOperationException("Cannot get shift for x-value not in original list of curves: asked for " + x);
   }
 

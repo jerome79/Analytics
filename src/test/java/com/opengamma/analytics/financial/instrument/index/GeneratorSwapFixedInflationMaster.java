@@ -42,9 +42,9 @@ public final class GeneratorSwapFixedInflationMaster {
   private GeneratorSwapFixedInflationMaster() {
     final IndexPriceMaster priceIndexMaster = IndexPriceMaster.getInstance();
 
-//    final DoubleTimeSeries<ZonedDateTime> eurPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.euroHICPXFrom2009();
-//    final DoubleTimeSeries<ZonedDateTime> usPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.usCpiFrom2009();
-//    final DoubleTimeSeries<ZonedDateTime> ukPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.ukRpiFrom2010();
+    //    final DoubleTimeSeries<ZonedDateTime> eurPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.euroHICPXFrom2009();
+    //    final DoubleTimeSeries<ZonedDateTime> usPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.usCpiFrom2009();
+    //    final DoubleTimeSeries<ZonedDateTime> ukPriceIndexTimeSerie = MulticurveProviderDiscountDataSets.ukRpiFrom2010();
 
     final BusinessDayConvention modFol = BusinessDayConventions.MODIFIED_FOLLOWING;
     final HolidayCalendar baseCalendar = HolidayCalendars.NO_HOLIDAYS;
@@ -56,13 +56,13 @@ public final class GeneratorSwapFixedInflationMaster {
     final boolean piecewiseconstant = false;
     _generatorSwap = new HashMap<>();
     _generatorSwap.put("EURHICP",
-        new GeneratorSwapFixedInflationZeroCoupon("EUR HICP", priceIndexMaster.getIndex("EURHICP"), modFol, 
+        new GeneratorSwapFixedInflationZeroCoupon("EUR HICP", priceIndexMaster.getIndex("EURHICP"), modFol,
             baseCalendar, endOfMonth, monthLag, spotLag, piecewiseconstant));
     _generatorSwap.put("UKRPI",
-        new GeneratorSwapFixedInflationZeroCoupon("UK RPI", priceIndexMaster.getIndex("UKRPI"), modFol, 
+        new GeneratorSwapFixedInflationZeroCoupon("UK RPI", priceIndexMaster.getIndex("UKRPI"), modFol,
             londonBaseCalendar, endOfMonth, monthLag, spotLag, piecewiseconstant));
     _generatorSwap.put("USCPI",
-        new GeneratorSwapFixedInflationZeroCoupon("US CPI", priceIndexMaster.getIndex("USCPI"), modFol, 
+        new GeneratorSwapFixedInflationZeroCoupon("US CPI", priceIndexMaster.getIndex("USCPI"), modFol,
             baseCalendar, endOfMonth, monthLag, spotLag, linear));
   }
 

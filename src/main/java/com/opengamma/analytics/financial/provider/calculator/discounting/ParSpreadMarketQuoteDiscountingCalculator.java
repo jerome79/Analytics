@@ -34,8 +34,8 @@ import com.opengamma.strata.collect.ArgChecker;
  * Compute the spread to be added to the market standard quote of the instrument for which the present value of the instrument is zero.
  * The notion of "market quote" will depend of each instrument.
  */
-public final class ParSpreadMarketQuoteDiscountingCalculator 
-  extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, Double> {
+public final class ParSpreadMarketQuoteDiscountingCalculator
+    extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, Double> {
 
   /**
    * The unique instance of the calculator.
@@ -115,7 +115,7 @@ public final class ParSpreadMarketQuoteDiscountingCalculator
       final double notional = ((CouponONCompounded) swap.getSecondLeg().getNthPayment(0)).getNotional();
       return Math.pow(pvONLeg / discountFactor / notional, 1 / paymentYearFraction) - 1 - cpnFixed.getFixedRate();
     }
-    return -multicurves.getMulticurveProvider().getFxRates().convert(swap.accept(PVDC, multicurves), swap.getFirstLeg().getCurrency()).getAmount() 
+    return -multicurves.getMulticurveProvider().getFxRates().convert(swap.accept(PVDC, multicurves), swap.getFirstLeg().getCurrency()).getAmount()
         / swap.getFirstLeg().accept(PVMQSC, multicurves.getMulticurveProvider());
   }
 
@@ -136,7 +136,7 @@ public final class ParSpreadMarketQuoteDiscountingCalculator
   public Double visitSwapMultileg(final SwapMultileg swap, final ParameterProviderInterface multicurves) {
     ArgChecker.notNull(multicurves, "Market");
     ArgChecker.notNull(swap, "Swap");
-    return -multicurves.getMulticurveProvider().getFxRates().convert(swap.accept(PVDC, multicurves), swap.getLegs()[0].getCurrency()).getAmount() 
+    return -multicurves.getMulticurveProvider().getFxRates().convert(swap.accept(PVDC, multicurves), swap.getLegs()[0].getCurrency()).getAmount()
         / swap.getLegs()[0].accept(PVMQSC, multicurves.getMulticurveProvider());
   }
 

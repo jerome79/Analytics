@@ -114,7 +114,6 @@ public class CapFloorIborHullWhiteMethod implements PricingMethod {
     final double kappa = (Math.log((1 + deltaF * k) * dfForwardT1 / dfForwardT0) - (alpha1 * alpha1 - alpha0 * alpha0) / 2.0) / (alpha1 - alpha0);
     final double n0 = NORMAL.getCDF(omega * (-kappa - alpha0));
     final double n1 = NORMAL.getCDF(omega * (-kappa - alpha1));
-    //    double pv = deltaP / deltaF * dfPay * omega * (dfForwardT0 / dfForwardT1 * n0 - (1.0 + deltaF * k) * n1) * cap.getNotional();
     // Backward sweep
     final double pvBar = 1.0;
     //    double kappaBar = 0.0; // kappa is the optimal exercise boundary
@@ -164,7 +163,6 @@ public class CapFloorIborHullWhiteMethod implements PricingMethod {
     for (int loopcf = 0; loopcf < 2; loopcf++) {
       n[loopcf] = NORMAL.getCDF(omega * (-kappa - alpha[loopcf]));
     }
-    //    double pv = deltaP / deltaF * dfPay * omega * (dfForwardT0 / dfForwardT1 * n0 - (1.0 + deltaF * k) * n1) * cap.getNotional();
     // Backward sweep
     final double pvBar = 1.0;
     final double[] nBar = new double[2];

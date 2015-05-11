@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * 
  */
@@ -38,8 +37,8 @@ public class InterpolatedSmileFunctionTest {
   public void consistencyTest() {
 
     GeneralSmileInterpolator[] interpolators = new GeneralSmileInterpolator[] {
-        new SmileInterpolatorMixedLogNormal(),
-        new SmileInterpolatorSpline(), new SmileInterpolatorSABR() };
+      new SmileInterpolatorMixedLogNormal(),
+      new SmileInterpolatorSpline(), new SmileInterpolatorSABR() };
     int nInterps = interpolators.length;
     int nSamples = 40;
     double interval = (STRIKES[NUM_DATA - 1] - STRIKES[0]) / (NUM_DATA - 1);
@@ -61,7 +60,7 @@ public class InterpolatedSmileFunctionTest {
   @Test
   public void hashCodeEqualsTest() {
     GeneralSmileInterpolator[] interpolators = new GeneralSmileInterpolator[] {new SmileInterpolatorSpline(),
-        new SmileInterpolatorSABR() };
+      new SmileInterpolatorSABR() };
     InterpolatedSmileFunction func1 = new InterpolatedSmileFunction(interpolators[0], FORWARD, STRIKES, EXPIRY, VOLS);
     InterpolatedSmileFunction func2 = new InterpolatedSmileFunction(interpolators[1], FORWARD, STRIKES, EXPIRY, VOLS);
     InterpolatedSmileFunction func3 = new InterpolatedSmileFunction(interpolators[0], FORWARD * 0.9, STRIKES, EXPIRY,

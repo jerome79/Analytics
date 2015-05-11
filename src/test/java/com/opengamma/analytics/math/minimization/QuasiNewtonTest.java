@@ -7,8 +7,6 @@ package com.opengamma.analytics.math.minimization;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -25,11 +23,6 @@ public class QuasiNewtonTest extends MultidimensionalMinimizerWithGradientTestCa
   }
 
   //Quasi Newton fails to solve Rosenbrock when finite difference gradients are used - small errors seem to build up in the inverse Hessian estimate 
-  // @Test
-  // public void solvingRosenbrockTestWithoutGradient() {
-  //   super.testSolvingRosenbrockWithoutGradient(new QuasiNewtonVectorMinimizer(EPS, EPS, 100, DFP), EPS);
-  //  super.testSolvingRosenbrockWithoutGradient(new QuasiNewtonVectorMinimizer(EPS, EPS, 500, BFGS), EPS);
-  // }
 
   @Test
   public void solvingCoupledRosenbrockTest() {

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.option.definition;
 
-
 /**
  * 
  */

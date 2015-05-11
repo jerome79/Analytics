@@ -94,23 +94,22 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
   private static final IborIndex EURIBOR6M = IBOR_MASTER.getIndex("EURIBOR6M");
   private static final GeneratorFRA GENERATOR_FRA_3M = new GeneratorFRA("GENERATOR_FRA_3M", EURIBOR3M, TARGET);
   private static final GeneratorFRA GENERATOR_FRA_6M = new GeneratorFRA("GENERATOR_FRA_6M", EURIBOR6M, TARGET);
-  private static final GeneratorDepositIbor GENERATOR_EURIBOR3M = 
+  private static final GeneratorDepositIbor GENERATOR_EURIBOR3M =
       new GeneratorDepositIbor("GENERATOR_EURIBOR3M", EURIBOR3M, TARGET);
-  private static final GeneratorDepositIbor GENERATOR_EURIBOR6M = 
+  private static final GeneratorDepositIbor GENERATOR_EURIBOR6M =
       new GeneratorDepositIbor("GENERATOR_EURIBOR6M", EURIBOR6M, TARGET);
-  private static final GeneratorLegONCompounded EUREONIACMP1Y = 
+  private static final GeneratorLegONCompounded EUREONIACMP1Y =
       new GeneratorLegONCompounded("EUREONIACMP1Y", EUR, INDEX_ON_EUR, Period.ofMonths(12), 2, 2,
           BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, true, TARGET, TARGET);
-  private static final GeneratorLegONCompounded USDFEDFUNDCMP1Y = 
+  private static final GeneratorLegONCompounded USDFEDFUNDCMP1Y =
       new GeneratorLegONCompounded("USDFEDFUNDCMP1Y", USD, INDEX_ON_USD, Period.ofMonths(12), 2, 2,
           BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, true, NYC, NYC);
-  private static final GeneratorSwapXCcyIborIbor EURIBOR3MUSDLIBOR3M = 
+  private static final GeneratorSwapXCcyIborIbor EURIBOR3MUSDLIBOR3M =
       new GeneratorSwapXCcyIborIbor("EURIBOR3MUSDLIBOR3M", EURIBOR3M, USDLIBOR3M, TARGET, NYC); // Spread on EUR leg
   private static final GeneratorSwapCrossCurrency EUREONIACMP1YUSDFEDFUNDCMP1Y =
       new GeneratorSwapCrossCurrency("EUREONIACMP1YUSDFEDFUNDCMP1Y", EUREONIACMP1Y, USDFEDFUNDCMP1Y);
-  private static final GeneratorForexSwap GENERATOR_FX_EURUSD = 
+  private static final GeneratorForexSwap GENERATOR_FX_EURUSD =
       new GeneratorForexSwap("EURUSD", EUR, USD, TARGET, EURIBOR3M.getSpotLag(), EURIBOR3M.getBusinessDayConvention(), true);
-  
 
   private static final String CURVE_NAME_USD_DSC = "USD-DSCON-OIS";
   private static final String CURVE_NAME_USD_FWD3 = "USD-LIBOR3M-FRAIRS";
@@ -311,11 +310,11 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
   /** Generators for the EONIA EUR curve */
   private static final GeneratorInstrument<? extends GeneratorAttribute>[] EUR_FEDFUND_1_ON_GENERATORS =
       new GeneratorInstrument<?>[] {
-    EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, 
-    EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y };
+        EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y,
+        EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y, EUREONIACMP1YUSDFEDFUNDCMP1Y };
   /** Tenors for the Fwd EONIA EUR curve */
   private static final Period[] EUR_FEDFUND_1_ON_TENOR = new Period[] {
-    Period.ofMonths(1), Period.ofMonths(2), Period.ofMonths(3), Period.ofMonths(6), 
+    Period.ofMonths(1), Period.ofMonths(2), Period.ofMonths(3), Period.ofMonths(6),
     Period.ofMonths(9), Period.ofYears(1), Period.ofYears(2) };
   private static final GeneratorAttributeFX[] EUR_FEDFUND_1_ON_ATTR = new GeneratorAttributeFX[EUR_FEDFUND_1_ON_TENOR.length];
   static {
@@ -439,17 +438,17 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
    */
   public static Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> getCurvesUsdOisL3EurFxXCcy3Bs6(ZonedDateTime calibrationDate) {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[NB_UNITS[1]][][];
-    InstrumentDefinition<?>[] definitionsUsdDsc = 
+    InstrumentDefinition<?>[] definitionsUsdDsc =
         getDefinitions(DSC_USD_MARKET_QUOTES, DSC_USD_GENERATORS, DSC_USD_ATTR, calibrationDate);
-    InstrumentDefinition<?>[] definitionsUsdFwd3 = 
+    InstrumentDefinition<?>[] definitionsUsdFwd3 =
         getDefinitions(FWD3_USD_MARKET_QUOTES, FWD3_USD_GENERATORS, FWD3_USD_ATTR, calibrationDate);
-    InstrumentDefinition<?>[] definitionsEurDsc = getDefinitions(EUR_FEDFUND_1_DSC_MARKET_QUOTES, 
+    InstrumentDefinition<?>[] definitionsEurDsc = getDefinitions(EUR_FEDFUND_1_DSC_MARKET_QUOTES,
         EUR_FEDFUND_1_DSC_GENERATORS, EUR_FEDFUND_1_DSC_ATTR, calibrationDate);
-    InstrumentDefinition<?>[] definitionsEurFwd3 =  getDefinitions(EUR_FEDFUND_1_FWD3_MARKET_QUOTES, 
+    InstrumentDefinition<?>[] definitionsEurFwd3 = getDefinitions(EUR_FEDFUND_1_FWD3_MARKET_QUOTES,
         EUR_FEDFUND_1_FWD3_GENERATORS, EUR_FEDFUND_1_FWD3_ATTR, calibrationDate);
-    InstrumentDefinition<?>[] definitionsEurFwd6 = getDefinitions(EUR_FEDFUND_1_FWD6_MARKET_QUOTES, 
+    InstrumentDefinition<?>[] definitionsEurFwd6 = getDefinitions(EUR_FEDFUND_1_FWD6_MARKET_QUOTES,
         EUR_FEDFUND_1_FWD6_GENERATORS, EUR_FEDFUND_1_FWD6_ATTR, calibrationDate);
-    InstrumentDefinition<?>[] definitionsEurOn = getDefinitions(EUR_FEDFUND_1_ON_MARKET_QUOTES, 
+    InstrumentDefinition<?>[] definitionsEurOn = getDefinitions(EUR_FEDFUND_1_ON_MARKET_QUOTES,
         EUR_FEDFUND_1_ON_GENERATORS, EUR_FEDFUND_1_ON_ATTR, calibrationDate);
     definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitionsUsdDsc };
     definitionsUnits[1] = new InstrumentDefinition<?>[][] {definitionsUsdFwd3 };
@@ -477,7 +476,7 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
   public static ZonedDateTimeDoubleTimeSeries fixingUsdOnWithoutLast() {
     return TS_ON_USD_WITHOUT_TODAY;
   }
-  
+
   /**
    * Returns an array with one time series corresponding to the USD LIBOR3M fixing up to and including the last date.
    * @return
@@ -493,7 +492,7 @@ public class RecentDataSetsMulticurveXCcyUsdEur {
   public static ZonedDateTimeDoubleTimeSeries fixingUsdLibor3MWithoutLast() {
     return TS_IBOR_USD3M_WITHOUT_LAST;
   }
-  
+
   /**
    * Returns an array with one time series corresponding to the EUR EURIBOR3M fixing up to and including the last date.
    * @return

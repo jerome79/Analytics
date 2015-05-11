@@ -33,6 +33,7 @@ public final class PresentValueFromFuturePriceCalculator extends InstrumentDeriv
    * The method to compute interest rate future prices.
    */
   private static final InterestRateFutureTransactionDiscountingMethod METHOD_RATE_FUTURE = InterestRateFutureTransactionDiscountingMethod.getInstance();
+
   /**
    * Return the calculator instance.
    * @return The instance.

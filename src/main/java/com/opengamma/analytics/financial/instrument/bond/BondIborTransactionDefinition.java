@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.bond;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -31,7 +30,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * Describes a transaction on a Ibor coupon bond issue.
  */
 public class BondIborTransactionDefinition extends BondTransactionDefinition<PaymentFixedDefinition, CouponIborDefinition>
-  implements InstrumentDefinitionWithData<BondTransaction<? extends BondSecurity<? extends Payment, ? extends Coupon>>, DoubleTimeSeries<ZonedDateTime>> {
+    implements InstrumentDefinitionWithData<BondTransaction<? extends BondSecurity<? extends Payment, ? extends Coupon>>, DoubleTimeSeries<ZonedDateTime>> {
 
   /**
    * Constructor of a Ibor coupon bond transaction from all the transaction details.

@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Tests related to the construction of Forex instruments.
  */

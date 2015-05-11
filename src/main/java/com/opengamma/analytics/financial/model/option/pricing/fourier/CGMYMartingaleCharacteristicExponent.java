@@ -20,7 +20,6 @@ package com.opengamma.analytics.financial.model.option.pricing.fourier;
  */
 public class CGMYMartingaleCharacteristicExponent extends MeanCorrection {
 
-
   public CGMYMartingaleCharacteristicExponent(final double c, final double g, final double m, final double y) {
     super(new CGMYCharacteristicExponent(c, g, m, y));
   }

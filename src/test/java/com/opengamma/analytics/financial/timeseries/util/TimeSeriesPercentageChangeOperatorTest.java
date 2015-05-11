@@ -100,7 +100,7 @@ public class TimeSeriesPercentageChangeOperatorTest {
 
     compareTimeseries(returned, expected, TOLERANCE_DIFF);
   }
-  
+
   /** Tests the relative change operator for a lag of 4 elements. */
   public void relative3dense() {
 

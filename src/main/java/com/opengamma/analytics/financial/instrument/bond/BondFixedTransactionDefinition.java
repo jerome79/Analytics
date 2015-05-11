@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.bond;
 
-
 import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.convention.daycount.AccruedInterestCalculator;
@@ -40,18 +39,18 @@ public class BondFixedTransactionDefinition extends BondTransactionDefinition<Pa
    * @param settlementDate Transaction settlement date.
    * @param cleanPrice The (clean) price of the transaction in relative term (i.e. 0.90 for 90% of nominal).
    */
-  public BondFixedTransactionDefinition(final BondFixedSecurityDefinition underlyingBond, final double quantity, 
+  public BondFixedTransactionDefinition(final BondFixedSecurityDefinition underlyingBond, final double quantity,
       final ZonedDateTime settlementDate, final double cleanPrice) {
     super(underlyingBond, quantity, settlementDate, cleanPrice);
     _accruedInterestAtSettlement = 0;
     final int nbCoupon = underlyingBond.getCoupons().getNumberOfPayments();
-    final double accruedInterest = AccruedInterestCalculator.getAccruedInterest(getUnderlyingBond().getDayCount(), 
-        getCouponIndex(), nbCoupon, getPreviousAccrualDate(), settlementDate, getNextAccrualDate(), 
-        underlyingBond.getCoupons().getNthPayment(getCouponIndex()).getRate(), underlyingBond.getCouponPerYear(), 
+    final double accruedInterest = AccruedInterestCalculator.getAccruedInterest(getUnderlyingBond().getDayCount(),
+        getCouponIndex(), nbCoupon, getPreviousAccrualDate(), settlementDate, getNextAccrualDate(),
+        underlyingBond.getCoupons().getNthPayment(getCouponIndex()).getRate(), underlyingBond.getCouponPerYear(),
         underlyingBond.isEOM()) * underlyingBond.getCoupons().getNthPayment(getCouponIndex()).getNotional();
-    if (underlyingBond.getExCouponDays() != 0 && 
+    if (underlyingBond.getExCouponDays() != 0 &&
         getNextAccrualDate().minusDays(underlyingBond.getExCouponDays()).isBefore(settlementDate)) {
-      _accruedInterestAtSettlement = accruedInterest - 
+      _accruedInterestAtSettlement = accruedInterest -
           underlyingBond.getCoupons().getNthPayment(getCouponIndex()).getAmount();
       // Accrued interest minus previous coupon which is already "ex".
     } else {
@@ -67,7 +66,7 @@ public class BondFixedTransactionDefinition extends BondTransactionDefinition<Pa
    * @param yield The yield quoted in the underlying bond convention at settlement date. The yield is in decimal, i.e. 0.0525 for 5.25%.
    * @return The fixed coupon bond.
    */
-  public static BondFixedTransactionDefinition fromYield(final BondFixedSecurityDefinition underlyingBond, 
+  public static BondFixedTransactionDefinition fromYield(final BondFixedSecurityDefinition underlyingBond,
       final double quantity, final ZonedDateTime settlementDate, final double yield) {
     ArgChecker.notNull(settlementDate, "settlement date");
     ArgChecker.notNull(underlyingBond, "underlying bond");
@@ -96,7 +95,7 @@ public class BondFixedTransactionDefinition extends BondTransactionDefinition<Pa
   @Override
   public BondFixedTransaction toDerivative(final ZonedDateTime date) {
     ArgChecker.notNull(date, "date");
-    final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getUnderlyingBond().getSettlementDays(), 
+    final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getUnderlyingBond().getSettlementDays(),
         getUnderlyingBond().getCalendar());
     final BondFixedSecurity bondPurchase = getUnderlyingBond().toDerivative(date, getSettlementDate());
     final BondFixedSecurity bondStandard = getUnderlyingBond().toDerivative(date);
@@ -110,13 +109,13 @@ public class BondFixedTransactionDefinition extends BondTransactionDefinition<Pa
     }
     final double notionalStandard = getUnderlyingBond().getCoupons().getNthPayment(couponIndex).getNotional();
     double price;
-    if (getSettlementDate().toLocalDate().isBefore(date.toLocalDate())) { 
+    if (getSettlementDate().toLocalDate().isBefore(date.toLocalDate())) {
       //Implementation note: If settlement already took place (in day terms), the price is set to 0.
       price = 0.0;
     } else {
       price = getPrice();
     }
-    final BondFixedTransaction result = new BondFixedTransaction(bondPurchase, getQuantity(), price, bondStandard, 
+    final BondFixedTransaction result = new BondFixedTransaction(bondPurchase, getQuantity(), price, bondStandard,
         notionalStandard);
     return result;
   }

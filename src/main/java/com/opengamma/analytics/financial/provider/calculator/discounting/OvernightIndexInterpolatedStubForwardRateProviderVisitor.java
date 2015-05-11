@@ -22,13 +22,13 @@ public final class OvernightIndexInterpolatedStubForwardRateProviderVisitor impl
    * Singleton instance.
    */
   private static final OvernightIndexInterpolatedStubForwardRateProviderVisitor INSTANCE = new OvernightIndexInterpolatedStubForwardRateProviderVisitor();
-  
+
   /**
    * Singleton constructor.
    */
   private OvernightIndexInterpolatedStubForwardRateProviderVisitor() {
   }
-  
+
   /**
    * Returns a singleton.
    * @return a singleton.
@@ -36,7 +36,7 @@ public final class OvernightIndexInterpolatedStubForwardRateProviderVisitor impl
   public static OvernightIndexInterpolatedStubForwardRateProviderVisitor getInstance() {
     return INSTANCE;
   }
-  
+
   @Override
   public ForwardRateProvider<IndexON> visitIborCompoundingInterpolatedStub(IborInterpolatedStubCompoundingCoupon coupon) {
     throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support this operation.");

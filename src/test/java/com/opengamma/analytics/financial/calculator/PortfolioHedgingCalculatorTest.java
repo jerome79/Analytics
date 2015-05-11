@@ -24,7 +24,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Tests the portfolio hedging calculator, with simplified examples and then with full scale data.
  */

@@ -19,7 +19,6 @@ import com.opengamma.analytics.financial.model.volatility.surface.BlackVolatilit
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
 
-
 /**
  * Test.
  */
@@ -35,7 +34,6 @@ public class ExpectedVarianceCalculatorTest {
    * Start with a Black volatility surface (strike) - which comes from a mixed log-normal model (hence we know the answer analytically) and convert the surface to ones
    * parameterised by moneyness, log-moneyness and (Black) delta, then check we recover the expected value using all four surfaces.
    */
- // @Test
   public void testMixedLogNormalVolSurface() {
 
     final double sigma1 = 0.2;

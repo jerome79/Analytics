@@ -69,7 +69,7 @@ public class CubicSplineNakSolver extends CubicSplineSolver {
 
     if (nData == 2) {
       final double[][] res = new double[][] {{
-          yValues[1] / intervals[0] - yValues[0] / intervals[0] - intervals[0] * solnVector[0] / 2. - intervals[0] * solnVector[1] / 6. + intervals[0] * solnVector[0] / 6., yValues[0] } };
+        yValues[1] / intervals[0] - yValues[0] / intervals[0] - intervals[0] * solnVector[0] / 2. - intervals[0] * solnVector[1] / 6. + intervals[0] * solnVector[0] / 6., yValues[0] } };
       return new DoubleMatrix2D(res);
     }
     if (nData == 3) {
@@ -97,7 +97,7 @@ public class CubicSplineNakSolver extends CubicSplineSolver {
       final DoubleMatrix2D[] res = new DoubleMatrix2D[2];
       final DoubleMatrix1D[] soln = combinedMatrixEqnSolver(toBeInv, vector, vecSensitivity);
       final double[][] coef = new double[][] {{soln[0].getData()[0] / 2.,
-          yValues[1] / intervals[0] - yValues[0] / intervals[0] - intervals[0] * soln[0].getData()[0] / 2., yValues[0] } };
+        yValues[1] / intervals[0] - yValues[0] / intervals[0] - intervals[0] * soln[0].getData()[0] / 2., yValues[0] } };
       res[0] = new DoubleMatrix2D(coef);
       final double[][] coefSense = new double[3][0];
       coefSense[0] = new double[] {soln[1].getData()[0] / 2., soln[2].getData()[0] / 2., soln[3].getData()[0] / 2. };

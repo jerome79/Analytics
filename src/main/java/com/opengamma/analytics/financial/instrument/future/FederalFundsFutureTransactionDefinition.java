@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.future;
 
-
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 

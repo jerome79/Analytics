@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -128,7 +127,7 @@ public class InterestRateTest {
 
   @Test
   public void testGetDiscountFactor() {
-    double[] time = {0.01, 1.0, 2.5, 10.0};
+    double[] time = {0.01, 1.0, 2.5, 10.0 };
     for (int looptime = 0; looptime < time.length; looptime++) {
       assertEquals(1. / ANNUAL.getDiscountFactor(time[looptime]), Math.pow(1 + RATE, time[looptime]), EPS);
       assertEquals(1. / CONTINUOUS.getDiscountFactor(time[looptime]), Math.exp(RATE * time[looptime]), EPS);

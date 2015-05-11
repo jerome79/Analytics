@@ -122,7 +122,6 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.id.StandardId;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
-
 /**
  *
  */
@@ -151,7 +150,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
   public static final GeneratorSwapXCcyIborIbor XCCY_GENERATOR = new GeneratorSwapXCcyIborIbor("XCCY", IBOR_INDEX_2, IBOR_INDEX_1, C, C);
   public static final IndexPrice INDEX_PRICE = new IndexPrice("CPI", CUR);
   public static final Convention CONVENTION = new Convention(2, FIXED_DAY_COUNT, BD, C, "");
-
 
   public static final CouponFixedDefinition COUPON_FIXED = CouponFixedDefinition.from(CUR, SETTLE_DATE, SETTLE_DATE, SETTLE_DATE, SPOT_LAG, NOTIONAL, FIXED_RATE);
   public static final CouponIborDefinition COUPON_IBOR = CouponIborDefinition.from(NOTIONAL, SETTLE_DATE, IBOR_INDEX_1, C);
@@ -261,7 +259,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
 
   public static final SwapXCcyIborIborDefinition XCCY_SWAP = SwapXCcyIborIborDefinition.from(SETTLE_DATE, TENOR, XCCY_GENERATOR, NOTIONAL, NOTIONAL, SPREAD, IS_PAYER, C, C);
 
-
   public static final ForexDefinition FX = ForexDefinition.fromAmounts(CUR, Currency.AUD, SETTLE_DATE, NOTIONAL, -NOTIONAL * 1.5);
   public static final ForexSwapDefinition FX_SWAP = new ForexSwapDefinition(FX, ForexDefinition.fromAmounts(CUR, Currency.AUD, SETTLE_DATE.plusMonths(3), -NOTIONAL, NOTIONAL * 1.5));
   public static final ForexOptionVanillaDefinition FX_VANILLA_OPTION = new ForexOptionVanillaDefinition(FX, SETTLE_DATE.minusMonths(6), false, false);
@@ -273,7 +270,7 @@ public class TestInstrumentDefinitionsAndDerivatives {
 
   public static final VarianceSwapDefinition VARIANCE_SWAP = VarianceSwapDefinition
       .fromVarianceParams(SETTLE_DATE, SETTLE_DATE.plusYears(1), SETTLE_DATE, CUR, C, 1, 0.03, 1000);
-  public static final EquityVarianceSwapDefinition EQUITY_VARIANCE_SWAP = EquityVarianceSwapDefinition.fromVarianceParams(SETTLE_DATE, SETTLE_DATE.plusYears(1), SETTLE_DATE, 
+  public static final EquityVarianceSwapDefinition EQUITY_VARIANCE_SWAP = EquityVarianceSwapDefinition.fromVarianceParams(SETTLE_DATE, SETTLE_DATE.plusYears(1), SETTLE_DATE,
       CUR, C, 1, 0.03, 1000, true);
   private static final Set<InstrumentDefinition<?>> ALL_INSTRUMENTS = Sets.newHashSet();
   private static final Set<InstrumentDerivative> ALL_DERIVATIVES = Sets.newHashSet();

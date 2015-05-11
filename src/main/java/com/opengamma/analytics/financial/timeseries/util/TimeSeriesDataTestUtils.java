@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.timeseries.util;
 
-
 import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.collect.ArgChecker;

@@ -16,7 +16,6 @@ import com.opengamma.analytics.math.statistics.descriptive.SampleFisherKurtosisC
 import com.opengamma.analytics.math.statistics.descriptive.SampleSkewnessCalculator;
 import com.opengamma.analytics.math.statistics.descriptive.SampleVarianceCalculator;
 
-
 /**
  * Test.
  */

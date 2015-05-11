@@ -17,7 +17,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -41,7 +40,8 @@ public class BondIborTransactionDefinitionTest {
   private static final int SETTLEMENT_DAYS = 3; // Standard for euro-bonds.
   private static final ZonedDateTime START_ACCRUAL_DATE = DateUtils.getUTCDate(2011, 7, 13);
   private static final ZonedDateTime MATURITY_DATE = START_ACCRUAL_DATE.plus(BOND_TENOR);
-  private static final BondIborSecurityDefinition BOND_DESCRIPTION = BondIborSecurityDefinition.from(MATURITY_DATE, START_ACCRUAL_DATE, IBOR_INDEX, SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY, IS_EOM, ISSUER_NAME, CALENDAR);
+  private static final BondIborSecurityDefinition BOND_DESCRIPTION = BondIborSecurityDefinition.from(MATURITY_DATE, START_ACCRUAL_DATE, IBOR_INDEX, SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY, IS_EOM,
+      ISSUER_NAME, CALENDAR);
   // Transaction
   private static final double PRICE = 0.90;
   private static final ZonedDateTime SETTLEMENT_DATE = DateUtils.getUTCDate(2011, 8, 18);

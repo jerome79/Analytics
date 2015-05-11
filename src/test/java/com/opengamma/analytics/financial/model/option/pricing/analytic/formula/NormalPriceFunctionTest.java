@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -103,7 +102,7 @@ public class NormalPriceFunctionTest {
     double eps = 1.0e-5;
     double[] priceDerivative = new double[3];
     for (EuropeanVanillaOption option : new EuropeanVanillaOption[] {ITM_CALL, ITM_PUT, OTM_CALL, OTM_PUT, ATM_CALL,
-        ATM_PUT }) {
+      ATM_PUT }) {
       // consistency with getPriceFunction for first order derivatives
       FUNCTION.getPriceAdjoint(option, VOL_DATA, priceDerivative);
       double delta = FUNCTION.getDelta(option, VOL_DATA);
@@ -142,7 +141,7 @@ public class NormalPriceFunctionTest {
     NormalFunctionData dataFwDw = new NormalFunctionData(F - eps, DF, 0.0);
 
     for (EuropeanVanillaOption option : new EuropeanVanillaOption[] {ITM_CALL, ITM_PUT, OTM_CALL, OTM_PUT, ATM_CALL,
-        ATM_PUT }) {
+      ATM_PUT }) {
       double delta = FUNCTION.getDelta(option, ZERO_VOL_DATA);
       double priceUp = FUNCTION.getPriceAdjoint(option, dataFwUp, der);
       double priceDw = FUNCTION.getPriceAdjoint(option, dataFwDw, der);

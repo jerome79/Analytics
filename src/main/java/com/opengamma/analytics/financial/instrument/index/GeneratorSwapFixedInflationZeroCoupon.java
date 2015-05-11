@@ -12,6 +12,7 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * Class with the description of swap inflation zero coupon characteristics.
  */
@@ -142,10 +143,10 @@ public class GeneratorSwapFixedInflationZeroCoupon extends GeneratorInstrument<G
     ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, _spotLag, _calendar);
     ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(), this.getCalendar());
     if (this._isLinear) {
-      return SwapFixedInflationZeroCouponDefinition.fromGeneratorInterpolation(startDate, rate, notional, 
+      return SwapFixedInflationZeroCouponDefinition.fromGeneratorInterpolation(startDate, rate, notional,
           attribute.getEndPeriod(), this, true);
     }
-    return SwapFixedInflationZeroCouponDefinition.fromGeneratorMonthly(startDate, rate, notional, 
+    return SwapFixedInflationZeroCouponDefinition.fromGeneratorMonthly(startDate, rate, notional,
         attribute.getEndPeriod(), this, true);
   }
 

@@ -562,7 +562,8 @@ public class BondSecurityDiscountingMethodTest {
     assertEquals("Fixed coupon bond security: dirty price curve sensitivity: risk-less curve", BOND_FIXED_SECURITY_NO_ENTITY_1.getSettlementTime(),
         sensi.getYieldDiscountingSensitivities().get(DSC_CURVE_NAME)
             .get(0).getFirst(), TOLERANCE_PV_DELTA);
-    assertEquals("Fixed coupon bond security: dirty price curve sensitivity: risk-less curve", BOND_FIXED_SECURITY_NO_ENTITY_1.getSettlementTime() / dfSettle * pv.getAmount(CUR).getAmount() / NOTIONAL, sensi
+    assertEquals("Fixed coupon bond security: dirty price curve sensitivity: risk-less curve", BOND_FIXED_SECURITY_NO_ENTITY_1.getSettlementTime() / dfSettle * pv.getAmount(CUR).getAmount() /
+        NOTIONAL, sensi
         .getYieldDiscountingSensitivities().get(DSC_CURVE_NAME).get(0).getSecond(), TOLERANCE_PV_DELTA);
     final double dfCpn0 = ISSUER_SPECIFIC_MULTICURVES.getMulticurveProvider().getDiscountFactor(BOND_FIXED_SECURITY_NO_ENTITY_1.getCurrency(),
         BOND_FIXED_SECURITY_NO_ENTITY_1.getCoupon().getNthPayment(0).getPaymentTime());
@@ -594,7 +595,6 @@ public class BondSecurityDiscountingMethodTest {
       cleanPriceForward[loopdate] = METHOD_BOND_SECURITY.cleanPriceFromCurves(bondForward, ISSUER_SPECIFIC_MULTICURVES);
     }
     //Test note: 0.03425 is roughly the difference between the coupon and the risk/free rate. The clean price is decreasing naturally by this amount divided by (roughly) 365 every day.
-    //Test note: On the coupon date there is a jump in the clean price: If the coupon is included the clean price due to coupon is 0.04625/2*exp(-t*0.0100)*exp(t*0.0120) - 0.04625/2 = 1.59276E-05;
     //           if the coupon is not included the impact is 0 (t=?). The clean price is thus expected to jump by the above amount when the settlement is on the coupon date 15-May-2012.
     final double couponJump = 1.59276E-05;
     for (int loopdate = 1; loopdate < nbDateForward; loopdate++) {

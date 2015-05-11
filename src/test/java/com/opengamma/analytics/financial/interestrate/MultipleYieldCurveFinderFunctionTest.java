@@ -79,7 +79,7 @@ public class MultipleYieldCurveFinderFunctionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testMismatchingVector() {
-    FINDER.evaluate(new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6, 7, 8}));
+    FINDER.evaluate(new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6, 7, 8 }));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

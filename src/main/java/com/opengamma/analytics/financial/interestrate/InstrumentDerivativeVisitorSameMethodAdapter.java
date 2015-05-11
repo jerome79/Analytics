@@ -298,8 +298,6 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
     return visit(bond, data);
   }
 
-
-
   @Override
   public RESULT_TYPE visitBondFixedSecurity(final BondFixedSecurity bond) {
     return visit(bond);

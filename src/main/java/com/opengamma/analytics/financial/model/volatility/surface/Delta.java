@@ -21,13 +21,10 @@ public class Delta implements StrikeType {
     _value = value;
   }
 
-
   @Override
   public double value() {
     return _value;
   }
-
-
 
   @Override
   public Delta with(double value) {

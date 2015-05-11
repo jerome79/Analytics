@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.interestrate;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 
-
 /**
  * @deprecated {@link YieldCurveBundle} is deprecated.
  */

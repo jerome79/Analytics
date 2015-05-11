@@ -41,6 +41,7 @@ public class AnnuityExample {
   public static final String LIBOR_CURVE_NAME = "Libor Curve";
 
   public static final int MATURITY = 5;
+
   // CSON
 
   public static YieldCurveBundle getBundle() {

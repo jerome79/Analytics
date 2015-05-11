@@ -57,7 +57,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * 
  */
@@ -93,9 +92,9 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
     VOL_SURFACE_SIMPLEMONEY = InterpolatedDoublesSurface.from(DATA.getExpiry(), DATA.getSimpleMoneyness(),
         DATA.getVolatility(), INTERPOLATOR_2D);
   }
-  private static final NormalSTIRFuturesExpSimpleMoneynessProviderDiscount NORMAL_MULTICURVES = 
+  private static final NormalSTIRFuturesExpSimpleMoneynessProviderDiscount NORMAL_MULTICURVES =
       new NormalSTIRFuturesExpSimpleMoneynessProviderDiscount(MULTICURVES, VOL_SURFACE_SIMPLEMONEY, GBPLIBOR3M, false);
-  
+
   /* Rate futures */
   private static final InterestRateFutureSecurityDefinition RATE_FUTURE_Q; // Quarterly
   private static final InterestRateFutureSecurityDefinition RATE_FUTURE_S; // Serial
@@ -123,11 +122,11 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
   private static final boolean IS_CALL = false;
   private static final double STRIKE_S = 0.925;
   private static final boolean IS_CALL_S = true;
-  private static final InterestRateFutureOptionMarginSecurityDefinition RATE_FUTURE_OPTION_Q = 
+  private static final InterestRateFutureOptionMarginSecurityDefinition RATE_FUTURE_OPTION_Q =
       new InterestRateFutureOptionMarginSecurityDefinition(RATE_FUTURE_Q, EXPIRATION_DATE, STRIKE, IS_CALL);
-  private static final InterestRateFutureOptionMarginSecurityDefinition RATE_FUTURE_OPTION_S = 
+  private static final InterestRateFutureOptionMarginSecurityDefinition RATE_FUTURE_OPTION_S =
       new InterestRateFutureOptionMarginSecurityDefinition(RATE_FUTURE_S, EXPIRATION_DATE_S, STRIKE_S, IS_CALL_S);
-  private static final InterestRateFutureOptionMarginSecurityDefinition RATE_FUTURE_OPTION_M = 
+  private static final InterestRateFutureOptionMarginSecurityDefinition RATE_FUTURE_OPTION_M =
       new InterestRateFutureOptionMarginSecurityDefinition(RATE_FUTURE_M, EXPIRATION_DATE, STRIKE, IS_CALL);
 
   /* Rate futures option transaction */
@@ -209,19 +208,19 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
     double vegaM = TRANSACTION_M.accept(PVEC, NORMAL_MULTICURVES);
 
     double[] bucketedPv01ExpectedQ = new double[] {-0.054806430508358664, 0.06707132607404294, 0.05004545341589028,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityQ = new LinkedHashMap<>();
     sensitivityQ.put(Pair.of(MULTICURVES.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedQ));
     MultipleCurrencyParameterSensitivity expectedbucketQ = new MultipleCurrencyParameterSensitivity(sensitivityQ);
 
     double[] bucketedPv01ExpectedS = new double[] {0.0629242351204289, -0.07700577929588694, -0.057458072861900376,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityS = new LinkedHashMap<>();
     sensitivityS.put(Pair.of(MULTICURVES.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedS));
     MultipleCurrencyParameterSensitivity expectedbucketS = new MultipleCurrencyParameterSensitivity(sensitivityS);
 
     double[] bucketedPv01ExpectedM = new double[] {0.0, 0.0, 0.0, 0.0, -0.22709713168560872, 0.16225955718689586,
-        0.12742291520626903, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.12742291520626903, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityM = new LinkedHashMap<>();
     sensitivityM.put(Pair.of(MULTICURVES.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedM));
     MultipleCurrencyParameterSensitivity expectedbucketM = new MultipleCurrencyParameterSensitivity(sensitivityM);
@@ -260,13 +259,13 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
   /* Tests options on futures with 0 volatility.  */
   @Test
   public void volatility0() {
-    InterpolatedDoublesSurface vol0 = InterpolatedDoublesSurface.from(new double[]{0.25, 5.0, 0.25, 5.0}, 
-        new double[] {-0.10, -0.10, 0.10, 0.10}, new double[] {0.0, 0.0, 0.0, 0.0}, INTERPOLATOR_2D);
-    NormalSTIRFuturesExpSimpleMoneynessProviderDiscount multicurveNormal0 = 
+    InterpolatedDoublesSurface vol0 = InterpolatedDoublesSurface.from(new double[] {0.25, 5.0, 0.25, 5.0 },
+        new double[] {-0.10, -0.10, 0.10, 0.10 }, new double[] {0.0, 0.0, 0.0, 0.0 }, INTERPOLATOR_2D);
+    NormalSTIRFuturesExpSimpleMoneynessProviderDiscount multicurveNormal0 =
         new NormalSTIRFuturesExpSimpleMoneynessProviderDiscount(MULTICURVES, vol0, GBPLIBOR3M, false);
-    double optionPriceVol0 = TRANSACTION_Q.accept(POC, multicurveNormal0);    
+    double optionPriceVol0 = TRANSACTION_Q.accept(POC, multicurveNormal0);
     double futuresPrice = TRANSACTION_Q.getUnderlyingSecurity().getUnderlyingFuture().accept(FPC, MULTICURVES);
-    double optionPriceIntrinsic =  STRIKE - futuresPrice; // Put
+    double optionPriceIntrinsic = STRIKE - futuresPrice; // Put
     assertEquals("Option price for a volatilituy of 0", optionPriceIntrinsic, optionPriceVol0, TOLERANCE_PRICE);
   }
 
@@ -349,11 +348,11 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
         futurePriceM));
 
     double[] bucketedPv01ExpectedQ = new double[] {-0.0548, 0.06705, 0.05005, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     double[] bucketedPv01ExpectedS = new double[] {0.0629, -0.077, -0.05745, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     double[] bucketedPv01ExpectedM = new double[] {0.0, 0.0, 0.0, 0.0, -0.2271, 0.16225, 0.12745, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 
     assertRelative("testGBP, Quarterly, option price", 17.5392, optionPriceQ, TOL);
     assertRelative("testGBP, Quarterly, PV", 214.2398, pvQRounded, TOL);
@@ -383,7 +382,6 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
     assertRelative("testGBP, Mid-curve, vega", 0.23065, vegaM, TOL);
 
   }
-
 
   private double[] rounding(double[] values) {
     int n = values.length;
@@ -461,7 +459,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
         .pointToParameterSensitivity(pvSenseQ, NORMAL_MULTICURVES);
     MultipleCurrencyParameterSensitivity bucketedPv01RescaledQ = bucketedPv01Q.multipliedBy(BP1);
     double[] bucketedPv01ExpectedQ = new double[] {-0.055972252620278336, 0.06849804250654201, 0.05111000178461486,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityQ = new LinkedHashMap<>();
     sensitivityQ.put(Pair.of(MULTICURVES.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedQ));
     MultipleCurrencyParameterSensitivity expectedbucketQ = new MultipleCurrencyParameterSensitivity(sensitivityQ);
@@ -507,7 +505,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
         .pointToParameterSensitivity(pvSenseS, NORMAL_MULTICURVES);
     MultipleCurrencyParameterSensitivity bucketedPv01RescaledS = bucketedPv01S.multipliedBy(BP1);
     double[] bucketedPv01ExpectedS = new double[] {0.053117704256205496, -0.06500468703082543, -0.048503425040744896,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityS = new LinkedHashMap<>();
     sensitivityS.put(Pair.of(MULTICURVES.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedS));
     MultipleCurrencyParameterSensitivity expectedbucketS = new MultipleCurrencyParameterSensitivity(sensitivityS);
@@ -523,7 +521,6 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
    */
   @Test
   public void negativeRateFutureTest() {
-    // new curve producing negative forward rate
     int nRates = DATA.getRateGBP().length;
     double[] bumpedRates = Arrays.copyOf(DATA.getRateGBP(), nRates);
     bumpedRates[0] = 0.00121959;
@@ -572,7 +569,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
         normalMulticurve);
     MultipleCurrencyParameterSensitivity bucketedPv01Q = bucketedPv01UnscaledQ.multipliedBy(BP1);
     double[] bucketedPv01ExpectedQ = new double[] {-0.05361798658810737, 0.06589164141372715, 0.04910507773660669, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityQ = new LinkedHashMap<>();
     sensitivityQ.put(Pair.of(multiCurve.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedQ));
     MultipleCurrencyParameterSensitivity expectedbucketQ = new MultipleCurrencyParameterSensitivity(sensitivityQ);
@@ -611,7 +608,7 @@ public class STIRFuturesOptionNormalExpSimpleMoneynessGBPE2ETest {
         normalMulticurve);
     MultipleCurrencyParameterSensitivity bucketedPv01S = bucketedPv01UnscaledS.multipliedBy(BP1);
     double[] bucketedPv01ExpectedS = new double[] {0.06452398954043419, -0.07929412967409682, -0.059093146234659076,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivityS = new LinkedHashMap<>();
     sensitivityS.put(Pair.of(multiCurve.getName(GBPLIBOR3M), GBP), new DoubleMatrix1D(bucketedPv01ExpectedS));
     MultipleCurrencyParameterSensitivity expectedbucketS = new MultipleCurrencyParameterSensitivity(sensitivityS);

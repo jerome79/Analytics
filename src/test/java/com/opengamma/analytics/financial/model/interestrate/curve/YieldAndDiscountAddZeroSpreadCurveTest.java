@@ -12,17 +12,16 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
 @Test
 public class YieldAndDiscountAddZeroSpreadCurveTest {
 
-  private static final double[] TIME_YIELD = new double[] {1, 2, 2.5, 3};
-  private static final double[] TIME_DSC = new double[] {1, 2, 3};
-  private static final InterpolatedDoublesCurve R = InterpolatedDoublesCurve.from(TIME_YIELD, new double[] {0.03, 0.04, 0.04, 0.05}, new LinearInterpolator1D());
-  private static final InterpolatedDoublesCurve DF = InterpolatedDoublesCurve.from(TIME_DSC, new double[] {Math.exp(-0.03), Math.exp(-0.08), Math.exp(-0.15)}, new LinearInterpolator1D());
+  private static final double[] TIME_YIELD = new double[] {1, 2, 2.5, 3 };
+  private static final double[] TIME_DSC = new double[] {1, 2, 3 };
+  private static final InterpolatedDoublesCurve R = InterpolatedDoublesCurve.from(TIME_YIELD, new double[] {0.03, 0.04, 0.04, 0.05 }, new LinearInterpolator1D());
+  private static final InterpolatedDoublesCurve DF = InterpolatedDoublesCurve.from(TIME_DSC, new double[] {Math.exp(-0.03), Math.exp(-0.08), Math.exp(-0.15) }, new LinearInterpolator1D());
   private static final YieldCurve YIELD = YieldCurve.from(R);
   private static final DiscountCurve DISCOUNT = DiscountCurve.from(DF);
 

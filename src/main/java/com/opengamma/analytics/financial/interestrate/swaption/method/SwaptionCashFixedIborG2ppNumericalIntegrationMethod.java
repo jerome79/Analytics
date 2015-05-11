@@ -134,7 +134,6 @@ public class SwaptionCashFixedIborG2ppNumericalIntegrationMethod implements Pric
     private final double _rhobar;
     private final SwapFixedCoupon<? extends Payment> _swap;
     private final double _strike;
-    //    private final double _notional;
     private final double _omega;
 
     public SwaptionIntegrant(final double[] discountedCashFlowFixed, final double[][] alphaFixed, final double[] tau2Fixed, final double[] discountedCashFlowIbor, final double[][] alphaIbor,
@@ -148,7 +147,6 @@ public class SwaptionCashFixedIborG2ppNumericalIntegrationMethod implements Pric
       _rhobar = rhobar;
       _swap = swap;
       _strike = strike;
-      //      _notional = Math.abs(swap.getFixedLeg().getNthPayment(0).getNotional());
       _omega = (swap.getFixedLeg().isPayer() ? 1.0 : -1.0);
     }
 

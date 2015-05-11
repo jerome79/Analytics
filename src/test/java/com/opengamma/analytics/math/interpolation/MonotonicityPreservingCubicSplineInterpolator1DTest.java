@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 
-
 /**
  * Test interpolateWithSensitivity method via PiecewisePolynomialInterpolator1D
  */
@@ -117,7 +116,6 @@ public class MonotonicityPreservingCubicSplineInterpolator1DTest {
       }
 
       for (int j = 0; j < nData; ++j) {
-        //      for (int j = 1; j < nData; ++j) {
         yValues1Up[j] = yValues1[j] * (1. + EPS);
         yValues2Up[j] = yValues2[j] * (1. + EPS);
         yValues3Up[j] = yValues3[j] * (1. + EPS);
@@ -509,7 +507,7 @@ public class MonotonicityPreservingCubicSplineInterpolator1DTest {
     final double[] xKeys = new double[10 * nData];
 
     yValues = new double[][] { {3.0, 1.0, 1.0, 2.0, 1.0, 0.0, 0.0, 3.0, 1.0, 1.0 }, {0.0, 3.0, 0.0, 0.0, 1.0, 3.0, 3.0, 1.0, 4.0, 3.0 }, {2.0, 2.0, 1.0, 1.0, 0.0, 3.0, 4.0, 4.0, 0.0, 2.0 },
-        {2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 4.0, 0.0, 2.0 }, {8.0, 9.0, 0.0, 6.0, 1.0, 1.0, 2.0, 1.0, 0.0, 0.0 }, {4.0, 1.0, 0.0, 7.0, 7.0, 1.0, 9.0, 1.0, 1.0, 7.0 } };
+      {2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 4.0, 0.0, 2.0 }, {8.0, 9.0, 0.0, 6.0, 1.0, 1.0, 2.0, 1.0, 0.0, 0.0 }, {4.0, 1.0, 0.0, 7.0, 7.0, 1.0, 9.0, 1.0, 1.0, 7.0 } };
     final int dim = yValues.length;
 
     for (int l = 0; l < dim; ++l) {

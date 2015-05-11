@@ -10,13 +10,12 @@ import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * 
  */
 public class LaguerrePolynomialFunction extends OrthogonalPolynomialFunctionGenerator {
-  private static final DoubleFunction1D F1 = new RealPolynomialFunction1D(new double[] {1, -1});
-  private static final DoubleFunction1D DF1 = new RealPolynomialFunction1D(new double[] {-1});
+  private static final DoubleFunction1D F1 = new RealPolynomialFunction1D(new double[] {1, -1 });
+  private static final DoubleFunction1D DF1 = new RealPolynomialFunction1D(new double[] {-1 });
 
   @Override
   public DoubleFunction1D[] getPolynomials(final int n) {
@@ -35,7 +34,7 @@ public class LaguerrePolynomialFunction extends OrthogonalPolynomialFunctionGene
       if (i == 0) {
         polynomials[i] = getOne();
       } else if (i == 1) {
-        polynomials[i] = new RealPolynomialFunction1D(new double[] {1 + alpha, -1});
+        polynomials[i] = new RealPolynomialFunction1D(new double[] {1 + alpha, -1 });
       } else {
         polynomials[i] = (polynomials[i - 1].multiply(2. * i + alpha - 1).subtract(polynomials[i - 1].multiply(getX())).subtract(polynomials[i - 2].multiply((i - 1. + alpha))).divide(i));
       }

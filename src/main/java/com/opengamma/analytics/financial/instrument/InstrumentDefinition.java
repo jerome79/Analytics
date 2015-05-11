@@ -21,7 +21,7 @@ public interface InstrumentDefinition<T extends InstrumentDerivative> {
    * @return The derivative
    */
   T toDerivative(ZonedDateTime date);
-  
+
   /**
    * accept() method for visitors
    * @param <U> The type of the data

@@ -155,7 +155,7 @@ public class EquityOptionDefinition implements InstrumentDefinition<EquityOption
     ArgChecker.inOrderOrEqual(date.toLocalDate(), getExpiryDate().toLocalDate(), "valuation date", "expiry");
     double timeToExpiry = TimeCalculator.getTimeBetween(date, getExpiryDate());
     if (timeToExpiry == 0) { // Day of expiration: Still time value if option has not expired.
-      // REVIEW Stephen and Casey - This essentially assumes an Expiry with accuracy of 1 day.
+      // REVIEW: This essentially assumes an Expiry with accuracy of 1 day.
       // The intended behaviour is that an option is still alive on the expiry date
       timeToExpiry = 0.0015; // Approximately half a day
     }

@@ -12,8 +12,6 @@ import java.time.temporal.TemporalAdjuster;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test for the day of month temporal adjuster
  */

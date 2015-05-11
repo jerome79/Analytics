@@ -22,32 +22,32 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon
  * Returns the Ibor index of a coupon. For averaging 
  */
 public final class IborIndexVisitor extends InstrumentDerivativeVisitorSameValueAdapter<Object, IndexDeposit> {
-  
+
   private static final IborIndexVisitor SINGLETON = new IborIndexVisitor();
-  
+
   public static IborIndexVisitor getInstance() {
     return SINGLETON;
   }
-  
+
   private IborIndexVisitor() {
     super(null);
   }
-  
+
   @Override
   public IndexDeposit visitCouponIbor(CouponIbor payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponIborCompounding(CouponIborCompounding payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponIborGearing(CouponIborGearing payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponIborSpread(CouponIborSpread payment) {
     return payment.getIndex();
@@ -57,27 +57,27 @@ public final class IborIndexVisitor extends InstrumentDerivativeVisitorSameValue
   public IndexDeposit visitCouponOIS(CouponON payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponONArithmeticAverage(CouponONArithmeticAverage payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponONArithmeticAverageSpread(CouponONArithmeticAverageSpread payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponONArithmeticAverageSpreadSimplified(CouponONArithmeticAverageSpreadSimplified payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponONCompounded(CouponONCompounded payment) {
     return payment.getIndex();
   }
-  
+
   @Override
   public IndexDeposit visitCouponONSpread(CouponONSpread payment) {
     return payment.getIndex();

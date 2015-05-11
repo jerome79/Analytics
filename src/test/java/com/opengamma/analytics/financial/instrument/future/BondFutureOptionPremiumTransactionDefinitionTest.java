@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.interestrate.future.derivative.BondFutu
 import com.opengamma.analytics.financial.interestrate.payments.derivative.PaymentFixed;
 import com.opengamma.analytics.util.time.DateUtils;
 
-
 /**
  * Test.
  */
@@ -40,8 +39,7 @@ public class BondFutureOptionPremiumTransactionDefinitionTest {
   private static final BondFutureOptionPremiumTransactionDefinition FVU1_C120_TR_DEFINITION = new BondFutureOptionPremiumTransactionDefinition(FVU1_C120_SEC_DEFINITION,
       QUANTITY, PREMIUM_DATE, PREMIUM_AMOUNT);
 
-  private static final String[] CURVE_NAMES = new String[] {"A", "B"};
-
+  private static final String[] CURVE_NAMES = new String[] {"A", "B" };
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullSecurity() {

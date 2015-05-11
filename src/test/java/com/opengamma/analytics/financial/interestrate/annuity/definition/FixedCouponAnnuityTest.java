@@ -14,16 +14,15 @@ import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CouponFixed;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * Test.
  */
 @Test
 public class FixedCouponAnnuityTest {
-  private static final double[] PAYMENT_TIMES = new double[] {0.5, 1, 1.5, 2, 2.5, 3};
+  private static final double[] PAYMENT_TIMES = new double[] {0.5, 1, 1.5, 2, 2.5, 3 };
   private static final double NOTIONAL = 1000;
   private static final double COUPON_RATE = 0.05;
-  private static final double[] YEAR_FRACTIONS = new double[] {0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+  private static final double[] YEAR_FRACTIONS = new double[] {0.5, 0.5, 0.5, 0.5, 0.5, 0.5 };
   private static final CouponFixed[] PAYMENTS;
   private static final double DIFF = 0.02;
   private static final CouponFixed[] HIGHER;
@@ -61,7 +60,7 @@ public class FixedCouponAnnuityTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongArrayLength() {
-    new AnnuityCouponFixed(CUR, new double[] {1, 2, 3}, NOTIONAL, COUPON_RATE, YEAR_FRACTIONS, true);
+    new AnnuityCouponFixed(CUR, new double[] {1, 2, 3 }, NOTIONAL, COUPON_RATE, YEAR_FRACTIONS, true);
   }
 
   @Test
@@ -72,12 +71,4 @@ public class FixedCouponAnnuityTest {
     assertEquals(annuity, new AnnuityCouponFixed(CUR, PAYMENT_TIMES, NOTIONAL, COUPON_RATE, false));
     assertEquals(annuity, new AnnuityCouponFixed(CUR, PAYMENT_TIMES, NOTIONAL, COUPON_RATE, YEAR_FRACTIONS, false));
   }
-  //
-  // @Test
-  // public void testWithRate() {
-  // final FixedCouponAnnuity annuity = new FixedCouponAnnuity(PAYMENTS);
-  // assertFalse(annuity.withRate(COUPON_RATE) == annuity);
-  // assertEquals(annuity.withRate(COUPON_RATE), annuity);
-  // assertEquals(annuity.withRate(COUPON_RATE + DIFF), new FixedCouponAnnuity(HIGHER));
-  // }
 }

@@ -159,7 +159,6 @@ public class RecentDataSetsMulticurveOisMeetingDatesGbp {
         TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY, TS_FIXED_IBOR_GBP6M_WITH_LAST, TS_FIXED_IBOR_GBP6M_WITHOUT_LAST);
   }
 
-  
   /**
    * Calibrate curves with hard-coded date and with calibration date the date provided. The curves are 
    * discounting/overnight forward, Libor3M forward, Libor1M forward and Libor6M forward.
@@ -170,18 +169,18 @@ public class RecentDataSetsMulticurveOisMeetingDatesGbp {
   public static Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> getCurvesGbpOisWithStdInstruments(
       ZonedDateTime calibrationDate) {
     InstrumentDefinition<?>[][][] definitionsUnits = new InstrumentDefinition<?>[NB_UNITS][][];
-    InstrumentDefinition<?>[] definitionsDsc = generateDatesOis(DSC_2_GBP_DATES, 
+    InstrumentDefinition<?>[] definitionsDsc = generateDatesOis(DSC_2_GBP_DATES,
         Arrays.copyOfRange(DSC_GBP_MARKET_QUOTES, 1, DSC_GBP_MARKET_QUOTES.length));
 
     /// Adding instruments to cover period between calibrationDate and first date of BOE instruments
-    InstrumentDefinition<?>[] definitionsOis = 
+    InstrumentDefinition<?>[] definitionsOis =
         RecentDataSetsMulticurveStandardGbp.getDefinitionForFirstInstruments(calibrationDate, DSC_2_GBP_DATES[0]);
     InstrumentDefinition<?>[] definitions = ArrayUtils.addAll(definitionsOis, definitionsDsc);
-    definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitions};
-        
-    return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits, 
-        GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP, 
-        CURVE_BUILDING_REPOSITORY,  TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY, 
+    definitionsUnits[0] = new InstrumentDefinition<?>[][] {definitions };
+
+    return CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(calibrationDate, definitionsUnits,
+        GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, PSMQC, PSMQCSC, false, DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP,
+        CURVE_BUILDING_REPOSITORY, TS_FIXED_OIS_GBP_WITH_TODAY, TS_FIXED_OIS_GBP_WITHOUT_TODAY,
         TS_FIXED_IBOR_GBP6M_WITH_LAST, TS_FIXED_IBOR_GBP6M_WITHOUT_LAST);
   }
 
@@ -286,22 +285,22 @@ public class RecentDataSetsMulticurveOisMeetingDatesGbp {
         cpnFixed[loopcpn] = (CouponFixedDefinition) cpn[loopcpn];
       }
       AnnuityCouponFixedDefinition fixedLegDefinition = new AnnuityCouponFixedDefinition(cpnFixed, LON);
-      AnnuityDefinition<? extends CouponDefinition> onLegDefinition = (AnnuityDefinition<? extends CouponDefinition>) 
+      AnnuityDefinition<? extends CouponDefinition> onLegDefinition = (AnnuityDefinition<? extends CouponDefinition>)
           new FloatingAnnuityDefinitionBuilder().
-          payer(false).
-          notional(NOTIONAL_PROV).
-          startDate(dates[loopimm].toLocalDate()).
-          endDate(dates[loopimm + 1].toLocalDate()).
-          index(GBPSONIA).
-          accrualPeriodFrequency(GENERATOR_OIS_GBP.getLegsPeriod()).
-          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-          resetDateAdjustmentParameters(ADJUSTED_DATE_ON).
-          accrualPeriodParameters(ADJUSTED_DATE_ON).
-          dayCount(GBPSONIA.getDayCount()).
-          fixingDateAdjustmentParameters(OFFSET_FIXING).
-          currency(GBP).
-          compoundingMethod(CompoundingMethod.FLAT).
-          build();
+              payer(false).
+              notional(NOTIONAL_PROV).
+              startDate(dates[loopimm].toLocalDate()).
+              endDate(dates[loopimm + 1].toLocalDate()).
+              index(GBPSONIA).
+              accrualPeriodFrequency(GENERATOR_OIS_GBP.getLegsPeriod()).
+              rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+              resetDateAdjustmentParameters(ADJUSTED_DATE_ON).
+              accrualPeriodParameters(ADJUSTED_DATE_ON).
+              dayCount(GBPSONIA.getDayCount()).
+              fixingDateAdjustmentParameters(OFFSET_FIXING).
+              currency(GBP).
+              compoundingMethod(CompoundingMethod.FLAT).
+              build();
       swap[loopimm] = new SwapCouponFixedCouponDefinition(fixedLegDefinition, onLegDefinition);
     }
     return swap;

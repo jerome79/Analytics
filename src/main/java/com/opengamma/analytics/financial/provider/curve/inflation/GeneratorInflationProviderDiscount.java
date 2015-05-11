@@ -59,7 +59,7 @@ public class GeneratorInflationProviderDiscount extends Function1D<DoubleMatrix1
    * @param inflationMap The discounting curves names map.
    * @param generatorsInflationMap The inflation generators map.
    */
-  public GeneratorInflationProviderDiscount(final InflationProviderDiscount knownData, 
+  public GeneratorInflationProviderDiscount(final InflationProviderDiscount knownData,
       final LinkedHashMap<String, IndexPrice[]> inflationMap,
       final LinkedHashMap<String, GeneratorCurve> generatorsInflationMap) {
     ArgChecker.notNull(inflationMap, "Inflation curves names map");
@@ -79,7 +79,7 @@ public class GeneratorInflationProviderDiscount extends Function1D<DoubleMatrix1
    * @param inflationMap The inflation curves names map.
    * @param generatorsMap The inflation generators map.
    */
-  public GeneratorInflationProviderDiscount(final InflationProviderDiscount knownData, 
+  public GeneratorInflationProviderDiscount(final InflationProviderDiscount knownData,
       final LinkedHashMap<String, Currency> discountingMap, final LinkedHashMap<String, IndexON[]> forwardONMap,
       final LinkedHashMap<String, IndexPrice[]> inflationMap, final LinkedHashMap<String, GeneratorCurve> generatorsMap) {
     ArgChecker.notNull(inflationMap, "Inflation curves names map");

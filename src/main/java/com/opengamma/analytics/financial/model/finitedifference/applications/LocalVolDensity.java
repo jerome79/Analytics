@@ -74,19 +74,6 @@ public class LocalVolDensity {
     };
 
     //    //using a log-normal distribution with a very small Standard deviation as a proxy for a Dirac delta
-    //    final Function1D<Double, Double> initialCondition = new Function1D<Double, Double>() {
-    //      private final double _volRootTOffset = 0.01;
-    //
-    //      @Override
-    //      public Double evaluate(final Double s) {
-    //        if (s == 0) {
-    //          return 0.0;
-    //        }
-    //        final double x = Math.log(s / forward.getSpot());
-    //        final NormalDistribution dist = new NormalDistribution(0, _volRootTOffset);
-    //        return dist.getPDF(x) / s;
-    //      }
-    //    };
 
     return new ConvectionDiffusionPDE1DStandardCoefficients(FunctionalDoublesSurface.from(a), FunctionalDoublesSurface.from(b), FunctionalDoublesSurface.from(c));
   }

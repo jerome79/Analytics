@@ -58,6 +58,7 @@ public final class CleanPriceFromCurvesCalculator extends InstrumentDerivativeVi
     ArgChecker.notNull(issuer, "Issuer provider");
     return SCALING_FACTOR * METHOD_BOND_SECURITY.cleanPriceFromCurves(bond, issuer);
   }
+
   @Override
   public Double visitBondFixedTransaction(final BondFixedTransaction bond, final IssuerProviderInterface issuer) {
     ArgChecker.notNull(bond, "bond");

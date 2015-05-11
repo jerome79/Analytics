@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.util.time;
 
-
 /**
  * The accuracy of an {@code Expiry}.
  */

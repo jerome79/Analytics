@@ -12,10 +12,8 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityFunction1D;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
-
 
 /**
  * 
@@ -31,7 +29,6 @@ public class LogClampedCubicSplineInterpolator1DTest {
   /**
    * Check consistency with bare interpolator
    */
-  @Test
   public void sampleDataTest1() {
     double[] xValues = new double[] {-1.0, 1.0, 2.5, 4.2, 10.0, 15.0, 30.0 };
     double[] yValues = new double[] {4.0, 2.0, 1.0, 5.0, 10.0, 3.5, -2.0 };
@@ -112,7 +109,6 @@ public class LogClampedCubicSplineInterpolator1DTest {
   /**
    * Check consistency with bare interpolator using nontrivial boundary condition (i.e., first derivative values at end points)
    */
-  @Test
   public void sampleDataWithBoundaryConditionTest1() {
     double[] xValues = new double[] {-1.0, 1.0, 2.5, 4.2, 10.0, 15.0, 30.0 };
     double[] yValues = new double[] {4.0, 2.0, 1.0, 5.0, 10.0, 3.5, -2.0 };
@@ -195,7 +191,6 @@ public class LogClampedCubicSplineInterpolator1DTest {
   /**
    * Check consistency with bare interpolator for flat data
    */
-  @Test
   public void sampleDataTest2() {
     double[] xValues = new double[] {1.0, 2.0, 3.0, 4.0, 5.0 };
     double[] yValues = new double[] {1.0, 1.0, 1.0, 1.0, 1.0 };
@@ -276,7 +271,6 @@ public class LogClampedCubicSplineInterpolator1DTest {
   /**
    * Check consistency with bare interpolator for linear data
    */
-  @Test
   public void sampleDataTest3() {
     double[] xValues = new double[] {-1.0, 2.0, 3.0, 4.0, 5.0 };
     double[] yValues = new double[] {-2.0, 4.0, 6.0, 8.0, 10.0 };
@@ -357,7 +351,6 @@ public class LogClampedCubicSplineInterpolator1DTest {
   /**
    * Exception expected
    */
-  @Test
   public void errorTest() {
     double[] xValues1 = new double[] {-1.0, 1.0, 2.5, 4.2, };
     double[] yValues1 = new double[] {5.0, 10.0, 3.5, -0.0 };
@@ -384,49 +377,4 @@ public class LogClampedCubicSplineInterpolator1DTest {
     }
   }
 
-  /**
-   * Print test for 3 log cubic interpolators
-   */
-  @Test(enabled = false)
-  public void printTest() {
-    PiecewisePolynomialWithSensitivityFunction1D func = new PiecewisePolynomialWithSensitivityFunction1D();
-
-    double[] xValues = new double[] {-3.2, -0.9, 1.4, 1.8, 6.7 };
-    double[] yValues = new double[] {1.0, 1.5, 2.2, 1.3, 1.8 };
-    double[] yValuesClamp = new double[] {0.0, 1.0, 1.5, 2.2, 1.3, 1.8, 0.0 };
-    int nData = yValues.length;
-    int nKeys = 100;
-    double[] keys = new double[nKeys];
-    double interval = (xValues[nData - 1] - xValues[0]) / (nKeys - 1);
-    for (int i = 0; i < nKeys; ++i) {
-      keys[i] = xValues[0] + interval * i;
-    }
-
-    double[] yValuesExp = new double[nData];
-    for (int i = 0; i < nData; ++i) {
-      yValuesExp[i] = Math.exp(yValues[i]);
-    }
-
-    Interpolator1D nat = Interpolator1DFactory.LOG_NATURAL_CUBIC_INSTANCE;
-    Interpolator1D knot = Interpolator1DFactory.LOG_NOTAKNOT_CUBIC_INSTANCE;
-    Interpolator1D clam = Interpolator1DFactory.LOG_CLAMPED_CUBIC_INSTANCE;
-    Interpolator1DDataBundle bundleNat = nat.getDataBundle(xValues, yValuesExp);
-    Interpolator1DDataBundle bundleKnot = knot.getDataBundle(xValues, yValuesExp);
-    Interpolator1DDataBundle bundleClam = clam.getDataBundle(xValues, yValuesExp);
-
-    PiecewisePolynomialInterpolator natBare = new NaturalSplineInterpolator();
-    PiecewisePolynomialInterpolator knotBare = new CubicSplineInterpolator();
-    PiecewisePolynomialInterpolator clamBare = new CubicSplineInterpolator();
-    PiecewisePolynomialResultsWithSensitivity resNat = natBare.interpolateWithSensitivity(xValues, yValues);
-    PiecewisePolynomialResultsWithSensitivity resKnot = knotBare.interpolateWithSensitivity(xValues, yValues);
-    PiecewisePolynomialResultsWithSensitivity resClam = clamBare.interpolateWithSensitivity(xValues, yValuesClamp);
-
-    for (int i = 0; i < nKeys; ++i) {
-      System.out.println(keys[i] + "\t" + nat.interpolate(bundleNat, keys[i]) + "\t" + knot.interpolate(bundleKnot, keys[i]) + "\t" + clam.interpolate(bundleClam, keys[i]));
-    }
-    System.out.println();
-    for (int i = 0; i < nKeys; ++i) {
-      System.out.println(keys[i] + "\t" + func.evaluate(resNat, keys[i]).getData()[0] + "\t" + func.evaluate(resKnot, keys[i]).getData()[0] + "\t" + func.evaluate(resClam, keys[i]).getData()[0]);
-    }
-  }
 }

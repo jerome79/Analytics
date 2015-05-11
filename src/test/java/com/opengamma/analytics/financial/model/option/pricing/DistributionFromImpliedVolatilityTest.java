@@ -19,7 +19,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -65,21 +64,19 @@ public class DistributionFromImpliedVolatilityTest {
     NORMAL_VOL = F * VOL;
   }
 
-  @Test
   public void logNormalTest() {
     for (int i = 0; i < 100; i++) {
       final double x = 0.1 + 0.1 * i;
-      // System.out.println(x + "\t" + logNormalPDF(x) + "\t" + BLACK.getPDF(x));
+
       assertEquals(logNormalPDF(x), BLACK.getPDF(x), 1e-6);
       assertEquals(logNormalCDF(x), BLACK.getCDF(x), 1e-6);
     }
   }
 
-  @Test
   public void normalTest() {
     for (int i = 0; i < 100; i++) {
       final double x = 0.1 + 0.1 * i;
-      // System.out.println(x + "\t" + normalPDF(x) + "\t" + BACHELIER.getPDF(x));
+
       assertEquals(normalPDF(x), BACHELIER.getPDF(x), 1e-4);
       assertEquals(normalCDF(x), BACHELIER.getCDF(x), 1e-4);
     }

@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -26,15 +25,13 @@ public class DoubleExponentialMeshingTest {
 
   MeshingFunction MESHER = new DoubleExponentialMeshing(LOWER, UPPER, CENTRE, N, LAMBDA_L, LAMBDA_U);
 
-  @Test
   public void testEndPoints() {
     assertEquals(LOWER, MESHER.evaluate(0));
-    assertEquals(UPPER, MESHER.evaluate(N-1));
-    double frac = (CENTRE-LOWER) / (UPPER - LOWER);
-    assertEquals(CENTRE, MESHER.evaluate((int) (frac * N)-1));
+    assertEquals(UPPER, MESHER.evaluate(N - 1));
+    double frac = (CENTRE - LOWER) / (UPPER - LOWER);
+    assertEquals(CENTRE, MESHER.evaluate((int) (frac * N) - 1));
   }
 
-  @Test
   public void testIncreassing() {
     double vOld = LOWER;
     for (int i = 1; i < N; i++) {
@@ -43,15 +40,5 @@ public class DoubleExponentialMeshingTest {
       vOld = vNew;
     }
   }
-
-  @Test(enabled=false)
-  public void testIncreassingprint() {
-
-    for (int i = 0; i < N; i++) {
-      double vNew = MESHER.evaluate(i);
-      System.out.println(i+"\t"+vNew);
-    }
-  }
-
 
 }

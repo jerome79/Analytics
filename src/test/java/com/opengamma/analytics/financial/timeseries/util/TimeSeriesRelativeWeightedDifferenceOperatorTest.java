@@ -49,9 +49,9 @@ public class TimeSeriesRelativeWeightedDifferenceOperatorTest {
     LocalDateDoubleTimeSeries result = _operator.apply(series, weights);
     LocalDateDoubleTimeSeries expected =
         LocalDateDoubleTimeSeries.builder()
-        .put(LocalDate.of(2014, 1, 2), 1.11)
-        .put(LocalDate.of(2014, 1, 3), 1.11)
-        .build();
+            .put(LocalDate.of(2014, 1, 2), 1.11)
+            .put(LocalDate.of(2014, 1, 3), 1.11)
+            .build();
     compareTimeseries(result, expected);
   }
 
@@ -77,9 +77,9 @@ public class TimeSeriesRelativeWeightedDifferenceOperatorTest {
 
     LocalDateDoubleTimeSeries weights =
         LocalDateDoubleTimeSeries.builder()
-          .put(LocalDate.of(2014, 1, 2), 0)
-          .put(LocalDate.of(2014, 1, 3), 2)
-          .build();
+            .put(LocalDate.of(2014, 1, 2), 0)
+            .put(LocalDate.of(2014, 1, 3), 2)
+            .build();
 
     LocalDateDoubleTimeSeries result = _operator.apply(series, weights);
 

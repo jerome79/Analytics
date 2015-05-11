@@ -16,7 +16,8 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ScheduleFactory {
 
-  public static LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate, final com.opengamma.strata.basics.schedule.Frequency frequency, final boolean endOfMonth, final boolean fromEnd,
+  public static LocalDate[] getSchedule(final LocalDate startDate, final LocalDate endDate, final com.opengamma.strata.basics.schedule.Frequency frequency, final boolean endOfMonth,
+      final boolean fromEnd,
       final boolean generateRecursive) {
     ArgChecker.notNull(startDate, "start date");
     ArgChecker.notNull(endDate, "end date");

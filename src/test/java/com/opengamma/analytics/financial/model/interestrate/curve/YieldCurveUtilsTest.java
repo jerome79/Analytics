@@ -44,16 +44,15 @@ public class YieldCurveUtilsTest {
   private static final Interpolator1D STEP_INTERPOLATOR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.STEP,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
   /** Time points of the original curve */
-  private static final double[] T = new double[] {1, 2, 3, 4, 5, 6, 7};
+  private static final double[] T = new double[] {1, 2, 3, 4, 5, 6, 7 };
   /** Yield points of the original curve */
-  private static final double[] Y = new double[] {0.01, 0.015, 0.017, 0.02, 0.025, 0.035, 0.05};
+  private static final double[] Y = new double[] {0.01, 0.015, 0.017, 0.02, 0.025, 0.035, 0.05 };
   /** The original interpolated curve */
   private static final DoublesCurve INTERPOLATED_CURVE = InterpolatedDoublesCurve.fromSorted(T, Y, INTERPOLATOR);
   /** Name of the original curve */
   private static final String ORIGINAL_NAME = "ORIGINAL";
   /** The original yield curve */
   private static final YieldCurve ORIGINAL_CURVE = new YieldCurve(ORIGINAL_NAME, INTERPOLATED_CURVE);
-
 
   /**
    * Tests a null yield curve for parallel shifts
@@ -320,8 +319,8 @@ public class YieldCurveUtilsTest {
     final List<Double> shifts = Arrays.asList(3., 4., 5.);
     final List<Double> inverseShifts = Arrays.asList(-3., -4., -5.);
     final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(
-        new double[]{0, 1, 5, 7.5, 10},
-        new double[]{0, 3., 4., 5., 0.},
+        new double[] {0, 1, 5, 7.5, 10 },
+        new double[] {0, 3., 4., 5., 0. },
         STEP_INTERPOLATOR);
     final DoublesCurve expectedCurve = SpreadDoublesCurve.from(
         ADD_CURVE_FUNCTION,
@@ -341,7 +340,7 @@ public class YieldCurveUtilsTest {
     final List<DoublesPair> buckets = Arrays.asList(DoublesPair.of(1., 5.), DoublesPair.of(5., 7.5), DoublesPair.of(7.5, 10));
     final List<Double> shifts = Arrays.asList(3., 4., 5.);
     final List<Double> inverseShifts = Arrays.asList(-0.75, -0.8, -5. / 6);
-    final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(new double[] {0, 1, 5, 7.5, 10}, new double[] {1, 4., 5., 6., 1.}, STEP_INTERPOLATOR);
+    final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(new double[] {0, 1, 5, 7.5, 10 }, new double[] {1, 4., 5., 6., 1. }, STEP_INTERPOLATOR);
     final DoublesCurve expectedCurve = SpreadDoublesCurve.from(MULTIPLY_CURVE_FUNCTION, ORIGINAL_CURVE.getCurve(), expectedSpreadCurve);
     YieldCurve shiftedCurve = YieldCurveUtils.withBucketedShifts(ORIGINAL_CURVE, buckets, shifts, ShiftType.RELATIVE);
     assertCurveEquals(expectedCurve, shiftedCurve.getCurve(), 1e-9);
@@ -357,7 +356,7 @@ public class YieldCurveUtilsTest {
     final List<DoublesPair> buckets = Arrays.asList(DoublesPair.of(1., 2.), DoublesPair.of(2.5, 3.5), DoublesPair.of(5., 7.5), DoublesPair.of(7.5, 10));
     final List<Double> shifts = Arrays.asList(3., 4., 5., 6.);
     final List<Double> inverseShifts = Arrays.asList(-3., -4., -5., -6.);
-    final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(new double[] {0, 1, 2, 2.5, 3.5, 5, 7.5, 10}, new double[] {0, 3., 0, 4., 0., 5., 6., 0.}, STEP_INTERPOLATOR);
+    final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(new double[] {0, 1, 2, 2.5, 3.5, 5, 7.5, 10 }, new double[] {0, 3., 0, 4., 0., 5., 6., 0. }, STEP_INTERPOLATOR);
     final DoublesCurve expectedCurve = SpreadDoublesCurve.from(ADD_CURVE_FUNCTION, ORIGINAL_CURVE.getCurve(), expectedSpreadCurve);
     YieldCurve shiftedCurve = YieldCurveUtils.withBucketedShifts(ORIGINAL_CURVE, buckets, shifts, ShiftType.ABSOLUTE);
     assertCurveEquals(expectedCurve, shiftedCurve.getCurve(), 1e-9);
@@ -373,7 +372,7 @@ public class YieldCurveUtilsTest {
     final List<DoublesPair> buckets = Arrays.asList(DoublesPair.of(1., 2.), DoublesPair.of(2.5, 3.5), DoublesPair.of(5., 7.5), DoublesPair.of(7.5, 10));
     final List<Double> shifts = Arrays.asList(3., 4., 5., 6.);
     final List<Double> inverseShifts = Arrays.asList(-0.75, -0.8, -5. / 6, -6. / 7);
-    final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(new double[] {0, 1, 2, 2.5, 3.5, 5, 7.5, 10}, new double[] {1, 4., 1, 5., 1., 6., 7., 1.}, STEP_INTERPOLATOR);
+    final DoublesCurve expectedSpreadCurve = InterpolatedDoublesCurve.from(new double[] {0, 1, 2, 2.5, 3.5, 5, 7.5, 10 }, new double[] {1, 4., 1, 5., 1., 6., 7., 1. }, STEP_INTERPOLATOR);
     final DoublesCurve expectedCurve = SpreadDoublesCurve.from(MULTIPLY_CURVE_FUNCTION, ORIGINAL_CURVE.getCurve(), expectedSpreadCurve);
     YieldCurve shiftedCurve = YieldCurveUtils.withBucketedShifts(ORIGINAL_CURVE, buckets, shifts, ShiftType.RELATIVE);
     assertCurveEquals(expectedCurve, shiftedCurve.getCurve(), 1e-9);
@@ -419,8 +418,9 @@ public class YieldCurveUtilsTest {
     assertFalse(ORIGINAL_CURVE.equals(shiftedCurve));
     assertCurveEquals(ORIGINAL_CURVE.getCurve(), shiftedCurve.getCurve(), 1e-9);
     points = Arrays.asList(1.1, 2.1, 3.1, 4.1);
-    final double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7};
-    final double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02, INTERPOLATED_CURVE.getYValue(4.1), 0.025, 0.035, 0.05};
+    final double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7 };
+    final double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02,
+      INTERPOLATED_CURVE.getYValue(4.1), 0.025, 0.035, 0.05 };
     final DoublesCurve expectedCurve = InterpolatedDoublesCurve.from(newT, newY, INTERPOLATOR);
     shiftedCurve = YieldCurveUtils.withPointShifts(ORIGINAL_CURVE, points, shifts, ShiftType.ABSOLUTE);
     assertEquals("ORIGINAL_WithPointShifts", shiftedCurve.getName());
@@ -439,8 +439,9 @@ public class YieldCurveUtilsTest {
     assertFalse(ORIGINAL_CURVE.equals(shiftedCurve));
     assertCurveEquals(ORIGINAL_CURVE.getCurve(), shiftedCurve.getCurve(), 1e-9);
     points = Arrays.asList(1.1, 2.1, 3.1, 4.1);
-    final double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7};
-    final double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02, INTERPOLATED_CURVE.getYValue(4.1), 0.025, 0.035, 0.05};
+    final double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7 };
+    final double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02,
+      INTERPOLATED_CURVE.getYValue(4.1), 0.025, 0.035, 0.05 };
     final DoublesCurve expectedCurve = InterpolatedDoublesCurve.from(newT, newY, INTERPOLATOR);
     shiftedCurve = YieldCurveUtils.withPointShifts(ORIGINAL_CURVE, points, shifts, ShiftType.RELATIVE);
     assertEquals("ORIGINAL_WithPointShifts", shiftedCurve.getName());
@@ -470,13 +471,15 @@ public class YieldCurveUtilsTest {
     final List<Double> inverseShifts = Arrays.asList(-2., -3., -4., -5.);
     assertCurveEquals(ORIGINAL_CURVE.getCurve(), YieldCurveUtils.withPointShifts(shiftedCurve, points, inverseShifts, ShiftType.ABSOLUTE).getCurve(), 1e-9);
     points = Arrays.asList(1.1, 2.1, 3.1, 4.1);
-    double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7};
-    double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1) + 2, 0.015, INTERPOLATED_CURVE.getYValue(2.1) + 3, 0.017, INTERPOLATED_CURVE.getYValue(3.1) + 4, 0.02, INTERPOLATED_CURVE.getYValue(4.1) + 5, 0.025, 0.035, 0.05};
+    double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7 };
+    double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1) + 2, 0.015, INTERPOLATED_CURVE.getYValue(2.1) + 3, 0.017, INTERPOLATED_CURVE.getYValue(3.1) + 4, 0.02,
+      INTERPOLATED_CURVE.getYValue(4.1) + 5, 0.025, 0.035, 0.05 };
     expectedCurve = InterpolatedDoublesCurve.from(newT, newY, INTERPOLATOR);
     shiftedCurve = YieldCurveUtils.withPointShifts(ORIGINAL_CURVE, points, shifts, ShiftType.ABSOLUTE);
     assertCurveEquals(expectedCurve, shiftedCurve.getCurve(), 1e-9);
-    newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7};
-    newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02, INTERPOLATED_CURVE.getYValue(4.1), 0.025, 0.035, 0.05};
+    newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7 };
+    newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02, INTERPOLATED_CURVE.getYValue(4.1), 0.025,
+      0.035, 0.05 };
     expectedCurve = InterpolatedDoublesCurve.from(newT, newY, INTERPOLATOR);
     assertCurveEquals(expectedCurve, YieldCurveUtils.withPointShifts(shiftedCurve, points, inverseShifts, ShiftType.ABSOLUTE).getCurve(), 1e-9);
   }
@@ -504,13 +507,15 @@ public class YieldCurveUtilsTest {
     final List<Double> inverseShifts = Arrays.asList(-2. / 3, -0.75, -0.8, -5 / 6.);
     assertCurveEquals(ORIGINAL_CURVE.getCurve(), YieldCurveUtils.withPointShifts(shiftedCurve, points, inverseShifts, ShiftType.RELATIVE).getCurve(), 1e-9);
     points = Arrays.asList(1.1, 2.1, 3.1, 4.1);
-    double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7};
-    double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1) * 3, 0.015, INTERPOLATED_CURVE.getYValue(2.1) * 4, 0.017, INTERPOLATED_CURVE.getYValue(3.1) * 5, 0.02, INTERPOLATED_CURVE.getYValue(4.1) * 6, 0.025, 0.035, 0.05};
+    double[] newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7 };
+    double[] newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1) * 3, 0.015, INTERPOLATED_CURVE.getYValue(2.1) * 4, 0.017, INTERPOLATED_CURVE.getYValue(3.1) * 5, 0.02,
+      INTERPOLATED_CURVE.getYValue(4.1) * 6, 0.025, 0.035, 0.05 };
     expectedCurve = InterpolatedDoublesCurve.from(newT, newY, INTERPOLATOR);
     shiftedCurve = YieldCurveUtils.withPointShifts(ORIGINAL_CURVE, points, shifts, ShiftType.RELATIVE);
     assertCurveEquals(expectedCurve, shiftedCurve.getCurve(), 1e-9);
-    newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7};
-    newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02, INTERPOLATED_CURVE.getYValue(4.1), 0.025, 0.035, 0.05};
+    newT = new double[] {1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 6, 7 };
+    newY = new double[] {0.01, INTERPOLATED_CURVE.getYValue(1.1), 0.015, INTERPOLATED_CURVE.getYValue(2.1), 0.017, INTERPOLATED_CURVE.getYValue(3.1), 0.02, INTERPOLATED_CURVE.getYValue(4.1), 0.025,
+      0.035, 0.05 };
     expectedCurve = InterpolatedDoublesCurve.from(newT, newY, INTERPOLATOR);
     assertCurveEquals(expectedCurve, YieldCurveUtils.withPointShifts(shiftedCurve, points, inverseShifts, ShiftType.RELATIVE).getCurve(), 1e-9);
   }

@@ -30,7 +30,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Tests related to the building of compounded Ibor coupons with spread: "Compounding treating spread as simple interest"
  */
@@ -85,8 +84,8 @@ public class CouponIborCompoundingSimpleSpreadDefinitionTest {
 
   private static final double[] FIXING_RATES = new double[] {0.0010, 0.0011, 0.0012, 0.0013 };
   private static final DoubleTimeSeries<ZonedDateTime> FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-      new ZonedDateTime[]{DateUtils.getUTCDate(2012, 8, 21), DateUtils.getUTCDate(2012, 8, 22),
-          DateUtils.getUTCDate(2012, 9, 20), DateUtils.getUTCDate(2012, 10, 22)}, FIXING_RATES);
+      new ZonedDateTime[] {DateUtils.getUTCDate(2012, 8, 21), DateUtils.getUTCDate(2012, 8, 22),
+        DateUtils.getUTCDate(2012, 9, 20), DateUtils.getUTCDate(2012, 10, 22) }, FIXING_RATES);
 
   private static final double TOLERANCE_AMOUNT = 1.0E-4;
   private static final double TOLERANCE_TIME = 1.0E-8;
@@ -115,7 +114,8 @@ public class CouponIborCompoundingSimpleSpreadDefinitionTest {
   public void fromShortStub() {
     final ZonedDateTime startDate = DateUtils.getUTCDate(2012, 8, 7);
     final ZonedDateTime endDate = DateUtils.getUTCDate(2012, 11, 23);
-    final CouponIborCompoundingFlatSpreadDefinition cpn = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, startDate, endDate, USDLIBOR1M, SPREAD, StubConvention.SHORT_INITIAL, PREC, true, NYC);
+    final CouponIborCompoundingFlatSpreadDefinition cpn = CouponIborCompoundingFlatSpreadDefinition.from(NOTIONAL, startDate, endDate, USDLIBOR1M, SPREAD, StubConvention.SHORT_INITIAL, PREC, true,
+        NYC);
     assertEquals("CouponIborCompoundingFlatSpreadDefinition: from", startDate, cpn.getAccrualStartDate());
     assertEquals("CouponIborCompoundingFlatSpreadDefinition: from", cpn.getAccrualStartDate(), cpn.getSubperiodsAccrualStartDates()[0]);
     int nbSubPeriod = cpn.getSubperiodsAccrualStartDates().length;

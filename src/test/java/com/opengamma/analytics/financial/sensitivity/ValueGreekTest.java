@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.greeks.Greek;
 
-
 /**
  * Test.
  */

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
-
 /**
  * Interface for a VolatilityTermStructureProvider, i.e. something that produces a  VolatilityTermStructure (usually based on some data it is given)
  * @param <T> the type of data

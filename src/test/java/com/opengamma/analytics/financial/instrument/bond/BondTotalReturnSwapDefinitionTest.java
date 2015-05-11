@@ -30,7 +30,6 @@ import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.schedule.StubConvention;
 
-
 /**
  * Test related to the description of a bond total return swap with an underlying bond and a funding leg.
  */

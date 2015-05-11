@@ -21,7 +21,7 @@ public class YieldSimpleCurve extends YieldAndDiscountCurve {
 
   /** The curve storing the required data in the simple rate convention. */
   private final DoublesCurve _curve;
-  
+
   /**
    * Constructor.
    * @param name The curve name.
@@ -32,7 +32,7 @@ public class YieldSimpleCurve extends YieldAndDiscountCurve {
     ArgChecker.notNull(curve, "Curve");
     _curve = curve;
   }
-  
+
   @Override
   public double getDiscountFactor(final double t) {
     return 1.0d / (1.0d + t * _curve.getYValue(t));
@@ -72,7 +72,7 @@ public class YieldSimpleCurve extends YieldAndDiscountCurve {
   public List<String> getUnderlyingCurvesNames() {
     return new ArrayList<>();
   }
-  
+
   /**
    * Returns the DoublesCurve in which the continuously compounded zero-rates are stored.
    * @return The doubles curve.

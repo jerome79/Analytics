@@ -43,7 +43,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  *  Tests the present value and its sensitivities for zero-coupon cap/floor with reference index on the first of the month.
  */
@@ -81,7 +80,7 @@ public class CapFloorInflationZeroCouponMonthlyBlackSmileMethodTest {
       LAST_KNOWN_FIXING_DATE, MATURITY, STRIKE, IS_CAP);
 
   private static final DoubleTimeSeries<ZonedDateTime> priceIndexTS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(
-      new ZonedDateTime[]{DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30)}, new double[]{108.23, 128.23, 128.43});
+      new ZonedDateTime[] {DateUtils.getUTCDate(2008, 5, 31), DateUtils.getUTCDate(2018, 5, 31), DateUtils.getUTCDate(2018, 6, 30) }, new double[] {108.23, 128.23, 128.43 });
 
   private static final CapFloorInflationZeroCouponMonthly ZERO_COUPON_CAP = (CapFloorInflationZeroCouponMonthly) ZERO_COUPON_DEFINITION_CAP.toDerivative(PRICING_DATE, priceIndexTS);
 

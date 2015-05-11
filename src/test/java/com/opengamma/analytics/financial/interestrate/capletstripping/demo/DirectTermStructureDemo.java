@@ -26,12 +26,13 @@ import com.opengamma.analytics.financial.interestrate.capletstripping.MultiCapFl
  * The output is this surface sampled on a grid (101 by 101), such that it can be plotted as an Excel surface plot (or
  * imported into some other visualisation tool).     
  */
+@Test(enabled = false)
 public class DirectTermStructureDemo extends CapletStrippingSetup {
 
   /**
    * This fits each strike in turn (excluding the ATM) and combines the results into a caplet volatility surface   
    */
-  @Test(description = "Demo of infering a caplet volatility surface")
+  @Test(description = "Demo of infering a caplet volatility surface", enabled = false)
   public void singleStrikeExATMTest() {
     final double lambda = 0.1; //this is chosen to recover the cap vols to better than 1bps 
 
@@ -45,7 +46,6 @@ public class DirectTermStructureDemo extends CapletStrippingSetup {
       final double[] errors = new double[nVols];
       Arrays.fill(errors, 1e-4); //1bps
       res[i] = stripper.solve(getCapVols(i), MarketDataType.VOL, errors);
-      //System.out.println(res[i]);
       res[i].printCapletVols(System.out);
     }
 

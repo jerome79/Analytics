@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 
-
 /**
  * Test.
  */
@@ -40,7 +39,7 @@ public class PoweredOptionFunctionProviderTest {
   @Test
   public void priceLatticeTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
@@ -69,7 +68,7 @@ public class PoweredOptionFunctionProviderTest {
   @Test
   public void greekTrinomialTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(),
-        new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
+      new TrigeorgisLatticeSpecification(), new TianLatticeSpecification() };
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
       for (final boolean isCall : tfSet) {
@@ -106,12 +105,11 @@ public class PoweredOptionFunctionProviderTest {
   @Test
   public void priceLatticeTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     /**
      * Since d1, d2 in Black-Scholes formula are not relevant in the case of power option, Leisen-Reimer is poor approximation
      */
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
@@ -140,8 +138,7 @@ public class PoweredOptionFunctionProviderTest {
   @Test
   public void priceDiscreteDividendTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.01, 0.01 };
     final double[] cashDividends = new double[] {0.5, 1., 0.8 };
@@ -191,8 +188,7 @@ public class PoweredOptionFunctionProviderTest {
   @Test
   public void greekTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     final boolean[] tfSet = new boolean[] {true, false };
     for (final LatticeSpecification lattice : lattices) {
@@ -230,8 +226,7 @@ public class PoweredOptionFunctionProviderTest {
   @Test
   public void greeksDiscreteDividendLatticeTest() {
     final LatticeSpecification[] lattices = new LatticeSpecification[] {new CoxRossRubinsteinLatticeSpecification(), new JarrowRuddLatticeSpecification(), new TrigeorgisLatticeSpecification(),
-        new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
-    //    final LatticeSpecification[] lattices = new LatticeSpecification[] {new LeisenReimerLatticeSpecification() };
+      new JabbourKraminYoungLatticeSpecification(), new TianLatticeSpecification() };
 
     final double[] propDividends = new double[] {0.01, 0.02, 0.02 };
     final double[] cashDividends = new double[] {1., 4., 1. };
@@ -244,7 +239,6 @@ public class PoweredOptionFunctionProviderTest {
           for (final double interest : INTERESTS) {
             for (final double vol : VOLS) {
               final int nSteps = 968;
-              //              final int nSteps = 8637;
               final double resSpot = SPOT * (1. - propDividends[0]) * (1. - propDividends[1]) * (1. - propDividends[2]);
               final double modSpot = SPOT - cashDividends[0] * Math.exp(-interest * dividendTimes[0]) - cashDividends[1] * Math.exp(-interest * dividendTimes[1]) - cashDividends[2] *
                   Math.exp(-interest * dividendTimes[2]);
@@ -386,8 +380,8 @@ public class PoweredOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider1D ref = new PoweredOptionFunctionProvider(103., 1., 1003, true, 12.);
     final OptionFunctionProvider1D[] function = new OptionFunctionProvider1D[] {ref, new PoweredOptionFunctionProvider(103., 1., 1003, true, 12.),
-        new PoweredOptionFunctionProvider(103., 1., 1003, true, 11.),
-        new PoweredOptionFunctionProvider(100., 1., 1003, true, 12.), new EuropeanVanillaOptionFunctionProvider(103., 1., 1003, true) };
+      new PoweredOptionFunctionProvider(103., 1., 1003, true, 11.),
+      new PoweredOptionFunctionProvider(100., 1., 1003, true, 12.), new EuropeanVanillaOptionFunctionProvider(103., 1., 1003, true) };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

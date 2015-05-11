@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 
-
 /**
  * Test class for {@link SmileExtrapolationFunctionSABRProvider} and its subclasses.
  * As these classes should be used with {@link SmileInterpolatorSABRWithExtrapolation},

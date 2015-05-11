@@ -20,8 +20,8 @@ import com.opengamma.analytics.util.time.ComparableTenor;
  * Gets the index tenors for the coupons in an annuity.
  */
 public final class AnnuityIndexTenorsVisitor
-  extends InstrumentDefinitionVisitorAdapter<ZonedDateTime, List<Set<ComparableTenor>>> {
-  
+    extends InstrumentDefinitionVisitorAdapter<ZonedDateTime, List<Set<ComparableTenor>>> {
+
   /** The coupon accrual year fraction visitor */
   private static final InstrumentDefinitionVisitor<Void, Set<ComparableTenor>> COUPON_VISITOR = CouponTenorVisitor.getInstance();
   /** A singleton instance */

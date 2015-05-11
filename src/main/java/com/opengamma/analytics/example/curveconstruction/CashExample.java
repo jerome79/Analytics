@@ -28,6 +28,7 @@ public class CashExample {
 
   public static final String yieldCurveName = "Euro Yield Curve Fixed 2%";
   public static final double y = 0.02;
+
   // CSON
 
   public static void cashDemo(final PrintStream out) {

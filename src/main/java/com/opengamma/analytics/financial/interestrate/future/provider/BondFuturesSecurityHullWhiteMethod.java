@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate.future.provider;
 
-
 /**
  * Method to compute the bond futures security results with the price computed as the cheapest forward.
  */

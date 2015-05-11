@@ -10,7 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
 /**
  * Test.
  */
@@ -21,15 +20,6 @@ public class BlackFunctionDataTest {
   private static final double SIGMA = 0.23;
   private static final BlackFunctionData DATA = new BlackFunctionData(F, DF, SIGMA);
 
-  //  @Test(expected = IllegalArgumentException.class)
-  //  public void testHighDiscountFactor() {
-  //    new BlackFunctionData(F, DF + 1, SIGMA);
-  //  }
-  //
-  //  @Test(expected = IllegalArgumentException.class)
-  //  public void testLowDiscountFactor() {
-  //    new BlackFunctionData(F, 0, SIGMA);
-  //  }
   // Test temporarily removed.
 
   @Test

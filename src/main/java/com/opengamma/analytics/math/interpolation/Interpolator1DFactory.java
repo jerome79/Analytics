@@ -87,7 +87,6 @@ public final class Interpolator1DFactory {
   /** Exponential extrapolator instance */
   public static final ExponentialExtrapolator1D EXPONENTIAL_EXTRAPOLATOR_INSTANCE = new ExponentialExtrapolator1D();
 
-
   /**Cubic spline with clamped endpoint conditions*/
   public static final String CLAMPED_CUBIC = "ClampedCubicSpline";
   /**Instance of cubic spline with clamped endpoint conditions*/
@@ -240,7 +239,6 @@ public final class Interpolator1DFactory {
     staticInstances.put(EXPONENTIAL_EXTRAPOLATOR, EXPONENTIAL_EXTRAPOLATOR_INSTANCE);
     instanceNames.put(ExponentialExtrapolator1D.class, EXPONENTIAL_EXTRAPOLATOR);
 
-
     staticInstances.put(CLAMPED_CUBIC, CLAMPED_CUBIC_INSTANCE);
     instanceNames.put(ClampedCubicSplineInterpolator1D.class, CLAMPED_CUBIC);
     staticInstances.put(CLAMPED_CUBIC_MONOTONE, CLAMPED_CUBIC_MONOTONE_INSTANCE);
@@ -316,8 +314,7 @@ public final class Interpolator1DFactory {
     if (interpolator != null) {
       return interpolator;
     }
-    // TODO kirk 2009-12-30 -- Deal with degree for Barycentric, Polynomial, and
-    // RationalFunction
+    // TODO Deal with degree for Barycentric, Polynomial, and RationalFunction
     throw new IllegalArgumentException("Interpolator not handled: " + interpolatorName);
   }
 
@@ -326,7 +323,7 @@ public final class Interpolator1DFactory {
       return null;
     }
     final String interpolatorName = s_instanceNames.get(interpolator.getClass());
-    // TODO kirk 2010-03-31 -- Deal with the more complicated rules for
+    // TODO Deal with the more complicated rules for
     // Barycentric, Polynomial, and RationalFunction.
     if (interpolator instanceof LinearExtrapolator1D) {
       return LINEAR_EXTRAPOLATOR;

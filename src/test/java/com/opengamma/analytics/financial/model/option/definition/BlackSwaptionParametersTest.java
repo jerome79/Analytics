@@ -22,7 +22,6 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -38,8 +37,9 @@ public class BlackSwaptionParametersTest {
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;
   private static final GeneratorSwapFixedIborMaster GENERATOR_SWAP_MASTER = GeneratorSwapFixedIborMaster.getInstance();
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR6M = GENERATOR_SWAP_MASTER.getGenerator("EUR1YEURIBOR6M", CALENDAR);
-  private static final InterpolatedDoublesSurface BLACK_SURFACE = InterpolatedDoublesSurface.from(new double[] {0.5, 1.0, 5.0, 0.5, 1.0, 5.0}, new double[] {2, 2, 2, 10, 10, 10}, new double[] {0.35,
-      0.34, 0.25, 0.30, 0.25, 0.20}, INTERPOLATOR_2D);
+  private static final InterpolatedDoublesSurface BLACK_SURFACE = InterpolatedDoublesSurface.from(new double[] {0.5, 1.0, 5.0, 0.5, 1.0, 5.0 }, new double[] {2, 2, 2, 10, 10, 10 }, new double[] {
+    0.35,
+    0.34, 0.25, 0.30, 0.25, 0.20 }, INTERPOLATOR_2D);
   private static final BlackFlatSwaptionParameters BLACK_SWAPTION = new BlackFlatSwaptionParameters(BLACK_SURFACE, EUR1YEURIBOR6M);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -72,8 +72,9 @@ public class BlackSwaptionParametersTest {
     assertEquals("Black Swaption Surface: equal and hash code", BLACK_SWAPTION.hashCode(), other.hashCode());
     BlackFlatSwaptionParameters modified = new BlackFlatSwaptionParameters(BLACK_SURFACE, GENERATOR_SWAP_MASTER.getGenerator("EUR1YEURIBOR3M", CALENDAR));
     assertFalse("Black Swaption Surface: equal and hash code", BLACK_SWAPTION.equals(modified));
-    InterpolatedDoublesSurface surface2 = InterpolatedDoublesSurface.from(new double[] {0.5, 1.0, 5.0, 0.5, 1.0, 5.0}, new double[] {2, 2, 2, 10, 10, 10}, new double[] {0.35, 0.34, 0.25, 0.31, 0.25,
-        0.20}, INTERPOLATOR_2D);
+    InterpolatedDoublesSurface surface2 = InterpolatedDoublesSurface.from(new double[] {0.5, 1.0, 5.0, 0.5, 1.0, 5.0 }, new double[] {2, 2, 2, 10, 10, 10 }, new double[] {0.35, 0.34, 0.25, 0.31,
+      0.25,
+      0.20 }, INTERPOLATOR_2D);
     modified = new BlackFlatSwaptionParameters(surface2, EUR1YEURIBOR6M);
     assertFalse("Black Swaption Surface: equal and hash code", BLACK_SWAPTION.equals(modified));
   }

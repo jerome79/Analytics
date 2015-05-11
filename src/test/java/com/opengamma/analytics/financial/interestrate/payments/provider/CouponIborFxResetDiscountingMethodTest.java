@@ -46,7 +46,6 @@ import com.opengamma.strata.basics.date.BusinessDayAdjustment;
 import com.opengamma.strata.basics.date.DaysAdjustment;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Test the pricing method for coupon ibor with spread and FX reset notional. 
  */
@@ -165,7 +164,6 @@ public class CouponIborFxResetDiscountingMethodTest {
         senseCalc1, senseFd1, TOLERANCE_PV_DELTA);
   }
 
-
   /** 
    * Swap with FX reset. EUR P3M v USD FX reset P3M
    */
@@ -192,19 +190,18 @@ public class CouponIborFxResetDiscountingMethodTest {
   private static final GeneratorSwapFixedIbor USD6MLIBOR6M =
       GENERATOR_IRS_MASTER.getGenerator(GeneratorSwapFixedIborMaster.USD6MLIBOR6M, CAL);
   private static final IborIndex USDLIBOR6M = USD6MLIBOR6M.getIborIndex();
-  
-  
+
   // EUR Ibor leg EUR with exchange notional 
   private static final AnnuityDefinition<? extends CouponDefinition> EUR_LEG_1_DEFINITION;
   static {
     EUR_LEG_1_DEFINITION = (AnnuityDefinition<? extends CouponDefinition>)
         new FloatingAnnuityDefinitionBuilder().payer(PAYER_1).notional(NOTIONAL_PROV_1).startDate(EFFECTIVE_DATE_1).
-          endDate(MATURITY_DATE_1).index(EUREURIBOR3M).accrualPeriodFrequency(EUREURIBOR3M.getTenor()).
-          rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-          resetDateAdjustmentParameters(ADJUSTED_DATE_IBOR).accrualPeriodParameters(ADJUSTED_DATE_IBOR).
-          dayCount(EUREURIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_IBOR).
-          currency(EUREURIBOR3M.getCurrency()).exchangeInitialNotional(true).exchangeFinalNotional(true).
-          startDateAdjustmentParameters(ADJUSTED_DATE_IBOR).endDateAdjustmentParameters(ADJUSTED_DATE_IBOR).build();
+            endDate(MATURITY_DATE_1).index(EUREURIBOR3M).accrualPeriodFrequency(EUREURIBOR3M.getTenor()).
+            rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+            resetDateAdjustmentParameters(ADJUSTED_DATE_IBOR).accrualPeriodParameters(ADJUSTED_DATE_IBOR).
+            dayCount(EUREURIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_IBOR).
+            currency(EUREURIBOR3M.getCurrency()).exchangeInitialNotional(true).exchangeFinalNotional(true).
+            startDateAdjustmentParameters(ADJUSTED_DATE_IBOR).endDateAdjustmentParameters(ADJUSTED_DATE_IBOR).build();
   }
   // USD Ibor Leg with FX reset, spread with exchange notional
   private static final AnnuityDefinition<? extends CouponDefinition> USD_LEG_1_DEFINITION;

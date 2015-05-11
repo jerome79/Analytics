@@ -16,7 +16,6 @@ import com.opengamma.analytics.financial.pnl.UnderlyingType;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * 
  */

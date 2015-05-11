@@ -96,19 +96,24 @@ public interface PreciseTimeSeries<T, V>
   long[] timesArrayFast();
 
   //-------------------------------------------------------------------------
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   PreciseTimeSeries<T, V> subSeries(T startTime, boolean includeStart, T endTime, boolean includeEnd);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   PreciseTimeSeries<T, V> subSeries(T startTime, T endTime);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   PreciseTimeSeries<T, V> head(int numItems);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   PreciseTimeSeries<T, V> tail(int numItems);
 
-  @Override  // override for covariant return type
+  @Override
+  // override for covariant return type
   PreciseTimeSeries<T, V> lag(int lagCount);
 
   //-------------------------------------------------------------------------

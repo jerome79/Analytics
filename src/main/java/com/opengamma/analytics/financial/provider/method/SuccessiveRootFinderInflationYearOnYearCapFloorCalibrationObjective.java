@@ -141,7 +141,6 @@ public class SuccessiveRootFinderInflationYearOnYearCapFloorCalibrationObjective
 
     // setting the volatility in the volatility matrix
     _inflationCapYearOnYearParameters.setVolatility(x, _expiryIndex, _strikeIndex);
-    // creating the new volatility surface using the new volatility matrix
     final Interpolator2D interpolator = _inflationCapYearOnYearProvider.getBlackParameters().getVolatilitySurface().getInterpolator();
     final BlackSmileCapInflationYearOnYearParameters blackSmileCapInflationYearOnYearParameters = new BlackSmileCapInflationYearOnYearParameters(_inflationCapYearOnYearParameters, interpolator);
     final BlackSmileCapInflationYearOnYearProvider blackSmileCapInflationYearOnYearProvider = new BlackSmileCapInflationYearOnYearProvider(_inflationCapYearOnYearProvider.getInflationProvider(),

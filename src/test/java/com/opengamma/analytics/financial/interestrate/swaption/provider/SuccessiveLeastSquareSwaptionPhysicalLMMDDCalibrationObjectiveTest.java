@@ -43,7 +43,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the calibration engine for LMM DD calibration at best to European swaptions. The calibration is obtained
  * by changing volatility parameters with a common multiplicative factor and displacement with a common additive term.

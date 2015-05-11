@@ -25,8 +25,6 @@ import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.schedule.Frequency;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
-
 /**
  * 
  */

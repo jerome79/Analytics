@@ -49,19 +49,19 @@ public class SwapCrossCurrencyUsdEurE2ETest {
   private static final HolidayCalendar LON = HolidayCalendars.SAT_SUN;
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
   private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
-  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR_LONNYC = 
+  private static final BusinessDayAdjustment ADJUSTED_DATE_LIBOR_LONNYC =
       BusinessDayAdjustment.of(BusinessDayConventions.MODIFIED_FOLLOWING, NYC); // HolidayCalendar should be LON+NYC
   private static final DaysAdjustment OFFSET_ADJ_LIBOR_TAR_2 =
       DaysAdjustment.ofBusinessDays(-2, TARGET, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, TARGET));
   private static final DaysAdjustment OFFSET_ADJ_LIBOR_LON_2 =
       DaysAdjustment.ofBusinessDays(-2, LON, BusinessDayAdjustment.of(BusinessDayConventions.FOLLOWING, LON));
-  
+
   /** Curve providers */
   private static final FxMatrix FX_MATRIX = FxMatrix.builder().addRate(EUR, USD, 1.20).build();
   private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_USD_PAIR =
       StandardDataSetsMulticurveUSD.getCurvesUSDOisL3();
   private static final IborIndex USDLIBOR3M = MULTICURVE_USD_PAIR.getFirst().getIndexesIbor().iterator().next();
-  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_EUR_PAIR = 
+  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_EUR_PAIR =
       StandardDataSetsMulticurveEUR.getCurvesEurOisE3();
   private static final IborIndex EUREURIBOR3M = MULTICURVE_EUR_PAIR.getFirst().getIndexesIbor().iterator().next();
   private static final MulticurveProviderDiscount MULTICURVE = MULTICURVE_USD_PAIR.getFirst();
@@ -71,7 +71,7 @@ public class SwapCrossCurrencyUsdEurE2ETest {
     MULTICURVE.setForexMatrix(FX_MATRIX);
   }
   private static final CurveBuildingBlockBundle BLOCK = MULTICURVE_USD_PAIR.getSecond();
-  static{
+  static {
     BLOCK.addAll(MULTICURVE_EUR_PAIR.getSecond());
   }
 
@@ -85,21 +85,20 @@ public class SwapCrossCurrencyUsdEurE2ETest {
   /** Fixed notional */
   private static final SwapDefinition XCCY_EUR_USD_NOT_DEFINITION =
       xccyEurE3SUsdL3(EFFECTIVE_DATE, MATURITY_DATE, SPREAD, PAYER, NOTIONAL_EUR, NOTIONAL_USD, true);
-  private static final Swap<? extends Payment, ? extends Payment> XCCY_GBP_USD_NOT = 
+  private static final Swap<? extends Payment, ? extends Payment> XCCY_GBP_USD_NOT =
       XCCY_EUR_USD_NOT_DEFINITION.toDerivative(VALUATION_DATE);
   /** FX Reset notional */
   private static final SwapDefinition XCCY_EUR_USD_FXRESETNOT_DEFINITION =
       xccyEurE3SUsdL3FXReset(EFFECTIVE_DATE, MATURITY_DATE, SPREAD, PAYER, NOTIONAL_EUR, NOTIONAL_USD);
-  private static final Swap<? extends Payment, ? extends Payment> XCCY_EUR_USD_FXRESETNOT = 
+  private static final Swap<? extends Payment, ? extends Payment> XCCY_EUR_USD_FXRESETNOT =
       XCCY_EUR_USD_FXRESETNOT_DEFINITION.toDerivative(VALUATION_DATE);
-  
+
   /** Calculators. */
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
-  
+
   /** Tolerances */
   private static final double TOLERANCE_PV = 1.0E-2;
 
-  
   @Test
   public void presentValueXNot() {
     MultiCurrencyAmount pv = XCCY_GBP_USD_NOT.accept(PVDC, MULTICURVE);
@@ -107,8 +106,8 @@ public class SwapCrossCurrencyUsdEurE2ETest {
     double pvEurExpected = -731021.1778;
     assertEquals("XCcy Swap - Present Value - USD", pvUsdExpected, pv.getAmount(USD).getAmount(), TOLERANCE_PV);
     assertEquals("XCcy Swap - Present Value - EUR", pvEurExpected, pv.getAmount(EUR).getAmount(), TOLERANCE_PV);
-  }  
-  
+  }
+
   @Test
   public void presentValueFxReset() {
     MultiCurrencyAmount pv = XCCY_EUR_USD_FXRESETNOT.accept(PVDC, MULTICURVE);
@@ -118,23 +117,23 @@ public class SwapCrossCurrencyUsdEurE2ETest {
     assertEquals("XCcy Swap - Present Value - EUR", pvEurExpected, pv.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
-  private static SwapDefinition xccyEurE3SUsdL3(final LocalDate effectiveDate, final LocalDate maturityDate, 
-      final double spreadEur, boolean payerEur, final double notionalEur, final double notionalUsd, 
+  private static SwapDefinition xccyEurE3SUsdL3(final LocalDate effectiveDate, final LocalDate maturityDate,
+      final double spreadEur, boolean payerEur, final double notionalEur, final double notionalUsd,
       boolean exchangeNotional) {
     NotionalProvider notionalUsdProvider = date -> notionalUsd;
     FloatingAnnuityDefinitionBuilder iborUsdBuilder =
         new FloatingAnnuityDefinitionBuilder().payer(!payerEur).
-        notional(notionalUsdProvider).startDate(effectiveDate).endDate(maturityDate).index(USDLIBOR3M).
-        accrualPeriodFrequency(USDLIBOR3M.getTenor()).rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-        resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC).accrualPeriodParameters(ADJUSTED_DATE_LIBOR_LONNYC).
-        dayCount(USDLIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR_LON_2).
-        currency(USDLIBOR3M.getCurrency());
+            notional(notionalUsdProvider).startDate(effectiveDate).endDate(maturityDate).index(USDLIBOR3M).
+            accrualPeriodFrequency(USDLIBOR3M.getTenor()).rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+            resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC).accrualPeriodParameters(ADJUSTED_DATE_LIBOR_LONNYC).
+            dayCount(USDLIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR_LON_2).
+            currency(USDLIBOR3M.getCurrency());
     if (exchangeNotional) {
       iborUsdBuilder = iborUsdBuilder.
           exchangeInitialNotional(true).startDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC).
           exchangeFinalNotional(true).endDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC);
     }
-    AnnuityDefinition<?> legIborEurDefinition = 
+    AnnuityDefinition<?> legIborEurDefinition =
         legEurE3Notional(effectiveDate, maturityDate, spreadEur, payerEur, notionalEur, exchangeNotional);
     AnnuityDefinition<?> legIborUsdDefinition = iborUsdBuilder.build();
     return new SwapDefinition(legIborEurDefinition, legIborUsdDefinition);
@@ -164,17 +163,17 @@ public class SwapCrossCurrencyUsdEurE2ETest {
     legUsdL3FXResetDefinition = new AnnuityDefinition<>(cpnFxReset, NYC);
     return new SwapDefinition(legIborEurDefinition, legUsdL3FXResetDefinition);
   }
-  
-  private static AnnuityDefinition<?> legEurE3Notional(final LocalDate effectiveDate, final LocalDate maturityDate, 
-      final double spreadEur, boolean payerEur, final double notionalEur, boolean exchangeNotional){
+
+  private static AnnuityDefinition<?> legEurE3Notional(final LocalDate effectiveDate, final LocalDate maturityDate,
+      final double spreadEur, boolean payerEur, final double notionalEur, boolean exchangeNotional) {
     NotionalProvider notionalEurProvider = date -> notionalEur;
-    FloatingAnnuityDefinitionBuilder iborEurBuilder = 
+    FloatingAnnuityDefinitionBuilder iborEurBuilder =
         new FloatingAnnuityDefinitionBuilder().payer(payerEur).
-        notional(notionalEurProvider).startDate(effectiveDate).endDate(maturityDate).index(EUREURIBOR3M).
-        accrualPeriodFrequency(EUREURIBOR3M.getTenor()).rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
-        resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC).accrualPeriodParameters(ADJUSTED_DATE_LIBOR_LONNYC).
-        dayCount(EUREURIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR_TAR_2).
-        currency(EUREURIBOR3M.getCurrency()).spread(spreadEur);
+            notional(notionalEurProvider).startDate(effectiveDate).endDate(maturityDate).index(EUREURIBOR3M).
+            accrualPeriodFrequency(EUREURIBOR3M.getTenor()).rollDateAdjuster(RollConvention.NONE.getRollDateAdjuster(0)).
+            resetDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC).accrualPeriodParameters(ADJUSTED_DATE_LIBOR_LONNYC).
+            dayCount(EUREURIBOR3M.getDayCount()).fixingDateAdjustmentParameters(OFFSET_ADJ_LIBOR_TAR_2).
+            currency(EUREURIBOR3M.getCurrency()).spread(spreadEur);
     if (exchangeNotional) {
       iborEurBuilder = iborEurBuilder.
           exchangeInitialNotional(true).startDateAdjustmentParameters(ADJUSTED_DATE_LIBOR_LONNYC).
@@ -182,5 +181,5 @@ public class SwapCrossCurrencyUsdEurE2ETest {
     }
     return iborEurBuilder.build();
   }
-  
+
 }

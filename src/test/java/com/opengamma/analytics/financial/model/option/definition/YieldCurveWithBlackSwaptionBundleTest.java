@@ -15,7 +15,6 @@ import com.opengamma.analytics.financial.interestrate.TestsDataSetsBlack;
 import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.option.parameters.BlackFlatSwaptionParameters;
 
-
 /**
  * @deprecated This class tests deprecated functionality
  */

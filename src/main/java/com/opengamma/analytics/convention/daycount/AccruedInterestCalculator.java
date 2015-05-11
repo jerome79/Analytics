@@ -297,11 +297,11 @@ public final class AccruedInterestCalculator {
       final boolean isEndOfMonthConvention) {
     StubConvention stubType;
     if (index == 0) {
-      LocalDate[] schedule = new LocalDate[] {previousCouponDate.toLocalDate(), nextCouponDate.toLocalDate()};
+      LocalDate[] schedule = new LocalDate[] {previousCouponDate.toLocalDate(), nextCouponDate.toLocalDate() };
       stubType = StubCalculator.getStartStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
 
     } else if (index == length - 2) {
-      LocalDate[] schedule = new LocalDate[] {previousCouponDate.toLocalDate(), nextCouponDate.toLocalDate()};
+      LocalDate[] schedule = new LocalDate[] {previousCouponDate.toLocalDate(), nextCouponDate.toLocalDate() };
       stubType = StubCalculator.getEndStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
 
     } else {
@@ -314,11 +314,11 @@ public final class AccruedInterestCalculator {
       final boolean isEndOfMonthConvention) {
     StubConvention stubType;
     if (index == 0) {
-      LocalDate[] schedule = new LocalDate[] {previousCouponDate, nextCouponDate};
+      LocalDate[] schedule = new LocalDate[] {previousCouponDate, nextCouponDate };
       stubType = StubCalculator.getStartStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
 
     } else if (index == length - 2) {
-      LocalDate[] schedule = new LocalDate[] {previousCouponDate, nextCouponDate};
+      LocalDate[] schedule = new LocalDate[] {previousCouponDate, nextCouponDate };
       stubType = StubCalculator.getEndStubType(schedule, paymentsPerYear, isEndOfMonthConvention);
 
     } else {

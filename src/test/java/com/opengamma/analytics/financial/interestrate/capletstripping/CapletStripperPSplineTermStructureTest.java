@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.volatility.surface.BasisSplineVolatilityTermStructureProvider;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 
-
 @Test
 public class CapletStripperPSplineTermStructureTest extends CapletStrippingSetup {
 

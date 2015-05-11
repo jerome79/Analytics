@@ -80,7 +80,6 @@ public class SwaptionBermudaFixedIborHullWhiteNumericalIntegrationMethodTest {
 
   private static final double TOLERANCE_PV = 1.0E-2;
 
-  @Test
   /**
    * Test the present value against European swaptions.
    */
@@ -102,7 +101,6 @@ public class SwaptionBermudaFixedIborHullWhiteNumericalIntegrationMethodTest {
 
   //TODO: test present value with external values
 
-  @Test
   /**
    * Test the present value long/short parity.
    */
@@ -112,44 +110,6 @@ public class SwaptionBermudaFixedIborHullWhiteNumericalIntegrationMethodTest {
     final SwaptionBermudaFixedIbor bermudShort = bermudaShortDefinition.toDerivative(REFERENCE_DATE);
     final MultiCurrencyAmount pvShort = METHOD_BERMUDA.presentValue(bermudShort, HW_MULTICURVES);
     assertEquals("Bermuda swaption pv: short/long parity", pvLong.getAmount(CUR).getAmount(), -pvShort.getAmount(CUR).getAmount(), TOLERANCE_PV);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 20;
-    // Creates different swaptions
-    final SwapFixedIborDefinition[] swapDefinition = new SwapFixedIborDefinition[nbTest];
-    final SwapFixedIborDefinition[][] swapExpiryDefinition = new SwapFixedIborDefinition[nbTest][NB_EXPIRY];
-    final SwaptionBermudaFixedIborDefinition[] swaptionBermudaDefinition = new SwaptionBermudaFixedIborDefinition[nbTest];
-    final SwaptionBermudaFixedIbor[] swaptionBermuda = new SwaptionBermudaFixedIbor[nbTest];
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      swapDefinition[looptest] = SwapFixedIborDefinition.from(SETTLEMENT_DATE, CMS_INDEX, NOTIONAL, RATE + looptest * 0.0010 / nbTest, FIXED_IS_PAYER, CALENDAR);
-      for (int loopexp = 0; loopexp < NB_EXPIRY; loopexp++) {
-        swapExpiryDefinition[looptest][loopexp] = swapDefinition[looptest].trimStart(EXPIRY_DATE[loopexp]);
-      }
-      swaptionBermudaDefinition[looptest] = new SwaptionBermudaFixedIborDefinition(swapExpiryDefinition[looptest], IS_LONG, EXPIRY_DATE);
-      swaptionBermuda[looptest] = swaptionBermudaDefinition[looptest].toDerivative(REFERENCE_DATE);
-    }
-    // Loop for pricing
-    final MultiCurrencyAmount[] pv = new MultiCurrencyAmount[nbTest];
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pv[looptest] = METHOD_BERMUDA.presentValue(swaptionBermuda[looptest], HW_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv Bermuda swaption Hull-White numerical integration method: " + (endTime - startTime) + " ms");
-    // Performance note: HW price: 19-Jan-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 480 ms for 20 swaptions.
-
-    double total = 0.0;
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      total += pv[looptest].getAmount(CUR).getAmount();
-    }
-    assertEquals("Bermuda swaption pv performance", pv[nbTest / 2].getAmount(CUR).getAmount(), total / nbTest, 1.0E+5);
   }
 
 }

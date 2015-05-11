@@ -29,8 +29,9 @@ import com.opengamma.strata.basics.date.Tenor;
 public class VolatilitySurfaceTest {
   private static final LinearInterpolator1D LINEAR = new LinearInterpolator1D();
   private static final GridInterpolator2D INTERPOLATOR = new GridInterpolator2D(LINEAR, LINEAR);
-  private static final InterpolatedDoublesSurface SURFACE = InterpolatedDoublesSurface.from(new double[] {0, 1, 2, 0, 1, 2, 0, 1, 2}, new double[] {0, 0, 0, 1, 1, 1, 2, 2, 2}, new double[] {4, 5, 6,
-      4, 5, 6, 4, 5, 6}, INTERPOLATOR, "S");
+  private static final InterpolatedDoublesSurface SURFACE = InterpolatedDoublesSurface.from(new double[] {0, 1, 2, 0, 1, 2, 0, 1, 2 }, new double[] {0, 0, 0, 1, 1, 1, 2, 2, 2 }, new double[] {4, 5,
+    6,
+    4, 5, 6, 4, 5, 6 }, INTERPOLATOR, "S");
   private static final VolatilitySurface VOL = new VolatilitySurface(SURFACE);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -77,10 +78,10 @@ public class VolatilitySurfaceTest {
     assertArrayEquals(other.getSurface().getXData(), underlying.getXData());
     assertArrayEquals(other.getSurface().getYData(), underlying.getYData());
     assertArrayEquals(other.getSurface().getZData(), underlying.getZData());
-    other = VOL.withMultipleAdditiveShifts(new double[] {0, 1}, new double[] {0, 1}, new double[] {0, 0});
+    other = VOL.withMultipleAdditiveShifts(new double[] {0, 1 }, new double[] {0, 1 }, new double[] {0, 0 });
     assertFalse(other.equals(VOL));
-    other = VOL.withMultipleAdditiveShifts(new double[] {0, 1}, new double[] {0, 1}, new double[] {0.9, 0.8});
-    underlying = (InterpolatedDoublesSurface) SurfaceShiftFunctionFactory.getShiftedSurface(SURFACE, new double[] {0, 1}, new double[] {0, 1}, new double[] {0.9, 0.8}, true);
+    other = VOL.withMultipleAdditiveShifts(new double[] {0, 1 }, new double[] {0, 1 }, new double[] {0.9, 0.8 });
+    underlying = (InterpolatedDoublesSurface) SurfaceShiftFunctionFactory.getShiftedSurface(SURFACE, new double[] {0, 1 }, new double[] {0, 1 }, new double[] {0.9, 0.8 }, true);
     assertEquals(underlying.getClass(), other.getSurface().getClass());
     assertEquals(((InterpolatedDoublesSurface) other.getSurface()).getInterpolator(), underlying.getInterpolator());
     assertArrayEquals(other.getSurface().getXData(), underlying.getXData());
@@ -105,10 +106,10 @@ public class VolatilitySurfaceTest {
     assertArrayEquals(other.getSurface().getXData(), underlying.getXData());
     assertArrayEquals(other.getSurface().getYData(), underlying.getYData());
     assertArrayEquals(other.getSurface().getZData(), underlying.getZData());
-    other = VOL.withMultipleMultiplicativeShifts(new double[] {0, 1}, new double[] {0, 1}, new double[] {0, 0});
+    other = VOL.withMultipleMultiplicativeShifts(new double[] {0, 1 }, new double[] {0, 1 }, new double[] {0, 0 });
     assertFalse(other.equals(VOL));
-    other = VOL.withMultipleMultiplicativeShifts(new double[] {0, 1}, new double[] {0, 1}, new double[] {0.9, 0.8});
-    underlying = (InterpolatedDoublesSurface) SurfaceShiftFunctionFactory.getShiftedSurface(SURFACE, new double[] {0, 1}, new double[] {0, 1}, new double[] {0.9, 0.8}, false);
+    other = VOL.withMultipleMultiplicativeShifts(new double[] {0, 1 }, new double[] {0, 1 }, new double[] {0.9, 0.8 });
+    underlying = (InterpolatedDoublesSurface) SurfaceShiftFunctionFactory.getShiftedSurface(SURFACE, new double[] {0, 1 }, new double[] {0, 1 }, new double[] {0.9, 0.8 }, false);
     assertEquals(underlying.getClass(), other.getSurface().getClass());
     assertEquals(((InterpolatedDoublesSurface) other.getSurface()).getInterpolator(), underlying.getInterpolator());
     assertArrayEquals(other.getSurface().getXData(), underlying.getXData());

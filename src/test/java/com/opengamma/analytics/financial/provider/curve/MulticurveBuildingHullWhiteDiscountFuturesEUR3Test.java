@@ -9,8 +9,6 @@ import static com.opengamma.strata.basics.currency.Currency.EUR;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.convention.daycount.DayCountUtils;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorCurveYieldInterpolated;
 import com.opengamma.analytics.financial.curve.interestrate.generator.GeneratorYDCurve;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
@@ -53,18 +50,15 @@ import com.opengamma.analytics.financial.provider.calculator.hullwhite.ParSpread
 import com.opengamma.analytics.financial.provider.calculator.hullwhite.ParSpreadMarketQuoteHullWhiteCalculator;
 import com.opengamma.analytics.financial.provider.calculator.hullwhite.PresentValueHullWhiteCalculator;
 import com.opengamma.analytics.financial.provider.curve.hullwhite.HullWhiteProviderDiscountBuildingRepository;
-import com.opengamma.analytics.financial.provider.description.interestrate.HullWhiteOneFactorProvider;
 import com.opengamma.analytics.financial.provider.description.interestrate.HullWhiteOneFactorProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.interestrate.HullWhiteOneFactorProviderInterface;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MulticurveSensitivity;
-import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
 import com.opengamma.strata.basics.currency.Currency;
@@ -117,8 +111,8 @@ public class MulticurveBuildingHullWhiteDiscountFuturesEUR3Test {
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2011, 9, 28);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_EUR_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_EUR_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_EUR_WITH_TODAY };
@@ -153,16 +147,6 @@ public class MulticurveBuildingHullWhiteDiscountFuturesEUR3Test {
       DSC_EUR_ATTR[loopins] = new GeneratorAttributeIR(DSC_EUR_TENOR[loopins]);
     }
   }
-
-  //  /** Market values for the Fwd 3M USD curve */
-  //  private static final double[] FWD3_EUR_MARKET_QUOTES = new double[] {0.0420, 0.0420, 0.0420, 0.0420, 0.0430, 0.0470, 0.0540, 0.0570, 0.0600};
-  //  /** Generators for the Fwd 3M USD curve */
-  //  private static final GeneratorInstrument[] FWD3_EUR_GENERATORS = new GeneratorInstrument[] {GENERATOR_EURIBOR3M, GENERATOR_FRA_3M, GENERATOR_FRA_3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M,
-  //      EUR1YEURIBOR3M, EUR1YEURIBOR3M, EUR1YEURIBOR3M};
-  //  /** Tenors for the Fwd 3M USD curve */
-  //  private static final Period[] FWD3_EUR_TENOR = new Period[] {Period.ofMonths(0), Period.ofMonths(6), Period.ofMonths(9), Period.ofYears(1), Period.ofYears(2), Period.ofYears(3), Period.ofYears(5),
-  //      Period.ofYears(7), Period.ofYears(10)};
-  //  private static final Integer[] FWD3_EUR_EXTRA_DATA = new Integer[] {0, 1, 2, 0, 0, 0, 0, 0, 0};
   private static final double[] FWD3_EUR_MARKET_QUOTES = new double[] {0.0420, 0.9780, 0.9780, 0.0420, 0.0430, 0.0470, 0.0540, 0.0570, 0.0600 };
   /** Generators for the Fwd 3M USD curve */
   private static final GeneratorInstrument<? extends GeneratorAttribute>[] FWD3_EUR_GENERATORS = new GeneratorInstrument<?>[] {GENERATOR_EURIBOR3M, GENERATOR_ERZ1, GENERATOR_ERH2, EUR1YEURIBOR3M,
@@ -278,7 +262,6 @@ public class MulticurveBuildingHullWhiteDiscountFuturesEUR3Test {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
@@ -321,33 +304,6 @@ public class MulticurveBuildingHullWhiteDiscountFuturesEUR3Test {
 
   //TODO: test on the correctness of the Jacobian matrix in the CurveBuildingBlock's.
 
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], HW_KNOWN_DATA, PSMQHWC, PSMQCSHWC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 3 units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 3 units: 06-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 820 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], HW_KNOWN_DATA, PSMQHWC, PSMQCSHWC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 1 unit: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 unit: 06-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 840 ms for 100 sets.
-
-    // Dsc code - FRA - 655 / 630
-    // Fut code - FRA - 805 / 760
-    // Fut code - Fut - 820 / 840 !
-
-  }
-
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final HullWhiteOneFactorProviderDiscount curves, final boolean withToday, final int block) {
     final int nbBlocks = definitions.length;
     for (int loopblock = 0; loopblock < nbBlocks; loopblock++) {
@@ -360,36 +316,6 @@ public class MulticurveBuildingHullWhiteDiscountFuturesEUR3Test {
           assertEquals("Curve construction: block " + block + ", unit " + loopblock + " - instrument " + loopins, 0, pv[loopcurve][loopins], TOLERANCE_CAL);
         }
       }
-    }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Analyzes the shape of the forward curve.
-   */
-  public void forwardAnalysis() {
-    final HullWhiteOneFactorProvider marketDsc = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getFirst();
-    final int jump = 1;
-    final int startIndex = 0;
-    final int nbDate = 2750;
-    ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(NOW, EURIBOR3M.getSpotLag() + startIndex * jump, TARGET);
-    final double[] rateDsc = new double[nbDate];
-    final double[] startTime = new double[nbDate];
-    try {
-      final FileWriter writer = new FileWriter("fwd-dsc.csv");
-      for (int loopdate = 0; loopdate < nbDate; loopdate++) {
-        startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
-        final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, EURIBOR3M, TARGET);
-        final double endTime = TimeCalculator.getTimeBetween(NOW, endDate);
-        final double accrualFactor = DayCountUtils.yearFraction(EURIBOR3M.getDayCount(), startDate, endDate);
-        rateDsc[loopdate] = marketDsc.getMulticurveProvider().getSimplyCompoundForwardRate(EURIBOR3M, startTime[loopdate], endTime, accrualFactor);
-        startDate = ScheduleCalculator.getAdjustedDate(startDate, jump, TARGET);
-        writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
-      }
-      writer.flush();
-      writer.close();
-    } catch (final IOException e) {
-      e.printStackTrace();
     }
   }
 

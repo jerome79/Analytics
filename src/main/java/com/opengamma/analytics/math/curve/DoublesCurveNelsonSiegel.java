@@ -130,7 +130,6 @@ public class DoublesCurveNelsonSiegel
     } else {
       x2 = (1 - expx1) / x1;
     }
-    //    final double value = _parameters[0] + _parameters[1] * x2 + _parameters[2] * (x2 - expx1);
     // Backward sweep
     final double valueBar = 1.0;
     final double x2Bar = (_parameters[1] + _parameters[2]) * valueBar;

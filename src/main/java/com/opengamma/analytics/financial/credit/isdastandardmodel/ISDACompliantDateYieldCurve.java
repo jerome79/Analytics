@@ -95,30 +95,6 @@ public class ISDACompliantDateYieldCurve
     this.dayCount = dayCount;
   }
 
-  //  /**
-  //   * Converter from the old ISDADateCurve to ISDACompliantYieldCurve. Not this only works if offset = 0.0 and and baseDate is set.
-  //   * @param yieldCurve a ISDADateCurve yieldCurve
-  //   * @return A ISDACompliantYieldCurve
-  //   */
-  //  public static ISDACompliantDateYieldCurve fromISDADateCurve(final ISDADateCurve yieldCurve) {
-  //
-  //    ArgChecker.isTrue(yieldCurve.getOffset() == 0, "offset not zero - cannot convert");
-  //    final ZonedDateTime bDate = yieldCurve.getBaseDate();
-  //    ArgChecker.notNull(bDate, "base date");
-  //    final LocalDate baseDate = bDate.toLocalDate();
-  //
-  //    final ZonedDateTime[] curveDates = yieldCurve.getCurveDates();
-  //    final Double[] temp = yieldCurve.getCurve().getYData();
-  //    final int n = temp.length;
-  //    final double[] r = new double[n];
-  //    for (int i = 0; i < n; i++) {
-  //      r[i] = temp[i];
-  //    }
-  //
-  //    final LocalDate[] dates = ISDACompliantScheduleGenerator.toLocalDate(curveDates);
-  //    return new ISDACompliantDateYieldCurve(baseDate, dates, r);
-  //  }
-
   //-------------------------------------------------------------------------
   @Override
   public LocalDate getCurveDate(final int index) {

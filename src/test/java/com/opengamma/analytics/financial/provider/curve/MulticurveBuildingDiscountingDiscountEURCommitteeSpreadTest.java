@@ -206,8 +206,6 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeSpreadTest {
     final YieldAndDiscountCurve curveTOY = new DiscountCurve("TOY", new InterpolatedDoublesCurve(times, df, INTERPOLATOR_LINEAR, true));
     final GeneratorYDCurve genAddFixed = new GeneratorCurveAddYieldFixed(genComp, false, curveTOY);
 
-    //    final GeneratorYDCurve genIntDQ = CurveCalibrationConventionDataSets.generatorYDMatDq();
-    //    final GeneratorYDCurve genIntNCS = CurveCalibrationConventionDataSets.generatorYDMatNcs();
     final GeneratorYDCurve genIntCCS = CurveCalibrationConventionDataSets.generatorYDMatCcs();
     final GeneratorYDCurve genAddExistDsc = new GeneratorCurveAddYieldExisiting(genIntCCS, false, CURVE_NAME_DSC_EUR);
 
@@ -256,42 +254,10 @@ public class MulticurveBuildingDiscountingDiscountEURCommitteeSpreadTest {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
     }
-  }
-
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(CALIBRATION_DATE,
-          DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], MULTICURVE_KNOWN_DATA, PSMQDC, PSMQCSDC, false,
-          DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP, CURVE_BUILDING_REPOSITORY,
-          TS_FIXED_OIS_EUR_WITH_TODAY, TS_FIXED_OIS_EUR_WITHOUT_TODAY,
-          TS_FIXED_IBOR_EUR6M_WITH_TODAY, TS_FIXED_IBOR_EUR6M_WITHOUT_TODAY);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("MulticurveBuildingDiscountingDiscountEURCommitteeSpreadTest" + nbTest + " curve construction / 2 units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 units: 07-Jan-2013: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 685 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      CurveCalibrationTestsUtils.makeCurvesFromDefinitionsMulticurve(CALIBRATION_DATE,
-          DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], MULTICURVE_KNOWN_DATA, PSMQDC, PSMQCSDC, false,
-          DSC_MAP, FWD_ON_MAP, FWD_IBOR_MAP, CURVE_BUILDING_REPOSITORY,
-          TS_FIXED_OIS_EUR_WITH_TODAY, TS_FIXED_OIS_EUR_WITHOUT_TODAY,
-          TS_FIXED_IBOR_EUR6M_WITH_TODAY, TS_FIXED_IBOR_EUR6M_WITHOUT_TODAY);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println("MulticurveBuildingDiscountingDiscountEURCommitteeSpreadTest" + nbTest + " curve construction / 1 unit + spread: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 unit: 07-Jan-2013: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 740 ms for 100 sets.
-
   }
 
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final MulticurveProviderDiscount curves, final boolean withToday, final int block) {

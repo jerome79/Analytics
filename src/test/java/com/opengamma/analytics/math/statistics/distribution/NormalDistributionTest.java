@@ -10,8 +10,6 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
@@ -32,24 +30,12 @@ public class NormalDistributionTest extends ProbabilityDistributionTestCase {
     new NormalDistribution(0, 1, null);
   }
 
-  @Test
-      (enabled = false)
-      public void printTest() {
-    for (int i = 0; i < 201; i++) {
-      double x = -40 + 30 * i / 200.;
-      double y = NORMAL.getCDF(x);
-      System.out.println(x + "\t" + y);
-    }
-  }
-
-  @Test
   public void test() {
     assertCDF(P, X, NORMAL);
     assertPDF(Z, X, NORMAL);
     assertInverseCDF(X, NORMAL);
   }
 
-  @Test
   public void testRoundTrip() {
     for (int i = 0; i < 51; i++) {
       double x = -37.0 + 44 * i / 50.;
@@ -59,7 +45,6 @@ public class NormalDistributionTest extends ProbabilityDistributionTestCase {
     }
   }
 
-  @Test
   public void testObject() {
     NormalDistribution other = new NormalDistribution(0, 1, ENGINE);
     assertEquals(NORMAL, other);

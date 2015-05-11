@@ -11,6 +11,7 @@ import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * Class describing Ibor-like floating coupon with a spread and FX reset.
  * The currency is the currency of the payment. 

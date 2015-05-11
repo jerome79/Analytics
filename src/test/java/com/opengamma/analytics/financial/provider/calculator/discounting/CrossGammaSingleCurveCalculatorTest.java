@@ -23,13 +23,11 @@ import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscou
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.provider.description.MulticurveProviderDiscountDataSets;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
-import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyMulticurveSensitivity;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
-
 
 /**
  * Tests the zero-coupon rate cross-gamma calculator for single curve.
@@ -45,15 +43,13 @@ public class CrossGammaSingleCurveCalculatorTest {
   private static final ZonedDateTime SETTLEMENT_DATE = DateUtils.getUTCDate(2012, 5, 17);
   private static final double NOTIONAL = 100000000; //100m
   private static final double RATE_FIXED = 0.025;
-  private static final SwapFixedIborDefinition SWAP_FIXED_IBOR_DEFINITION = 
+  private static final SwapFixedIborDefinition SWAP_FIXED_IBOR_DEFINITION =
       SwapFixedIborDefinition.from(SETTLEMENT_DATE, SWAP_TENOR, USD6MLIBOR3M, NOTIONAL, RATE_FIXED, true);
-  /** Data */ 
-  private static final MulticurveProviderDiscount SINGLE_CURVE_ZC = 
+  /** Data */
+  private static final MulticurveProviderDiscount SINGLE_CURVE_ZC =
       MulticurveProviderDiscountDataSets.createSingleCurveZcUsd();
-  private static final MulticurveProviderDiscount SINGLE_CURVE_DF = 
+  private static final MulticurveProviderDiscount SINGLE_CURVE_DF =
       MulticurveProviderDiscountDataSets.createSingleCurveDfUsd();
-  private static final MulticurveProviderDiscount SINGLE_CURVE_PERF = 
-      MulticurveProviderDiscountDataSets.createSingleCurvePerformanceUsd();
   /** Calculators */
   private static final double SHIFT = 1.0E-4;
   private static final PresentValueDiscountingCalculator PVDC = PresentValueDiscountingCalculator.getInstance();
@@ -65,19 +61,17 @@ public class CrossGammaSingleCurveCalculatorTest {
   private static final double TOLERANCE_PV_GAMMA = 2.0E+0;
   private static final double TOLERANCE_PV_GAMMA_RELATIF = 5.0E-4;
 
-  @Test
   public void crossGammaZc() {
     ZonedDateTime referenceDate = DateUtils.getUTCDate(2012, 5, 14);
     SwapFixedCoupon<Coupon> swap = SWAP_FIXED_IBOR_DEFINITION.toDerivative(referenceDate);
     checkCrossGamma(swap, true, SINGLE_CURVE_ZC);
   }
 
-  @Test
   public void crossGammaDf() {
     ZonedDateTime referenceDate = DateUtils.getUTCDate(2012, 5, 14);
     SwapFixedCoupon<Coupon> swap = SWAP_FIXED_IBOR_DEFINITION.toDerivative(referenceDate);
     checkCrossGamma(swap, false, SINGLE_CURVE_DF);
-  }  
+  }
 
   private void checkCrossGamma(SwapFixedCoupon<Coupon> swap, boolean isZc, MulticurveProviderDiscount singleCurve) {
     String name = singleCurve.getAllNames().iterator().next();
@@ -89,17 +83,17 @@ public class CrossGammaSingleCurveCalculatorTest {
       ArgChecker.isTrue(curve instanceof DiscountCurve, "curve should be DiscountCurve");
     }
     InterpolatedDoublesCurve interpolatedCurve;
-    if(isZc) {
-    YieldCurve yieldCurve = (YieldCurve) curve;
-    ArgChecker.isTrue(yieldCurve.getCurve() instanceof InterpolatedDoublesCurve,
-        "Yield curve should be based on InterpolatedDoublesCurve");
-    interpolatedCurve = (InterpolatedDoublesCurve) yieldCurve.getCurve();
+    if (isZc) {
+      YieldCurve yieldCurve = (YieldCurve) curve;
+      ArgChecker.isTrue(yieldCurve.getCurve() instanceof InterpolatedDoublesCurve,
+          "Yield curve should be based on InterpolatedDoublesCurve");
+      interpolatedCurve = (InterpolatedDoublesCurve) yieldCurve.getCurve();
     } else {
       DiscountCurve discountCurve = (DiscountCurve) curve;
       ArgChecker.isTrue(discountCurve.getCurve() instanceof InterpolatedDoublesCurve,
           "Yield curve should be based on InterpolatedDoublesCurve");
       interpolatedCurve = (InterpolatedDoublesCurve) discountCurve.getCurve();
-      
+
     }
     double[] y = interpolatedCurve.getYDataAsPrimitive();
     double[] x = interpolatedCurve.getXDataAsPrimitive();
@@ -121,7 +115,7 @@ public class CrossGammaSingleCurveCalculatorTest {
             } else {
               curveBumped = new DiscountCurve(name,
                   new InterpolatedDoublesCurve(x, parametersBumpedPP, interpolatedCurve.getInterpolator(), true));
-            }             
+            }
             MulticurveProviderDiscount providerBumped = new MulticurveProviderDiscount();
             for (Currency loopccy : singleCurve.getCurrencies()) {
               providerBumped.setCurve(loopccy, curveBumped);
@@ -162,17 +156,16 @@ public class CrossGammaSingleCurveCalculatorTest {
     }
     for (int i = 0; i < nbNode; i++) {
       for (int j = 0; j < nbNode; j++) {
-        if (Math.abs(gammaExpected[i][j]) > TOLERANCE_PV_GAMMA_MIN || 
+        if (Math.abs(gammaExpected[i][j]) > TOLERANCE_PV_GAMMA_MIN ||
             Math.abs(gammaComputed[i][j]) > TOLERANCE_PV_GAMMA_MIN) { // Check only the meaningful numbers
           assertTrue("CrossGammaSingleCurveCalculator - " + i + " - " + j + " / " + gammaExpected[i][j] + " - " + gammaComputed[i][j],
               (Math.abs(gammaExpected[i][j] / gammaComputed[i][j] - 1) < TOLERANCE_PV_GAMMA_RELATIF) || // If relative difference is small enough
                   (Math.abs(gammaExpected[i][j] - gammaComputed[i][j]) < TOLERANCE_PV_GAMMA)); // If absolute difference is small enough
         }
       }
-    }    
+    }
   }
 
-  @Test
   public void gammaSumOfColumns() {
     double shift = 1.0E-5;
     CrossGammaSingleCurveCalculator gammaCalculator = new CrossGammaSingleCurveCalculator(shift, PVCSDC);
@@ -195,58 +188,6 @@ public class CrossGammaSingleCurveCalculatorTest {
                 (Math.abs(gammaSumOfColumnsExpected[i] - gammaSumOfColumnsComputed[i]) < TOLERANCE_PV_GAMMA)); // If absolute difference is small enough
       }
     }
-  }  
-
-  @SuppressWarnings("unused")
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    int nbTest = 1000;
-    int nbRep = 4; 
-
-    Currency usd = USD6MLIBOR3M.getCurrency();
-    double pvTotal = 0;
-    double gammaTotal = 0;
-    
-    final ZonedDateTime referenceDate = DateUtils.getUTCDate(2012, 5, 14);
-    final SwapFixedCoupon<Coupon> swap = SWAP_FIXED_IBOR_DEFINITION.toDerivative(referenceDate);
-
-    for (int looprep = 0; looprep < nbRep; looprep++) { // Start repetitions
-      startTime = System.currentTimeMillis();
-      for (int looptest = 0; looptest < nbTest; looptest++) {
-        pvTotal += swap.accept(PVDC, SINGLE_CURVE_PERF).getAmount(usd).getAmount();
-      }
-      endTime = System.currentTimeMillis();
-      System.out.println(nbTest + " pv swap: " + (endTime - startTime) + " ms - " + pvTotal);
-      // Performance note: PV: 09-Mar-2015: On Mac Book Pro 2.6 GHz Intel Core i7: 20 ms for 1000 swaps.
-
-      startTime = System.currentTimeMillis();
-      for (int looptest = 0; looptest < nbTest; looptest++) {
-        MultipleCurrencyMulticurveSensitivity pvcs = swap.accept(PVCSDC, SINGLE_CURVE_PERF);
-      }
-      endTime = System.currentTimeMillis();
-      System.out.println(nbTest + " pvcs swap: " + (endTime - startTime) + " ms");
-      // Performance note: PVCS: 09-Mar-2015: On Mac Book Pro 2.6 GHz Intel Core i7: 55 ms for 1000 swaps.
-
-      startTime = System.currentTimeMillis();
-      for (int looptest = 0; looptest < nbTest; looptest++) {
-        double[][] gammaComputed = CGC.calculateCrossGamma(swap, SINGLE_CURVE_PERF).getData();
-        gammaTotal += gammaComputed[0][0];
-      }
-      endTime = System.currentTimeMillis();
-      System.out.println(nbTest + " cross-gamma swap: " + (endTime - startTime) + " ms - " + gammaTotal);
-      // Performance note: PVCS: 09-Mar-2015: On Mac Book Pro 2.6 GHz Intel Core i7: 1850 ms for 1000 swaps.
-
-      startTime = System.currentTimeMillis();
-      for (int looptest = 0; looptest < nbTest; looptest++) {
-        double[] gammaSumOfColumnsComputed = CGC.calculateSumOfColumnsGamma(swap, SINGLE_CURVE_PERF);
-        gammaTotal += gammaSumOfColumnsComputed[0];
-      }
-      endTime = System.currentTimeMillis();
-      System.out.println(nbTest + " cross-gamma swap: " + (endTime - startTime) + " ms - "+ gammaTotal);
-      // Performance note: PVCS: 09-Mar-2015: On Mac Book Pro 2.6 GHz Intel Core i7: 180 ms for 1000 swaps.
-    } // End repetitions
-    
   }
 
 }

@@ -58,26 +58,26 @@ public class StandardDataSetsMulticurveGBP {
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GENERATOR_OIS_MASTER.getGenerator("GBP1YSONIA", LONDON);
   private static final IndexON GBPSONIA = GENERATOR_OIS_GBP.getIndex();
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITH_TODAY = 
-      ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-          DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITHOUT_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITH_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
-    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITH_TODAY = 
+        DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_GBP_WITHOUT_TODAY =
+      ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+        DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITH_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_GBP_WITH_TODAY };
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITHOUT_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_GBP_WITHOUT_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_GBP_WITHOUT_TODAY };
-  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_GBP3M_WITH_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_GBP3M_WITH_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
-    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.0035, 0.0036 });
-  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_GBP3M_WITHOUT_TODAY = 
+        DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.0035, 0.0036 });
+  private static final ZonedDateTimeDoubleTimeSeries TS_IBOR_GBP3M_WITHOUT_TODAY =
       ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27) },
-      new double[] {0.0035 });
+          new double[] {0.0035 });
 
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_GBP3M_WITH_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_GBP3M_WITH_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_IBOR_GBP3M_WITH_TODAY };
-  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_GBP3M_WITHOUT_TODAY = 
+  private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_IBOR_GBP3M_WITHOUT_TODAY =
       new ZonedDateTimeDoubleTimeSeries[] {TS_IBOR_GBP3M_WITHOUT_TODAY };
 
   private static final String CURVE_NAME_DSC_GBP = "GBP-DSCON-OIS";
@@ -90,7 +90,7 @@ public class StandardDataSetsMulticurveGBP {
     0.01768, 0.019249, 0.020603, 0.0218265, 0.022898,
     0.024726, 0.026638, 0.028471, 0.029667 }; //21
   /** Generators for the dsc GBP curve */
-  private static final GeneratorInstrument<? extends GeneratorAttribute>[] DSC_1_GBP_GENERATORS = 
+  private static final GeneratorInstrument<? extends GeneratorAttribute>[] DSC_1_GBP_GENERATORS =
       CurveCalibrationConventionDataSets.generatorGbpOnOis(2, 19);
   /** Tenors for the dsc GBP curve */
   private static final Period[] DSC_1_GBP_TENOR = new Period[] {Period.ofDays(0), Period.ofDays(1),
@@ -138,7 +138,7 @@ public class StandardDataSetsMulticurveGBP {
   }
 
   @SuppressWarnings({"unchecked", "rawtypes" })
-  public static InstrumentDefinition<?>[] getDefinitions(final double[] marketQuotes, 
+  public static InstrumentDefinition<?>[] getDefinitions(final double[] marketQuotes,
       final GeneratorInstrument[] generators, final GeneratorAttribute[] attribute, final ZonedDateTime referenceDate) {
     final InstrumentDefinition<?>[] definitions = new InstrumentDefinition<?>[marketQuotes.length];
     for (int loopmv = 0; loopmv < marketQuotes.length; loopmv++) {
@@ -148,16 +148,16 @@ public class StandardDataSetsMulticurveGBP {
   }
 
   // Calculator
-  private static final ParSpreadMarketQuoteDiscountingCalculator PSMQC = 
+  private static final ParSpreadMarketQuoteDiscountingCalculator PSMQC =
       ParSpreadMarketQuoteDiscountingCalculator.getInstance();
-  private static final ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator PSMQCSC = 
+  private static final ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator PSMQCSC =
       ParSpreadMarketQuoteCurveSensitivityDiscountingCalculator.getInstance();
 
-  private static final MulticurveDiscountBuildingRepository CURVE_BUILDING_REPOSITORY = 
+  private static final MulticurveDiscountBuildingRepository CURVE_BUILDING_REPOSITORY =
       CurveCalibrationConventionDataSets.curveBuildingRepositoryMulticurve();
 
   public static Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> getCurvesGBPSonia(ZonedDateTime calibrationDate) {
-    InstrumentDefinition<?>[] dscDefinition = 
+    InstrumentDefinition<?>[] dscDefinition =
         getDefinitions(DSC_1_GBP_MARKET_QUOTES, DSC_1_GBP_GENERATORS, DSC_1_GBP_ATTR, calibrationDate);
     InstrumentDefinition<?>[][][] unitsDefinition = new InstrumentDefinition<?>[1][][];
     unitsDefinition[0] = new InstrumentDefinition<?>[][] {dscDefinition };
@@ -182,5 +182,5 @@ public class StandardDataSetsMulticurveGBP {
   public static HolidayCalendar[] calendarArray() {
     return new HolidayCalendar[] {LONDON };
   }
-  
+
 }

@@ -31,8 +31,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 
-
-
 /**
  * Tests related to the construction of bills security.
  */
@@ -54,9 +52,11 @@ public class BillSecurityDefinitionTest {
   /** German government name */
   private final static String ISSUER_GER_NAME = "GERMANY GOVT";
   /** Belgian government entity */
-  private final static LegalEntity ISSUER_BEL = new LegalEntity(null, ISSUER_BEL_NAME, Collections.singleton(CreditRating.of("A", "Custom", true)), Sector.of("Government"), Region.of("Belgium", Country.BE, Currency.EUR));
+  private final static LegalEntity ISSUER_BEL = new LegalEntity(null, ISSUER_BEL_NAME, Collections.singleton(CreditRating.of("A", "Custom", true)), Sector.of("Government"), Region.of("Belgium",
+      Country.BE, Currency.EUR));
   /** German government entity */
-  private final static LegalEntity ISSUER_GER = new LegalEntity(null, ISSUER_GER_NAME, Collections.singleton(CreditRating.of("AA", "Custom", true)), Sector.of("Government"), Region.of("Germany", Country.DE, Currency.EUR));
+  private final static LegalEntity ISSUER_GER = new LegalEntity(null, ISSUER_GER_NAME, Collections.singleton(CreditRating.of("AA", "Custom", true)), Sector.of("Government"), Region.of("Germany",
+      Country.DE, Currency.EUR));
   /** The maturity */
   private final static ZonedDateTime END_DATE = DateUtils.getUTCDate(2012, 2, 29);
   /** The notional */

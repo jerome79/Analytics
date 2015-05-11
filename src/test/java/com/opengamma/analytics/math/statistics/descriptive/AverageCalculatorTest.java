@@ -21,7 +21,7 @@ import com.opengamma.analytics.math.function.Function1D;
  */
 @Test
 public class AverageCalculatorTest {
-  private static final double[] DATA = {1., 1., 3., 2.5, 5.7, 3.7, 5.7, 5.7, -4., 9.};
+  private static final double[] DATA = {1., 1., 3., 2.5, 5.7, 3.7, 5.7, 5.7, -4., 9. };
   private static final Function1D<double[], Double> MEAN = new MeanCalculator();
   private static final Function<double[], Double> MEDIAN = new MedianCalculator();
   private static final Function<double[], Double> MODE = new ModeCalculator();
@@ -44,7 +44,7 @@ public class AverageCalculatorTest {
   @Test
   public void testSingleValue() {
     final double value = 3.;
-    final double[] x = {value};
+    final double[] x = {value };
     assertEquals(value, MEAN.evaluate(x), EPS);
     assertEquals(value, MEDIAN.apply(x), EPS);
     assertEquals(value, MODE.apply(x), EPS);
@@ -64,7 +64,7 @@ public class AverageCalculatorTest {
 
   @Test
   public void testMode() {
-    final double[] x = {1., 2., 3., 4., 5., 6., 7., 8., 9., 10.};
+    final double[] x = {1., 2., 3., 4., 5., 6., 7., 8., 9., 10. };
     try {
       MODE.apply(x);
       Assert.fail();

@@ -15,9 +15,9 @@ import com.opengamma.analytics.financial.provider.description.interestrate.Param
  * 
  * @param <RESULT_TYPE> The result-type for the provider.
  */
-public class InflationProviderAdapter<RESULT_TYPE> 
-  extends InstrumentDerivativeVisitorSameMethodAdapter<ParameterInflationProviderInterface, RESULT_TYPE> {
-  
+public class InflationProviderAdapter<RESULT_TYPE>
+    extends InstrumentDerivativeVisitorSameMethodAdapter<ParameterInflationProviderInterface, RESULT_TYPE> {
+
   private final InstrumentDerivativeVisitor<ParameterProviderInterface, RESULT_TYPE> _visitor;
 
   public InflationProviderAdapter(final InstrumentDerivativeVisitor<ParameterProviderInterface, RESULT_TYPE> visitor) {

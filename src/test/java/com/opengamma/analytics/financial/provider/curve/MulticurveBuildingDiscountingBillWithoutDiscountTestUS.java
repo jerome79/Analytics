@@ -81,7 +81,6 @@ public class MulticurveBuildingDiscountingBillWithoutDiscountTestUS {
   private static final int STEP_MAX = 100;
 
   private static final HolidayCalendar NYC = HolidayCalendars.SAT_SUN;
-  private static final FxMatrix FX_MATRIX = FxMatrix.empty();
 
   private static final double NOTIONAL = 1.0;
 
@@ -107,14 +106,13 @@ public class MulticurveBuildingDiscountingBillWithoutDiscountTestUS {
   }
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_USD_WITH_TODAY };
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITHOUT_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_USD_WITHOUT_TODAY };
 
-  private static final String CURVE_NAME_DSC_USD = "USD Dsc";
   private static final String CURVE_NAME_GOVTUS_USD = "USD GOVT US";
   private static final String[] CURVE_NAMES = {CURVE_NAME_GOVTUS_USD };
 
@@ -137,9 +135,9 @@ public class MulticurveBuildingDiscountingBillWithoutDiscountTestUS {
   private static final double[] GOVTUS_USD_MARKET_QUOTES = new double[] {0.0010, 0.0015, 0.0020, 0.0015 };
   /** Generators for the govt USD curve */
   private static final int NB_ON_GOVT = 1;
-  private static final GeneratorInstrument<? extends GeneratorAttribute>[] GOVTUS_USD_GENERATORS = 
-      new GeneratorInstrument<?>[] {GENERATOR_DEPOSIT_ON_USGOVT, 
-    GENERATOR_BILL[0], GENERATOR_BILL[1], GENERATOR_BILL[2] };
+  private static final GeneratorInstrument<? extends GeneratorAttribute>[] GOVTUS_USD_GENERATORS =
+      new GeneratorInstrument<?>[] {GENERATOR_DEPOSIT_ON_USGOVT,
+        GENERATOR_BILL[0], GENERATOR_BILL[1], GENERATOR_BILL[2] };
   /** Tenors for the govt USD curve */
   private static final Period[] GOVTUS_USD_TENOR = new Period[] {Period.ofDays(0) };
   private static final GeneratorAttribute[] GOVTUS_USD_ATTR = new GeneratorAttribute[GOVTUS_USD_GENERATORS.length];
@@ -157,7 +155,6 @@ public class MulticurveBuildingDiscountingBillWithoutDiscountTestUS {
   /** Standard USD Forward 3M curve instrument definitions */
   private static final InstrumentDefinition<?>[] DEFINITIONS_GOVTUS_USD;
 
-  /** Units of curves */
   /** Units of curves */
   private static final int[] NB_UNITS = new int[] {1 };
   private static final int NB_BLOCKS = NB_UNITS.length;
@@ -215,14 +212,12 @@ public class MulticurveBuildingDiscountingBillWithoutDiscountTestUS {
     }
   }
 
-  @Test
   public void curveConstruction() {
     for (int loopblock = 0; loopblock < NB_BLOCKS; loopblock++) {
       curveConstructionTest(DEFINITIONS_UNITS[loopblock], CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(loopblock).getFirst(), false, loopblock);
     }
   }
 
-  @Test(enabled = true)
   public void blockBundle() {
     initClass();
     final CurveBuildingBlockBundle blockBundleFromOneCurveTest = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(0).getSecond();
@@ -235,29 +230,6 @@ public class MulticurveBuildingDiscountingBillWithoutDiscountTestUS {
         }
       }
     }
-  }
-
-  @Test(enabled = false)
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[0], GENERATORS_UNITS[0], NAMES_UNITS[0], KNOWN_DATA, KNOWN_BUNDLE, PSMQIC, PSMQCSIC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 2 units: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 2 units: 02-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 270 (no Jac)/430 ms for 100 sets.
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      makeCurvesFromDefinitions(DEFINITIONS_UNITS[1], GENERATORS_UNITS[1], NAMES_UNITS[1], KNOWN_DATA, KNOWN_BUNDLE, PSMQIC, PSMQCSIC, false);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " curve construction / 1 unit: " + (endTime - startTime) + " ms");
-    // Performance note: Curve construction 1 unit: 02-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 315 (no Jac)/440 ms for 10 sets.
-
   }
 
   private void curveConstructionTest(final InstrumentDefinition<?>[][][] definitions, final IssuerProviderDiscount curves, final boolean withToday, final int block) {

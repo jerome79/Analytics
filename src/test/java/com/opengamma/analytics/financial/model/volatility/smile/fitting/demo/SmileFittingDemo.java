@@ -47,6 +47,7 @@ import com.opengamma.analytics.util.ArrayUtils;
  * The market data is Dec-2014 options on the S&P 500 index. The trade date is 20-Oct-2014 09:40 and the expiry is 19-Dec-2014 21:15
  * (nominal expiry is 20-Dec-2014, which is a Saturday)
  */
+@Test(enabled = false)
 public class SmileFittingDemo {
   private static final double FORWARD = 1879.52;
   @SuppressWarnings("unused")
@@ -69,16 +70,14 @@ public class SmileFittingDemo {
     Arrays.fill(ERRORS, 1e-3); // 10bps
   }
 
-  // ****************************************************************************************************************
   // Global fitters: These fit a smile model to market data in a least squares sense. Extrapolation just involves
   // using the calibrated parameters with the model for strikes outside the fitted range.
-  // ****************************************************************************************************************
 
   /**
    * Fit the SABR model to market implied volatilities. The parameter beta is fixed at 1, so a three parameter fit is
    * made.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void globalSabrFitDemo() {
     // SABR starting parameters
     BitSet fixed = new BitSet();
@@ -103,7 +102,7 @@ public class SmileFittingDemo {
    * <p>
    * Note: the solution is sensitive to the starting position (many 'sensible' starting points give a local minimum)
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void globalSVIFitDemo() {
     SVIVolatilityFunction model = new SVIVolatilityFunction();
     SVIModelFitter fitter = new SVIModelFitter(FORWARD, STRIKES, EXPIRY, IMPLIED_VOLS, ERRORS, model);
@@ -127,7 +126,7 @@ public class SmileFittingDemo {
    * <p>
    * Note: the solution is sensitive to the starting position (many 'sensible' starting points give a local minimum)
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void globalHestonFitDemo() {
     HestonVolatilityFunction model = new HestonVolatilityFunction();
     HestonModelFitter fitter = new HestonModelFitter(FORWARD, STRIKES, EXPIRY, IMPLIED_VOLS, ERRORS, model);
@@ -142,7 +141,7 @@ public class SmileFittingDemo {
    * allowed to have different means, so there are 4 (2*3-2) degrees of freedom. In principle 3 normals (7=3*3-2 DoF)
    * will give a better fit, but the plethora of local minima massively hampers this.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   void mixedLogNormalFitDemo() {
     int nNorms = 2;
     boolean useShiftedMeans = true;
@@ -154,17 +153,15 @@ public class SmileFittingDemo {
     printSmile(smile);
   }
 
-  // ****************************************************************************************************************
   // SABR Global fitters: These fit SABR to market data in a least squares sense. Extrapolation is with
   // shifted log-normal and Benaim-Dodgson-Kainth
-  // ****************************************************************************************************************
 
   /**
    * Fit the SABR model to market implied volatilities. The parameter beta is fixed at 1, so a three parameter fit is
    * made. This differs from the example above in that outside the range of market strikes a shifted log-normal is
    * use to extrapolate the smile.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void globalSabrFitWithExtrapolationDemo() {
     BitSet fixed = new BitSet();
     fixed.set(1);
@@ -185,7 +182,7 @@ public class SmileFittingDemo {
    * <p>
    * Note: currently our Benaim-Dodgson-Kainth implementation is hard coded to SABR so cannot be used with other smile models
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   public void globalSabrFitWithBDKExtrapolationDemo() {
     BitSet fixed = new BitSet();
     fixed.set(1);
@@ -204,16 +201,14 @@ public class SmileFittingDemo {
     printSmile(smile);
   }
 
-  // ****************************************************************************************************************
   // Local fitters: These can be classed as smile interpolators, in that they fit all the market points. Extrapolation
   // is either native or using shifted log-normal or Benaim-Dodgson-Kainth
-  // ****************************************************************************************************************
 
   /**
    * The SABR interpolator fits the SABR model (with a fixed Beta) to consecutive triplets of implied vols with
    * smooth pasting in between. Extrapolation used the SABR fits for the end points.
    */
-  @Test(description = "Demo")
+  @Test(description = "Demo", enabled = false)
   void sabrInterpolationTest() {
     GeneralSmileInterpolator sabr_interpolator = new SmileInterpolatorSABR();
     Function1D<Double, Double> smile = sabr_interpolator.getVolatilityFunction(FORWARD, STRIKES, EXPIRY, IMPLIED_VOLS);
@@ -224,7 +219,7 @@ public class SmileFittingDemo {
    * Spline interpolator fits a spline (the default is double-quadratic) through the market implied volatilities and
    * uses shifted log-normal to handle the extrapolation.
    */
-  @Test
+  @Test(enabled = false)
   void splineInterpolatorTest() {
     GeneralSmileInterpolator spline = new SmileInterpolatorSpline();
     Function1D<Double, Double> smile = spline.getVolatilityFunction(FORWARD, STRIKES, EXPIRY, IMPLIED_VOLS);
@@ -236,7 +231,7 @@ public class SmileFittingDemo {
    * smoothness of the curve (penalty on the curvature), so for high values the curve will be smooth, but not match the
    * market values. The extrapolated values will be linear in variance.
    */
-  @Test
+  @Test(enabled = false)
   void pSplineTest() {
     int nKnots = 20; // 20 internal knots to represent the variance curve
     int degree = 3; // Curve made from third order polynomial pieces
@@ -267,9 +262,7 @@ public class SmileFittingDemo {
     printSmile(smile);
   }
 
-  // ****************************************************************************************************************
   // Helper methods. If 'smile' fitting is brought under a common API, these could form part of that design
-  // ****************************************************************************************************************
 
   /**
    * Extrapolate a volatility smile to low and high strikes by fitting (separately) a shifted-log-normal model at

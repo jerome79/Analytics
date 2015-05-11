@@ -83,27 +83,6 @@ public class BondCapitalIndexedTransactionDefinitionTest {
   }
 
   // 2% 10-YEAR TREASURY INFLATION-PROTECTED SECURITIES (TIPS) Due January 15, 2016 - US912828ET33
-  //  private static final String NAME_INDEX_US = "US CPI-U";
-  //  private static final Period LAG_INDEX_US = Period.ofDays(14);
-  //  private static final PriceIndex PRICE_INDEX_USCPI = new PriceIndex(NAME_INDEX_US, Currency.USD, Currency.USD, LAG_INDEX_US);
-  //  private static final HolidayCalendar CALENDAR_USD = HolidayCalendars.SAT_SUN;
-  //  private static final BusinessDayConvention BUSINESS_DAY_USD = BusinessDayConventions.FOLLOWING;
-  //  private static final DayCount DAY_COUNT_TIPS_1 = DayCounts.ACT_ACT_ICMA;
-  //  private static final boolean IS_EOM_TIPS_1 = false;
-  //  private static final ZonedDateTime START_DATE_TIPS_1 = DateUtil.getUTCDate(2006, 1, 15);
-  //  private static final ZonedDateTime MATURITY_DATE_TIPS_1 = DateUtil.getUTCDate(2016, 1, 15);
-  //  private static final YieldConvention YIELD_CONVENTION_TIPS_1 = YieldConventionFactory.INSTANCE.getYieldConvention("UK:BUMP/DMO METHOD"); // To check
-  //  private static final int MONTH_LAG_TIPS_1 = 3;
-  //  private static final double INDEX_START_TIPS_1 = 198.47742; // Date:
-  //  private static final double NOTIONAL_TIPS_1 = 100.00;
-  //  private static final double REAL_RATE_TIPS_1 = 0.02;
-  //  private static final Period COUPON_PERIOD_TIPS_1 = Period.ofMonths(6);
-  //  private static final int SETTLEMENT_DAYS_TIPS_1 = 2;
-  //  private static final String ISSUER_US = "US GOVT";
-  //  private static final BondCapitalIndexedSecurityDefinition<CouponInflationZeroCouponInterpolationGearingDefinition> BOND_TIPS_1_SECURITY_DEFINITION = BondCapitalIndexedSecurityDefinition
   //      .fromInterpolation(PRICE_INDEX_USCPI, MONTH_LAG_TIPS_1, START_DATE_TIPS_1, INDEX_START_TIPS_1, MATURITY_DATE_TIPS_1, COUPON_PERIOD_TIPS_1, NOTIONAL_TIPS_1, REAL_RATE_TIPS_1, BUSINESS_DAY_USD,
-  //          SETTLEMENT_DAYS_TIPS_1, CALENDAR_USD, DAY_COUNT_TIPS_1, YIELD_CONVENTION_TIPS_1, IS_EOM_TIPS_1, ISSUER_US);
-  //  private static final double QUANTITY_TIPS_1 = 654321;
-  //  private static final ZonedDateTime SETTLE_DATE_TIPS_1 = DateUtil.getUTCDate(2011, 8, 10);
 
 }

@@ -18,14 +18,13 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.id.StandardId;
 
-
 /**
  * Test.
  */
 @Test
 public class EnergyForwardDefinitionTest {
 
-  private final static StandardId AN_UNDERLYING= StandardId.of("Scheme", "value");
+  private final static StandardId AN_UNDERLYING = StandardId.of("Scheme", "value");
   private final static ZonedDateTime FIRST_DELIVERY_DATE = DateUtils.getUTCDate(2011, 9, 21);
   private final static ZonedDateTime LAST_DELIVERY_DATE = DateUtils.getUTCDate(2012, 9, 21);
   private final static ZonedDateTime SETTLEMENT_DATE = LAST_DELIVERY_DATE;

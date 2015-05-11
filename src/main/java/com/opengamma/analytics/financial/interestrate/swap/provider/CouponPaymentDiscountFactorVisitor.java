@@ -20,7 +20,7 @@ public class CouponPaymentDiscountFactorVisitor extends InstrumentDerivativeVisi
     Coupon payment = (Coupon) derivative;
     return data.getDiscountFactor(payment.getCurrency(), payment.getPaymentTime());
   }
-  
+
   @Override
   public Double visit(InstrumentDerivative derivative) {
     throw new UnsupportedOperationException("Need curves to retrieve discount factors");

@@ -80,8 +80,8 @@ import com.opengamma.strata.collect.ArgChecker;
  * Calculator of the present value curve sensitivity as multiple currency interest rate curve sensitivity.
  */
 
-public final class PresentValueCurveSensitivityDiscountingCalculator 
-  extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MultipleCurrencyMulticurveSensitivity> {
+public final class PresentValueCurveSensitivityDiscountingCalculator
+    extends InstrumentDerivativeVisitorAdapter<ParameterProviderInterface, MultipleCurrencyMulticurveSensitivity> {
   /**
    * The unique instance of the calculator.
    */
@@ -109,7 +109,7 @@ public final class PresentValueCurveSensitivityDiscountingCalculator
   private static final PaymentFixedDiscountingMethod METHOD_PAY_FIXED = PaymentFixedDiscountingMethod.getInstance();
   private static final CouponFixedDiscountingMethod METHOD_CPN_FIXED = CouponFixedDiscountingMethod.getInstance();
   private static final CouponFixedCompoundingDiscountingMethod METHOD_CPN_FIXED_COMPOUNDING = CouponFixedCompoundingDiscountingMethod.getInstance();
-  private static final CouponFixedFxResetDiscountingMethod METHOD_CPN_FIXED_FXRESET = 
+  private static final CouponFixedFxResetDiscountingMethod METHOD_CPN_FIXED_FXRESET =
       CouponFixedFxResetDiscountingMethod.getInstance();
   private static final CouponIborFxResetDiscountingMethod METHOD_CPN_IBOR_FXRESET =
       CouponIborFxResetDiscountingMethod.getInstance();
@@ -122,11 +122,11 @@ public final class PresentValueCurveSensitivityDiscountingCalculator
   private static final CouponIborCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_FLAT_SPREAD = CouponIborCompoundingFlatSpreadDiscountingMethod.getInstance();
   private static final CouponIborCompoundingSimpleSpreadDiscountingMethod METHOD_CPN_IBOR_COMP_SIMPLE_SPREAD = CouponIborCompoundingSimpleSpreadDiscountingMethod.getInstance();
   private static final CouponONDiscountingMethod METHOD_CPN_ON = CouponONDiscountingMethod.getInstance();
-  private static final CouponONSpreadDiscountingMethod METHOD_CPN_ON_SPREAD = 
+  private static final CouponONSpreadDiscountingMethod METHOD_CPN_ON_SPREAD =
       CouponONSpreadDiscountingMethod.getInstance();
-  private static final CouponONArithmeticAverageDiscountingApproxMethod METHOD_CPN_AAON = 
+  private static final CouponONArithmeticAverageDiscountingApproxMethod METHOD_CPN_AAON =
       CouponONArithmeticAverageDiscountingApproxMethod.getInstance();
-  private static final CouponONArithmeticAverageSpreadDiscountingApproxMethod METHOD_CPN_AAON_SPREAD = 
+  private static final CouponONArithmeticAverageSpreadDiscountingApproxMethod METHOD_CPN_AAON_SPREAD =
       CouponONArithmeticAverageSpreadDiscountingApproxMethod.getInstance();
   private static final CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMethod METHOD_CPN_ONAA_SPREADSIMPL =
       CouponONArithmeticAverageSpreadSimplifiedDiscountingApproxMethod.getInstance();
@@ -138,7 +138,7 @@ public final class PresentValueCurveSensitivityDiscountingCalculator
   private static final CouponONCompoundedDiscountingMethod METHOD_CPN_ON_COMPOUNDING = CouponONCompoundedDiscountingMethod.getInstance();
   private static final CouponIborAverageFixingDatesDiscountingMethod METHOD_CPN_IBOR_AVERAGE_FIXING_DATES = CouponIborAverageFixingDatesDiscountingMethod.getInstance();
   private static final CouponIborAverageFixingDatesCompoundingDiscountingMethod METHOD_CPN_IBOR_AVERAGE_CMP = CouponIborAverageFixingDatesCompoundingDiscountingMethod.getInstance();
-  private static final CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_FLAT_CMP_SPREAD = 
+  private static final CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethod METHOD_CPN_IBOR_FLAT_CMP_SPREAD =
       CouponIborAverageFixingDatesCompoundingFlatSpreadDiscountingMethod.getInstance();
 
   // -----     Deposit     ------
@@ -171,7 +171,7 @@ public final class PresentValueCurveSensitivityDiscountingCalculator
   }
 
   @Override
-  public MultipleCurrencyMulticurveSensitivity visitCouponFixedFxReset(final CouponFixedFxReset coupon, 
+  public MultipleCurrencyMulticurveSensitivity visitCouponFixedFxReset(final CouponFixedFxReset coupon,
       final ParameterProviderInterface multicurve) {
     return METHOD_CPN_FIXED_FXRESET.presentValueCurveSensitivity(coupon, multicurve.getMulticurveProvider());
   }

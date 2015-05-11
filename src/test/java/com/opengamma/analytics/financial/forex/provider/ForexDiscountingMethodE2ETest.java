@@ -38,17 +38,11 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 @Test
 public class ForexDiscountingMethodE2ETest {
-  
-  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_OIS_BLOCK = 
+
+  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_OIS_BLOCK =
       StandardDataSetsEURUSDForex.getCurvesEUROisUSDOis(); // EUR and USD built with OIS
-//  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_EURFX_BLOCK = 
-//      DataSetsEURUSD20140310Forex.getCurvesEUROisUSDOis(); // USD built with OIS, EUR with FX
-//  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_USDFX_BLOCK = 
-//      DataSetsEURUSD20140310Forex.getCurvesEUROisUSDOis(); // EUR built with OIS, USD with FX
   private static final MulticurveProviderDiscount MULTICURVE_OIS = MULTICURVE_OIS_BLOCK.getFirst();
   private static final CurveBuildingBlockBundle BLOCK_OIS = MULTICURVE_OIS_BLOCK.getSecond();
-//  private static final MulticurveProviderDiscount MULTICURVE_EURFX = MULTICURVE_EURFX_BLOCK.getFirst();
-//  private static final MulticurveProviderDiscount MULTICURVE_USDFX = MULTICURVE_USDFX_BLOCK.getFirst();
   private static final Currency EUR = Currency.EUR;
   private static final Currency USD = Currency.USD;
   private static final ZonedDateTime PAYMENT_DATE = DateUtils.getUTCDate(2015, 2, 27);
@@ -66,12 +60,10 @@ public class ForexDiscountingMethodE2ETest {
   private static final PresentValueCurveSensitivityDiscountingCalculator PVCSDC = PresentValueCurveSensitivityDiscountingCalculator.getInstance();
   private static final ParameterSensitivityParameterCalculator<ParameterProviderInterface> PSC = new ParameterSensitivityParameterCalculator<>(PVCSDC);
   private static final MarketQuoteSensitivityBlockCalculator<ParameterProviderInterface> MQSBC = new MarketQuoteSensitivityBlockCalculator<>(PSC);
-//  private static final TodayPaymentCalculator TPC = TodayPaymentCalculator.getInstance();
 
   private static final double TOLERANCE_PV = 1.0E-3; // one cent out of 100m
   private static final double TOLERANCE_PV_DELTA = 1.0E-2;
   private static final double TOLERANCE_RATE = 1.0E-5;
-//  private static final double TOLERANCE_RATE_DELTA = 1.0E-8;
   private static final double BP1 = 1.0E-4;
 
   /**
@@ -85,18 +77,6 @@ public class ForexDiscountingMethodE2ETest {
     assertEquals("ForexDiscountingMethod: presentValue - standard data set", pvComputed.getAmount(EUR).getAmount(), pvEURExpected, TOLERANCE_PV);
     assertEquals("ForexDiscountingMethod: presentValue - standard data set", pvComputed.getAmount(USD).getAmount(), pvUSDExpected, TOLERANCE_PV);
   }
-
-//  /**
-//   * Tests the present value computation.
-//   */
-//  @Test
-//  public void presentValueUSDOISEURFX() {
-//    final MultiCurrencyAmount pvComputed = FX.accept(PVDC, MULTICURVES_EURFX);
-//    final double pvEURExpected = 9989068.065195373;
-//    final double pvUSDExpected = -13984806.732845595;
-//    assertEquals("ForexDiscountingMethod: presentValue - standard data set", pvComputed.getAmount(EUR), pvEURExpected, TOLERANCE_PV);
-//    assertEquals("ForexDiscountingMethod: presentValue - standard data set", pvComputed.getAmount(USD), pvUSDExpected, TOLERANCE_PV);
-//  }
 
   /**
    * Tests the currency exposure computation.
@@ -120,46 +100,18 @@ public class ForexDiscountingMethodE2ETest {
     assertEquals("ForexDiscountingMethod: presentValue - standard data set", prComputed, prExpected, TOLERANCE_RATE);
   }
 
-//  /**
-//   * Tests the parSpread for forex transactions.
-//   */
-//  @Test
-//  public void parSpread() {
-//  }
-//
-//  /**
-//   * Tests the TodayPaymentCalculator for forex transactions.
-//   */
-//  @Test
-//  public void forexTodayPaymentBeforePayment() {
-//  }
-
-  /**
-//   * Tests the TodayPaymentCalculator for forex transactions.
-//   */
-//  @Test
-//  public void forexTodayPaymentOnPayment() {
-//  }
-
-
   @Test
   /**
    * Test different results with a standard set of data against hardcoded values. Can be used for platform testing or regression testing.
    */
   public void BucketedPV01() {
     final double[] deltaDscEUR = {-2.7967, -2.7967, -0.000198, 0.0055, -0.1666, 5.1052, -150.3922, -828.9601, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-    final double[] deltaDscUSD = {3.9161, 3.9161, 0.0046, -0.0625, 0.4837, -9.8799, 215.6977, 1159.6196, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    final double[] deltaDscUSD = {3.9161, 3.9161, 0.0046, -0.0625, 0.4837, -9.8799, 215.6977, 1159.6196, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     final LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivity = new LinkedHashMap<>();
     sensitivity.put(Pair.of(MULTICURVE_OIS.getName(EUR), EUR), new DoubleMatrix1D(deltaDscEUR));
     sensitivity.put(Pair.of(MULTICURVE_OIS.getName(USD), USD), new DoubleMatrix1D(deltaDscUSD));
     final MultipleCurrencyParameterSensitivity pvpsExpected = new MultipleCurrencyParameterSensitivity(sensitivity);
-    //    final ParameterSe
     final MultipleCurrencyParameterSensitivity pvpsComputed = MQSBC.fromInstrument(FX, MULTICURVE_OIS, BLOCK_OIS).multipliedBy(BP1);
     AssertSensitivityObjects.assertEquals("ForwardRateAgreementDiscountingMethod: bucketed delts from standard curves", pvpsExpected, pvpsComputed, TOLERANCE_PV_DELTA);
   }
-  
-//  @Test
-//  public void parSpreadCurveSensitivity() {
-//  }
-
 }

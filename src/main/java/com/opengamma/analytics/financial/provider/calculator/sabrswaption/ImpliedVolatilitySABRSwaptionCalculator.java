@@ -29,24 +29,22 @@ public final class ImpliedVolatilitySABRSwaptionCalculator extends InstrumentDer
   public static ImpliedVolatilitySABRSwaptionCalculator getInstance() {
     return INSTANCE;
   }
-  
+
   /** Private Constructor */
   private ImpliedVolatilitySABRSwaptionCalculator() {
   }
-  
+
   // The Pricing Methods
   /** The implied volatility calculator for physically-settled swaptions */
   private static final SwaptionPhysicalFixedIborSABRMethod METHOD_SWAPTION_PHYSICAL = SwaptionPhysicalFixedIborSABRMethod.getInstance();
   /** The implied volatility calculator for cash-settled swaptions */
-  private static final SwaptionCashFixedIborSABRMethod METHOD_SWAPTION_CASH = SwaptionCashFixedIborSABRMethod.getInstance();  
-  
+  private static final SwaptionCashFixedIborSABRMethod METHOD_SWAPTION_CASH = SwaptionCashFixedIborSABRMethod.getInstance();
+
   @Override
   public Double visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, final SABRSwaptionProviderInterface curves) {
     return METHOD_SWAPTION_PHYSICAL.impliedVolatility(swaption, curves);
   }
 
-
-  
   @Override
   public Double visitSwaptionCashFixedIbor(final SwaptionCashFixedIbor swaption, final SABRSwaptionProviderInterface curves) {
     return METHOD_SWAPTION_CASH.impliedVolatility(swaption, curves);

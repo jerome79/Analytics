@@ -28,7 +28,6 @@ import com.opengamma.analytics.math.minimization.ParameterLimitsTransform;
 import com.opengamma.analytics.math.minimization.ParameterLimitsTransform.LimitType;
 import com.opengamma.analytics.math.minimization.SingleRangeLimitTransform;
 
-
 /**
  * This tests {@link CapletStripperSABRModel} where the parameter term structures are represented at interpolated curves
  */

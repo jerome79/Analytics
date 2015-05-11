@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument.index;
 
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
@@ -46,9 +45,9 @@ public class GeneratorLegONCompounded extends GeneratorLegONAbstract {
    * @param paymentCalendar The calendar used for the payments.
    */
   public GeneratorLegONCompounded(String name, Currency ccy, IndexON indexON, Period paymentPeriod, int spotOffset,
-      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType, 
+      int paymentOffset, BusinessDayConvention businessDayConvention, boolean endOfMonth, StubConvention stubType,
       boolean isExchangeNotional, HolidayCalendar indexCalendar, HolidayCalendar paymentCalendar) {
-    super(name, ccy, indexON, paymentPeriod, spotOffset, paymentOffset, businessDayConvention, endOfMonth, stubType, 
+    super(name, ccy, indexON, paymentPeriod, spotOffset, paymentOffset, businessDayConvention, endOfMonth, stubType,
         isExchangeNotional, indexCalendar, paymentCalendar);
   }
 
@@ -58,7 +57,7 @@ public class GeneratorLegONCompounded extends GeneratorLegONAbstract {
     ArgChecker.notNull(date, "Reference date");
     ArgChecker.notNull(attribute, "Attributes");
     final ZonedDateTime spot = ScheduleCalculator.getAdjustedDate(date, getSpotOffset(), getPaymentCalendar());
-    final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(), 
+    final ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(spot, attribute.getStartPeriod(),
         getBusinessDayConvention(), getPaymentCalendar(), isEndOfMonth());
     final ZonedDateTime endDate = startDate.plus(attribute.getEndPeriod());
     NotionalProvider notionalProvider = new NotionalProvider() {

@@ -24,7 +24,7 @@ public class SemiAnnualScheduleCalculator extends Schedule {
     ArgChecker.notNull(endDate, "end date");
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
-      return new LocalDate[] {startDate};
+      return new LocalDate[] {startDate };
     }
     final List<LocalDate> dates = new ArrayList<>();
     if (fromEnd) {
@@ -54,7 +54,7 @@ public class SemiAnnualScheduleCalculator extends Schedule {
     ArgChecker.notNull(endDate, "end date");
     ArgChecker.isFalse(startDate.isAfter(endDate), "start date must not be after end date");
     if (startDate.equals(endDate)) {
-      return new ZonedDateTime[] {startDate};
+      return new ZonedDateTime[] {startDate };
     }
     final List<ZonedDateTime> dates = new ArrayList<>();
     if (fromEnd) {

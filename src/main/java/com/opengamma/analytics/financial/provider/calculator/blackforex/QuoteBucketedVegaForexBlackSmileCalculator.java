@@ -15,7 +15,7 @@ import com.opengamma.analytics.financial.provider.description.forex.BlackForexSm
  * Black (Garman-Kohlhagen) world. The matrix axes are (time to expiry, ATM / risk reversal / butterfly).
  */
 public class QuoteBucketedVegaForexBlackSmileCalculator extends
-  InstrumentDerivativeVisitorSameMethodAdapter<BlackForexSmileProviderInterface, PresentValueForexBlackVolatilityQuoteSensitivityDataBundle> {
+    InstrumentDerivativeVisitorSameMethodAdapter<BlackForexSmileProviderInterface, PresentValueForexBlackVolatilityQuoteSensitivityDataBundle> {
 
   /**
    * The unique instance of the calculator.

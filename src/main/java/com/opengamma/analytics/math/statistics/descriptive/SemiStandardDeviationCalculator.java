@@ -9,7 +9,6 @@ import java.util.function.Function;
 
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * The semi-standard deviation of a series of data is the partial moment (see {@link PartialMomentCalculator}) calculated with the mean as the threshold.
  */

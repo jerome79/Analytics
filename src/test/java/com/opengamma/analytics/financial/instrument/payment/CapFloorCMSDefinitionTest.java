@@ -31,7 +31,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test related to CapFloorCMSDefinition construction.
  */
@@ -74,9 +73,7 @@ public class CapFloorCMSDefinitionTest {
   // CMS cap
   private static final double STRIKE = 0.04;
   private static final double HIGH_FIXING_RATE = STRIKE + 0.01;
-  private static final DoubleTimeSeries<ZonedDateTime> HIGH_FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{FIXING_DATE}, new double[]{HIGH_FIXING_RATE});
-  //  private static final double LOW_FIXING_RATE = STRIKE - 0.01;
-  //  private static final DoubleTimeSeries<ZonedDateTime> LOW_FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.of(new ZonedDateTime[] {FIXING_DATE}, new double[] {LOW_FIXING_RATE});
+  private static final DoubleTimeSeries<ZonedDateTime> HIGH_FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {FIXING_DATE }, new double[] {HIGH_FIXING_RATE });
   private static final boolean IS_CAP = true;
   private static final CapFloorCMSDefinition CMS_CAP_DEFINITION = CapFloorCMSDefinition.from(CMS_COUPON_DEFINITION, STRIKE, IS_CAP);
   // to derivatives

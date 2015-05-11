@@ -30,7 +30,7 @@ public final class AnnuityProjectedPaymentsVisitor extends InstrumentDerivativeV
 
   /** Returns the discount factor of the coupons */
   private static final CouponPaymentDiscountFactorVisitor DISCOUNT_FACTOR_VISITOR = new CouponPaymentDiscountFactorVisitor();
-  
+
   /** The singleton instance */
   private static final InstrumentDerivativeVisitor<MulticurveProviderInterface, CurrencyAmount[]> INSTANCE = new AnnuityProjectedPaymentsVisitor();
 

@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
@@ -36,7 +35,7 @@ public class SpreadCurveShiftFunctionTest {
       Y[i] = 2 * i + 1;
     }
     CURVE1 = InterpolatedDoublesCurve.fromSorted(X, Y, LINEAR, "A");
-    SPREAD = SpreadDoublesCurve.from(SPREAD_FUNCTION, new DoublesCurve[] {CURVE1, CURVE2});
+    SPREAD = SpreadDoublesCurve.from(SPREAD_FUNCTION, new DoublesCurve[] {CURVE1, CURVE2 });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -61,12 +60,12 @@ public class SpreadCurveShiftFunctionTest {
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void test3() {
-    F.evaluate(SPREAD, new double[] {2}, new double[] {1});
+    F.evaluate(SPREAD, new double[] {2 }, new double[] {1 });
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void test4() {
-    F.evaluate(SPREAD, new double[] {2}, new double[] {1}, "A");
+    F.evaluate(SPREAD, new double[] {2 }, new double[] {1 }, "A");
   }
 
   @Test
@@ -76,7 +75,7 @@ public class SpreadCurveShiftFunctionTest {
     assertEquals(c[0], CURVE1);
     assertEquals(c[1], CURVE2);
     assertEquals(c[2].getClass(), ConstantDoublesCurve.class);
-    assertArrayEquals(c[2].getYData(), new Double[] {SHIFT});
+    assertArrayEquals(c[2].getYData(), new Double[] {SHIFT });
     for (int i = 0; i < N; i++) {
       assertEquals(SPREAD.getYValue(X[i]) + SHIFT, shifted.getYValue(X[i]), EPS);
     }
@@ -87,7 +86,7 @@ public class SpreadCurveShiftFunctionTest {
     assertEquals(c[0], CURVE1);
     assertEquals(c[1], CURVE2);
     assertEquals(c[2].getClass(), ConstantDoublesCurve.class);
-    assertArrayEquals(c[2].getYData(), new Double[] {SHIFT});
+    assertArrayEquals(c[2].getYData(), new Double[] {SHIFT });
     for (int i = 0; i < N; i++) {
       assertEquals(SPREAD.getYValue(X[i]) + SHIFT, shifted.getYValue(X[i]), EPS);
     }

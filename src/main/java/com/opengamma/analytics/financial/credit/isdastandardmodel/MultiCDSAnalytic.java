@@ -80,7 +80,6 @@ public class MultiCDSAnalytic {
     ArgChecker.notNull(curveDayCount, "curveDayCount");
     ArgChecker.isFalse(cashSettlementDate.isBefore(tradeDate), "Require valueDate >= today");
     ArgChecker.isFalse(stepinDate.isBefore(tradeDate), "Require stepin >= today");
-    //  ArgChecker.isFalse(tradeDate.isAfter(maturityReferanceDate), "First CDS has expired");
     ArgChecker.notEmpty(maturityIndexes, "maturityIndexes");
 
     _nMaturities = maturityIndexes.length;
@@ -179,16 +178,6 @@ public class MultiCDSAnalytic {
   public int getPaymentIndexForMaturity(final int matIndex) {
     return _matIndexToPayments[matIndex];
   }
-
-  //  /**
-  //   * 
-  //   * @param matIndex
-  //   * @return
-  //   */
-  //  @Deprecated
-  //  public double getCoupon(final int matIndex) {
-  //    return _couponAmts[matIndex];
-  //  }
 
   /**
    * Gets the payAccOnDefault.

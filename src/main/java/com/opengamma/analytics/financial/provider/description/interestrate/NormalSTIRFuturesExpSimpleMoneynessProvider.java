@@ -78,7 +78,7 @@ public class NormalSTIRFuturesExpSimpleMoneynessProvider implements NormalSTIRFu
   public MulticurveProviderInterface getMulticurveProvider() {
     return _multicurveProvider;
   }
-  
+
   public boolean isMoneynessOnPrice() {
     return _moneynessOnPrice;
   }
@@ -117,8 +117,8 @@ public class NormalSTIRFuturesExpSimpleMoneynessProvider implements NormalSTIRFu
     int result = 1;
     result = prime * result + _index.hashCode();
     result = prime * result + (_moneynessOnPrice ? 1231 : 1237);
-    result = prime * result +  _multicurveProvider.hashCode();
-    result = prime * result +  _parameters.hashCode();
+    result = prime * result + _multicurveProvider.hashCode();
+    result = prime * result + _parameters.hashCode();
     return result;
   }
 

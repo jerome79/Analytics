@@ -18,6 +18,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.DoublesPair;
+
 /**
  * Method to compute results for fixed coupon with FX reset notional.
  * See documentation for the hypothesis used to obtain the explicit formula.
@@ -68,7 +69,7 @@ public final class CouponFixedFxResetDiscountingMethod {
     double pv = amount * dfCcyPaymentAtPayment * dfCcyReferenceAtDelivery / dfCcyPaymentAtDelivery;
     return MultiCurrencyAmount.of(ccyPayment, pv);
   }
-  
+
   /**
    * Compute the present value curve sensitivity of a Fixed coupon with FX reset notional by discounting. 
    * See documentation for the hypothesis.
@@ -76,7 +77,7 @@ public final class CouponFixedFxResetDiscountingMethod {
    * @param multicurve The multi-curve provider.
    * @return The present value curve sensitivity.
    */
-  public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final CouponFixedFxReset coupon, 
+  public MultipleCurrencyMulticurveSensitivity presentValueCurveSensitivity(final CouponFixedFxReset coupon,
       final MulticurveProviderInterface multicurve) {
     ArgChecker.notNull(coupon, "Coupon");
     ArgChecker.notNull(multicurve, "multicurve");
@@ -91,9 +92,9 @@ public final class CouponFixedFxResetDiscountingMethod {
     double dfCcyPaymentAtDelivery = multicurve.getDiscountFactor(ccyPayment, t0);
     // Backward sweep.
     double pvBar = 1.0;
-    double dfCcyPaymentAtDeliveryBar = -amount * 
+    double dfCcyPaymentAtDeliveryBar = -amount *
         dfCcyPaymentAtPayment * dfCcyReferenceAtDelivery / (dfCcyPaymentAtDelivery * dfCcyPaymentAtDelivery) * pvBar;
-    double dfCcyReferenceAtDeliveryBar = amount * dfCcyPaymentAtPayment  / dfCcyPaymentAtDelivery * pvBar;
+    double dfCcyReferenceAtDeliveryBar = amount * dfCcyPaymentAtPayment / dfCcyPaymentAtDelivery * pvBar;
     double dfCcyPaymentAtPaymentBar = amount * dfCcyReferenceAtDelivery / dfCcyPaymentAtDelivery * pvBar;
     MultipleCurrencyMulticurveSensitivity result = new MultipleCurrencyMulticurveSensitivity();
     final Map<String, List<DoublesPair>> mapDscCcyPayment = new HashMap<>();
@@ -126,7 +127,7 @@ public final class CouponFixedFxResetDiscountingMethod {
     double dfCcyPaymentAtPayment = multicurves.getDiscountFactor(ccyPayment, coupon.getPaymentTime());
     double dfCcyReferenceAtDelivery = multicurves.getDiscountFactor(ccyReference, coupon.getFxDeliveryTime());
     double dfCcyPaymentAtDelivery = multicurves.getDiscountFactor(ccyPayment, coupon.getFxDeliveryTime());
-    double pv = coupon.getNotional() * coupon.getPaymentYearFraction() * coupon.getRate() * 
+    double pv = coupon.getNotional() * coupon.getPaymentYearFraction() * coupon.getRate() *
         dfCcyPaymentAtPayment * dfCcyReferenceAtDelivery / dfCcyPaymentAtDelivery;
     return MultiCurrencyAmount.of(ccyReference, pv);
   }

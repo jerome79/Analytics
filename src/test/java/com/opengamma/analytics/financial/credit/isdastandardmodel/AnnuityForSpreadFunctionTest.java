@@ -27,7 +27,7 @@ public class AnnuityForSpreadFunctionTest {
 
   private static final LocalDate TRADE_DATE = LocalDate.of(2011, Month.JUNE, 13);
   private static final double[] YIELD_CURVE_RATES = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017,
-      0.03092, 0.0316, 0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
+    0.03092, 0.0316, 0.03231, 0.03367, 0.03419, 0.03411, 0.03412 };
 
   private static final Period TENOR = Period.ofYears(10);
   private static final HolidayCalendar CALENDAR = HolidayCalendars.SAT_SUN;

@@ -20,7 +20,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * 
  */
@@ -43,7 +42,7 @@ public class InterestRateSensitivityTest {
   private static final CDSAnalytic CDS;
 
   private static final LocalDate[] PAR_SPD_DATES = new LocalDate[] {LocalDate.of(2013, 6, 20), LocalDate.of(2013, 9, 20), LocalDate.of(2014, 3, 20), LocalDate.of(2015, 3, 20),
-      LocalDate.of(2016, 3, 20), LocalDate.of(2018, 3, 20), LocalDate.of(2023, 3, 20) };
+    LocalDate.of(2016, 3, 20), LocalDate.of(2018, 3, 20), LocalDate.of(2023, 3, 20) };
   private static final double[] PAR_SPREADS = new double[] {60, 75, 100, 115, 110, 95, 80 };
   private static final int NUM_MARKET_CDS = PAR_SPD_DATES.length;
   private static final CDSAnalytic[] MARKET_CDS = new CDSAnalytic[NUM_MARKET_CDS];
@@ -129,7 +128,7 @@ public class InterestRateSensitivityTest {
     assertEquals(bumpedPv - pv, res, tol);
 
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     final double res1 = calc.parallelIR01(CDS, DEAL_SPREAD * ONE_BPS, CREDIT_CURVE, YIELD_CURVE_BUILDER, rates);
 
     final double[] bumpedRates = new double[NUM_INSTRUMENTS];
@@ -173,7 +172,7 @@ public class InterestRateSensitivityTest {
     }
 
     final double[] rates = new double[] {0.00445, 0.009488, 0.012337, 0.017762, 0.01935, 0.020838, 0.01652, 0.02018, 0.023033, 0.02525, 0.02696, 0.02825, 0.02931, 0.03017, 0.03092, 0.0316, 0.03231,
-        0.03367, 0.03419, 0.03411, 0.03412 };
+      0.03367, 0.03419, 0.03411, 0.03412 };
     final double[] res1 = calc.bucketedIR01(CDS, DEAL_SPREAD * ONE_BPS, CREDIT_CURVE, YIELD_CURVE_BUILDER, rates);
     final ISDACompliantYieldCurve baseYC = YIELD_CURVE_BUILDER.build(rates);
     final double base = pricer.pv(CDS, baseYC, CREDIT_CURVE, DEAL_SPREAD * ONE_BPS, PriceType.CLEAN);

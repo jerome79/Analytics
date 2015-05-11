@@ -14,8 +14,8 @@ import com.opengamma.analytics.financial.provider.sensitivity.multicurve.Multipl
 /**
  * Calculator of the present value curve sensitivity for multi-curve with normal swaption volatility.
  */
-public final class PresentValueCurveSensitivityNormalSwaptionCalculator 
-  extends InstrumentDerivativeVisitorAdapter<NormalSwaptionProviderInterface, MultipleCurrencyMulticurveSensitivity> {
+public final class PresentValueCurveSensitivityNormalSwaptionCalculator
+    extends InstrumentDerivativeVisitorAdapter<NormalSwaptionProviderInterface, MultipleCurrencyMulticurveSensitivity> {
 
   /**
    * The unique instance of the calculator.
@@ -37,13 +37,13 @@ public final class PresentValueCurveSensitivityNormalSwaptionCalculator
   }
 
   /** Pricing method for physically-settled swaptions */
-  private static final SwaptionPhysicalFixedIborNormalMethod METHOD_SWT_PHYS = 
+  private static final SwaptionPhysicalFixedIborNormalMethod METHOD_SWT_PHYS =
       SwaptionPhysicalFixedIborNormalMethod.getInstance();
 
   @Override
-  public MultipleCurrencyMulticurveSensitivity visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption, 
+  public MultipleCurrencyMulticurveSensitivity visitSwaptionPhysicalFixedIbor(final SwaptionPhysicalFixedIbor swaption,
       final NormalSwaptionProviderInterface normal) {
     return METHOD_SWT_PHYS.presentValueCurveSensitivity(swaption, normal);
   }
-  
+
 }

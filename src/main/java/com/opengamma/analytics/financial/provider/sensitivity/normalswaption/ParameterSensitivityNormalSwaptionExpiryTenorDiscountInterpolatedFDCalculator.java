@@ -27,7 +27,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * For an instrument, computes the sensitivity of a value (often the present value or a par spread) to the parameters 
  * used in the curve. The computation is done by shifting each node point in each curve; 
@@ -90,10 +89,10 @@ public class ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFD
       for (int loopnode = 0; loopnode < nbNodePoint; loopnode++) {
         double[] yieldBumpedPlus = curveInt.getYDataAsPrimitive().clone();
         yieldBumpedPlus[loopnode] += _shift;
-        YieldAndDiscountCurve dscBumpedPlus = new YieldCurve(curveInt.getName(), 
+        YieldAndDiscountCurve dscBumpedPlus = new YieldCurve(curveInt.getName(),
             new InterpolatedDoublesCurve(curveInt.getXDataAsPrimitive(), yieldBumpedPlus, curveInt.getInterpolator(), true));
         NormalSwaptionExpiryTenorProvider marketDscBumpedPlus = new NormalSwaptionExpiryTenorProvider(
-            multicurve.withDiscountFactor(ccy, dscBumpedPlus), normalMulticurve.getParameterSurface(), 
+            multicurve.withDiscountFactor(ccy, dscBumpedPlus), normalMulticurve.getParameterSurface(),
             normalMulticurve.getGeneratorSwap());
         final MultiCurrencyAmount pvBumpedPlus = instrument.accept(_valueCalculator, marketDscBumpedPlus);
         final double[] yieldBumpedMinus = curveInt.getYDataAsPrimitive().clone();
@@ -101,7 +100,7 @@ public class ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFD
         final YieldAndDiscountCurve dscBumpedMinus = new YieldCurve(curveInt.getName(),
             new InterpolatedDoublesCurve(curveInt.getXDataAsPrimitive(), yieldBumpedMinus, curveInt.getInterpolator(), true));
         final NormalSwaptionExpiryTenorProvider marketDscBumpedMinus = new NormalSwaptionExpiryTenorProvider(
-            multicurve.withDiscountFactor(ccy, dscBumpedMinus), normalMulticurve.getParameterSurface(), 
+            multicurve.withDiscountFactor(ccy, dscBumpedMinus), normalMulticurve.getParameterSurface(),
             normalMulticurve.getGeneratorSwap());
         final MultiCurrencyAmount pvBumpedMinus = instrument.accept(_valueCalculator, marketDscBumpedMinus);
         final MultiCurrencyAmount pvDiff = pvBumpedPlus.plus(pvBumpedMinus.multipliedBy(-1.0));
@@ -128,10 +127,10 @@ public class ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFD
       for (int loopnode = 0; loopnode < nbNodePoint; loopnode++) {
         final double[] yieldBumpedPlus = curveInt.getYDataAsPrimitive().clone();
         yieldBumpedPlus[loopnode] += _shift;
-        YieldAndDiscountCurve dscBumpedPlus = new YieldCurve(curveInt.getName(), 
+        YieldAndDiscountCurve dscBumpedPlus = new YieldCurve(curveInt.getName(),
             new InterpolatedDoublesCurve(curveInt.getXDataAsPrimitive(), yieldBumpedPlus, curveInt.getInterpolator(), true));
         NormalSwaptionExpiryTenorProvider marketFwdBumpedPlus = new NormalSwaptionExpiryTenorProvider(
-            multicurve.withForward(index, dscBumpedPlus), normalMulticurve.getParameterSurface(), 
+            multicurve.withForward(index, dscBumpedPlus), normalMulticurve.getParameterSurface(),
             normalMulticurve.getGeneratorSwap());
         final MultiCurrencyAmount pvBumpedPlus = instrument.accept(_valueCalculator, marketFwdBumpedPlus);
         final double[] yieldBumpedMinus = curveInt.getYDataAsPrimitive().clone();
@@ -139,7 +138,7 @@ public class ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFD
         final YieldAndDiscountCurve dscBumpedMinus = new YieldCurve(curveInt.getName(),
             new InterpolatedDoublesCurve(curveInt.getXDataAsPrimitive(), yieldBumpedMinus, curveInt.getInterpolator(), true));
         NormalSwaptionExpiryTenorProvider marketFwdBumpedMinus = new NormalSwaptionExpiryTenorProvider(
-            multicurve.withForward(index, dscBumpedMinus), normalMulticurve.getParameterSurface(), 
+            multicurve.withForward(index, dscBumpedMinus), normalMulticurve.getParameterSurface(),
             normalMulticurve.getGeneratorSwap());
         final MultiCurrencyAmount pvBumpedMinus = instrument.accept(_valueCalculator, marketFwdBumpedMinus);
         final MultiCurrencyAmount pvDiff = pvBumpedPlus.plus(pvBumpedMinus.multipliedBy(-1.0));
@@ -167,7 +166,7 @@ public class ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFD
         yieldBumpedPlus[loopnode] += _shift;
         final YieldAndDiscountCurve dscBumpedPlus = new YieldCurve(curveInt.getName(), new InterpolatedDoublesCurve(curveInt.getXDataAsPrimitive(), yieldBumpedPlus, curveInt.getInterpolator(), true));
         NormalSwaptionExpiryTenorProvider marketFwdBumpedPlus = new NormalSwaptionExpiryTenorProvider(
-            multicurve.withForward(index, dscBumpedPlus), normalMulticurve.getParameterSurface(), 
+            multicurve.withForward(index, dscBumpedPlus), normalMulticurve.getParameterSurface(),
             normalMulticurve.getGeneratorSwap());
         final MultiCurrencyAmount pvBumpedPlus = instrument.accept(_valueCalculator, marketFwdBumpedPlus);
         final double[] yieldBumpedMinus = curveInt.getYDataAsPrimitive().clone();
@@ -175,7 +174,7 @@ public class ParameterSensitivityNormalSwaptionExpiryTenorDiscountInterpolatedFD
         final YieldAndDiscountCurve dscBumpedMinus = new YieldCurve(curveInt.getName(),
             new InterpolatedDoublesCurve(curveInt.getXDataAsPrimitive(), yieldBumpedMinus, curveInt.getInterpolator(), true));
         NormalSwaptionExpiryTenorProvider marketFwdBumpedMinus = new NormalSwaptionExpiryTenorProvider(
-            multicurve.withForward(index, dscBumpedMinus), normalMulticurve.getParameterSurface(), 
+            multicurve.withForward(index, dscBumpedMinus), normalMulticurve.getParameterSurface(),
             normalMulticurve.getGeneratorSwap());
         final MultiCurrencyAmount pvBumpedMinus = instrument.accept(_valueCalculator, marketFwdBumpedMinus);
         final MultiCurrencyAmount pvDiff = pvBumpedPlus.plus(pvBumpedMinus.multipliedBy(-1.0));

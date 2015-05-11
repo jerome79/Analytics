@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
-
 /**
  * Test.
  */
@@ -16,11 +15,11 @@ import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 public class DoublesCurveInterpolatedAnchorTest {
 
   private static final String CURVE_NAME = "Anchor";
-  private static final double[] NODE = new double[] {0.1, 1.0, 3.0, 10.0};
+  private static final double[] NODE = new double[] {0.1, 1.0, 3.0, 10.0 };
   private static final double ANCHOR = 5.0;
-  private static final double[] NODE_WITH_ANCHOR = new double[] {0.1, 1.0, 3.0, ANCHOR, 10.0};
-  private static final double[] VALUE = new double[] {0.001, 0.002, -0.001, -0.005};
-  private static final double[] VALUE_WITH_ANCHOR = new double[] {0.001, 0.002, -0.001, 0.0, -0.005};
+  private static final double[] NODE_WITH_ANCHOR = new double[] {0.1, 1.0, 3.0, ANCHOR, 10.0 };
+  private static final double[] VALUE = new double[] {0.001, 0.002, -0.001, -0.005 };
+  private static final double[] VALUE_WITH_ANCHOR = new double[] {0.001, 0.002, -0.001, 0.0, -0.005 };
   private static final Interpolator1D LINEAR = new LinearInterpolator1D();
   private static final DoublesCurveInterpolatedAnchor CURVE = DoublesCurveInterpolatedAnchor.from(NODE, VALUE, ANCHOR, LINEAR, CURVE_NAME);
 

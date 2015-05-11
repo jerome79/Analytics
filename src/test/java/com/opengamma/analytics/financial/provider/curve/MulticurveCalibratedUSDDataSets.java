@@ -81,8 +81,8 @@ public class MulticurveCalibratedUSDDataSets {
   private static final ZonedDateTime NOW = DateUtils.getUTCDate(2013, 6, 19);
 
   private static final ZonedDateTimeDoubleTimeSeries TS_EMPTY = ImmutableZonedDateTimeDoubleTimeSeries.ofEmptyUTC();
-  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{DateUtils.getUTCDate(2011, 9, 27),
-      DateUtils.getUTCDate(2011, 9, 28)}, new double[]{0.07, 0.08});
+  private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITH_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
+    DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries TS_ON_USD_WITHOUT_TODAY = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {DateUtils.getUTCDate(2011, 9, 27),
     DateUtils.getUTCDate(2011, 9, 28) }, new double[] {0.07, 0.08 });
   private static final ZonedDateTimeDoubleTimeSeries[] TS_FIXED_OIS_USD_WITH_TODAY = new ZonedDateTimeDoubleTimeSeries[] {TS_EMPTY, TS_ON_USD_WITH_TODAY };
@@ -221,28 +221,8 @@ public class MulticurveCalibratedUSDDataSets {
       curveBundles[i] = new MultiCurveBundle<>(singleCurves);
     }
     return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(curveBundles, knownData, DSC_MAP, FWD_IBOR_MAP, FWD_ON_MAP, calculator, sensitivityCalculator);
-    //    final int nbUnits = curveGenerators.length;
-    //    final double[][] parametersGuess = new double[nbUnits][];
-    //    final GeneratorYDCurve[][] generatorFinal = new GeneratorYDCurve[nbUnits][];
-    //    final InstrumentDerivative[][][] instruments = new InstrumentDerivative[nbUnits][][];
-    //    for (int loopunit = 0; loopunit < nbUnits; loopunit++) {
-    //      generatorFinal[loopunit] = new GeneratorYDCurve[curveGenerators[loopunit].length];
-    //      int nbInsUnit = 0;
-    //      for (int loopcurve = 0; loopcurve < curveGenerators[loopunit].length; loopcurve++) {
-    //        nbInsUnit += definitions[loopunit][loopcurve].length;
-    //      }
-    //      parametersGuess[loopunit] = new double[nbInsUnit];
     //      int startCurve = 0; // First parameter index of the curve in the unit.
-    //      instruments[loopunit] = convert(definitions[loopunit], loopunit, withToday);
-    //      for (int loopcurve = 0; loopcurve < curveGenerators[loopunit].length; loopcurve++) {
-    //        generatorFinal[loopunit][loopcurve] = curveGenerators[loopunit][loopcurve].finalGenerator(instruments[loopunit][loopcurve]);
-    //        final double[] guessCurve = generatorFinal[loopunit][loopcurve].initialGuess(initialGuess(definitions[loopunit][loopcurve]));
-    //        System.arraycopy(guessCurve, 0, parametersGuess[loopunit], startCurve, instruments[loopunit][loopcurve].length);
-    //        startCurve += instruments[loopunit][loopcurve].length;
-    //      }
-    //    }
     //    return CURVE_BUILDING_REPOSITORY.makeCurvesFromDerivatives(instruments, generatorFinal, curveNames, parametersGuess, knownData, DSC_MAP, FWD_IBOR_MAP, FWD_ON_MAP, calculator,
-    //        sensitivityCalculator);
   }
 
   private static InstrumentDerivative convert(final InstrumentDefinition<?> instrument, final int unit, final boolean withToday) {

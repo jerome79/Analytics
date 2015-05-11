@@ -92,38 +92,37 @@ public class CurveCalibrationConventionDataSets {
     return CURVE_BUILDING_REPOSITORY_INFL_IS;
   }
 
-  private static final Interpolator1D INTERPOLATOR_LINEAR = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, 
+  private static final Interpolator1D INTERPOLATOR_LINEAR =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final Interpolator1D INTERPOLATOR_DQ = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC, 
+  private static final Interpolator1D INTERPOLATOR_DQ =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final Interpolator1D INTERPOLATOR_NCS = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.NATURAL_CUBIC_SPLINE, 
+  private static final Interpolator1D INTERPOLATOR_NCS =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.NATURAL_CUBIC_SPLINE,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final Interpolator1D INTERPOLATOR_CCS = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.CLAMPED_CUBIC, 
+  private static final Interpolator1D INTERPOLATOR_CCS =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.CLAMPED_CUBIC,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final Interpolator1D INTERPOLATOR_EXP = 
-      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.EXPONENTIAL, 
+  private static final Interpolator1D INTERPOLATOR_EXP =
+      CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.EXPONENTIAL,
           Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  //  private static final Interpolator1D INTERPOLATOR_LL = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_LINEAR, Interpolator1DFactory.EXPONENTIAL_EXTRAPOLATOR,
   //      Interpolator1DFactory.EXPONENTIAL_EXTRAPOLATOR); // Log-linear on the discount factor = step on the instantaneous rates
 
   private static final LastTimeCalculator LAST_TIME_CALCULATOR = LastTimeCalculator.getInstance();
   private static final LastFixingEndTimeCalculator LAST_FIXING_END_CALCULATOR = LastFixingEndTimeCalculator.getInstance();
-  private static final GeneratorYDCurve GENERATOR_YD_MAT_LIN = 
+  private static final GeneratorYDCurve GENERATOR_YD_MAT_LIN =
       new GeneratorCurveYieldInterpolated(LAST_TIME_CALCULATOR, INTERPOLATOR_LINEAR);
-  private static final GeneratorYDCurve GENERATOR_YD_MAT_DQ = 
+  private static final GeneratorYDCurve GENERATOR_YD_MAT_DQ =
       new GeneratorCurveYieldInterpolated(LAST_TIME_CALCULATOR, INTERPOLATOR_DQ);
-  private static final GeneratorYDCurve GENERATOR_YD_MAT_NCS = 
+  private static final GeneratorYDCurve GENERATOR_YD_MAT_NCS =
       new GeneratorCurveYieldInterpolated(LAST_TIME_CALCULATOR, INTERPOLATOR_NCS);
-  private static final GeneratorYDCurve GENERATOR_YD_MAT_CCS = 
+  private static final GeneratorYDCurve GENERATOR_YD_MAT_CCS =
       new GeneratorCurveYieldInterpolated(LAST_TIME_CALCULATOR, INTERPOLATOR_CCS);
-  private static final GeneratorPriceIndexCurve GENERATOR_PI_FIX_EXP = 
+  private static final GeneratorPriceIndexCurve GENERATOR_PI_FIX_EXP =
       new GeneratorPriceIndexCurveInterpolated(LAST_FIXING_END_CALCULATOR, INTERPOLATOR_EXP);
   // TODO: Review exponential interpolator
-  private static final GeneratorPriceIndexCurve GENERATOR_PI_FIX_LIN = 
+  private static final GeneratorPriceIndexCurve GENERATOR_PI_FIX_LIN =
       new GeneratorPriceIndexCurveInterpolated(LAST_FIXING_END_CALCULATOR, INTERPOLATOR_LINEAR);
 
   private static final GeneratorSwapFixedIborMaster GENERATOR_IRS_MASTER = GeneratorSwapFixedIborMaster.getInstance();
@@ -134,10 +133,10 @@ public class CurveCalibrationConventionDataSets {
   /** EUR **/
   private static final HolidayCalendar TARGET = HolidayCalendars.SAT_SUN;
   private static final Currency EUR = Currency.EUR;
-  private static final GeneratorSwapFixedON GENERATOR_OIS_EUR = 
+  private static final GeneratorSwapFixedON GENERATOR_OIS_EUR =
       GeneratorSwapFixedONMaster.getInstance().getGenerator("EUR1YEONIA", TARGET);
   private static final IndexON EONIA = GENERATOR_OIS_EUR.getIndex();
-  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_EUR = 
+  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_EUR =
       new GeneratorDepositON("EUR Deposit ON", EUR, TARGET, EONIA.getDayCount());
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR3M = GENERATOR_IRS_MASTER.getGenerator("EUR1YEURIBOR3M", TARGET);
   private static final GeneratorSwapFixedIbor EUR1YEURIBOR6M = GENERATOR_IRS_MASTER.getGenerator("EUR1YEURIBOR6M", TARGET);
@@ -162,7 +161,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor6Fra6Irs6(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor6Fra6Irs6(int nbIbor, int nbFra,
       int nbIrs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbIrs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -178,7 +177,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor6Fra6Bs36(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor6Fra6Bs36(int nbIbor, int nbFra,
       int nbBs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbBs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -194,7 +193,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor3Fra3Irs3(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor3Fra3Irs3(int nbIbor, int nbFra,
       int nbIrs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbIrs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -208,7 +207,6 @@ public class CurveCalibrationConventionDataSets {
     }
     return generator;
   }
-
 
   @SuppressWarnings("unchecked")
   public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorEurIbor3Fut3Irs3(
@@ -236,7 +234,7 @@ public class CurveCalibrationConventionDataSets {
   private static final GeneratorSwapFixedON GENERATOR_OIS_JPY = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("JPY1YTONAR", TYO);
   private static final IndexON TONAR = GENERATOR_OIS_JPY.getIndex();
-  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_JPY = 
+  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_JPY =
       new GeneratorDepositON("JPY Deposit ON", JPY, TYO, TONAR.getDayCount());
   private static final GeneratorSwapFixedIbor JPY6MLIBOR6M = GENERATOR_IRS_MASTER.getGenerator("JPY6MLIBOR6M", TYO);
   private static final GeneratorSwapIborIbor JPYLIBOR3MLIBOR6M = GENERATOR_BS_MASTER.getGenerator("JPYLIBOR3MLIBOR6M", TYO);
@@ -244,9 +242,9 @@ public class CurveCalibrationConventionDataSets {
   private static final IborIndex JPYLIBOR6M = JPY6MLIBOR6M.getIborIndex();
   private static final GeneratorFRA GENERATOR_FRA_3M_JPY = new GeneratorFRA("GENERATOR_FRA_3M", JPYLIBOR3M, TYO);
   private static final GeneratorFRA GENERATOR_FRA_6M_JPY = new GeneratorFRA("GENERATOR_FRA_6M", JPYLIBOR6M, TYO);
-  private static final GeneratorDepositIbor GENERATOR_JPYLIBOR3M = 
+  private static final GeneratorDepositIbor GENERATOR_JPYLIBOR3M =
       new GeneratorDepositIbor("GENERATOR_JPYLIBOR3M", JPYLIBOR3M, TYO);
-  private static final GeneratorDepositIbor GENERATOR_JPYLIBOR6M = 
+  private static final GeneratorDepositIbor GENERATOR_JPYLIBOR6M =
       new GeneratorDepositIbor("GENERATOR_JPYLIBOR6M", JPYLIBOR6M, TYO);
 
   @SuppressWarnings("unchecked")
@@ -262,7 +260,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorJpyIbor6Fra6Irs6(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorJpyIbor6Fra6Irs6(int nbIbor, int nbFra,
       int nbIrs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbIrs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -278,7 +276,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorJpyIbor3Fra3Bs3(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorJpyIbor3Fra3Bs3(int nbIbor, int nbFra,
       int nbBs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbBs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -299,18 +297,18 @@ public class CurveCalibrationConventionDataSets {
   private static final GeneratorSwapFixedON GENERATOR_OIS_GBP = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("GBP1YSONIA", LON);
   private static final IndexON SONIA = GENERATOR_OIS_GBP.getIndex();
-  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_GBP = 
+  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_GBP =
       new GeneratorDepositON("GBP Deposit ON", GBP, LON, SONIA.getDayCount());
   private static final GeneratorSwapFixedIbor GBP6MLIBOR6M = GENERATOR_IRS_MASTER.getGenerator("GBP6MLIBOR6M", LON);
-  private static final GeneratorSwapFixedIbor GBP3MLIBOR3M = 
+  private static final GeneratorSwapFixedIbor GBP3MLIBOR3M =
       GENERATOR_IRS_MASTER.getGenerator(GeneratorSwapFixedIborMaster.GBP3MLIBOR3M, LON);
   private static final IborIndex GBPLIBOR6M = GBP6MLIBOR6M.getIborIndex();
   private static final IborIndex GBPLIBOR3M = GBP3MLIBOR3M.getIborIndex();
   private static final GeneratorFRA GENERATOR_FRA_6M_GBP = new GeneratorFRA("GENERATOR_FRA_6M", GBPLIBOR6M, LON);
   private static final GeneratorFRA GENERATOR_FRA_3M_GBP = new GeneratorFRA("GENERATOR_FRA_3M", GBPLIBOR3M, LON);
-  private static final GeneratorDepositIbor GENERATOR_GBPLIBOR6M = 
+  private static final GeneratorDepositIbor GENERATOR_GBPLIBOR6M =
       new GeneratorDepositIbor("GENERATOR_GBPLIBOR6M", GBPLIBOR6M, LON);
-  private static final GeneratorDepositIbor GENERATOR_GBPLIBOR3M = 
+  private static final GeneratorDepositIbor GENERATOR_GBPLIBOR3M =
       new GeneratorDepositIbor("GENERATOR_GBPLIBOR3M", GBPLIBOR3M, LON);
 
   @SuppressWarnings("unchecked")
@@ -326,7 +324,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorGbpIbor6Fra6Irs6(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorGbpIbor6Fra6Irs6(int nbIbor, int nbFra,
       int nbIrs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbIrs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -342,7 +340,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorGbpIbor3Fra3Irs3(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorGbpIbor3Fra3Irs3(int nbIbor, int nbFra,
       int nbIrs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbIrs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -363,25 +361,24 @@ public class CurveCalibrationConventionDataSets {
   private static final GeneratorSwapFixedON GENERATOR_OIS_USD = GeneratorSwapFixedONMaster.
       getInstance().getGenerator("USD1YFEDFUND", NYC);
   private static final IndexON INDEX_FEDFUND_USD = GENERATOR_OIS_USD.getIndex();
-  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_USD = 
+  private static final GeneratorDepositON GENERATOR_DEPOSIT_ON_USD =
       new GeneratorDepositON("USD Deposit ON", USD, NYC, INDEX_FEDFUND_USD.getDayCount());
   private static final GeneratorSwapFixedIbor USD6MLIBOR3M = GENERATOR_IRS_MASTER.getGenerator("USD6MLIBOR3M", NYC);
   private static final IborIndex USDLIBOR3M = USD6MLIBOR3M.getIborIndex();
-  private static final GeneratorDepositIbor GENERATOR_USDLIBOR3M = 
+  private static final GeneratorDepositIbor GENERATOR_USDLIBOR3M =
       new GeneratorDepositIbor("GENERATOR_USDLIBOR3M", USDLIBOR3M, NYC);
   private static final GeneratorFRA GENERATOR_FRA_3M_USD = new GeneratorFRA("GENERATOR USD FRA 3M", USDLIBOR3M, NYC);
-  private static final GeneratorLegONArithmeticAverageSimplified USDFEDFUNDAA3M = 
+  private static final GeneratorLegONArithmeticAverageSimplified USDFEDFUNDAA3M =
       new GeneratorLegONArithmeticAverageSimplified("USDFEDFUNDAA3M", USD, INDEX_FEDFUND_USD, Period.ofMonths(3), 2, 0,
           BusinessDayConventions.MODIFIED_FOLLOWING, true, StubConvention.SHORT_INITIAL, false, NYC, NYC);
-  private static final GeneratorSwapSingleCurrency GENERATOR_FFAA_USDLIBOR3M = 
+  private static final GeneratorSwapSingleCurrency GENERATOR_FFAA_USDLIBOR3M =
       new GeneratorSwapSingleCurrency("USDFEDFUNDAA3MLIBOR3M",
           USDFEDFUNDAA3M, GeneratorLegIborMaster.getInstance().getGenerator("USDLIBOR3M", NYC));
-  private static final GeneratorSwapFixedInflationZeroCoupon USCPI = 
+  private static final GeneratorSwapFixedInflationZeroCoupon USCPI =
       GENERATOR_INFL_MASTER.getGenerator("USCPI");
-  
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorUsdOnOisFfs(int nbDepositON, int nbOis, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorUsdOnOisFfs(int nbDepositON, int nbOis,
       int nbFF) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbDepositON + nbOis + nbFF];
     for (int loopdepo = 0; loopdepo < nbDepositON; loopdepo++) {
@@ -397,7 +394,7 @@ public class CurveCalibrationConventionDataSets {
   }
 
   @SuppressWarnings("unchecked")
-  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorUsdIbor3Fra3Irs3(int nbIbor, int nbFra, 
+  public static GeneratorInstrument<? extends GeneratorAttribute>[] generatorUsdIbor3Fra3Irs3(int nbIbor, int nbFra,
       int nbIrs) {
     GeneratorInstrument<? extends GeneratorAttribute>[] generator = new GeneratorInstrument[nbIbor + nbFra + nbIrs];
     for (int loopibor = 0; loopibor < nbIbor; loopibor++) {
@@ -431,7 +428,7 @@ public class CurveCalibrationConventionDataSets {
     }
     return generator;
   }
-  
+
   /**
    * Returns an array of generators for US CPI zero coupons swaps.
    * @param nbZc The number of zero-coupon swaps.

@@ -21,7 +21,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.BumpType;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -49,7 +48,6 @@ public class CS01TestGrids extends ISDABaseTest {
     final LocalDate spotDate = addWorkDays(tradeDate.minusDays(1), 1, DEFAULT_CALENDAR);
     final String[] yieldCurvePoints = new String[] {"1M", "2M", "3M", "6M", "1Y", "2Y", "3Y", "4Y", "5Y", "6Y", "7Y", "8Y", "9Y", "10Y", "12Y", "15Y", "20Y", "25Y", "30Y" };
     final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S" };
-    //final String[] yieldCurveInstruments = new String[] {"M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M" };
     final double[] rates = new double[] {0.004919, 0.005006, 0.00515, 0.005906, 0.008813, 0.0088, 0.01195, 0.01534, 0.01836, 0.02096, 0.02322, 0.02514, 0.02673, 0.02802, 0.02997, 0.0318, 0.03331,
       0.03383, 0.034 };
     final ISDACompliantYieldCurve yieldCurve = makeYieldCurve(tradeDate, spotDate, yieldCurvePoints, yieldCurveInstruments, rates, ACT_ACT_ISDA, ACT_ACT_ISDA, Period.ofMonths(6));
@@ -294,7 +292,6 @@ public class CS01TestGrids extends ISDABaseTest {
         final double qSpread = QUOTE_CONVERTER.pufToQuotedSpread(pricingCDS, coupon, yieldCurve, puf[i]);
         System.out.println(QUOTE_CONVERTER.pufToQuotedSpread(pricingCDS, coupon, yieldCurve, puf[i]));
         parellelCS01_B[i] = CS01_CAL.parallelCS01FromParSpreads(pricingCDS, qSpread, yieldCurve, pillarCDSsIMM, pillarQS, ONE_BP, BumpType.ADDITIVE);
-        //  parellelCS01_B[i] = CS01_CAL.parallelCS01FromCreditCurve(pricingCDS, parSpread, pillarCDSsNonIMM, yieldCurve, creditCurve, ONE_BP);
         bucketedCS01[i] = CS01_CAL.bucketedCS01FromCreditCurve(pricingCDS, coupon, bucketCDSsNonIMM, yieldCurve, creditCurve, ONE_BP);
       }
     }

@@ -294,8 +294,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
 
   RESULT_TYPE visitBondInterestIndexedTransaction(BondInterestIndexedTransaction<?, ?> bond, DATA_TYPE data);
 
-
-
   // One argument
 
   RESULT_TYPE visitBondFixedSecurity(BondFixedSecurity bond);
@@ -355,8 +353,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
   RESULT_TYPE visitBondInterestIndexedSecurity(BondInterestIndexedSecurity<?, ?> bond);
 
   RESULT_TYPE visitBondInterestIndexedSecurity(BondInterestIndexedSecurity<?, ?> bond, DATA_TYPE data);
-
-
 
   // -----     Coupons     -----
 

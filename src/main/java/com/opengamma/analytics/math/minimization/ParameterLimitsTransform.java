@@ -25,13 +25,13 @@ public interface ParameterLimitsTransform {
    * @return Fitting parameter
    */
   double transform(double x);
-  
-//  /**
-//   * A function to transform a set of constrained model parameters to a set of unconstrained fitting parameters
-//   * @param x Model parameter 
-//   * @return Fitting parameter
-//   */
-//  double[] transform(double[] x);
+
+  //  /**
+  //   * A function to transform a set of constrained model parameters to a set of unconstrained fitting parameters
+  //   * @param x Model parameter 
+  //   * @return Fitting parameter
+  //   */
+  //  double[] transform(double[] x);
 
   /**
    * A function to transform an unconstrained fitting parameter (y*) to a constrained model parameter (y) - i.e. y = f^-1(y*)
@@ -39,8 +39,6 @@ public interface ParameterLimitsTransform {
    * @return Model parameter 
    */
   double inverseTransform(double y);
-  
-  
 
   /**
    * The gradient of the function used to transform from a model parameter that is only allows to take certain values, to a fitting parameter that can take any value

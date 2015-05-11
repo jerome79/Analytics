@@ -18,7 +18,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.id.StandardId;
 
-
 /**
  * Test.
  */
@@ -85,7 +84,8 @@ public class EquityIndexFutureOptionDefinitionTest {
     assertEquals(AMERICAN_PUT.hashCode(), other.hashCode());
     other = new EquityIndexFutureOptionDefinition(EXPIRY.plusDays(1), UNDERLYING, STRIKE, EXERCISE, IS_CALL, POINT_VALUE, REFERENCE_PRICE);
     assertFalse(AMERICAN_PUT.equals(other));
-    other = new EquityIndexFutureOptionDefinition(EXPIRY, new IndexFutureDefinition(EXPIRY, SETTLEMENT.plusDays(2), STRIKE, CCY, POINT_VALUE, EXTERNAL_ID), STRIKE, EXERCISE, IS_CALL, POINT_VALUE, REFERENCE_PRICE);
+    other = new EquityIndexFutureOptionDefinition(EXPIRY, new IndexFutureDefinition(EXPIRY, SETTLEMENT.plusDays(2), STRIKE, CCY, POINT_VALUE, EXTERNAL_ID), STRIKE, EXERCISE, IS_CALL, POINT_VALUE,
+        REFERENCE_PRICE);
     assertFalse(AMERICAN_PUT.equals(other));
     other = new EquityIndexFutureOptionDefinition(EXPIRY, UNDERLYING, STRIKE + 1, EXERCISE, IS_CALL, POINT_VALUE, REFERENCE_PRICE);
     assertFalse(AMERICAN_PUT.equals(other));

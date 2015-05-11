@@ -107,7 +107,7 @@ public class SwapIborONDefinition extends SwapDefinition {
    * @return The swap.
    */
   public static SwapIborONDefinition from(final ZonedDateTime settlementDate, final ZonedDateTime endFixingPeriodDate, final NotionalProvider notionalFixed, final NotionalProvider notionalOIS,
-                                          final GeneratorSwapIborON generator, final double spread, final boolean isPayer) {
+      final GeneratorSwapIborON generator, final double spread, final boolean isPayer) {
     final AnnuityCouponONDefinition oisLeg = AnnuityCouponONDefinition.from(settlementDate, endFixingPeriodDate, notionalOIS, generator, !isPayer);
     return from(oisLeg, notionalFixed, generator.getIndexIbor(), spread, generator.getIborCalendar(), isPayer);
   }
@@ -124,13 +124,14 @@ public class SwapIborONDefinition extends SwapDefinition {
   }
 
   private static SwapIborONDefinition from(final AnnuityCouponONDefinition oisLeg, final NotionalProvider notional, final IborIndex indexIbor, final double spread,
-                                           final HolidayCalendar calendar, boolean isPayer) {
+      final HolidayCalendar calendar, boolean isPayer) {
     final double sign = isPayer ? -1 : 1;
     final CouponIborSpreadDefinition[] cpnIbor = new CouponIborSpreadDefinition[oisLeg.getNumberOfPayments()];
     for (int loopcpn = 0; loopcpn < oisLeg.getNumberOfPayments(); loopcpn++) {
       final ZonedDateTime fixingDate = ScheduleCalculator.getAdjustedDate(oisLeg.getNthPayment(loopcpn).getAccrualStartDate(), indexIbor.getSpotLag(), calendar);
       cpnIbor[loopcpn] = new CouponIborSpreadDefinition(oisLeg.getCurrency(), oisLeg.getNthPayment(loopcpn).getPaymentDate(), oisLeg.getNthPayment(loopcpn).getAccrualStartDate(), oisLeg
-          .getNthPayment(loopcpn).getAccrualEndDate(), oisLeg.getNthPayment(loopcpn).getPaymentYearFraction(), sign * notional.getAmount(oisLeg.getNthPayment(loopcpn).getAccrualStartDate().toLocalDate()), fixingDate, indexIbor, spread, calendar);
+          .getNthPayment(loopcpn).getAccrualEndDate(), oisLeg.getNthPayment(loopcpn).getPaymentYearFraction(), sign *
+          notional.getAmount(oisLeg.getNthPayment(loopcpn).getAccrualStartDate().toLocalDate()), fixingDate, indexIbor, spread, calendar);
     }
     return new SwapIborONDefinition(new AnnuityCouponIborSpreadDefinition(cpnIbor, calendar), oisLeg);
   }

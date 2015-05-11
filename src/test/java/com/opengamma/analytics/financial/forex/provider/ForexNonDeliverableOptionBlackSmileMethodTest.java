@@ -39,7 +39,6 @@ import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Tests related to the valuation of non-deliverable forward by discounting.
  */
@@ -81,7 +80,7 @@ public class ForexNonDeliverableOptionBlackSmileMethodTest {
 
   // Smile data
   private static final Period[] EXPIRY_PERIOD = new Period[] {Period.ofMonths(3), Period.ofMonths(6), Period.ofYears(1),
-    Period.ofYears(2), Period.ofYears(5)};
+    Period.ofYears(2), Period.ofYears(5) };
   private static final int NB_EXP = EXPIRY_PERIOD.length;
   private static final ZonedDateTime REFERENCE_SPOT = ScheduleCalculator.getAdjustedDate(REFERENCE_DATE, SETTLEMENT_DAYS, CALENDAR);
   private static final ZonedDateTime[] PAY_DATE = new ZonedDateTime[NB_EXP];
@@ -95,11 +94,11 @@ public class ForexNonDeliverableOptionBlackSmileMethodTest {
       TIME_TO_EXPIRY[loopexp + 1] = TimeCalculator.getTimeBetween(REFERENCE_DATE, EXPIRY_DATE[loopexp]);
     }
   }
-  private static final double[] ATM = {0.175, 0.185, 0.18, 0.17, 0.16, 0.16};
-  private static final double[] DELTA = new double[] {0.10, 0.25};
-  private static final double[][] RISK_REVERSAL = new double[][] { {-0.010, -0.0050}, {-0.011, -0.0060}, {-0.012, -0.0070}, {-0.013, -0.0080}, {-0.014, -0.0090},
-    {-0.014, -0.0090}};
-  private static final double[][] STRANGLE = new double[][] { {0.0300, 0.0100}, {0.0310, 0.0110}, {0.0320, 0.0120}, {0.0330, 0.0130}, {0.0340, 0.0140}, {0.0340, 0.0140}};
+  private static final double[] ATM = {0.175, 0.185, 0.18, 0.17, 0.16, 0.16 };
+  private static final double[] DELTA = new double[] {0.10, 0.25 };
+  private static final double[][] RISK_REVERSAL = new double[][] { {-0.010, -0.0050 }, {-0.011, -0.0060 }, {-0.012, -0.0070 }, {-0.013, -0.0080 }, {-0.014, -0.0090 },
+    {-0.014, -0.0090 } };
+  private static final double[][] STRANGLE = new double[][] { {0.0300, 0.0100 }, {0.0310, 0.0110 }, {0.0320, 0.0120 }, {0.0330, 0.0130 }, {0.0340, 0.0140 }, {0.0340, 0.0140 } };
   private static final SmileDeltaTermStructureParametersStrikeInterpolation SMILE_TERM = new SmileDeltaTermStructureParametersStrikeInterpolation(TIME_TO_EXPIRY, DELTA,
       ATM, RISK_REVERSAL, STRANGLE);
   private static final BlackForexSmileProviderDiscount SMILE_MULTICURVES = new BlackForexSmileProviderDiscount(MULTICURVES, SMILE_TERM, Pair.of(USD, KRW));
@@ -169,17 +168,6 @@ public class ForexNonDeliverableOptionBlackSmileMethodTest {
     final double fwdExpected = METHOD_NDF.forwardForexRate(NDO.getUnderlyingNDF(), MULTICURVES);
     assertEquals("Forex non-deliverable option: forward rate", fwdExpected, fwd, 1.0E-10);
   }
-
-  //  @Test
-  //  /**
-  //   * Tests the forward Forex rate through the method and through the calculator.
-  //   */
-  //  public void forwardRateMethodVsCalculator() {
-  //    final double fwdMethod = METHOD_NDO.forwardForexRate(NDO, MULTICURVES);
-  //    final ForwardRateForexCalculator FWDC = ForwardRateForexCalculator.getInstance();
-  //    final double fwdCalculator = NDO.accept(FWDC, SMILE_MULTICURVES);
-  //    assertEquals("Forex: forward rate", fwdMethod, fwdCalculator, 1.0E-10);
-  //  }
 
   @Test
   /**

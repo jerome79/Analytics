@@ -55,18 +55,18 @@ public class InterpolatedFromSurfacesDoublesCubeTest {
   private static final Surface<Double, Double, Double> S2 = FunctionalDoublesSurface.from(F2, "B");
   private static final Surface<Double, Double, Double> S3 = FunctionalDoublesSurface.from(F2, "C");
   private static final String NAME = "K";
-  private static final double[] POINTS_PRIMITIVE = new double[] {A0, A1, A2};
+  private static final double[] POINTS_PRIMITIVE = new double[] {A0, A1, A2 };
   private static final Double[] POINTS_OBJECT;
   private static final List<Double> POINTS_LIST;
   @SuppressWarnings("unchecked")
-  private static final Surface<Double, Double, Double>[] SURFACE_ARRAY = new Surface[] {S1, S2, S3};
+  private static final Surface<Double, Double, Double>[] SURFACE_ARRAY = new Surface[] {S1, S2, S3 };
   private static final List<Surface<Double, Double, Double>> SURFACE_LIST;
   private static final Map<Double, Surface<Double, Double, Double>> SURFACE_MAP;
-  private static final double[] UNSORTED_POINTS_PRIMITIVE = new double[] {A0, A2, A1};
+  private static final double[] UNSORTED_POINTS_PRIMITIVE = new double[] {A0, A2, A1 };
   private static final Double[] UNSORTED_POINTS_OBJECT;
   private static final List<Double> UNSORTED_POINTS_LIST;
   @SuppressWarnings("unchecked")
-  private static final Surface<Double, Double, Double>[] UNSORTED_SURFACE_ARRAY = new Surface[] {S1, S3, S2};
+  private static final Surface<Double, Double, Double>[] UNSORTED_SURFACE_ARRAY = new Surface[] {S1, S3, S2 };
   private static final List<Surface<Double, Double, Double>> UNSORTED_SURFACE_LIST;
   private static final Map<Double, Surface<Double, Double, Double>> UNSORTED_SURFACE_MAP;
   private static final LinearInterpolator1D INTERPOLATOR = new LinearInterpolator1D();
@@ -402,12 +402,12 @@ public class InterpolatedFromSurfacesDoublesCubeTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullPointValue1() {
-    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., null}, SURFACE_ARRAY, INTERPOLATOR, true);
+    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., null }, SURFACE_ARRAY, INTERPOLATOR, true);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullPointValue2() {
-    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., null}, SURFACE_ARRAY, INTERPOLATOR, true, NAME);
+    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., null }, SURFACE_ARRAY, INTERPOLATOR, true, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -450,22 +450,22 @@ public class InterpolatedFromSurfacesDoublesCubeTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength1() {
-    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new double[] {1, 2, 3, 4, 5}, SURFACE_ARRAY, INTERPOLATOR, true);
+    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new double[] {1, 2, 3, 4, 5 }, SURFACE_ARRAY, INTERPOLATOR, true);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength2() {
-    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new double[] {1, 2, 3, 4, 5}, SURFACE_ARRAY, INTERPOLATOR, true, NAME);
+    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new double[] {1, 2, 3, 4, 5 }, SURFACE_ARRAY, INTERPOLATOR, true, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength3() {
-    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., 3., 4., 5.}, SURFACE_ARRAY, INTERPOLATOR, true);
+    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., 3., 4., 5. }, SURFACE_ARRAY, INTERPOLATOR, true);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLength4() {
-    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., 3., 4., 5.}, SURFACE_ARRAY, INTERPOLATOR, true, NAME);
+    new InterpolatedFromSurfacesDoublesCube(Plane.XY, new Double[] {1., 2., 3., 4., 5. }, SURFACE_ARRAY, INTERPOLATOR, true, NAME);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

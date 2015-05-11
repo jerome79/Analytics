@@ -243,7 +243,6 @@ public abstract class InstrumentDerivativeVisitorAdapter<DATA_TYPE, RESULT_TYPE>
     return getException(payment, data);
   }
 
-
   @Override
   public RESULT_TYPE visitBondFixedSecurity(final BondFixedSecurity bond) {
     return getException(bond);

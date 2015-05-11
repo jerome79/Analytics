@@ -36,13 +36,13 @@ public class ParabolicMinimumBracketer extends MinimumBracketer {
     double x3 = x2 + MAGNIFICATION * (x2 - x1);
     double f3 = f.evaluate(x3);
     if (x1 < x2 && x2 < x3 && f2 < f1 && f2 < f3 || x1 > x2 && x2 > x3 && f2 < f1 && f2 < f3) {
-      return new double[] {x1, x2, x3};
+      return new double[] {x1, x2, x3 };
     }
     double r, q, u, uLim, fu;
     int count = 0;
     while (count < MAX_ITER) {
       if (f2 < f3) {
-        return new double[] {x1, x2, x3};
+        return new double[] {x1, x2, x3 };
       }
       count++;
       r = (x2 - x1) * (f2 - f3);
@@ -54,10 +54,10 @@ public class ParabolicMinimumBracketer extends MinimumBracketer {
         if (fu < f3) {
           x1 = x2;
           x2 = u;
-          return new double[] {x1, x2, x3};
+          return new double[] {x1, x2, x3 };
         } else if (fu > f2) {
           x3 = u;
-          return new double[] {x1, x2, x3};
+          return new double[] {x1, x2, x3 };
         }
         u = x3 + MAGNIFICATION * (x3 - x2);
         fu = f.evaluate(u);

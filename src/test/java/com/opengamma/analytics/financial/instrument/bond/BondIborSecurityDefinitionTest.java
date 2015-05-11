@@ -38,7 +38,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -110,14 +109,13 @@ public class BondIborSecurityDefinitionTest {
 
   @Test
   public void testGetters() {
-    //    BondIborSecurityDefinition bond = BondIborSecurityDefinition.from(MATURITY_DATE, START_ACCRUAL_DATE, IBOR_INDEX, SETTLEMENT_DAYS, DAY_COUNT, BUSINESS_DAY, IS_EOM);
     assertEquals(SETTLEMENT_DAYS, FRN_DEFINITION.getSettlementDays());
     assertEquals(DAY_COUNT, FRN_DEFINITION.getDayCount());
     assertEquals(0, FRN_DEFINITION.getExCouponDays()); //Default
     final AnnuityCouponIborDefinition coupon = AnnuityCouponIborDefinition.fromAccrualUnadjusted(START_ACCRUAL_DATE, MATURITY_DATE, 1.0, IBOR_INDEX, false, CALENDAR);
     assertEquals(coupon, FRN_DEFINITION.getCoupons());
     final AnnuityDefinition<PaymentFixedDefinition> nominal = new AnnuityDefinition<>(new PaymentFixedDefinition[] {new PaymentFixedDefinition(CUR,
-            BusinessDayDateUtils.applyConvention(BUSINESS_DAY, MATURITY_DATE, CALENDAR), 1.0)}, CALENDAR);
+        BusinessDayDateUtils.applyConvention(BUSINESS_DAY, MATURITY_DATE, CALENDAR), 1.0) }, CALENDAR);
     assertEquals(nominal.getCurrency(), FRN_DEFINITION.getNominal().getCurrency());
     assertEquals(nominal.getNthPayment(0).getPaymentDate(), FRN_DEFINITION.getNominal().getNthPayment(0).getPaymentDate());
     assertEquals(nominal.getNthPayment(0).getReferenceAmount(), FRN_DEFINITION.getNominal().getNthPayment(0).getReferenceAmount());
@@ -153,9 +151,9 @@ public class BondIborSecurityDefinitionTest {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 8, 16);
     final ZonedDateTime settlementDate = ScheduleCalculator.getAdjustedDate(referenceDate, SETTLEMENT_DAYS, CALENDAR);
     final DoubleTimeSeries<ZonedDateTime> fixingUSDLibor3M = ImmutableZonedDateTimeDoubleTimeSeries.of(
-        new ZonedDateTime[]{DateUtils.getUTCDate(2011, 7, 11),
-            DateUtils.getUTCDate(2011, 7, 12), DateUtils.getUTCDate(2011, 7, 13), DateUtils.getUTCDate(2011, 8, 16)},
-        new double[]{0.01, 0.05, 0.05, 0.05}, ZoneOffset.UTC);
+        new ZonedDateTime[] {DateUtils.getUTCDate(2011, 7, 11),
+          DateUtils.getUTCDate(2011, 7, 12), DateUtils.getUTCDate(2011, 7, 13), DateUtils.getUTCDate(2011, 8, 16) },
+        new double[] {0.01, 0.05, 0.05, 0.05 }, ZoneOffset.UTC);
     final BondIborSecurity frn = FRN_DEFINITION.toDerivative(referenceDate, fixingUSDLibor3M);
     final AnnuityPaymentFixed nominal = ((AnnuityPaymentFixedDefinition) FRN_DEFINITION.getNominal()).toDerivative(referenceDate);
     final Annuity<Coupon> coupon = (Annuity<Coupon>) FRN_DEFINITION.getCoupons().toDerivative(referenceDate, fixingUSDLibor3M);

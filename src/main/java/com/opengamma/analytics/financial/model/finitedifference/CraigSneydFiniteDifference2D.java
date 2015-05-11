@@ -16,7 +16,6 @@ import com.opengamma.strata.collect.ArgChecker;
 @SuppressWarnings("deprecation")
 public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolver2D {
 
-  // private static final Decomposition<?> DCOMP = new LUDecompositionCommons();
   // Theta = 0 - explicit
   private static final double THETA = 0.5;
 
@@ -71,11 +70,6 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
           vt[i][j] -= 0.5 * dtdx * b * (1 - THETA) * (v[i + 1][j] - v[i - 1][j]);
           vt[i][j] -= dtdy2 * d * (v[i][j + 1] + v[i][j - 1] - 2 * v[i][j]);
           // upwind
-          // if (f > 0) {
-          // vt[i][j] -= dtdy * f * (v[i][j] - v[i][j - 1]);
-          // } else if (f < 0) {
-          // vt[i][j] -= dtdy * f * (v[i][j + 1] - v[i][j]);
-          // }
           vt[i][j] -= 0.5 * dtdy * f * (v[i][j + 1] - v[i][j - 1]);
           vt[i][j] -= 0.25 * dtdxdy * e * (v[i + 1][j + 1] + v[i - 1][j - 1] - v[i + 1][j - 1] - v[i - 1][j + 1]);
         }
@@ -84,62 +78,6 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
         vt[i][0] = v[i][0];
         vt[i][ySteps] = v[i][ySteps];
       }
-
-      // for (int i = 0; i <= xSteps; i++) {
-      // double[] temp = yLowerBoundary.getRightMatrixCondition(pdeData, t, x[i]);
-      // double sum = 0;
-      // for (int k = 0; k < temp.length; k++) {
-      // sum += temp[k] * v[i][k];
-      // }
-      // sum += yLowerBoundary.getConstant(pdeData, t, x[i], dy);
-      //
-      // temp = yLowerBoundary.getLeftMatrixCondition(pdeData, t, x[i]);
-      // for (int k = 1; k < temp.length; k++) {
-      // sum -= temp[k] * vt[i][k];
-      // }
-      // vt[i][0] = sum / temp[0];
-      //
-      // temp = yUpperBoundary.getRightMatrixCondition(pdeData, t, x[i]);
-      // sum = 0;
-      // for (int k = 0; k < temp.length; k++) {
-      // sum += temp[k] * v[i][ySteps - k];
-      // }
-      // sum += yUpperBoundary.getConstant(pdeData, t, x[i], dy);
-      //
-      // temp = yUpperBoundary.getLeftMatrixCondition(pdeData, t, x[i]);
-      // for (int k = 1; k < temp.length; k++) {
-      // sum -= temp[k] * vt[i][ySteps - k];
-      // }
-      // vt[i][ySteps] = sum / temp[0];
-      // }
-      //
-      // for (int j = 1; j < ySteps; j++) {
-      // double[] temp = xLowerBoundary.getRightMatrixCondition(pdeData, t, y[j]);
-      // double sum = 0;
-      // for (int k = 0; k < temp.length; k++) {
-      // sum += temp[k] * v[k][j];
-      // }
-      // sum += xLowerBoundary.getConstant(pdeData, t, y[j], dx);
-      //
-      // temp = xLowerBoundary.getLeftMatrixCondition(pdeData, t, y[j]);
-      // for (int k = 1; k < temp.length; k++) {
-      // sum -= temp[k] * vt[k][j];
-      // }
-      // vt[0][j] = sum / temp[0];
-      //
-      // temp = xUpperBoundary.getRightMatrixCondition(pdeData, t, y[j]);
-      // sum = 0;
-      // for (int k = 0; k < temp.length; k++) {
-      // sum += temp[k] * v[xSteps - k][j];
-      // }
-      // sum += xUpperBoundary.getConstant(pdeData, t, y[j], dx);
-      //
-      // temp = xUpperBoundary.getLeftMatrixCondition(pdeData, t, y[j]);
-      // for (int k = 1; k < temp.length; k++) {
-      // sum -= temp[k] * vt[xSteps - k][j];
-      // }
-      // vt[xSteps][j] = sum / temp[0];
-      // }
 
       // stag 2 implicit in x
       t += dt / 2;
@@ -197,39 +135,9 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
           vt[i][j] += THETA * dtdy2 * d * (v[i][j + 1] + v[i][j - 1] - 2 * v[i][j]);
 
           // upwind
-          // if (f > 0) {
-          // vt[i][j] += THETA * dtdy * f * (v[i][j] - v[i][j - 1]);
-          // } else if (f < 0) {
-          // vt[i][j] += THETA * dtdy * f * (v[i][j + 1] - v[i][j]);
-          // }
           vt[i][j] += THETA * 0.5 * dtdy * f * (v[i][j + 1] - v[i][j - 1]);
         }
 
-        // double[] temp = yLowerBoundary.getRightMatrixCondition(pdeData, t, x[i]);
-        // double sum = 0;
-        // for (int k = 0; k < temp.length; k++) {
-        // sum += temp[k] * v[i][k];
-        // }
-        // sum += yLowerBoundary.getConstant(pdeData, t, x[i], dy);
-        //
-        // temp = yLowerBoundary.getLeftMatrixCondition(pdeData, t, x[i]);
-        // for (int k = 1; k < temp.length; k++) {
-        // sum -= temp[k] * vt[i][k];
-        // }
-        // vt[i][0] = sum / temp[0];
-        //
-        // temp = yUpperBoundary.getRightMatrixCondition(pdeData, t, x[i]);
-        // sum = 0;
-        // for (int k = 0; k < temp.length; k++) {
-        // sum += temp[k] * v[i][ySteps - k];
-        // }
-        // sum += yUpperBoundary.getConstant(pdeData, t, x[i], dy);
-        //
-        // temp = yUpperBoundary.getLeftMatrixCondition(pdeData, t, x[i]);
-        // for (int k = 1; k < temp.length; k++) {
-        // sum -= temp[k] * vt[i][ySteps - k];
-        // }
-        // vt[i][ySteps] = sum / temp[0];
       }
 
       // The y = 0 and y = yStep boundary values are assumed the same as the previous sub-step
@@ -244,15 +152,6 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
           f = pdeData.getF(t, x[i], y[j]);
 
           // upwind
-          // if (f > 0) {
-          // my[j][j - 1] = THETA * (dtdy2 * d - dtdy * f);
-          // my[j][j] = 1 + THETA * (-2 * dtdy2 * d + dtdy * f + 0.5 * dt * c);
-          // my[j][j + 1] = THETA * (dtdy2 * d);
-          // } else if (f < 0) {
-          // my[j][j - 1] = THETA * (dtdy2 * d);
-          // my[j][j] = 1 + THETA * (-2 * dtdy2 * d - dtdy * f + 0.5 * dt * c);
-          // my[j][j + 1] = THETA * (dtdy2 * d + dtdy * f);
-          // }
           my[j][j - 1] = THETA * (dtdy2 * d - 0.5 * dtdy * f);
           my[j][j] = 1 + THETA * (-2 * dtdy2 * d + 0.5 * dt * c);
           my[j][j + 1] = THETA * (dtdy2 * d + 0.5 * dtdy * f);
@@ -296,14 +195,10 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
             min = (l == ySteps ? 0 : Math.max(0, l - 1));
             max = (l == 0 ? ySteps : Math.min(ySteps, l + 1));
             sum = 0;
-            // for (int k = 0; k <= ySteps; k++) {
             for (int k = min; k <= max; k++) {
               sum += my[l][k] * v[i][k];
             }
             final double correction = omega / my[l][l] * (r[l] - sum);
-            // if (freeBoundary != null) {
-            // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-            // }
             errorSqr += correction * correction;
             v[i][l] += correction;
             scale += v[i][l] * v[i][l];
@@ -333,14 +228,10 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
         min = (l == steps ? 0 : Math.max(0, l - 1));
         max = (l == 0 ? steps : Math.min(steps, l + 1));
         sum = 0;
-        // for (int k = 0; k <= xSteps; k++) {
         for (int k = min; k <= max; k++) { // mx is tri-diagonal so only need 3 steps here
           sum += mx[l][k] * v[k][j];
         }
         final double correction = omega / mx[l][l] * (q[l] - sum);
-        // if (freeBoundary != null) {
-        // correction = Math.max(correction, freeBoundary.getZValue(t, x[j]) - f[j]);
-        // }
         errorSqr += correction * correction;
         v[l][j] += correction;
         scale += v[l][j] * v[l][j];
@@ -368,5 +259,4 @@ public class CraigSneydFiniteDifference2D implements ConvectionDiffusionPDESolve
     }
   }
 
-  // private double[][] solveSOR(double[][] m, double[][] v)
 }

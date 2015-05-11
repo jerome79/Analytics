@@ -98,6 +98,7 @@ public class RadialBasisFunctionInterpolatorND extends InterpolatorND {
     return res;
 
   }
+
   @Override
   public RadialBasisFunctionInterpolatorDataBundle getDataBundle(final double[] x, final double[] y, final double[] z, final double[] values) {
     return new RadialBasisFunctionInterpolatorDataBundle(transformData(x, y, z, values), _basisFunction, _useNormalized);

@@ -19,7 +19,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Abstract test.
  */
@@ -46,17 +45,17 @@ public abstract class InterpolatorNDTestCase {
       x = 10 * random.nextDouble();
       y = 10 * random.nextDouble();
       z = 10 * random.nextDouble();
-      FLAT_DATA.add(Pair.of(new double[] {x, y, z}, VALUE));
-      temp = new double[] {x, y};
+      FLAT_DATA.add(Pair.of(new double[] {x, y, z }, VALUE));
+      temp = new double[] {x, y };
       COS_EXP_DATA.add(Pair.of(temp, COS_EXP_FUNCTION.evaluate(temp)));
     }
 
-    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {1, 1}, 0.7332));
-    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {1, 5}, 0.36995));
-    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {5, 5}, 0.23845));
-    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {5, 10}, 0.2177));
-    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {10, 20}, 0.1697));
-    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {15, 15}, 0.162));
+    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {1, 1 }, 0.7332));
+    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {1, 5 }, 0.36995));
+    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {5, 5 }, 0.23845));
+    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {5, 10 }, 0.2177));
+    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {10, 20 }, 0.1697));
+    SWAPTION_ATM_VOL_DATA.add(Pair.of(new double[] {15, 15 }, 0.162));
   }
 
   protected void assertFlat(final InterpolatorND interpolator, final double tol) {
@@ -67,7 +66,7 @@ public abstract class InterpolatorNDTestCase {
       x1 = 10 * getRandom().nextDouble();
       x2 = 10 * getRandom().nextDouble();
       x3 = 10 * getRandom().nextDouble();
-      x = new double[] {x1, x2, x3};
+      x = new double[] {x1, x2, x3 };
       final double fit = interpolator.interpolate(dataBundle, x);
       assertEquals(VALUE, fit, tol);
     }
@@ -81,7 +80,7 @@ public abstract class InterpolatorNDTestCase {
     for (int i = 0; i < 10; i++) {
       x1 = 10 * getRandom().nextDouble();
       x2 = 10 * getRandom().nextDouble();
-      x = new double[] {x1, x2};
+      x = new double[] {x1, x2 };
       final double fit = interpolator.interpolate(dataBundle, x);
       assertEquals(COS_EXP_FUNCTION.evaluate(x), fit, tol);
     }

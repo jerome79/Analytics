@@ -20,7 +20,6 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRPau
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 import com.opengamma.analytics.math.function.Function1D;
 
-
 /**
  * Tests of the SABR valuation of options with extrapolation on the right (for high strikes). The SABR pricing is through Black formula with implied volatility.
  */

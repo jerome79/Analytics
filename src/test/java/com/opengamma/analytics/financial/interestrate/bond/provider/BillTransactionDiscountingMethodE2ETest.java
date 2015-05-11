@@ -42,7 +42,6 @@ import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Tests related to the pricing of bills transactions by discounting.
  */
@@ -83,7 +82,6 @@ public class BillTransactionDiscountingMethodE2ETest {
   private final static BillTransaction B140814_TRA_1 = B140814_TRA_1_DEFINITION.toDerivative(REFERENCE_DATE);
 
   // Method and calculator
-  //  private final static BillTransactionDiscountingMethod METHOD_TRANSACTION = BillTransactionDiscountingMethod.getInstance();
   private final static BillSecurityDiscountingMethod METHOD_SECURITY = BillSecurityDiscountingMethod.getInstance();
   private final static PresentValueIssuerCalculator PVIC = PresentValueIssuerCalculator.getInstance();
 
@@ -127,7 +125,6 @@ public class BillTransactionDiscountingMethodE2ETest {
     final LinkedHashMap<Pair<String, Currency>, DoubleMatrix1D> sensitivity = new LinkedHashMap<>();
     sensitivity.put(Pair.of(MULTICURVE.getName(USD), USD), new DoubleMatrix1D(deltaDsc));
     final MultipleCurrencyParameterSensitivity pvpsExpected = new MultipleCurrencyParameterSensitivity(sensitivity);
-    //    final ParameterSe
     final MultipleCurrencyParameterSensitivity pvpsComputed = MQSBC.fromInstrument(B140814_TRA_1, ISSUER_MULTICURVE, BLOCK).multipliedBy(BP1);
     AssertSensitivityObjects.assertEquals("ForwardRateAgreementDiscountingMethod: bucketed delts from standard curves", pvpsExpected, pvpsComputed, TOLERANCE_PV_DELTA);
   }

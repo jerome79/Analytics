@@ -42,8 +42,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
-
 /**
  * Tests related to the pricing of physical delivery swaption in G2++ model.
  */
@@ -95,23 +93,6 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
   private static final double BP1 = 0.0001;
   private static final double TOLERANCE_PV = 1.0E-2;
 
-  //  @Test(enabled = false)
-  //  /**
-  //   * Test the present value vs a external system. "enabled = false" for the standard testing: the external system is using a TimeCalculator with ACT/365.
-  //   */
-  //  public void presentValueExternal() {
-  //    G2ppPiecewiseConstantParameters parametersCst = TestsDataSetG2pp.createG2ppCstParameters();
-  //    final YieldAndDiscountCurve curve5 = YieldCurve.from(ConstantDoublesCurve.from(0.05));
-  //    final YieldCurveBundle curves = new YieldCurveBundle();
-  //    curves.setCurve(FUNDING_CURVE_NAME, curve5);
-  //    curves.setCurve(FORWARD_CURVE_NAME, curve5);
-  //    G2ppPiecewiseConstantDataBundle bundleCst = new G2ppPiecewiseConstantDataBundle(parametersCst, curves);
-  //    CurrencyAmount pv = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_PAYER_LONG, bundleCst);
-  //    double pvExternal = 6885626.28245924; // ! TimeCalculator with ACT/365
-  //    assertEquals("Swaption physical - G2++ - present value - external system", pvExternal, pv.getAmount(), 1E-2);
-  //  }
-
-  @Test(enabled = true)
   /**
    * Test the present value vs a hard-coded value.
    */
@@ -121,7 +102,6 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - hard coded value", pvExpected, pv.getAmount(CUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests long/short parity.
    */
@@ -134,7 +114,6 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - long/short parity", pvReceiverLong.getAmount(CUR).getAmount(), -pvReceiverShort.getAmount(CUR).getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Tests payer/receiver/swap parity.
    */
@@ -142,10 +121,10 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     final MultiCurrencyAmount pvReceiverLong = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_LONG_RECEIVER, G2PP_MULTICURVES);
     final MultiCurrencyAmount pvPayerShort = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_SHORT_PAYER, G2PP_MULTICURVES);
     final MultiCurrencyAmount pvSwap = SWAP_RECEIVER.accept(PVDC, MULTICURVES);
-    assertEquals("Swaption physical - G2++ - present value - payer/receiver/swap parity", pvReceiverLong.getAmount(CUR).getAmount() + pvPayerShort.getAmount(CUR).getAmount(), pvSwap.getAmount(CUR).getAmount(), TOLERANCE_PV);
+    assertEquals("Swaption physical - G2++ - present value - payer/receiver/swap parity", pvReceiverLong.getAmount(CUR).getAmount() + pvPayerShort.getAmount(CUR).getAmount(), pvSwap.getAmount(CUR)
+        .getAmount(), TOLERANCE_PV);
   }
 
-  @Test
   /**
    * Test the present value by approximation vs by numerical integration.
    */
@@ -155,7 +134,6 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - approximation vs Numerical integration", pvApproximation.getAmount(CUR).getAmount(), pvNI.getAmount(CUR).getAmount(), 2.0E+3);
   }
 
-  @Test
   /**
    * Test the present value by approximation vs Monte Carlo.
    */
@@ -167,13 +145,12 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - approximation vs Monte Carlo", pvApproximation.getAmount(CUR).getAmount(), pvMC.getAmount(CUR).getAmount(), 2.5E+4);
   }
 
-  @Test(enabled = false)
   /**
    * Test the present value by approximation vs Monte Carlo: convergence.
    */
   public void presentValueMonteCarloConvergence() {
     final MultiCurrencyAmount pvApproximation = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
-    final int[] nbPath = new int[] {12500, 100000, 1000000, 10000000};
+    final int[] nbPath = new int[] {12500, 100000, 1000000, 10000000 };
     final MultiCurrencyAmount[] pvMC = new MultiCurrencyAmount[nbPath.length];
     final double[] pvDiff = new double[nbPath.length];
     for (int loopmc = 0; loopmc < nbPath.length; loopmc++) {
@@ -184,7 +161,6 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     assertEquals("Swaption physical - G2++ - present value - approximation vs Monte Carlo", pvApproximation.getAmount(CUR).getAmount(), pvMC[nbPath.length - 1].getAmount(CUR).getAmount(), 1.0E+3);
   }
 
-  @Test(enabled = true)
   /**
    * Test the present value by approximation vs by numerical integration for a grid of expiry/tenor.
    * To check the precision, increase the NB_INTEGRATION to 50 (slower but more precise).
@@ -193,11 +169,11 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     final G2ppPiecewiseConstantParameters parametersG2pp = TestsDataSetG2pp.createG2ppParameters3();
     final G2ppProviderDiscount bundleG2pp = new G2ppProviderDiscount(MULTICURVES, parametersG2pp, CUR);
     final GeneratorSwapFixedIbor generator = GENERATOR_SWAP_MASTER.getGenerator("EUR1YEURIBOR6M", CALENDAR);
-    final Period[] expiry = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(2), Period.ofYears(5), Period.ofYears(10), Period.ofYears(25)};
+    final Period[] expiry = new Period[] {Period.ofMonths(6), Period.ofYears(1), Period.ofYears(2), Period.ofYears(5), Period.ofYears(10), Period.ofYears(25) };
     final int nbExpiry = expiry.length;
-    final Period[] tenor = new Period[] {Period.ofYears(2), Period.ofYears(5), Period.ofYears(10), Period.ofYears(25)};
+    final Period[] tenor = new Period[] {Period.ofYears(2), Period.ofYears(5), Period.ofYears(10), Period.ofYears(25) };
     final int nbTenor = tenor.length;
-    final double[] fixedRate = new double[] {0.01, 0.02, 0.025, 0.03, 0.04};
+    final double[] fixedRate = new double[] {0.01, 0.02, 0.025, 0.03, 0.04 };
     final int nbStrike = fixedRate.length;
     final SwaptionPhysicalFixedIbor[][][] swaption = new SwaptionPhysicalFixedIbor[nbExpiry][nbTenor][nbStrike];
     final ZonedDateTime[] expiryDate = new ZonedDateTime[nbExpiry];
@@ -243,72 +219,6 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
         }
       }
     }
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performance() {
-    long startTime, endTime;
-    final int nbTest = 100;
-    MultiCurrencyAmount pvPayerLongApproximation = MultiCurrencyAmount.of(CUR, 0.0);
-    MultiCurrencyAmount pvPayerLongNI = MultiCurrencyAmount.of(CUR, 0.0);
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongApproximation = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption G2++ approximation method: " + (endTime - startTime) + " ms");
-    // Performance note: G2++ price: 20-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 275 ms for 10000 swaptions.
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongNI = METHOD_G2PP_NI.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption G2++ numerical integration method: " + (endTime - startTime) + " ms");
-    // Performance note: G2++ price: 20-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 2200 ms for 100 swaptions. (result strongly dependent of the number of integration points).
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongApproximation = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption G2++ approximation method: " + (endTime - startTime) + " ms");
-    // Performance note: G2++ price: 20-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 275 ms for 10000 swaptions.
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvPayerLongNI = METHOD_G2PP_NI.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption G2++ numerical integration method: " + (endTime - startTime) + " ms");
-    // Performance note: G2++ price: 20-Nov-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 2200 ms for 100 swaptions. (result strongly dependent of the number of integration points).
-
-    System.out.println("G2++ approximation - present value: " + pvPayerLongApproximation);
-    System.out.println("G2++ numerical integration - present value: " + pvPayerLongNI);
-  }
-
-  @Test(enabled = false)
-  /**
-   * Tests of performance. "enabled = false" for the standard testing.
-   */
-  public void performanceMC() {
-    long startTime, endTime;
-    final int nbTest = 10;
-
-    final int nbPath = 12500;
-    final G2ppMonteCarloMethod methodMC = new G2ppMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
-    @SuppressWarnings("unused")
-    MultiCurrencyAmount pvMC;
-
-    startTime = System.currentTimeMillis();
-    for (int looptest = 0; looptest < nbTest; looptest++) {
-      pvMC = methodMC.presentValue(SWAPTION_LONG_PAYER, CUR, G2PP_MULTICURVES);
-    }
-    endTime = System.currentTimeMillis();
-    System.out.println(nbTest + " pv swaption physical G2++ Monte Carlo with " + nbPath + " paths: " + (endTime - startTime) + " ms");
-    // Performance note: G2++ price: 04-Dec-12: On Mac Pro 3.2 GHz Quad-Core Intel Xeon: 140 ms for 10 swaptions (12500 paths).
   }
 
 }

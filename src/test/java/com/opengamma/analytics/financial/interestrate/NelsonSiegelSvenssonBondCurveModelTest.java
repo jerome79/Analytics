@@ -16,14 +16,13 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
 
-
 /**
  * Test.
  */
 @Test
 public class NelsonSiegelSvenssonBondCurveModelTest {
   private static final NonLinearLeastSquare NLLS = new NonLinearLeastSquare();
-  private static final DoubleMatrix1D T = new DoubleMatrix1D(new double[] {1. / 12, 0.25, 0.5, 1, 2, 3, 5, 7, 10, 20, 30});
+  private static final DoubleMatrix1D T = new DoubleMatrix1D(new double[] {1. / 12, 0.25, 0.5, 1, 2, 3, 5, 7, 10, 20, 30 });
   private static final DoubleMatrix1D Y;
   private static final double BETA0 = 3;
   private static final double BETA1 = -2;
@@ -32,9 +31,9 @@ public class NelsonSiegelSvenssonBondCurveModelTest {
   private static final double LAMBDA1 = 2;
   private static final double LAMBDA2 = 1;
   private static final NelsonSiegelSvennsonBondCurveModel MODEL = new NelsonSiegelSvennsonBondCurveModel();
-  private static final DoubleMatrix1D TREASURY_T = new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30});
+  private static final DoubleMatrix1D TREASURY_T = new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 });
   private static final DoubleMatrix1D TREASURY_20110127_Y = new DoubleMatrix1D(new double[] {0.2700, 0.5711, 1.0237, 1.5145, 1.9878, 2.4187, 2.7992, 3.1292, 3.4124, 3.6541, 3.8597, 4.0341, 4.1821,
-      4.3074, 4.4134, 4.5030, 4.5786, 4.6420, 4.6952, 4.7394, 4.7760, 4.8059, 4.8301, 4.8493, 4.8642, 4.8755, 4.8835, 4.8887, 4.8915, 4.8922});
+    4.3074, 4.4134, 4.5030, 4.5786, 4.6420, 4.6952, 4.7394, 4.7760, 4.8059, 4.8301, 4.8493, 4.8642, 4.8755, 4.8835, 4.8887, 4.8915, 4.8922 });
   private static final DoubleMatrix1D TREASURY_E;
 
   static {
@@ -42,7 +41,7 @@ public class NelsonSiegelSvenssonBondCurveModelTest {
     final double[] y = new double[t.length];
     for (int i = 0; i < t.length; i++) {
       y[i] = BETA0 + BETA1 * (1 - Math.exp(-t[i] / LAMBDA1)) / (t[i] / LAMBDA1) + BETA2 * ((1 - Math.exp(-t[i] / LAMBDA1)) / (t[i] / LAMBDA1) - Math.exp(-t[i] / LAMBDA1)) + BETA3
-      * ((1 - Math.exp(-t[i] / LAMBDA2)) / (t[i] / LAMBDA2) - Math.exp(-t[i] / LAMBDA2));
+          * ((1 - Math.exp(-t[i] / LAMBDA2)) / (t[i] / LAMBDA2) - Math.exp(-t[i] / LAMBDA2));
     }
     Y = new DoubleMatrix1D(y);
     final double[] e = new double[TREASURY_T.getNumberOfElements()];
@@ -52,7 +51,7 @@ public class NelsonSiegelSvenssonBondCurveModelTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullTime() {
-    MODEL.getParameterizedFunction().evaluate(null, new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6}));
+    MODEL.getParameterizedFunction().evaluate(null, new DoubleMatrix1D(new double[] {1, 2, 3, 4, 5, 6 }));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -62,14 +61,14 @@ public class NelsonSiegelSvenssonBondCurveModelTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongNumberOfElements() {
-    MODEL.getParameterizedFunction().evaluate(3., new DoubleMatrix1D(new double[] {1, 2, 3}));
+    MODEL.getParameterizedFunction().evaluate(3., new DoubleMatrix1D(new double[] {1, 2, 3 }));
   }
 
   @Test
   public void testKnownParameters() {
     final LeastSquareResults result = NLLS.solve(T, Y, MODEL.getParameterizedFunction(), new DoubleMatrix1D(new double[] {2, 1, 1, 4, 6, 1 }));
     final DoubleMatrix1D fitted = result.getFitParameters();
-    assertArrayEquals(fitted.getData(), new double[] {BETA0, BETA1, BETA2, LAMBDA1, BETA3, LAMBDA2}, 1e-4);
+    assertArrayEquals(fitted.getData(), new double[] {BETA0, BETA1, BETA2, LAMBDA1, BETA3, LAMBDA2 }, 1e-4);
   }
 
   @Test

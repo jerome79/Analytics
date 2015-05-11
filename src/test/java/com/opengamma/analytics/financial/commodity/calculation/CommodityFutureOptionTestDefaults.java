@@ -23,7 +23,6 @@ import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.id.StandardId;
 
-
 /**
  * Common fields used in CommodityFutureOption calculator tests
  */
@@ -33,7 +32,6 @@ public abstract class CommodityFutureOptionTestDefaults {
   private static final double SPOT = 80;
   private static final double DRIFT = 0.05;
   private static final ForwardCurve FORWARD_CURVE = new ForwardCurve(SPOT, DRIFT);
-  // private static final double FORWARD = 100;
 
   private static final YieldAndDiscountCurve DISCOUNT = YieldCurve.from(ConstantDoublesCurve.from(0.05));
 

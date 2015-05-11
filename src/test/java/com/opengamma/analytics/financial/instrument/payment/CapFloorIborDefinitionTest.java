@@ -29,7 +29,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Test.
  */
@@ -60,16 +59,18 @@ public class CapFloorIborDefinitionTest {
   private static final double STRIKE = 0.02;
   private static final boolean IS_CAP = true;
   private static final double HIGH_FIXING_RATE = 0.04;
-  private static final DoubleTimeSeries<ZonedDateTime> HIGH_FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[]{FIXING_DATE}, new double[]{HIGH_FIXING_RATE});
+  private static final DoubleTimeSeries<ZonedDateTime> HIGH_FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {FIXING_DATE }, new double[] {HIGH_FIXING_RATE });
   private static final double LOW_FIXING_RATE = 0.02;
   private static final DoubleTimeSeries<ZonedDateTime> LOW_FIXING_TS = ImmutableZonedDateTimeDoubleTimeSeries.ofUTC(new ZonedDateTime[] {FIXING_DATE }, new double[] {LOW_FIXING_RATE });
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 12, 27); //For conversion to derivative
 
   // Coupon with standard payment and accrual dates.
   private static final CouponIborDefinition IBOR_COUPON_2 = CouponIborDefinition.from(NOTIONAL, FIXING_DATE, INDEX, CALENDAR);
-  private static final CapFloorIborDefinition IBOR_CAP = CapFloorIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX, STRIKE, true, CALENDAR);
+  private static final CapFloorIborDefinition IBOR_CAP = CapFloorIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX, STRIKE, true,
+      CALENDAR);
   private static final CapFloorIborDefinition IBOR_CAP_2 = CapFloorIborDefinition.from(IBOR_COUPON_2, STRIKE, true);
-  private static final CapFloorIborDefinition IBOR_FLOOR = CapFloorIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX, STRIKE, false, CALENDAR);
+  private static final CapFloorIborDefinition IBOR_FLOOR = CapFloorIborDefinition.from(PAYMENT_DATE, ACCRUAL_START_DATE, ACCRUAL_END_DATE, ACCRUAL_FACTOR, NOTIONAL, FIXING_DATE, INDEX, STRIKE, false,
+      CALENDAR);
 
   @Test
   public void test() {

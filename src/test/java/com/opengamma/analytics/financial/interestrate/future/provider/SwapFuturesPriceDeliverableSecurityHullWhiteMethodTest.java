@@ -41,7 +41,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Tests related to the pricing of deliverable interest rate swap futures as traded on CME.
  */

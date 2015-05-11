@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 
-
 /**
  * Set up a simple parameterised curve (based on the function a * Math.sin(b * x) + c, where a, b, & c are the parameters)
  * and check the finite difference sensitivity (the default behaviour of getYParameterSensitivity) agrees with the analytic 

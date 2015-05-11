@@ -33,7 +33,7 @@ public class InflationIssuerDiscountFinderFunction extends Function1D<DoubleMatr
    * @param data The data required for curve building.
    */
   public InflationIssuerDiscountFinderFunction(
-      final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> inflationCalculator, 
+      final InstrumentDerivativeVisitor<ParameterInflationIssuerProviderInterface, Double> inflationCalculator,
       final InflationIssuerDiscountBuildingData data) {
     ArgChecker.notNull(inflationCalculator, "Calculator");
     ArgChecker.notNull(data, "Data");

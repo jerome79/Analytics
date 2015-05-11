@@ -32,7 +32,6 @@ import com.opengamma.analytics.financial.credit.isdastandardmodel.ISDACompliantY
 import com.opengamma.analytics.financial.credit.isdastandardmodel.PointsUpFront;
 import com.opengamma.analytics.financial.credit.isdastandardmodel.PriceType;
 
-
 /**
  * 
  */
@@ -84,7 +83,7 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
     double[] bucketedIR01 = INDEX_CAL.bucketedIR01(cdx, indexCoupon, YIELD_CURVE, intrinsicDataWithDefaulted);
     double[] jumpToDefault = INDEX_CAL.jumpToDefault(cdx, indexCoupon, YIELD_CURVE, intrinsicDataWithDefaulted);
     double[] recovery01 = INDEX_CAL.recovery01(cdx, indexCoupon, YIELD_CURVE, intrinsicDataWithDefaulted);
-    
+
     double[] rates = YIELD_CURVE.getKnotZeroRates();
     int nRates = rates.length;
     double[] bumpedRatesParallel = new double[nRates];
@@ -131,7 +130,6 @@ public class CDSIndexCalculatorTest extends ISDABaseTest {
     double ref = -INDEX_CAL.indexProtLeg(cdx, YIELD_CURVE, bundleZeroRecoveryRates);
     assertEquals(sum, ref, Math.abs(ref) * tol);
   }
-
 
   /**
    * 

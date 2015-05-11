@@ -249,11 +249,6 @@ public class FastCreditCurveBuilder extends ISDACompliantCreditCurveBuilder {
 
     }
 
-    //    public Function1D<Double, Double> getPointFunction(final int index, final double[] zeroHazardRates) {
-    //      final ISDACompliantCreditCurve creditCurve = new ISDACompliantCreditCurve(_ccKnotTimes, zeroHazardRates);
-    //      return getPointFunction(index, creditCurve);
-    //    }
-
     public Function1D<Double, Double> getPointFunction(final int index, final ISDACompliantCreditCurve creditCurve) {
       return new Function1D<Double, Double>() {
         @Override
@@ -267,14 +262,8 @@ public class FastCreditCurveBuilder extends ISDACompliantCreditCurveBuilder {
 
     }
 
-    //    public double rpv01(final double[] zeroHazardRates, final PriceType cleanOrDirty) {
-    //      final ISDACompliantCreditCurve creditCurve = new ISDACompliantCreditCurve(_ccKnotTimes, zeroHazardRates);
-    //      return rpv01(creditCurve, cleanOrDirty);
-    //    }
-
     public double rpv01(final ISDACompliantCreditCurve creditCurve, final PriceType cleanOrDirty) {
 
-      //   final double obsOffset = _cds.isProtectionFromStartOfDay() ? -_cds.getCurveOneDay() : 0.0;
       double pv = 0.0;
       for (int i = 0; i < _nPayments; i++) {
         final CDSCoupon c = _cds.getCoupon(i);
@@ -353,11 +342,6 @@ public class FastCreditCurveBuilder extends ISDACompliantCreditCurveBuilder {
       }
       return accRate * pv;
     }
-
-    //    public double protectionLeg(final double[] zeroHazardRates) {
-    //      final ISDACompliantCreditCurve creditCurve = new ISDACompliantCreditCurve(_ccKnotTimes, zeroHazardRates);
-    //      return protectionLeg(creditCurve);
-    //    }
 
     public double protectionLeg(final ISDACompliantCreditCurve creditCurve) {
 

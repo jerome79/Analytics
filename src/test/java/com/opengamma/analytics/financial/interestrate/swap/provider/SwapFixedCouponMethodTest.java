@@ -28,7 +28,6 @@ import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
-
 /**
  * Test.
  */
@@ -62,15 +61,15 @@ public class SwapFixedCouponMethodTest {
   private static final ParRateDiscountingCalculator PRDC = ParRateDiscountingCalculator.getInstance();
   private static final PresentValueBasisPointDiscountingCalculator PVBPDC = PresentValueBasisPointDiscountingCalculator.getInstance();
   private static final ParRateCurveSensitivityDiscountingCalculator PRCSDC = ParRateCurveSensitivityDiscountingCalculator.getInstance();
-  private static final PresentValueBasisPointCurveSensitivityDiscountingCalculator PVBPCSDC = 
+  private static final PresentValueBasisPointCurveSensitivityDiscountingCalculator PVBPCSDC =
       PresentValueBasisPointCurveSensitivityDiscountingCalculator.getInstance();
-  private static final SimpleParameterSensitivityParameterCalculator<ParameterProviderInterface> PS_PR_C = 
+  private static final SimpleParameterSensitivityParameterCalculator<ParameterProviderInterface> PS_PR_C =
       new SimpleParameterSensitivityParameterCalculator<>(PRCSDC);
-  private static final SimpleParameterSensitivityParameterCalculator<ParameterProviderInterface> PS_PVBP_C = 
+  private static final SimpleParameterSensitivityParameterCalculator<ParameterProviderInterface> PS_PVBP_C =
       new SimpleParameterSensitivityParameterCalculator<>(PVBPCSDC);
-  private static final SimpleParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PS_PR_FDC = 
+  private static final SimpleParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PS_PR_FDC =
       new SimpleParameterSensitivityMulticurveDiscountInterpolatedFDCalculator(PRDC, SHIFT_FD);
-  private static final SimpleParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PS_PVBP_FDC = 
+  private static final SimpleParameterSensitivityMulticurveDiscountInterpolatedFDCalculator PS_PVBP_FDC =
       new SimpleParameterSensitivityMulticurveDiscountInterpolatedFDCalculator(PVBPDC, SHIFT_FD);
 
   private static final double TOLERANCE_RATE = 1.0E-10;

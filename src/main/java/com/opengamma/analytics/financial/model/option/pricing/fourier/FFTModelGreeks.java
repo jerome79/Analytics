@@ -28,21 +28,21 @@ public class FFTModelGreeks {
   private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1);
   private static final IntegralLimitCalculator LIMIT_CALCULATOR = new IntegralLimitCalculator();
 
- /**
-  * 
-   * @param forward The forward value of the underlying
-   * @param discountFactor 
-   * @param t Time to expiry
-   * @param isCall true for call 
-   * @param ce The Characteristic Exponent (log of characteristic function) of the returns of the underlying
-   * @param lowestStrike The lowest strike to return (the actual value will depend on the set up, but is guaranteed to be less than this) 
-   * @param highestStrike The highest strike to return (the actual value will depend on the set up, but is guaranteed to be greater than this) 
-   * @param minStrikesDisplayed minimum number of strikes returned (actual number depends on set up) 
-   * @param limitSigma An estimate of the implied vol used to calculate limits in the numerical routines 
-   * @param alpha Regularization factor. Values of 0 or -1 are not allowed. -0.5 is recommended  
-   * @param tol Tolerance - smaller values give higher accuracy 
-  * @return an array of arrays where is first array is the strikes, the second the prices, the first the derivatives of price wrt the first parameter etc 
-  */
+  /**
+   * 
+    * @param forward The forward value of the underlying
+    * @param discountFactor 
+    * @param t Time to expiry
+    * @param isCall true for call 
+    * @param ce The Characteristic Exponent (log of characteristic function) of the returns of the underlying
+    * @param lowestStrike The lowest strike to return (the actual value will depend on the set up, but is guaranteed to be less than this) 
+    * @param highestStrike The highest strike to return (the actual value will depend on the set up, but is guaranteed to be greater than this) 
+    * @param minStrikesDisplayed minimum number of strikes returned (actual number depends on set up) 
+    * @param limitSigma An estimate of the implied vol used to calculate limits in the numerical routines 
+    * @param alpha Regularization factor. Values of 0 or -1 are not allowed. -0.5 is recommended  
+    * @param tol Tolerance - smaller values give higher accuracy 
+   * @return an array of arrays where is first array is the strikes, the second the prices, the first the derivatives of price wrt the first parameter etc 
+   */
   //TODO this is cut and paste from FFTPricer - the calculation of the sample size and spacing should be extracted 
   public double[][] getGreeks(final double forward, final double discountFactor, final double t, final boolean isCall, final MartingaleCharacteristicExponent ce, final double lowestStrike,
       final double highestStrike, final int minStrikesDisplayed, final double limitSigma, final double alpha, final double tol) {

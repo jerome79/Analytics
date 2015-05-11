@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Test.
  */
@@ -103,12 +102,6 @@ public class ProductOptionFunctionProviderTest {
                   final double delta2 = Math.exp(-interest * TIME) * SPOT * Math.exp((2 * interest - dividend - div2 + rhoVols) * TIME) *
                       BlackFormulaRepository.delta(fValue, strike, TIME, volhat, isCall);
 
-                  //                  final double upForTheta = Math.exp(-interest * (TIME + eps)) *
-                  //                      BlackFormulaRepository.price(SPOT * spot2 * Math.exp((2 * interest - dividend - div2 + rhoVols) * (TIME + eps)), strike, TIME + eps, volhat, isCall);
-                  //                  final double downForTheta = Math.exp(-interest * (TIME - eps)) *
-                  //                      BlackFormulaRepository.price(SPOT * spot2 * Math.exp((2 * interest - dividend - div2 + rhoVols) * (TIME - eps)), strike, (TIME - eps), volhat, isCall);
-                  //                  final double theta = -0.5 * (upForTheta - downForTheta) / eps;
-
                   final double gamma1 = Math.exp(-interest * TIME) * spot2 * Math.exp(2. * (2 * interest - dividend - div2 + rhoVols) * TIME) * spot2 *
                       BlackFormulaRepository.gamma(fValue, strike, TIME, volhat);
                   final double gamma2 = Math.exp(-interest * TIME) * SPOT * Math.exp(2. * (2 * interest - dividend - div2 + rhoVols) * TIME) * SPOT *
@@ -123,7 +116,6 @@ public class ProductOptionFunctionProviderTest {
                   /*
                    * Poor approximation of theta
                    */
-                  //                  final double[] ref = new double[] {price, delta1, delta2, theta, gamma1, gamma2, cross };
                   final double[] res = _model.getGreeks(function, SPOT, spot2, vol, sigma2, rho, interest, dividend, div2);
                   final double[] refMod = new double[] {price, delta1, delta2, gamma1, gamma2, cross };
                   final double[] resMod = new double[] {res[0], res[1], res[2], res[4], res[5], res[6] };
@@ -149,7 +141,7 @@ public class ProductOptionFunctionProviderTest {
   public void hashCodeEqualsTest() {
     final OptionFunctionProvider2D ref = new ProductOptionFunctionProvider(100., 1., 53, true);
     final OptionFunctionProvider2D[] function = new OptionFunctionProvider2D[] {ref, new ProductOptionFunctionProvider(100., 1., 53, true),
-        new AmericanSpreadOptionFunctionProvider(100., 1., 53, true), null };
+      new AmericanSpreadOptionFunctionProvider(100., 1., 53, true), null };
     final int len = function.length;
     for (int i = 0; i < len; ++i) {
       if (ref.equals(function[i])) {

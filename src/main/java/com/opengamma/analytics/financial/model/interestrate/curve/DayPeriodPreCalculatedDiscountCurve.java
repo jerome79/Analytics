@@ -9,7 +9,6 @@ import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
-
 /**
  * Wraps a normal {@link DiscountCurve} and pre-calculates all future points
  * over a number of years, rendering all calls to obtain discount factors

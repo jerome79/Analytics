@@ -444,12 +444,12 @@ public class MulticurveProviderDiscount implements MulticurveProviderInterface {
     } else {
       boolean curvesEqual = _discountingCurves.get(ccy).equals(curve);
       s_logger.debug("Two {} discounting curves for {}: {} {}",
-                     curvesEqual ? "equal" : "unequal", ccy.getCode(), curve, _discountingCurves.get(ccy));
+          curvesEqual ? "equal" : "unequal", ccy.getCode(), curve, _discountingCurves.get(ccy));
 
       if (!curvesEqual) {
         throw new IllegalArgumentException("Attempting to replace " + ccy.getCode() + " discounting curve with " +
-                                               "different curve. existing: " + _discountingCurves.get(ccy) + ", new: " +
-                                               curve);
+            "different curve. existing: " + _discountingCurves.get(ccy) + ", new: " +
+            curve);
       }
     }
   }

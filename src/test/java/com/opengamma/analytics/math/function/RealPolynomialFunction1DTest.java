@@ -12,15 +12,13 @@ import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
-
-
 /**
  * Test.
  */
 @Test
 public class RealPolynomialFunction1DTest {
   private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
-  private static final double[] C = new double[] {3.4, 5.6, 1., -4.};
+  private static final double[] C = new double[] {3.4, 5.6, 1., -4. };
   private static final DoubleFunction1D F = new RealPolynomialFunction1D(C);
   private static final double EPS = 1e-12;
 

@@ -298,11 +298,11 @@ public class BondFuturesTransactionAnnuallyCompoundingE2ETest {
         curveWithSpread).multipliedBy(BP1).getSensitivity(CURVE_NAME_LGT, GBP);
     double pv01TransactionComputed = TRANSACTION_LGT.accept(PV01PC, curveWithSpread).getMap()
         .get(Pair.of(CURVE_NAME_LGT, GBP));
-    
+
     double[] bucketedTransactionExpected = new double[] {0.0, 0.0, 0.0, 0.0, -0.0011119840027780888,
-        -0.003996991037022415, -0.008986353698034574, -0.013184094172271864, -0.016983364690368513,
-        -0.02042205605039133, -0.023650552902335198, -0.026627584708890897, -0.029104349648227185,
-        -0.031245403123803063, -0.6130414257392747, -0.15389415105453183, 0.0, 0.0 };
+      -0.003996991037022415, -0.008986353698034574, -0.013184094172271864, -0.016983364690368513,
+      -0.02042205605039133, -0.023650552902335198, -0.026627584708890897, -0.029104349648227185,
+      -0.031245403123803063, -0.6130414257392747, -0.15389415105453183, 0.0, 0.0 };
     assertRelative("LGT", 2.1717086134866257, spreadComputed, TOL);
     assertRelative("LGT", 109.78905882774708, priceFuturesComputed, TOL);
     assertRelative("LGT", 1097.8905882774707, pvTransactionComputed.getAmount(GBP).getAmount(), TOL);
@@ -330,7 +330,7 @@ public class BondFuturesTransactionAnnuallyCompoundingE2ETest {
         .get(Pair.of(CURVE_NAME_SCH, EUR));
 
     double[] bucketedTransactionExpected = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, -0.003533013095042371,
-        -0.16093837199377917, -0.09595099930211884, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      -0.16093837199377917, -0.09595099930211884, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     assertRelative("SCH", -2.861164353149736, spreadComputed, TOL);
     assertRelative("SCH", 110.66399796476674, priceFuturesComputed, TOL);
     assertRelative("SCH", 1106.6399796476674, pvTransactionComputed.getAmount(EUR).getAmount(), TOL);
@@ -358,9 +358,9 @@ public class BondFuturesTransactionAnnuallyCompoundingE2ETest {
         .get(Pair.of(CURVE_NAME_BUN, EUR));
 
     double[] bucketedTransactionExpected = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, -0.0020630116900443086,
-        -0.0054843715526430095, -0.008148189182456278, -0.010718682062030957, -0.013166067751900188,
-        -0.015372982184702157, -0.017654524090719107, -0.019525991723930332, -0.5797885890116127, -0.5483676217067257,
-        0.0, 0.0, 0.0 };
+      -0.0054843715526430095, -0.008148189182456278, -0.010718682062030957, -0.013166067751900188,
+      -0.015372982184702157, -0.017654524090719107, -0.019525991723930332, -0.5797885890116127, -0.5483676217067257,
+      0.0, 0.0, 0.0 };
     assertRelative("BUN", 0.807136177649383, spreadComputed, TOL);
     assertRelative("BUN", 140.57600798338933, priceFuturesComputed, TOL);
     assertRelative("BUN", 1405.760079833893, pvTransactionComputed.getAmount(EUR).getAmount(), TOL);
@@ -388,8 +388,8 @@ public class BondFuturesTransactionAnnuallyCompoundingE2ETest {
         .get(Pair.of(CURVE_NAME_BOB, EUR));
 
     double[] bucketedTransactionExpected = new double[] {0.0, 0.0, 0.0, 0.0, -8.420329901424389E-4,
-        -0.0037102197939933314, -0.008197870450731125, -0.01223305313780289, -0.07834737330655409,
-        -0.47100941424888865, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+      -0.0037102197939933314, -0.008197870450731125, -0.01223305313780289, -0.07834737330655409,
+      -0.47100941424888865, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
     assertRelative("BOB", -4.008114404255493, spreadComputed, TOL);
     assertRelative("BOB", 125.01222173864888, priceFuturesComputed, TOL);
     assertRelative("BOB", 1250.1222173864887, pvTransactionComputed.getAmount(EUR).getAmount(), TOL);

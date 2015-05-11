@@ -32,7 +32,6 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 import com.opengamma.strata.basics.location.Country;
 
-
 /**
  * Tests related to the description of an equity total return swap.
  */

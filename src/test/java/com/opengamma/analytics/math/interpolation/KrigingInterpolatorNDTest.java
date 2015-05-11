@@ -60,7 +60,7 @@ public class KrigingInterpolatorNDTest extends InterpolatorNDTestCase {
     assertFalse(other.equals(INTERPOLATOR));
   }
 
-  @Test(expectedExceptions=IllegalArgumentException.class)
+  @Test(expectedExceptions = IllegalArgumentException.class)
   // This code needs to fail for flat surface since the variogram function will be zero for all r 
   public void testFlat() {
     final RandomEngine random = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);

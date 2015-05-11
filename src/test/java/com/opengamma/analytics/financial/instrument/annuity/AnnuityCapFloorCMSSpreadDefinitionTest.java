@@ -23,7 +23,6 @@ import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
 
-
 /**
  * Tests related to the construction of CMS spread cap/floor.
  */
@@ -82,7 +81,8 @@ public class AnnuityCapFloorCMSSpreadDefinitionTest {
       assertEquals(STRIKE, CMS_SPREAD_LEG.getNthPayment(loopcpn).getStrike());
       assertEquals(IS_CAP, CMS_SPREAD_LEG.getNthPayment(loopcpn).isCap());
     }
-    final AnnuityCapFloorCMSSpreadDefinition cmsCapReceiver = AnnuityCapFloorCMSSpreadDefinition.from(START_DATE, MATURITY_DATE, NOTIONAL, CMS_INDEX_10, CMS_INDEX_2, LEG_PAYMENT_PERIOD, LEG_DAY_COUNT,
+    final AnnuityCapFloorCMSSpreadDefinition cmsCapReceiver = AnnuityCapFloorCMSSpreadDefinition.from(START_DATE, MATURITY_DATE, NOTIONAL, CMS_INDEX_10, CMS_INDEX_2, LEG_PAYMENT_PERIOD,
+        LEG_DAY_COUNT,
         !IS_PAYER, STRIKE, IS_CAP, CALENDAR, CALENDAR);
     for (int loopcpn = 0; loopcpn < cmsCapReceiver.getNumberOfPayments(); loopcpn++) {
       assertEquals(CMS_INDEX_10, cmsCapReceiver.getNthPayment(loopcpn).getCmsIndex1());

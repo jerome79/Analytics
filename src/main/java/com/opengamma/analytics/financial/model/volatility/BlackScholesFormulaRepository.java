@@ -97,9 +97,6 @@ public abstract class BlackScholesFormulaRepository {
       d1 = Math.log(spot / strike) / sigmaRootT + scnd + 0.5 * sigmaRootT;
       d2 = d1 - sigmaRootT;
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double res = sign * discount * (rescaledSpot * NORMAL.getCDF(sign * d1) - strike * NORMAL.getCDF(sign * d2));
     return Double.isNaN(res) ? 0. : Math.max(res, 0.);
   }
@@ -171,9 +168,6 @@ public abstract class BlackScholesFormulaRepository {
       final double scnd = Double.isNaN(tmp) ? ((lognormalVol < LARGE && lognormalVol > SMALL) ? sig / lognormalVol : sig * rootT) : tmp;
       d1 = Math.log(spot / strike) / sigmaRootT + scnd + 0.5 * sigmaRootT;
     }
-    //    if (Double.isNaN(d1)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getCDF(sign * d1);
 
     return norm < SMALL ? 0. : sign * coef * norm;
@@ -281,9 +275,6 @@ public abstract class BlackScholesFormulaRepository {
       final double scnd = Double.isNaN(tmp) ? ((lognormalVol < LARGE && lognormalVol > SMALL) ? sig / lognormalVol : sig * rootT) : tmp;
       d2 = Math.log(spot / strike) / sigmaRootT + scnd - 0.5 * sigmaRootT;
     }
-    //    if (Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getCDF(sign * d2);
 
     return norm < SMALL ? 0. : -sign * discount * norm;
@@ -353,9 +344,6 @@ public abstract class BlackScholesFormulaRepository {
         d1 = Math.log(spot / strike) / sigmaRootT + scnd + 0.5 * sigmaRootT;
       }
     }
-    //    if (Double.isNaN(d1)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getPDF(d1);
 
     final double res = norm < SMALL ? 0. : coef * norm / spot / sigmaRootT;
@@ -419,9 +407,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = Math.log(spot / strike) / sigmaRootT + scnd - 0.5 * sigmaRootT;
       }
     }
-    //    if (Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getPDF(d2);
 
     final double res = norm < SMALL ? 0. : discount * norm / strike / sigmaRootT;
@@ -485,9 +470,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = Math.log(spot / strike) / sigmaRootT + scnd - 0.5 * sigmaRootT;
       }
     }
-    //    if (Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getPDF(d2);
 
     final double res = norm < SMALL ? 0. : -discount * norm / spot / sigmaRootT;
@@ -567,9 +549,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = d1 - sigmaRootT;
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getPDF(d1);
     final double rescaledSpot = Math.exp((costOfCarry - interestRate) * timeToExpiry) * spot;
     final double rescaledStrike = discount * strike;
@@ -648,9 +627,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = Double.isNaN(d2Tmp) ? 0. : d2Tmp;
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     double cocMod = costOfCarry / sigmaRootT;
     if (Double.isNaN(cocMod)) {
       cocMod = 1.; //ref value is returned
@@ -729,9 +705,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = Double.isNaN(d2Tmp) ? 0. : d2Tmp;
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     double coefPdf = 0.;
     if (timeToExpiry < SMALL) {
       coefPdf = (Math.abs(spot - strike) < SMALL || (spot > LARGE && strike > LARGE)) ? 1. / sigmaRootT : Math.log(spot / strike) / sigmaRootT / timeToExpiry;
@@ -815,9 +788,6 @@ public abstract class BlackScholesFormulaRepository {
         d1 = Math.log(spot / strike) / sigmaRootT + scnd + 0.5 * sigmaRootT;
       }
     }
-    //    if (Double.isNaN(d1)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getPDF(d1);
 
     final double res = norm < SMALL ? 0. : coef * norm * spot * rootT;
@@ -874,9 +844,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = Double.isNaN(d2Tmp) ? 0. : d2Tmp;
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
 
     double coef = 0.;
     if ((interestRate > LARGE && costOfCarry > LARGE) || (-interestRate > LARGE && -costOfCarry > LARGE) || Math.abs(costOfCarry - interestRate) < SMALL) {
@@ -949,9 +916,6 @@ public abstract class BlackScholesFormulaRepository {
         d2 = Double.isNaN(d2Tmp) ? 0. : d2Tmp;
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
 
     double coef = Math.exp(-interestRate * timeToExpiry);
     if (coef < SMALL) {
@@ -1024,9 +988,6 @@ public abstract class BlackScholesFormulaRepository {
         }
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(d1d2Mod)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
 
     double coef = 0.;
     if ((interestRate > LARGE && costOfCarry > LARGE) || (-interestRate > LARGE && -costOfCarry > LARGE) || Math.abs(costOfCarry - interestRate) < SMALL) {
@@ -1109,9 +1070,6 @@ public abstract class BlackScholesFormulaRepository {
         }
       }
     }
-    //    if (Double.isNaN(d1) || Double.isNaN(extra)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     double coef = 0.;
     if ((interestRate > LARGE && costOfCarry > LARGE) || (-interestRate > LARGE && -costOfCarry > LARGE) || Math.abs(costOfCarry - interestRate) < SMALL) {
       coef = 1.; //ref value is returned
@@ -1194,9 +1152,6 @@ public abstract class BlackScholesFormulaRepository {
       final double scnd = Double.isNaN(tmp) ? ((lognormalVol < LARGE && lognormalVol > SMALL) ? sig / lognormalVol : sig * rootT) : tmp;
       d2 = Math.log(spot / strike) / sigmaRootT + scnd - 0.5 * sigmaRootT;
     }
-    //    if (Double.isNaN(d2)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getCDF(sign * d2);
     final double result = norm < SMALL ? 0. : sign * discount * strike * timeToExpiry * norm;
     return Double.isNaN(result) ? sign * discount : result;
@@ -1266,9 +1221,6 @@ public abstract class BlackScholesFormulaRepository {
       final double scnd = Double.isNaN(tmp) ? ((lognormalVol < LARGE && lognormalVol > SMALL) ? sig / lognormalVol : sig * rootT) : tmp;
       d1 = Math.log(spot / strike) / sigmaRootT + scnd + 0.5 * sigmaRootT;
     }
-    //    if (Double.isNaN(d1)) {
-    //      throw new IllegalArgumentException("NaN found");
-    //    }
     final double norm = NORMAL.getCDF(sign * d1);
 
     final double result = norm < SMALL ? 0. : sign * coef * timeToExpiry * spot * norm;

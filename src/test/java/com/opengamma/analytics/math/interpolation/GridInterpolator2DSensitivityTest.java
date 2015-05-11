@@ -50,15 +50,15 @@ public class GridInterpolator2DSensitivityTest {
   @Test
   public void test() {
     final Map<DoublesPair, Double> res = INTERPOLATOR.getNodeSensitivitiesForValue(DATA_BUNDLE, DoublesPair.of(4.5, 7.25));
-    assertEquals(0.375, res.get(DoublesPair.of(4.0, 7.0)),0.0);
-    assertEquals(0.375, res.get(DoublesPair.of(5.0, 7.0)),0.0);
-    assertEquals(0.125, res.get(DoublesPair.of(4.0, 8.0)),0.0);
-    assertEquals(0.125, res.get(DoublesPair.of(5.0, 8.0)),0.0);
+    assertEquals(0.375, res.get(DoublesPair.of(4.0, 7.0)), 0.0);
+    assertEquals(0.375, res.get(DoublesPair.of(5.0, 7.0)), 0.0);
+    assertEquals(0.125, res.get(DoublesPair.of(4.0, 8.0)), 0.0);
+    assertEquals(0.125, res.get(DoublesPair.of(5.0, 8.0)), 0.0);
     double sum = 0.0;
-    for(final Map.Entry<DoublesPair, Double> entry :res.entrySet()) {
+    for (final Map.Entry<DoublesPair, Double> entry : res.entrySet()) {
       sum += entry.getValue();
     }
-    assertEquals(1.0, sum , 0.0);
+    assertEquals(1.0, sum, 0.0);
   }
 
 }

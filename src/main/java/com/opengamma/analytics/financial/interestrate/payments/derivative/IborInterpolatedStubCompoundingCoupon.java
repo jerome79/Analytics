@@ -21,7 +21,7 @@ public final class IborInterpolatedStubCompoundingCoupon extends InterpolatedStu
       final double secondInterpolatedYearFraction) {
     super(fullCoupon, firstInterpolatedTime, firstInterpolatedYearFraction, secondInterpolatedTime, secondInterpolatedYearFraction);
   }
-  
+
   public static IborInterpolatedStubCompoundingCoupon from(
       final DepositIndexCompoundingCoupon<IborIndex> fullCoupon,
       final double firstInterpolatedTime,

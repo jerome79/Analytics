@@ -99,7 +99,7 @@ public final class SwaptionPhysicalFixedCompoundedONCompoundedBlackMethod implem
     ArgChecker.notNull(swaption, "Swaption");
     ArgChecker.notNull(curveBlack, "Curves with Black volatility");
     final Swap<CouponFixedAccruedCompounding, CouponONCompounded> swap = swaption.getUnderlyingSwap();
-//    return METHOD_SWAP.forwardModified(swap, curveBlack);
+    //    return METHOD_SWAP.forwardModified(swap, curveBlack);
     return METHOD_SWAP.forward(swap, curveBlack);
   }
 
@@ -149,7 +149,6 @@ public final class SwaptionPhysicalFixedCompoundedONCompoundedBlackMethod implem
     final BlackFunctionData dataBlack = new BlackFunctionData(forwardModified, 1, volatility);
     final double[] bsAdjoint = blackFunction.getPriceAdjoint(option, dataBlack);
     final double sign = (swaption.isLong() ? 1.0 : -1.0);
-    //    final double pv = numeraire * bsAdjoint[0] * sign;
     // Backward sweep
     final double pvBar = 1.0;
     final double numeraireBar = bsAdjoint[0] * sign * pvBar;

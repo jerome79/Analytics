@@ -18,7 +18,6 @@ import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurf
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.strata.basics.currency.Currency;
 
-
 /**
  * 
  */

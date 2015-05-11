@@ -17,7 +17,6 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.HestonM
 import com.opengamma.analytics.financial.model.volatility.smile.function.HestonVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 
-
 /**
  * Test.
  */
@@ -73,7 +72,7 @@ public class HestonModelFitterTest extends SmileModelFitterTest<HestonModelData>
   @Override
   double[] getRandomStartValues() {
     double kappa = RANDOM.nextDouble() * 2.0;
-    double theta =RANDOM.nextDouble();
+    double theta = RANDOM.nextDouble();
     double vol0 = RANDOM.nextDouble();
     double omega = 1.5 * RANDOM.nextDouble();
     double rho = 2 * RANDOM.nextDouble() - 1;

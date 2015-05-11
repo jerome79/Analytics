@@ -10,7 +10,6 @@ import com.opengamma.analytics.financial.model.volatility.curve.BlackForexTermSt
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  * Class describing a yield curve bundle with Black term structure volatility for Forex options.
  * @deprecated Parent class is deprecated

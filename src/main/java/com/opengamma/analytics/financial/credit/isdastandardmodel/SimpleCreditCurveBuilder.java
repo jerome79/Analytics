@@ -25,7 +25,6 @@ public class SimpleCreditCurveBuilder extends ISDACompliantCreditCurveBuilder {
 
   private static final BracketRoot BRACKER = new BracketRoot();
   private static final RealSingleRootFinder ROOTFINDER = new BrentSingleRootFinder();
-  // private static final AnalyticCDSPricer PRICER = new AnalyticCDSPricer();
 
   private final AnalyticCDSPricer _pricer;
 

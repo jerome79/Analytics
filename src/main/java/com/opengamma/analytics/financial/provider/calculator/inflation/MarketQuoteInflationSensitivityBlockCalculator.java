@@ -21,7 +21,6 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
-
 /**
  *  Calculator of the sensitivity to the market quotes of instruments used to build the curves .
  * The sensitivities are computed as a block (vector) for each curve/currency pair.
@@ -84,7 +83,7 @@ public class MarketQuoteInflationSensitivityBlockCalculator<DATA_TYPE extends Pa
    * @param units The curve building units data.
    * @return The market quote sensitivity.
    */
-  public MultipleCurrencyParameterSensitivity fromInstrument(final InstrumentDerivative instrument, 
+  public MultipleCurrencyParameterSensitivity fromInstrument(final InstrumentDerivative instrument,
       final DATA_TYPE provider, final CurveBuildingBlockBundle units) {
     final MultipleCurrencyParameterSensitivity parameterSensitivity = _parameterInflationSensitivityCalculator.calculateSensitivity(instrument, provider);
     return fromParameterSensitivity(parameterSensitivity, units);

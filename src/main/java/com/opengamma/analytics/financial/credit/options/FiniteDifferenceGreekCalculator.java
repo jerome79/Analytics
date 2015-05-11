@@ -318,7 +318,6 @@ public class FiniteDifferenceGreekCalculator {
     final double fwdATMFwd = atmFwdBump(timeToExpiry, indexCoupon, yieldCurve, intrinsicData, fwdCDS, timeStep);
     final double basePrice = pricer.getOptionPremium(atmFwd, vol, strike, isPayer);
     final double fwdPrice = fwdPricer.getOptionPremium(fwdATMFwd, vol, strike, isPayer);
-    //   System.out.println("ATM Fwd\t" + atmFwd + "\t" + fwdATMFwd);
     return (fwdPrice - basePrice) / timeStep;
   }
 

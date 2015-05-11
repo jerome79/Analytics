@@ -28,7 +28,6 @@ import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.Expiry;
 
-
 /**
  * Test.
  */
@@ -115,7 +114,6 @@ public class BlackBarrierPriceFunctionTest {
     final double pxDownInCall = BARRIER_FUNCTION.getPrice(VANILLA_CALL_K100, BARRIER_DOWN_IN, REBATE, SPOT, costOfCarry, rateDomestic, VOLATILITY);
     final double pxDownOutCall = BARRIER_FUNCTION.getPrice(VANILLA_CALL_K100, BARRIER_DOWN_OUT, REBATE, SPOT, costOfCarry, rateDomestic, VOLATILITY);
     assertEquals("Knock In-Out Parity fails", 1.0, (pxVanillaCall + pxRebate) / (pxDownInCall + pxDownOutCall), 1.e-6);
-    //assertTrue("Knock In-Out Parity fails", Math.abs((pxVanillaCall + pxRebate) / (pxDownInCall + pxDownOutCall) - 1) < 1.e-6);
 
     final double pxDownInPut = BARRIER_FUNCTION.getPrice(VANILLA_PUT_K100, BARRIER_DOWN_IN, REBATE, SPOT, costOfCarry, rateDomestic, VOLATILITY);
     final double pxDownOutPut = BARRIER_FUNCTION.getPrice(VANILLA_PUT_K100, BARRIER_DOWN_OUT, REBATE, SPOT, costOfCarry, rateDomestic, VOLATILITY);
@@ -129,7 +127,6 @@ public class BlackBarrierPriceFunctionTest {
     final double pxUpOutPut = BARRIER_FUNCTION.getPrice(VANILLA_PUT_K100, BARRIER_UP_OUT, REBATE, SPOT, costOfCarry, rateDomestic, VOLATILITY);
     assertTrue("Knock In-Out Parity fails", Math.abs((pxVanillaPut + pxRebate) / (pxUpInPut + pxUpOutPut) - 1) < 1.e-6);
 
-    // Let's try the Up case with Barrier < Strike. To do this, I create a new vanilla with K120 (> Barrier110)
     final Function1D<BlackFunctionData, Double> fcnVanillaPutHiK = BLACK_FUNCTION.getPriceFunction(VANILLA_PUT_KHI);
     final double pxVanillaPutHiK = fcnVanillaPutHiK.evaluate(zeroRatesMarket);
 

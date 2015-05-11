@@ -65,7 +65,7 @@ public class ExportUtils {
    * @param labels The map with the nodes labels.
    * @param fileName The file name.
    */
-  public static void exportMultipleCurrencyParameterSensitivity(MultipleCurrencyParameterSensitivity sensitivity, 
+  public static void exportMultipleCurrencyParameterSensitivity(MultipleCurrencyParameterSensitivity sensitivity,
       Map<String, String[]> labels, String fileName) {
     Map<Pair<String, Currency>, DoubleMatrix1D> map = sensitivity.getSensitivities();
     try {
@@ -92,7 +92,7 @@ public class ExportUtils {
       e.printStackTrace();
     }
   }
-  
+
   /**
    * Export a MulticurveProviderDiscounting into a csv file. 
    * Each curve should be of the type YieldCurve or DiscountCurve.
@@ -107,9 +107,9 @@ public class ExportUtils {
   public static void exportMulticurveProviderDiscount(MulticurveProviderDiscount multicurve, String fileName) {
     Set<String> curveNamesSet = multicurve.getAllCurveNames();
     // Checking curve is of correct type
-    for (String name: curveNamesSet) {
+    for (String name : curveNamesSet) {
       YieldAndDiscountCurve curve = multicurve.getCurve(name);
-      ArgChecker.isTrue((curve instanceof YieldCurve) || (curve instanceof DiscountCurve) ,
+      ArgChecker.isTrue((curve instanceof YieldCurve) || (curve instanceof DiscountCurve),
           "curve should be YieldCurve or DiscountCurve");
       if (curve instanceof YieldCurve) { // YieldCurve
         YieldCurve yieldCurve = (YieldCurve) curve;
@@ -120,10 +120,10 @@ public class ExportUtils {
         ArgChecker.isTrue(discountCurve.getCurve() instanceof InterpolatedDoublesCurve,
             "curve underlying should be of the type interpolatedDoublesCurve");
       }
-    }    
+    }
     try {
       final FileWriter writer = new FileWriter(fileName);
-      for (String name: curveNamesSet) {
+      for (String name : curveNamesSet) {
         writer.append("Curve name: " + name + "\n");
         YieldAndDiscountCurve curve = multicurve.getCurve(name);
         List<Currency> ccys = multicurve.getCurrencyForName(name);
@@ -160,7 +160,7 @@ public class ExportUtils {
       e.printStackTrace();
     }
   }
-  
+
   /**
    * Export a InflationProviderDiscounting into a csv file. 
    * Each curve of the underlying MulticurveProvider should be of the type YieldCurve or DiscountCurve.
@@ -178,9 +178,9 @@ public class ExportUtils {
     MulticurveProviderDiscount multicurve = inflation.getMulticurveProvider();
     Set<String> curveNamesMulticurveSet = multicurve.getAllCurveNames();
     // Checking curve is of correct type
-    for (String name: curveNamesMulticurveSet) {
+    for (String name : curveNamesMulticurveSet) {
       YieldAndDiscountCurve curve = multicurve.getCurve(name);
-      ArgChecker.isTrue((curve instanceof YieldCurve) || (curve instanceof DiscountCurve) ,
+      ArgChecker.isTrue((curve instanceof YieldCurve) || (curve instanceof DiscountCurve),
           "curve should be YieldCurve or DiscountCurve");
       if (curve instanceof YieldCurve) { // YieldCurve
         YieldCurve yieldCurve = (YieldCurve) curve;
@@ -204,7 +204,7 @@ public class ExportUtils {
     }
     try {
       final FileWriter writer = new FileWriter(fileName);
-      for (String name: curveNamesMulticurveSet) {
+      for (String name : curveNamesMulticurveSet) {
         writer.append("Curve name: " + name + "\n");
         YieldAndDiscountCurve curve = multicurve.getCurve(name);
         List<Currency> ccys = multicurve.getCurrencyForName(name);
@@ -236,7 +236,7 @@ public class ExportUtils {
           writer.append(x[loopnode] + ", " + y[loopnode] + "\n");
         }
       }
-      for (String name: curveNamesInflationSet2) {
+      for (String name : curveNamesInflationSet2) {
         writer.append("Curve name: " + name + "\n");
         PriceIndexCurveSimple curve = (PriceIndexCurveSimple) inflation.getCurve(name);
         writer.append("Time, Index \n");
@@ -253,7 +253,7 @@ public class ExportUtils {
       e.printStackTrace();
     }
   }
-  
+
   static double getRate(double value, double time, boolean transform) {
     if (transform) {
       return -Math.log(value) / time;
@@ -284,10 +284,10 @@ public class ExportUtils {
         for (int i = 0; i < sensitivitiesValues.length; ++i) {
           System.out.println(
               yieldCurveName + "," +
-              ccy + "," +
-              String.valueOf(dateFractions[i]) + "," +
-              String.valueOf(getRate(zeroRates[i], dateFractions[i], transformDfToZeroRates)) + "," +
-              String.valueOf(sensitivitiesValues[i]));
+                  ccy + "," +
+                  String.valueOf(dateFractions[i]) + "," +
+                  String.valueOf(getRate(zeroRates[i], dateFractions[i], transformDfToZeroRates)) + "," +
+                  String.valueOf(sensitivitiesValues[i]));
         }
       }
     }

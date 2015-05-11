@@ -31,7 +31,7 @@ public class EquityIndexFutureOption implements InstrumentDerivative {
   private final double _pointValue;
   /** The reference price is the transaction price on the transaction date and the last close price afterward */
   private final double _referencePrice;
-  
+
   /**
    * @param expiry The time to expiry in years, greater than zero.
    * @param underlying The underlying equity index future, not null
@@ -105,7 +105,7 @@ public class EquityIndexFutureOption implements InstrumentDerivative {
   public double getPointValue() {
     return _pointValue;
   }
-  
+
   /**
    * Gets the reference price, the trade price on trade date. or the last close price thereafter.
    * @return The reference price
@@ -141,10 +141,9 @@ public class EquityIndexFutureOption implements InstrumentDerivative {
     temp = Double.doubleToLongBits(_pointValue);
     result = prime * result + (int) (temp ^ (temp >>> 32));
     temp = Double.doubleToLongBits(_referencePrice);
-    result = prime * result + (int) (temp ^ (temp >>> 32));   
+    result = prime * result + (int) (temp ^ (temp >>> 32));
     return result;
   }
-
 
   @Override
   public boolean equals(final Object obj) {
@@ -178,7 +177,5 @@ public class EquityIndexFutureOption implements InstrumentDerivative {
     }
     return true;
   }
-
-
 
 }

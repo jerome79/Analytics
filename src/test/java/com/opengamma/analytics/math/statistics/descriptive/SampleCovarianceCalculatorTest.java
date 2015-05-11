@@ -40,12 +40,12 @@ public class SampleCovarianceCalculatorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testOneShortTS() {
-    CALCULATOR.apply(new double[] {1}, X1);
+    CALCULATOR.apply(new double[] {1 }, X1);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testWrongLengthTS() {
-    CALCULATOR.apply(new double[] {1, 2, 3, 4, 5, 6, 7, 8}, X1);
+    CALCULATOR.apply(new double[] {1, 2, 3, 4, 5, 6, 7, 8 }, X1);
   }
 
   @Test

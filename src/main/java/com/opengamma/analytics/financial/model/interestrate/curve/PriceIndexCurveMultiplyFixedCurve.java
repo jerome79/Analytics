@@ -18,10 +18,10 @@ import com.opengamma.strata.collect.ArgChecker;
  * No parameter is associated to the fixed curve.
  * The fixed curve can be used for multiplicative seasonal adjustment.
  */
-public class PriceIndexCurveMultiplyFixedCurve  implements PriceIndexCurve {
+public class PriceIndexCurveMultiplyFixedCurve implements PriceIndexCurve {
 
   /** The curve name. */
-  private final String _name; 
+  private final String _name;
   /** The main underlying curve. */
   private final PriceIndexCurve _curve;
   /** The fixed curve. */
@@ -34,7 +34,7 @@ public class PriceIndexCurveMultiplyFixedCurve  implements PriceIndexCurve {
    * @param curve The main curve. Not null.
    * @param fixedCurve The fixed curve (as a multiplicative spread). Not null.
    */
-  public PriceIndexCurveMultiplyFixedCurve(final String name, final PriceIndexCurve curve, 
+  public PriceIndexCurveMultiplyFixedCurve(final String name, final PriceIndexCurve curve,
       final DoublesCurve fixedCurve) {
     ArgChecker.notNull(name, "name");
     ArgChecker.notNull(curve, "Curve");

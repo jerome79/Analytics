@@ -13,7 +13,6 @@ import com.opengamma.analytics.math.interpolation.PiecewisePolynomialResult2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
-
 /**
  * Test.
  */
@@ -36,9 +35,9 @@ public class PiecewisePolynomialFunction2DTest {
     coefs[2][0] = new DoubleMatrix2D(new double[][] { {1., 0., 0., 0. }, {8., 0., 0., 0. }, {24., 0., 0., 0. }, {32., 0., 0., 0. }, {16., 0., 0., 0. } });
     coefs[0][1] = new DoubleMatrix2D(new double[][] { {1., 3., 3., 1. }, {0., 0., 0., 0. }, {0., 0., 0., 0. }, {0., 0., 0., 0. }, {0., 0., 0., 0. } });
     coefs[1][1] = new DoubleMatrix2D(new double[][] { {1., 3., 3., 1. }, {4. * 1., 4. * 3., 4. * 3., 4. * 1. }, {6. * 1., 6. * 3., 6. * 3., 6. * 1. }, {4. * 1., 4. * 3., 4. * 3., 4. * 1. },
-        {1., 3., 3., 1. } });
+      {1., 3., 3., 1. } });
     coefs[2][1] = new DoubleMatrix2D(new double[][] { {1., 3., 3., 1. }, {8. * 1., 8. * 3., 8. * 3., 8. * 1. }, {24. * 1., 24. * 3., 24. * 3., 24. * 1. }, {32. * 1., 32. * 3., 32. * 3., 32. * 1. },
-        {16. * 1., 16. * 3., 16. * 3., 16. * 1. } });
+      {16. * 1., 16. * 3., 16. * 3., 16. * 1. } });
   }
 
   private static DoubleMatrix2D[][] coefsConst;
@@ -95,7 +94,6 @@ public class PiecewisePolynomialFunction2DTest {
     final double[][] values = function.evaluate(result, x0Keys, x1Keys).getData();
     for (int i = 0; i < n0Keys; ++i) {
       for (int j = 0; j < n1Keys; ++j) {
-        //        System.out.println(i + "\t" + j);
         final double ref = valuesExp[i][j] == 0. ? 1. : Math.abs(valuesExp[i][j]);
         assertEquals(values[i][j], valuesExp[i][j], ref * EPS);
       }
@@ -174,7 +172,6 @@ public class PiecewisePolynomialFunction2DTest {
     final double[][] valuesDiffCross = function.differentiateCross(result, x0Keys, x1Keys).getData();
     for (int i = 0; i < n0Keys; ++i) {
       for (int j = 0; j < n1Keys; ++j) {
-        //        System.out.println(valuesDiffCrossExp[i][j] + "\t" + valuesDiffCross[i][j]);
         final double ref = valuesDiffCrossExp[i][j] == 0. ? 1. : Math.abs(valuesDiffCrossExp[i][j]);
         assertEquals(valuesDiffCross[i][j], valuesDiffCrossExp[i][j], ref * EPS);
       }
@@ -199,7 +196,6 @@ public class PiecewisePolynomialFunction2DTest {
     final double[][] valuesDiffTwiceX0 = function.differentiateTwiceX0(result, x0Keys, x1Keys).getData();
     for (int i = 0; i < n0Keys; ++i) {
       for (int j = 0; j < n1Keys; ++j) {
-        //        System.out.println(valuesDiffTwiceX1Exp[i][j] + "\t" + valuesDiffTwiceX1[i][j]);
         final double ref = valuesDiffTwiceX0Exp[i][j] == 0. ? 1. : Math.abs(valuesDiffTwiceX0Exp[i][j]);
         assertEquals(valuesDiffTwiceX0[i][j], valuesDiffTwiceX0Exp[i][j], ref * EPS);
       }
@@ -224,7 +220,6 @@ public class PiecewisePolynomialFunction2DTest {
     final double[][] valuesDiffTwiceX1 = function.differentiateTwiceX1(result, x0Keys, x1Keys).getData();
     for (int i = 0; i < n0Keys; ++i) {
       for (int j = 0; j < n1Keys; ++j) {
-        //        System.out.println(valuesDiffTwiceX1Exp[i][j] + "\t" + valuesDiffTwiceX1[i][j]);
         final double ref = valuesDiffTwiceX1Exp[i][j] == 0. ? 1. : Math.abs(valuesDiffTwiceX1Exp[i][j]);
         assertEquals(valuesDiffTwiceX1[i][j], valuesDiffTwiceX1Exp[i][j], ref * EPS);
       }
