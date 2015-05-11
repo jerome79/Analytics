@@ -7,8 +7,8 @@ package com.opengamma.analytics.financial.equity.variance.pricing;
 
 import java.util.Arrays;
 
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.volatility.local.PureLocalVolatilitySurface;
@@ -41,7 +41,7 @@ public class VarianceSwapPureMonteCarloCalculator {
   public VarianceSwapPureMonteCarloCalculator(final int seed) {
     _useAntithetics = true;
     _calculateVariance = true;
-    final RandomEngine random = new MersenneTwister64(seed);
+    RandomGenerator random = new Well44497b(seed);
     _norm = new NormalDistribution(0, 1.0, random);
   }
 
@@ -53,7 +53,7 @@ public class VarianceSwapPureMonteCarloCalculator {
   public VarianceSwapPureMonteCarloCalculator(final int seed, final boolean useAntithetics, final boolean calculateVariance) {
     _useAntithetics = useAntithetics;
     _calculateVariance = calculateVariance;
-    final RandomEngine random = new MersenneTwister64(seed);
+    RandomGenerator random = new Well44497b(seed);
     _norm = new NormalDistribution(0, 1.0, random);
   }
 

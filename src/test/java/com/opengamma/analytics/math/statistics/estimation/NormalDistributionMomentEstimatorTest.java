@@ -7,8 +7,7 @@ package com.opengamma.analytics.math.statistics.estimation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -37,7 +36,7 @@ public class NormalDistributionMomentEstimatorTest {
     final int n = 500000;
     final double mu = 4.5;
     final double sigma = 0.86;
-    final ProbabilityDistribution<Double> p1 = new NormalDistribution(mu, sigma, new MersenneTwister64(MersenneTwister.DEFAULT_SEED));
+    final ProbabilityDistribution<Double> p1 = new NormalDistribution(mu, sigma, new Well44497b(0L));
     final double[] x = new double[n];
     for (int i = 0; i < n; i++) {
       x[i] = p1.nextRandom();

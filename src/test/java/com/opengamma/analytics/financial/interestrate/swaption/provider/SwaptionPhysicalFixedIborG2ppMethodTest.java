@@ -10,7 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.daycount.DayCount;
@@ -139,7 +139,7 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
    */
   public void presentValueMonteCarlo() {
     final int nbPath = 12500;
-    final G2ppMonteCarloMethod methodMC = new G2ppMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    final G2ppMonteCarloMethod methodMC = new G2ppMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final MultiCurrencyAmount pvMC = methodMC.presentValue(SWAPTION_LONG_PAYER, CUR, G2PP_MULTICURVES);
     final MultiCurrencyAmount pvApproximation = METHOD_G2PP_APPROXIMATION.presentValue(SWAPTION_LONG_PAYER, G2PP_MULTICURVES);
     assertEquals("Swaption physical - G2++ - present value - approximation vs Monte Carlo", pvApproximation.getAmount(CUR).getAmount(), pvMC.getAmount(CUR).getAmount(), 2.5E+4);
@@ -154,7 +154,7 @@ public class SwaptionPhysicalFixedIborG2ppMethodTest {
     final MultiCurrencyAmount[] pvMC = new MultiCurrencyAmount[nbPath.length];
     final double[] pvDiff = new double[nbPath.length];
     for (int loopmc = 0; loopmc < nbPath.length; loopmc++) {
-      final G2ppMonteCarloMethod methodMC = new G2ppMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath[loopmc]);
+      final G2ppMonteCarloMethod methodMC = new G2ppMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath[loopmc]);
       pvMC[loopmc] = methodMC.presentValue(SWAPTION_LONG_PAYER, CUR, G2PP_MULTICURVES);
       pvDiff[loopmc] = pvApproximation.getAmount(CUR).getAmount() - pvMC[loopmc].getAmount(CUR).getAmount();
     }

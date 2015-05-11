@@ -7,10 +7,8 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import java.util.Date;
 
-import cern.jet.random.Normal;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
-import cern.jet.stat.Probability;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.math.statistics.distribution.fnlib.DERFC;
 import com.opengamma.strata.collect.ArgChecker;
@@ -32,17 +30,16 @@ import com.opengamma.strata.collect.ArgChecker;
 public class NormalDistribution implements ProbabilityDistribution<Double> {
   private static final double ROOT2 = Math.sqrt(2);
 
-  // TODO need a better seed
   private final double _mean;
   private final double _standardDeviation;
-  private final Normal _normal;
+  private final org.apache.commons.math3.distribution.NormalDistribution _normal;
 
   /**
    * @param mean The mean of the distribution
    * @param standardDeviation The standard deviation of the distribution, not negative or zero
    */
   public NormalDistribution(final double mean, final double standardDeviation) {
-    this(mean, standardDeviation, new MersenneTwister64(new Date()));
+    this(mean, standardDeviation, new Well44497b(new Date().getTime()));
   }
 
   /**
@@ -50,12 +47,12 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
    * @param standardDeviation The standard deviation of the distribution, not negative or zero
    * @param randomEngine A generator of uniform random numbers, not null
    */
-  public NormalDistribution(final double mean, final double standardDeviation, final RandomEngine randomEngine) {
+  public NormalDistribution(final double mean, final double standardDeviation, final RandomGenerator randomGenerator) {
     ArgChecker.isTrue(standardDeviation > 0, "standard deviation");
-    ArgChecker.notNull(randomEngine, "randomEngine");
+    ArgChecker.notNull(randomGenerator, "randomGenerator");
     _mean = mean;
     _standardDeviation = standardDeviation;
-    _normal = new Normal(mean, standardDeviation, randomEngine);
+    _normal = new org.apache.commons.math3.distribution.NormalDistribution(randomGenerator, mean, standardDeviation);
   }
 
   /**
@@ -73,7 +70,7 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getPDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _normal.pdf(x);
+    return _normal.density(x);
   }
 
   /**
@@ -81,7 +78,7 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double nextRandom() {
-    return _normal.nextDouble();
+    return _normal.sample();
   }
 
   /**
@@ -90,8 +87,7 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getInverseCDF(final Double p) {
     ArgChecker.notNull(p, "p");
-    ArgChecker.isTrue(p >= 0 && p <= 1, "Probability must be >= 0 and <= 1");
-    return Probability.normalInverse(p);
+    return _normal.inverseCumulativeProbability(p);
   }
 
   /**

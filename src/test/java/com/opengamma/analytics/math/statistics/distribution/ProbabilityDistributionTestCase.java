@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,7 +19,7 @@ import org.testng.annotations.Test;
 public abstract class ProbabilityDistributionTestCase {
 
   protected static final double EPS = 1e-5;
-  protected static final RandomEngine ENGINE = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  protected static final RandomGenerator ENGINE = new Well44497b(0L);
 
   protected void assertCDF(final double[] p, final double[] x, final ProbabilityDistribution<Double> dist) {
     assertCDFWithNull(dist);

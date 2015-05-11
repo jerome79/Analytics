@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import java.util.Date;
 
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -42,7 +42,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class LaplaceDistribution implements ProbabilityDistribution<Double> {
   // TODO need a better seed
-  private final RandomEngine _engine;
+  private final RandomGenerator _engine;
   private final double _mu;
   private final double _b;
 
@@ -51,7 +51,7 @@ public class LaplaceDistribution implements ProbabilityDistribution<Double> {
    * @param b The scale parameter, greater than zero
    */
   public LaplaceDistribution(final double mu, final double b) {
-    this(mu, b, new MersenneTwister64(new Date()));
+    this(mu, b, new Well44497b(new Date().getTime()));
   }
 
   /**
@@ -59,7 +59,7 @@ public class LaplaceDistribution implements ProbabilityDistribution<Double> {
    * @param b The scale parameter, greater than zero
    * @param engine A uniform random number generator, not null
    */
-  public LaplaceDistribution(final double mu, final double b, final RandomEngine engine) {
+  public LaplaceDistribution(final double mu, final double b, final RandomGenerator engine) {
     ArgChecker.isTrue(b > 0, "b must be > 0");
     ArgChecker.notNull(engine, "engine");
     _mu = mu;

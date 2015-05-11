@@ -9,7 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 /**
@@ -26,7 +26,7 @@ public class NormalRandomNumberGeneratorTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testConstructor2() {
-    new NormalRandomNumberGenerator(0, -1, new MersenneTwister64());
+    new NormalRandomNumberGenerator(0, -1, new Well44497b(0L));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

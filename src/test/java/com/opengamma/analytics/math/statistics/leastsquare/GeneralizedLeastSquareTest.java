@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
-
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -39,7 +37,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public class GeneralizedLeastSquareTest {
   private static boolean PRINT = false;
 
-  protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  protected static final RandomGenerator RANDOM = new Well44497b(0L);
   private static final NormalDistribution NORMAL = new NormalDistribution(0, 1.0, RANDOM);
   private static final double[] WEIGHTS = new double[] {1.0, -0.5, 2.0, 0.23, 1.45 };
   private static final Double[] X;

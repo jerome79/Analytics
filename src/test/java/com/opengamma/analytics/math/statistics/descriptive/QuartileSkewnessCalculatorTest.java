@@ -10,8 +10,7 @@ import static org.testng.AssertJUnit.assertFalse;
 
 import java.util.function.Function;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.statistics.distribution.ChiSquareDistribution;
@@ -25,7 +24,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 public class QuartileSkewnessCalculatorTest {
   private static final double STD = 2.;
   private static final Function<double[], Double> SKEW = new QuartileSkewnessCalculator();
-  private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, STD, new MersenneTwister64(MersenneTwister.DEFAULT_SEED));
+  private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, STD, new Well44497b(0L));
   private static final ProbabilityDistribution<Double> CHI_SQ = new ChiSquareDistribution(4);
   private static final double[] NORMAL_DATA = new double[50000];
   private static final double[] CHI_SQ_DATA = new double[50000];

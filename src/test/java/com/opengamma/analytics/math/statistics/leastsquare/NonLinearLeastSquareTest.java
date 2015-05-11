@@ -8,10 +8,9 @@ package com.opengamma.analytics.math.statistics.leastsquare;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
 
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.function.Function1D;
@@ -33,7 +32,8 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 @Test
 public class NonLinearLeastSquareTest {
-  private static final NormalDistribution NORMAL = new NormalDistribution(0, 1.0, new MersenneTwister64(MersenneTwister.DEFAULT_SEED));
+  protected static final RandomGenerator RANDOM = new Well44497b(0L);
+  private static final NormalDistribution NORMAL = new NormalDistribution(0, 1.0, RANDOM);
   private static final DoubleMatrix1D X;
   private static final DoubleMatrix1D Y;
   private static final DoubleMatrix1D SIGMA;

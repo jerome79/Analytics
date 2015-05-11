@@ -7,9 +7,9 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import java.util.Date;
 
-import cern.jet.random.StudentT;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.distribution.TDistribution;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.special.GammaFunction;
@@ -29,27 +29,26 @@ import com.opengamma.strata.collect.ArgChecker;
  * and Student's T-distributed random number generation.
  */
 public class StudentTDistribution implements ProbabilityDistribution<Double> {
-  // TODO need a better seed
   private final double _degFreedom;
-  private final StudentT _dist;
+  private final TDistribution _dist;
   private final Function1D<Double, Double> _beta;
 
   /**
    * @param degFreedom The number of degrees of freedom, not negative or zero
    */
   public StudentTDistribution(final double degFreedom) {
-    this(degFreedom, new MersenneTwister64(new Date()));
+    this(degFreedom, new Well44497b(new Date().getTime()));
   }
 
   /**
    * @param degFreedom The number of degrees of freedom, not negative or zero
    * @param engine A generator of uniform random numbers, not null
    */
-  public StudentTDistribution(final double degFreedom, final RandomEngine engine) {
+  public StudentTDistribution(final double degFreedom, final RandomGenerator engine) {
     ArgChecker.isTrue(degFreedom > 0, "degrees of freedom");
     ArgChecker.notNull(engine, "engine");
     _degFreedom = degFreedom;
-    _dist = new StudentT(degFreedom, engine);
+    _dist = new TDistribution(engine, degFreedom);
     _beta = new InverseIncompleteBetaFunction(degFreedom / 2., 0.5);
   }
 
@@ -59,7 +58,7 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getCDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _dist.cdf(x);
+    return _dist.cumulativeProbability(x);
   }
 
   /**
@@ -68,7 +67,7 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getPDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _dist.pdf(x);
+    return _dist.density(x);
   }
 
   /**
@@ -76,7 +75,7 @@ public class StudentTDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double nextRandom() {
-    return _dist.nextDouble();
+    return _dist.sample();
   }
 
   /**

@@ -27,7 +27,7 @@ public class LaplaceDistributionTest extends ProbabilityDistributionTestCase {
   private static final double[] DATA;
   private static final double EPS1 = 0.05;
   static {
-    final int n = 500000;
+    final int n = 1000000;
     DATA = new double[n];
     for (int i = 0; i < n; i++) {
       DATA[i] = LAPLACE.nextRandom();

@@ -10,9 +10,8 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
 
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCapFloorIborDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
@@ -104,7 +103,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
    */
   public void presentValueFixed() {
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvMC = methodMC.presentValue(ANNUITY_RATCHET_FIXED, CUR, HW_MULTICURVES);
     final double pvMCPreviousRun = 4658897.913;
@@ -115,7 +114,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     final ZonedDateTime referenceDate = DateUtils.getUTCDate(2011, 8, 18);
     final AnnuityCouponIborRatchet annuityRatchetIbor = ANNUITY_RATCHET_IBOR_DEFINITION.toDerivative(referenceDate, FIXING_TS);
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvMC = methodMC.presentValue(annuityRatchetIbor, CUR, HW_MULTICURVES);
     final double pvMCPreviousRun = 4406845.218;
@@ -127,7 +126,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
    */
   public void presentValueFixedLeg() {
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final double[] mainFixed = new double[] {0.0, 0.0, 0.0 };
     final double[] floorFixed = new double[] {0.0, 0.0, FIRST_CPN_RATE };
     final double[] capFixed = new double[] {0.0, 0.0, FIRST_CPN_RATE };
@@ -162,7 +161,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     }
     final int nbPath = 175000;
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final MultiCurrencyAmount pvIborMC = methodMC.presentValue(ratchetFixed, CUR, HW_MULTICURVES);
     final MultiCurrencyAmount pvIborExpected = new Annuity<Payment>(iborFirstFixed).accept(PVDC, MULTICURVES);
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo - Degenerate in Ibor leg", pvIborExpected.getAmount(CUR).getAmount(), pvIborMC.getAmount(CUR).getAmount(), 3.0E+3);
@@ -184,7 +183,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     final Annuity<? extends Payment> cap = capDefinition.toDerivative(REFERENCE_DATE, FIXING_TS);
     final int nbPath = 100000;
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final MultiCurrencyAmount pvFloorMC = methodMC.presentValue(ratchetFixed, CUR, HW_MULTICURVES);
     final AnnuityCouponFixedDefinition fixedDefinition = AnnuityCouponFixedDefinition.from(CUR, SETTLEMENT_DATE, ANNUITY_TENOR, EURIBOR3M.getTenor(), TARGET, EURIBOR3M.getDayCount(),
         EURIBOR3M.getBusinessDayConvention(), EURIBOR3M.isEndOfMonth(), NOTIONAL, strike, IS_PAYER);
@@ -216,7 +215,7 @@ public class AnnuityCouponIborRatchetHullWhiteMethodTest {
     final Annuity<? extends Payment> cap = capDefinition.toDerivative(referenceDate, fixing);
     final int nbPath = 100000;
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final MultiCurrencyAmount pvFlooredMC = methodMC.presentValue(ratchetIbor, CUR, HW_MULTICURVES);
     final AnnuityCouponFixedDefinition fixedDefinition = AnnuityCouponFixedDefinition.from(CUR, SETTLEMENT_DATE, ANNUITY_TENOR, EURIBOR3M.getTenor(), TARGET, EURIBOR3M.getDayCount(),
         EURIBOR3M.getBusinessDayConvention(), EURIBOR3M.isEndOfMonth(), NOTIONAL, strike, IS_PAYER);

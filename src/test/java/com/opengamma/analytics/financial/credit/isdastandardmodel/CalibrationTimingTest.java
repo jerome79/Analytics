@@ -10,7 +10,7 @@ import static com.opengamma.analytics.convention.businessday.BusinessDayDateUtil
 import java.time.LocalDate;
 import java.time.Period;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.FunctionUtils;
@@ -31,7 +31,7 @@ import com.opengamma.strata.collect.ArgChecker;
 @Test
 public class CalibrationTimingTest extends ISDABaseTest {
 
-  private static ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, new MersenneTwister(MersenneTwister.DEFAULT_SEED));
+  private static ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, new Well44497b(0L));
   private static final MatrixAlgebra MA = new OGMatrixAlgebra();
   private static final CholeskyDecompositionCommons CHOLESKY = new CholeskyDecompositionCommons();
 

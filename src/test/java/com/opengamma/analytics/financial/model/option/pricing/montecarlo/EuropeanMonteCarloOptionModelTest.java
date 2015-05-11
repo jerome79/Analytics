@@ -9,8 +9,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.time.ZonedDateTime;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
@@ -32,8 +31,7 @@ import com.opengamma.analytics.util.time.Expiry;
  */
 @Test
 public class EuropeanMonteCarloOptionModelTest {
-  private static final RandomNumberGenerator GENERATOR = new NormalRandomNumberGenerator(0, 1, new MersenneTwister64(MersenneTwister.DEFAULT_SEED));
-  private static final ZonedDateTime DATE = DateUtils.getUTCDate(2009, 1, 1);
+  private static final RandomNumberGenerator GENERATOR = new NormalRandomNumberGenerator(0, 1, new Well44497b(0L));  private static final ZonedDateTime DATE = DateUtils.getUTCDate(2009, 1, 1);
   private static final Expiry EXPIRY = new Expiry(DateUtils.getDateOffsetWithYearFraction(DATE, 1));
   private static final StandardOptionDataBundle DATA = new StandardOptionDataBundle(YieldCurve.from(ConstantDoublesCurve.from(0.06)), 0.02, new VolatilitySurface(ConstantDoublesSurface.from(0.2)),
       100., DATE);

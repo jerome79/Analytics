@@ -13,9 +13,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.stream.IntStream;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
@@ -51,7 +50,7 @@ public class VarianceSwapPresentValueTest {
   // Setup ------------------------------------------
 
   private static final RealizedVariance REALIZED_VOL_CAL = new RealizedVariance();
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final RandomGenerator RANDOM = new Well44497b(0L);
   private static final NormalDistribution NORMAL = new NormalDistribution(0, 1, RANDOM);
   private static final ZoneId UTC = ZoneId.of("UTC");
 

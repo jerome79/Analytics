@@ -37,11 +37,12 @@ public class NormalDistributionTest extends ProbabilityDistributionTestCase {
   }
 
   public void testRoundTrip() {
-    for (int i = 0; i < 51; i++) {
-      double x = -37.0 + 44 * i / 50.;
+    int n = 29;
+    for (int i = 0; i < n; i++) {
+      double x = -7.0 + 0.5 * i;
       double p = NORMAL.getCDF(x);
-      double xStar = (p == 1.0 ? Double.POSITIVE_INFINITY : (p == 0.0 ? Double.NEGATIVE_INFINITY : NORMAL.getInverseCDF(p)));
-      assertEquals(x, xStar, 1e-3);
+      double xStar = NORMAL.getInverseCDF(p);
+      assertEquals(x, xStar, 1e-5);
     }
   }
 

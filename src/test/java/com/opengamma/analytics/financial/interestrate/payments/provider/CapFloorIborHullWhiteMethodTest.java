@@ -9,7 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.time.ZonedDateTime;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
@@ -159,14 +159,14 @@ public class CapFloorIborHullWhiteMethodTest {
    */
   public void monteCarlo() {
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), 10 * NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), 10 * NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvExplicit = METHOD_HW.presentValue(CAP_LONG, HW_MULTICURVES);
     final MultiCurrencyAmount pvMC = methodMC.presentValue(CAP_LONG, EUR, HW_MULTICURVES);
-    assertEquals("Cap/floor - Hull-White - Monte Carlo", pvExplicit.getAmount(EUR).getAmount(), pvMC.getAmount(EUR).getAmount(), 5.0E+2);
-    final double pvMCPreviousRun = 136707.032;
+    assertEquals("Cap/floor - Hull-White - Monte Carlo", pvExplicit.getAmount(EUR).getAmount(), pvMC.getAmount(EUR).getAmount(), 1e3);
+    final double pvMCPreviousRun = 137252.8817543521;
     assertEquals("Swaption physical - Hull-White - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), 10 * NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), 10 * NB_PATH);
     final MultiCurrencyAmount pvShortMC = methodMC.presentValue(CAP_SHORT, EUR, HW_MULTICURVES);
     assertEquals("Swaption physical - Hull-White - Monte Carlo", -pvMC.getAmount(EUR).getAmount(), pvShortMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }

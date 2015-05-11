@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.linearalgebra;
 import static com.opengamma.analytics.math.linearalgebra.TridiagonalSolver.solvTriDag;
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
@@ -24,7 +24,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 public class TridiagonalSolverTest {
 
   private static MatrixAlgebra MA = new OGMatrixAlgebra();
-  private static ProbabilityDistribution<Double> RANDOM = new NormalDistribution(0, 1, new MersenneTwister(123));
+  private static ProbabilityDistribution<Double> RANDOM = new NormalDistribution(0, 1, new Well44497b(0L));
 
   @Test
   public void test() {

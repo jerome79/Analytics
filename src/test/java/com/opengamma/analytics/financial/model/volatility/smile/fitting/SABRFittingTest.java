@@ -10,11 +10,10 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.BitSet;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
@@ -46,7 +45,7 @@ public class SABRFittingTest {
   private static double[] ERRORS;
   private static final SABRFormulaData SABR_DATA = new SABRFormulaData(ALPHA, BETA, RHO, NU);
   private static SABRHaganVolatilityFunction SABR = new SABRHaganVolatilityFunction();
-  private static ProbabilityDistribution<Double> RANDOM = new NormalDistribution(0, 1, new MersenneTwister(12));
+  private static ProbabilityDistribution<Double> RANDOM = new NormalDistribution(0, 1, new Well44497b(0L));
   private static final SABRNonLinearLeastSquareFitter NLSS = new SABRNonLinearLeastSquareFitter(SABR);
 
   static {
