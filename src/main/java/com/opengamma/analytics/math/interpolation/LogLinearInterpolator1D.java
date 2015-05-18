@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.interpolation;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
-import com.opengamma.strata.basics.interpolator.OneDimensionalInterpolator;
+import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -22,7 +22,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 
-public class LogLinearInterpolator1D extends Interpolator1D implements OneDimensionalInterpolator {
+public class LogLinearInterpolator1D extends Interpolator1D implements CurveInterpolator {
   private static final long serialVersionUID = 1L;
 
   /** The name of the interpolator. */

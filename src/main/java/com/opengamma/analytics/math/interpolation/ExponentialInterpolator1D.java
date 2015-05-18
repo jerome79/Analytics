@@ -10,14 +10,14 @@ import java.util.Arrays;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
-import com.opengamma.strata.basics.interpolator.OneDimensionalInterpolator;
+import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Two points are interpolated by an exponential function y = a * exp( b * x ), where a, b are real constants. 
  * Note that all of y data should have the same sign. 
  */
-public class ExponentialInterpolator1D extends Interpolator1D implements OneDimensionalInterpolator {
+public class ExponentialInterpolator1D extends Interpolator1D implements CurveInterpolator {
   private static final long serialVersionUID = 1L;
 
   /** The name of the interpolator. */

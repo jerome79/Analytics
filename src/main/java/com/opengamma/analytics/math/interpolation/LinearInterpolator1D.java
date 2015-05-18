@@ -9,7 +9,7 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.InterpolationBoundedValues;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
-import com.opengamma.strata.basics.interpolator.OneDimensionalInterpolator;
+import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -19,7 +19,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * <i>y = y<sub>1</sub> + (x - x<sub>1</sub>) * (y<sub>2</sub> - y<sub>1</sub>)
  * / (x<sub>2</sub> - x<sub>1</sub>)</i>
  */
-public class LinearInterpolator1D extends Interpolator1D implements OneDimensionalInterpolator {
+public class LinearInterpolator1D extends Interpolator1D implements CurveInterpolator {
 
   private static final long serialVersionUID = 1L;
 
