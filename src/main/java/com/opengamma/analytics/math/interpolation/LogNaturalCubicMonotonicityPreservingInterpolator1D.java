@@ -10,6 +10,7 @@ import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBu
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DLogPiecewisePoynomialDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -19,12 +20,15 @@ import com.opengamma.strata.collect.ArgChecker;
  * Since {@link PiecewisePolynomialResultsWithSensitivity} in {@link Interpolator1DLogPiecewisePoynomialDataBundle} contains information on f(x) (NOT F(x)), 
  * computation done by {@link PiecewisePolynomialWithSensitivityFunction1D} MUST be exponentiated.
  */
-public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends PiecewisePolynomialInterpolator1D {
+public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends PiecewisePolynomialInterpolator1D implements CurveInterpolator {
 
   /** Serialization version */
   private static final long serialVersionUID = 1L;
 
   private static final PiecewisePolynomialWithSensitivityFunction1D FUNC = new PiecewisePolynomialWithSensitivityFunction1D();
+
+  /** The interpolator name. */
+  private static final String NAME = "LogNaturalCubicWithMonotonicity";
 
   /**
    * 
@@ -50,7 +54,9 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
     ArgChecker.isTrue(data instanceof Interpolator1DLogPiecewisePoynomialDataBundle);
     final Interpolator1DLogPiecewisePoynomialDataBundle polyData = (Interpolator1DLogPiecewisePoynomialDataBundle) data;
     final DoubleMatrix1D resValue = FUNC.evaluate(polyData.getPiecewisePolynomialResultsWithSensitivity(), value);
-    final DoubleMatrix1D resDerivative = FUNC.differentiate(polyData.getPiecewisePolynomialResultsWithSensitivity(), value);
+    final DoubleMatrix1D resDerivative = FUNC.differentiate(
+        polyData.getPiecewisePolynomialResultsWithSensitivity(),
+        value);
     return Math.exp(resValue.getEntry(0)) * resDerivative.getEntry(0);
   }
 
@@ -93,5 +99,10 @@ public class LogNaturalCubicMonotonicityPreservingInterpolator1D extends Piecewi
       logY[i] = Math.log(y[i]);
     }
     return new Interpolator1DLogPiecewisePoynomialDataBundle(new ArrayInterpolator1DDataBundle(x, logY, true), new MonotonicityPreservingCubicSplineInterpolator(new LogNaturalSplineHelper()));
+  }
+
+  @Override
+  public String getName() {
+    return NAME;
   }
 }
