@@ -39,8 +39,8 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     }
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp);
-    final Interpolator1D left = new QuadraticPolynomialLeftExtrapolator(interp);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D();
+    final Extrapolator1D left = new QuadraticPolynomialLeftExtrapolator();
     final CombinedInterpolatorExtrapolator combined1 = new CombinedInterpolatorExtrapolator(interp, left, extrap);
     final CombinedInterpolatorExtrapolator combined2 = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE,
         Interpolator1DFactory.QUADRATIC_LEFT_EXTRAPOLATOR, Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR);
@@ -60,20 +60,22 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
       }
 
       final Interpolator1DDataBundle bundleInterp = interp.getDataBundle(xValues, yValues[k]);
-      final Interpolator1DDataBundle bundleExtrap = left.getDataBundleFromSortedArrays(xValues, yValues[k]);
+      final Interpolator1DDataBundle bundleExtrap = interp.getDataBundleFromSortedArrays(xValues, yValues[k]);
 
       /*
        * Check C0 continuity using interpolator/extrapolator
        */
       assertEquals(interp.interpolate(bundleInterp, xValues[0]), combined1.interpolate(bundle1, xValues[0]));
-      assertEquals(left.interpolate(bundleExtrap, xValues[0] - 1.e-14), combined1.interpolate(bundle1, xValues[0]), TOL);
+      assertEquals(left.extrapolate(bundleExtrap, xValues[0] - 1.e-14, interp),
+                   combined1.interpolate(bundle1, xValues[0]), TOL);
 
       /*
        * Check C1 continuity using interpolator/extrapolator
        */
       assertEquals(interp.firstDerivative(bundleInterp, xValues[0]) / interp.interpolate(bundleInterp, xValues[0]),
           combined1.firstDerivative(bundle1, xValues[0]) / combined1.interpolate(bundle1, xValues[0]), TOL);
-      assertEquals(left.firstDerivative(bundleExtrap, xValues[0] - TOL), combined1.firstDerivative(bundle1, xValues[0]), TOL * 1.e2);
+      assertEquals(left.firstDerivative(bundleExtrap, xValues[0] - TOL, interp),
+                   combined1.firstDerivative(bundle1, xValues[0]), TOL * 1.e2);
 
       /*
        * Test sensitivity
@@ -121,8 +123,8 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     }
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp);
-    final Interpolator1D left = new QuadraticPolynomialLeftExtrapolator(interp);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D();
+    final Extrapolator1D left = new QuadraticPolynomialLeftExtrapolator();
     final CombinedInterpolatorExtrapolator combined1 = new CombinedInterpolatorExtrapolator(interp, left, extrap);
     final CombinedInterpolatorExtrapolator combined2 = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE,
         Interpolator1DFactory.QUADRATIC_LEFT_EXTRAPOLATOR, Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR);
@@ -142,20 +144,20 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
       }
 
       final Interpolator1DDataBundle bundleInterp = interp.getDataBundle(xValues, yValues[k]);
-      final Interpolator1DDataBundle bundleExtrap = left.getDataBundle(xValues, yValues[k]);
+      final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues[k]);
 
       /*
        * Check C0 continuity using interpolator/extrapolator
        */
       assertEquals(interp.interpolate(bundleInterp, xValues[0]), combined1.interpolate(bundle1, xValues[0]));
-      assertEquals(left.interpolate(bundleExtrap, xValues[0] - 1.e-14), combined1.interpolate(bundle1, xValues[0]), TOL);
+      assertEquals(left.extrapolate(bundleExtrap, xValues[0] - 1.e-14, interp), combined1.interpolate(bundle1, xValues[0]), TOL);
 
       /*
        * Check C1 continuity using interpolator/extrapolator
        */
       assertEquals(interp.firstDerivative(bundleInterp, xValues[0]) / interp.interpolate(bundleInterp, xValues[0]),
           combined1.firstDerivative(bundle1, xValues[0]) / combined1.interpolate(bundle1, xValues[0]), TOL);
-      assertEquals(left.firstDerivative(bundleExtrap, xValues[0] - TOL), combined1.firstDerivative(bundle1, xValues[0]), TOL * 1.e2);
+      assertEquals(left.firstDerivative(bundleExtrap, xValues[0] - TOL, interp), combined1.firstDerivative(bundle1, xValues[0]), TOL * 1.e2);
 
       /*
        * Test sensitivity
@@ -191,9 +193,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.interpolate(bundleExtrap, 1.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.extrapolate(bundleExtrap, 1d, interp);
   }
 
   /**
@@ -205,9 +207,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.firstDerivative(bundleExtrap, 1.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.firstDerivative(bundleExtrap, 1d, interp);
   }
 
   /**
@@ -219,9 +221,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.getNodeSensitivitiesForValue(bundleExtrap, 1.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.getNodeSensitivitiesForValue(bundleExtrap, 1d, interp);
   }
 
   /**
@@ -233,9 +235,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.interpolate(bundleExtrap, 9.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.extrapolate(bundleExtrap, 9d, interp);
   }
 
   /**
@@ -247,9 +249,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.firstDerivative(bundleExtrap, 9.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.firstDerivative(bundleExtrap, 9d, interp);
   }
 
   /**
@@ -261,9 +263,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.getNodeSensitivitiesForValue(bundleExtrap, 9.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.getNodeSensitivitiesForValue(bundleExtrap, 9d, interp);
   }
 
   /**
@@ -275,9 +277,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.interpolate(bundleExtrap, 9.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.extrapolate(bundleExtrap, 9d, interp);
   }
 
   /**
@@ -289,9 +291,9 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.firstDerivative(bundleExtrap, 9.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.firstDerivative(bundleExtrap, 9d, interp);
   }
 
   /**
@@ -303,8 +305,8 @@ public class QuadraticPolynomialLeftExtrapolatorTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new QuadraticPolynomialLeftExtrapolator(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.getNodeSensitivitiesForValue(bundleExtrap, 9.);
+    final Extrapolator1D extrap = new QuadraticPolynomialLeftExtrapolator();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.getNodeSensitivitiesForValue(bundleExtrap, 9d, interp);
   }
 }

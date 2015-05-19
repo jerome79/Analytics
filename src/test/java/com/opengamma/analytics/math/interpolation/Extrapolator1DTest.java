@@ -7,22 +7,24 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
+
+import cern.jet.random.engine.MersenneTwister;
+import cern.jet.random.engine.MersenneTwister64;
+import cern.jet.random.engine.RandomEngine;
 
 /**
  * Test.
  */
 @Test
 public class Extrapolator1DTest {
+
   private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
   private static final Interpolator1D INTERPOLATOR = new DoubleQuadraticInterpolator1D();
-  private static final LinearExtrapolator1D LINEAR_EXTRAPOLATOR = new LinearExtrapolator1D(INTERPOLATOR);
+  private static final LinearExtrapolator1D LINEAR_EXTRAPOLATOR = new LinearExtrapolator1D();
   private static final FlatExtrapolator1D FLAT_EXTRAPOLATOR = new FlatExtrapolator1D();
   private static final Interpolator1DDataBundle DATA;
 
@@ -37,48 +39,33 @@ public class Extrapolator1DTest {
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullInterpolator1() {
-    new LinearExtrapolator1D(null);
-  }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData1() {
-    LINEAR_EXTRAPOLATOR.interpolate(null, 1.4);
+    LINEAR_EXTRAPOLATOR.extrapolate(null, 1.4, INTERPOLATOR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullValue1() {
-    LINEAR_EXTRAPOLATOR.interpolate(DATA, null);
+    LINEAR_EXTRAPOLATOR.extrapolate(DATA, null, INTERPOLATOR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData2() {
-    FLAT_EXTRAPOLATOR.interpolate(null, 1.4);
+    FLAT_EXTRAPOLATOR.extrapolate(null, 1.4, INTERPOLATOR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullValue2() {
-    FLAT_EXTRAPOLATOR.interpolate(DATA, null);
+    FLAT_EXTRAPOLATOR.extrapolate(DATA, null, INTERPOLATOR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testValueInRange1() {
-    FLAT_EXTRAPOLATOR.interpolate(DATA, 1.2);
+    FLAT_EXTRAPOLATOR.extrapolate(DATA, 1.2, INTERPOLATOR);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testValueInRange2() {
-    LINEAR_EXTRAPOLATOR.interpolate(DATA, 1.2);
-  }
-
-  @Test(expectedExceptions = UnsupportedOperationException.class)
-  public void testDataBundleType1() {
-    FLAT_EXTRAPOLATOR.getDataBundle(X_DATA, Y_DATA);
-  }
-
-  @Test(expectedExceptions = UnsupportedOperationException.class)
-  public void testDataBundleType2() {
-    FLAT_EXTRAPOLATOR.getDataBundleFromSortedArrays(X_DATA, Y_DATA);
+    LINEAR_EXTRAPOLATOR.extrapolate(DATA, 1.2, INTERPOLATOR);
   }
 
   @Test
@@ -96,9 +83,9 @@ public class Extrapolator1DTest {
     for (int i = 0; i < 100; i++) {
       final double x = RANDOM.nextDouble() * 20.0 - 10;
       if (x < 0) {
-        assertEquals(3.0, FLAT_EXTRAPOLATOR.interpolate(DATA, x), 1e-12);
+        assertEquals(3.0, FLAT_EXTRAPOLATOR.extrapolate(DATA, x, INTERPOLATOR), 1e-12);
       } else if (x > 5.0) {
-        assertEquals(2.0, FLAT_EXTRAPOLATOR.interpolate(DATA, x), 1e-12);
+        assertEquals(2.0, FLAT_EXTRAPOLATOR.extrapolate(DATA, x, INTERPOLATOR), 1e-12);
       }
     }
   }
@@ -106,7 +93,7 @@ public class Extrapolator1DTest {
   @Test
   public void testLinearExtrapolation() {
     for (int i = 0; i < X_TEST.length; i++) {
-      assertEquals(Y_TEST[i], LINEAR_EXTRAPOLATOR.interpolate(DATA, X_TEST[i]), 1e-6);
+      assertEquals(Y_TEST[i], LINEAR_EXTRAPOLATOR.extrapolate(DATA, X_TEST[i], INTERPOLATOR), 1e-6);
     }
   }
 

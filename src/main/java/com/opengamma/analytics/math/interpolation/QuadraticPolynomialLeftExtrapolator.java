@@ -6,6 +6,7 @@
 package com.opengamma.analytics.math.interpolation;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.basics.extrapolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -13,47 +14,41 @@ import com.opengamma.strata.collect.ArgChecker;
  * The extrapolation is completed by applying a quadratic extrapolant on the discount factor (not log of the discount factor), 
  * where the point (0.,1.) is inserted and the first derivative value is assumed to be continuous at firstKey.
  */
-public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
-  private static final long serialVersionUID = 1L;
-  private final Interpolator1D _interpolator;
+public class QuadraticPolynomialLeftExtrapolator implements CurveExtrapolator, Extrapolator1D {
+
+  /** The extrapolator name. */
+  public static final String NAME = "QuadraticLeft";
+
   private final double _eps;
 
   /**
-   * @param interpolator Interpolator for specifying the first derivative value at an endpoint
+   *
    */
-  public QuadraticPolynomialLeftExtrapolator(final Interpolator1D interpolator) {
-    this(interpolator, 1e-8);
+  public QuadraticPolynomialLeftExtrapolator() {
+    this(1e-8);
   }
 
   /**
-   * @param interpolator Interpolator for specifying the first derivative value at an endpoint
    * @param eps Bump parameter of finite difference approximation for the first derivative value
    */
-  public QuadraticPolynomialLeftExtrapolator(final Interpolator1D interpolator, double eps) {
-    ArgChecker.notNull(interpolator, "interpolator");
-    _interpolator = interpolator;
+  public QuadraticPolynomialLeftExtrapolator(double eps) {
     _eps = eps;
   }
 
   @Override
-  public Interpolator1DDataBundle getDataBundle(final double[] x, final double[] y) {
-    return _interpolator.getDataBundle(x, y);
+  public String getName() {
+    return NAME;
   }
 
   @Override
-  public Interpolator1DDataBundle getDataBundleFromSortedArrays(final double[] x, final double[] y) {
-    return _interpolator.getDataBundleFromSortedArrays(x, y);
-  }
-
-  @Override
-  public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
+  public Double extrapolate(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
     if (data.firstKey() == 0.) {
       throw new IllegalArgumentException("The trivial point at key=0. is already included");
     }
     if (value < data.firstKey()) {
-      return leftExtrapolate(data, value);
+      return leftExtrapolate(data, value, interpolator);
     } else if (value > data.lastKey()) {
       throw new IllegalArgumentException("Value " + value + " was greater than data range");
     }
@@ -61,14 +56,14 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
   }
 
   @Override
-  public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
+  public double firstDerivative(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
     if (data.firstKey() == 0.) {
       throw new IllegalArgumentException("The trivial point at key=0. is already included");
     }
     if (value < data.firstKey()) {
-      return leftExtrapolateDerivative(data, value);
+      return leftExtrapolateDerivative(data, value, interpolator);
     } else if (value > data.lastKey()) {
       throw new IllegalArgumentException("Value " + value + " was greater than data range");
     }
@@ -76,52 +71,52 @@ public class QuadraticPolynomialLeftExtrapolator extends Interpolator1D {
   }
 
   @Override
-  public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
+  public double[] getNodeSensitivitiesForValue(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     if (data.firstKey() == 0.) {
       throw new IllegalArgumentException("The trivial point at key=0. is already included");
     }
     if (value < data.firstKey()) {
-      return getLeftSensitivities(data, value);
+      return getLeftSensitivities(data, value, interpolator);
     } else if (value > data.lastKey()) {
       throw new IllegalArgumentException("Value " + value + " was greater than data range");
     }
     throw new IllegalArgumentException("Value " + value + " was within data range");
   }
 
-  private Double leftExtrapolate(final Interpolator1DDataBundle data, final Double value) {
+  private Double leftExtrapolate(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
-    final double x = data.firstKey();
-    final double y = data.firstValue();
-    final double m = _interpolator.firstDerivative(data, x);
-    final double quadCoef = m / x - (y - 1.) / x / x;
-    final double linCoef = -m + 2. * (y - 1.) / x;
+    double x = data.firstKey();
+    double y = data.firstValue();
+    double m = interpolator.firstDerivative(data, x);
+    double quadCoef = m / x - (y - 1.) / x / x;
+    double linCoef = -m + 2. * (y - 1.) / x;
     return quadCoef * value * value + linCoef * value + 1.;
   }
 
-  private Double leftExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
+  private Double leftExtrapolateDerivative(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
-    final double x = data.firstKey();
-    final double y = data.firstValue();
-    final double m = _interpolator.firstDerivative(data, x);
-    final double quadCoef = m / x - (y - 1.) / x / x;
-    final double linCoef = -m + 2. * (y - 1.) / x;
+    double x = data.firstKey();
+    double y = data.firstValue();
+    double m = interpolator.firstDerivative(data, x);
+    double quadCoef = m / x - (y - 1.) / x / x;
+    double linCoef = -m + 2. * (y - 1.) / x;
     return 2. * quadCoef * value + linCoef;
   }
 
-  private double[] getLeftSensitivities(final Interpolator1DDataBundle data, final Double value) {
-    final double eps = _eps * (data.lastKey() - data.firstKey());
-    final double x = data.firstKey();
-    final double[] result = _interpolator.getNodeSensitivitiesForValue(data, x + eps);
+  private double[] getLeftSensitivities(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
+    double eps = _eps * (data.lastKey() - data.firstKey());
+    double x = data.firstKey();
+    double[] result = interpolator.getNodeSensitivitiesForValue(data, x + eps);
 
-    final int n = result.length;
+    int n = result.length;
     for (int i = 1; i < n; i++) {
-      final double tmp = result[i] * value / eps;
+      double tmp = result[i] * value / eps;
       result[i] = tmp / x * value - tmp;
     }
-    final double tmp = (result[0] - 1.) / eps;
+    double tmp = (result[0] - 1.) / eps;
     result[0] = (tmp / x - 1. / x / x) * value * value + (2. / x - tmp) * value;
     return result;
   }

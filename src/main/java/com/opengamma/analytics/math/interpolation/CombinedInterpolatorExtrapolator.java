@@ -9,104 +9,130 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * 
+ *
  */
 public class CombinedInterpolatorExtrapolator extends Interpolator1D {
+
   private static final long serialVersionUID = 1L;
   private final Interpolator1D _interpolator;
-  private final Interpolator1D _leftExtrapolator;
-  private final Interpolator1D _rightExtrapolator;
+  private final Extrapolator1D _leftExtrapolator;
+  private final Extrapolator1D _rightExtrapolator;
 
-  public CombinedInterpolatorExtrapolator(final Interpolator1D interpolator) {
+  public CombinedInterpolatorExtrapolator(Interpolator1D interpolator) {
     ArgChecker.notNull(interpolator, "interpolator");
+
     _interpolator = interpolator;
     _leftExtrapolator = null;
     _rightExtrapolator = null;
   }
 
-  public CombinedInterpolatorExtrapolator(final Interpolator1D interpolator, final Interpolator1D extrapolator) {
+  public CombinedInterpolatorExtrapolator(Interpolator1D interpolator, Extrapolator1D extrapolator) {
     ArgChecker.notNull(interpolator, "interpolator");
     ArgChecker.notNull(extrapolator, "extrapolator");
+
     _interpolator = interpolator;
     _leftExtrapolator = extrapolator;
     _rightExtrapolator = extrapolator;
   }
 
-  public CombinedInterpolatorExtrapolator(final Interpolator1D interpolator, final Interpolator1D leftExtrapolator, final Interpolator1D rightExtrapolator) {
+  public CombinedInterpolatorExtrapolator(
+      Interpolator1D interpolator,
+      Extrapolator1D leftExtrapolator,
+      Extrapolator1D rightExtrapolator) {
+
     ArgChecker.notNull(interpolator, "interpolator");
     ArgChecker.notNull(leftExtrapolator, "left extrapolator");
     ArgChecker.notNull(rightExtrapolator, "right extrapolator");
+
     _interpolator = interpolator;
     _leftExtrapolator = leftExtrapolator;
     _rightExtrapolator = rightExtrapolator;
   }
 
   @Override
-  public Interpolator1DDataBundle getDataBundle(final double[] x, final double[] y) {
+  public Interpolator1DDataBundle getDataBundle(double[] x, double[] y) {
     return _interpolator.getDataBundle(x, y);
   }
 
   @Override
-  public Interpolator1DDataBundle getDataBundleFromSortedArrays(final double[] x, final double[] y) {
+  public Interpolator1DDataBundle getDataBundleFromSortedArrays(double[] x, double[] y) {
     return _interpolator.getDataBundleFromSortedArrays(x, y);
   }
 
-  public Interpolator1D getInterpolator() {
+  /**
+   * Package-private getter only used in tests.
+   *
+   * @return the interpolator
+   */
+  Interpolator1D getInterpolator() {
     return _interpolator;
   }
 
-  public Interpolator1D getLeftExtrapolator() {
+  /**
+   * Package-private getter only used in tests.
+   *
+   * @return the left extrapolator
+   */
+  Extrapolator1D getLeftExtrapolator() {
     return _leftExtrapolator;
   }
 
-  public Interpolator1D getRightExtrapolator() {
+  /**
+   * Package-private getter only used in tests.
+   *
+   * @return the right extrapolator
+   */
+  Extrapolator1D getRightExtrapolator() {
     return _rightExtrapolator;
   }
 
   //TODO  fail earlier if there's no extrapolators?
   @Override
-  public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
+  public Double interpolate(Interpolator1DDataBundle data, Double value) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
+
     if (value < data.firstKey()) {
       if (_leftExtrapolator != null) {
-        return _leftExtrapolator.interpolate(data, value);
+        return _leftExtrapolator.extrapolate(data, value, _interpolator);
       }
     } else if (value > data.lastKey()) {
       if (_rightExtrapolator != null) {
-        return _rightExtrapolator.interpolate(data, value);
+        return _rightExtrapolator.extrapolate(data, value, _interpolator);
       }
     }
     return _interpolator.interpolate(data, value);
   }
 
   @Override
-  public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
+  public double firstDerivative(Interpolator1DDataBundle data, Double value) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
+
     if (value < data.firstKey()) {
       if (_leftExtrapolator != null) {
-        return _leftExtrapolator.firstDerivative(data, value);
+        return _leftExtrapolator.firstDerivative(data, value, _interpolator);
       }
     } else if (value > data.lastKey()) {
       if (_rightExtrapolator != null) {
-        return _rightExtrapolator.firstDerivative(data, value);
+        return _rightExtrapolator.firstDerivative(data, value, _interpolator);
       }
     }
     return _interpolator.firstDerivative(data, value);
   }
 
   @Override
-  public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
+  public double[] getNodeSensitivitiesForValue(Interpolator1DDataBundle data, Double value) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
+
     if (value < data.firstKey()) {
       if (_leftExtrapolator != null) {
-        return _leftExtrapolator.getNodeSensitivitiesForValue(data, value);
+        return _leftExtrapolator.getNodeSensitivitiesForValue(data, value, _interpolator);
       }
     } else if (value > data.lastKey()) {
       if (_rightExtrapolator != null) {
-        return _rightExtrapolator.getNodeSensitivitiesForValue(data, value);
+        return _rightExtrapolator.getNodeSensitivitiesForValue(data, value, _interpolator);
       }
     }
     return _interpolator.getNodeSensitivitiesForValue(data, value);
@@ -114,7 +140,7 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
 
   @Override
   public String toString() {
-    final StringBuilder sb = new StringBuilder("Interpolator[interpolator=");
+    StringBuilder sb = new StringBuilder("Interpolator[interpolator=");
     sb.append(_interpolator.toString());
     sb.append(", left extrapolator=");
     sb.append(_leftExtrapolator.toString());

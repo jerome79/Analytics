@@ -7,7 +7,6 @@ package com.opengamma.analytics.math.interpolation;
 
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
-import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -20,51 +19,28 @@ import com.opengamma.strata.collect.ArgChecker;
  * Thus a reference value is returned for Math.abs(value) < SMALL, where SMALL is defined in the super class. 
  */
 public class ReciprocalExtrapolator1D extends ProductPolynomialExtrapolator1D {
-  private static final long serialVersionUID = 1L;
+
+  /** The extrapolator name. */
+  public static final String NAME = "Reciprocal";
+
   private static final PiecewisePolynomialFunction1D FUNC = new LinearlFunction1D();
 
   /**
    * Construct the extrapolator
-   * @param interpolator The interpolator
    */
-  public ReciprocalExtrapolator1D(Interpolator1D interpolator) {
-    super(interpolator, FUNC);
+  public ReciprocalExtrapolator1D() {
+    super(FUNC);
   }
 
-  /**
-   * {@inheritDoc}
-   * For small Math.abs(value), the resulting value diverges in general. 
-   * In such a case this method returns a reference value
-   */
   @Override
-  public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
-    return super.interpolate(data, value);
-  }
-
-  /**
-   * {@inheritDoc}
-   * For small Math.abs(value), the resulting value diverges in general. 
-   * In such a case this method returns a reference value
-   */
-  @Override
-  public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
-    return super.firstDerivative(data, value);
-  }
-
-  /**
-   * {@inheritDoc}
-   * For small Math.abs(value), the resulting value diverges in general. 
-   * In such a case this method returns a reference value
-   */
-  @Override
-  public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
-    return super.getNodeSensitivitiesForValue(data, value);
+  public String getName() {
+    return NAME;
   }
 
   private static class LinearlFunction1D extends PiecewisePolynomialFunction1D {
 
     @Override
-    public DoubleMatrix1D evaluate(final PiecewisePolynomialResult pp, final double xKey) {
+    public DoubleMatrix1D evaluate(PiecewisePolynomialResult pp, double xKey) {
       ArgChecker.notNull(pp, "pp");
       double[] knots = pp.getKnots().getData();
       int nKnots = knots.length;
@@ -87,7 +63,7 @@ public class ReciprocalExtrapolator1D extends ProductPolynomialExtrapolator1D {
     }
 
     @Override
-    public DoubleMatrix1D differentiate(final PiecewisePolynomialResult pp, final double xKey) {
+    public DoubleMatrix1D differentiate(PiecewisePolynomialResult pp, double xKey) {
       ArgChecker.notNull(pp, "pp");
       double[] knots = pp.getKnots().getData();
       int nKnots = pp.getNumberOfIntervals() + 1;
@@ -100,14 +76,14 @@ public class ReciprocalExtrapolator1D extends ProductPolynomialExtrapolator1D {
       }
       DoubleMatrix2D coefMatrix = pp.getCoefMatrix();
       for (int j = 0; j < dim; ++j) {
-        final double[] coefs = coefMatrix.getRowVector(dim * indicator + j).getData();
+        double[] coefs = coefMatrix.getRowVector(dim * indicator + j).getData();
         res[j] = coefs[nCoefs - 2];
       }
       return new DoubleMatrix1D(res);
     }
 
     @Override
-    public DoubleMatrix1D differentiateTwice(final PiecewisePolynomialResult pp, final double xKey) {
+    public DoubleMatrix1D differentiateTwice(PiecewisePolynomialResult pp, double xKey) {
       ArgChecker.notNull(pp, "pp");
       int nKnots = pp.getNumberOfIntervals() + 1;
       int dim = pp.getDimensions();
@@ -116,7 +92,7 @@ public class ReciprocalExtrapolator1D extends ProductPolynomialExtrapolator1D {
     }
 
     @Override
-    protected double getValue(final double[] coefs, final double x, final double leftknot) {
+    protected double getValue(double[] coefs, double x, double leftknot) {
       int nCoefs = coefs.length;
       double res = coefs[nCoefs - 2] * (x - leftknot) + coefs[nCoefs - 1];
       return res;

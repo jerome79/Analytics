@@ -243,18 +243,34 @@ public class Interpolator1DTest {
     final double[][] yValues = new double[][] { {1., 1.1, 2., 3., 5.9, 6. }, {1., -1.1, 2.6, -3., -3.9, 3. } };
     final int dim = xValues.length;
 
-    final Interpolator1D[] extrap = new Interpolator1D[] {new ExponentialExtrapolator1D(), new FlatExtrapolator1D(), new LinearExtrapolator1D(new PCHIPInterpolator1D()),
-      new CombinedInterpolatorExtrapolator(new PCHIPInterpolator1D(), new ExponentialExtrapolator1D(), new FlatExtrapolator1D()) };
-    final int nMethods = extrap.length;
-    final Interpolator1D interp = new PCHIPInterpolator1D();
+    Interpolator1D interp = new PCHIPInterpolator1D();
+
+    final Extrapolator1D[] extrap = {
+        new ExponentialExtrapolator1D(),
+        new FlatExtrapolator1D(),
+        new LinearExtrapolator1D()};
+
     for (int j = 0; j < dim; ++j) {
       Interpolator1DDataBundle data = interp.getDataBundleFromSortedArrays(xValues[j], yValues[j]);
-      for (int i = 0; i < nMethods; ++i) {
-        if (i != 3) {
-          assertEquals(extrap[i].firstDerivative(data, .2), 0.5 * (extrap[i].interpolate(data, .2 + EPS) - extrap[i].interpolate(data, .2 - EPS)) / EPS, EPS);
-        }
-        assertEquals(extrap[i].firstDerivative(data, 7.2), 0.5 * (extrap[i].interpolate(data, 7.2 + EPS) - extrap[i].interpolate(data, 7.2 - EPS)) / EPS, EPS);
+
+      for (Extrapolator1D anExtrap : extrap) {
+        assertEquals(
+            anExtrap.firstDerivative(data, .2, interp),
+            0.5 * (anExtrap.extrapolate(data, .2 + EPS, interp) -
+                anExtrap.extrapolate(data, .2 - EPS, interp)) / EPS, EPS);
+        assertEquals(
+            anExtrap.firstDerivative(data, 7.2, interp),
+            0.5 * (anExtrap.extrapolate(data, 7.2 + EPS, interp) -
+                anExtrap.extrapolate(data, 7.2 - EPS, interp)) / EPS, EPS);
       }
+      CombinedInterpolatorExtrapolator interpolatorExtrapolator = new CombinedInterpolatorExtrapolator(
+          interp,
+          new ExponentialExtrapolator1D(),
+          new FlatExtrapolator1D());
+      assertEquals(
+          interpolatorExtrapolator.firstDerivative(data, 7.2),
+          0.5 * (interpolatorExtrapolator.interpolate(data, 7.2 + EPS) -
+              interpolatorExtrapolator.interpolate(data, 7.2 - EPS)) / EPS, EPS);
     }
   }
 

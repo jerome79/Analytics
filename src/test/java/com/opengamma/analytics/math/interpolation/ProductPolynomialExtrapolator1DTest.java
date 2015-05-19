@@ -16,7 +16,9 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
  * 
  */
 public class ProductPolynomialExtrapolator1DTest {
+
   private static final PiecewisePolynomialInterpolator[] INTERP_SENSE;
+
   static {
     PiecewisePolynomialInterpolator cubic = new CubicSplineInterpolator();
     PiecewisePolynomialInterpolator natural = new NaturalSplineInterpolator();
@@ -52,56 +54,67 @@ public class ProductPolynomialExtrapolator1DTest {
       for (int i = 0; i < n; ++i) {
         ProductPiecewisePolynomialInterpolator interp = new ProductPiecewisePolynomialInterpolator(INTERP_SENSE[i]);
         PiecewisePolynomialResult result = interp.interpolateWithSensitivity(xValues, yValues);
-        ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D(
-            new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[i]));
-        Interpolator1DDataBundle data = extrap1D.getDataBundle(xValues, yValues);
+        ProductPiecewisePolynomialInterpolator1D interpolator1D =
+            new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[i]);
+        ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D();
+        Interpolator1DDataBundle data = interpolator1D.getDataBundle(xValues, yValues);
         InterpolatorTestUtil.assertArrayRelative("notClampedTest", xValues, data.getKeys(), EPS);
         InterpolatorTestUtil.assertArrayRelative("notClampedTest", yValues, data.getValues(), EPS);
         /* left extrapolation */
         for (int j = 1; j < nKeys; ++j) {
           double key = xValues[0] - interval * j;
           InterpolatorTestUtil.assertRelative("notClampedTest", FUNC.evaluate(result, key).getEntry(0) / key,
-              extrap1D.interpolate(data, key), EPS);
+              extrap1D.extrapolate(data, key, interpolator1D), EPS);
           double keyUp = key + DELTA;
           double keyDw = key - DELTA;
-          double refDeriv = 0.5 * (extrap1D.interpolate(data, keyUp) - extrap1D.interpolate(data, keyDw)) / DELTA;
+          double refDeriv = 0.5 * (extrap1D.extrapolate(data, keyUp, interpolator1D) -
+              extrap1D.extrapolate(data, keyDw, interpolator1D)) / DELTA;
           InterpolatorTestUtil.assertRelative("notClampedTest", refDeriv,
-              extrap1D.firstDerivative(data, key), DELTA);
+              extrap1D.firstDerivative(data, key, interpolator1D), DELTA);
           double[] refSense = new double[nData];
           for (int l = 0; l < nData; ++l) {
             double[] yValuesUp = Arrays.copyOf(yValues, nData);
             double[] yValuesDw = Arrays.copyOf(yValues, nData);
             yValuesUp[l] += DELTA;
             yValuesDw[l] -= DELTA;
-            Interpolator1DDataBundle dataUp = extrap1D.getDataBundle(xValues, yValuesUp);
-            Interpolator1DDataBundle dataDw = extrap1D.getDataBundle(xValues, yValuesDw);
-            refSense[l] = 0.5 * (extrap1D.interpolate(dataUp, key) - extrap1D.interpolate(dataDw, key)) / DELTA;
+            Interpolator1DDataBundle dataUp = interpolator1D.getDataBundle(xValues, yValuesUp);
+            Interpolator1DDataBundle dataDw = interpolator1D.getDataBundle(xValues, yValuesDw);
+            refSense[l] = 0.5 * (extrap1D.extrapolate(dataUp, key, interpolator1D) -
+                extrap1D.extrapolate(dataDw, key, interpolator1D)) / DELTA;
           }
-          InterpolatorTestUtil.assertArrayRelative("notClampedTest", extrap1D.getNodeSensitivitiesForValue(data, key),
-              refSense, DELTA * 10.0);
+          InterpolatorTestUtil.assertArrayRelative(
+              "notClampedTest",
+              extrap1D.getNodeSensitivitiesForValue(data, key, interpolator1D),
+              refSense,
+              DELTA * 10.0);
         }
         /* right extrapolation */
         for (int j = 1; j < nKeys; ++j) {
           double key = xValues[nData - 1] + interval * j;
           InterpolatorTestUtil.assertRelative("notClampedTest", FUNC.evaluate(result, key).getEntry(0) / key,
-              extrap1D.interpolate(data, key), EPS);
+              extrap1D.extrapolate(data, key, interpolator1D), EPS);
           double keyUp = key + DELTA;
           double keyDw = key - DELTA;
-          double refDeriv = 0.5 * (extrap1D.interpolate(data, keyUp) - extrap1D.interpolate(data, keyDw)) / DELTA;
+          double refDeriv = 0.5 * (extrap1D.extrapolate(data, keyUp, interpolator1D) -
+              extrap1D.extrapolate(data, keyDw, interpolator1D)) / DELTA;
           InterpolatorTestUtil.assertRelative("notClampedTest", refDeriv,
-              extrap1D.firstDerivative(data, key), DELTA);
+              extrap1D.firstDerivative(data, key, interpolator1D), DELTA);
           double[] refSense = new double[nData];
           for (int l = 0; l < nData; ++l) {
             double[] yValuesUp = Arrays.copyOf(yValues, nData);
             double[] yValuesDw = Arrays.copyOf(yValues, nData);
             yValuesUp[l] += DELTA;
             yValuesDw[l] -= DELTA;
-            Interpolator1DDataBundle dataUp = extrap1D.getDataBundle(xValues, yValuesUp);
-            Interpolator1DDataBundle dataDw = extrap1D.getDataBundle(xValues, yValuesDw);
-            refSense[l] = 0.5 * (extrap1D.interpolate(dataUp, key) - extrap1D.interpolate(dataDw, key)) / DELTA;
+            Interpolator1DDataBundle dataUp = interpolator1D.getDataBundle(xValues, yValuesUp);
+            Interpolator1DDataBundle dataDw = interpolator1D.getDataBundle(xValues, yValuesDw);
+            refSense[l] = 0.5 * (extrap1D.extrapolate(dataUp, key, interpolator1D) -
+                extrap1D.extrapolate(dataDw, key, interpolator1D)) / DELTA;
           }
-          InterpolatorTestUtil.assertArrayRelative("notClampedTest", extrap1D.getNodeSensitivitiesForValue(data, key),
-              refSense, DELTA * 10.0);
+          InterpolatorTestUtil.assertArrayRelative(
+              "notClampedTest",
+              extrap1D.getNodeSensitivitiesForValue(data, key, interpolator1D),
+              refSense,
+              DELTA * 10.0);
         }
       }
     }
@@ -130,56 +143,77 @@ public class ProductPolynomialExtrapolator1DTest {
         ProductPiecewisePolynomialInterpolator interp = new ProductPiecewisePolynomialInterpolator(INTERP_SENSE[i],
             xValuesClamped, yValuesClamped);
         PiecewisePolynomialResultsWithSensitivity result = interp.interpolateWithSensitivity(xValues, yValues);
-        ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D(
-            new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[i], xValuesClamped, yValuesClamped));
-        Interpolator1DDataBundle data = extrap1D.getDataBundleFromSortedArrays(xValues, yValues);
+        ProductPiecewisePolynomialInterpolator1D interpolator1D =
+            new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[i], xValuesClamped, yValuesClamped);
+        ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D();
+        Interpolator1DDataBundle data = interpolator1D.getDataBundleFromSortedArrays(xValues, yValues);
         InterpolatorTestUtil.assertArrayRelative("notClampedTest", xValues, data.getKeys(), EPS);
         InterpolatorTestUtil.assertArrayRelative("notClampedTest", yValues, data.getValues(), EPS);
         /* left extrapolation */
         for (int j = 1; j < nKeys; ++j) {
           double key = xValues[0] - interval * j;
-          InterpolatorTestUtil.assertRelative("notClampedTest", FUNC.evaluate(result, key).getEntry(0) / key,
-              extrap1D.interpolate(data, key), EPS);
+          InterpolatorTestUtil.assertRelative(
+              "notClampedTest",
+              FUNC.evaluate(result, key).getEntry(0) / key,
+              extrap1D.extrapolate(data, key, interpolator1D),
+              EPS);
           double keyUp = key + DELTA;
           double keyDw = key - DELTA;
-          double refDeriv = 0.5 * (extrap1D.interpolate(data, keyUp) - extrap1D.interpolate(data, keyDw)) / DELTA;
-          InterpolatorTestUtil.assertRelative("notClampedTest", refDeriv,
-              extrap1D.firstDerivative(data, key), DELTA * 10.0);
+          double refDeriv = 0.5 * (extrap1D.extrapolate(data, keyUp, interpolator1D) -
+              extrap1D.extrapolate(data, keyDw, interpolator1D)) / DELTA;
+          InterpolatorTestUtil.assertRelative(
+              "notClampedTest",
+              refDeriv,
+              extrap1D.firstDerivative(data, key, interpolator1D),
+              DELTA * 10.0);
           double[] refSense = new double[nData];
           for (int l = 0; l < nData; ++l) {
             double[] yValuesUp = Arrays.copyOf(yValues, nData);
             double[] yValuesDw = Arrays.copyOf(yValues, nData);
             yValuesUp[l] += DELTA;
             yValuesDw[l] -= DELTA;
-            Interpolator1DDataBundle dataUp = extrap1D.getDataBundle(xValues, yValuesUp);
-            Interpolator1DDataBundle dataDw = extrap1D.getDataBundle(xValues, yValuesDw);
-            refSense[l] = 0.5 * (extrap1D.interpolate(dataUp, key) - extrap1D.interpolate(dataDw, key)) / DELTA;
+            Interpolator1DDataBundle dataUp = interpolator1D.getDataBundle(xValues, yValuesUp);
+            Interpolator1DDataBundle dataDw = interpolator1D.getDataBundle(xValues, yValuesDw);
+            refSense[l] = 0.5 * (extrap1D.extrapolate(dataUp, key, interpolator1D) -
+                extrap1D.extrapolate(dataDw, key, interpolator1D)) / DELTA;
           }
-          InterpolatorTestUtil.assertArrayRelative("notClampedTest", extrap1D.getNodeSensitivitiesForValue(data, key),
+          InterpolatorTestUtil.assertArrayRelative(
+              "notClampedTest",
+              extrap1D.getNodeSensitivitiesForValue(data, key, interpolator1D),
               refSense,
               DELTA * 10.0);
         }
         /* right extrapolation */
         for (int j = 1; j < nKeys; ++j) {
           double key = xValues[nData - 1] + interval * j;
-          InterpolatorTestUtil.assertRelative("notClampedTest", FUNC.evaluate(result, key).getEntry(0) / key,
-              extrap1D.interpolate(data, key), EPS);
+          InterpolatorTestUtil.assertRelative(
+              "notClampedTest",
+              FUNC.evaluate(result, key).getEntry(0) / key,
+              extrap1D.extrapolate(data, key, interpolator1D),
+              EPS);
           double keyUp = key + DELTA;
           double keyDw = key - DELTA;
-          double refDeriv = 0.5 * (extrap1D.interpolate(data, keyUp) - extrap1D.interpolate(data, keyDw)) / DELTA;
-          InterpolatorTestUtil.assertRelative("notClampedTest", refDeriv,
-              extrap1D.firstDerivative(data, key), DELTA * 10.0);
+          double refDeriv = 0.5 * (extrap1D.extrapolate(data, keyUp, interpolator1D) -
+              extrap1D.extrapolate(data, keyDw, interpolator1D)) / DELTA;
+          InterpolatorTestUtil.assertRelative(
+              "notClampedTest",
+              refDeriv,
+              extrap1D.firstDerivative(data, key, interpolator1D),
+              DELTA * 10.0);
           double[] refSense = new double[nData];
           for (int l = 0; l < nData; ++l) {
             double[] yValuesUp = Arrays.copyOf(yValues, nData);
             double[] yValuesDw = Arrays.copyOf(yValues, nData);
             yValuesUp[l] += DELTA;
             yValuesDw[l] -= DELTA;
-            Interpolator1DDataBundle dataUp = extrap1D.getDataBundle(xValues, yValuesUp);
-            Interpolator1DDataBundle dataDw = extrap1D.getDataBundle(xValues, yValuesDw);
-            refSense[l] = 0.5 * (extrap1D.interpolate(dataUp, key) - extrap1D.interpolate(dataDw, key)) / DELTA;
+            Interpolator1DDataBundle dataUp = interpolator1D.getDataBundle(xValues, yValuesUp);
+            Interpolator1DDataBundle dataDw = interpolator1D.getDataBundle(xValues, yValuesDw);
+            refSense[l] = 0.5 * (extrap1D.extrapolate(dataUp, key, interpolator1D) -
+                extrap1D.extrapolate(dataDw, key, interpolator1D)) / DELTA;
           }
-          InterpolatorTestUtil.assertArrayRelative("notClampedTest", extrap1D.getNodeSensitivitiesForValue(data, key),
+          InterpolatorTestUtil.assertArrayRelative(
+              "notClampedTest",
+              extrap1D.getNodeSensitivitiesForValue(data, key, interpolator1D),
               refSense,
               DELTA * 10.0);
         }
@@ -196,16 +230,26 @@ public class ProductPolynomialExtrapolator1DTest {
     double[] yValues = new double[] {1.1, 1.9, 2.3, -0.1 };
     int n = INTERP_SENSE.length;
     for (int i = 0; i < n; ++i) {
-      ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D(
-          new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[i], new double[] {0.0 }, new double[] {0.0 }));
-      Interpolator1DDataBundle data = extrap1D.getDataBundle(xValues, yValues);
+      ProductPiecewisePolynomialInterpolator1D interpolator1D =
+          new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[i], new double[]{0.0}, new double[]{0.0});
+      ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D();
+      Interpolator1DDataBundle data = interpolator1D.getDataBundle(xValues, yValues);
       double eps = 1.0e-5;
-      InterpolatorTestUtil.assertRelative("closeToZeroTest", extrap1D.interpolate(data, eps),
-          extrap1D.interpolate(data, 0.0), eps);
-      InterpolatorTestUtil.assertRelative("closeToZeroTest", extrap1D.firstDerivative(data, eps),
-          extrap1D.firstDerivative(data, 0.0), eps);
-      InterpolatorTestUtil.assertArrayRelative("closeToZeroTest", extrap1D.getNodeSensitivitiesForValue(data, eps),
-          extrap1D.getNodeSensitivitiesForValue(data, 0.0), eps);
+      InterpolatorTestUtil.assertRelative(
+          "closeToZeroTest",
+          extrap1D.extrapolate(data, eps, interpolator1D),
+          extrap1D.extrapolate(data, 0.0, interpolator1D),
+          eps);
+      InterpolatorTestUtil.assertRelative(
+          "closeToZeroTest",
+          extrap1D.firstDerivative(data, eps, interpolator1D),
+          extrap1D.firstDerivative(data, 0.0, interpolator1D),
+          eps);
+      InterpolatorTestUtil.assertArrayRelative(
+          "closeToZeroTest",
+          extrap1D.getNodeSensitivitiesForValue(data, eps, interpolator1D),
+          extrap1D.getNodeSensitivitiesForValue(data, 0.0, interpolator1D),
+          eps);
     }
   }
 
@@ -216,10 +260,11 @@ public class ProductPolynomialExtrapolator1DTest {
   public void insideRangeTest() {
     double[] xValues = new double[] {2.4, 3.2, 3.5, 7.6 };
     double[] yValues = new double[] {1.1, 1.9, 2.3, -0.1 };
-    ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D(
-        new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[1]));
-    Interpolator1DDataBundle data = extrap1D.getDataBundle(xValues, yValues);
-    extrap1D.interpolate(data, 5.2);
+    ProductPiecewisePolynomialInterpolator1D interpolator1D =
+        new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[1]);
+    ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D();
+    Interpolator1DDataBundle data = interpolator1D.getDataBundle(xValues, yValues);
+    extrap1D.extrapolate(data, 5.2, interpolator1D);
   }
 
   /**
@@ -229,10 +274,11 @@ public class ProductPolynomialExtrapolator1DTest {
   public void insideRangeDerivativeTest() {
     double[] xValues = new double[] {2.4, 3.2, 3.5, 7.6 };
     double[] yValues = new double[] {1.1, 1.9, 2.3, -0.1 };
-    ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D(
-        new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[1]));
-    Interpolator1DDataBundle data = extrap1D.getDataBundle(xValues, yValues);
-    extrap1D.firstDerivative(data, 5.2);
+    ProductPiecewisePolynomialInterpolator1D interpolator1D =
+        new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[1]);
+    ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D();
+    Interpolator1DDataBundle data = interpolator1D.getDataBundle(xValues, yValues);
+    extrap1D.firstDerivative(data, 5.2, interpolator1D);
   }
 
   /**
@@ -242,35 +288,18 @@ public class ProductPolynomialExtrapolator1DTest {
   public void insideRangeSenseTest() {
     double[] xValues = new double[] {2.4, 3.2, 3.5, 7.6 };
     double[] yValues = new double[] {1.1, 1.9, 2.3, -0.1 };
-    ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D(
-        new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[1]));
-    Interpolator1DDataBundle data = extrap1D.getDataBundle(xValues, yValues);
-    extrap1D.getNodeSensitivitiesForValue(data, 5.2);
+    ProductPiecewisePolynomialInterpolator1D interpolator1D =
+        new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[1]);
+    ProductPolynomialExtrapolator1D extrap1D = new ProductPolynomialExtrapolator1D();
+    Interpolator1DDataBundle data = interpolator1D.getDataBundle(xValues, yValues);
+    extrap1D.getNodeSensitivitiesForValue(data, 5.2, interpolator1D);
   }
 
   private static final double[] S_ARR = new double[] {1., 2., 3., 4. };
-  private static final ProductPiecewisePolynomialInterpolator1D S_INTERP = new ProductPiecewisePolynomialInterpolator1D(
-      INTERP_SENSE[0]);
-  private static final ProductPolynomialExtrapolator1D S_EXTRAP = new ProductPolynomialExtrapolator1D(S_INTERP);
-  private static final Interpolator1DDataBundle S_DATA = S_EXTRAP.getDataBundle(S_ARR, S_ARR);
-
-  /**
-   * interpolator is null
-   */
-  @SuppressWarnings("unused")
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void nullInterpTest1() {
-    new ProductPolynomialExtrapolator1D(null);
-  }
-
-  /**
-   * interpolator is null
-   */
-  @SuppressWarnings("unused")
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void nullInterpTest2() {
-    new ProductPolynomialExtrapolator1D(null, FUNC);
-  }
+  private static final ProductPiecewisePolynomialInterpolator1D S_INTERP =
+      new ProductPiecewisePolynomialInterpolator1D(INTERP_SENSE[0]);
+  private static final ProductPolynomialExtrapolator1D S_EXTRAP = new ProductPolynomialExtrapolator1D();
+  private static final Interpolator1DDataBundle S_DATA = S_INTERP.getDataBundle(S_ARR, S_ARR);
 
   /**
    * function is null
@@ -278,7 +307,7 @@ public class ProductPolynomialExtrapolator1DTest {
   @SuppressWarnings("unused")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullFunctionTest() {
-    new ProductPolynomialExtrapolator1D(S_INTERP, null);
+    new ProductPolynomialExtrapolator1D(null);
   }
 
   /**
@@ -286,7 +315,7 @@ public class ProductPolynomialExtrapolator1DTest {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullDataInterpTest() {
-    S_EXTRAP.interpolate(null, 5.0);
+    S_EXTRAP.extrapolate(null, 5.0, S_INTERP);
   }
 
   /**
@@ -294,7 +323,7 @@ public class ProductPolynomialExtrapolator1DTest {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullValueInterpTest() {
-    S_EXTRAP.interpolate(S_DATA, null);
+    S_EXTRAP.extrapolate(S_DATA, null, S_INTERP);
   }
 
   /**
@@ -302,7 +331,7 @@ public class ProductPolynomialExtrapolator1DTest {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullDataDerivTest() {
-    S_EXTRAP.firstDerivative(null, 5.0);
+    S_EXTRAP.firstDerivative(null, 5.0, S_INTERP);
   }
 
   /**
@@ -310,7 +339,7 @@ public class ProductPolynomialExtrapolator1DTest {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullValueDerivTest() {
-    S_EXTRAP.firstDerivative(S_DATA, null);
+    S_EXTRAP.firstDerivative(S_DATA, null, S_INTERP);
   }
 
   /**
@@ -318,7 +347,7 @@ public class ProductPolynomialExtrapolator1DTest {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullDataSenseTest() {
-    S_EXTRAP.getNodeSensitivitiesForValue(null, 5.0);
+    S_EXTRAP.getNodeSensitivitiesForValue(null, 5.0, S_INTERP);
   }
 
   /**
@@ -326,6 +355,6 @@ public class ProductPolynomialExtrapolator1DTest {
    */
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullValueSenseTest() {
-    S_EXTRAP.getNodeSensitivitiesForValue(S_DATA, null);
+    S_EXTRAP.getNodeSensitivitiesForValue(S_DATA, null, S_INTERP);
   }
 }

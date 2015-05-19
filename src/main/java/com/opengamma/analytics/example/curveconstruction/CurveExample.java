@@ -12,6 +12,7 @@ import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolator;
+import com.opengamma.analytics.math.interpolation.Extrapolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.LinearExtrapolator1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
@@ -43,7 +44,7 @@ public class CurveExample {
     try {
       out.println("Trying to get y value for too large an x...");
       curve.getYValue(4.0);
-    } catch (java.lang.IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
       out.println("IllegalArgumentException called");
     }
   }
@@ -53,8 +54,8 @@ public class CurveExample {
     double[] ydata = {2.0, 4.0, 6.0 };
 
     Interpolator1D interpolator = new LinearInterpolator1D();
-    Interpolator1D leftExtrapolator = new LinearExtrapolator1D(interpolator);
-    Interpolator1D rightExtrapolator = new LinearExtrapolator1D(interpolator);
+    Extrapolator1D leftExtrapolator = new LinearExtrapolator1D();
+    Extrapolator1D rightExtrapolator = new LinearExtrapolator1D();
     Interpolator1D combined = new CombinedInterpolatorExtrapolator(interpolator, leftExtrapolator, rightExtrapolator);
 
     Curve<Double, Double> curve = new InterpolatedDoublesCurve(xdata, ydata, combined, true);

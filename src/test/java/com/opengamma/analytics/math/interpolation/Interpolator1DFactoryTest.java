@@ -6,7 +6,6 @@
 package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
 
 import org.testng.annotations.Test;
 
@@ -22,11 +21,6 @@ public class Interpolator1DFactoryTest {
   }
 
   @Test
-  public void testNullCalculator() {
-    assertNull(Interpolator1DFactory.getInterpolatorName(null));
-  }
-
-  @Test
   public void test() {
     assertEquals(Interpolator1DFactory.LINEAR, Interpolator1DFactory.getInterpolatorName(Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LINEAR)));
     assertEquals(Interpolator1DFactory.EXPONENTIAL, Interpolator1DFactory.getInterpolatorName(Interpolator1DFactory.getInterpolator(Interpolator1DFactory.EXPONENTIAL)));
@@ -36,8 +30,5 @@ public class Interpolator1DFactoryTest {
     assertEquals(Interpolator1DFactory.STEP, Interpolator1DFactory.getInterpolatorName(Interpolator1DFactory.getInterpolator(Interpolator1DFactory.STEP)));
     assertEquals(Interpolator1DFactory.STEP_UPPER, Interpolator1DFactory.getInterpolatorName(Interpolator1DFactory.getInterpolator(Interpolator1DFactory.STEP_UPPER)));
     assertEquals(Interpolator1DFactory.TIME_SQUARE, Interpolator1DFactory.getInterpolatorName(Interpolator1DFactory.getInterpolator(Interpolator1DFactory.TIME_SQUARE)));
-    assertEquals(Interpolator1DFactory.LINEAR_EXTRAPOLATOR, Interpolator1DFactory.getInterpolatorName(new LinearExtrapolator1D(new LinearInterpolator1D())));
-    assertEquals(Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.getInterpolatorName(new FlatExtrapolator1D()));
-    assertEquals(Interpolator1DFactory.EXPONENTIAL_EXTRAPOLATOR, Interpolator1DFactory.getInterpolatorName(new ExponentialExtrapolator1D()));
   }
 }

@@ -21,7 +21,7 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 public class CombinedInterpolatorExtrapolatorNodeSensitivityCalculatorTest {
   private static final LinearInterpolator1D LINEAR = new LinearInterpolator1D();
   private static final FlatExtrapolator1D LEFT = new FlatExtrapolator1D();
-  private static final LinearExtrapolator1D RIGHT = new LinearExtrapolator1D(LINEAR);
+  private static final LinearExtrapolator1D RIGHT = new LinearExtrapolator1D();
   private static final double[] X;
   private static final double[] Y;
   private static final Interpolator1DDataBundle DATA;
@@ -103,15 +103,15 @@ public class CombinedInterpolatorExtrapolatorNodeSensitivityCalculatorTest {
   public void testOneExtrapolator() {
     final double x = 3.6;
     assertArrayEquals(COMBINED2.getNodeSensitivitiesForValue(DATA, x), LINEAR.getNodeSensitivitiesForValue(DATA, x), 1e-15);
-    assertArrayEquals(COMBINED2.getNodeSensitivitiesForValue(DATA, x - 100), LEFT.getNodeSensitivitiesForValue(DATA, x - 100), 1e-15);
-    assertArrayEquals(COMBINED2.getNodeSensitivitiesForValue(DATA, x + 100), LEFT.getNodeSensitivitiesForValue(DATA, x + 100), 1e-15);
+    assertArrayEquals(COMBINED2.getNodeSensitivitiesForValue(DATA, x - 100), LEFT.getNodeSensitivitiesForValue(DATA, x - 100, LINEAR), 1e-15);
+    assertArrayEquals(COMBINED2.getNodeSensitivitiesForValue(DATA, x + 100), LEFT.getNodeSensitivitiesForValue(DATA, x + 100, LINEAR), 1e-15);
   }
 
   @Test
   public void testTwoExtrapolators() {
     final double x = 3.6;
     assertArrayEquals(COMBINED3.getNodeSensitivitiesForValue(DATA, x), LINEAR.getNodeSensitivitiesForValue(DATA, x), 1e-15);
-    assertArrayEquals(COMBINED3.getNodeSensitivitiesForValue(DATA, x - 100), LEFT.getNodeSensitivitiesForValue(DATA, x - 100), 1e-15);
-    assertArrayEquals(COMBINED3.getNodeSensitivitiesForValue(DATA, x + 100), RIGHT.getNodeSensitivitiesForValue(DATA, x + 100), 1e-5);
+    assertArrayEquals(COMBINED3.getNodeSensitivitiesForValue(DATA, x - 100), LEFT.getNodeSensitivitiesForValue(DATA, x - 100, LINEAR), 1e-15);
+    assertArrayEquals(COMBINED3.getNodeSensitivitiesForValue(DATA, x + 100), RIGHT.getNodeSensitivitiesForValue(DATA, x + 100, LINEAR), 1e-5);
   }
 }

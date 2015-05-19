@@ -6,26 +6,19 @@
 package com.opengamma.analytics.math.interpolation;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.basics.extrapolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
  */
-public class FlatExtrapolator1D extends Interpolator1D {
-  private static final long serialVersionUID = 1L;
+public class FlatExtrapolator1D implements CurveExtrapolator, Extrapolator1D {
+
+  /** The extrapolator name. */
+  public static final String NAME = "Flat";
 
   @Override
-  public Interpolator1DDataBundle getDataBundle(final double[] x, final double[] y) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public Interpolator1DDataBundle getDataBundleFromSortedArrays(final double[] x, final double[] y) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
+  public Double extrapolate(final Interpolator1DDataBundle data, final Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
@@ -37,7 +30,7 @@ public class FlatExtrapolator1D extends Interpolator1D {
   }
 
   @Override
-  public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
+  public double firstDerivative(final Interpolator1DDataBundle data, final Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
     if (value < data.firstKey()) {
@@ -49,8 +42,13 @@ public class FlatExtrapolator1D extends Interpolator1D {
   }
 
   @Override
-  public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
+  public double[] getNodeSensitivitiesForValue(
+      final Interpolator1DDataBundle data,
+      final Double value,
+      Interpolator1D interpolator) {
+
     ArgChecker.notNull(data, "data");
+
     final int n = data.size();
     if (value < data.firstKey()) {
       final double[] result = new double[n];
@@ -62,5 +60,10 @@ public class FlatExtrapolator1D extends Interpolator1D {
       return result;
     }
     throw new IllegalArgumentException("Value " + value + " was within data range");
+  }
+
+  @Override
+  public String getName() {
+    return NAME;
   }
 }
