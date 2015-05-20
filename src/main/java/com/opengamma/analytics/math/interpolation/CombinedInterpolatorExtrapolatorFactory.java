@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableList;
  */
 public final class CombinedInterpolatorExtrapolatorFactory {
 
+  // Cannot use Named::getName method reference in Eclipse
   private static final Map<String, Extrapolator1D> EXTRAPOLATORS =
       ImmutableList.of(
           new LinearExtrapolator1D(),
