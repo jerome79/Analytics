@@ -10,7 +10,6 @@ import static com.opengamma.strata.collect.Guavate.toImmutableMap;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
-import com.opengamma.strata.collect.named.Named;
 
 /**
  * 
@@ -25,7 +24,7 @@ public final class CombinedInterpolatorExtrapolatorFactory {
           new FlatExtrapolator1D(),
           new ExponentialExtrapolator1D())
           .stream()
-          .collect(toImmutableMap(Named::getName, xtr -> xtr));
+          .collect(toImmutableMap(xtr -> xtr.getName(), xtr -> xtr));
 
   private CombinedInterpolatorExtrapolatorFactory() {
   }
