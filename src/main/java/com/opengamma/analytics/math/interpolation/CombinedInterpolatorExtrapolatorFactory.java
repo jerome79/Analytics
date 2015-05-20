@@ -5,58 +5,74 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
+import static com.opengamma.strata.collect.Guavate.toImmutableMap;
+
+import java.util.Map;
+
+import com.google.common.collect.ImmutableList;
+import com.opengamma.strata.collect.named.Named;
+
 /**
  * 
  */
 public final class CombinedInterpolatorExtrapolatorFactory {
 
+  private static final Map<String, Extrapolator1D> EXTRAPOLATORS =
+      ImmutableList.of(
+          new LinearExtrapolator1D(),
+          new LogLinearExtrapolator1D(),
+          new QuadraticPolynomialLeftExtrapolator(),
+          new FlatExtrapolator1D(),
+          new ExponentialExtrapolator1D())
+          .stream()
+          .collect(toImmutableMap(Named::getName, xtr -> xtr));
+
   private CombinedInterpolatorExtrapolatorFactory() {
   }
 
-  public static CombinedInterpolatorExtrapolator getInterpolator(final String interpolatorName) {
-    final Interpolator1D interpolator = Interpolator1DFactory.getInterpolator(interpolatorName);
+  public static CombinedInterpolatorExtrapolator getInterpolator(String interpolatorName) {
+    Interpolator1D interpolator = Interpolator1DFactory.getInterpolator(interpolatorName);
     return new CombinedInterpolatorExtrapolator(interpolator);
   }
 
-  public static CombinedInterpolatorExtrapolator getInterpolator(final String interpolatorName, final String extrapolatorName) {
-    final Interpolator1D interpolator = Interpolator1DFactory.getInterpolator(interpolatorName);
+  public static CombinedInterpolatorExtrapolator getInterpolator(String interpolatorName, String extrapolatorName) {
+    Interpolator1D interpolator = Interpolator1DFactory.getInterpolator(interpolatorName);
     if (extrapolatorName == null || extrapolatorName.isEmpty()) {
       return new CombinedInterpolatorExtrapolator(interpolator);
     }
-    final Interpolator1D extrapolator = getExtrapolator(extrapolatorName, interpolator);
+    Extrapolator1D extrapolator = getExtrapolator(extrapolatorName);
     return new CombinedInterpolatorExtrapolator(interpolator, extrapolator, extrapolator);
   }
 
-  // REVIEW emcleod 4-8-2010 not sure if this is how people will want to construct the combined interpolator - should it be more strict?
-  // Also see CombinedInterpolatorExtrapolatorNodeSensitivityCalculatorFactory
-  public static CombinedInterpolatorExtrapolator getInterpolator(final String interpolatorName, final String leftExtrapolatorName, final String rightExtrapolatorName) {
-    final Interpolator1D interpolator = Interpolator1DFactory.getInterpolator(interpolatorName);
+  public static CombinedInterpolatorExtrapolator getInterpolator(
+      String interpolatorName,
+      String leftExtrapolatorName,
+      String rightExtrapolatorName) {
+
+    Interpolator1D interpolator = Interpolator1DFactory.getInterpolator(interpolatorName);
     if (leftExtrapolatorName == null || leftExtrapolatorName.isEmpty()) {
       if (rightExtrapolatorName == null || rightExtrapolatorName.isEmpty()) {
         return new CombinedInterpolatorExtrapolator(interpolator);
       }
-      final Interpolator1D extrapolator = getExtrapolator(rightExtrapolatorName, interpolator);
+      Extrapolator1D extrapolator = getExtrapolator(rightExtrapolatorName);
       return new CombinedInterpolatorExtrapolator(interpolator, extrapolator);
     }
     if (rightExtrapolatorName == null || rightExtrapolatorName.isEmpty()) {
-      final Interpolator1D extrapolator = getExtrapolator(leftExtrapolatorName, interpolator);
+      Extrapolator1D extrapolator = getExtrapolator(leftExtrapolatorName);
       return new CombinedInterpolatorExtrapolator(interpolator, extrapolator);
     }
-    final Interpolator1D leftExtrapolator = getExtrapolator(leftExtrapolatorName, interpolator);
-    final Interpolator1D rightExtrapolator = getExtrapolator(rightExtrapolatorName, interpolator);
+    Extrapolator1D leftExtrapolator = getExtrapolator(leftExtrapolatorName);
+    Extrapolator1D rightExtrapolator = getExtrapolator(rightExtrapolatorName);
     return new CombinedInterpolatorExtrapolator(interpolator, leftExtrapolator, rightExtrapolator);
   }
 
-  public static Interpolator1D getExtrapolator(final String extrapolatorName, final Interpolator1D interpolator) {
-    if (extrapolatorName.equals(Interpolator1DFactory.LINEAR_EXTRAPOLATOR)) {
-      return new LinearExtrapolator1D(interpolator);
+  public static Extrapolator1D getExtrapolator(String extrapolatorName) {
+    Extrapolator1D extrapolator = EXTRAPOLATORS.get(extrapolatorName);
+
+    if (extrapolator != null) {
+      return extrapolator;
+    } else {
+      throw new IllegalArgumentException("Unknown extrapolator name " + extrapolatorName);
     }
-    if (extrapolatorName.equals(Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR)) {
-      return new LogLinearExtrapolator1D(interpolator);
-    }
-    if (extrapolatorName.equals(Interpolator1DFactory.QUADRATIC_LEFT_EXTRAPOLATOR)) {
-      return new QuadraticPolynomialLeftExtrapolator(interpolator);
-    }
-    return Interpolator1DFactory.getInterpolator(extrapolatorName);
   }
 }

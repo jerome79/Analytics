@@ -227,7 +227,7 @@ public class ProductPiecewisePolynomialInterpolator1DTest {
       0.0284929581122082, 0.0284672034337625 };
     Interpolator1D interp = new ProductPiecewisePolynomialInterpolator1D(new NaturalSplineInterpolator());
     CombinedInterpolatorExtrapolator combInterp = new CombinedInterpolatorExtrapolator(interp,
-        new ReciprocalExtrapolator1D(interp));
+        new ReciprocalExtrapolator1D());
     YieldAndDiscountCurve curve1 = new YieldCurve("curve1",
         new InterpolatedDoublesCurve(time1, rate1, combInterp, true));
     YieldAndDiscountCurve curve2 = new YieldCurve("curve2",

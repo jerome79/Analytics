@@ -36,11 +36,11 @@ public class ExponentialExtrapolator1DTest {
     double mRight = Math.log(Y_DATA[X_DATA.length - 1]) / X_DATA[X_DATA.length - 1];
     double value;
     value = 0.0;
-    assertEquals("ExponentialExtrapolator1D: value", 1.0, EXP_EXTRAPOLATOR.interpolate(DATA, value), TOLERANCE_VALUE);
+    assertEquals("ExponentialExtrapolator1D: value", 1.0, EXP_EXTRAPOLATOR.extrapolate(DATA, value, INTERPOLATOR), TOLERANCE_VALUE);
     value = -0.2;
-    assertEquals("ExponentialExtrapolator1D: value", Math.exp(mLeft * value), EXP_EXTRAPOLATOR.interpolate(DATA, value), TOLERANCE_VALUE);
+    assertEquals("ExponentialExtrapolator1D: value", Math.exp(mLeft * value), EXP_EXTRAPOLATOR.extrapolate(DATA, value, INTERPOLATOR), TOLERANCE_VALUE);
     value = 11.0;
-    assertEquals("ExponentialExtrapolator1D: value", Math.exp(mRight * value), EXP_EXTRAPOLATOR.interpolate(DATA, value), TOLERANCE_VALUE);
+    assertEquals("ExponentialExtrapolator1D: value", Math.exp(mRight * value), EXP_EXTRAPOLATOR.extrapolate(DATA, value, INTERPOLATOR), TOLERANCE_VALUE);
   }
 
   @Test
@@ -52,20 +52,20 @@ public class ExponentialExtrapolator1DTest {
     yDataShifted = Y_DATA.clone();
     yDataShifted[0] += shift;
     assertEquals("ExponentialExtrapolator1D: value",
-        (EXP_EXTRAPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, yDataShifted), value) - EXP_EXTRAPOLATOR.interpolate(DATA, value)) / shift,
-        EXP_EXTRAPOLATOR.getNodeSensitivitiesForValue(DATA, value)[0], TOLERANCE_SENSI);
+        (EXP_EXTRAPOLATOR.extrapolate(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, yDataShifted), value, INTERPOLATOR) - EXP_EXTRAPOLATOR.extrapolate(DATA, value, INTERPOLATOR)) / shift,
+        EXP_EXTRAPOLATOR.getNodeSensitivitiesForValue(DATA, value, INTERPOLATOR)[0], TOLERANCE_SENSI);
     value = -0.2;
     yDataShifted = Y_DATA.clone();
     yDataShifted[0] += shift;
     assertEquals("ExponentialExtrapolator1D: value",
-        (EXP_EXTRAPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, yDataShifted), value) - EXP_EXTRAPOLATOR.interpolate(DATA, value)) / shift,
-        EXP_EXTRAPOLATOR.getNodeSensitivitiesForValue(DATA, value)[0], TOLERANCE_SENSI);
+        (EXP_EXTRAPOLATOR.extrapolate(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, yDataShifted), value, INTERPOLATOR) - EXP_EXTRAPOLATOR.extrapolate(DATA, value, INTERPOLATOR)) / shift,
+        EXP_EXTRAPOLATOR.getNodeSensitivitiesForValue(DATA, value, INTERPOLATOR)[0], TOLERANCE_SENSI);
     value = 11.0;
     yDataShifted = Y_DATA.clone();
     yDataShifted[Y_DATA.length - 1] += shift;
     assertEquals("ExponentialExtrapolator1D: value",
-        (EXP_EXTRAPOLATOR.interpolate(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, yDataShifted), value) - EXP_EXTRAPOLATOR.interpolate(DATA, value)) / shift,
-        EXP_EXTRAPOLATOR.getNodeSensitivitiesForValue(DATA, value)[Y_DATA.length - 1], TOLERANCE_SENSI);
+        (EXP_EXTRAPOLATOR.extrapolate(INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, yDataShifted), value, INTERPOLATOR) - EXP_EXTRAPOLATOR.extrapolate(DATA, value, INTERPOLATOR)) / shift,
+        EXP_EXTRAPOLATOR.getNodeSensitivitiesForValue(DATA, value, INTERPOLATOR)[Y_DATA.length - 1], TOLERANCE_SENSI);
   }
 
 }

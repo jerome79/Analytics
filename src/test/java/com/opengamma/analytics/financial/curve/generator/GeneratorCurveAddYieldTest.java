@@ -29,10 +29,16 @@ public class GeneratorCurveAddYieldTest {
   private static final String CURVE_NAME_0 = CURVE_NAME + "-0";
   private static final String CURVE_NAME_1 = CURVE_NAME + "-1";
 
-  private static final Interpolator1D INTERPOLATOR_LINEAR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
+  private static final Interpolator1D INTERPOLATOR_LINEAR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(
+      Interpolator1DFactory.LINEAR,
+      Interpolator1DFactory.FLAT_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
-  private static final Interpolator1D INTERPOLATOR_DQ = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC, Interpolator1DFactory.FLAT_EXTRAPOLATOR,
+
+  private static final Interpolator1D INTERPOLATOR_DQ = CombinedInterpolatorExtrapolatorFactory.getInterpolator(
+      Interpolator1DFactory.DOUBLE_QUADRATIC,
+      Interpolator1DFactory.FLAT_EXTRAPOLATOR,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR);
+
   private static final double[] NODES_0 = new double[] {0.01, 0.50, 1.00, 2.00, 5.05, 10.0 };
   private static final double[] RATE_0 = new double[] {0.02, 0.02, 0.03, 0.01, 0.02, 0.01 };
   private static final double[] NODES_1 = new double[] {5.05, 10.0, 20.0, 30.0 };

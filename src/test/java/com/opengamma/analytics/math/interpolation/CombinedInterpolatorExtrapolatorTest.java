@@ -19,9 +19,10 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
  */
 @Test
 public class CombinedInterpolatorExtrapolatorTest {
+
   private static final LinearInterpolator1D INTERPOLATOR = new LinearInterpolator1D();
   private static final FlatExtrapolator1D LEFT_EXTRAPOLATOR = new FlatExtrapolator1D();
-  private static final LinearExtrapolator1D RIGHT_EXTRAPOLATOR = new LinearExtrapolator1D(INTERPOLATOR);
+  private static final LinearExtrapolator1D RIGHT_EXTRAPOLATOR = new LinearExtrapolator1D();
   private static final double[] X;
   private static final double[] Y;
   private static final Interpolator1DDataBundle DATA;

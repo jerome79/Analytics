@@ -6,116 +6,120 @@
 package com.opengamma.analytics.math.interpolation;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
  */
-public class LinearExtrapolator1D extends Interpolator1D {
-  private static final long serialVersionUID = 1L;
-  private final Interpolator1D _interpolator;
+public class LinearExtrapolator1D implements CurveExtrapolator, Extrapolator1D {
+
+  /** The extrapolator name. */
+  public static final String NAME = "Linear";
+
   private final double _eps;
 
-  public LinearExtrapolator1D(final Interpolator1D interpolator) {
-    this(interpolator, 1e-8);
+  public LinearExtrapolator1D() {
+    this(1e-8);
   }
 
-  public LinearExtrapolator1D(final Interpolator1D interpolator, final double eps) {
-    _interpolator = ArgChecker.notNull(interpolator, "interpolator");
+  public LinearExtrapolator1D(double eps) {
     _eps = eps;
   }
 
   @Override
-  public Interpolator1DDataBundle getDataBundle(final double[] x, final double[] y) {
-    return _interpolator.getDataBundle(x, y);
+  public String getName() {
+    return NAME;
   }
 
   @Override
-  public Interpolator1DDataBundle getDataBundleFromSortedArrays(final double[] x, final double[] y) {
-    return _interpolator.getDataBundleFromSortedArrays(x, y);
-  }
-
-  @Override
-  public Double interpolate(final Interpolator1DDataBundle data, final Double value) {
+  public Double extrapolate(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
+
     if (value < data.firstKey()) {
-      return leftExtrapolate(data, value);
+      return leftExtrapolate(data, value, interpolator);
     } else if (value > data.lastKey()) {
-      return rightExtrapolate(data, value);
+      return rightExtrapolate(data, value, interpolator);
     }
     throw new IllegalArgumentException("Value " + value + " was within data range");
   }
 
   @Override
-  public double firstDerivative(final Interpolator1DDataBundle data, final Double value) {
+  public double firstDerivative(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
+
     if (value < data.firstKey()) {
-      return leftExtrapolateDerivative(data, value);
+      return leftExtrapolateDerivative(data, value, interpolator);
     } else if (value > data.lastKey()) {
-      return rightExtrapolateDerivative(data, value);
+      return rightExtrapolateDerivative(data, value, interpolator);
     }
     throw new IllegalArgumentException("Value " + value + " was within data range");
   }
 
   @Override
-  public double[] getNodeSensitivitiesForValue(final Interpolator1DDataBundle data, final Double value) {
+  public double[] getNodeSensitivitiesForValue(
+      Interpolator1DDataBundle data,
+      Double value,
+      Interpolator1D interpolator) {
+
     ArgChecker.notNull(data, "data");
+
     if (value < data.firstKey()) {
-      return getLeftSensitivities(data, value);
+      return getLeftSensitivities(data, value, interpolator);
     } else if (value > data.lastKey()) {
-      return getRightSensitivities(data, value);
+      return getRightSensitivities(data, value, interpolator);
     }
     throw new IllegalArgumentException("Value " + value + " was within data range");
   }
 
-  private Double leftExtrapolate(final Interpolator1DDataBundle data, final Double value) {
+  private Double leftExtrapolate(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
 
-    final double x = data.firstKey();
-    final double y = data.firstValue();
-    final double eps = _eps * (data.lastKey() - x);
-    final double m = (_interpolator.interpolate(data, x + eps) - y) / eps;
+    double x = data.firstKey();
+    double y = data.firstValue();
+    double eps = _eps * (data.lastKey() - x);
+    double m = (interpolator.interpolate(data, x + eps) - y) / eps;
     return y + (value - x) * m;
   }
 
-  private Double rightExtrapolate(final Interpolator1DDataBundle data, final Double value) {
+  private Double rightExtrapolate(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
-    final double x = data.lastKey();
-    final double y = data.lastValue();
-    final double eps = _eps * (x - data.firstKey());
-    final double m = (y - _interpolator.interpolate(data, x - eps)) / eps;
+    double x = data.lastKey();
+    double y = data.lastValue();
+    double eps = _eps * (x - data.firstKey());
+    double m = (y - interpolator.interpolate(data, x - eps)) / eps;
     return y + (value - x) * m;
   }
 
-  private Double leftExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
+  private Double leftExtrapolateDerivative(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
-    final double x = data.firstKey();
-    final double y = data.firstValue();
-    final double eps = _eps * (data.lastKey() - x);
-    final double m = (_interpolator.interpolate(data, x + eps) - y) / eps;
+    double x = data.firstKey();
+    double y = data.firstValue();
+    double eps = _eps * (data.lastKey() - x);
+    double m = (interpolator.interpolate(data, x + eps) - y) / eps;
     return m;
   }
 
-  private Double rightExtrapolateDerivative(final Interpolator1DDataBundle data, final Double value) {
+  private Double rightExtrapolateDerivative(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
     ArgChecker.notNull(data, "data");
     ArgChecker.notNull(value, "value");
-    final double x = data.lastKey();
-    final double y = data.lastValue();
-    final double eps = _eps * (x - data.firstKey());
-    final double m = (y - _interpolator.interpolate(data, x - eps)) / eps;
+    double x = data.lastKey();
+    double y = data.lastValue();
+    double eps = _eps * (x - data.firstKey());
+    double m = (y - interpolator.interpolate(data, x - eps)) / eps;
     return m;
   }
 
-  private double[] getLeftSensitivities(final Interpolator1DDataBundle data, final double value) {
-    final double eps = _eps * (data.lastKey() - data.firstKey());
-    final double x = data.firstKey();
-    final double[] result = _interpolator.getNodeSensitivitiesForValue(data, x + eps);
-    final int n = result.length;
+  private double[] getLeftSensitivities(Interpolator1DDataBundle data, double value, Interpolator1D interpolator) {
+    double eps = _eps * (data.lastKey() - data.firstKey());
+    double x = data.firstKey();
+    double[] result = interpolator.getNodeSensitivitiesForValue(data, x + eps);
+    int n = result.length;
     for (int i = 1; i < n; i++) {
       result[i] = result[i] * (value - x) / eps;
     }
@@ -123,11 +127,11 @@ public class LinearExtrapolator1D extends Interpolator1D {
     return result;
   }
 
-  private double[] getRightSensitivities(final Interpolator1DDataBundle data, final Double value) {
-    final double eps = _eps * (data.lastKey() - data.firstKey());
-    final double x = data.lastKey();
-    final double[] result = _interpolator.getNodeSensitivitiesForValue(data, x - eps);
-    final int n = result.length;
+  private double[] getRightSensitivities(Interpolator1DDataBundle data, Double value, Interpolator1D interpolator) {
+    double eps = _eps * (data.lastKey() - data.firstKey());
+    double x = data.lastKey();
+    double[] result = interpolator.getNodeSensitivitiesForValue(data, x - eps);
+    int n = result.length;
     for (int i = 0; i < n - 1; i++) {
       result[i] = -result[i] * (value - x) / eps;
     }

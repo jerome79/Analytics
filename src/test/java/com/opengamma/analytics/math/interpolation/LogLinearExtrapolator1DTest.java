@@ -40,7 +40,7 @@ public class LogLinearExtrapolator1DTest {
     }
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D();
     final CombinedInterpolatorExtrapolator combined1 = new CombinedInterpolatorExtrapolator(interp, extrap, extrap);
     final CombinedInterpolatorExtrapolator combined2 = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE,
         Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR, Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR);
@@ -74,26 +74,31 @@ public class LogLinearExtrapolator1DTest {
       }
 
       final Interpolator1DDataBundle bundleInterp = interp.getDataBundle(xValues, yValues[k]);
-      final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues[k]);
 
       /*
        * Check C0 continuity using interpolator/extrapolator
        */
       assertEquals(interp.interpolate(bundleInterp, xValues[nData - 1]), combined1.interpolate(bundle1, xValues[nData - 1]));
-      assertEquals(extrap.interpolate(bundleExtrap, xValues[nData - 1] + 1.e-14), combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
+      assertEquals(extrap.extrapolate(bundleInterp, xValues[nData - 1] + 1.e-14, interp), combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
       assertEquals(interp.interpolate(bundleInterp, xValues[0]), combined1.interpolate(bundle1, xValues[0]));
-      assertEquals(extrap.interpolate(bundleExtrap, xValues[0] - 1.e-14), combined1.interpolate(bundle1, xValues[0]), TOL);
+      assertEquals(extrap.extrapolate(bundleInterp, xValues[0] - 1.e-14, interp), combined1.interpolate(bundle1, xValues[0]), TOL);
 
       /*
        * Check C1 continuity using interpolator/extrapolator
        */
       assertEquals(interp.firstDerivative(bundleInterp, xValues[nData - 1]) / interp.interpolate(bundleInterp, xValues[nData - 1]),
           combined1.firstDerivative(bundle1, xValues[nData - 1]) / combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
-      assertEquals(extrap.firstDerivative(bundleExtrap, xValues[nData - 1] + TOL) / extrap.interpolate(bundleExtrap, xValues[nData - 1] + TOL),
+      assertEquals(extrap.firstDerivative(bundleInterp, xValues[nData - 1] + TOL, interp) / extrap.extrapolate(
+          bundleInterp,
+          xValues[nData - 1] + TOL,
+          interp),
           combined1.firstDerivative(bundle1, xValues[nData - 1]) / combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
       assertEquals(interp.firstDerivative(bundleInterp, xValues[0]) / interp.interpolate(bundleInterp, xValues[0]),
           combined1.firstDerivative(bundle1, xValues[0]) / combined1.interpolate(bundle1, xValues[0]), TOL);
-      assertEquals(extrap.firstDerivative(bundleExtrap, xValues[0] - TOL) / extrap.interpolate(bundleExtrap, xValues[0] - TOL),
+      assertEquals(extrap.firstDerivative(bundleInterp, xValues[0] - TOL, interp) / extrap.extrapolate(
+          bundleInterp,
+          xValues[0] - TOL,
+          interp),
           combined1.firstDerivative(bundle1, xValues[0]) / combined1.interpolate(bundle1, xValues[0]), TOL);
 
       /*
@@ -143,7 +148,7 @@ public class LogLinearExtrapolator1DTest {
     }
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp, 1.e-8);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D(1.e-8);
     final CombinedInterpolatorExtrapolator combined1 = new CombinedInterpolatorExtrapolator(interp, extrap, extrap);
     final CombinedInterpolatorExtrapolator combined2 = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE,
         Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR, Interpolator1DFactory.LOG_LINEAR_EXTRAPOLATOR);
@@ -177,26 +182,32 @@ public class LogLinearExtrapolator1DTest {
       }
 
       final Interpolator1DDataBundle bundleInterp = interp.getDataBundle(xValues, yValues[k]);
-      final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundleFromSortedArrays(xValues, yValues[k]);
+      final Interpolator1DDataBundle bundleExtrap = interp.getDataBundleFromSortedArrays(xValues, yValues[k]);
 
       /*
        * Check C0 continuity using interpolator/extrapolator
        */
       assertEquals(interp.interpolate(bundleInterp, xValues[nData - 1]), combined1.interpolate(bundle1, xValues[nData - 1]));
-      assertEquals(extrap.interpolate(bundleExtrap, xValues[nData - 1] + 1.e-14), combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
+      assertEquals(extrap.extrapolate(bundleExtrap, xValues[nData - 1] + 1.e-14, interp), combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
       assertEquals(interp.interpolate(bundleInterp, xValues[0]), combined1.interpolate(bundle1, xValues[0]));
-      assertEquals(extrap.interpolate(bundleExtrap, xValues[0] - 1.e-14), combined1.interpolate(bundle1, xValues[0]), TOL);
+      assertEquals(extrap.extrapolate(bundleExtrap, xValues[0] - 1.e-14, interp), combined1.interpolate(bundle1, xValues[0]), TOL);
 
       /*
        * Check C1 continuity using interpolator/extrapolator
        */
       assertEquals(interp.firstDerivative(bundleInterp, xValues[nData - 1]) / interp.interpolate(bundleInterp, xValues[nData - 1]),
           combined1.firstDerivative(bundle1, xValues[nData - 1]) / combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
-      assertEquals(extrap.firstDerivative(bundleExtrap, xValues[nData - 1] + TOL) / extrap.interpolate(bundleExtrap, xValues[nData - 1] + TOL),
+      assertEquals(extrap.firstDerivative(bundleExtrap, xValues[nData - 1] + TOL, interp) / extrap.extrapolate(
+          bundleExtrap,
+          xValues[nData - 1] + TOL,
+          interp),
           combined1.firstDerivative(bundle1, xValues[nData - 1]) / combined1.interpolate(bundle1, xValues[nData - 1]), TOL);
       assertEquals(interp.firstDerivative(bundleInterp, xValues[0]) / interp.interpolate(bundleInterp, xValues[0]),
           combined1.firstDerivative(bundle1, xValues[0]) / combined1.interpolate(bundle1, xValues[0]), TOL);
-      assertEquals(extrap.firstDerivative(bundleExtrap, xValues[0] - TOL) / extrap.interpolate(bundleExtrap, xValues[0] - TOL),
+      assertEquals(extrap.firstDerivative(bundleExtrap, xValues[0] - TOL, interp) / extrap.extrapolate(
+          bundleExtrap,
+          xValues[0] - TOL,
+          interp),
           combined1.firstDerivative(bundle1, xValues[0]) / combined1.interpolate(bundle1, xValues[0]), TOL);
 
       /*
@@ -233,9 +244,9 @@ public class LogLinearExtrapolator1DTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.interpolate(bundleExtrap, 1.);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.extrapolate(bundleExtrap, 1d, interp);
   }
 
   /**
@@ -247,9 +258,9 @@ public class LogLinearExtrapolator1DTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.firstDerivative(bundleExtrap, 1.);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.firstDerivative(bundleExtrap, 1d, interp);
   }
 
   /**
@@ -261,8 +272,8 @@ public class LogLinearExtrapolator1DTest {
     final double[] yValues = new double[] {11., 8., 5., 1.001, 1.001, 5., 8., 11. };
 
     final Interpolator1D interp = Interpolator1DFactory.getInterpolator(Interpolator1DFactory.LOG_NATURAL_CUBIC_MONOTONE);
-    final Interpolator1D extrap = new LogLinearExtrapolator1D(interp);
-    final Interpolator1DDataBundle bundleExtrap = extrap.getDataBundle(xValues, yValues);
-    extrap.getNodeSensitivitiesForValue(bundleExtrap, 1.);
+    final Extrapolator1D extrap = new LogLinearExtrapolator1D();
+    final Interpolator1DDataBundle bundleExtrap = interp.getDataBundle(xValues, yValues);
+    extrap.getNodeSensitivitiesForValue(bundleExtrap, 1d, interp);
   }
 }

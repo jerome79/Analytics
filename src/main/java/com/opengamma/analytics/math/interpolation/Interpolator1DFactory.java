@@ -44,15 +44,19 @@ public final class Interpolator1DFactory {
   /** Time square */
   public static final String TIME_SQUARE = "TimeSquare";
   /** Flat extrapolator */
-  public static final String FLAT_EXTRAPOLATOR = "FlatExtrapolator";
+  public static final String FLAT_EXTRAPOLATOR = FlatExtrapolator1D.NAME;
   /** Linear extrapolator */
-  public static final String LINEAR_EXTRAPOLATOR = "LinearExtrapolator";
+  public static final String LINEAR_EXTRAPOLATOR = LinearExtrapolator1D.NAME;
   /** Log-linear extrapolator */
-  public static final String LOG_LINEAR_EXTRAPOLATOR = "LogLinearExtrapolator";
+  public static final String LOG_LINEAR_EXTRAPOLATOR = LogLinearExtrapolator1D.NAME;
   /** Quadratic polynomial left extrapolator */
-  public static final String QUADRATIC_LEFT_EXTRAPOLATOR = "QuadraticLeftExtrapolator";
+  public static final String QUADRATIC_LEFT_EXTRAPOLATOR = QuadraticPolynomialLeftExtrapolator.NAME;
   /** Linear extrapolator */
-  public static final String EXPONENTIAL_EXTRAPOLATOR = "ExponentialExtrapolator";
+  public static final String EXPONENTIAL_EXTRAPOLATOR = ExponentialExtrapolator1D.NAME;
+  /** Linear extrapolator */
+  public static final String PRODUCT_POLYNOMIAL_EXTRAPOLATOR = ProductPolynomialExtrapolator1D.NAME;
+  /** Reciprocal extrapolator */
+  public static final String RECIPROCAL_EXTRAPOLATOR = ReciprocalExtrapolator1D.NAME;
   /** ISDA interpolator */
   public static final String ISDA_INTERPOLATOR = "ISDAInterpolator";
   /** ISDA extrapolator */
@@ -234,10 +238,6 @@ public final class Interpolator1DFactory {
     instanceNames.put(PCHIPYieldCurveInterpolator1D.class, MOD_PCHIP);
     staticInstances.put(TIME_SQUARE, TIME_SQUARE_INSTANCE);
     instanceNames.put(TimeSquareInterpolator1D.class, TIME_SQUARE);
-    staticInstances.put(FLAT_EXTRAPOLATOR, FLAT_EXTRAPOLATOR_INSTANCE);
-    instanceNames.put(FlatExtrapolator1D.class, FLAT_EXTRAPOLATOR);
-    staticInstances.put(EXPONENTIAL_EXTRAPOLATOR, EXPONENTIAL_EXTRAPOLATOR_INSTANCE);
-    instanceNames.put(ExponentialExtrapolator1D.class, EXPONENTIAL_EXTRAPOLATOR);
 
     staticInstances.put(CLAMPED_CUBIC, CLAMPED_CUBIC_INSTANCE);
     instanceNames.put(ClampedCubicSplineInterpolator1D.class, CLAMPED_CUBIC);
@@ -322,19 +322,7 @@ public final class Interpolator1DFactory {
     if (interpolator == null) {
       return null;
     }
-    final String interpolatorName = s_instanceNames.get(interpolator.getClass());
-    // TODO Deal with the more complicated rules for
-    // Barycentric, Polynomial, and RationalFunction.
-    if (interpolator instanceof LinearExtrapolator1D) {
-      return LINEAR_EXTRAPOLATOR;
-    }
-    if (interpolator instanceof LogLinearExtrapolator1D) {
-      return LOG_LINEAR_EXTRAPOLATOR;
-    }
-    if (interpolator instanceof QuadraticPolynomialLeftExtrapolator) {
-      return QUADRATIC_LEFT_EXTRAPOLATOR;
-    }
-    return interpolatorName;
+    return s_instanceNames.get(interpolator.getClass());
   }
 
 }

@@ -41,7 +41,12 @@ public class GridInterpolator2D extends Interpolator2D {
    * @param xExtrapolator The x extrapolator, not null
    * @param yExtrapolator The y extrapolator, not null
    */
-  public GridInterpolator2D(final Interpolator1D xInterpolator, final Interpolator1D yInterpolator, final Interpolator1D xExtrapolator, final Interpolator1D yExtrapolator) {
+  public GridInterpolator2D(
+      final Interpolator1D xInterpolator,
+      final Interpolator1D yInterpolator,
+      final Extrapolator1D xExtrapolator,
+      final Extrapolator1D yExtrapolator) {
+
     ArgChecker.notNull(xInterpolator, "x interpolator");
     ArgChecker.notNull(yInterpolator, "y interpolator");
     ArgChecker.notNull(xExtrapolator, "x extrapolator");
