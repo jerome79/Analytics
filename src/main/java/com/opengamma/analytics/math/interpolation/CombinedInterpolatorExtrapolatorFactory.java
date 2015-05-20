@@ -15,7 +15,7 @@ import com.opengamma.strata.collect.named.Named;
 /**
  * 
  */
-public class CombinedInterpolatorExtrapolatorFactory {
+public final class CombinedInterpolatorExtrapolatorFactory {
 
   private static final Map<String, Extrapolator1D> EXTRAPOLATORS =
       ImmutableList.of(

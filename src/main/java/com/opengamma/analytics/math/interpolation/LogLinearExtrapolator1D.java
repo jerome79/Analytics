@@ -6,7 +6,7 @@
 package com.opengamma.analytics.math.interpolation;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
-import com.opengamma.strata.basics.extrapolator.CurveExtrapolator;
+import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
