@@ -26,8 +26,10 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /** 
  * Parent class for a family of curves where the data is stored as arrays.
+ * <p>
  * It is possible to construct a curve using either unsorted (in <i>x</i>) data or sorted (ascending in <i>x</i>). 
- * Note that if the constructor is told that unsorted data are sorted then no sorting will take place, which will give unpredictable results.
+ * Note that if the constructor is told that unsorted data are sorted then
+ * no sorting will take place, which will give unpredictable results.
  */
 @BeanDefinition
 public abstract class ArraysDoublesCurve extends DoublesCurve {
@@ -36,17 +38,17 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
    * The size of the data points.
    */
   @PropertyDefinition(get = "private", set = "private")
-  private int _n;
+  private int n;
   /**
    * The <i>x</i> values.
    */
-  @PropertyDefinition(validate = "notNull", get = "manual", set = "private")
-  private double[] xData;
+  @PropertyDefinition(validate = "notNull", get = "private", set = "private")
+  private double[] xDataPrimitive;
   /**
    * The <i>y</i> values.
    */
-  @PropertyDefinition(validate = "notNull", get = "manual", set = "private")
-  private double[] yData;
+  @PropertyDefinition(validate = "notNull", get = "private", set = "private")
+  private double[] yDataPrimitive;
   /**
    * The <i>x</i> values.
    */
@@ -75,11 +77,11 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     ArgChecker.notNull(xData, "x data");
     ArgChecker.notNull(yData, "y data");
     ArgChecker.isTrue(xData.length == yData.length, "x data size {} must be equal to y data size {}", xData.length, yData.length);
-    _n = xData.length;
-    this.xData = Arrays.copyOf(xData, _n);
-    this.yData = Arrays.copyOf(yData, _n);
+    n = xData.length;
+    this.xDataPrimitive = Arrays.copyOf(xData, n);
+    this.yDataPrimitive = Arrays.copyOf(yData, n);
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(this.xData, this.yData);
+      ParallelArrayBinarySort.parallelBinarySort(this.xDataPrimitive, this.yDataPrimitive);
     }
   }
 
@@ -94,20 +96,20 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     super();
     ArgChecker.notNull(xData, "x data");
     ArgChecker.notNull(yData, "y data");
-    _n = xData.length;
+    n = xData.length;
     ArgChecker.isTrue(xData.length == yData.length, "x data size {} must be equal to y data size {}", xData.length, yData.length);
-    this.xData = new double[_n];
-    this.yData = new double[_n];
-    for (int i = 0; i < _n; i++) {
+    this.xDataPrimitive = new double[n];
+    this.yDataPrimitive = new double[n];
+    for (int i = 0; i < n; i++) {
       Double x = xData[i];
       Double y = yData[i];
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(y, "y");
-      this.xData[i] = x;
-      this.yData[i] = y;
+      this.xDataPrimitive[i] = x;
+      this.yDataPrimitive[i] = y;
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(this.xData, this.yData);
+      ParallelArrayBinarySort.parallelBinarySort(this.xDataPrimitive, this.yDataPrimitive);
     }
   }
 
@@ -120,20 +122,20 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final Map<Double, Double> data, final boolean isSorted) {
     super();
     ArgChecker.notNull(data, "data");
-    _n = data.size();
-    xData = new double[_n];
-    yData = new double[_n];
+    n = data.size();
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
     int i = 0;
     for (final Map.Entry<Double, Double> entry : data.entrySet()) {
       Double x = entry.getKey();
       Double y = entry.getValue();
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(y, "y");
-      xData[i] = x;
-      yData[i++] = y;
+      xDataPrimitive[i] = x;
+      yDataPrimitive[i++] = y;
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -146,17 +148,17 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final DoublesPair[] data, final boolean isSorted) {
     super();
     ArgChecker.notNull(data, "data");
-    _n = data.length;
-    xData = new double[_n];
-    yData = new double[_n];
-    for (int i = 0; i < _n; i++) {
+    n = data.length;
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
+    for (int i = 0; i < n; i++) {
       DoublesPair pair = data[i];
       ArgChecker.notNull(pair, "pair");
-      xData[i] = pair.getFirst();
-      yData[i] = pair.getSecond();
+      xDataPrimitive[i] = pair.getFirst();
+      yDataPrimitive[i] = pair.getSecond();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -169,17 +171,17 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final Set<DoublesPair> data, final boolean isSorted) {
     super();
     ArgChecker.notNull(data, "data");
-    _n = data.size();
-    xData = new double[_n];
-    yData = new double[_n];
+    n = data.size();
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
     int i = 0;
     for (final DoublesPair entry : data) {
       ArgChecker.notNull(entry, "entry");
-      xData[i] = entry.getFirst();
-      yData[i++] = entry.getSecond();
+      xDataPrimitive[i] = entry.getFirst();
+      yDataPrimitive[i++] = entry.getSecond();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -195,19 +197,19 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     ArgChecker.notNull(xData, "x data");
     ArgChecker.notNull(yData, "y data");
     ArgChecker.isTrue(xData.size() == yData.size(), "x data size {} must be equal to y data size {}", xData.size(), yData.size());
-    _n = xData.size();
-    this.xData = new double[_n];
-    this.yData = new double[_n];
-    for (int i = 0; i < _n; i++) {
+    n = xData.size();
+    this.xDataPrimitive = new double[n];
+    this.yDataPrimitive = new double[n];
+    for (int i = 0; i < n; i++) {
       Double x = xData.get(i);
       Double y = yData.get(i);
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(y, "y");
-      this.xData[i] = x;
-      this.yData[i] = y;
+      this.xDataPrimitive[i] = x;
+      this.yDataPrimitive[i] = y;
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(this.xData, this.yData);
+      ParallelArrayBinarySort.parallelBinarySort(this.xDataPrimitive, this.yDataPrimitive);
     }
   }
 
@@ -221,16 +223,16 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     super();
     ArgChecker.notNull(data, "data");
     ArgChecker.noNulls(data, "data");
-    _n = data.size();
-    xData = new double[_n];
-    yData = new double[_n];
+    n = data.size();
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
     int i = 0;
     for (final DoublesPair pair : data) {
-      xData[i] = pair.getFirst();
-      yData[i++] = pair.getSecond();
+      xDataPrimitive[i] = pair.getFirst();
+      yDataPrimitive[i++] = pair.getSecond();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -247,11 +249,11 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     ArgChecker.notNull(xData, "x data");
     ArgChecker.notNull(yData, "y data");
     ArgChecker.isTrue(xData.length == yData.length, "x data size {} must be equal to y data size {}", xData.length, yData.length);
-    _n = xData.length;
-    this.xData = Arrays.copyOf(xData, _n);
-    this.yData = Arrays.copyOf(yData, _n);
+    n = xData.length;
+    this.xDataPrimitive = Arrays.copyOf(xData, n);
+    this.yDataPrimitive = Arrays.copyOf(yData, n);
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(this.xData, this.yData);
+      ParallelArrayBinarySort.parallelBinarySort(this.xDataPrimitive, this.yDataPrimitive);
     }
   }
 
@@ -266,19 +268,19 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final Double[] xData, final Double[] yData, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(xData, "x data");
-    _n = xData.length;
+    n = xData.length;
     ArgChecker.notNull(yData, "y data");
     ArgChecker.isTrue(xData.length == yData.length, "x data size {} must be equal to y data size {}", xData.length, yData.length);
-    this.xData = new double[_n];
-    this.yData = new double[_n];
-    for (int i = 0; i < _n; i++) {
+    this.xDataPrimitive = new double[n];
+    this.yDataPrimitive = new double[n];
+    for (int i = 0; i < n; i++) {
       ArgChecker.notNull(xData[i], "x");
       ArgChecker.notNull(yData[i], "y");
-      this.xData[i] = xData[i];
-      this.yData[i] = yData[i];
+      this.xDataPrimitive[i] = xData[i];
+      this.yDataPrimitive[i] = yData[i];
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(this.xData, this.yData);
+      ParallelArrayBinarySort.parallelBinarySort(this.xDataPrimitive, this.yDataPrimitive);
     }
   }
 
@@ -292,18 +294,18 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final Map<Double, Double> data, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(data, "data");
-    _n = data.size();
-    xData = new double[_n];
-    yData = new double[_n];
+    n = data.size();
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
     int i = 0;
     for (final Map.Entry<Double, Double> entry : data.entrySet()) {
       ArgChecker.notNull(entry.getKey(), "x");
       ArgChecker.notNull(entry.getValue(), "y");
-      xData[i] = entry.getKey();
-      yData[i++] = entry.getValue();
+      xDataPrimitive[i] = entry.getKey();
+      yDataPrimitive[i++] = entry.getValue();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -317,16 +319,16 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final DoublesPair[] data, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(data, "data");
-    _n = data.length;
-    xData = new double[_n];
-    yData = new double[_n];
-    for (int i = 0; i < _n; i++) {
+    n = data.length;
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
+    for (int i = 0; i < n; i++) {
       ArgChecker.notNull(data[i], "entry");
-      xData[i] = data[i].getFirst();
-      yData[i] = data[i].getSecond();
+      xDataPrimitive[i] = data[i].getFirst();
+      yDataPrimitive[i] = data[i].getSecond();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -340,17 +342,17 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   public ArraysDoublesCurve(final Set<DoublesPair> data, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(data, "data");
-    _n = data.size();
-    xData = new double[_n];
-    yData = new double[_n];
+    n = data.size();
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
     int i = 0;
     for (final DoublesPair entry : data) {
       ArgChecker.notNull(entry, "entry");
-      xData[i] = entry.getFirst();
-      yData[i++] = entry.getSecond();
+      xDataPrimitive[i] = entry.getFirst();
+      yDataPrimitive[i++] = entry.getSecond();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -367,17 +369,17 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     ArgChecker.notNull(xData, "x data");
     ArgChecker.notNull(yData, "y data");
     ArgChecker.isTrue(xData.size() == yData.size(), "x data size {} must be equal to y data size {}", xData.size(), yData.size());
-    _n = xData.size();
-    this.xData = new double[_n];
-    this.yData = new double[_n];
-    for (int i = 0; i < _n; i++) {
+    n = xData.size();
+    this.xDataPrimitive = new double[n];
+    this.yDataPrimitive = new double[n];
+    for (int i = 0; i < n; i++) {
       ArgChecker.notNull(xData.get(i), "x");
       ArgChecker.notNull(yData.get(i), "y");
-      this.xData[i] = xData.get(i);
-      this.yData[i] = yData.get(i);
+      this.xDataPrimitive[i] = xData.get(i);
+      this.yDataPrimitive[i] = yData.get(i);
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(this.xData, this.yData);
+      ParallelArrayBinarySort.parallelBinarySort(this.xDataPrimitive, this.yDataPrimitive);
     }
   }
 
@@ -392,16 +394,16 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     super(name);
     ArgChecker.notNull(data, "data");
     ArgChecker.noNulls(data, "data");
-    _n = data.size();
-    xData = new double[_n];
-    yData = new double[_n];
+    n = data.size();
+    xDataPrimitive = new double[n];
+    yDataPrimitive = new double[n];
     int i = 0;
     for (final DoublesPair pair : data) {
-      xData[i] = pair.getFirst();
-      yData[i++] = pair.getSecond();
+      xDataPrimitive[i] = pair.getFirst();
+      yDataPrimitive[i++] = pair.getSecond();
     }
     if (!isSorted) {
-      ParallelArrayBinarySort.parallelBinarySort(xData, yData);
+      ParallelArrayBinarySort.parallelBinarySort(xDataPrimitive, yDataPrimitive);
     }
   }
 
@@ -411,9 +413,9 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     if (xDataObject != null) {
       return xDataObject;
     }
-    xDataObject = new Double[_n];
-    for (int i = 0; i < _n; i++) {
-      xDataObject[i] = xData[i];
+    xDataObject = new Double[n];
+    for (int i = 0; i < n; i++) {
+      xDataObject[i] = xDataPrimitive[i];
     }
     return xDataObject;
   }
@@ -423,9 +425,9 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     if (yDataObject != null) {
       return yDataObject;
     }
-    yDataObject = new Double[_n];
-    for (int i = 0; i < _n; i++) {
-      yDataObject[i] = yData[i];
+    yDataObject = new Double[n];
+    for (int i = 0; i < n; i++) {
+      yDataObject[i] = yDataPrimitive[i];
     }
     return yDataObject;
   }
@@ -436,7 +438,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     * @return the <i>x</i> data, not null
     */
   public double[] getXDataAsPrimitive() {
-    return xData;
+    return xDataPrimitive;
   }
 
   /**
@@ -445,12 +447,12 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     * @return the <i>y</i> data, not null
     */
   public double[] getYDataAsPrimitive() {
-    return yData;
+    return yDataPrimitive;
   }
 
   @Override
   public int size() {
-    return _n;
+    return n;
   }
 
   //-------------------------------------------------------------------------
@@ -466,15 +468,15 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
       return false;
     }
     final ArraysDoublesCurve other = (ArraysDoublesCurve) obj;
-    return Arrays.equals(xData, other.xData) && Arrays.equals(yData, other.yData);
+    return Arrays.equals(xDataPrimitive, other.xDataPrimitive) && Arrays.equals(yDataPrimitive, other.yDataPrimitive);
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + Arrays.hashCode(xData);
-    result = prime * result + Arrays.hashCode(yData);
+    result = prime * result + Arrays.hashCode(xDataPrimitive);
+    result = prime * result + Arrays.hashCode(yDataPrimitive);
     return result;
   }
 
@@ -503,7 +505,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
    * @return the value of the property
    */
   private int getN() {
-    return _n;
+    return n;
   }
 
   /**
@@ -511,7 +513,7 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
    * @param n  the new value of the property
    */
   private void setN(int n) {
-    this._n = n;
+    this.n = n;
   }
 
   /**
@@ -524,38 +526,54 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
 
   //-----------------------------------------------------------------------
   /**
-   * Sets the <i>x</i> values.
-   * @param xData  the new value of the property, not null
+   * Gets the <i>x</i> values.
+   * @return the value of the property, not null
    */
-  private void setXData(double[] xData) {
-    JodaBeanUtils.notNull(xData, "xData");
-    this.xData = xData;
+  private double[] getXDataPrimitive() {
+    return xDataPrimitive;
   }
 
   /**
-   * Gets the the {@code xData} property.
+   * Sets the <i>x</i> values.
+   * @param xDataPrimitive  the new value of the property, not null
+   */
+  private void setXDataPrimitive(double[] xDataPrimitive) {
+    JodaBeanUtils.notNull(xDataPrimitive, "xDataPrimitive");
+    this.xDataPrimitive = xDataPrimitive;
+  }
+
+  /**
+   * Gets the the {@code xDataPrimitive} property.
    * @return the property, not null
    */
-  public final Property<double[]> xData() {
-    return metaBean().xData().createProperty(this);
+  public final Property<double[]> xDataPrimitive() {
+    return metaBean().xDataPrimitive().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
   /**
-   * Sets the <i>y</i> values.
-   * @param yData  the new value of the property, not null
+   * Gets the <i>y</i> values.
+   * @return the value of the property, not null
    */
-  private void setYData(double[] yData) {
-    JodaBeanUtils.notNull(yData, "yData");
-    this.yData = yData;
+  private double[] getYDataPrimitive() {
+    return yDataPrimitive;
   }
 
   /**
-   * Gets the the {@code yData} property.
+   * Sets the <i>y</i> values.
+   * @param yDataPrimitive  the new value of the property, not null
+   */
+  private void setYDataPrimitive(double[] yDataPrimitive) {
+    JodaBeanUtils.notNull(yDataPrimitive, "yDataPrimitive");
+    this.yDataPrimitive = yDataPrimitive;
+  }
+
+  /**
+   * Gets the the {@code yDataPrimitive} property.
    * @return the property, not null
    */
-  public final Property<double[]> yData() {
-    return metaBean().yData().createProperty(this);
+  public final Property<double[]> yDataPrimitive() {
+    return metaBean().yDataPrimitive().createProperty(this);
   }
 
   //-----------------------------------------------------------------------
@@ -626,8 +644,8 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
   protected void toString(StringBuilder buf) {
     super.toString(buf);
     buf.append("n").append('=').append(JodaBeanUtils.toString(getN())).append(',').append(' ');
-    buf.append("xData").append('=').append(JodaBeanUtils.toString(getXData())).append(',').append(' ');
-    buf.append("yData").append('=').append(JodaBeanUtils.toString(getYData())).append(',').append(' ');
+    buf.append("xDataPrimitive").append('=').append(JodaBeanUtils.toString(getXDataPrimitive())).append(',').append(' ');
+    buf.append("yDataPrimitive").append('=').append(JodaBeanUtils.toString(getYDataPrimitive())).append(',').append(' ');
     buf.append("xDataObject").append('=').append(JodaBeanUtils.toString(getXDataObject())).append(',').append(' ');
     buf.append("yDataObject").append('=').append(JodaBeanUtils.toString(getYDataObject())).append(',').append(' ');
   }
@@ -648,15 +666,15 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     private final MetaProperty<Integer> _n = DirectMetaProperty.ofReadWrite(
         this, "n", ArraysDoublesCurve.class, Integer.TYPE);
     /**
-     * The meta-property for the {@code xData} property.
+     * The meta-property for the {@code xDataPrimitive} property.
      */
-    private final MetaProperty<double[]> _xData = DirectMetaProperty.ofReadWrite(
-        this, "xData", ArraysDoublesCurve.class, double[].class);
+    private final MetaProperty<double[]> _xDataPrimitive = DirectMetaProperty.ofReadWrite(
+        this, "xDataPrimitive", ArraysDoublesCurve.class, double[].class);
     /**
-     * The meta-property for the {@code yData} property.
+     * The meta-property for the {@code yDataPrimitive} property.
      */
-    private final MetaProperty<double[]> _yData = DirectMetaProperty.ofReadWrite(
-        this, "yData", ArraysDoublesCurve.class, double[].class);
+    private final MetaProperty<double[]> _yDataPrimitive = DirectMetaProperty.ofReadWrite(
+        this, "yDataPrimitive", ArraysDoublesCurve.class, double[].class);
     /**
      * The meta-property for the {@code xDataObject} property.
      */
@@ -673,8 +691,8 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
         this, (DirectMetaPropertyMap) super.metaPropertyMap(),
         "n",
-        "xData",
-        "yData",
+        "xDataPrimitive",
+        "yDataPrimitive",
         "xDataObject",
         "yDataObject");
 
@@ -689,10 +707,10 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
       switch (propertyName.hashCode()) {
         case 110:  // n
           return _n;
-        case 112945218:  // xData
-          return _xData;
-        case 113868739:  // yData
-          return _yData;
+        case 916319941:  // xDataPrimitive
+          return _xDataPrimitive;
+        case 410761316:  // yDataPrimitive
+          return _yDataPrimitive;
         case -2041692639:  // xDataObject
           return _xDataObject;
         case 456323298:  // yDataObject
@@ -726,19 +744,19 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
     }
 
     /**
-     * The meta-property for the {@code xData} property.
+     * The meta-property for the {@code xDataPrimitive} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<double[]> xData() {
-      return _xData;
+    public final MetaProperty<double[]> xDataPrimitive() {
+      return _xDataPrimitive;
     }
 
     /**
-     * The meta-property for the {@code yData} property.
+     * The meta-property for the {@code yDataPrimitive} property.
      * @return the meta-property, not null
      */
-    public final MetaProperty<double[]> yData() {
-      return _yData;
+    public final MetaProperty<double[]> yDataPrimitive() {
+      return _yDataPrimitive;
     }
 
     /**
@@ -763,10 +781,10 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
       switch (propertyName.hashCode()) {
         case 110:  // n
           return ((ArraysDoublesCurve) bean).getN();
-        case 112945218:  // xData
-          return ((ArraysDoublesCurve) bean).getXData();
-        case 113868739:  // yData
-          return ((ArraysDoublesCurve) bean).getYData();
+        case 916319941:  // xDataPrimitive
+          return ((ArraysDoublesCurve) bean).getXDataPrimitive();
+        case 410761316:  // yDataPrimitive
+          return ((ArraysDoublesCurve) bean).getYDataPrimitive();
         case -2041692639:  // xDataObject
           return ((ArraysDoublesCurve) bean).getXDataObject();
         case 456323298:  // yDataObject
@@ -781,11 +799,11 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
         case 110:  // n
           ((ArraysDoublesCurve) bean).setN((Integer) newValue);
           return;
-        case 112945218:  // xData
-          ((ArraysDoublesCurve) bean).setXData((double[]) newValue);
+        case 916319941:  // xDataPrimitive
+          ((ArraysDoublesCurve) bean).setXDataPrimitive((double[]) newValue);
           return;
-        case 113868739:  // yData
-          ((ArraysDoublesCurve) bean).setYData((double[]) newValue);
+        case 410761316:  // yDataPrimitive
+          ((ArraysDoublesCurve) bean).setYDataPrimitive((double[]) newValue);
           return;
         case -2041692639:  // xDataObject
           ((ArraysDoublesCurve) bean).setXDataObject((Double[]) newValue);
@@ -799,8 +817,8 @@ public abstract class ArraysDoublesCurve extends DoublesCurve {
 
     @Override
     protected void validate(Bean bean) {
-      JodaBeanUtils.notNull(((ArraysDoublesCurve) bean).xData, "xData");
-      JodaBeanUtils.notNull(((ArraysDoublesCurve) bean).yData, "yData");
+      JodaBeanUtils.notNull(((ArraysDoublesCurve) bean).xDataPrimitive, "xDataPrimitive");
+      JodaBeanUtils.notNull(((ArraysDoublesCurve) bean).yDataPrimitive, "yDataPrimitive");
       super.validate(bean);
     }
 
