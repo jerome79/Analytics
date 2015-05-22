@@ -23,7 +23,8 @@ public final class CombinedInterpolatorExtrapolatorFactory {
           new LogLinearExtrapolator1D(),
           new QuadraticPolynomialLeftExtrapolator(),
           new FlatExtrapolator1D(),
-          new ExponentialExtrapolator1D())
+          new ExponentialExtrapolator1D(),
+          new InterpolatorExtrapolator())
           .stream()
           .collect(toImmutableMap(xtr -> xtr.getName(), xtr -> xtr));
 

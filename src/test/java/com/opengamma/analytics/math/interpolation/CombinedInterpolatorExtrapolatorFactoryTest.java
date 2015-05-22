@@ -6,7 +6,7 @@
 package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
+import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
@@ -50,16 +50,16 @@ public class CombinedInterpolatorExtrapolatorFactoryTest {
   public void testNullExtrapolatorName() {
     final CombinedInterpolatorExtrapolator combined = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, null);
     assertEquals(combined.getInterpolator().getClass(), LinearInterpolator1D.class);
-    assertNull(combined.getLeftExtrapolator());
-    assertNull(combined.getRightExtrapolator());
+    assertTrue(combined.getLeftExtrapolator() instanceof InterpolatorExtrapolator);
+    assertTrue(combined.getRightExtrapolator() instanceof InterpolatorExtrapolator);
   }
 
   @Test
   public void testEmptyExtrapolatorName() {
     final CombinedInterpolatorExtrapolator combined = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, "");
     assertEquals(combined.getInterpolator().getClass(), LinearInterpolator1D.class);
-    assertNull(combined.getLeftExtrapolator());
-    assertNull(combined.getRightExtrapolator());
+    assertTrue(combined.getLeftExtrapolator() instanceof InterpolatorExtrapolator);
+    assertTrue(combined.getRightExtrapolator() instanceof InterpolatorExtrapolator);
   }
 
   @Test
@@ -98,24 +98,24 @@ public class CombinedInterpolatorExtrapolatorFactoryTest {
   public void testNullLeftAndRightExtrapolatorName() {
     final CombinedInterpolatorExtrapolator combined = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, null, null);
     assertEquals(combined.getInterpolator().getClass(), LinearInterpolator1D.class);
-    assertNull(combined.getLeftExtrapolator());
-    assertNull(combined.getRightExtrapolator());
+    assertTrue(combined.getLeftExtrapolator() instanceof InterpolatorExtrapolator);
+    assertTrue(combined.getRightExtrapolator() instanceof InterpolatorExtrapolator);
   }
 
   @Test
   public void testEmptyLeftAndRightExtrapolatorName() {
     final CombinedInterpolatorExtrapolator combined = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR, "", "");
     assertEquals(combined.getInterpolator().getClass(), LinearInterpolator1D.class);
-    assertNull(combined.getLeftExtrapolator());
-    assertNull(combined.getRightExtrapolator());
+    assertTrue(combined.getLeftExtrapolator() instanceof InterpolatorExtrapolator);
+    assertTrue(combined.getRightExtrapolator() instanceof InterpolatorExtrapolator);
   }
 
   @Test
   public void testNoExtrapolator() {
     CombinedInterpolatorExtrapolator combined = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.LINEAR);
     assertEquals(combined.getInterpolator().getClass(), LinearInterpolator1D.class);
-    assertNull(combined.getLeftExtrapolator());
-    assertNull(combined.getRightExtrapolator());
+    assertTrue(combined.getLeftExtrapolator() instanceof InterpolatorExtrapolator);
+    assertTrue(combined.getRightExtrapolator() instanceof InterpolatorExtrapolator);
     combined = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.NATURAL_CUBIC_SPLINE);
     assertEquals(combined.getInterpolator().getClass(), NaturalCubicSplineInterpolator1D.class);
   }
