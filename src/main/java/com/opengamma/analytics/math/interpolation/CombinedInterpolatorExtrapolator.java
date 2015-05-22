@@ -6,7 +6,10 @@
 package com.opengamma.analytics.math.interpolation;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
+import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.Messages;
 
 /**
  *
@@ -21,9 +24,10 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
   public CombinedInterpolatorExtrapolator(Interpolator1D interpolator) {
     ArgChecker.notNull(interpolator, "interpolator");
 
+    InterpolatorExtrapolator extrapolator = new InterpolatorExtrapolator();
     _interpolator = interpolator;
-    _leftExtrapolator = null;
-    _rightExtrapolator = null;
+    _leftExtrapolator = extrapolator;
+    _rightExtrapolator = extrapolator;
   }
 
   public CombinedInterpolatorExtrapolator(Interpolator1D interpolator, Extrapolator1D extrapolator) {
@@ -47,6 +51,47 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
     _interpolator = interpolator;
     _leftExtrapolator = leftExtrapolator;
     _rightExtrapolator = rightExtrapolator;
+  }
+
+  /**
+   * Returns a combined interpolator and extrapolator which uses the specified interpolator and extrapolators.
+   *
+   * @param interpolator  the interpolator
+   * @param leftExtrapolator  the extrapolator used for points to the left of the leftmost point in the data set
+   * @param rightExtrapolator  the extrapolator used for points to the right of the rightmost point in the data set
+   * @return a combined interpolator and extrapolator which uses the specified interpolator and extrapolators
+   */
+  public static CombinedInterpolatorExtrapolator of(
+      CurveInterpolator interpolator,
+      CurveExtrapolator leftExtrapolator,
+      CurveExtrapolator rightExtrapolator) {
+
+    ArgChecker.notNull(interpolator, "interpolator");
+    ArgChecker.notNull(leftExtrapolator, "left extrapolator");
+    ArgChecker.notNull(rightExtrapolator, "right extrapolator");
+
+    if (!(interpolator instanceof Interpolator1D)) {
+      throw new IllegalArgumentException(
+          Messages.format(
+              "Interpolator {} is not an instance of Interpolator1D",
+              interpolator));
+    }
+    if (!(leftExtrapolator instanceof Extrapolator1D)) {
+      throw new IllegalArgumentException(
+          Messages.format(
+              "Extrapolator {} is not an instance of Extrapolator1D",
+              leftExtrapolator));
+    }
+    if (!(rightExtrapolator instanceof Extrapolator1D)) {
+      throw new IllegalArgumentException(
+          Messages.format(
+              "Extrapolator {} is not an instance of Extrapolator1D",
+              rightExtrapolator));
+    }
+    return new CombinedInterpolatorExtrapolator(
+        (Interpolator1D) interpolator,
+        (Extrapolator1D) leftExtrapolator,
+        (Extrapolator1D) rightExtrapolator);
   }
 
   @Override
@@ -93,13 +138,9 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
     ArgChecker.notNull(value, "value");
 
     if (value < data.firstKey()) {
-      if (_leftExtrapolator != null) {
-        return _leftExtrapolator.extrapolate(data, value, _interpolator);
-      }
+      return _leftExtrapolator.extrapolate(data, value, _interpolator);
     } else if (value > data.lastKey()) {
-      if (_rightExtrapolator != null) {
-        return _rightExtrapolator.extrapolate(data, value, _interpolator);
-      }
+      return _rightExtrapolator.extrapolate(data, value, _interpolator);
     }
     return _interpolator.interpolate(data, value);
   }
@@ -110,13 +151,9 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
     ArgChecker.notNull(value, "value");
 
     if (value < data.firstKey()) {
-      if (_leftExtrapolator != null) {
-        return _leftExtrapolator.firstDerivative(data, value, _interpolator);
-      }
+      return _leftExtrapolator.firstDerivative(data, value, _interpolator);
     } else if (value > data.lastKey()) {
-      if (_rightExtrapolator != null) {
-        return _rightExtrapolator.firstDerivative(data, value, _interpolator);
-      }
+      return _rightExtrapolator.firstDerivative(data, value, _interpolator);
     }
     return _interpolator.firstDerivative(data, value);
   }
@@ -127,13 +164,9 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
     ArgChecker.notNull(value, "value");
 
     if (value < data.firstKey()) {
-      if (_leftExtrapolator != null) {
-        return _leftExtrapolator.getNodeSensitivitiesForValue(data, value, _interpolator);
-      }
+      return _leftExtrapolator.getNodeSensitivitiesForValue(data, value, _interpolator);
     } else if (value > data.lastKey()) {
-      if (_rightExtrapolator != null) {
-        return _rightExtrapolator.getNodeSensitivitiesForValue(data, value, _interpolator);
-      }
+      return _rightExtrapolator.getNodeSensitivitiesForValue(data, value, _interpolator);
     }
     return _interpolator.getNodeSensitivitiesForValue(data, value);
   }

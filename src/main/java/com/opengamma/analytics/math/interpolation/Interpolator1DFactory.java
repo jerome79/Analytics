@@ -53,10 +53,12 @@ public final class Interpolator1DFactory {
   public static final String QUADRATIC_LEFT_EXTRAPOLATOR = QuadraticPolynomialLeftExtrapolator.NAME;
   /** Linear extrapolator */
   public static final String EXPONENTIAL_EXTRAPOLATOR = ExponentialExtrapolator1D.NAME;
-  /** Linear extrapolator */
+  /** Product polynomial extrapolator */
   public static final String PRODUCT_POLYNOMIAL_EXTRAPOLATOR = ProductPolynomialExtrapolator1D.NAME;
   /** Reciprocal extrapolator */
   public static final String RECIPROCAL_EXTRAPOLATOR = ReciprocalExtrapolator1D.NAME;
+  /** Extrapolator that does no extrapolation itself and always delegates to the interpolator*/
+  public static final String INTERPOLATOR_EXTRAPOLATOR = InterpolatorExtrapolator.NAME;
   /** ISDA interpolator */
   public static final String ISDA_INTERPOLATOR = "ISDAInterpolator";
   /** ISDA extrapolator */
