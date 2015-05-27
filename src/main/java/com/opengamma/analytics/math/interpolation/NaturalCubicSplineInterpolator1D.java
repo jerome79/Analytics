@@ -9,13 +9,21 @@ import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DCubicSplineDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
+import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
  */
-public class NaturalCubicSplineInterpolator1D extends Interpolator1D {
+public class NaturalCubicSplineInterpolator1D
+    extends Interpolator1D
+    implements CurveInterpolator {
+
   private static final long serialVersionUID = 1L;
+
+  /** The name of the interpolator. */
+  private static final String NAME = "NaturalCubicSpline";
+
   private final double _eps;
 
   public NaturalCubicSplineInterpolator1D() {
@@ -111,5 +119,10 @@ public class NaturalCubicSplineInterpolator1D extends Interpolator1D {
   @Override
   public Interpolator1DDataBundle getDataBundleFromSortedArrays(final double[] x, final double[] y) {
     return new Interpolator1DCubicSplineDataBundle(new ArrayInterpolator1DDataBundle(x, y, true));
+  }
+
+  @Override
+  public String getName() {
+    return NAME;
   }
 }

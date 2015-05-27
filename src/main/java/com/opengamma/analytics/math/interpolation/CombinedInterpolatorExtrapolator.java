@@ -105,29 +105,29 @@ public class CombinedInterpolatorExtrapolator extends Interpolator1D {
   }
 
   /**
-   * Package-private getter only used in tests.
+   * Gets the underlying interpolator.
    *
    * @return the interpolator
    */
-  Interpolator1D getInterpolator() {
+  public Interpolator1D getInterpolator() {
     return _interpolator;
   }
 
   /**
-   * Package-private getter only used in tests.
+   * Gets the underlying left extrapolator.
    *
    * @return the left extrapolator
    */
-  Extrapolator1D getLeftExtrapolator() {
+  public Extrapolator1D getLeftExtrapolator() {
     return _leftExtrapolator;
   }
 
   /**
-   * Package-private getter only used in tests.
+   * Gets the underlying right extrapolator.
    *
    * @return the right extrapolator
    */
-  Extrapolator1D getRightExtrapolator() {
+  public Extrapolator1D getRightExtrapolator() {
     return _rightExtrapolator;
   }
 
