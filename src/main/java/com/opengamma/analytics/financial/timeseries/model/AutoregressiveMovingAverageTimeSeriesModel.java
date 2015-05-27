@@ -55,7 +55,7 @@ public class AutoregressiveMovingAverageTimeSeriesModel {
       if (q == 0) {
         return _arModel.getSeries(phi, p, dates);
       }
-      return _arModel.getSeries(phi, p, dates).combineWith(_maModel.getSeries(theta1, q, dates), (d1, d2) -> d1 + d2);
+      return _arModel.getSeries(phi, p, dates).intersection(_maModel.getSeries(theta1, q, dates), Double::sum);
     }
     return _arModel.getSeries(phi, p, dates);
   }
