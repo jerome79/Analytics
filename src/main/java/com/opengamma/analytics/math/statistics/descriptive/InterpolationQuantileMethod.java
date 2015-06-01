@@ -25,7 +25,9 @@ public abstract class InterpolationQuantileMethod extends QuantileCalculationMet
     int sampleSize = sortedSample.length;
     double adjustedLevel = level * sampleCorrection(sampleSize) + indexCorrection();
     int lowerIndex = (int) Math.floor(adjustedLevel);
+    ArgChecker.isTrue(lowerIndex >= 1, "Quantile can not be computed below the lowest probability level.");
     int upperIndex = (int) Math.ceil(adjustedLevel);
+    ArgChecker.isTrue(upperIndex <= sortedSample.length, "Quantile can not be computed below the lowest probability level.");
     double lowerWeight = upperIndex - adjustedLevel;
     double upperWeight = 1.0d - lowerWeight;
     return lowerWeight * sortedSample[lowerIndex - 1] + upperWeight * sortedSample[upperIndex - 1];
