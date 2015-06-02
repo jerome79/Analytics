@@ -10,7 +10,6 @@ import java.util.Date;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.random.Well44497b;
 
-import com.opengamma.analytics.math.statistics.distribution.fnlib.DERFC;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -23,13 +22,8 @@ import com.opengamma.strata.collect.ArgChecker;
  * where $\mu$ is the mean and $\sigma$ the standard deviation of
  * the distribution.
  * <p>
- * For values of the cumulative distribution function $|x| > 7.6$ this class calculates the cdf
- * directly. For all other methods and values of $x$, this class is a wrapper for the
- * <a href="http://acs.lbl.gov/software/colt/api/cern/jet/random/Normal.html">Colt</a> implementation of the normal distribution.
  */
 public class NormalDistribution implements ProbabilityDistribution<Double> {
-  private static final double ROOT2 = Math.sqrt(2);
-
   private final double _mean;
   private final double _standardDeviation;
   private final org.apache.commons.math3.distribution.NormalDistribution _normal;
@@ -61,7 +55,7 @@ public class NormalDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getCDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return DERFC.getErfc(-x / ROOT2) / 2;
+    return _normal.cumulativeProbability(x);
   }
 
   /**
