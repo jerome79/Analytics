@@ -6,9 +6,9 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
@@ -19,12 +19,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 public class DeltaGammaCovarianceMatrixSkewnessCalculator extends Function1D<Map<Integer, ParametricVaRDataBundle>, Double> {
-  private final MatrixAlgebra _algebra;
-
-  public DeltaGammaCovarianceMatrixSkewnessCalculator(final MatrixAlgebra algebra) {
-    ArgChecker.notNull(algebra, "algebra");
-    _algebra = algebra;
-  }
+  private static MatrixAlgebra _CommonsAlgebra = new CommonsMatrixAlgebra();
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
@@ -45,33 +40,13 @@ public class DeltaGammaCovarianceMatrixSkewnessCalculator extends Function1D<Map
     if (gammaMatrix.getNumberOfColumns() != deltaCovariance.getNumberOfColumns()) {
       throw new IllegalArgumentException("Gamma matrix and covariance matrix were incompatible sizes");
     }
-    final Matrix<?> product = _algebra.multiply(gammaMatrix, deltaCovariance);
-    final double numerator = _algebra.getTrace(_algebra.getPower(product, 3)) + 3 * _algebra.getInnerProduct(delta, _algebra.multiply(_algebra.multiply(deltaCovariance, product), delta));
-    final double denominator = Math.pow(0.5 * _algebra.getTrace(_algebra.getPower(product, 2)) + _algebra.getInnerProduct(delta, _algebra.multiply(deltaCovariance, delta)), 1.5);
+    final Matrix<?> product = _CommonsAlgebra.multiply(gammaMatrix, deltaCovariance);
+    final double numerator = _CommonsAlgebra.getTrace(_CommonsAlgebra.getPower(product, 3)) + 3 *
+        _CommonsAlgebra.getInnerProduct(delta, ((DoubleMatrix2D) _CommonsAlgebra.multiply(_CommonsAlgebra.multiply(deltaCovariance, product), delta)).getColumnVector(0));
+    final double denominator = Math.pow(
+        0.5 * _CommonsAlgebra.getTrace(_CommonsAlgebra.getPower(product, 2)) +
+            _CommonsAlgebra.getInnerProduct(delta, ((DoubleMatrix2D) _CommonsAlgebra.multiply(deltaCovariance, delta)).getColumnVector(0)), 1.5);
     return numerator / denominator;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + _algebra.hashCode();
-    return result;
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final DeltaGammaCovarianceMatrixSkewnessCalculator other = (DeltaGammaCovarianceMatrixSkewnessCalculator) obj;
-    return Objects.equals(_algebra, other._algebra);
   }
 
 }

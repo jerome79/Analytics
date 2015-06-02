@@ -25,7 +25,7 @@ public class DeltaGammaCovarianceMatrixFisherKurtosisCalculator extends Function
   public DeltaGammaCovarianceMatrixFisherKurtosisCalculator(final MatrixAlgebra algebra) {
     ArgChecker.notNull(algebra, "algebra");
     _algebra = algebra;
-    _std = new DeltaGammaCovarianceMatrixStandardDeviationCalculator(algebra);
+    _std = new DeltaGammaCovarianceMatrixStandardDeviationCalculator();
   }
 
   @Override

@@ -5,8 +5,6 @@
  */
 package com.opengamma.analytics.math.matrix;
 
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
@@ -162,7 +160,8 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final int p) {
     ArgChecker.notNull(m, "m");
-    return getPower(m, (double) p);
+    RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
+    return CommonsMathWrapper.unwrap(temp.power(p));
   }
 
   /**
@@ -174,23 +173,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final double p) {
-    if (m instanceof DoubleMatrix2D) {
-      final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
-      final EigenDecomposition eigen = new EigenDecomposition(temp, 0.0);
-      final double[] rEigenValues = eigen.getRealEigenvalues();
-      final double[] iEigenValues = eigen.getImagEigenvalues();
-      final int n = rEigenValues.length;
-      final double[][] d = new double[n][n];
-      for (int i = n - 1; i >= 0; --i) {
-        d[i][i] = Math.pow(rEigenValues[i], p);
-        if (iEigenValues[i] != 0.0) {
-          throw new UnsupportedOperationException("Cannot handle complex eigenvalues in getPower");
-        }
-      }
-      final RealMatrix res = eigen.getV().multiply((new Array2DRowRealMatrix(d)).multiply(eigen.getVT()));
-      return CommonsMathWrapper.unwrap(res);
-    }
-    throw new IllegalArgumentException("Can only find pow of DoubleMatrix2D; have " + m.getClass());
+    throw new UnsupportedOperationException();
   }
 
   /**

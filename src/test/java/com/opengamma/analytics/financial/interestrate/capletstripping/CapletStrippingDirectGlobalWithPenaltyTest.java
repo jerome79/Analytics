@@ -16,7 +16,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -71,8 +71,9 @@ public class CapletStrippingDirectGlobalWithPenaltyTest extends CapletStrippingS
     double[] dt = new double[] {times[1] - times[0], times[2] - times[1], times[3] - times[2] };
     final DoubleMatrix1D sampleVec1D = new DoubleMatrix1D(data);
 
-    final MatrixAlgebra alg = new ColtMatrixAlgebra();
-    double penalty = alg.getInnerProduct(sampleVec1D, alg.multiply(matrix, sampleVec1D));
+    final MatrixAlgebra alg = new CommonsMatrixAlgebra();
+    DoubleMatrix1D col = ((DoubleMatrix2D)alg.multiply(matrix, sampleVec1D)).getColumnVector(0);
+    double penalty = alg.getInnerProduct(sampleVec1D, col);
     double expPenalty = 4.0 * Math.pow(lambdaK * (4.0 / dk[1] - 4.0 / dk[0]) / dk[0], 2.0) + 3.0 * Math.pow(lambdaT * (1.0 / dt[1] - 1.0 / dt[0]) / dt[0], 2.0) + 3.0 *
         Math.pow(lambdaT * (1.0 / dt[2] - 1.0 / dt[1]) / dt[1], 2.0);
     assertEquals(expPenalty, penalty, epsLocal);
