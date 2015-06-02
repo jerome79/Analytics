@@ -33,7 +33,7 @@ public class NonLinearLeastSquareWithPenalty {
   private static final int MAX_ATTEMPTS = 100000;
 
   // Review should we use Cholesky as default
-  private static final Decomposition<?> DEFAULT_DECOMP = DecompositionFactory.SV_COLT;
+  private static final Decomposition<?> DEFAULT_DECOMP = DecompositionFactory.SV_COMMONS;
   private static final OGMatrixAlgebra MA = new OGMatrixAlgebra();
   private static final double EPS = 1e-8; // Default convergence tolerance on the relative change in chi2
 

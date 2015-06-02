@@ -9,7 +9,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.linearalgebra.SVDecompositionColt;
+import com.opengamma.analytics.math.linearalgebra.Decomposition;
+import com.opengamma.analytics.math.linearalgebra.DecompositionFactory;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
@@ -18,7 +19,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
  */
 @Test
 public class JacobianDirectionFunctionTest {
-  private static final SVDecompositionColt SV = new SVDecompositionColt();
+  private static final Decomposition<?> SV = DecompositionFactory.SV_COMMONS;
   private static final JacobianDirectionFunction F = new JacobianDirectionFunction(SV);
   private static final double X0 = 2.4;
   private static final double X1 = 7.6;

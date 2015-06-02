@@ -24,8 +24,6 @@ public final class DecompositionFactory {
   public static final Decomposition<?> LU_COMMONS = new LUDecompositionCommons();
   /** {@link QRDecompositionCommons} */
   public static final Decomposition<?> QR_COMMONS = new QRDecompositionCommons();
-  /** {@link SVDecompositionColt} */
-  public static final Decomposition<?> SV_COLT = new SVDecompositionColt();
   /** {@link SVDecompositionCommons} */
   public static final Decomposition<?> SV_COMMONS = new SVDecompositionCommons();
   private static final Map<String, Decomposition<?>> s_staticInstances;
@@ -35,12 +33,10 @@ public final class DecompositionFactory {
     s_staticInstances = new HashMap<>();
     s_staticInstances.put(LU_COMMONS_NAME, LU_COMMONS);
     s_staticInstances.put(QR_COMMONS_NAME, QR_COMMONS);
-    s_staticInstances.put(SV_COLT_NAME, SV_COLT);
     s_staticInstances.put(SV_COMMONS_NAME, SV_COMMONS);
     s_instanceNames = new HashMap<>();
     s_instanceNames.put(LU_COMMONS.getClass(), LU_COMMONS_NAME);
     s_instanceNames.put(QR_COMMONS.getClass(), QR_COMMONS_NAME);
-    s_instanceNames.put(SV_COLT.getClass(), SV_COLT_NAME);
     s_instanceNames.put(SV_COMMONS.getClass(), SV_COMMONS_NAME);
   }
 

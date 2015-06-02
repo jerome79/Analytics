@@ -31,7 +31,7 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 @Deprecated
 public class SABRNonLinearLeastSquareFitter extends LeastSquareSmileFitter {
-  private static final NonLinearLeastSquare SOLVER = new NonLinearLeastSquare(DecompositionFactory.SV_COLT, MatrixAlgebraFactory.OG_ALGEBRA, 1e-4);
+  private static final NonLinearLeastSquare SOLVER = new NonLinearLeastSquare(DecompositionFactory.SV_COMMONS, MatrixAlgebraFactory.OG_ALGEBRA, 1e-4);
   private static final int N_PARAMETERS = 4;
   private static final ParameterLimitsTransform[] TRANSFORMS;
 

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
-import com.opengamma.analytics.math.linearalgebra.SVDecompositionColt;
+import com.opengamma.analytics.math.linearalgebra.DecompositionFactory;
 import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
@@ -24,7 +24,7 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 @Test
 public class InverseJacobianEstimateInitializationFunctionTest {
   private static final MatrixAlgebra ALGEBRA = new CommonsMatrixAlgebra();
-  private static final Decomposition<?> SV = new SVDecompositionColt();
+  private static final Decomposition<?> SV = DecompositionFactory.SV_COMMONS;
   private static final InverseJacobianEstimateInitializationFunction ESTIMATE = new InverseJacobianEstimateInitializationFunction(SV);
   private static final Function1D<DoubleMatrix1D, DoubleMatrix2D> J = new Function1D<DoubleMatrix1D, DoubleMatrix2D>() {
 
