@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.math.regression;
 
+import com.opengamma.strata.collect.ArgChecker;
+
 /**
  * 
  */
@@ -103,4 +105,14 @@ public abstract class LeastSquaresRegression {
     }
     return result;
   }
+  
+  protected double[] writeArrayAsVector(double[][] x) {
+    ArgChecker.isTrue(x[0].length == 1, "Trying to convert matrix to vector");
+    double[] result = new double[x.length];
+    for (int i = 0; i < x.length; i++) {
+      result[i] = x[i][0];
+    }
+    return result;
+  }
+  
 }

@@ -6,23 +6,22 @@
 package com.opengamma.analytics.math.regression;
 
 import org.apache.commons.math3.distribution.TDistribution;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.DiagonalMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cern.colt.matrix.DoubleFactory1D;
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.linalg.Algebra;
-
-import com.opengamma.analytics.math.MathException;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
 /**
  * 
  */
 public class WeightedLeastSquaresRegression extends LeastSquaresRegression {
   private static final Logger s_logger = LoggerFactory.getLogger(WeightedLeastSquaresRegression.class);
-  private final Algebra _algebra = new Algebra();
+  private static CommonsMatrixAlgebra s_algebra = new CommonsMatrixAlgebra();
 
   @Override
   public LeastSquaresRegressionResult regress(final double[][] x, final double[][] weights, final double[] y, final boolean useIntercept) {
@@ -51,15 +50,19 @@ public class WeightedLeastSquaresRegression extends LeastSquaresRegression {
       indep[i] = y[i];
       w[i] = weights[i];
     }
-    final DoubleMatrix2D matrix = DoubleFactory2D.dense.make(dep);
-    final DoubleMatrix1D vector = DoubleFactory1D.dense.make(indep);
-    final DoubleMatrix2D wDiag = DoubleFactory2D.sparse.diagonal(DoubleFactory1D.dense.make(w));
-    final DoubleMatrix2D transpose = _algebra.transpose(matrix);
-    final DoubleMatrix1D betasVector =
-        _algebra.mult(_algebra.mult(_algebra.mult(_algebra.inverse(_algebra.mult(transpose, _algebra.mult(wDiag, matrix))), transpose), wDiag), vector);
-    final double[] yModel = convertArray(_algebra.mult(matrix, betasVector).toArray());
-    final double[] betas = convertArray(betasVector.toArray());
-    return getResultWithStatistics(x, convertArray(wDiag.toArray()), y, betas, yModel, transpose, matrix, useIntercept);
+    DoubleMatrix2D matrix = new DoubleMatrix2D(dep);
+    DoubleMatrix1D vector = new DoubleMatrix1D(indep);
+    RealMatrix wDiag = new DiagonalMatrix(w);
+    DoubleMatrix2D transpose = s_algebra.getTranspose(matrix);
+
+    DoubleMatrix2D wDiagTimesMatrix = new DoubleMatrix2D(wDiag.multiply(new Array2DRowRealMatrix(matrix.getData())).getData());
+    DoubleMatrix2D tmp = (DoubleMatrix2D) s_algebra.multiply(s_algebra.getInverse(s_algebra.multiply(transpose, wDiagTimesMatrix)), transpose);
+
+    DoubleMatrix2D wTmpTimesDiag = new DoubleMatrix2D(wDiag.preMultiply(new Array2DRowRealMatrix(tmp.getData())).getData());
+    DoubleMatrix2D betasVector = (DoubleMatrix2D) s_algebra.multiply(wTmpTimesDiag, vector);
+    double[] yModel =  super.writeArrayAsVector(((DoubleMatrix2D)s_algebra.multiply(matrix, betasVector)).getData());
+    double[] betas = super.writeArrayAsVector(betasVector.toArray());
+    return getResultWithStatistics(x, convertArray(wDiag.getData()), y, betas, yModel, transpose, matrix, useIntercept);
   }
 
   private LeastSquaresRegressionResult getResultWithStatistics(final double[][] x, final double[][] w, final double[] y, final double[] betas,
@@ -83,7 +86,7 @@ public class WeightedLeastSquaresRegression extends LeastSquaresRegression {
       errorSumOfSquares += w[i][i] * residuals[i] * residuals[i];
     }
     final double regressionSumOfSquares = totalSumOfSquares - errorSumOfSquares;
-    final double[][] covarianceBetas = convertArray(_algebra.inverse(_algebra.mult(transpose, matrix)).toArray());
+    final double[][] covarianceBetas = convertArray(s_algebra.getInverse(s_algebra.multiply(transpose, matrix)).toArray());
     final double rSquared = regressionSumOfSquares / totalSumOfSquares;
     final double adjustedRSquared = 1. - (1 - rSquared) * (n - 1) / (n - k);
     final double meanSquareError = errorSumOfSquares / (n - k);

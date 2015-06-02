@@ -5,17 +5,15 @@
  */
 package com.opengamma.analytics.math.regression;
 
-import cern.colt.matrix.DoubleFactory1D;
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.linalg.Algebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
 /**
  * 
  */
 public class GeneralizedLeastSquaresRegression extends LeastSquaresRegression {
-  private final Algebra _algebra = new Algebra();
+  private static CommonsMatrixAlgebra s_algebra = new CommonsMatrixAlgebra();
 
   @Override
   public LeastSquaresRegressionResult regress(final double[][] x, final double[][] weights, final double[] y, final boolean useIntercept) {
@@ -32,13 +30,13 @@ public class GeneralizedLeastSquaresRegression extends LeastSquaresRegression {
         wArray[i][j] = weights[i][j];
       }
     }
-    final DoubleMatrix2D matrix = DoubleFactory2D.dense.make(dep);
-    final DoubleMatrix1D vector = DoubleFactory1D.dense.make(indep);
-    final DoubleMatrix2D w = DoubleFactory2D.dense.make(wArray);
-    final DoubleMatrix2D transpose = _algebra.transpose(matrix);
-    final DoubleMatrix1D betasVector = _algebra.mult(_algebra.mult(_algebra.mult(_algebra.inverse(_algebra.mult(transpose, _algebra.mult(w, matrix))), transpose), w), vector);
-    final double[] yModel = convertArray(_algebra.mult(matrix, betasVector).toArray());
-    final double[] betas = convertArray(betasVector.toArray());
+    final DoubleMatrix2D matrix = new DoubleMatrix2D(dep);
+    final DoubleMatrix1D vector = new DoubleMatrix1D(indep);
+    final DoubleMatrix2D w = new DoubleMatrix2D(wArray);
+    final DoubleMatrix2D transpose = s_algebra.getTranspose(matrix);
+    final DoubleMatrix2D betasVector = (DoubleMatrix2D) s_algebra.multiply(s_algebra.multiply(s_algebra.multiply(s_algebra.getInverse(s_algebra.multiply(transpose, s_algebra.multiply(w, matrix))), transpose), w), vector);
+    final double[] yModel = super.writeArrayAsVector(((DoubleMatrix2D)s_algebra.multiply(matrix, betasVector)).toArray());
+    final double[] betas = super.writeArrayAsVector(betasVector.toArray());
     return getResultWithStatistics(x, y, betas, yModel, useIntercept);
   }
 
