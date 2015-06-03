@@ -20,7 +20,6 @@ public final class MatrixAlgebraFactory {
   /** Label for OpenGamma matrix algebra */
   public static final String OG = "OG";
   /** {@link ColtMatrixAlgebra} */
-  public static final ColtMatrixAlgebra COLT_ALGEBRA = new ColtMatrixAlgebra();
   /** {@link CommonsMatrixAlgebra} */
   public static final CommonsMatrixAlgebra COMMONS_ALGEBRA = new CommonsMatrixAlgebra();
   /** {@link OGMatrixAlgebra} */
@@ -31,8 +30,6 @@ public final class MatrixAlgebraFactory {
   static {
     s_staticInstances = new HashMap<>();
     s_instanceNames = new HashMap<>();
-    s_staticInstances.put(COLT, COLT_ALGEBRA);
-    s_instanceNames.put(ColtMatrixAlgebra.class, COLT);
     s_staticInstances.put(COMMONS, COMMONS_ALGEBRA);
     s_instanceNames.put(CommonsMatrixAlgebra.class, COMMONS);
     s_staticInstances.put(OG, OG_ALGEBRA);

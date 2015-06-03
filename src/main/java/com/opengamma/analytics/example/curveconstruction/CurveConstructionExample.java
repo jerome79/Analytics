@@ -25,7 +25,7 @@ import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.rootfinding.BrentSingleRootFinder;
@@ -57,7 +57,7 @@ public class CurveConstructionExample {
     final double[] data_1d = {1.0, 2.0, 3.0, 4.0 };
     final DoubleMatrix1D v = new DoubleMatrix1D(data_1d);
 
-    final ColtMatrixAlgebra colt = new ColtMatrixAlgebra();
+    final CommonsMatrixAlgebra colt = new CommonsMatrixAlgebra();
     out.println(colt.multiply(m, v));
   }
 

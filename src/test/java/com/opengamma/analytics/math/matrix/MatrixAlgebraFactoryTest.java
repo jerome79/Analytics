@@ -95,10 +95,8 @@ public class MatrixAlgebraFactoryTest {
 
   @Test
   public void test() {
-    assertEquals(MatrixAlgebraFactory.getMatrixAlgebra(MatrixAlgebraFactory.COLT), MatrixAlgebraFactory.COLT_ALGEBRA);
     assertEquals(MatrixAlgebraFactory.getMatrixAlgebra(MatrixAlgebraFactory.COMMONS), MatrixAlgebraFactory.COMMONS_ALGEBRA);
     assertEquals(MatrixAlgebraFactory.getMatrixAlgebra(MatrixAlgebraFactory.OG), MatrixAlgebraFactory.OG_ALGEBRA);
-    assertEquals(MatrixAlgebraFactory.getMatrixAlgebraName(MatrixAlgebraFactory.COLT_ALGEBRA), MatrixAlgebraFactory.COLT);
     assertEquals(MatrixAlgebraFactory.getMatrixAlgebraName(MatrixAlgebraFactory.COMMONS_ALGEBRA), MatrixAlgebraFactory.COMMONS);
     assertEquals(MatrixAlgebraFactory.getMatrixAlgebraName(MatrixAlgebraFactory.OG_ALGEBRA), MatrixAlgebraFactory.OG);
   }

@@ -71,7 +71,6 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       final SingularValueDecomposition sv = new SingularValueDecomposition(temp);
       final RealMatrix inv = sv.getSolver().getInverse();
-      System.out.println("cond="+sv.getConditionNumber());
       return CommonsMathWrapper.unwrap(inv);
     }
     throw new IllegalArgumentException("Can only find inverse of DoubleMatrix2D; have " + m.getClass());
@@ -161,7 +160,12 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final int p) {
     ArgChecker.notNull(m, "m");
-    RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
+    RealMatrix temp;
+    if (m instanceof DoubleMatrix2D) {
+      temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
+    } else {
+      throw new IllegalArgumentException("Can only find powers of DoubleMatrix2D; have " + m.getClass());
+    }
     return CommonsMathWrapper.unwrap(temp.power(p));
   }
 
