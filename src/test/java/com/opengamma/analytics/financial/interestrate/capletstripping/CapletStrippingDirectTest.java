@@ -10,9 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.volatility.discrete.DiscreteVolatilityFunctionProvider;
@@ -23,7 +21,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
-import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquareWithPenalty;
 
 /**
  * 
@@ -32,7 +29,7 @@ import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquareW
 public class CapletStrippingDirectTest extends CapletStrippingSetup {
 
   private static final VectorFieldFirstOrderDifferentiator DIFF = new VectorFieldFirstOrderDifferentiator();
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
 
   MatrixAlgebra MA = new OGMatrixAlgebra();
 
@@ -68,8 +65,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
   }
 
   /**
-   * R White - This takes about 25s on my machine (2.66GHz Quad-Core Intel Xeon)
-   * It takes 32 iterations of {@link NonLinearLeastSquareWithPenalty} to converge
+   *
    */
   @Test
   public void priceTest() {
@@ -92,8 +88,6 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
   }
 
   /**
-   * R White - this takes about 4s on my machine (2.66GHz Quad-Core Intel Xeon)
-   * it takes 11 iterations of {@link NonLinearLeastSquareWithPenalty} to converge
    */
   @Test
   public void volTest() {
@@ -164,8 +158,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
   }
 
   /**
-   * R White - This takes about 6s on my machine (2.66GHz Quad-Core Intel Xeon)
-   * It takes 8 iterations of {@link NonLinearLeastSquareWithPenalty} to converge
+   *
    */
   @Test
   public void allCapsVolTest() {
@@ -190,7 +183,7 @@ public class CapletStrippingDirectTest extends CapletStrippingSetup {
     DoubleMatrix1D guess = new DoubleMatrix1D(pricer.getGridSize(), 0.7);
 
     CapletStrippingResult res = stripper.solve(capVols, MarketDataType.VOL, errors, guess);
-    double expChiSqr = 131.50826639955596;
+    double expChiSqr = 131.50829074971773;
     assertEquals(expChiSqr, res.getChiSqr(), expChiSqr * 1e-8);
   }
 

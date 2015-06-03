@@ -10,9 +10,8 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.BitsStreamGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -36,15 +35,16 @@ public abstract class InterpolatorNDTestCase {
       return Math.sin(Math.PI * x[0] / 10.0) * Math.exp(-x[1] / 5.);
     }
   };
+  
+  private static final Well44497b RANDOM = new Well44497b(0L);
 
   static {
-    final RandomEngine random = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
     double x, y, z;
     double[] temp;
     for (int i = 0; i < 200; i++) {
-      x = 10 * random.nextDouble();
-      y = 10 * random.nextDouble();
-      z = 10 * random.nextDouble();
+      x = 10 * RANDOM.nextDouble();
+      y = 10 * RANDOM.nextDouble();
+      z = 10 * RANDOM.nextDouble();
       FLAT_DATA.add(Pair.of(new double[] {x, y, z }, VALUE));
       temp = new double[] {x, y };
       COS_EXP_DATA.add(Pair.of(temp, COS_EXP_FUNCTION.evaluate(temp)));
@@ -92,5 +92,8 @@ public abstract class InterpolatorNDTestCase {
     }
   }
 
-  protected abstract RandomEngine getRandom();
+  protected BitsStreamGenerator getRandom(){
+    return RANDOM;
+  }
+  
 }

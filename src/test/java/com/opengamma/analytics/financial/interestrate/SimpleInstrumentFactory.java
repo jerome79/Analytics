@@ -7,10 +7,6 @@ package com.opengamma.analytics.financial.interestrate;
 
 import java.time.Period;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
-
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.cash.derivative.Cash;
@@ -26,8 +22,7 @@ import com.opengamma.strata.basics.schedule.Frequency;
  */
 public abstract class SimpleInstrumentFactory {
 
-  /** Random number generator */
-  protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+
   /** Replaces rates */
   protected static final RateReplacingVisitor REPLACE_RATE = RateReplacingVisitor.getInstance();
   private static final Currency DUMMY_CUR = Currency.EUR;

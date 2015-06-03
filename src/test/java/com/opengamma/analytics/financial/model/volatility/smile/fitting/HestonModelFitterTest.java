@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -29,7 +28,7 @@ public class HestonModelFitterTest extends SmileModelFitterTest<HestonModelData>
   private static double OMEGA = 0.7;
   private static double RHO = -0.9;
   private static Logger LOGGER = LoggerFactory.getLogger(HestonModelFitterTest.class);
-  private static RandomEngine RANDOM = new MersenneTwister();
+  private static final Well44497b RANDOM = new Well44497b(0L);
 
   public HestonModelFitterTest() {
     _paramValueEps = 1e-5;

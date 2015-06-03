@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -36,7 +34,7 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
  */
 @Test
 public class ParameterizedSABRModelDiscreteVolatilityFunctionProviderTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final ForwardCurve s_fwdCurve = new ForwardCurve(0.01, 0.02);
   private static final ParameterizedCurve s_flat = new ParameterizedCurve() {
     @Override

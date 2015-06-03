@@ -10,11 +10,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.List;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
@@ -128,10 +125,10 @@ public class NonLinearLeastSquareWithPenaltyTest {
       }
     };
 
-    final RandomEngine ran = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+    final Well44497b RANDOM = new Well44497b(0L);
     final double[] temp = new double[nWeights];
     for (int i = 0; i < nWeights; i++) {
-      temp[i] = ran.nextDouble();
+      temp[i] = RANDOM.nextDouble();
     }
     final DoubleMatrix1D start = new DoubleMatrix1D(temp);
 

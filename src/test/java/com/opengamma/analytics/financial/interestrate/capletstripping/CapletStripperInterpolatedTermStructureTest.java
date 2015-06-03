@@ -8,9 +8,7 @@ package com.opengamma.analytics.financial.interestrate.capletstripping;
 import java.util.Arrays;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.volatility.discrete.DiscreteVolatilityFunctionProvider;
@@ -31,7 +29,7 @@ import com.opengamma.analytics.math.minimization.SingleRangeLimitTransform;
  */
 @Test
 public class CapletStripperInterpolatedTermStructureTest extends CapletStrippingSetup {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final VectorFieldFirstOrderDifferentiator DIFF = new VectorFieldFirstOrderDifferentiator();
   private static final String DEFAULT_INTERPOLATOR = Interpolator1DFactory.DOUBLE_QUADRATIC;
   private static final String DEFAULT_EXTRAPOLATOR = Interpolator1DFactory.LINEAR_EXTRAPOLATOR;

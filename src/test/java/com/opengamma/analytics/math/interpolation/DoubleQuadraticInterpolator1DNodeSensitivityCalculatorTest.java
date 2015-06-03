@@ -7,9 +7,7 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -20,7 +18,7 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadr
  */
 @Test
 public class DoubleQuadraticInterpolator1DNodeSensitivityCalculatorTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final DoubleQuadraticInterpolator1D INTERPOLATOR = new DoubleQuadraticInterpolator1D();
   private static final Interpolator1DDoubleQuadraticDataBundle DATA;
   private static final double EPS = 1e-7;

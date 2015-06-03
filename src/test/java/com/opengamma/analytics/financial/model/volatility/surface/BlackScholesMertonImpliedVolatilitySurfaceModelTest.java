@@ -10,9 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
@@ -33,7 +31,7 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
  */
 @Test
 public class BlackScholesMertonImpliedVolatilitySurfaceModelTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final BlackScholesMertonImpliedVolatilitySurfaceModel MODEL = new BlackScholesMertonImpliedVolatilitySurfaceModel();
   private static final AnalyticOptionModel<OptionDefinition, StandardOptionDataBundle> BSM = new BlackScholesMertonModel();
   private static final StandardOptionDataBundle DATA = new StandardOptionDataBundle(YieldCurve.from(ConstantDoublesCurve.from(0.01)), 0.1, new VolatilitySurface(ConstantDoublesSurface.from(0.01)),

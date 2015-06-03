@@ -18,10 +18,6 @@ import java.util.Arrays;
 import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
-
 import com.opengamma.analytics.financial.credit.isdastandardmodel.fastcalibration.CreditCurveCalibrator;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
@@ -32,7 +28,6 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
  */
 @Test
 public class HedgeRatioCalculatorTest extends ISDABaseTest {
-  protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
   protected static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, new Well44497b(0L));
 
   private static final CDSAnalyticFactory CDS_FACTORY = new CDSAnalyticFactory(0.4);

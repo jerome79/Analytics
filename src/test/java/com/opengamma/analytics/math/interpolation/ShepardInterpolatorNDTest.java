@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
 /**
@@ -16,7 +13,6 @@ import org.testng.annotations.Test;
 @Test
 public class ShepardInterpolatorNDTest extends InterpolatorNDTestCase {
   private static final InterpolatorND INTERPOLATOR = new ShepardInterpolatorND(3.0);
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData() {
@@ -38,10 +34,4 @@ public class ShepardInterpolatorNDTest extends InterpolatorNDTestCase {
     assertCosExp(INTERPOLATOR, 1e-1); // fairly awful interpolator
     assertFlat(INTERPOLATOR, 1e-12);
   }
-
-  @Override
-  protected RandomEngine getRandom() {
-    return RANDOM;
-  }
-
 }

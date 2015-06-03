@@ -7,9 +7,7 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.MathException;
@@ -22,7 +20,7 @@ import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBu
  */
 @Test
 public class BarycentricRationalFunctionInterpolator1DTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final Function1D<Double, Double> F = new RealPolynomialFunction1D(new double[] {RANDOM.nextDouble(), RANDOM.nextDouble(), RANDOM.nextDouble(), RANDOM.nextDouble(),
     RANDOM.nextDouble() });
   private static final Interpolator1D INTERPOLATOR = new BarycentricRationalFunctionInterpolator1D(5, 1e-12);
