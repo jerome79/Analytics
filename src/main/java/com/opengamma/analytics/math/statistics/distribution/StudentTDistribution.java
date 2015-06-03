@@ -25,8 +25,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  * where $\nu$ is the number of degrees of freedom and $\Gamma$ is the Gamma function ({@link GammaFunction}).
  * <p>
- * This class is a wrapper for the <a href="http://acs.lbl.gov/software/colt/api/cern/jet/random/StudentT.html">Colt</a> implementation of Student's T-distribution for cdf and pdf calculations
- * and Student's T-distributed random number generation.
  */
 public class StudentTDistribution implements ProbabilityDistribution<Double> {
   private final double _degFreedom;
