@@ -77,7 +77,7 @@ public class InflationDiscountBuildingRepository {
     _toleranceRel = toleranceRel;
     _stepMaximum = stepMaximum;
     _rootFinder = new BroydenVectorRootFinder(_toleranceAbs, _toleranceRel, _stepMaximum,
-        DecompositionFactory.getDecomposition(DecompositionFactory.SV_COLT_NAME));
+        DecompositionFactory.getDecomposition(DecompositionFactory.SV_COMMONS_NAME));
     // TODO: make the root finder flexible.
     // TODO: create a way to select the SensitivityMatrixMulticurve calculator (with underlying curve or not)
   }

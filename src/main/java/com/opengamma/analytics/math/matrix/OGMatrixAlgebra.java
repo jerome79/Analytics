@@ -10,7 +10,7 @@ import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * An absolutely minimal implementation of matrix algebra - only various multiplications covered. For more advanced
- * stuff (e.g. calculating the inverse) use {@link ColtMatrixAlgebra} or {@link CommonsMatrixAlgebra}
+ * operations (e.g. calculating the inverse) use {@link CommonsMatrixAlgebra}
  */
 public class OGMatrixAlgebra extends MatrixAlgebra {
 

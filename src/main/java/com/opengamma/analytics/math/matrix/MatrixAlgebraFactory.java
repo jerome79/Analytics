@@ -13,13 +13,10 @@ import java.util.Map;
  * Factory class for various types of matrix algebra calculators.
  */
 public final class MatrixAlgebraFactory {
-  /** Label for Colt matrix algebra */
-  public static final String COLT = "Colt";
   /** Label for Commons matrix algebra */
   public static final String COMMONS = "Commons";
   /** Label for OpenGamma matrix algebra */
   public static final String OG = "OG";
-  /** {@link ColtMatrixAlgebra} */
   /** {@link CommonsMatrixAlgebra} */
   public static final CommonsMatrixAlgebra COMMONS_ALGEBRA = new CommonsMatrixAlgebra();
   /** {@link OGMatrixAlgebra} */

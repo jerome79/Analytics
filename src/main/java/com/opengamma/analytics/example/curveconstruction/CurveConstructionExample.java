@@ -57,8 +57,8 @@ public class CurveConstructionExample {
     final double[] data_1d = {1.0, 2.0, 3.0, 4.0 };
     final DoubleMatrix1D v = new DoubleMatrix1D(data_1d);
 
-    final CommonsMatrixAlgebra colt = new CommonsMatrixAlgebra();
-    out.println(colt.multiply(m, v));
+    final CommonsMatrixAlgebra algebra = new CommonsMatrixAlgebra();
+    out.println(algebra.multiply(m, v));
   }
 
   public static RealPolynomialFunction1D getFunction() {

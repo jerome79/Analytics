@@ -29,8 +29,6 @@ public class SVDecompositionCommonsResult implements SVDecompositionResult {
   private final DoubleMatrix2D _vTranspose;
   private final DecompositionSolver _solver;
 
-  // TODO combine this and the colt result by feeding in the values for condition etc directly. This means that we will need an OG wrapper for the solver 
-  // in the commons case or our own for the colt stuff
   /**
    * @param svd The result of the SV decomposition, not null
    */

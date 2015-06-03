@@ -52,7 +52,7 @@ public class NonLinearLeastSquareWithPenalty {
   private final MatrixAlgebra _algebra;
 
   /**
-   * Default constructor. This uses SVD (Colt), {@link OGMatrixAlgebra} and a convergence tolerance of 1e-8
+   * Default constructor. This uses SVD, {@link OGMatrixAlgebra} and a convergence tolerance of 1e-8
    */
   public NonLinearLeastSquareWithPenalty() {
     this(DEFAULT_DECOMP, MA, EPS);
@@ -67,7 +67,7 @@ public class NonLinearLeastSquareWithPenalty {
   }
 
   /**
-   * Constructor allowing convergence tolerance to be set. This uses SVD (Colt) and {@link OGMatrixAlgebra}
+   * Constructor allowing convergence tolerance to be set. This uses SVD and {@link OGMatrixAlgebra}
    * @param eps Convergence tolerance
    */
   public NonLinearLeastSquareWithPenalty(final double eps) {
