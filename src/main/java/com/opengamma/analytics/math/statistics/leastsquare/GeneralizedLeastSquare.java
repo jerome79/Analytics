@@ -16,7 +16,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.linearalgebra.SVDecompositionCommons;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
@@ -34,8 +34,7 @@ public class GeneralizedLeastSquare {
 
   public GeneralizedLeastSquare() {
     _decomposition = new SVDecompositionCommons();
-    _algebra = new ColtMatrixAlgebra();
-
+    _algebra = new CommonsMatrixAlgebra();
   }
 
   /**

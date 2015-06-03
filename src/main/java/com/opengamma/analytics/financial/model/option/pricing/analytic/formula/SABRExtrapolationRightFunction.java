@@ -10,7 +10,7 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFor
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
@@ -418,7 +418,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
     fD[2][2] = (fpp + fD[0][2] * (2 * (2 * _mu + 3) + 4 * _parameter[1] / _cutOffStrike + 8 * _parameter[2] / (_cutOffStrike * _cutOffStrike))) / (_cutOffStrike * _cutOffStrike);
     final DoubleMatrix2D fDmatrix = new DoubleMatrix2D(fD);
     // Derivative of abc with respect to forward
-    final ColtMatrixAlgebra algebra = new ColtMatrixAlgebra();
+    final CommonsMatrixAlgebra algebra = new CommonsMatrixAlgebra();
     final DoubleMatrix2D fDInverse = algebra.getInverse(fDmatrix);
     final OGMatrixAlgebra algebraOG = new OGMatrixAlgebra();
     final DoubleMatrix1D derivativeF = (DoubleMatrix1D) algebraOG.multiply(fDInverse, pDFvector);
@@ -509,7 +509,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
     fD[2][2] = (fpp + fD[0][2] * (2 * (2 * _mu + 3) + 4 * _parameter[1] / _cutOffStrike + 8 * _parameter[2] / (_cutOffStrike * _cutOffStrike))) / (_cutOffStrike * _cutOffStrike);
     final DoubleMatrix2D fDmatrix = new DoubleMatrix2D(fD);
     // Derivative of abc with respect to forward
-    final ColtMatrixAlgebra algebra = new ColtMatrixAlgebra();
+    final CommonsMatrixAlgebra algebra = new CommonsMatrixAlgebra();
     final DoubleMatrix2D fDInverse = algebra.getInverse(fDmatrix);
     final OGMatrixAlgebra algebraOG = new OGMatrixAlgebra();
     for (int loopparam = 0; loopparam < 4; loopparam++) {
