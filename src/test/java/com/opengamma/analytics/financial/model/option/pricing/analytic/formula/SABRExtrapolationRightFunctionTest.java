@@ -409,7 +409,11 @@ public class SABRExtrapolationRightFunctionTest {
     for (int loopmat = 0; loopmat < nbTTM; loopmat++) {
       for (int looppts = 1; looppts < nbPts - 1; looppts++) {
         assertTrue("SABR extrapolation, smooth first derivative - mat " + loopmat + " / pt " + looppts + " [" + priceD[loopmat][looppts] + "/" + priceD[loopmat][looppts - 1] + "]",
-            ((priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] < 1) && (priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] > 0.50)) || Math.abs(priceD2[loopmat][looppts]) < epsDensity);
+                (
+                (priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] < 1) &&
+                (priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] > 0.50)
+                ) 
+                || Math.abs(priceD2[loopmat][looppts]) < epsDensity);
         assertTrue("SABR extrapolation, positive second derivative - mat " + loopmat + " / pt " + looppts + " [" + priceD2[loopmat][looppts] + "]",
             priceD2[loopmat][looppts] > 0 || Math.abs(priceD2[loopmat][looppts]) < epsDensity);
         assertTrue("SABR extrapolation, smooth second derivative - mat " + loopmat + " / pt " + looppts + " [" + priceD2[loopmat][looppts] + "/" + priceD2[loopmat][looppts - 1] + "]",

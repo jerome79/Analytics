@@ -6,9 +6,9 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -18,12 +18,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 public class DeltaGammaCovarianceMatrixMeanCalculator extends Function1D<Map<Integer, ParametricVaRDataBundle>, Double> {
-  private final MatrixAlgebra _algebra;
-
-  public DeltaGammaCovarianceMatrixMeanCalculator(final MatrixAlgebra algebra) {
-    ArgChecker.notNull(algebra, "algebra");
-    _algebra = algebra;
-  }
+  private static MatrixAlgebra _algebra = new CommonsMatrixAlgebra();
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
@@ -42,27 +37,5 @@ public class DeltaGammaCovarianceMatrixMeanCalculator extends Function1D<Map<Int
     return 0.5 * _algebra.getTrace(_algebra.multiply(gamma, covariance));
   }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + _algebra.hashCode();
-    return result;
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final DeltaGammaCovarianceMatrixMeanCalculator other = (DeltaGammaCovarianceMatrixMeanCalculator) obj;
-    return Objects.equals(_algebra, other._algebra);
-  }
 
 }

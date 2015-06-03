@@ -6,9 +6,9 @@
 package com.opengamma.analytics.financial.var.parametric;
 
 import java.util.Map;
-import java.util.Objects;
 
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -18,12 +18,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 public class DeltaCovarianceMatrixStandardDeviationCalculator extends Function1D<Map<Integer, ParametricVaRDataBundle>, Double> {
-  private final MatrixAlgebra _algebra;
-
-  public DeltaCovarianceMatrixStandardDeviationCalculator(final MatrixAlgebra algebra) {
-    ArgChecker.notNull(algebra, "algebra");
-    _algebra = algebra;
-  }
+  private static MatrixAlgebra _algebra = new CommonsMatrixAlgebra();
 
   @Override
   public Double evaluate(final Map<Integer, ParametricVaRDataBundle> data) {
@@ -34,30 +29,7 @@ public class DeltaCovarianceMatrixStandardDeviationCalculator extends Function1D
     final int s1 = delta.getNumberOfElements();
     ArgChecker.isTrue(s1 > 0, "Value delta vector contained no data");
     final DoubleMatrix2D covariance = firstOrderData.getCovarianceMatrix();
-    return Math.sqrt(_algebra.getInnerProduct(delta, _algebra.multiply(covariance, delta)));
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + _algebra.hashCode();
-    return result;
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final DeltaCovarianceMatrixStandardDeviationCalculator other = (DeltaCovarianceMatrixStandardDeviationCalculator) obj;
-    return Objects.equals(_algebra, other._algebra);
+    return Math.sqrt(_algebra.getInnerProduct(delta, ((DoubleMatrix2D)_algebra.multiply(covariance, delta)).getColumnVector(0)));
   }
 
 }

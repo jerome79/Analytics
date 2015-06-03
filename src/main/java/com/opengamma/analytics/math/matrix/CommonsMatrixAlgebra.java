@@ -71,6 +71,7 @@ public class CommonsMatrixAlgebra extends MatrixAlgebra {
       final RealMatrix temp = CommonsMathWrapper.wrap((DoubleMatrix2D) m);
       final SingularValueDecomposition sv = new SingularValueDecomposition(temp);
       final RealMatrix inv = sv.getSolver().getInverse();
+      System.out.println("cond="+sv.getConditionNumber());
       return CommonsMathWrapper.unwrap(inv);
     }
     throw new IllegalArgumentException("Can only find inverse of DoubleMatrix2D; have " + m.getClass());

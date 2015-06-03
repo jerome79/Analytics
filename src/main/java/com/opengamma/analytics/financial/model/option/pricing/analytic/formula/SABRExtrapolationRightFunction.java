@@ -102,7 +102,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
     _timeToExpiry = timeToExpiry;
     _mu = mu;
     if (timeToExpiry > SMALL_EXPIRY) {
-      _parameter = computesFittingParameters();
+      _parameter = computeFittingParameters();
     } else { // Implementation note: when time to expiry is very small, the price above the cut-off strike and its derivatives should be 0 (or at least very small).
       _parameter = new double[] {SMALL_PARAMETER, 0.0, 0.0 };
       _parameterDerivativeForward = new double[3];
@@ -131,7 +131,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
     _timeToExpiry = timeToExpiry;
     _mu = mu;
     if (timeToExpiry > SMALL_EXPIRY) {
-      _parameter = computesFittingParameters();
+      _parameter = computeFittingParameters();
     } else { // Implementation note: when time to expiry is very small, the price above the cut-off strike and its derivatives should be 0 (or at least very small).
       _parameter = new double[] {SMALL_PARAMETER, 0.0, 0.0 };
       _parameterDerivativeForward = new double[3];
@@ -243,7 +243,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
       }
     } else { // Uses extrapolation for call.
       if (!_parameterDerivativeSABRComputed) {
-        _parameterDerivativeSABR = computesParametersDerivativeSABR();
+        _parameterDerivativeSABR = computeParametersDerivativeSABR();
         _parameterDerivativeSABRComputed = true;
       }
       final double f = extrapolation(k);
@@ -317,7 +317,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
    */
   public double[][] getParameterDerivativeSABR() {
     if (!_parameterDerivativeSABRComputed) {
-      _parameterDerivativeSABR = computesParametersDerivativeSABR();
+      _parameterDerivativeSABR = computeParametersDerivativeSABR();
       _parameterDerivativeSABRComputed = true;
     }
     return _parameterDerivativeSABR;
@@ -327,7 +327,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
    * Computes the three fitting parameters to ensure a C^2 price curve.
    * @return The parameters.
    */
-  private double[] computesFittingParameters() {
+  private double[] computeFittingParameters() {
     final double[] param = new double[3]; // Implementation note: called a,b,c in the note.
     final EuropeanVanillaOption option = new EuropeanVanillaOption(_cutOffStrike, _timeToExpiry, true);
     // Computes derivatives at cut-off.
@@ -431,7 +431,7 @@ public class SABRExtrapolationRightFunction extends SABRExtrapolationLeftRightFu
    * Used to compute the derivative of the price with respect to the SABR parameters.
    * @return The derivatives.
    */
-  private double[][] computesParametersDerivativeSABR() {
+  private double[][] computeParametersDerivativeSABR() {
     double eps = 1.0E-15;
     final double[][] result = new double[4][3];
     if (Math.abs(_priceK[0]) < eps && Math.abs(_priceK[1]) < eps && Math.abs(_priceK[2]) < eps) {
