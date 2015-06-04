@@ -89,7 +89,7 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvMC = methodMC.presentValue(ANNUITY_RATCHET_FIXED, EUR, LMM_MULTICURVES);
-    final double pvMCPreviousRun = 8030175.607;
+    final double pvMCPreviousRun = 8028924.8766;
     assertEquals("Annuity Ratchet Ibor - LMM - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
@@ -101,7 +101,7 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvMC = methodMC.presentValue(annuityRatchetIbor, EUR, bundleLMM);
-    final double pvMCPreviousRun = 7675269.115;
+    final double pvMCPreviousRun = 7674047.8480;
     assertEquals("Annuity Ratchet Ibor - LMM - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
