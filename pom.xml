@@ -340,7 +340,7 @@
 
   <!-- ==================================================================== -->
   <properties>
-    <strata.version>0.9.0-SNAPSHOT</strata.version>
+    <strata.version>0.7.0-SNAPSHOT</strata.version>
     <guava.version>18.0</guava.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-math3.version>3.5</commons-math3.version>
