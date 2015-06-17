@@ -17,7 +17,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
+import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Triple;
 
@@ -157,7 +157,8 @@ public class SmileDeltaTermStructureParameters implements VolatilityAndBucketedS
       for (int looptime = 0; looptime < nbTime; looptime++) {
         volDelta[looptime] = _volatilityTerm[looptime].getVolatility()[loopvol];
       }
-      final ArrayInterpolator1DDataBundle interpData = new ArrayInterpolator1DDataBundle(_timeToExpiration, volDelta, true);
+      Interpolator1DDataBundle interpData =
+          _timeInterpolator.getDataBundleFromSortedArrays(_timeToExpiration, volDelta);
       volatilityT[loopvol] = _timeInterpolator.interpolate(interpData, time);
     }
     final SmileDeltaParameters smile = new SmileDeltaParameters(time, _volatilityTerm[0].getDelta(), volatilityT);
@@ -184,7 +185,8 @@ public class SmileDeltaTermStructureParameters implements VolatilityAndBucketedS
       for (int looptime = 0; looptime < nbTime; looptime++) {
         volDelta[looptime] = _volatilityTerm[looptime].getVolatility()[loopvol];
       }
-      final ArrayInterpolator1DDataBundle interpData = new ArrayInterpolator1DDataBundle(_timeToExpiration, volDelta, true);
+      Interpolator1DDataBundle interpData =
+          _timeInterpolator.getDataBundleFromSortedArrays(_timeToExpiration, volDelta);
       final double[] volatilitySensitivityVol = _timeInterpolator.getNodeSensitivitiesForValue(interpData, time);
       for (int looptime = 0; looptime < nbTime; looptime++) {
         volatilitySensitivity[looptime][loopvol] = volatilitySensitivityVol[looptime] * volatilityAtTimeSensitivity[loopvol];
