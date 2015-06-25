@@ -250,6 +250,20 @@
   </dependencies>
 
   <!-- ==================================================================== -->
+  <distributionManagement>
+    <repository>
+      <id>strata-private-release</id>
+      <name>Strata maven repository</name>
+      <url>${strata-private-release.url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>strata-private-snapshot</id>
+      <name>Strata snapshot maven repository</name>
+      <url>${strata-private-snapshot.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <!-- ==================================================================== -->
   <profiles>
     <!-- apply strict build rules, activated with -Dstrict -->
     <profile>
