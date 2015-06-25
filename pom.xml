@@ -13,7 +13,7 @@
   </parent>  
   <groupId>com.opengamma.analytics</groupId>
   <artifactId>og-analytics</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0-M1</version>
   <packaging>jar</packaging>
   <name>OpenGamma-Analytics</name>
   <description>OpenGamma analytics</description>
@@ -354,7 +354,7 @@
 
   <!-- ==================================================================== -->
   <properties>
-    <strata.version>0.7.0-SNAPSHOT</strata.version>
+    <strata.version>0.7.0</strata.version>
     <guava.version>18.0</guava.version>
     <commons-lang.version>2.6</commons-lang.version>
     <commons-math3.version>3.5</commons-math3.version>
