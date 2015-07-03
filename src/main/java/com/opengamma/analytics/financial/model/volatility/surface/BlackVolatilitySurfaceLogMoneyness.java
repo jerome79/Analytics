@@ -58,7 +58,7 @@ public class BlackVolatilitySurfaceLogMoneyness extends BlackVolatilitySurface<L
 
   @Override
   public double getAbsoluteStrike(final double t, final LogMoneyness s) {
-    return _fc.getForward(t) * Math.exp(s.value());
+    return _fc.getForward(t) * Math.exp(s.getValue());
   }
 
   @Override

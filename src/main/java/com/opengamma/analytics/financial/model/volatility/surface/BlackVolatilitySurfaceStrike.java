@@ -27,7 +27,7 @@ public class BlackVolatilitySurfaceStrike extends BlackVolatilitySurface<Strike>
 
   @Override
   public double getAbsoluteStrike(final double t, final Strike s) {
-    return s.value();
+    return s.getValue();
   }
 
   @Override

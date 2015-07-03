@@ -65,7 +65,7 @@ public class BlackVolatilitySurfaceDelta extends BlackVolatilitySurface<Delta> {
   public double getAbsoluteStrike(final double t, final Delta s) {
     final double vol = getVolatility(t, s);
     final double fwd = _fc.getForward(t);
-    return BlackFormulaRepository.impliedStrike(s.value(), true, fwd, t, vol);
+    return BlackFormulaRepository.impliedStrike(s.getValue(), true, fwd, t, vol);
   }
 
   @Override

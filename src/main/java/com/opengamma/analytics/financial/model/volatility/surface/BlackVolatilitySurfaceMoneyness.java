@@ -66,7 +66,7 @@ public class BlackVolatilitySurfaceMoneyness extends BlackVolatilitySurface<Mone
 
   @Override
   public double getAbsoluteStrike(final double t, final Moneyness s) {
-    return _fc.getForward(t) * s.value();
+    return _fc.getForward(t) * s.getValue();
   }
 
   @Override

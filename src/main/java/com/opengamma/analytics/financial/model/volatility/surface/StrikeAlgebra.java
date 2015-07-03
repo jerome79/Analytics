@@ -12,12 +12,12 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 public class StrikeAlgebra<T extends StrikeType> {
 
   public T add(final T a, final T b) {
-    final double sum = a.value() + b.value();
+    final double sum = a.getValue() + b.getValue();
     return (T) a.with(sum);
   }
 
   public T subtract(final T a, final T b) {
-    final double diff = a.value() - b.value();
+    final double diff = a.getValue() - b.getValue();
     return (T) a.with(diff);
   }
 
