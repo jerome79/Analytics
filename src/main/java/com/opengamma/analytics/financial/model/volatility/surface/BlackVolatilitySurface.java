@@ -23,7 +23,7 @@ public abstract class BlackVolatilitySurface<T extends StrikeType> extends Volat
   }
 
   public double getVolatility(final double t, final T s) {
-    final DoublesPair temp = DoublesPair.of(t, s.value());
+    final DoublesPair temp = DoublesPair.of(t, s.getValue());
     return getVolatility(temp);
   }
 

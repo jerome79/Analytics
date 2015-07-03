@@ -16,13 +16,6 @@ import com.opengamma.strata.collect.tuple.ObjectDoublePair;
 public interface StrikeType {
 
   /**
-   * Obtains the value expressed in the strike type. 
-   * 
-   * @return the value
-   */
-  public double value();
-
-  /**
    * Creates an new instance of the same strike type with value. 
    * 
    * @param value  the value
@@ -43,7 +36,14 @@ public interface StrikeType {
    * @return the name and value
    */
   public default ObjectDoublePair<String> typeAndValue() {
-    return ObjectDoublePair.of(type(), value());
+    return ObjectDoublePair.of(type(), getValue());
   }
+
+  /**
+  * Obtains the value expressed in the strike type. 
+  * 
+  * @return the value
+  */
+  double getValue();
 
 }
