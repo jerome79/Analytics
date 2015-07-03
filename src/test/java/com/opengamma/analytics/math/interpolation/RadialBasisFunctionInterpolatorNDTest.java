@@ -8,9 +8,6 @@ package com.opengamma.analytics.math.interpolation;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
 /**
@@ -21,7 +18,6 @@ public class RadialBasisFunctionInterpolatorNDTest extends InterpolatorNDTestCas
   private static final GaussianRadialBasisFunction BASIS_FUNCTION = new GaussianRadialBasisFunction();
   private static final boolean USE_NORMALIZED = false;
   private static final InterpolatorND INTERPOLATOR = new RadialBasisFunctionInterpolatorND(BASIS_FUNCTION, USE_NORMALIZED);
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullBasisFunction() {
@@ -85,10 +81,4 @@ public class RadialBasisFunctionInterpolatorNDTest extends InterpolatorNDTestCas
     final InterpolatorND interpolator = new RadialBasisFunctionInterpolatorND(new ThinPlateSplineRadialBasisFunction(r0), true);
     assertCosExp(interpolator, 2e-2);//TODO this used to work with tol of 1e-2 ??
   }
-
-  @Override
-  protected RandomEngine getRandom() {
-    return RANDOM;
-  }
-
 }

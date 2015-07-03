@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.minimization;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
@@ -21,7 +20,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 @Test
 public abstract class ParameterLimitsTransformTestCase {
 
-  protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  protected static final RandomGenerator RANDOM = new Well44497b(0L);
   protected static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, RANDOM);
 
   protected void assertRoundTrip(final ParameterLimitsTransform transform, final double modelParam) {

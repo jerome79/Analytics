@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import java.util.Date;
 
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
@@ -61,7 +61,7 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
   private final double _sigma;
   private final double _ksi;
   // TODO better seed
-  private final RandomEngine _engine;
+  private final RandomGenerator _engine;
 
   /**
    * 
@@ -70,7 +70,7 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
    * @param ksi The shape parameter, not zero
    */
   public GeneralizedParetoDistribution(final double mu, final double sigma, final double ksi) {
-    this(mu, sigma, ksi, new MersenneTwister64(new Date()));
+    this(mu, sigma, ksi, new Well44497b(new Date().getTime()));
   }
 
   /**
@@ -80,7 +80,7 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
    * @param ksi The shape parameter
    * @param engine A uniform random number generator, not null
    */
-  public GeneralizedParetoDistribution(final double mu, final double sigma, final double ksi, final RandomEngine engine) {
+  public GeneralizedParetoDistribution(final double mu, final double sigma, final double ksi, final RandomGenerator engine) {
     ArgChecker.isTrue(sigma > 0, "sigma must be > 0");
     ArgChecker.isTrue(!CompareUtils.closeEquals(ksi, 0, 1e-15), "ksi cannot be zero");
     ArgChecker.notNull(engine, "engine");

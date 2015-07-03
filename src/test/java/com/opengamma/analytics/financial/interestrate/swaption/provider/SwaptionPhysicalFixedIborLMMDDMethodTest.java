@@ -11,9 +11,8 @@ import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
 
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponFixedDefinition;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCouponIborDefinition;
@@ -154,7 +153,7 @@ public class SwaptionPhysicalFixedIborLMMDDMethodTest {
    */
   public void presentValueMC() {
     LiborMarketModelMonteCarloMethod methodLmmMc;
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultiCurrencyAmount pvMC = methodLmmMc.presentValue(SWAPTION_PAYER_LONG, EUR, LMM_MULTICURVES);
     final double pvMCPreviousRun = 1997241.514;
     assertEquals("Swaption physical - LMM - present value Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);

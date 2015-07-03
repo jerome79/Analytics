@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.provider.calculator.hullwhite;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
@@ -76,7 +76,7 @@ public final class PresentValueSABRHullWhiteMonteCarloCalculator extends Instrum
     calibrationEngine.calibrate(sabrData);
     final HullWhiteOneFactorProvider hwMulticurves = new HullWhiteOneFactorProvider(sabrData.getMulticurveProvider(), hwParameters, ccy);
     // Pricing
-    final HullWhiteMonteCarloMethod methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), DEFAULT_NB_PATH);
+    final HullWhiteMonteCarloMethod methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b()), DEFAULT_NB_PATH);
     return methodMC.presentValue(swaption, ccy, hwMulticurves);
   }
 

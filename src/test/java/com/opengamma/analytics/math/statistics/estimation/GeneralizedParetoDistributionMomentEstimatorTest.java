@@ -7,8 +7,7 @@ package com.opengamma.analytics.math.statistics.estimation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.statistics.distribution.GeneralizedParetoDistribution;
@@ -22,7 +21,7 @@ public class GeneralizedParetoDistributionMomentEstimatorTest {
   private static final double MU = 6;
   private static final double SIGMA = 0.5;
   private static final double KSI = 0.1;
-  private static final ProbabilityDistribution<Double> GPD = new GeneralizedParetoDistribution(MU, SIGMA, KSI, new MersenneTwister64(MersenneTwister.DEFAULT_SEED));
+  private static final ProbabilityDistribution<Double> GPD = new GeneralizedParetoDistribution(MU, SIGMA, KSI, new Well44497b(0L));
   private static final int N = 100000;
   private static final double[] X = new double[N];
   private static final DistributionParameterEstimator<Double> ESTIMATOR = new GeneralizedParetoDistributionMomentEstimator();

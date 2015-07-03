@@ -8,7 +8,7 @@ package com.opengamma.analytics.math.random;
 import java.util.ArrayList;
 import java.util.List;
 
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
 
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
@@ -25,7 +25,7 @@ public class NormalRandomNumberGenerator implements RandomNumberGenerator {
     _normal = new NormalDistribution(mean, sigma);
   }
 
-  public NormalRandomNumberGenerator(final double mean, final double sigma, final RandomEngine engine) {
+  public NormalRandomNumberGenerator(final double mean, final double sigma, final RandomGenerator engine) {
     ArgChecker.notNegativeOrZero(sigma, "standard deviation");
     ArgChecker.notNull(engine, "engine");
     _normal = new NormalDistribution(mean, sigma, engine);

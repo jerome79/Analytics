@@ -9,9 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.Map;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
@@ -21,7 +18,6 @@ import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
  */
 @Test
 public class RadialBasisFunctionInterpolatorSensitivityCalculatorTest extends InterpolatorNDTestCase {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
 
   @Test
   public void testFlat() {
@@ -52,11 +48,6 @@ public class RadialBasisFunctionInterpolatorSensitivityCalculatorTest extends In
     for (final Map.Entry<double[], Double> entry : res.entrySet()) {
       assertEquals(0.0, entry.getValue(), 1e-11);
     }
-  }
-
-  @Override
-  protected RandomEngine getRandom() {
-    return RANDOM;
   }
 
 }

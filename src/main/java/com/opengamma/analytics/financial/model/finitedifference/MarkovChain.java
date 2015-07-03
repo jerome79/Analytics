@@ -5,8 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackPriceFunction;
@@ -29,10 +28,10 @@ public class MarkovChain {
   @SuppressWarnings("unused")
   private final double _pi1;
 
-  private final MersenneTwister _rand;
+  private final Well44497b _rand;
 
   public MarkovChain(final double vol1, final double vol2, final double lambda12, final double lambda21, final double probState1) {
-    this(vol1, vol2, lambda12, lambda21, probState1, MersenneTwister.DEFAULT_SEED);
+    this(vol1, vol2, lambda12, lambda21, probState1, 0);
   }
 
   public MarkovChain(final double vol1, final double vol2, final double lambda12, final double lambda21, final double probState1, final int seed) {
@@ -47,7 +46,7 @@ public class MarkovChain {
     _lambda21 = lambda21;
     _probState1 = probState1;
     _pi1 = lambda21 / (lambda12 + lambda21);
-    _rand = new MersenneTwister64(seed);
+    _rand = new Well44497b(seed);
   }
 
   public double price(final double forward, final double df, final double strike, final double timeToExiry, final double[] sigmas) {
@@ -105,7 +104,7 @@ public class MarkovChain {
     return price;
   }
 
-  public double[] getMoments(@SuppressWarnings("unused") final double t, final double[] sigmas) {
+  public double[] getMoments(final double t, final double[] sigmas) {
     double sum1 = 0;
     double sum2 = 0;
     double sum3 = 0;

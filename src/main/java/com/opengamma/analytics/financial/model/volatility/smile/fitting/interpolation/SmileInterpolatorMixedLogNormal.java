@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpo
 
 import java.util.BitSet;
 
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.BitsStreamGenerator;
 
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.MixedLogNormalModelFitter;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.SmileModelFitter;
@@ -41,7 +41,7 @@ public class SmileInterpolatorMixedLogNormal extends SmileInterpolator<MixedLogN
 
   @Override
   protected DoubleMatrix1D getGlobalStart(final double forward, final double[] strikes, final double expiry, final double[] impliedVols) {
-    final RandomEngine random = getRandom();
+    final BitsStreamGenerator random = getRandom();
     final DoubleMatrix1D fitP = getPolynomialFit(forward, strikes, impliedVols);
 
     final double a = fitP.getEntry(0);

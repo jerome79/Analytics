@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.statistics.distribution;
 
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -21,7 +21,7 @@ public class StudentTTwoTailedCriticalValueCalculator extends Function1D<Double,
     _calc = new StudentTOneTailedCriticalValueCalculator(nu);
   }
 
-  public StudentTTwoTailedCriticalValueCalculator(final double nu, final RandomEngine engine) {
+  public StudentTTwoTailedCriticalValueCalculator(final double nu, final RandomGenerator engine) {
     ArgChecker.notNegative(nu, "nu");
     ArgChecker.notNull(engine, "engine");
     _calc = new StudentTOneTailedCriticalValueCalculator(nu, engine);

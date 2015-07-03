@@ -92,7 +92,7 @@ public class MixedLogNormalVolatilitySurfaceTest {
       double k = spot * Math.exp((r - vol * vol / 2) * t + Math.sqrt(t) * vol * a);
       double lv = lvs.getVolatility(t, k);
       double lv2 = lvs2.getVolatility(t, k);
-      assertEquals("Local volatility t=" + t + ", k=" + k, lv, lv2, 1e-3); //loss a lot of accuracy going via Dupire formula (since this used finite difference on the implied vol surface)
+      assertEquals("Local volatility t=" + t + ", k=" + k, lv, lv2, 2e-2); //loss a lot of accuracy going via Dupire formula (since this used finite difference on the implied vol surface)
     }
   }
 

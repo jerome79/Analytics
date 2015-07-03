@@ -10,9 +10,8 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIborMaster;
@@ -251,14 +250,15 @@ public class SwaptionPhysicalFixedIborHullWhiteMethodTest {
    */
   public void presentValueMonteCarlo() {
     HullWhiteMonteCarloMethod methodMC;
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvPayerLongExplicit = METHOD_HW.presentValue(SWAPTION_LONG_PAYER, HW_MULTICURVES);
     final MultiCurrencyAmount pvPayerLongMC = methodMC.presentValue(SWAPTION_LONG_PAYER, EUR, HW_MULTICURVES);
-    assertEquals("Swaption physical - Hull-White - Monte Carlo", pvPayerLongExplicit.getAmount(EUR).getAmount(), pvPayerLongMC.getAmount(EUR).getAmount(), 1.0E+4);
+    assertEquals("Swaption physical - Hull-White - Monte Carlo", pvPayerLongExplicit.getAmount(EUR).getAmount(), pvPayerLongMC.getAmount(EUR).getAmount(), 5.0E+4);
+    
     final double pvMCPreviousRun = 4221400.891;
     assertEquals("Swaption physical - Hull-White - Monte Carlo", pvMCPreviousRun, pvPayerLongMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
-    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(1234454356234L)), NB_PATH);
     final MultiCurrencyAmount pvPayerShortMC = methodMC.presentValue(SWAPTION_SHORT_PAYER, EUR, HW_MULTICURVES);
     assertEquals("Swaption physical - Hull-White - Monte Carlo", -pvPayerLongMC.getAmount(EUR).getAmount(), pvPayerShortMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
     final MultiCurrencyAmount pvReceiverLongMC = methodMC.presentValue(SWAPTION_LONG_RECEIVER, EUR, HW_MULTICURVES);
@@ -395,7 +395,7 @@ public class SwaptionPhysicalFixedIborHullWhiteMethodTest {
   public void presentValueCurveSensitivityMonteCarlo() {
     final double toleranceDelta = 1.0E+6; // 100 USD by bp
     final MultipleCurrencyMulticurveSensitivity pvcsExplicit = METHOD_HW.presentValueCurveSensitivity(SWAPTION_LONG_PAYER, HW_MULTICURVES).cleaned(TOLERANCE_PV_DELTA);
-    final HullWhiteMonteCarloMethod methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    final HullWhiteMonteCarloMethod methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultipleCurrencyMulticurveSensitivity pvcsMC = methodMC.presentValueCurveSensitivity(SWAPTION_LONG_PAYER, EUR, HW_MULTICURVES).cleaned(TOLERANCE_PV_DELTA);
     AssertSensitivityObjects.assertEquals("Swaption physical - Hull-White - presentValueCurveSensitivity - payer/receiver/swap parity", pvcsExplicit, pvcsMC, toleranceDelta);
   }

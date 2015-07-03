@@ -10,7 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityCapFloorIborDefinition;
@@ -86,10 +86,10 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
    */
   public void presentValueFixed() {
     LiborMarketModelMonteCarloMethod methodMC;
-    methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvMC = methodMC.presentValue(ANNUITY_RATCHET_FIXED, EUR, LMM_MULTICURVES);
-    final double pvMCPreviousRun = 8030175.607;
+    final double pvMCPreviousRun = 8028924.8766;
     assertEquals("Annuity Ratchet Ibor - LMM - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
@@ -98,10 +98,10 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     final AnnuityCouponIborRatchet annuityRatchetIbor = ANNUITY_RATCHET_IBOR_DEFINITION.toDerivative(referenceDate, FIXING_TS);
     final LiborMarketModelDisplacedDiffusionParameters parameterLMM = TestsDataSetLiborMarketModelDisplacedDiffusion.createLMMParameters(referenceDate, ANNUITY_RATCHET_FIXED_DEFINITION);
     final LiborMarketModelDisplacedDiffusionProviderDiscount bundleLMM = new LiborMarketModelDisplacedDiffusionProviderDiscount(MULTICURVES, parameterLMM, EUR);
-    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     // Seed fixed to the DEFAULT_SEED for testing purposes.
     final MultiCurrencyAmount pvMC = methodMC.presentValue(annuityRatchetIbor, EUR, bundleLMM);
-    final double pvMCPreviousRun = 7675269.115;
+    final double pvMCPreviousRun = 7674047.8480;
     assertEquals("Annuity Ratchet Ibor - LMM - Monte Carlo", pvMCPreviousRun, pvMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
 
@@ -110,7 +110,7 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
    */
   public void presentValueFixedLeg() {
     final int nbPath = 12500;
-    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final double[] mainFixed = new double[] {0.0, 0.0, 0.0 };
     final double[] floorFixed = new double[] {0.0, 0.0, FIRST_CPN_RATE };
     final double[] capFixed = new double[] {0.0, 0.0, FIRST_CPN_RATE };
@@ -146,7 +146,7 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     }
     final LiborMarketModelDisplacedDiffusionParameters parameterLMM = TestsDataSetLiborMarketModelDisplacedDiffusion.createLMMParameters(REFERENCE_DATE, ratchetFixedDefinition);
     final LiborMarketModelDisplacedDiffusionProviderDiscount bundleLMM = new LiborMarketModelDisplacedDiffusionProviderDiscount(MULTICURVES, parameterLMM, EUR);
-    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final MultiCurrencyAmount pvIborMC = methodMC.presentValue(ratchetFixed, EUR, bundleLMM);
     final MultiCurrencyAmount pvIborExpected = new Annuity<Payment>(iborFirstFixed).accept(PVDC, MULTICURVES);
     assertEquals("Annuity Ratchet Ibor - Hull-White - Monte Carlo - Degenerate in Ibor leg", pvIborExpected.getAmount(EUR).getAmount(), pvIborMC.getAmount(EUR).getAmount(), TOLERANCE_PV_MC);
@@ -168,7 +168,7 @@ public class AnnuityCouponIborRatchetLMMMethodTest {
     final AnnuityCouponIborRatchet ratchetFixed = ratchetFixedDefinition.toDerivative(REFERENCE_DATE, FIXING_TS);
     final AnnuityCapFloorIborDefinition capDefinition = AnnuityCapFloorIborDefinition.from(SETTLEMENT_DATE, SETTLEMENT_DATE.plus(ANNUITY_TENOR), NOTIONAL, EURIBOR3M, IS_PAYER, strike, true, TARGET);
     final Annuity<? extends Payment> cap = capDefinition.toDerivative(REFERENCE_DATE, FIXING_TS);
-    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), nbPath);
+    final LiborMarketModelMonteCarloMethod methodMC = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), nbPath);
     final CapFloorIborLMMDDMethod methodCapLMM = CapFloorIborLMMDDMethod.getInstance();
     final AnnuityCouponFixedDefinition fixedDefinition = AnnuityCouponFixedDefinition.from(EUR, SETTLEMENT_DATE, ANNUITY_TENOR, EURIBOR3M.getTenor(), TARGET, EURIBOR3M.getDayCount(),
         EURIBOR3M.getBusinessDayConvention(), EURIBOR3M.isEndOfMonth(), NOTIONAL, strike, IS_PAYER);

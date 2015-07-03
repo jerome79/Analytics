@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.math.interpolation.data;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.InterpolatorNDTestCase;
@@ -17,8 +14,6 @@ import com.opengamma.analytics.math.interpolation.InterpolatorNDTestCase;
  */
 @Test
 public class KrigingInterpolatorDataBundleTest extends InterpolatorNDTestCase {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
-
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullData() {
     new KrigingInterpolatorDataBundle(null, 1.5);
@@ -32,11 +27,6 @@ public class KrigingInterpolatorDataBundleTest extends InterpolatorNDTestCase {
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testHighBeta() {
     new KrigingInterpolatorDataBundle(COS_EXP_DATA, 2);
-  }
-
-  @Override
-  protected RandomEngine getRandom() {
-    return RANDOM;
   }
 
 }

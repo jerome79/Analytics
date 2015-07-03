@@ -10,7 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;
@@ -157,18 +157,20 @@ public class CapFloorIborLMMDDMethodTest {
    */
   public void presentValueMCMultiCurves() {
     LiborMarketModelMonteCarloMethod methodLmmMc;
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultiCurrencyAmount pvLastMC = methodLmmMc.presentValue(CAP_LAST, EUR, LMM_MULTICURVES);
-    final double pvLastPreviousRun = 45829.535; // 12500 paths - 1Y jump
+    final double pvLastPreviousRun = 45790.4996; // 12500 paths - 1Y jump
     assertEquals("Cap/floor: LMM pricing by Monte Carlo", pvLastPreviousRun, pvLastMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
     final MultiCurrencyAmount pvLastExplicit = METHOD_LMM_CAP.presentValue(CAP_LAST, LMM_MULTICURVES);
-    assertEquals("Cap/floor: LMM pricing by Monte Carlo", pvLastExplicit.getAmount(EUR).getAmount(), pvLastMC.getAmount(EUR).getAmount(), 2.5E+2);
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    assertEquals("Cap/floor: LMM pricing by Monte Carlo", 
+        pvLastExplicit.getAmount(EUR).getAmount(), pvLastMC.getAmount(EUR).getAmount(), 3.0E+2);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(1L)), NB_PATH);
     final MultiCurrencyAmount pv6MC = methodLmmMc.presentValue(CAP_6, EUR, LMM_MULTICURVES);
-    final double pv6PreviousRun = 12081.062; // 12500 paths - 1Y jump
+    final double pv6PreviousRun = 11894.8148; // 12500 paths - 1Y jump
     assertEquals("Cap/floor: LMM pricing by Monte Carlo", pv6PreviousRun, pv6MC.getAmount(EUR).getAmount(), TOLERANCE_PV);
     final MultiCurrencyAmount pv6Explicit = METHOD_LMM_CAP.presentValue(CAP_6, LMM_MULTICURVES);
-    assertEquals("Cap/floor: LMM pricing by Monte Carlo", pv6Explicit.getAmount(EUR).getAmount(), pv6MC.getAmount(EUR).getAmount(), 1.0E+2);
+    assertEquals("Cap/floor: LMM pricing by Monte Carlo", 
+        pv6Explicit.getAmount(EUR).getAmount(), pv6MC.getAmount(EUR).getAmount(), 3.0E+2);
   }
 
   /**
@@ -179,9 +181,9 @@ public class CapFloorIborLMMDDMethodTest {
     final MultiCurrencyAmount pvShortExplicit = METHOD_LMM_CAP.presentValue(CAP_LAST_SHORT, LMM_MULTICURVES);
     assertEquals("Cap/floor - LMM - present value - long/short parity", pvLongExplicit.getAmount(EUR).getAmount(), -pvShortExplicit.getAmount(EUR).getAmount(), TOLERANCE_PV);
     LiborMarketModelMonteCarloMethod methodLmmMc;
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultiCurrencyAmount pvLongMC = methodLmmMc.presentValue(CAP_LAST, EUR, LMM_MULTICURVES);
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultiCurrencyAmount pvShortMC = methodLmmMc.presentValue(CAP_LAST_SHORT, EUR, LMM_MULTICURVES);
     assertEquals("Cap/floor - LMM - present value MC- long/short parity", pvLongMC.getAmount(EUR).getAmount(), -pvShortMC.getAmount(EUR).getAmount(), TOLERANCE_PV);
   }
@@ -198,13 +200,14 @@ public class CapFloorIborLMMDDMethodTest {
         pvFixedExplicit.getAmount(EUR).getAmount(),
         pvIborExplicit.getAmount(EUR).getAmount(), TOLERANCE_PV);
     LiborMarketModelMonteCarloMethod methodLmmMc;
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultiCurrencyAmount pvCapMC = methodLmmMc.presentValue(CAP_LAST, EUR, LMM_MULTICURVES);
-    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), NB_PATH);
+    methodLmmMc = new LiborMarketModelMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b(0L)), NB_PATH);
     final MultiCurrencyAmount pvFloorMC = methodLmmMc.presentValue(FLOOR_LAST, EUR, LMM_MULTICURVES);
-    assertEquals("Cap/floor - LMM - present value - cap/floor/strike/Ibor parity", pvCapMC.getAmount(EUR).getAmount() - pvFloorMC.getAmount(EUR).getAmount() -
-        pvFixedExplicit.getAmount(EUR).getAmount(), pvIborExplicit.getAmount(EUR).getAmount(),
-        1.0E+3);
+    assertEquals("Cap/floor - LMM - present value - cap/floor/strike/Ibor parity",  
+        pvIborExplicit.getAmount(EUR).getAmount(),
+        pvCapMC.getAmount(EUR).getAmount() - pvFloorMC.getAmount(EUR).getAmount() - pvFixedExplicit.getAmount(EUR).getAmount(), 
+        1.5E+3);
   }
 
 }

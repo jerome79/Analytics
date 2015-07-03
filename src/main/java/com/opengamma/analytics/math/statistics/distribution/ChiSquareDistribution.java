@@ -7,9 +7,9 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import java.util.Date;
 
-import cern.jet.random.ChiSquare;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.distribution.ChiSquaredDistribution;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.math.function.Function2D;
 import com.opengamma.analytics.math.function.special.InverseIncompleteGammaFunction;
@@ -36,24 +36,24 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
   private final Function2D<Double, Double> _inverseFunction = new InverseIncompleteGammaFunction();
-  private final ChiSquare _chiSquare;
+  private final ChiSquaredDistribution _chiSquare;
   private final double _degrees;
 
   /**
    * @param degrees The degrees of freedom of the distribution, not less than one
    */
   public ChiSquareDistribution(final double degrees) {
-    this(degrees, new MersenneTwister64(new Date()));
+    this(degrees, new Well44497b(new Date().getTime()));
   }
 
   /**
    * @param degrees The degrees of freedom of the distribution, not less than one
    * @param engine A uniform random number generator, not null
    */
-  public ChiSquareDistribution(final double degrees, final RandomEngine engine) {
+  public ChiSquareDistribution(final double degrees, final RandomGenerator engine) {
     ArgChecker.isTrue(degrees >= 1, "Degrees of freedom must be greater than or equal to one");
     ArgChecker.notNull(engine, "engine");
-    _chiSquare = new ChiSquare(degrees, engine);
+    _chiSquare = new ChiSquaredDistribution(engine, degrees);
     _degrees = degrees;
   }
 
@@ -63,7 +63,7 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getCDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _chiSquare.cdf(x);
+    return _chiSquare.cumulativeProbability(x);
   }
 
   /**
@@ -72,7 +72,7 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getPDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _chiSquare.pdf(x);
+    return _chiSquare.density(x);
   }
 
   /**
@@ -90,7 +90,7 @@ public class ChiSquareDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double nextRandom() {
-    return _chiSquare.nextDouble();
+    return _chiSquare.sample();
   }
 
   /**

@@ -8,13 +8,9 @@ package com.opengamma.analytics.math.interpolation;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
-
-import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
 
 /**
@@ -22,7 +18,6 @@ import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
  */
 @Test
 public class KrigingInterpolatorNDTest extends InterpolatorNDTestCase {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
   private static final double BETA = 1.5;
   private static final InterpolatorND INTERPOLATOR = new KrigingInterpolatorND(BETA);
 
@@ -63,7 +58,7 @@ public class KrigingInterpolatorNDTest extends InterpolatorNDTestCase {
   @Test(expectedExceptions = IllegalArgumentException.class)
   // This code needs to fail for flat surface since the variogram function will be zero for all r 
   public void testFlat() {
-    final RandomEngine random = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+    final Well44497b random = new Well44497b(0L);
     final double x1 = 10 * random.nextDouble();
     final double x2 = 10 * random.nextDouble();
     final double x3 = 10 * random.nextDouble();
@@ -76,10 +71,5 @@ public class KrigingInterpolatorNDTest extends InterpolatorNDTestCase {
   public void testInterpolation() {
     final InterpolatorND interpolator = new KrigingInterpolatorND(1.99);
     assertCosExp(interpolator, 2e-2);
-  }
-
-  @Override
-  protected RandomEngine getRandom() {
-    return RANDOM;
   }
 }

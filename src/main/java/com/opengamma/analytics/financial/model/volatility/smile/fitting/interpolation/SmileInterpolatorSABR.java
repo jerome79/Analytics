@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.BitsStreamGenerator;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.SABRModelFitter;
@@ -126,7 +126,7 @@ public class SmileInterpolatorSABR extends SmileInterpolator<SABRFormulaData> {
 
   @Override
   protected DoubleMatrix1D getGlobalStart(final double forward, final double[] strikes, final double expiry, final double[] impliedVols) {
-    final RandomEngine random = getRandom();
+    final BitsStreamGenerator random = getRandom();
     final DoubleMatrix1D fitP = getPolynomialFit(forward, strikes, impliedVols);
     final double a = fitP.getEntry(0);
     final double b = fitP.getEntry(1);

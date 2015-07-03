@@ -21,9 +21,8 @@ import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.credit.index.CDSIndexCalculator;
@@ -50,7 +49,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 public class IndexOptionsPaperExamples extends ISDABaseTest {
   private static final MarketQuoteConverter CONVERTER = new MarketQuoteConverter();
   private static final CDSAnalyticFactory FACTORY = new CDSAnalyticFactory();
-  protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  protected static final RandomGenerator RANDOM =  new Well44497b(0L);
   protected static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, RANDOM);
   private static final int INDEX_SIZE = 125;
   private static final double INDEX_COUPON = 0.01;

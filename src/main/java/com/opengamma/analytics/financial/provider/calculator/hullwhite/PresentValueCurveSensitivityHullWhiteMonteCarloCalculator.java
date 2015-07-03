@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.provider.calculator.hullwhite;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponIborRatchet;
@@ -45,7 +45,7 @@ public class PresentValueCurveSensitivityHullWhiteMonteCarloCalculator extends I
 
   @Override
   public MultipleCurrencyMulticurveSensitivity visitAnnuityCouponIborRatchet(final AnnuityCouponIborRatchet annuity, final HullWhiteOneFactorProviderInterface hullWhite) {
-    HullWhiteMonteCarloMethod methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new MersenneTwister()), _nbPath);
+    HullWhiteMonteCarloMethod methodMC = new HullWhiteMonteCarloMethod(new NormalRandomNumberGenerator(0.0, 1.0, new Well44497b()), _nbPath);
     return methodMC.presentValueCurveSensitivity(annuity, annuity.getCurrency(), hullWhite);
   }
 

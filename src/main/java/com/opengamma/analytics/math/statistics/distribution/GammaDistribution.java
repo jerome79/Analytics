@@ -7,9 +7,8 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import java.util.Date;
 
-import cern.jet.random.Gamma;
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -31,7 +30,7 @@ import com.opengamma.strata.collect.ArgChecker;
  * 
  */
 public class GammaDistribution implements ProbabilityDistribution<Double> {
-  private final Gamma _gamma;
+  private final org.apache.commons.math3.distribution.GammaDistribution _gamma;
   private final double _k;
   private final double _theta;
 
@@ -40,7 +39,7 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
    * @param theta The scale parameter of the distribution, not negative or zero
    */
   public GammaDistribution(final double k, final double theta) {
-    this(k, theta, new MersenneTwister(new Date()));
+    this(k, theta, new Well44497b(new Date().getTime()));
   }
 
   /**
@@ -48,11 +47,11 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
    * @param theta The scale parameter of the distribution, not negative or zero
    * @param engine A uniform random number generator, not null
    */
-  public GammaDistribution(final double k, final double theta, final RandomEngine engine) {
+  public GammaDistribution(final double k, final double theta, final RandomGenerator engine) {
     ArgChecker.isTrue(k > 0, "k must be > 0");
     ArgChecker.isTrue(theta > 0, "theta must be > 0");
     ArgChecker.notNull(engine, "engine");
-    _gamma = new Gamma(k, 1. / theta, engine);
+    _gamma = new org.apache.commons.math3.distribution.GammaDistribution(engine, k, 1. / theta);
     _k = k;
     _theta = theta;
   }
@@ -63,7 +62,7 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getCDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _gamma.cdf(x);
+    return _gamma.cumulativeProbability(x);
   }
 
   /**
@@ -82,7 +81,7 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
   @Override
   public double getPDF(final Double x) {
     ArgChecker.notNull(x, "x");
-    return _gamma.pdf(x);
+    return _gamma.density(x);
   }
 
   /**
@@ -90,7 +89,7 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
    */
   @Override
   public double nextRandom() {
-    return _gamma.nextDouble();
+    return _gamma.sample();
   }
 
   /**

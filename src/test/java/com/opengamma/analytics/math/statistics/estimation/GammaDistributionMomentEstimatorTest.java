@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.statistics.estimation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -36,7 +36,7 @@ public class GammaDistributionMomentEstimatorTest {
     final int n = 500000;
     final double k = 0.97;
     final double theta = 0.46;
-    final ProbabilityDistribution<Double> p1 = new GammaDistribution(k, theta, new MersenneTwister(MersenneTwister.DEFAULT_SEED));
+    final ProbabilityDistribution<Double> p1 = new GammaDistribution(k, theta, new Well44497b(0L));
     final double[] x = new double[n];
     for (int i = 0; i < n; i++) {
       x[i] = p1.nextRandom();

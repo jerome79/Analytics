@@ -9,9 +9,8 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.function.Function;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -37,8 +36,8 @@ public class MomentCalculatorTest {
   private static final Function<double[], Double> SAMPLE_PEARSON_KURTOSIS = new SamplePearsonKurtosisCalculator();
   private static final Function<double[], Double> SAMPLE_FISHER_KURTOSIS = new SampleFisherKurtosisCalculator();
   private static final Function<double[], Double> SAMPLE_CENTRAL_MOMENT = new SampleCentralMomentCalculator(1);
-  private static final RandomEngine ENGINE = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
-  private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, STD, ENGINE);
+  private static final RandomGenerator ENGINE = new Well44497b(0L);
+  private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, STD, new Well44497b(0L));
   private static final ProbabilityDistribution<Double> STUDENT_T = new StudentTDistribution(DOF, ENGINE);
   private static final ProbabilityDistribution<Double> CHI_SQ = new ChiSquareDistribution(DOF, ENGINE);
   private static final double[] NORMAL_DATA = new double[500000];

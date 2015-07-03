@@ -8,8 +8,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.function;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
@@ -28,7 +27,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
 @Test
 public class SABRHaganVolatilityFunctionTest extends SABRVolatilityFunctionTestCase {
 
-  private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, new MersenneTwister64(MersenneTwister.DEFAULT_SEED));
+  private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, new Well44497b(0L));
 
   private static final SABRHaganVolatilityFunction FUNCTION = new SABRHaganVolatilityFunction();
 

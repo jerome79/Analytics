@@ -13,9 +13,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.credit.index.CDSIndexCalculator;
@@ -35,7 +34,7 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
  */
 @Test
 public class IndexOptionPricerTest extends ISDABaseTest {
-  protected static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  protected static final RandomGenerator RANDOM = new Well44497b(0L);
   protected static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1, RANDOM);
   private static final CDSAnalyticFactory FACTORY = new CDSAnalyticFactory();
 

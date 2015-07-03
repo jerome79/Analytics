@@ -11,9 +11,8 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.BitsStreamGenerator;
+import org.apache.commons.math3.random.Well44497b;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +41,8 @@ public abstract class SmileInterpolator<T extends SmileModelData> implements Gen
   private static final double FIT_ERROR = 1e-4; //1bps
   private static final double LARGE_ERROR = 0.1;
   private static final WeightingFunction DEFAULT_WEIGHTING_FUNCTION = WeightingFunctionFactory.SINE_WEIGHTING_FUNCTION;
-
+  private static int DEFAULT_SEED = 0;
+  
   /**
    * The logger
    */
@@ -50,10 +50,10 @@ public abstract class SmileInterpolator<T extends SmileModelData> implements Gen
 
   private final VolatilityFunctionProvider<T> _model;
   private final WeightingFunction _weightingFunction;
-  private final RandomEngine _random;
+  private final Well44497b _random;
 
   public SmileInterpolator(final VolatilityFunctionProvider<T> model) {
-    this(MersenneTwister.DEFAULT_SEED, model);
+    this(DEFAULT_SEED, model);
   }
 
   public SmileInterpolator(final int seed, final VolatilityFunctionProvider<T> model) {
@@ -61,13 +61,13 @@ public abstract class SmileInterpolator<T extends SmileModelData> implements Gen
   }
 
   public SmileInterpolator(final VolatilityFunctionProvider<T> model, final WeightingFunction weightFunction) {
-    this(MersenneTwister.DEFAULT_SEED, model, weightFunction);
+    this(DEFAULT_SEED, model, weightFunction);
   }
 
   public SmileInterpolator(final int seed, final VolatilityFunctionProvider<T> model, final WeightingFunction weightFunction) {
     ArgChecker.notNull(model, "model");
     ArgChecker.notNull(weightFunction, "weightFunction");
-    _random = new MersenneTwister64(seed);
+    _random = new Well44497b(seed);
     _model = model;
     _weightingFunction = weightFunction;
   }
@@ -153,7 +153,7 @@ public abstract class SmileInterpolator<T extends SmileModelData> implements Gen
    *
    * @return the random number generator, not null
    */
-  protected RandomEngine getRandom() {
+  protected BitsStreamGenerator getRandom() {
     return _random;
   }
 
