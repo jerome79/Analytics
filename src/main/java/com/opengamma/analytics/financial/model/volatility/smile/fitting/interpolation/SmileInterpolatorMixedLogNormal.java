@@ -14,6 +14,7 @@ import com.opengamma.analytics.financial.model.volatility.smile.fitting.SmileMod
 import com.opengamma.analytics.financial.model.volatility.smile.function.MixedLogNormalModelData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.MixedLogNormalVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunction;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.strata.collect.ArgChecker;
 

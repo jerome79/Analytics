@@ -8,19 +8,22 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpo
 import java.util.Arrays;
 
 /**
- * 
+ * Utilities for arrays.
  */
 public class SurfaceArrayUtils {
 
   /**
-   * For an array of doubles in strictly ascending order, find the index of the entry in the array that is largest value less than or equal to the lookUpValue. 
-   * If the lookUpValue is less than the first entry, zero is return, and if the lookUpValue is greater than the last entry, n-1 is returned. 
-   * @param array The array of strictly acceding doubles 
-   * @param lookUpValue lookup value
-   * @return index 
+   * For an array of doubles in strictly ascending order, find the index of the entry in the array
+   * that is largest value less than or equal to the lookUpValue. 
+   * If the lookUpValue is less than the first entry, zero is return, and if the lookUpValue
+   * is greater than the last entry, n-1 is returned. 
+   * 
+   * @param array  the array of strictly acceding doubles 
+   * @param lookUpValue  the lookup value
+   * @return the index 
    */
   public static int getLowerBoundIndex(final double[] array, final double lookUpValue) {
-    final int n = array.length;
+    int n = array.length;
     if (lookUpValue < array[0]) {
       return 0;
     }
@@ -39,4 +42,5 @@ public class SurfaceArrayUtils {
     }
     return index;
   }
+
 }

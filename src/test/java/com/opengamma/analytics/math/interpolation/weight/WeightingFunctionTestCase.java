@@ -3,7 +3,7 @@
  * 
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
+package com.opengamma.analytics.math.interpolation.weight;
 
 import org.testng.annotations.Test;
 
@@ -13,17 +13,12 @@ import org.testng.annotations.Test;
 @Test
 public abstract class WeightingFunctionTestCase {
 
-  static final double[] STRIKES = new double[] {1, 1.1, 1.2, 1.3, 1.4, 1.5 };
+  static final double[] STRIKES = new double[] {1, 1.1, 1.2, 1.3, 1.4, 1.5};
   static final double STRIKE = 1.345;
   static final int INDEX = 3;
   static final double EPS = 1e-15;
 
   protected abstract WeightingFunction getInstance();
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testNullStrikes1() {
-    getInstance().getWeight(null, STRIKE);
-  }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullStrikes2() {
@@ -39,4 +34,5 @@ public abstract class WeightingFunctionTestCase {
   public void testHighIndex() {
     getInstance().getWeight(STRIKES, STRIKES.length, STRIKE);
   }
+
 }

@@ -3,19 +3,19 @@
  * 
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
+package com.opengamma.analytics.math.interpolation.weight;
 
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * 
+ * Weighting function based on {@code Math.cos}.
  */
-// TODO this belongs with interpolators
 public final class CosineWeightingFunction extends WeightingFunction {
-  private static final CosineWeightingFunction s_instance = new CosineWeightingFunction();
+
+  private static final CosineWeightingFunction INSTANCE = new CosineWeightingFunction();
 
   public static CosineWeightingFunction getInstance() {
-    return s_instance;
+    return INSTANCE;
   }
 
   private CosineWeightingFunction() {
@@ -24,20 +24,10 @@ public final class CosineWeightingFunction extends WeightingFunction {
   @Override
   public double getWeight(final double y) {
     ArgChecker.inRangeInclusive(y, 0d, 1d, "y");
-    final double cos = Math.cos(Math.PI / 6 * (2.0 * y * y + y - 3.0));
-    return cos;
+    return Math.cos(Math.PI / 6 * (2.0 * y * y + y - 3.0));
   }
 
-  @Override
-  public String toString() {
-    return "Cosine weighting function";
-  }
-
-  @Override
-  public int hashCode() {
-    return toString().hashCode();
-  }
-
+  //-------------------------------------------------------------------------
   @Override
   public boolean equals(final Object obj) {
     if (obj == null) {
@@ -51,4 +41,15 @@ public final class CosineWeightingFunction extends WeightingFunction {
     }
     return true;
   }
+
+  @Override
+  public int hashCode() {
+    return toString().hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Cosine weighting function";
+  }
+
 }

@@ -3,7 +3,7 @@
  * 
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
+package com.opengamma.analytics.math.interpolation.weight;
 
 import java.util.HashMap;
 import java.util.Map;

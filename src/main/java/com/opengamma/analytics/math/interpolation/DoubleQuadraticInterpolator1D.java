@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
-import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.WeightingFunction;
-import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.WeightingFunctionFactory;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.data.ArrayInterpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunction;
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunctionFactory;
 import com.opengamma.strata.basics.interpolator.CurveInterpolator;
 import com.opengamma.strata.collect.ArgChecker;
 

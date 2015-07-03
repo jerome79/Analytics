@@ -3,7 +3,7 @@
  * 
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
+package com.opengamma.analytics.math.interpolation.weight;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -22,9 +22,7 @@ public class LinearWeightingFunctionTest extends WeightingFunctionTestCase {
 
   @Test
   public void testWeighting() {
-    assertEquals(0.55, getInstance().getWeight(STRIKES, STRIKE), EPS);
     assertEquals(0.55, getInstance().getWeight(STRIKES, INDEX, STRIKE), EPS);
-    assertEquals(1, getInstance().getWeight(STRIKES, STRIKES[3]), EPS);
     assertEquals(1, getInstance().getWeight(STRIKES, INDEX, STRIKES[3]), EPS);
   }
 }

@@ -11,6 +11,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunction;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
