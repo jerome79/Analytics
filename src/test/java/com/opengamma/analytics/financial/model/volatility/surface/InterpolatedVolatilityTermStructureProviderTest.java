@@ -10,9 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.volatility.discrete.DiscreteVolatilityFunction;
@@ -34,7 +32,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 @Test
 public class InterpolatedVolatilityTermStructureProviderTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final double[] KNOTS = new double[] {0.5, 1.0, 2.0, 3.0, 5.0, 7.0, 10.0 };
   private static final Interpolator1D INTERPOLATOR = CombinedInterpolatorExtrapolatorFactory
       .getInterpolator(Interpolator1DFactory.CLAMPED_CUBIC_NONNEGATIVE, Interpolator1DFactory.LINEAR_EXTRAPOLATOR);

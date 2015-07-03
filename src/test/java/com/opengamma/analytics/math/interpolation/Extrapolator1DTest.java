@@ -7,14 +7,11 @@ package com.opengamma.analytics.math.interpolation;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDoubleQuadraticDataBundle;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 
 /**
  * Test.
@@ -22,7 +19,7 @@ import cern.jet.random.engine.RandomEngine;
 @Test
 public class Extrapolator1DTest {
 
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final Interpolator1D INTERPOLATOR = new DoubleQuadraticInterpolator1D();
   private static final LinearExtrapolator1D LINEAR_EXTRAPOLATOR = new LinearExtrapolator1D();
   private static final FlatExtrapolator1D FLAT_EXTRAPOLATOR = new FlatExtrapolator1D();

@@ -7,8 +7,7 @@ package com.opengamma.analytics.math.regression;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,7 +16,8 @@ import org.testng.annotations.Test;
  */
 @Test
 public class WeightedLeastSquaresRegressionTest {
-  private static final RandomEngine RANDOM = new MersenneTwister(MersenneTwister.DEFAULT_SEED);
+
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final double EPS = 1e-2;
 
   @Test

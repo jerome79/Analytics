@@ -7,9 +7,7 @@ package com.opengamma.analytics.math.minimization;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.differentiation.VectorFieldFirstOrderDifferentiator;
@@ -27,10 +25,11 @@ import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
  */
 @Test
 public class SumToOneTest {
+
   private static final MatrixAlgebra MA = new OGMatrixAlgebra();
   private static final NonLinearLeastSquare SOLVER = new NonLinearLeastSquare(DecompositionFactory.SV_COMMONS, MA, 1e-9);
   private static final VectorFieldFirstOrderDifferentiator DIFFER = new VectorFieldFirstOrderDifferentiator();
-  static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
 
   @Test
   public void setTest() {

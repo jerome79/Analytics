@@ -9,9 +9,7 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.function.Function;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
@@ -22,8 +20,9 @@ import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribut
  */
 @Test
 public class InterquartileRangeCalculatorTest {
+
   private static final Function<double[], Double> IQR = new InterquartileRangeCalculator();
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final ProbabilityDistribution<Double> NORMAL = new NormalDistribution(0, 1);
   private static final double[] UNIFORM_DATA;
   private static final double[] NORMAL_DATA;

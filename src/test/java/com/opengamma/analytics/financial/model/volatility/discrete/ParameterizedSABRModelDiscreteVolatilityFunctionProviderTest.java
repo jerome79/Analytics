@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -36,7 +34,8 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
  */
 @Test
 public class ParameterizedSABRModelDiscreteVolatilityFunctionProviderTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final ForwardCurve s_fwdCurve = new ForwardCurve(0.01, 0.02);
   private static final ParameterizedCurve s_flat = new ParameterizedCurve() {
     @Override
@@ -184,7 +183,7 @@ public class ParameterizedSABRModelDiscreteVolatilityFunctionProviderTest {
   public void wrongNumberOfCurvesTest() {
     ParameterizedCurve[] curves = new ParameterizedCurve[3];
     Arrays.fill(curves, s_flat);
-    ParameterizedSABRModelDiscreteVolatilityFunctionProvider dvfp = new ParameterizedSABRModelDiscreteVolatilityFunctionProvider(s_fwdCurve, curves);
+    new ParameterizedSABRModelDiscreteVolatilityFunctionProvider(s_fwdCurve, curves);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -194,10 +193,9 @@ public class ParameterizedSABRModelDiscreteVolatilityFunctionProviderTest {
     DoublesVectorFunctionProvider alpha = new InterpolatedVectorFunctionProvider(interpolator, new double[] {1.0, 3.0, 5.0, 7.0, 10.0 });
     DoublesVectorFunctionProvider beta = new ParameterizedCurveVectorFunctionProvider(s_flat);
     DoublesVectorFunctionProvider rho = new InterpolatedVectorFunctionProvider(interpolator, new double[] {3.0, 7.0, 10.0 });
-    DoublesVectorFunctionProvider nu = new InterpolatedVectorFunctionProvider(interpolator, new double[] {1.0, 3.0, 5.0, 7.0, 10.0 });
     DoublesVectorFunctionProvider[] toSmileParms = new DoublesVectorFunctionProvider[] {alpha, beta, rho };
 
-    DiscreteVolatilityFunctionProvider dvfp = new ParameterizedSABRModelDiscreteVolatilityFunctionProvider(s_fwdCurve, toSmileParms);
+    new ParameterizedSABRModelDiscreteVolatilityFunctionProvider(s_fwdCurve, toSmileParms);
   }
 
 }

@@ -11,11 +11,9 @@ import static org.testng.AssertJUnit.assertTrue;
 import java.util.Arrays;
 import java.util.BitSet;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.slf4j.Logger;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
 
 import com.opengamma.analytics.financial.model.volatility.smile.function.SmileModelData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
@@ -28,12 +26,13 @@ import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Test.
+ * @param <T> the type
  */
 @Test
 public abstract class SmileModelFitterTest<T extends SmileModelData> {
   private static final double TIME_TO_EXPIRY = 7.0;
   private static final double F = 0.03;
-  private static RandomEngine UNIFORM = new MersenneTwister();
+  private static final Well44497b RANDOM = new Well44497b(0L);
   protected double[] _cleanVols;
   protected double[] _noisyVols;
   protected double[] _errors;
@@ -69,7 +68,7 @@ public abstract class SmileModelFitterTest<T extends SmileModelData> {
     _cleanVols = model.getVolatilityFunction(F, strikes, TIME_TO_EXPIRY).evaluate(data);
     Arrays.fill(_errors, 1e-4);
     for (int i = 0; i < n; i++) {
-      _noisyVols[i] = _cleanVols[i] + UNIFORM.nextDouble() * _errors[i];
+      _noisyVols[i] = _cleanVols[i] + RANDOM.nextDouble() * _errors[i];
     }
 
     _fitter = getFitter(F, strikes, TIME_TO_EXPIRY, _cleanVols, _errors, model);
@@ -103,7 +102,7 @@ public abstract class SmileModelFitterTest<T extends SmileModelData> {
 
   /**
    * Convert the fitted parameters to standard form - useful if there is degeneracy in the solution
-   * @param from
+   * @param from  the input
    * @return The matrix in standard form
    */
   protected DoubleMatrix1D toStandardForm(final DoubleMatrix1D from) {

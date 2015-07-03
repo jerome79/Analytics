@@ -35,7 +35,8 @@ public class SABRExtrapolationRightFunctionTest {
   private static final double CUT_OFF_STRIKE = 0.10; // Set low for the test
   private static final double MU = 4.0;
   private static final double TIME_TO_EXPIRY = 2.0;
-  private static final SABRExtrapolationRightFunction SABR_EXTRAPOLATION = new SABRExtrapolationRightFunction(FORWARD, SABR_DATA, CUT_OFF_STRIKE, TIME_TO_EXPIRY, MU);
+  private static final SABRExtrapolationRightFunction SABR_EXTRAPOLATION =
+      new SABRExtrapolationRightFunction(FORWARD, SABR_DATA, CUT_OFF_STRIKE, TIME_TO_EXPIRY, MU);
   // Function
   private static final BlackPriceFunction BLACK_FUNCTION = new BlackPriceFunction();
   private static final SABRHaganVolatilityFunction SABR_FUNCTION = new SABRHaganVolatilityFunction();
@@ -409,7 +410,11 @@ public class SABRExtrapolationRightFunctionTest {
     for (int loopmat = 0; loopmat < nbTTM; loopmat++) {
       for (int looppts = 1; looppts < nbPts - 1; looppts++) {
         assertTrue("SABR extrapolation, smooth first derivative - mat " + loopmat + " / pt " + looppts + " [" + priceD[loopmat][looppts] + "/" + priceD[loopmat][looppts - 1] + "]",
-            ((priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] < 1) && (priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] > 0.50)) || Math.abs(priceD2[loopmat][looppts]) < epsDensity);
+                (
+                (priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] < 1) &&
+                (priceD[loopmat][looppts] / priceD[loopmat][looppts - 1] > 0.50)
+                ) 
+                || Math.abs(priceD2[loopmat][looppts]) < epsDensity);
         assertTrue("SABR extrapolation, positive second derivative - mat " + loopmat + " / pt " + looppts + " [" + priceD2[loopmat][looppts] + "]",
             priceD2[loopmat][looppts] > 0 || Math.abs(priceD2[loopmat][looppts]) < epsDensity);
         assertTrue("SABR extrapolation, smooth second derivative - mat " + loopmat + " / pt " + looppts + " [" + priceD2[loopmat][looppts] + "/" + priceD2[loopmat][looppts - 1] + "]",

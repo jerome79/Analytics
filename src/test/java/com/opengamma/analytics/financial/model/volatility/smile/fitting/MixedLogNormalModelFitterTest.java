@@ -7,12 +7,10 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
 
 import com.opengamma.analytics.financial.model.volatility.smile.function.MixedLogNormalModelData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.MixedLogNormalVolatilityFunction;
@@ -24,7 +22,8 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
  */
 @Test
 public class MixedLogNormalModelFitterTest extends SmileModelFitterTest<MixedLogNormalModelData> {
-  private static RandomEngine RANDOM = new MersenneTwister();
+
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static Logger LOGGER = LoggerFactory.getLogger(MixedLogNormalModelFitterTest.class);
   private static int N = 3;
   private static boolean USE_SHIFTED_MEANS = false;

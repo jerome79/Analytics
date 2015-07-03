@@ -13,7 +13,7 @@ import static com.opengamma.analytics.math.ComplexMathUtils.subtract;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.MersenneTwister;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.number.ComplexNumber;
@@ -23,13 +23,14 @@ import com.opengamma.analytics.math.number.ComplexNumber;
  */
 @Test
 public class HestonCharacteristicExponentTest {
+
   private static final double KAPPA = 0.5;
   private static final double THETA = 0.4;
   private static final double VOL0 = 0.8;
   private static final double OMEGA = 0.66;
   private static final double RHO = -0.45;
   private static final HestonCharacteristicExponent EXPONENT = new HestonCharacteristicExponent(KAPPA, THETA, VOL0, OMEGA, RHO);
-  private RandomEngine RANDOM = new cern.jet.random.engine.MersenneTwister(123);
+  private MersenneTwister RANDOM = new MersenneTwister(123);  // using Well44497b causes test failure
 
   public void test() {
     assertEquals(EXPONENT.getKappa(), KAPPA, 0);

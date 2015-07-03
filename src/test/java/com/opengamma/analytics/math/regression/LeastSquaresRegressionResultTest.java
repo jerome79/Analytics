@@ -9,8 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function2D;
@@ -20,8 +19,9 @@ import com.opengamma.analytics.math.function.Function2D;
  */
 @Test
 public class LeastSquaresRegressionResultTest {
+
   private static final LeastSquaresRegression REGRESSION = new OrdinaryLeastSquaresRegression();
-  private static final RandomEngine RANDOM = new MersenneTwister(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final LeastSquaresRegressionResult NO_INTERCEPT;
   private static final LeastSquaresRegressionResult INTERCEPT;
   private static final double BETA_0 = 3.9;

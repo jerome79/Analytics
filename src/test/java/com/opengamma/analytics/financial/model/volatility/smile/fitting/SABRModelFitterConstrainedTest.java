@@ -7,8 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -21,16 +20,16 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.Volatil
  * Test.
  */
 @Test
-public class SABRModelFitterConstainedTest extends SmileModelFitterTest<SABRFormulaData> {
+public class SABRModelFitterConstrainedTest extends SmileModelFitterTest<SABRFormulaData> {
 
   private static final double ALPHA = 0.05;
   private static final double BETA = 0.5;
   private static double RHO = -0.3;
   private static double NU = 0.2;
-  private static Logger LOGGER = LoggerFactory.getLogger(SABRModelFitterConstainedTest.class);
-  private static RandomEngine RANDOM = new MersenneTwister();
+  private static Logger LOGGER = LoggerFactory.getLogger(SABRModelFitterConstrainedTest.class);
+  private static final Well44497b RANDOM = new Well44497b(0L);
 
-  public SABRModelFitterConstainedTest() {
+  public SABRModelFitterConstrainedTest() {
     _chiSqEps = 1e-4;
   }
 
