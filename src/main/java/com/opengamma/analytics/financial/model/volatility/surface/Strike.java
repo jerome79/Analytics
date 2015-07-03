@@ -5,17 +5,23 @@
  */
 package com.opengamma.analytics.financial.model.volatility.surface;
 
-import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * 
+ * The strike type of strike.
  */
 public class Strike implements StrikeType {
 
+  /**
+   * The value of strike.
+   */
   private final double _value;
 
-  public Strike(final double value) {
-    ArgChecker.isTrue(value >= 0, "negative strike");
+  /**
+   * Obtains an instance of {@code Strike} with the value of strike. 
+   * 
+   * @param value  the value of strike
+   */
+  public Strike(double value) {
     _value = value;
   }
 
@@ -29,4 +35,8 @@ public class Strike implements StrikeType {
     return new Strike(value);
   }
 
+  @Override
+  public String type() {
+    return "Strike";
+  }
 }
