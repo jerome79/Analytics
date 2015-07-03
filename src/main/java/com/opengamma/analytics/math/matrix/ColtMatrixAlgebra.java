@@ -164,7 +164,7 @@ public class ColtMatrixAlgebra extends MatrixAlgebra {
 
   /**
    * {@inheritDoc}
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public DoubleMatrix2D getPower(final Matrix<?> m, final double p) {

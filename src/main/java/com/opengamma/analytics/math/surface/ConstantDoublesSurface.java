@@ -51,7 +51,7 @@ public class ConstantDoublesSurface extends Surface<Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getXData() {
@@ -60,7 +60,7 @@ public class ConstantDoublesSurface extends Surface<Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getYData() {

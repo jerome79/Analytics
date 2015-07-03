@@ -28,8 +28,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  * where $k$ is the shape parameter and $\theta$ is the scale parameter.
  * <p>
- * This implementation uses the CERN <a href="http://acs.lbl.gov/~hoschek/colt/api/index.html">colt</a> package for the cdf, pdf
- * and $\Gamma$-distributed random numbers.
  * 
  */
 public class GammaDistribution implements ProbabilityDistribution<Double> {
@@ -71,7 +69,7 @@ public class GammaDistribution implements ProbabilityDistribution<Double> {
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double getInverseCDF(final Double p) {

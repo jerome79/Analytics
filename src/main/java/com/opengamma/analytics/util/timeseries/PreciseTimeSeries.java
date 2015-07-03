@@ -82,6 +82,7 @@ public interface PreciseTimeSeries<T, V>
    * 
    * @return the iterator, not null
    */
+  @Override
   PreciseEntryIterator<T, V> iterator();
 
   //-------------------------------------------------------------------------

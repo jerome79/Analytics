@@ -131,6 +131,7 @@ public interface TimeSeries<T, V> extends Iterable<Map.Entry<T, V>> {
    * 
    * @return the pair iterator, not null
    */
+  @Override
   Iterator<Map.Entry<T, V>> iterator();
 
   /**

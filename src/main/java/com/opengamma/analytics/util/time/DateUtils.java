@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.util.time;
 
-import static java.time.temporal.ChronoField.DAY_OF_MONTH;
-import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
-import static java.time.temporal.ChronoField.YEAR;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.Instant;
@@ -15,9 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.SignStyle;
 import java.time.temporal.Temporal;
 
 /**
@@ -48,28 +42,6 @@ public final class DateUtils {
    * The number of milliseconds in one year.
    */
   public static final long MILLISECONDS_PER_YEAR = SECONDS_PER_YEAR * 1000;
-  /**
-   * A formatter for yyyyMMdd.
-   */
-  private static final DateTimeFormatter YYYYMMDD_LOCAL_DATE;
-  static {
-    YYYYMMDD_LOCAL_DATE = new DateTimeFormatterBuilder()
-        .appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
-        .appendValue(MONTH_OF_YEAR, 2)
-        .appendValue(DAY_OF_MONTH, 2)
-        .toFormatter();
-  }
-  /**
-   * A formatter for MM-dd
-   */
-  private static final DateTimeFormatter MM_DD_LOCAL_DATE;
-  static {
-    MM_DD_LOCAL_DATE = new DateTimeFormatterBuilder()
-        .appendValue(MONTH_OF_YEAR, 2)
-        .appendLiteral("-")
-        .appendValue(DAY_OF_MONTH, 2)
-        .toFormatter();
-  }
 
   /**
    * Restricted constructor.

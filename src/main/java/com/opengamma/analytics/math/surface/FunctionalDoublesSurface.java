@@ -56,7 +56,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getXData() {
@@ -65,7 +65,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getYData() {
@@ -74,7 +74,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getZData() {
@@ -83,7 +83,7 @@ public class FunctionalDoublesSurface extends Surface<Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public int size() {

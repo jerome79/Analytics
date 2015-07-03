@@ -124,7 +124,7 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double getInverseCDF(final Double p) {

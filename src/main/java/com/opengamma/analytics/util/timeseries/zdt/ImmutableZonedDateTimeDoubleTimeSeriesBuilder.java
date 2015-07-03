@@ -51,8 +51,7 @@ final class ImmutableZonedDateTimeDoubleTimeSeriesBuilder
   //-------------------------------------------------------------------------
   private void ensureCapacity(int newSize) {
     if (newSize > _times.length) {
-      newSize = Math.max(newSize + 8, (_size * 3) / 2);
-      _times = Arrays.copyOf(_times, newSize);
+      _times = Arrays.copyOf(_times, Math.max(newSize + 8, (_size * 3) / 2));
       _values = Arrays.copyOf(_values, _size * 2);
     }
   }

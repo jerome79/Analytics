@@ -530,7 +530,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getXData() {
@@ -539,7 +539,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getYData() {
@@ -548,7 +548,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getZData() {
@@ -557,7 +557,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public int size() {

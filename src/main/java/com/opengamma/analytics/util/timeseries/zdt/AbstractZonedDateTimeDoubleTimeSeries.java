@@ -242,6 +242,7 @@ abstract class AbstractZonedDateTimeDoubleTimeSeries
     throw new UnsupportedOperationException("Can only operate on a PreciseDoubleTimeSeries");
   }
 
+  @Override
   public ZonedDateTimeDoubleTimeSeries operate(PreciseDoubleTimeSeries<?> other, DoubleBinaryOperator operator) {
     long[] aTimes = timesArrayFast0();
     double[] aValues = valuesArrayFast0();
@@ -279,6 +280,7 @@ abstract class AbstractZonedDateTimeDoubleTimeSeries
     throw new UnsupportedOperationException("Can only operate on a PreciseDoubleTimeSeries");
   }
 
+  @Override
   public ZonedDateTimeDoubleTimeSeries unionOperate(PreciseDoubleTimeSeries<?> other, DoubleBinaryOperator operator) {
     long[] aTimes = timesArrayFast0();
     double[] aValues = valuesArrayFast0();
