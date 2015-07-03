@@ -10,11 +10,10 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.List;
 
-import org.testng.annotations.Test;
-
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
+import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
@@ -22,7 +21,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.BasisFunctionAggregation;
 import com.opengamma.analytics.math.interpolation.BasisFunctionGenerator;
 import com.opengamma.analytics.math.interpolation.PenaltyMatrixGenerator;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -32,7 +31,8 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
  */
 @Test
 public class NonLinearLeastSquareWithPenaltyTest {
-  private static final MatrixAlgebra MA = new ColtMatrixAlgebra();
+
+  private static final MatrixAlgebra MA = new CommonsMatrixAlgebra();
 
   private static BasisFunctionGenerator GEN = new BasisFunctionGenerator();
   private static NonLinearLeastSquareWithPenalty NLLSWP = new NonLinearLeastSquareWithPenalty();

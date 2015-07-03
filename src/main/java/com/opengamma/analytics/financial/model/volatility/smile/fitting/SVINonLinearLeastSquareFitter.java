@@ -47,7 +47,7 @@ public class SVINonLinearLeastSquareFitter extends LeastSquareSmileFitter {
   }
 
   public SVINonLinearLeastSquareFitter() {
-    this(new NonLinearLeastSquare(DecompositionFactory.SV_COLT, MatrixAlgebraFactory.OG_ALGEBRA, 1e-4));
+    this(new NonLinearLeastSquare(DecompositionFactory.SV_COMMONS, MatrixAlgebraFactory.OG_ALGEBRA, 1e-4));
   }
 
   public SVINonLinearLeastSquareFitter(final NonLinearLeastSquare solver) {

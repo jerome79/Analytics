@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import cern.colt.list.IntArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
