@@ -8,17 +8,34 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * Defined as x = ln(strike/forward)
+ * The strike type of logmoneyness. 
+ * <p>
+ * The logmoneyness is defined as {@code x = ln(strike/forward)}. 
+ * The strike value and forward value should strictly positive. 
  */
 public class LogMoneyness implements StrikeType {
 
-  private double _value;
+  /**
+   * The value of logmoneyness. 
+   */
+  private final double _value;
 
-  public LogMoneyness(final double value) {
+  /**
+   * Obtains an instance of {@code LogMoneyness} with the value of logmoneyness. 
+   * 
+   * @param value  the value of logmoneyness
+   */
+  public LogMoneyness(double value) {
     _value = value;
   }
 
-  public LogMoneyness(final double strike, final double forward) {
+  /**
+   * Obtains an instance of {@code LogMoneyness} with strike and forward. 
+   * 
+   * @param strike  the strike 
+   * @param forward  the forward
+   */
+  public LogMoneyness(double strike, double forward) {
     ArgChecker.isTrue(strike > 0, "negative or zero strike");
     ArgChecker.isTrue(forward > 0, "negative or zero forward");
     _value = Math.log(strike / forward);
@@ -34,4 +51,8 @@ public class LogMoneyness implements StrikeType {
     return new LogMoneyness(value);
   }
 
+  @Override
+  public String type() {
+    return "LogMoneyness";
+  }
 }
