@@ -103,8 +103,8 @@ public final class ImmutableZonedDateTimeDoubleTimeSeries
     long[] timesArray = convertToLongArray(instants);
     double[] valuesArray = convertToDoubleArray(values);
     validate(timesArray, valuesArray);
-    zone = (zone != null ? zone : instants[0].getZone());
-    return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, zone);
+    ZoneId effectiveZone = (zone != null ? zone : instants[0].getZone());
+    return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, effectiveZone);
   }
 
   /**
@@ -132,8 +132,8 @@ public final class ImmutableZonedDateTimeDoubleTimeSeries
     long[] timesArray = convertToLongArray(instants);
     validate(timesArray, values);
     double[] valuesArray = values.clone();
-    zone = (zone != null ? zone : instants[0].getZone());
-    return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, zone);
+    ZoneId effectiveZone = (zone != null ? zone : instants[0].getZone());
+    return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, effectiveZone);
   }
 
   /**
@@ -189,9 +189,9 @@ public final class ImmutableZonedDateTimeDoubleTimeSeries
   public static ImmutableZonedDateTimeDoubleTimeSeries of(Collection<ZonedDateTime> instants, Collection<Double> values, ZoneId zone) {
     long[] timesArray = convertToLongArray(instants);
     double[] valuesArray = convertToDoubleArray(values);
-    zone = (zone != null ? zone : instants.iterator().next().getZone());
+    ZoneId effectiveZone = (zone != null ? zone : instants.iterator().next().getZone());
     validate(timesArray, valuesArray);
-    return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, zone);
+    return new ImmutableZonedDateTimeDoubleTimeSeries(timesArray, valuesArray, effectiveZone);
   }
 
   /**
@@ -414,21 +414,23 @@ public final class ImmutableZonedDateTimeDoubleTimeSeries
     if (isEmpty()) {
       return ofEmpty(_zone);
     }
+    long effectiveStartTime = startTime;
+    long effectiveEndTime = endTime;
     // normalize to include start and exclude end
     if (includeStart == false) {
-      startTime++;
+      effectiveStartTime++;
     }
     if (includeEnd) {
       if (endTime != Long.MAX_VALUE) {
-        endTime++;
+        effectiveEndTime++;
       }
     }
     // calculate
-    int startPos = Arrays.binarySearch(_times, startTime);
+    int startPos = Arrays.binarySearch(_times, effectiveStartTime);
     startPos = startPos >= 0 ? startPos : -(startPos + 1);
-    int endPos = Arrays.binarySearch(_times, endTime);
+    int endPos = Arrays.binarySearch(_times, effectiveEndTime);
     endPos = endPos >= 0 ? endPos : -(endPos + 1);
-    if (includeEnd && endTime == Long.MAX_VALUE) {
+    if (includeEnd && effectiveEndTime == Long.MAX_VALUE) {
       endPos = _times.length;
     }
     long[] timesArray = Arrays.copyOfRange(_times, startPos, endPos);

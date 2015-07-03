@@ -16,7 +16,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.linearalgebra.Decomposition;
 import com.opengamma.analytics.math.linearalgebra.DecompositionResult;
 import com.opengamma.analytics.math.linearalgebra.SVDecompositionCommons;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
@@ -34,8 +34,7 @@ public class GeneralizedLeastSquare {
 
   public GeneralizedLeastSquare() {
     _decomposition = new SVDecompositionCommons();
-    _algebra = new ColtMatrixAlgebra();
-
+    _algebra = new CommonsMatrixAlgebra();
   }
 
   /**
@@ -47,7 +46,8 @@ public class GeneralizedLeastSquare {
    * @param basisFunctions set of basis functions - the fitting function is formed by these basis functions times a set of weights
    * @return the results of the least square
    */
-  public <T> GeneralizedLeastSquareResults<T> solve(final T[] x, final double[] y, final double[] sigma, final List<Function1D<T, Double>> basisFunctions) {
+  public <T> GeneralizedLeastSquareResults<T> solve(
+      T[] x, double[] y, double[] sigma, List<Function1D<T, Double>> basisFunctions) {
     return solve(x, y, sigma, basisFunctions, 0.0, 0);
   }
 
@@ -62,13 +62,14 @@ public class GeneralizedLeastSquare {
    * @param differenceOrder difference order between weights used in penalty function
    * @return the results of the least square
    */
-  public <T> GeneralizedLeastSquareResults<T> solve(final T[] x, final double[] y, final double[] sigma, final List<Function1D<T, Double>> basisFunctions, final double lambda,
-      final int differenceOrder) {
+  public <T> GeneralizedLeastSquareResults<T> solve(
+      T[] x, double[] y, double[] sigma, List<Function1D<T, Double>> basisFunctions,
+      double lambda, int differenceOrder) {
     ArgChecker.notNull(x, "x null");
     ArgChecker.notNull(y, "y null");
     ArgChecker.notNull(sigma, "sigma null");
     ArgChecker.notEmpty(basisFunctions, "empty basisFunctions");
-    final int n = x.length;
+    int n = x.length;
     ArgChecker.isTrue(n > 0, "no data");
     ArgChecker.isTrue(y.length == n, "y wrong length");
     ArgChecker.isTrue(sigma.length == n, "sigma wrong length");
@@ -76,15 +77,16 @@ public class GeneralizedLeastSquare {
     ArgChecker.isTrue(lambda >= 0.0, "negative lambda");
     ArgChecker.isTrue(differenceOrder >= 0, "difference order");
 
-    final List<T> lx = Lists.newArrayList(x);
-    final List<Double> ly = Lists.newArrayList(Doubles.asList(y));
-    final List<Double> lsigma = Lists.newArrayList(Doubles.asList(sigma));
+    List<T> lx = Lists.newArrayList(x);
+    List<Double> ly = Lists.newArrayList(Doubles.asList(y));
+    List<Double> lsigma = Lists.newArrayList(Doubles.asList(sigma));
 
     return solveImp(lx, ly, lsigma, basisFunctions, lambda, differenceOrder);
   }
 
-  GeneralizedLeastSquareResults<Double> solve(final double[] x, final double[] y, final double[] sigma, final List<Function1D<Double, Double>> basisFunctions, final double lambda,
-      final int differenceOrder) {
+  GeneralizedLeastSquareResults<Double> solve(
+      double[] x, double[] y, double[] sigma, List<Function1D<Double, Double>> basisFunctions,
+      double lambda, int differenceOrder) {
     return solve(ArrayUtils.toObject(x), y, sigma, basisFunctions, lambda, differenceOrder);
   }
 
@@ -97,7 +99,8 @@ public class GeneralizedLeastSquare {
    * @param basisFunctions set of basis functions - the fitting function is formed by these basis functions times a set of weights
    * @return the results of the least square
    */
-  public <T> GeneralizedLeastSquareResults<T> solve(final List<T> x, final List<Double> y, final List<Double> sigma, final List<Function1D<T, Double>> basisFunctions) {
+  public <T> GeneralizedLeastSquareResults<T> solve(
+      List<T> x, List<Double> y, List<Double> sigma, List<Function1D<T, Double>> basisFunctions) {
     return solve(x, y, sigma, basisFunctions, 0.0, 0);
   }
 
@@ -112,13 +115,14 @@ public class GeneralizedLeastSquare {
    * @param differenceOrder difference order between weights used in penalty function
    * @return the results of the least square
    */
-  public <T> GeneralizedLeastSquareResults<T> solve(final List<T> x, final List<Double> y, final List<Double> sigma, final List<Function1D<T, Double>> basisFunctions, final double lambda,
-      final int differenceOrder) {
+  public <T> GeneralizedLeastSquareResults<T> solve(
+      List<T> x, List<Double> y, List<Double> sigma, List<Function1D<T, Double>> basisFunctions,
+      double lambda, int differenceOrder) {
     ArgChecker.notEmpty(x, "empty measurement points");
     ArgChecker.notEmpty(y, "empty measurement values");
     ArgChecker.notEmpty(sigma, "empty measurement errors");
     ArgChecker.notEmpty(basisFunctions, "empty basisFunctions");
-    final int n = x.size();
+    int n = x.size();
     ArgChecker.isTrue(n > 0, "no data");
     ArgChecker.isTrue(y.size() == n, "y wrong length");
     ArgChecker.isTrue(sigma.size() == n, "sigma wrong length");
@@ -142,20 +146,23 @@ public class GeneralizedLeastSquare {
    * @param differenceOrder difference order between weights used in penalty function for each dimension
    * @return the results of the least square
    */
-  public <T> GeneralizedLeastSquareResults<T> solve(final List<T> x, final List<Double> y, final List<Double> sigma, final List<Function1D<T, Double>> basisFunctions, final int[] sizes,
-      final double[] lambda, final int[] differenceOrder) {
+  public <T> GeneralizedLeastSquareResults<T> solve(
+      List<T> x, List<Double> y, List<Double> sigma, List<Function1D<T, Double>> basisFunctions,
+      int[] sizes, double[] lambda, int[] differenceOrder) {
     ArgChecker.notEmpty(x, "empty measurement points");
     ArgChecker.notEmpty(y, "empty measurement values");
     ArgChecker.notEmpty(sigma, "empty measurement errors");
     ArgChecker.notEmpty(basisFunctions, "empty basisFunctions");
-    final int n = x.size();
+    int n = x.size();
     ArgChecker.isTrue(n > 0, "no data");
     ArgChecker.isTrue(y.size() == n, "y wrong length");
     ArgChecker.isTrue(sigma.size() == n, "sigma wrong length");
 
-    final int dim = sizes.length;
-    ArgChecker.isTrue(dim == lambda.length, "number of penalty functions {} must be equal to number of directions {}", lambda.length, dim);
-    ArgChecker.isTrue(dim == differenceOrder.length, "number of difference order {} must be equal to number of directions {}", differenceOrder.length, dim);
+    int dim = sizes.length;
+    ArgChecker.isTrue(dim == lambda.length, "number of penalty functions {} must be equal to number of directions {}",
+        lambda.length, dim);
+    ArgChecker.isTrue(dim == differenceOrder.length, "number of difference order {} must be equal to number of directions {}",
+        differenceOrder.length, dim);
 
     for (int i = 0; i < dim; i++) {
       ArgChecker.isTrue(sizes[i] > 0, "sizes must be >= 1");
@@ -165,21 +172,22 @@ public class GeneralizedLeastSquare {
     return solveImp(x, y, sigma, basisFunctions, sizes, lambda, differenceOrder);
   }
 
-  private <T> GeneralizedLeastSquareResults<T> solveImp(final List<T> x, final List<Double> y, final List<Double> sigma, final List<Function1D<T, Double>> basisFunctions, final double lambda,
-      final int differenceOrder) {
+  private <T> GeneralizedLeastSquareResults<T> solveImp(
+      List<T> x, List<Double> y, List<Double> sigma, List<Function1D<T, Double>> basisFunctions,
+      double lambda, int differenceOrder) {
 
-    final int n = x.size();
+    int n = x.size();
 
-    final int m = basisFunctions.size();
+    int m = basisFunctions.size();
 
-    final double[] b = new double[m];
+    double[] b = new double[m];
 
-    final double[] invSigmaSqr = new double[n];
-    final double[][] f = new double[m][n];
+    double[] invSigmaSqr = new double[n];
+    double[][] f = new double[m][n];
     int i, j, k;
 
     for (i = 0; i < n; i++) {
-      final double temp = sigma.get(i);
+      double temp = sigma.get(i);
       ArgChecker.isTrue(temp > 0, "sigma must be greater than zero");
       invSigmaSqr[i] = 1.0 / temp / temp;
     }
@@ -200,17 +208,17 @@ public class GeneralizedLeastSquare {
 
     }
 
-    final DoubleMatrix1D mb = new DoubleMatrix1D(b);
+    DoubleMatrix1D mb = new DoubleMatrix1D(b);
     DoubleMatrix2D ma = getAMatrix(f, invSigmaSqr);
 
     if (lambda > 0.0) {
-      final DoubleMatrix2D d = getDiffMatrix(m, differenceOrder);
+      DoubleMatrix2D d = getDiffMatrix(m, differenceOrder);
       ma = (DoubleMatrix2D) _algebra.add(ma, _algebra.scale(d, lambda));
     }
 
-    final DecompositionResult decmp = _decomposition.evaluate(ma);
-    final DoubleMatrix1D w = decmp.solve(mb);
-    final DoubleMatrix2D covar = decmp.solve(DoubleMatrixUtils.getIdentityMatrix2D(m));
+    DecompositionResult decmp = _decomposition.evaluate(ma);
+    DoubleMatrix1D w = decmp.solve(mb);
+    DoubleMatrix2D covar = decmp.solve(DoubleMatrixUtils.getIdentityMatrix2D(m));
 
     double chiSq = 0;
     for (i = 0; i < n; i++) {
@@ -224,23 +232,24 @@ public class GeneralizedLeastSquare {
     return new GeneralizedLeastSquareResults<>(basisFunctions, chiSq, w, covar);
   }
 
-  private <T> GeneralizedLeastSquareResults<T> solveImp(final List<T> x, final List<Double> y, final List<Double> sigma, final List<Function1D<T, Double>> basisFunctions, final int[] sizes,
-      final double[] lambda, final int[] differenceOrder) {
+  private <T> GeneralizedLeastSquareResults<T> solveImp(
+      List<T> x, List<Double> y, List<Double> sigma, List<Function1D<T, Double>> basisFunctions,
+      int[] sizes, double[] lambda, int[] differenceOrder) {
 
-    final int dim = sizes.length;
+    int dim = sizes.length;
 
-    final int n = x.size();
+    int n = x.size();
 
-    final int m = basisFunctions.size();
+    int m = basisFunctions.size();
 
-    final double[] b = new double[m];
+    double[] b = new double[m];
 
-    final double[] invSigmaSqr = new double[n];
-    final double[][] f = new double[m][n];
+    double[] invSigmaSqr = new double[n];
+    double[][] f = new double[m][n];
     int i, j, k;
 
     for (i = 0; i < n; i++) {
-      final double temp = sigma.get(i);
+      double temp = sigma.get(i);
       ArgChecker.isTrue(temp > 0, "sigma must be great than zero");
       invSigmaSqr[i] = 1.0 / temp / temp;
     }
@@ -261,19 +270,19 @@ public class GeneralizedLeastSquare {
 
     }
 
-    final DoubleMatrix1D mb = new DoubleMatrix1D(b);
+    DoubleMatrix1D mb = new DoubleMatrix1D(b);
     DoubleMatrix2D ma = getAMatrix(f, invSigmaSqr);
 
     for (i = 0; i < dim; i++) {
       if (lambda[i] > 0.0) {
-        final DoubleMatrix2D d = getDiffMatrix(sizes, differenceOrder[i], i);
+        DoubleMatrix2D d = getDiffMatrix(sizes, differenceOrder[i], i);
         ma = (DoubleMatrix2D) _algebra.add(ma, _algebra.scale(d, lambda[i]));
       }
     }
 
-    final DecompositionResult decmp = _decomposition.evaluate(ma);
-    final DoubleMatrix1D w = decmp.solve(mb);
-    final DoubleMatrix2D covar = decmp.solve(DoubleMatrixUtils.getIdentityMatrix2D(m));
+    DecompositionResult decmp = _decomposition.evaluate(ma);
+    DoubleMatrix1D w = decmp.solve(mb);
+    DoubleMatrix2D covar = decmp.solve(DoubleMatrixUtils.getIdentityMatrix2D(m));
 
     double chiSq = 0;
     for (i = 0; i < n; i++) {
@@ -287,10 +296,10 @@ public class GeneralizedLeastSquare {
     return new GeneralizedLeastSquareResults<>(basisFunctions, chiSq, w, covar);
   }
 
-  private DoubleMatrix2D getAMatrix(final double[][] funcMatrix, final double[] invSigmaSqr) {
-    final int m = funcMatrix.length;
-    final int n = funcMatrix[0].length;
-    final double[][] a = new double[m][m];
+  private DoubleMatrix2D getAMatrix(double[][] funcMatrix, double[] invSigmaSqr) {
+    int m = funcMatrix.length;
+    int n = funcMatrix[0].length;
+    double[][] a = new double[m][m];
     for (int i = 0; i < m; i++) {
       double sum = 0;
       for (int k = 0; k < n; k++) {
@@ -310,10 +319,10 @@ public class GeneralizedLeastSquare {
     return new DoubleMatrix2D(a);
   }
 
-  private DoubleMatrix2D getDiffMatrix(final int m, final int k) {
+  private DoubleMatrix2D getDiffMatrix(int m, int k) {
     ArgChecker.isTrue(k < m, "difference order too high");
 
-    final double[][] data = new double[m][m];
+    double[][] data = new double[m][m];
     if (m == 0) {
       for (int i = 0; i < m; i++) {
         data[i][i] = 1.0;
@@ -321,7 +330,7 @@ public class GeneralizedLeastSquare {
       return new DoubleMatrix2D(data);
     }
 
-    final int[] coeff = new int[k + 1];
+    int[] coeff = new int[k + 1];
 
     int sign = 1;
     for (int i = k; i >= 0; i--) {
@@ -334,16 +343,16 @@ public class GeneralizedLeastSquare {
         data[i][j + i - k] = coeff[j];
       }
     }
-    final DoubleMatrix2D d = new DoubleMatrix2D(data);
+    DoubleMatrix2D d = new DoubleMatrix2D(data);
 
-    final DoubleMatrix2D dt = _algebra.getTranspose(d);
+    DoubleMatrix2D dt = _algebra.getTranspose(d);
     return (DoubleMatrix2D) _algebra.multiply(dt, d);
   }
 
-  private DoubleMatrix2D getDiffMatrix(final int[] size, final int k, final int indices) {
-    final int dim = size.length;
+  private DoubleMatrix2D getDiffMatrix(int[] size, int k, int indices) {
+    int dim = size.length;
 
-    final DoubleMatrix2D d = getDiffMatrix(size[indices], k);
+    DoubleMatrix2D d = getDiffMatrix(size[indices], k);
 
     int preProduct = 1;
     int postProduct = 1;

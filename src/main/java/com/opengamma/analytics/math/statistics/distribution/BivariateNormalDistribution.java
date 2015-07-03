@@ -95,7 +95,7 @@ public class BivariateNormalDistribution implements ProbabilityDistribution<doub
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double getInverseCDF(final double[] p) {
@@ -118,7 +118,7 @@ public class BivariateNormalDistribution implements ProbabilityDistribution<doub
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double nextRandom() {

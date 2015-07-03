@@ -90,7 +90,7 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double getInverseCDF(final Double p) {
@@ -111,7 +111,7 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double nextRandom() {

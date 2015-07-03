@@ -24,10 +24,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  * where $\mu$ is the mean and $\sigma$ the standard deviation of
  * the distribution.
- * <p>
- * For values of the cumulative distribution function $|x| > 7.6$ this class calculates the cdf
- * directly. For all other methods and values of $x$, this class is a wrapper for the
- * <a href="http://acs.lbl.gov/software/colt/api/cern/jet/random/Normal.html">Colt</a> implementation of the normal distribution.
  */
 public class NormalDistribution implements ProbabilityDistribution<Double> {
   private static final double ROOT2 = Math.sqrt(2);

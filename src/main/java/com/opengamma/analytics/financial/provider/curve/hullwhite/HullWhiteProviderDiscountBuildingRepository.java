@@ -76,7 +76,8 @@ public class HullWhiteProviderDiscountBuildingRepository {
     _toleranceAbs = toleranceAbs;
     _toleranceRel = toleranceRel;
     _stepMaximum = stepMaximum;
-    _rootFinder = new BroydenVectorRootFinder(_toleranceAbs, _toleranceRel, _stepMaximum, DecompositionFactory.getDecomposition(DecompositionFactory.SV_COLT_NAME));
+    _rootFinder = new BroydenVectorRootFinder(_toleranceAbs, _toleranceRel, _stepMaximum,
+        DecompositionFactory.getDecomposition(DecompositionFactory.SV_COMMONS_NAME));
     // TODO: make the root finder flexible.
   }
 

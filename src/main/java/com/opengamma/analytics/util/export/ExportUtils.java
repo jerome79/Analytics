@@ -41,8 +41,7 @@ public class ExportUtils {
    */
   public static void exportMultipleCurrencyParameterSensitivity(MultipleCurrencyParameterSensitivity sensitivity, String fileName) {
     Map<Pair<String, Currency>, DoubleMatrix1D> map = sensitivity.getSensitivities();
-    try {
-      final FileWriter writer = new FileWriter(fileName);
+    try (FileWriter writer = new FileWriter(fileName)) {
       for (Pair<String, Currency> pair : map.keySet()) {
         writer.append(pair.getFirst().toString() + ", " + pair.getSecond().toString() + "\n");
         double[] matrix = map.get(pair).getData();
@@ -68,8 +67,7 @@ public class ExportUtils {
   public static void exportMultipleCurrencyParameterSensitivity(MultipleCurrencyParameterSensitivity sensitivity,
       Map<String, String[]> labels, String fileName) {
     Map<Pair<String, Currency>, DoubleMatrix1D> map = sensitivity.getSensitivities();
-    try {
-      final FileWriter writer = new FileWriter(fileName);
+    try (FileWriter writer = new FileWriter(fileName)) {
       for (Pair<String, Currency> pair : map.keySet()) {
         writer.append(pair.getFirst().toString() + ", " + pair.getSecond().toString() + "\n");
         String[] labelCurve = labels.get(pair.getFirst());
@@ -121,8 +119,7 @@ public class ExportUtils {
             "curve underlying should be of the type interpolatedDoublesCurve");
       }
     }
-    try {
-      final FileWriter writer = new FileWriter(fileName);
+    try (FileWriter writer = new FileWriter(fileName)) {
       for (String name : curveNamesSet) {
         writer.append("Curve name: " + name + "\n");
         YieldAndDiscountCurve curve = multicurve.getCurve(name);
@@ -202,8 +199,7 @@ public class ExportUtils {
       ArgChecker.isTrue(curveSimple.getCurve() instanceof InterpolatedDoublesCurve,
           "curve underlying should be of the type interpolatedDoublesCurve");
     }
-    try {
-      final FileWriter writer = new FileWriter(fileName);
+    try (FileWriter writer = new FileWriter(fileName)) {
       for (String name : curveNamesMulticurveSet) {
         writer.append("Curve name: " + name + "\n");
         YieldAndDiscountCurve curve = multicurve.getCurve(name);
@@ -275,6 +271,8 @@ public class ExportUtils {
       } else if (yieldAndDiscountCurve instanceof DiscountCurve) {
         yieldCurveValues = ((DiscountCurve) yieldAndDiscountCurve).getCurve();
         transformDfToZeroRates = true;
+      } else {
+        throw new IllegalArgumentException("Unknown curve type");
       }
       Double[] dateFractions = yieldCurveValues.getXData();
       Double[] zeroRates = yieldCurveValues.getYData();

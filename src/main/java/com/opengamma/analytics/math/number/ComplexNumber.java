@@ -6,10 +6,10 @@
 package com.opengamma.analytics.math.number;
 
 /**
- * Class defining a complex number. Note that it extends {@link java.lang.Number}.
+ * A complex number.
  */
 public class ComplexNumber extends Number {
-  private static final long serialVersionUID = 1L;
+
   /** Defining <i>i</i>*/
   public static final ComplexNumber I = new ComplexNumber(0, 1);
   /** Defining <i>-i</i>*/
@@ -17,51 +17,116 @@ public class ComplexNumber extends Number {
   /** Defining 0 + 0<i>i</i> */
   public static final ComplexNumber ZERO = new ComplexNumber(0);
 
+  /** Serialization version. */
+  private static final long serialVersionUID = 1L;
+
+  /** The real part. */
   private final double _real;
+  /** The imaginary part. */
   private final double _imaginary;
 
   /**
-   * Sets the imaginary part to zero.
-   * @param real The real part
+   * Creates an instance from the real part.
+   * 
+   * @param real  the real part
    */
-  public ComplexNumber(final double real) {
+  public ComplexNumber(double real) {
     _real = real;
     _imaginary = 0.0;
   }
 
   /**
-   * @param real The real part
-   * @param imaginary The imaginary part
+   * Creates an instance from the real and imaginary parts.
+   * 
+   * @param real  the real part
+   * @param imaginary  the imaginary part
    */
-  public ComplexNumber(final double real, final double imaginary) {
+  public ComplexNumber(double real, double imaginary) {
     _real = real;
     _imaginary = imaginary;
   }
 
+  //-------------------------------------------------------------------------
   /**
-   * @return The real part
+   * Gets the real part.
+   * 
+   * @return the real part
    */
   public double getReal() {
     return _real;
   }
 
   /**
-   * @return The imaginary part
+   * Gets the imaginary part.
+   * 
+   * @return the imaginary part
    */
   public double getImaginary() {
     return _imaginary;
   }
 
+  //-------------------------------------------------------------------------
+  /**
+   * {@inheritDoc}
+   * @throws UnsupportedOperationException always
+   */
   @Override
-  public String toString() {
-    final boolean negative = _imaginary < 0;
-    final double abs = Math.abs(_imaginary);
-    return Double.toString(_real) + (negative ? " - " : " + ") + Double.toString(abs) + "i";
+  public double doubleValue() {
+    throw new UnsupportedOperationException("Cannot get the doubleValue of a ComplexNumber");
+  }
+
+  /**
+   * {@inheritDoc}
+   * @throws UnsupportedOperationException always
+   */
+  @Override
+  public float floatValue() {
+    throw new UnsupportedOperationException("Cannot get the floatValue of a ComplexNumber");
+  }
+
+  /**
+   * {@inheritDoc}
+   * @throws UnsupportedOperationException always
+   */
+  @Override
+  public int intValue() {
+    throw new UnsupportedOperationException("Cannot get the intValue of a ComplexNumber");
+  }
+
+  /**
+   * {@inheritDoc}
+   * @throws UnsupportedOperationException always
+   */
+  @Override
+  public long longValue() {
+    throw new UnsupportedOperationException("Cannot get the longValue of a ComplexNumber");
+  }
+
+  //-------------------------------------------------------------------------
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    ComplexNumber other = (ComplexNumber) obj;
+    if (Double.doubleToLongBits(_imaginary) != Double.doubleToLongBits(other._imaginary)) {
+      return false;
+    }
+    if (Double.doubleToLongBits(_real) != Double.doubleToLongBits(other._real)) {
+      return false;
+    }
+    return true;
   }
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    int prime = 31;
     int result = 1;
     long temp;
     temp = Double.doubleToLongBits(_imaginary);
@@ -72,59 +137,10 @@ public class ComplexNumber extends Number {
   }
 
   @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final ComplexNumber other = (ComplexNumber) obj;
-    if (Double.doubleToLongBits(_imaginary) != Double.doubleToLongBits(other._imaginary)) {
-      return false;
-    }
-    if (Double.doubleToLongBits(_real) != Double.doubleToLongBits(other._real)) {
-      return false;
-    }
-    return true;
+  public String toString() {
+    boolean negative = _imaginary < 0;
+    double abs = Math.abs(_imaginary);
+    return Double.toString(_real) + (negative ? " - " : " + ") + Double.toString(abs) + "i";
   }
 
-  /**
-   * {@inheritDoc}
-   * @throws UnsupportedOperationException
-   */
-  @Override
-  public double doubleValue() {
-    throw new UnsupportedOperationException("Cannot get the doubleValue of a ComplexNumber");
-  }
-
-  /**
-   * {@inheritDoc}
-   * @throws UnsupportedOperationException
-   */
-  @Override
-  public float floatValue() {
-    throw new UnsupportedOperationException("Cannot get the floatValue of a ComplexNumber");
-  }
-
-  /**
-   * {@inheritDoc}
-   * @throws UnsupportedOperationException
-   */
-  @Override
-  public int intValue() {
-    throw new UnsupportedOperationException("Cannot get the intValue of a ComplexNumber");
-  }
-
-  /**
-   * {@inheritDoc}
-   * @throws UnsupportedOperationException
-   */
-  @Override
-  public long longValue() {
-    throw new UnsupportedOperationException("Cannot get the longValue of a ComplexNumber");
-  }
 }

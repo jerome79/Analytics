@@ -30,10 +30,11 @@ import com.opengamma.strata.collect.ArgChecker;
  * \sum_{i,j=0}^{M-1}P_{i,j}x_ix_j$
  */
 public class NonLinearLeastSquareWithPenalty {
+
   private static final int MAX_ATTEMPTS = 100000;
 
   // Review should we use Cholesky as default
-  private static final Decomposition<?> DEFAULT_DECOMP = DecompositionFactory.SV_COLT;
+  private static final Decomposition<?> DEFAULT_DECOMP = DecompositionFactory.SV_COMMONS;
   private static final OGMatrixAlgebra MA = new OGMatrixAlgebra();
   private static final double EPS = 1e-8; // Default convergence tolerance on the relative change in chi2
 
@@ -52,44 +53,51 @@ public class NonLinearLeastSquareWithPenalty {
   private final MatrixAlgebra _algebra;
 
   /**
-   * Default constructor. This uses SVD (Colt), {@link OGMatrixAlgebra} and a convergence tolerance of 1e-8
+   * Default constructor. This uses SVD, {@link OGMatrixAlgebra} and a convergence tolerance of 1e-8
    */
   public NonLinearLeastSquareWithPenalty() {
     this(DEFAULT_DECOMP, MA, EPS);
   }
 
   /**
-   * Constructor allowing matrix decomposition to be set. This uses {@link OGMatrixAlgebra} and a convergence tolerance of 1e-8
+   * Constructor allowing matrix decomposition to be set.
+   * This uses {@link OGMatrixAlgebra} and a convergence tolerance of 1e-8.
+   * 
    * @param decomposition Matrix decomposition (see {@link DecompositionFactory} for list)
    */
-  public NonLinearLeastSquareWithPenalty(final Decomposition<?> decomposition) {
+  public NonLinearLeastSquareWithPenalty(Decomposition<?> decomposition) {
     this(decomposition, MA, EPS);
   }
 
   /**
-   * Constructor allowing convergence tolerance to be set. This uses SVD (Colt) and {@link OGMatrixAlgebra}
+   * Constructor allowing convergence tolerance to be set.
+   * This uses SVD and {@link OGMatrixAlgebra}.
+   * 
    * @param eps Convergence tolerance
    */
-  public NonLinearLeastSquareWithPenalty(final double eps) {
+  public NonLinearLeastSquareWithPenalty(double eps) {
     this(DEFAULT_DECOMP, MA, eps);
   }
 
   /**
-   * Constructor allowing matrix decomposition and convergence tolerance to be set. This uses {@link OGMatrixAlgebra}
+   * Constructor allowing matrix decomposition and convergence tolerance to be set.
+   * This uses {@link OGMatrixAlgebra}.
+   * 
    * @param decomposition Matrix decomposition (see {@link DecompositionFactory} for list)
    * @param eps Convergence tolerance
    */
-  public NonLinearLeastSquareWithPenalty(final Decomposition<?> decomposition, final double eps) {
+  public NonLinearLeastSquareWithPenalty(Decomposition<?> decomposition, double eps) {
     this(decomposition, MA, eps);
   }
 
   /**
-   * General constructor 
+   * General constructor.
+   * 
    * @param decomposition Matrix decomposition (see {@link DecompositionFactory} for list)
    * @param algebra  The matrix algebra (see {@link MatrixAlgebraFactory} for list)
    * @param eps Convergence tolerance
    */
-  public NonLinearLeastSquareWithPenalty(final Decomposition<?> decomposition, final MatrixAlgebra algebra, final double eps) {
+  public NonLinearLeastSquareWithPenalty(Decomposition<?> decomposition, MatrixAlgebra algebra, double eps) {
     ArgChecker.notNull(decomposition, "decomposition");
     ArgChecker.notNull(algebra, "algebra");
     ArgChecker.isTrue(eps > 0, "must have positive eps");
@@ -101,16 +109,22 @@ public class NonLinearLeastSquareWithPenalty {
   /**
    * Use this when the model is given as a function of its parameters only (i.e. a function that takes a set of
    * parameters and return a set of model values,
-   * so the measurement points are already known to the function), and analytic parameter sensitivity is not available
+   * so the measurement points are already known to the function), and analytic parameter sensitivity is not available.
+   * 
    * @param observedValues Set of measurement values
    * @param func The model as a function of its parameters only
    * @param startPos Initial value of the parameters
    * @param penalty Penalty matrix
    * @return value of the fitted parameters
    */
-  public LeastSquareWithPenaltyResults solve(final DoubleMatrix1D observedValues, final Function1D<DoubleMatrix1D, DoubleMatrix1D> func, final DoubleMatrix1D startPos, final DoubleMatrix2D penalty) {
-    final int n = observedValues.getNumberOfElements();
-    final VectorFieldFirstOrderDifferentiator jac = new VectorFieldFirstOrderDifferentiator();
+  public LeastSquareWithPenaltyResults solve(
+      DoubleMatrix1D observedValues,
+      Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
+      DoubleMatrix1D startPos,
+      DoubleMatrix2D penalty) {
+
+    int n = observedValues.getNumberOfElements();
+    VectorFieldFirstOrderDifferentiator jac = new VectorFieldFirstOrderDifferentiator();
     return solve(observedValues, new DoubleMatrix1D(n, 1.0), func, jac.differentiate(func), startPos, penalty);
   }
 
@@ -125,9 +139,14 @@ public class NonLinearLeastSquareWithPenalty {
    * @param penalty Penalty matrix
    * @return value of the fitted parameters
    */
-  public LeastSquareWithPenaltyResults solve(final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final Function1D<DoubleMatrix1D, DoubleMatrix1D> func, final DoubleMatrix1D startPos,
-      final DoubleMatrix2D penalty) {
-    final VectorFieldFirstOrderDifferentiator jac = new VectorFieldFirstOrderDifferentiator();
+  public LeastSquareWithPenaltyResults solve(
+      DoubleMatrix1D observedValues,
+      DoubleMatrix1D sigma,
+      Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
+      DoubleMatrix1D startPos,
+      DoubleMatrix2D penalty) {
+
+    VectorFieldFirstOrderDifferentiator jac = new VectorFieldFirstOrderDifferentiator();
     return solve(observedValues, sigma, func, jac.differentiate(func), startPos, penalty);
   }
 
@@ -146,9 +165,15 @@ public class NonLinearLeastSquareWithPenalty {
    * convergence.
    * @return value of the fitted parameters
    */
-  public LeastSquareWithPenaltyResults solve(final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final Function1D<DoubleMatrix1D, DoubleMatrix1D> func, final DoubleMatrix1D startPos,
-      final DoubleMatrix2D penalty, final Function1D<DoubleMatrix1D, Boolean> allowedValue) {
-    final VectorFieldFirstOrderDifferentiator jac = new VectorFieldFirstOrderDifferentiator();
+  public LeastSquareWithPenaltyResults solve(
+      DoubleMatrix1D observedValues,
+      DoubleMatrix1D sigma,
+      Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
+      DoubleMatrix1D startPos,
+      DoubleMatrix2D penalty,
+      Function1D<DoubleMatrix1D, Boolean> allowedValue) {
+
+    VectorFieldFirstOrderDifferentiator jac = new VectorFieldFirstOrderDifferentiator();
     return solve(observedValues, sigma, func, jac.differentiate(func), startPos, penalty, allowedValue);
   }
 
@@ -164,8 +189,13 @@ public class NonLinearLeastSquareWithPenalty {
    * @param penalty Penalty matrix
    * @return the least-square results
    */
-  public LeastSquareWithPenaltyResults solve(final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
-      final Function1D<DoubleMatrix1D, DoubleMatrix2D> jac, final DoubleMatrix1D startPos, final DoubleMatrix2D penalty) {
+  public LeastSquareWithPenaltyResults solve(
+      DoubleMatrix1D observedValues,
+      DoubleMatrix1D sigma,
+      Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
+      Function1D<DoubleMatrix1D, DoubleMatrix2D> jac,
+      DoubleMatrix1D startPos, DoubleMatrix2D penalty) {
+
     return solve(observedValues, sigma, func, jac, startPos, penalty, UNCONSTRAINED);
   }
 
@@ -185,15 +215,22 @@ public class NonLinearLeastSquareWithPenalty {
    * convergence.
    * @return the least-square results
    */
-  public LeastSquareWithPenaltyResults solve(final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
-      final Function1D<DoubleMatrix1D, DoubleMatrix2D> jac, final DoubleMatrix1D startPos, final DoubleMatrix2D penalty, final Function1D<DoubleMatrix1D, Boolean> allowedValue) {
+  public LeastSquareWithPenaltyResults solve(
+      DoubleMatrix1D observedValues,
+      DoubleMatrix1D sigma,
+      Function1D<DoubleMatrix1D,
+      DoubleMatrix1D> func,
+      Function1D<DoubleMatrix1D, DoubleMatrix2D> jac,
+      DoubleMatrix1D startPos,
+      DoubleMatrix2D penalty,
+      Function1D<DoubleMatrix1D, Boolean> allowedValue) {
 
     ArgChecker.notNull(observedValues, "observedValues");
     ArgChecker.notNull(sigma, " sigma");
     ArgChecker.notNull(func, " func");
     ArgChecker.notNull(jac, " jac");
     ArgChecker.notNull(startPos, "startPos");
-    final int nObs = observedValues.getNumberOfElements();
+    int nObs = observedValues.getNumberOfElements();
     ArgChecker.isTrue(nObs == sigma.getNumberOfElements(), "observedValues and sigma must be same length");
     ArgChecker.isTrue(allowedValue.evaluate(startPos), "The start position {} is not valid for this model. Please choose a valid start position", startPos);
 
@@ -224,11 +261,11 @@ public class NonLinearLeastSquareWithPenalty {
       try {
         decmp = _decomposition.evaluate(alpha);
         deltaTheta = decmp.solve(beta);
-      } catch (final Exception e) {
+      } catch (Exception e) {
         throw new MathException(e);
       }
 
-      final DoubleMatrix1D trialTheta = (DoubleMatrix1D) _algebra.add(theta, deltaTheta);
+      DoubleMatrix1D trialTheta = (DoubleMatrix1D) _algebra.add(theta, deltaTheta);
 
       if (!allowedValue.evaluate(trialTheta)) {
         lambda = increaseLambda(lambda);
@@ -243,7 +280,7 @@ public class NonLinearLeastSquareWithPenalty {
       // Check for convergence when no improvement in chiSqr occurs
       if (Math.abs(newChiSqr - oldChiSqr) / (1 + oldChiSqr) < _eps) {
 
-        final DoubleMatrix2D alpha0 = lambda == 0.0 ? alpha : getModifiedCurvatureMatrix(jacobian, 0.0, penalty);
+        DoubleMatrix2D alpha0 = lambda == 0.0 ? alpha : getModifiedCurvatureMatrix(jacobian, 0.0, penalty);
 
         if (lambda > 0.0) {
           decmp = _decomposition.evaluate(alpha0);
@@ -268,30 +305,43 @@ public class NonLinearLeastSquareWithPenalty {
     throw new MathException("Could not converge in " + MAX_ATTEMPTS + " attempts");
   }
 
-  private double decreaseLambda(final double lambda) {
+  private double decreaseLambda(double lambda) {
     return lambda / 10;
   }
 
-  private double increaseLambda(final double lambda) {
+  private double increaseLambda(double lambda) {
     if (lambda == 0.0) { // this will happen the first time a full quadratic step fails
       return 0.1;
     }
     return lambda * 10;
   }
 
-  private LeastSquareWithPenaltyResults finish(final DoubleMatrix2D alpha, final DecompositionResult decmp, final double chiSqr, final double penalty, final DoubleMatrix2D jacobian,
-      final DoubleMatrix1D newTheta, final DoubleMatrix1D sigma) {
-    final DoubleMatrix2D covariance = decmp.solve(DoubleMatrixUtils.getIdentityMatrix2D(alpha.getNumberOfRows()));
-    final DoubleMatrix2D bT = getBTranspose(jacobian, sigma);
-    final DoubleMatrix2D inverseJacobian = decmp.solve(bT);
+  private LeastSquareWithPenaltyResults finish(
+      DoubleMatrix2D alpha,
+      DecompositionResult decmp,
+      double chiSqr,
+      double penalty,
+      DoubleMatrix2D jacobian,
+      DoubleMatrix1D newTheta,
+      DoubleMatrix1D sigma) {
+
+    DoubleMatrix2D covariance = decmp.solve(DoubleMatrixUtils.getIdentityMatrix2D(alpha.getNumberOfRows()));
+    DoubleMatrix2D bT = getBTranspose(jacobian, sigma);
+    DoubleMatrix2D inverseJacobian = decmp.solve(bT);
     return new LeastSquareWithPenaltyResults(chiSqr, penalty, newTheta, covariance, inverseJacobian);
   }
 
-  private DoubleMatrix1D getError(final Function1D<DoubleMatrix1D, DoubleMatrix1D> func, final DoubleMatrix1D observedValues, final DoubleMatrix1D sigma, final DoubleMatrix1D theta) {
-    final int n = observedValues.getNumberOfElements();
-    final DoubleMatrix1D modelValues = func.evaluate(theta);
-    ArgChecker.isTrue(n == modelValues.getNumberOfElements(), "Number of data points different between model (" + modelValues.getNumberOfElements() + ") and observed (" + n + ")");
-    final double[] res = new double[n];
+  private DoubleMatrix1D getError(
+      Function1D<DoubleMatrix1D, DoubleMatrix1D> func,
+      DoubleMatrix1D observedValues,
+      DoubleMatrix1D sigma,
+      DoubleMatrix1D theta) {
+
+    int n = observedValues.getNumberOfElements();
+    DoubleMatrix1D modelValues = func.evaluate(theta);
+    ArgChecker.isTrue(n == modelValues.getNumberOfElements(),
+        "Number of data points different between model (" + modelValues.getNumberOfElements() + ") and observed (" + n + ")");
+    double[] res = new double[n];
     for (int i = 0; i < n; i++) {
       res[i] = (observedValues.getEntry(i) - modelValues.getEntry(i)) / sigma.getEntry(i);
     }
@@ -299,9 +349,9 @@ public class NonLinearLeastSquareWithPenalty {
     return new DoubleMatrix1D(res);
   }
 
-  private DoubleMatrix2D getBTranspose(final DoubleMatrix2D jacobian, final DoubleMatrix1D sigma) {
-    final int n = jacobian.getNumberOfRows();
-    final int m = jacobian.getNumberOfColumns();
+  private DoubleMatrix2D getBTranspose(DoubleMatrix2D jacobian, DoubleMatrix1D sigma) {
+    int n = jacobian.getNumberOfRows();
+    int m = jacobian.getNumberOfColumns();
 
     DoubleMatrix2D res = new DoubleMatrix2D(m, n);
     double[][] data = res.getData();
@@ -316,11 +366,11 @@ public class NonLinearLeastSquareWithPenalty {
     return res;
   }
 
-  private DoubleMatrix2D getJacobian(final Function1D<DoubleMatrix1D, DoubleMatrix2D> jac, final DoubleMatrix1D sigma, final DoubleMatrix1D theta) {
-    final DoubleMatrix2D res = jac.evaluate(theta);
-    final double[][] data = res.getData();
-    final int n = res.getNumberOfRows();
-    final int m = res.getNumberOfColumns();
+  private DoubleMatrix2D getJacobian(Function1D<DoubleMatrix1D, DoubleMatrix2D> jac, DoubleMatrix1D sigma, DoubleMatrix1D theta) {
+    DoubleMatrix2D res = jac.evaluate(theta);
+    double[][] data = res.getData();
+    int n = res.getNumberOfRows();
+    int m = res.getNumberOfColumns();
     ArgChecker.isTrue(theta.getNumberOfElements() == m, "Jacobian is wrong size");
     ArgChecker.isTrue(sigma.getNumberOfElements() == n, "Jacobian is wrong size");
 
@@ -333,17 +383,17 @@ public class NonLinearLeastSquareWithPenalty {
     return res;
   }
 
-  private double getChiSqr(final DoubleMatrix1D error) {
+  private double getChiSqr(DoubleMatrix1D error) {
     return _algebra.getInnerProduct(error, error);
   }
 
-  private DoubleMatrix1D getChiSqrGrad(final DoubleMatrix1D error, final DoubleMatrix2D jacobian) {
+  private DoubleMatrix1D getChiSqrGrad(DoubleMatrix1D error, DoubleMatrix2D jacobian) {
     return (DoubleMatrix1D) _algebra.multiply(error, jacobian);
   }
 
-  private DoubleMatrix2D getModifiedCurvatureMatrix(final DoubleMatrix2D jacobian, final double lambda, final DoubleMatrix2D penalty) {
+  private DoubleMatrix2D getModifiedCurvatureMatrix(DoubleMatrix2D jacobian, double lambda, DoubleMatrix2D penalty) {
     double onePLambda = 1.0 + lambda;
-    final int m = jacobian.getNumberOfColumns();
+    int m = jacobian.getNumberOfColumns();
     DoubleMatrix2D alpha = (DoubleMatrix2D) MA.add(MA.matrixTransposeMultiplyMatrix(jacobian), penalty);
     // scale the diagonal
     double[][] data = alpha.getData();
@@ -353,10 +403,10 @@ public class NonLinearLeastSquareWithPenalty {
     return alpha;
   }
 
-  private double getANorm(final DoubleMatrix2D aM, final DoubleMatrix1D xV) {
-    final double[][] a = aM.getData();
-    final double[] x = xV.getData();
-    final int n = x.length;
+  private double getANorm(DoubleMatrix2D aM, DoubleMatrix1D xV) {
+    double[][] a = aM.getData();
+    double[] x = xV.getData();
+    int n = x.length;
     double sum = 0.0;
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {

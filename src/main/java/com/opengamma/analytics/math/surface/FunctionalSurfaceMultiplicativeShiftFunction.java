@@ -53,7 +53,7 @@ public class FunctionalSurfaceMultiplicativeShiftFunction implements SurfaceShif
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesSurface evaluate(final FunctionalDoublesSurface surface, final double x, final double y, final double percentage) {
@@ -63,7 +63,7 @@ public class FunctionalSurfaceMultiplicativeShiftFunction implements SurfaceShif
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesSurface evaluate(final FunctionalDoublesSurface surface, final double x, final double y, final double percentage, final String newName) {
@@ -73,7 +73,7 @@ public class FunctionalSurfaceMultiplicativeShiftFunction implements SurfaceShif
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesSurface evaluate(final FunctionalDoublesSurface surface, final double[] xShift, final double[] yShift, final double[] percentage) {
@@ -83,7 +83,7 @@ public class FunctionalSurfaceMultiplicativeShiftFunction implements SurfaceShif
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesSurface evaluate(final FunctionalDoublesSurface surface, final double[] xShift, final double[] yShift, final double[] percentage, final String newName) {

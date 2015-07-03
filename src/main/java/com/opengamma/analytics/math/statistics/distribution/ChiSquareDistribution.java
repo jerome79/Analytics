@@ -32,8 +32,6 @@ import com.opengamma.strata.collect.ArgChecker;
  * f(x)=\frac{x^{\frac{k}{2}-1}e^{-\frac{x}{2}}}{2^{\frac{k}{2}}\Gamma\left(\frac{k}{2}\right)}
  * \end{align*}
  * $$
- * This implementation uses the CERN <a href="http://acs.lbl.gov/~hoschek/colt/api/index.html">colt</a> package for the
- * cdf, pdf and $\chi^2$-distributed random numbers.
  * 
  */
 public class ChiSquareDistribution implements ProbabilityDistribution<Double> {

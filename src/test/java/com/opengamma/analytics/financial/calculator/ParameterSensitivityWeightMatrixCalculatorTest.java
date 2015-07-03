@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import cern.colt.list.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.instrument.index.GeneratorSwapFixedIbor;

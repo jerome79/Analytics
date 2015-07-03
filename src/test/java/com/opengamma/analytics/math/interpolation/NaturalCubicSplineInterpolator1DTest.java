@@ -9,11 +9,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.TreeMap;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
@@ -25,7 +22,8 @@ import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
  */
 @Test
 public class NaturalCubicSplineInterpolator1DTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+
+  private static final Well44497b RANDOM = new Well44497b(0L);
 
   private static final double[] COEFF = new double[] {-0.4, 0.05, 0.2, 1. };
 

@@ -9,74 +9,76 @@ import org.apache.commons.math3.distribution.TDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cern.colt.matrix.DoubleFactory1D;
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix1D;
-import cern.colt.matrix.DoubleMatrix2D;
-import cern.colt.matrix.linalg.Algebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
+import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
 /**
  * 
  */
 public class OrdinaryLeastSquaresRegression extends LeastSquaresRegression {
+
   private static final Logger s_logger = LoggerFactory.getLogger(OrdinaryLeastSquaresRegression.class);
-  private final Algebra _algebra = new Algebra();
+  private CommonsMatrixAlgebra _algebra = new CommonsMatrixAlgebra();
 
   @Override
-  public LeastSquaresRegressionResult regress(final double[][] x, final double[][] weights, final double[] y, final boolean useIntercept) {
+  public LeastSquaresRegressionResult regress(double[][] x, double[][] weights, double[] y, boolean useIntercept) {
     if (weights != null) {
       s_logger.info("Weights were provided for OLS regression: they will be ignored");
     }
     return regress(x, y, useIntercept);
   }
 
-  public LeastSquaresRegressionResult regress(final double[][] x, final double[] y, final boolean useIntercept) {
+  public LeastSquaresRegressionResult regress(double[][] x, double[] y, boolean useIntercept) {
     checkData(x, y);
-    final double[][] indep = addInterceptVariable(x, useIntercept);
-    final double[] dep = new double[y.length];
+    double[][] indep = addInterceptVariable(x, useIntercept);
+    double[] dep = new double[y.length];
     for (int i = 0; i < y.length; i++) {
       dep[i] = y[i];
     }
-    final DoubleMatrix2D matrix = DoubleFactory2D.dense.make(indep);
-    final DoubleMatrix1D vector = DoubleFactory1D.dense.make(dep);
-    final DoubleMatrix2D transpose = _algebra.transpose(matrix);
-    final DoubleMatrix1D betasVector = _algebra.mult(_algebra.mult(_algebra.inverse(_algebra.mult(transpose, matrix)), transpose), vector);
-    final double[] yModel = convertArray(_algebra.mult(matrix, betasVector).toArray());
-    final double[] betas = convertArray(betasVector.toArray());
+    DoubleMatrix2D matrix = new DoubleMatrix2D(indep);
+    DoubleMatrix1D vector = new DoubleMatrix1D(dep);
+    DoubleMatrix2D transpose = _algebra.getTranspose(matrix);
+    DoubleMatrix2D betasVector = (DoubleMatrix2D) _algebra.multiply(
+        _algebra.multiply(_algebra.getInverse(_algebra.multiply(transpose, matrix)), transpose), vector);
+    double[] yModel = super.writeArrayAsVector(((DoubleMatrix2D) _algebra.multiply(matrix, betasVector)).toArray());
+    double[] betas = super.writeArrayAsVector(betasVector.toArray());
     return getResultWithStatistics(x, y, betas, yModel, transpose, matrix, useIntercept);
   }
 
-  private LeastSquaresRegressionResult getResultWithStatistics(final double[][] x, final double[] y, final double[] betas, final double[] yModel, final DoubleMatrix2D transpose,
-      final DoubleMatrix2D matrix, final boolean useIntercept) {
+  private LeastSquaresRegressionResult getResultWithStatistics(
+      double[][] x, double[] y, double[] betas, double[] yModel, DoubleMatrix2D transpose, DoubleMatrix2D matrix, boolean useIntercept) {
     double yMean = 0.;
-    for (final double y1 : y) {
+    for (double y1 : y) {
       yMean += y1;
     }
     yMean /= y.length;
     double totalSumOfSquares = 0.;
     double errorSumOfSquares = 0.;
-    final int n = x.length;
-    final int k = betas.length;
-    final double[] residuals = new double[n];
-    final double[] stdErrorBetas = new double[k];
-    final double[] tStats = new double[k];
-    final double[] pValues = new double[k];
+    int n = x.length;
+    int k = betas.length;
+    double[] residuals = new double[n];
+    double[] stdErrorBetas = new double[k];
+    double[] tStats = new double[k];
+    double[] pValues = new double[k];
     for (int i = 0; i < n; i++) {
       totalSumOfSquares += (y[i] - yMean) * (y[i] - yMean);
       residuals[i] = y[i] - yModel[i];
       errorSumOfSquares += residuals[i] * residuals[i];
     }
-    final double regressionSumOfSquares = totalSumOfSquares - errorSumOfSquares;
-    final double[][] covarianceBetas = convertArray(_algebra.inverse(_algebra.mult(transpose, matrix)).toArray());
-    final double rSquared = regressionSumOfSquares / totalSumOfSquares;
-    final double adjustedRSquared = 1. - (1 - rSquared) * (n - 1.) / (n - k);
-    final double meanSquareError = errorSumOfSquares / (n - k);
-    final TDistribution studentT = new TDistribution(n - k);
+    double regressionSumOfSquares = totalSumOfSquares - errorSumOfSquares;
+    double[][] covarianceBetas = convertArray(_algebra.getInverse(_algebra.multiply(transpose, matrix)).toArray());
+    double rSquared = regressionSumOfSquares / totalSumOfSquares;
+    double adjustedRSquared = 1. - (1 - rSquared) * (n - 1.) / (n - k);
+    double meanSquareError = errorSumOfSquares / (n - k);
+    TDistribution studentT = new TDistribution(n - k);
     for (int i = 0; i < k; i++) {
       stdErrorBetas[i] = Math.sqrt(meanSquareError * covarianceBetas[i][i]);
       tStats[i] = betas[i] / stdErrorBetas[i];
       pValues[i] = 1 - studentT.cumulativeProbability(Math.abs(tStats[i]));
     }
-    return new LeastSquaresRegressionResult(betas, residuals, meanSquareError, stdErrorBetas, rSquared, adjustedRSquared, tStats, pValues, useIntercept);
+    return new LeastSquaresRegressionResult(
+        betas, residuals, meanSquareError, stdErrorBetas, rSquared, adjustedRSquared, tStats, pValues, useIntercept);
   }
+
 }

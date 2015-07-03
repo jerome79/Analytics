@@ -124,7 +124,7 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double getInverseCDF(final Double p) {
@@ -134,7 +134,7 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double getPDF(final Double x) {
@@ -144,7 +144,7 @@ public class NonCentralChiSquaredDistribution implements ProbabilityDistribution
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public double nextRandom() {

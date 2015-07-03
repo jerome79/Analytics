@@ -10,11 +10,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.List;
 
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
-
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
 
 import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
@@ -22,7 +19,7 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.BasisFunctionAggregation;
 import com.opengamma.analytics.math.interpolation.BasisFunctionGenerator;
 import com.opengamma.analytics.math.interpolation.PenaltyMatrixGenerator;
-import com.opengamma.analytics.math.matrix.ColtMatrixAlgebra;
+import com.opengamma.analytics.math.matrix.CommonsMatrixAlgebra;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
@@ -30,9 +27,11 @@ import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 /**
  * Test.
  */
+@SuppressWarnings("deprecation")
 @Test
 public class NonLinearLeastSquareWithPenaltyTest {
-  private static final MatrixAlgebra MA = new ColtMatrixAlgebra();
+
+  private static final MatrixAlgebra MA = new CommonsMatrixAlgebra();
 
   private static BasisFunctionGenerator GEN = new BasisFunctionGenerator();
   private static NonLinearLeastSquareWithPenalty NLLSWP = new NonLinearLeastSquareWithPenalty();
@@ -46,31 +45,33 @@ public class NonLinearLeastSquareWithPenaltyTest {
   private static int DEGREE = 3;
   private static int DIFFERENCE_ORDER = 2;
   private static double LAMBDA = 1e5;
+  @SuppressWarnings("unused")
   private static DoubleMatrix2D PENALTY_MAT;
   private static List<Function1D<Double, Double>> B_SPLINES;
+  @SuppressWarnings("unused")
   private static Function1D<DoubleMatrix1D, DoubleMatrix1D> WEIGHTS_TO_SWAP_FUNC;
 
   static {
     B_SPLINES = GEN.generateSet(0.0, TENORS[TENORS.length - 1], N_KNOTS, DEGREE);
-    final int nWeights = B_SPLINES.size();
+    int nWeights = B_SPLINES.size();
     PENALTY_MAT = (DoubleMatrix2D) MA.scale(PenaltyMatrixGenerator.getPenaltyMatrix(nWeights, DIFFERENCE_ORDER), LAMBDA);
 
     // map from curve to swap rates
     swapRateFunction = new Function1D<Curve<Double, Double>, DoubleMatrix1D>() {
       @SuppressWarnings("synthetic-access")
       @Override
-      public DoubleMatrix1D evaluate(final Curve<Double, Double> curve) {
-        final double[] res = new double[N_SWAPS];
+      public DoubleMatrix1D evaluate(Curve<Double, Double> curve) {
+        double[] res = new double[N_SWAPS];
         double sum = 0.0;
 
         for (int i = 0; i < N_SWAPS; i++) {
-          final int start = (int) (i == 0 ? 0 : TENORS[i - 1] * FREQ);
-          final int end = (int) (TENORS[i] * FREQ - 1);
+          int start = (int) (i == 0 ? 0 : TENORS[i - 1] * FREQ);
+          int end = (int) (TENORS[i] * FREQ - 1);
           for (int k = start; k < end; k++) {
-            final double t = (k + 1) * 1.0 / FREQ;
+            double t = (k + 1) * 1.0 / FREQ;
             sum += Math.exp(-t * curve.getYValue(t));
           }
-          final double last = Math.exp(-TENORS[i] * curve.getYValue(TENORS[i]));
+          double last = Math.exp(-TENORS[i] * curve.getYValue(TENORS[i]));
           sum += last;
           res[i] = FREQ * (1 - last) / sum;
         }
@@ -82,9 +83,9 @@ public class NonLinearLeastSquareWithPenaltyTest {
     WEIGHTS_TO_SWAP_FUNC = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
       @SuppressWarnings("synthetic-access")
       @Override
-      public DoubleMatrix1D evaluate(final DoubleMatrix1D x) {
-        final Function1D<Double, Double> func = new BasisFunctionAggregation<>(B_SPLINES, x.getData());
-        final FunctionalDoublesCurve curve = FunctionalDoublesCurve.from(func);
+      public DoubleMatrix1D evaluate(DoubleMatrix1D x) {
+        Function1D<Double, Double> func = new BasisFunctionAggregation<>(B_SPLINES, x.getData());
+        FunctionalDoublesCurve curve = FunctionalDoublesCurve.from(func);
         return swapRateFunction.evaluate(curve);
       }
     };
@@ -92,23 +93,23 @@ public class NonLinearLeastSquareWithPenaltyTest {
   }
 
   public void linearTest() {
-    final boolean print = false;
+    boolean print = false;
     if (print) {
       System.out.println("NonLinearLeastSquareWithPenaltyTest.linearTest");
     }
-    final int nWeights = 20;
-    final int diffOrder = 2;
-    final double lambda = 100.0;
-    final DoubleMatrix2D penalty = (DoubleMatrix2D) MA.scale(getPenaltyMatrix(nWeights, diffOrder), lambda);
-    final int[] onIndex = new int[] {1, 4, 11, 12, 15, 17 };
-    final double[] obs = new double[] {0, 1.0, 1.0, 1.0, 0.0, 0.0 };
-    final int n = onIndex.length;
+    int nWeights = 20;
+    int diffOrder = 2;
+    double lambda = 100.0;
+    DoubleMatrix2D penalty = (DoubleMatrix2D) MA.scale(getPenaltyMatrix(nWeights, diffOrder), lambda);
+    int[] onIndex = new int[] {1, 4, 11, 12, 15, 17};
+    double[] obs = new double[] {0, 1.0, 1.0, 1.0, 0.0, 0.0};
+    int n = onIndex.length;
 
-    final Function1D<DoubleMatrix1D, DoubleMatrix1D> func = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
+    Function1D<DoubleMatrix1D, DoubleMatrix1D> func = new Function1D<DoubleMatrix1D, DoubleMatrix1D>() {
 
       @Override
-      public DoubleMatrix1D evaluate(final DoubleMatrix1D x) {
-        final double[] temp = new double[n];
+      public DoubleMatrix1D evaluate(DoubleMatrix1D x) {
+        double[] temp = new double[n];
         for (int i = 0; i < n; i++) {
           temp[i] = x.getEntry(onIndex[i]);
         }
@@ -116,11 +117,11 @@ public class NonLinearLeastSquareWithPenaltyTest {
       }
     };
 
-    final Function1D<DoubleMatrix1D, DoubleMatrix2D> jac = new Function1D<DoubleMatrix1D, DoubleMatrix2D>() {
+    Function1D<DoubleMatrix1D, DoubleMatrix2D> jac = new Function1D<DoubleMatrix1D, DoubleMatrix2D>() {
 
       @Override
-      public DoubleMatrix2D evaluate(final DoubleMatrix1D x) {
-        final DoubleMatrix2D res = new DoubleMatrix2D(n, nWeights);
+      public DoubleMatrix2D evaluate(DoubleMatrix1D x) {
+        DoubleMatrix2D res = new DoubleMatrix2D(n, nWeights);
         for (int i = 0; i < n; i++) {
           res.getData()[i][onIndex[i]] = 1.0;
         }
@@ -128,14 +129,15 @@ public class NonLinearLeastSquareWithPenaltyTest {
       }
     };
 
-    final RandomEngine ran = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
-    final double[] temp = new double[nWeights];
+    Well44497b random = new Well44497b(0L);
+    double[] temp = new double[nWeights];
     for (int i = 0; i < nWeights; i++) {
-      temp[i] = ran.nextDouble();
+      temp[i] = random.nextDouble();
     }
-    final DoubleMatrix1D start = new DoubleMatrix1D(temp);
+    DoubleMatrix1D start = new DoubleMatrix1D(temp);
 
-    final LeastSquareWithPenaltyResults lsRes = NLLSWP.solve(new DoubleMatrix1D(obs), new DoubleMatrix1D(n, 0.01), func, jac, start, penalty);
+    LeastSquareWithPenaltyResults lsRes = NLLSWP.solve(new DoubleMatrix1D(obs), new DoubleMatrix1D(n, 0.01), func, jac, start,
+        penalty);
     if (print) {
       System.out.println("chi2: " + lsRes.getChiSq());
       System.out.println(lsRes.getFitParameters());

@@ -12,10 +12,11 @@ import org.testng.annotations.Test;
  */
 @Test
 public class ConjugateDirectionTest extends MultidimensionalMinimizerTestCase {
-  private static final double EPS = 1e-7;
+  private static final double EPS = 1e-6;
 
   private static ScalarMinimizer LINE_MINIMIZER = new BrentMinimizer1D();
-  private static ConjugateDirectionVectorMinimizer MINIMIZER = new ConjugateDirectionVectorMinimizer(LINE_MINIMIZER, EPS, 100000);
+  private static ConjugateDirectionVectorMinimizer MINIMIZER =
+      new ConjugateDirectionVectorMinimizer(LINE_MINIMIZER, EPS, 100000);
 
   @Test
   public void testSolvingRosenbrock() {

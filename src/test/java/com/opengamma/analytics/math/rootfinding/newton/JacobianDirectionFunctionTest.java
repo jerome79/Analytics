@@ -9,7 +9,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.linearalgebra.SVDecompositionColt;
+import com.opengamma.analytics.math.linearalgebra.Decomposition;
+import com.opengamma.analytics.math.linearalgebra.DecompositionFactory;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 
@@ -18,12 +19,14 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
  */
 @Test
 public class JacobianDirectionFunctionTest {
-  private static final SVDecompositionColt SV = new SVDecompositionColt();
+
+  private static final Decomposition<?> SV = DecompositionFactory.SV_COMMONS;
   private static final JacobianDirectionFunction F = new JacobianDirectionFunction(SV);
   private static final double X0 = 2.4;
   private static final double X1 = 7.6;
   private static final double X2 = 4.5;
-  private static final DoubleMatrix2D M = new DoubleMatrix2D(new double[][] {new double[] {X0, 0, 0 }, new double[] {0, X1, 0 }, new double[] {0, 0, X2 } });
+  private static final DoubleMatrix2D M = new DoubleMatrix2D(
+      new double[][] {new double[] {X0, 0, 0}, new double[] {0, X1, 0}, new double[] {0, 0, X2}});
   private static final DoubleMatrix1D Y = new DoubleMatrix1D(1, 1, 1);
 
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -41,7 +44,6 @@ public class JacobianDirectionFunctionTest {
     F.getDirection(M, null);
   }
 
-  @Test
   public void test() {
     double eps = 1e-9;
     DoubleMatrix1D direction = F.getDirection(M, Y);
@@ -49,4 +51,5 @@ public class JacobianDirectionFunctionTest {
     assertEquals(direction.getEntry(1), 1. / X1, eps);
     assertEquals(direction.getEntry(2), 1. / X2, eps);
   }
+
 }

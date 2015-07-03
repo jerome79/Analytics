@@ -9,9 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.Arrays;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 /**
@@ -19,8 +17,9 @@ import org.testng.annotations.Test;
  */
 @Test
 public class PercentileCalculatorTest {
+
   private static final PercentileCalculator CALCULATOR = new PercentileCalculator(0.1);
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final int N = 100;
   private static final double[] X = new double[N];
 

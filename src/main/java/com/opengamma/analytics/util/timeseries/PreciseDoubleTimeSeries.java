@@ -55,6 +55,7 @@ public interface PreciseDoubleTimeSeries<T>
    * 
    * @return the iterator, not null
    */
+  @Override
   PreciseDoubleEntryIterator<T> iterator();
 
   //-------------------------------------------------------------------------

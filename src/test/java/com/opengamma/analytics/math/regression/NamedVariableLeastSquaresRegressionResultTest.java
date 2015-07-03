@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -26,7 +25,8 @@ import com.opengamma.analytics.math.function.Function2D;
  */
 @Test
 public class NamedVariableLeastSquaresRegressionResultTest {
-  private static final RandomEngine RANDOM = new MersenneTwister(MersenneTwister.DEFAULT_SEED);
+
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final double EPS = 1e-2;
 
   @Test(expectedExceptions = IllegalArgumentException.class)

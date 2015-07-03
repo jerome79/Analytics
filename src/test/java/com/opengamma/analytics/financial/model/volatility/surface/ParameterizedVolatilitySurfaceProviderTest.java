@@ -7,9 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.MersenneTwister64;
-import cern.jet.random.engine.RandomEngine;
+import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
@@ -28,8 +26,8 @@ import com.opengamma.strata.collect.tuple.Pair;
  */
 @Test
 public class ParameterizedVolatilitySurfaceProviderTest {
-  private static final RandomEngine RANDOM = new MersenneTwister64(MersenneTwister.DEFAULT_SEED);
 
+  private static final Well44497b RANDOM = new Well44497b(0L);
   private static final ParameterizedSurface SURFACE;
 
   static {

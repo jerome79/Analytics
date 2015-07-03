@@ -37,7 +37,7 @@ import com.opengamma.strata.collect.ArgChecker;
 public abstract class VolatilitySurfaceFitter<T extends SmileModelData> {
 
   private static final MatrixAlgebra MA = new OGMatrixAlgebra();
-  private static final NonLinearLeastSquare SOLVER = new NonLinearLeastSquare(DecompositionFactory.SV_COLT, MA, 1e-6);
+  private static final NonLinearLeastSquare SOLVER = new NonLinearLeastSquare(DecompositionFactory.SV_COMMONS, MA, 1e-6);
 
   private final InterpolatedCurveBuildingFunction _curveBuilder;
   private final double[] _expiries;

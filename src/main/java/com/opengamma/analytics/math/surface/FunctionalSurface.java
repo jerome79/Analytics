@@ -30,7 +30,7 @@ public class FunctionalSurface<U, V> extends Surface<U, U, V> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public U[] getXData() {
@@ -39,7 +39,7 @@ public class FunctionalSurface<U, V> extends Surface<U, U, V> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public U[] getYData() {
@@ -48,7 +48,7 @@ public class FunctionalSurface<U, V> extends Surface<U, U, V> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public V[] getZData() {
@@ -57,7 +57,7 @@ public class FunctionalSurface<U, V> extends Surface<U, U, V> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public int size() {

@@ -26,7 +26,7 @@ public interface NonLinearParameterTransforms {
 
   /**
    * Transforms from a set of model parameters to a (possibly smaller) set of unconstrained fitting parameters
-   * @param modelParameters 
+   * @param modelParameters   the model parameters
    * @return The fitting parameters
    */
   DoubleMatrix1D transform(final DoubleMatrix1D modelParameters);
