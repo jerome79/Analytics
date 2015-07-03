@@ -37,10 +37,6 @@ import com.opengamma.strata.collect.ArgChecker;
 @BeanDefinition(builderScope = "private")
 public final class Delta implements StrikeType, ImmutableBean, Serializable {
 
-  /** 
-   * Serialization version. 
-   */
-  private static final long serialVersionUID = 1L;
   /**
    * The value of absolute delta. 
    */
@@ -81,6 +77,11 @@ public final class Delta implements StrikeType, ImmutableBean, Serializable {
   static {
     JodaBeanUtils.registerMetaBean(Delta.Meta.INSTANCE);
   }
+
+  /**
+   * The serialization version id.
+   */
+  private static final long serialVersionUID = 1L;
 
   @Override
   public Delta.Meta metaBean() {

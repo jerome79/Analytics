@@ -30,10 +30,6 @@ import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 @BeanDefinition(builderScope = "private")
 public class Strike implements StrikeType, ImmutableBean, Serializable {
 
-  /** 
-   * Serialization version. 
-   */
-  private static final long serialVersionUID = 1L;
   /**
    * The value of strike.
    */
@@ -72,6 +68,11 @@ public class Strike implements StrikeType, ImmutableBean, Serializable {
   static {
     JodaBeanUtils.registerMetaBean(Strike.Meta.INSTANCE);
   }
+
+  /**
+   * The serialization version id.
+   */
+  private static final long serialVersionUID = 1L;
 
   @Override
   public Strike.Meta metaBean() {

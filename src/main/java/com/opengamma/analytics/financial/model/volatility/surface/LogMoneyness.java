@@ -35,10 +35,6 @@ import com.opengamma.strata.collect.ArgChecker;
 @BeanDefinition(builderScope = "private")
 public class LogMoneyness implements StrikeType, ImmutableBean, Serializable {
 
-  /** 
-   * Serialization version. 
-   */
-  private static final long serialVersionUID = 1L;
   /**
    * The value of logmoneyness. 
    */
@@ -87,6 +83,11 @@ public class LogMoneyness implements StrikeType, ImmutableBean, Serializable {
   static {
     JodaBeanUtils.registerMetaBean(LogMoneyness.Meta.INSTANCE);
   }
+
+  /**
+   * The serialization version id.
+   */
+  private static final long serialVersionUID = 1L;
 
   @Override
   public LogMoneyness.Meta metaBean() {

@@ -35,10 +35,6 @@ import com.opengamma.strata.collect.ArgChecker;
 @BeanDefinition(builderScope = "private")
 public final class Moneyness implements StrikeType, ImmutableBean, Serializable {
 
-  /** 
-   * Serialization version. 
-   */
-  private static final long serialVersionUID = 1L;
   /**
    * The value of moneyness. 
    */
@@ -88,6 +84,11 @@ public final class Moneyness implements StrikeType, ImmutableBean, Serializable 
   static {
     JodaBeanUtils.registerMetaBean(Moneyness.Meta.INSTANCE);
   }
+
+  /**
+   * The serialization version id.
+   */
+  private static final long serialVersionUID = 1L;
 
   @Override
   public Moneyness.Meta metaBean() {
