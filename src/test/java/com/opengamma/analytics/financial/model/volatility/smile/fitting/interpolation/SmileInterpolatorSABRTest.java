@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
 
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunctionFactory;
+
 import org.testng.annotations.Test;
 
 /**

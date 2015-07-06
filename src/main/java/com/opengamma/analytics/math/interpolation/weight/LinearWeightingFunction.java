@@ -3,19 +3,19 @@
  * 
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
+package com.opengamma.analytics.math.interpolation.weight;
 
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * 
+ * Weighting function based on {@code Math.sin}.
  */
-// TODO this belongs with interpolators
 public final class LinearWeightingFunction extends WeightingFunction {
-  private static final LinearWeightingFunction s_instance = new LinearWeightingFunction();
+
+  private static final LinearWeightingFunction INSTANCE = new LinearWeightingFunction();
 
   public static LinearWeightingFunction getInstance() {
-    return s_instance;
+    return INSTANCE;
   }
 
   private LinearWeightingFunction() {
@@ -27,16 +27,7 @@ public final class LinearWeightingFunction extends WeightingFunction {
     return y;
   }
 
-  @Override
-  public String toString() {
-    return "Linear weighting function";
-  }
-
-  @Override
-  public int hashCode() {
-    return toString().hashCode();
-  }
-
+  //-------------------------------------------------------------------------
   @Override
   public boolean equals(final Object obj) {
     if (obj == null) {
@@ -50,4 +41,15 @@ public final class LinearWeightingFunction extends WeightingFunction {
     }
     return true;
   }
+
+  @Override
+  public int hashCode() {
+    return toString().hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Linear weighting function";
+  }
+
 }

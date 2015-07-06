@@ -3,7 +3,7 @@
  * 
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation;
+package com.opengamma.analytics.math.interpolation.weight;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,14 +12,10 @@ import java.util.Map;
  * 
  */
 public final class WeightingFunctionFactory {
-  /** Cosine weighting function name */
-  public static final String COSINE_WEIGHTING_FUNCTION_NAME = "CosineWeightingFunction";
   /** Sine weighting function name */
   public static final String SINE_WEIGHTING_FUNCTION_NAME = "SineWeightingFunction";
   /** Linear weighting function name */
   public static final String LINEAR_WEIGHTING_FUNCTION_NAME = "LinearWeightingFunction";
-  /** Cosine weighting function */
-  public static final CosineWeightingFunction COSINE_WEIGHTING_FUNCTION = CosineWeightingFunction.getInstance();
   /** Sine weighting function */
   public static final SineWeightingFunction SINE_WEIGHTING_FUNCTION = SineWeightingFunction.getInstance();
   /** Linear weighting function */
@@ -30,8 +26,6 @@ public final class WeightingFunctionFactory {
   static {
     final Map<String, WeightingFunction> staticInstances = new HashMap<>();
     final Map<Class<?>, String> instanceNames = new HashMap<>();
-    staticInstances.put(COSINE_WEIGHTING_FUNCTION_NAME, COSINE_WEIGHTING_FUNCTION);
-    instanceNames.put(CosineWeightingFunction.class, COSINE_WEIGHTING_FUNCTION_NAME);
     staticInstances.put(LINEAR_WEIGHTING_FUNCTION_NAME, LINEAR_WEIGHTING_FUNCTION);
     instanceNames.put(LinearWeightingFunction.class, LINEAR_WEIGHTING_FUNCTION_NAME);
     staticInstances.put(SINE_WEIGHTING_FUNCTION_NAME, SINE_WEIGHTING_FUNCTION);

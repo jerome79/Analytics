@@ -22,6 +22,8 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHag
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRHaganVolatilityFunction;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRPaulotVolatilityFunction;
 import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.analytics.math.interpolation.weight.LinearWeightingFunction;
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunction;
 
 /**
  * Test class for {@link SmileInterpolatorSABRWithExtrapolation} and its underlying class,

@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.math.function;
 
-import com.opengamma.analytics.financial.interestrate.NelsonSiegelSvennsonBondCurveModel;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -37,7 +36,8 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  * with $x$ constant.
  *
- * This class is particularly useful when trying to fit the parameters of a model (as in {@link NelsonSiegelSvennsonBondCurveModel}).
+ * This class is particularly useful when trying to fit the parameters of a model,
+ * such as in a Nelson Siegel Svennson bond curve model.
  * 
  * @param <S> Type of arguments
  * @param <T> Type of parameters

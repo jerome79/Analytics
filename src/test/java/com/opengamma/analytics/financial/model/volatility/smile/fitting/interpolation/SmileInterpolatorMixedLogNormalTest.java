@@ -8,6 +8,8 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting.interpo
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
+import com.opengamma.analytics.math.interpolation.weight.WeightingFunctionFactory;
+
 import org.testng.annotations.Test;
 
 /**
