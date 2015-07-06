@@ -9,8 +9,6 @@ import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.function.PiecewisePolynomialWithSensitivityFunction1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
@@ -228,14 +226,10 @@ public class ProductPiecewisePolynomialInterpolator1DTest {
     Interpolator1D interp = new ProductPiecewisePolynomialInterpolator1D(new NaturalSplineInterpolator());
     CombinedInterpolatorExtrapolator combInterp = new CombinedInterpolatorExtrapolator(interp,
         new ReciprocalExtrapolator1D());
-    YieldAndDiscountCurve curve1 = new YieldCurve("curve1",
-        new InterpolatedDoublesCurve(time1, rate1, combInterp, true));
-    YieldAndDiscountCurve curve2 = new YieldCurve("curve2",
-        new InterpolatedDoublesCurve(time2, rate2, combInterp, true));
-    YieldAndDiscountCurve curve3 = new YieldCurve("curve3",
-        new InterpolatedDoublesCurve(time3, rate3, combInterp, true));
-    YieldAndDiscountCurve curve4 = new YieldCurve("curve4",
-        new InterpolatedDoublesCurve(time4, rate4, combInterp, true));
+    InterpolatedDoublesCurve curve1 = new InterpolatedDoublesCurve(time1, rate1, combInterp, true);
+    InterpolatedDoublesCurve curve2 = new InterpolatedDoublesCurve(time2, rate2, combInterp, true);
+    InterpolatedDoublesCurve curve3 = new InterpolatedDoublesCurve(time3, rate3, combInterp, true);
+    InterpolatedDoublesCurve curve4 = new InterpolatedDoublesCurve(time4, rate4, combInterp, true);
 
     int n = 30;
     double tol = 1.e-6;
@@ -434,11 +428,12 @@ public class ProductPiecewisePolynomialInterpolator1DTest {
     S_INTERP.getNodeSensitivitiesForValue(S_DATA, null);
   }
 
-  private void assertCurveInterpolation(String message, double[] expected, YieldAndDiscountCurve curve, double rebate,
+  private void assertCurveInterpolation(
+      String message, double[] expected, InterpolatedDoublesCurve curve, double rebate,
       double interval, int nKeys, double relativeTol) {
     for (int i = 0; i < nKeys; ++i) {
       double key = rebate + interval * i;
-      double res = curve.getInterestRate(key);
+      double res = curve.getYValue(key);
       InterpolatorTestUtil.assertRelative(message, expected[i], res, relativeTol);
     }
   }
