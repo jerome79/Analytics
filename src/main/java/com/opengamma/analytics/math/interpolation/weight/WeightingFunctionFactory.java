@@ -12,8 +12,6 @@ import java.util.Map;
  * 
  */
 public final class WeightingFunctionFactory {
-  /** Cosine weighting function name */
-  public static final String COSINE_WEIGHTING_FUNCTION_NAME = "CosineWeightingFunction";
   /** Sine weighting function name */
   public static final String SINE_WEIGHTING_FUNCTION_NAME = "SineWeightingFunction";
   /** Linear weighting function name */

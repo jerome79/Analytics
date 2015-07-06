@@ -24,10 +24,6 @@ public class WeightingFunctionFactoryTest {
 
   public void test() {
     assertEquals(
-        WeightingFunctionFactory.COSINE_WEIGHTING_FUNCTION_NAME,
-        getWeightingFunctionName(getWeightingFunction(WeightingFunctionFactory.COSINE_WEIGHTING_FUNCTION_NAME)));
-
-    assertEquals(
         WeightingFunctionFactory.LINEAR_WEIGHTING_FUNCTION_NAME,
         getWeightingFunctionName(getWeightingFunction(WeightingFunctionFactory.LINEAR_WEIGHTING_FUNCTION_NAME)));
 
