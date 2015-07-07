@@ -8,7 +8,6 @@ package com.opengamma.analytics.math.surface;
 import static com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory.getFunction;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
-
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.curve.Curve;
@@ -16,7 +15,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
-import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -36,17 +35,17 @@ public class SurfaceShiftFunctionFactoryTest {
 
     @Override
     public Double[] getXData() {
-      return ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY;
+      return DoubleArrayMath.EMPTY_DOUBLE_OBJECT_ARRAY;
     }
 
     @Override
     public Double[] getYData() {
-      return ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY;
+      return DoubleArrayMath.EMPTY_DOUBLE_OBJECT_ARRAY;
     }
 
     @Override
     public Double[] getZData() {
-      return ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY;
+      return DoubleArrayMath.EMPTY_DOUBLE_OBJECT_ARRAY;
     }
 
     @Override

@@ -20,8 +20,8 @@ import org.joda.beans.impl.direct.DirectMetaProperty;
 import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * A yield or hazard curve values between nodes are linearly interpolated from t*r points,
@@ -622,7 +622,7 @@ public class ISDACompliantCurve extends DoublesCurve {
 
   @Override
   public Double[] getYValueParameterSensitivity(final Double x) {
-    return ArrayUtils.toObject(getNodeSensitivity(x));
+    return DoubleArrayMath.toObject(getNodeSensitivity(x));
   }
 
   @Override
@@ -635,12 +635,12 @@ public class ISDACompliantCurve extends DoublesCurve {
 
   @Override
   public Double[] getXData() {
-    return ArrayUtils.toObject(t);
+    return DoubleArrayMath.toObject(t);
   }
 
   @Override
   public Double[] getYData() {
-    return ArrayUtils.toObject(getKnotZeroRates());
+    return DoubleArrayMath.toObject(getKnotZeroRates());
   }
 
   @Override

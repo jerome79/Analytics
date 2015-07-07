@@ -20,8 +20,8 @@ import com.opengamma.analytics.financial.model.volatility.SimpleOptionData;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.DoubleArrayMath;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -437,7 +437,7 @@ public class MultiCapFloorPricer {
     for (int i = 0; i < n; i++) {
       ts.add(_capletsArray[i].getForward());
     }
-    return ArrayUtils.toPrimitive(ts.toArray(new Double[0]));
+    return DoubleArrayMath.toPrimitive(ts.toArray(new Double[0]));
   }
 
 }

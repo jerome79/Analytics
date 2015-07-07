@@ -8,7 +8,6 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting.sabr;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
-
 import org.testng.annotations.Test;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
@@ -16,6 +15,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
 import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * Test.
@@ -187,10 +187,10 @@ public class StandardSmileSurfaceDataBundleTest {
       assertArrayEquals(DATA.getVolatilities()[i], other.getVolatilities()[i], 0);
     }
 
-    assertArrayEquals(ArrayUtils.toPrimitive(DATA.getForwardCurve().getForwardCurve().getXData()),
-        ArrayUtils.toPrimitive(other.getForwardCurve().getForwardCurve().getXData()), 0);
-    assertArrayEquals(ArrayUtils.toPrimitive(DATA.getForwardCurve().getForwardCurve().getYData()),
-        ArrayUtils.toPrimitive(other.getForwardCurve().getForwardCurve().getYData()), 0);
+    assertArrayEquals(DoubleArrayMath.toPrimitive(DATA.getForwardCurve().getForwardCurve().getXData()),
+        DoubleArrayMath.toPrimitive(other.getForwardCurve().getForwardCurve().getXData()), 0);
+    assertArrayEquals(DoubleArrayMath.toPrimitive(DATA.getForwardCurve().getForwardCurve().getYData()),
+        DoubleArrayMath.toPrimitive(other.getForwardCurve().getForwardCurve().getYData()), 0);
     assertEquals(((InterpolatedDoublesCurve) DATA.getForwardCurve().getForwardCurve()).getInterpolator(),
         ((InterpolatedDoublesCurve) other.getForwardCurve().getForwardCurve()).getInterpolator());
     final ForwardCurve otherCurve = new ForwardCurve(

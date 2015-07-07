@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
-import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * Test.
@@ -37,12 +37,12 @@ public class CurveShiftFunctionFactoryTest {
 
     @Override
     public Double[] getXData() {
-      return ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY;
+      return DoubleArrayMath.EMPTY_DOUBLE_OBJECT_ARRAY;
     }
 
     @Override
     public Double[] getYData() {
-      return ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY;
+      return DoubleArrayMath.EMPTY_DOUBLE_OBJECT_ARRAY;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CurveShiftFunctionFactoryTest {
 
     @Override
     public Double[] getYValueParameterSensitivity(final Double x) {
-      return ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY;
+      return DoubleArrayMath.EMPTY_DOUBLE_OBJECT_ARRAY;
     }
 
     @Override

@@ -17,7 +17,7 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * Test.
@@ -268,10 +268,10 @@ public class ForexSmileDeltaSurfaceDataBundleTest {
       assertArrayEquals(DATA.getStrikes()[i], other.getStrikes()[i], 0);
       assertArrayEquals(DATA.getVolatilities()[i], other.getVolatilities()[i], 0);
     }
-    assertArrayEquals(ArrayUtils.toPrimitive(DATA.getForwardCurve().getForwardCurve().getXData()),
-        ArrayUtils.toPrimitive(other.getForwardCurve().getForwardCurve().getXData()), 0);
-    assertArrayEquals(ArrayUtils.toPrimitive(DATA.getForwardCurve().getForwardCurve().getYData()),
-        ArrayUtils.toPrimitive(other.getForwardCurve().getForwardCurve().getYData()), 0);
+    assertArrayEquals(DoubleArrayMath.toPrimitive(DATA.getForwardCurve().getForwardCurve().getXData()),
+        DoubleArrayMath.toPrimitive(other.getForwardCurve().getForwardCurve().getXData()), 0);
+    assertArrayEquals(DoubleArrayMath.toPrimitive(DATA.getForwardCurve().getForwardCurve().getYData()),
+        DoubleArrayMath.toPrimitive(other.getForwardCurve().getForwardCurve().getYData()), 0);
     assertEquals(((InterpolatedDoublesCurve) DATA.getForwardCurve().getForwardCurve()).getInterpolator(),
         ((InterpolatedDoublesCurve) other.getForwardCurve().getForwardCurve()).getInterpolator());
     final ForwardCurve otherCurve = new ForwardCurve(InterpolatedDoublesCurve.from(EXPIRIES, EXPIRIES, INTERPOLATOR));
