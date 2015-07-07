@@ -5,12 +5,12 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.definition.Barrier;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.BarrierType;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockType;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -63,7 +63,7 @@ public final class BlackBarrierPriceFunction {
     final double eta = isDown ? 1 : -1;
     final double df1 = Math.exp(t * (costOfCarry - rate));
     final double df2 = Math.exp(-rate * t);
-    if (CompareUtils.closeEquals(sigma, 0, 1e-16)) {
+    if (DoubleMath.fuzzyEquals(sigma, 0d, 1e-16)) {
       return df1 * rebate;
     }
     final double sigmaSq = sigma * sigma;
@@ -137,7 +137,7 @@ public final class BlackBarrierPriceFunction {
     final double eta = isDown ? 1 : -1;
     final double df1 = Math.exp(t * (costOfCarry - rate));
     final double df2 = Math.exp(-rate * t);
-    if (CompareUtils.closeEquals(sigma, 0, 1e-16)) {
+    if (DoubleMath.fuzzyEquals(sigma, 0d, 1e-16)) {
       final double priceBar = 1.0;
       final double df1Bar = rebate * priceBar;
       derivatives[2] = -t * df1 * df1Bar;

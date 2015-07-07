@@ -10,12 +10,12 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.math.DoubleMath;
 import com.google.common.primitives.Doubles;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -120,16 +120,16 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     }
     double vol, z, zOverChi;
     final double beta1 = 1 - beta;
-    if (CompareUtils.closeEquals(forward, k, ATM_EPS)) {
+    if (DoubleMath.fuzzyEquals(forward, k, ATM_EPS)) {
       final double f1 = Math.pow(forward, beta1);
       vol = alpha * (1 + timeToExpiry * (beta1 * beta1 * alpha * alpha / 24 / f1 / f1 + rho * alpha * beta * nu / 4 / f1 + nu * nu * (2 - 3 * rho * rho) / 24)) / f1;
     } else {
-      if (CompareUtils.closeEquals(beta, 0, BETA_EPS)) {
+      if (DoubleMath.fuzzyEquals(beta, 0d, BETA_EPS)) {
         final double ln = Math.log(forward / k);
         z = nu * Math.sqrt(forward * k) * ln / alpha;
         zOverChi = getZOverChi(rho, z);
         vol = alpha * ln * zOverChi * (1 + timeToExpiry * (alpha * alpha / forward / k + nu * nu * (2 - 3 * rho * rho)) / 24) / (forward - k);
-      } else if (CompareUtils.closeEquals(beta, 1, BETA_EPS)) {
+      } else if (DoubleMath.fuzzyEquals(beta, (double) 1, BETA_EPS)) {
         final double ln = Math.log(forward / k);
         z = nu * ln / alpha;
         zOverChi = getZOverChi(rho, z);
@@ -186,7 +186,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
 
     if (alpha == 0.0) {
       Arrays.fill(volatilityAdjoint, 0.0);
-      if (CompareUtils.closeEquals(forward, strike, ATM_EPS)) { //TODO should this is relative
+      if (DoubleMath.fuzzyEquals(forward, strike, ATM_EPS)) { //TODO should this is relative
         volatilityAdjoint[3] = (1 + (2 - 3 * rho * rho) * nu * nu / 24 * timeToExpiry) / Math.pow(forward, betaStar);
       } else {
         //for non-atm options the alpha sensitivity at alpha = 0 is infinite. Returning this will most likely break calibrations,
@@ -262,7 +262,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
 
     if (alpha == 0.0) {
       Arrays.fill(volatilityAdjoint, 0.0);
-      if (CompareUtils.closeEquals(forward, strike, ATM_EPS)) { //TODO should this is relative
+      if (DoubleMath.fuzzyEquals(forward, strike, ATM_EPS)) { //TODO should this is relative
         volatilityAdjoint[3] = (1 + (2 - 3 * rho * rho) * nu * nu / 24 * timeToExpiry) / Math.pow(forward, betaStar);
       } else {
         //for non-atm options the alpha sensitivity at alpha = 0 is infinite. Returning this will most likely break calibrations,
@@ -278,10 +278,10 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     final double z = nu / alpha * sfK * lnrfK;
     double rzxz;
     double xz = 0;
-    if (CompareUtils.closeEquals(z, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(z, 0.0, SMALL_Z)) {
       rzxz = 1.0 - 0.5 * z * rho; //small z expansion to z^2 terms
     } else {
-      if (CompareUtils.closeEquals(rhoStar, 0.0, RHO_EPS)) {
+      if (DoubleMath.fuzzyEquals(rhoStar, 0.0, RHO_EPS)) {
         if (z >= 1.0) {
           if (rhoStar == 0.0) {
             rzxz = 0.0;
@@ -322,10 +322,10 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     final double rzxzBar = alpha / sf1 * sf2 * vBar;
     double zBar;
     double xzBar = 0.0;
-    if (CompareUtils.closeEquals(z, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(z, 0.0, SMALL_Z)) {
       zBar = -rho / 2 * rzxzBar;
     } else {
-      if (CompareUtils.closeEquals(rhoStar, 0.0, RHO_EPS)) {
+      if (DoubleMath.fuzzyEquals(rhoStar, 0.0, RHO_EPS)) {
         if (z >= 1.0) {
           if (z == 1.0) {
             zBar = 0.0;
@@ -361,7 +361,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     if (Math.abs(forward - strike) < ATM_EPS) {
       rhoBar = -z / 2 * rzxzBar;
     } else {
-      if (CompareUtils.closeEquals(rhoStar, 0.0, RHO_EPS)) {
+      if (DoubleMath.fuzzyEquals(rhoStar, 0.0, RHO_EPS)) {
         if (z >= 1) {
           if (rhoStar == 0.0) {
             rhoBar = Double.NEGATIVE_INFINITY; //the derivative at rho = 1 is infinite  - this sets it to some arbitrary large number
@@ -426,10 +426,10 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     final double sqrtf2 = Math.sqrt(1 - 2 * rho * f2 + f2 * f2);
     double f2x = 0.0;
     double x = 0.0, xp = 0, xpp = 0;
-    if (CompareUtils.closeEquals(f2, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(f2, 0.0, SMALL_Z)) {
       f2x = 1.0 - 0.5 * f2 * rho; //small f2 expansion to f2^2 terms
     } else {
-      if (CompareUtils.closeEquals(rho, 1.0, RHO_EPS)) {
+      if (DoubleMath.fuzzyEquals(rho, 1.0, RHO_EPS)) {
         x = f2 < 1.0 ? -Math.log(1.0 - f2) - 0.5 * Math.pow(f2 / (f2 - 1.0), 2) * (1.0 - rho) : Math.log(2.0 * f2 - 2.0) - Math.log(1.0 - rho);
       } else {
         x = Math.log((sqrtf2 + f2 - rho) / (1 - rho));
@@ -443,7 +443,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     final double h0Dbeta = -0.5;
     final double sigmaDf1 = -sigma / f1;
     double sigmaDf2 = 0;
-    if (CompareUtils.closeEquals(f2, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(f2, 0.0, SMALL_Z)) {
       sigmaDf2 = alpha / f1 * (1 + f3 * theta) * -0.5 * rho;
     } else {
       sigmaDf2 = alpha / f1 * (1 + f3 * theta) * (1.0 / x - f2 * xp / (x * x));
@@ -455,7 +455,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     sigmaD2ff[0][0] = -sigmaDf1 / f1 + sigma / (f1 * f1); //OK
     sigmaD2ff[0][1] = -sigmaDf2 / f1;
     sigmaD2ff[0][2] = -sigmaDf3 / f1;
-    if (CompareUtils.closeEquals(f2, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(f2, 0.0, SMALL_Z)) {
       sigmaD2ff[1][2] = alpha / f1 * -0.5 * rho * theta;
     } else {
       sigmaD2ff[1][1] = alpha / f1 * (1 + f3 * theta) * (-2 * xp / (x * x) - f2 * xpp / (x * x) + 2 * f2 * xp * xp / (x * x * x));
@@ -532,11 +532,11 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     volatilityD[1] = sigmaDh1 * h1Dk + sigmaDh2 * h2Dk;
     volatilityD[2] = sigmaDf1 * f1Dp[0] + sigmaDf2 * f2Dp[0] + sigmaDf3 * f3Dp[0] + sigmaDf4 * f4Dp[0];
     volatilityD[3] = sigmaDf1 * f1Dp[1] + sigmaDf2 * f2Dp[1] + sigmaDf3 * f3Dp[1] + sigmaDf4 * f4Dp[1];
-    if (CompareUtils.closeEquals(f2, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(f2, 0.0, SMALL_Z)) {
       volatilityD[4] = -0.5 * f2 + sigmaDf3 * f3Dp[2];
     } else {
       double xDr;
-      if (CompareUtils.closeEquals(rho, 1.0, RHO_EPS)) {
+      if (DoubleMath.fuzzyEquals(rho, 1.0, RHO_EPS)) {
         xDr = f2 > 1.0 ? 1.0 / (1.0 - rho) + (0.5 - f2) / (f2 - 1.0) / (f2 - 1.0) : 0.5 * Math.pow(f2 / (1.0 - f2), 2.0) + 0.25 * (f2 - 4.0) * Math.pow(f2 / (f2 - 1.0), 3) / (f2 - 1.0) * (1.0 - rho);
         if (Doubles.isFinite(xDr)) {
           volatilityD[4] = sigmaDf1 * f1Dp[2] + sigmaDx * xDr + sigmaDf3 * f3Dp[2] + sigmaDf4 * f4Dp[2];
@@ -559,12 +559,12 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
   private double getZOverChi(final double rho, final double z) {
 
     // Implementation comment: To avoid numerical instability (0/0) around ATM the first order approximation is used.
-    if (CompareUtils.closeEquals(z, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(z, 0.0, SMALL_Z)) {
       return 1.0 - rho * z / 2.0;
     }
 
     final double rhoStar = 1 - rho;
-    if (CompareUtils.closeEquals(rhoStar, 0.0, RHO_EPS)) {
+    if (DoubleMath.fuzzyEquals(rhoStar, 0.0, RHO_EPS)) {
       if (z > 1.0) {
         if (rhoStar == 0.0) {
           return 0.0;
@@ -578,7 +578,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
     }
 
     final double rhoHat = 1 + rho;
-    if (CompareUtils.closeEquals(rhoHat, 0.0, RHO_EPS_NEGATIVE)) {
+    if (DoubleMath.fuzzyEquals(rhoHat, 0.0, RHO_EPS_NEGATIVE)) {
       if (z > -1) {
         return z / Math.log(1 + z);
       } else if (z < -1) {
@@ -619,14 +619,14 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
    */
   private double[] zOverChiWithDev(final double rho, final double z) {
     final double[] res = new double[3];
-    if (CompareUtils.closeEquals(z, 0.0, SMALL_Z)) {
+    if (DoubleMath.fuzzyEquals(z, 0.0, SMALL_Z)) {
       res[0] = 1 - rho * z / 2;
       res[1] = -z / 2;
       res[2] = -rho / 2;
       return res;
     }
     final double rhoStar = 1 - rho;
-    if (CompareUtils.closeEquals(rhoStar, 0.0, RHO_EPS)) {
+    if (DoubleMath.fuzzyEquals(rhoStar, 0.0, RHO_EPS)) {
       if (z > 1) {
         if (rhoStar == 0) {
           res[0] = 0.0;
@@ -649,7 +649,7 @@ public class SABRHaganVolatilityFunction extends VolatilityFunctionProvider<SABR
       return res;
     }
     final double rhoHat = 1 + rho;
-    if (CompareUtils.closeEquals(rhoHat, 0.0, RHO_EPS_NEGATIVE)) {
+    if (DoubleMath.fuzzyEquals(rhoHat, 0.0, RHO_EPS_NEGATIVE)) {
       if (z > -1) {
         final double temp = Math.log(1 + z);
         final double temp2 = temp * temp;

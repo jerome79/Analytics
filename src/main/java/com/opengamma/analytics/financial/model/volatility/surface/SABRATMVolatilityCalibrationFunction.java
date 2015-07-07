@@ -7,6 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.surface;
 
 import java.util.Arrays;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.SABRDataBundle;
 import com.opengamma.analytics.math.MathException;
@@ -14,7 +15,6 @@ import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.rootfinding.CubicRealRootFinder;
 import com.opengamma.analytics.math.rootfinding.Polynomial1DRootFinder;
 import com.opengamma.analytics.math.rootfinding.QuadraticRealRootFinder;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -41,7 +41,7 @@ public class SABRATMVolatilityCalibrationFunction {
     final double a2 = rho * beta * ksi * t / 4 / f1;
     final double a3 = beta1 * beta1 * t / 24 / f1 / f1;
     Double[] roots;
-    if (CompareUtils.closeEquals(a3, 0, 1e-16)) {
+    if (DoubleMath.fuzzyEquals(a3, 0d, 1e-16)) {
       roots = QUADRATIC_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2 }));
     } else {
       roots = ROOT_FINDER.getRoots(new RealPolynomialFunction1D(new double[] {a0, a1, a2, a3 }));

@@ -7,6 +7,7 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.util.Set;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.greeks.Greek;
 import com.opengamma.analytics.financial.greeks.GreekResultCollection;
 import com.opengamma.analytics.financial.greeks.GreekVisitor;
@@ -17,7 +18,6 @@ import com.opengamma.analytics.financial.model.option.pricing.OptionModel;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -69,7 +69,7 @@ public abstract class AnalyticOptionModel<T extends OptionDefinition, U extends 
 
   protected double getD1(final double s, final double k, final double t, final double sigma, final double b) {
     final double numerator = (Math.log(s / k) + t * (b + sigma * sigma / 2));
-    if (CompareUtils.closeEquals(numerator, 0, 1e-16)) {
+    if (DoubleMath.fuzzyEquals(numerator, 0d, 1e-16)) {
       return 0;
     }
     return numerator / (sigma * Math.sqrt(t));

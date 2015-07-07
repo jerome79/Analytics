@@ -5,9 +5,9 @@
  */
 package com.opengamma.analytics.math.rootfinding;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -45,7 +45,7 @@ public class CubicRootFinder implements Polynomial1DRootFinder<ComplexNumber> {
         new ComplexNumber(mult * Math.cos((theta - TWO_PI) / 3) - constant, 0) };
     }
     final double s = -Math.signum(r) * Math.cbrt(Math.abs(r) + Math.sqrt(rSq - qCb));
-    final double t = CompareUtils.closeEquals(s, 0, 1e-16) ? 0 : q / s;
+    final double t = DoubleMath.fuzzyEquals(s, 0d, 1e-16) ? 0 : q / s;
     final double sum = s + t;
     final double real = -0.5 * sum - constant;
     final double imaginary = Math.sqrt(3) * (s - t) / 2;

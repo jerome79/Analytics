@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.bond.definition.BondFixedSecurity;
@@ -30,7 +31,6 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedC
 import com.opengamma.analytics.financial.interestrate.swap.method.SwapFixedCouponDiscountingMethod;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 
 /**
@@ -85,7 +85,7 @@ public final class ParRateCalculator extends InstrumentDerivativeVisitorAdapter<
     final double yearFrac = cash.getAccrualFactor();
     // TODO need a getForwardRate method on YieldAndDiscountCurve
     if (yearFrac == 0.0) {
-      if (!CompareUtils.closeEquals(ta, tb, 1e-16)) {
+      if (!DoubleMath.fuzzyEquals(ta, tb, 1e-16)) {
         throw new IllegalArgumentException("Year fraction is zero, but payment time greater than trade time");
       }
       final double eps = 1e-8;

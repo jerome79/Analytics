@@ -5,10 +5,10 @@
  */
 package com.opengamma.analytics.financial.model.option;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -81,7 +81,7 @@ public class DistributionFromImpliedVolatility implements ProbabilityDistributio
 
   private double getD1(final double k, final double sigmaRootT) {
     final double numerator = (Math.log(_f / k) + sigmaRootT * sigmaRootT / 2);
-    if (CompareUtils.closeEquals(numerator, 0, 1e-16)) {
+    if (DoubleMath.fuzzyEquals(numerator, 0d, 1e-16)) {
       return 0;
     }
     return numerator / sigmaRootT;

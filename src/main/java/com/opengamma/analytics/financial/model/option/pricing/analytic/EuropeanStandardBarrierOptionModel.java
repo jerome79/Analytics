@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.definition.Barrier;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.BarrierType;
 import com.opengamma.analytics.financial.model.option.definition.Barrier.KnockType;
@@ -13,7 +14,6 @@ import com.opengamma.analytics.financial.model.option.definition.StandardOptionD
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -47,7 +47,7 @@ public class EuropeanStandardBarrierOptionModel extends AnalyticOptionModel<Euro
         final double sigma = data.getVolatility(t, h); //REVIEW emcleod 19-7-10 will only work if volatility is constant
         final double df1 = Math.exp(t * (b - r));
         final double df2 = Math.exp(-r * t);
-        if (CompareUtils.closeEquals(sigma, 0, 1e-16)) {
+        if (DoubleMath.fuzzyEquals(sigma, 0d, 1e-16)) {
           return df1 * definition.getPayoffFunction().getPayoff(data, null);
         }
         final double sigmaSq = sigma * sigma;

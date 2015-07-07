@@ -12,9 +12,9 @@ import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.exception.TooManyEvaluationsException;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -38,7 +38,7 @@ public class LaguerrePolynomialRealRootFinder implements Polynomial1DRootFinder<
       final Complex[] roots = ROOT_FINDER.solveAllComplex(function.getCoefficients(), 0);
       final List<Double> realRoots = new ArrayList<>();
       for (final Complex c : roots) {
-        if (CompareUtils.closeEquals(c.getImaginary(), 0, EPS)) {
+        if (DoubleMath.fuzzyEquals(c.getImaginary(), 0d, EPS)) {
           realRoots.add(c.getReal());
         }
       }

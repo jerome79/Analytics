@@ -7,6 +7,7 @@ package com.opengamma.analytics.financial.model.volatility.smile.fitting;
 
 import java.util.BitSet;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.smile.function.SABRFormulaData;
@@ -23,7 +24,6 @@ import com.opengamma.analytics.math.minimization.UncoupledParameterTransforms;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
 import com.opengamma.analytics.math.statistics.leastsquare.NonLinearLeastSquare;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -88,7 +88,7 @@ public class SABRNonLinearLeastSquareFitter extends LeastSquareSmileFitter {
     strikes[0] = options[0].getStrike();
     blackVols[0] = data[0].getBlackVolatility();
     for (int i = 1; i < n; i++) {
-      ArgChecker.isTrue(CompareUtils.closeEquals(options[i].getTimeToExpiry(), maturity),
+      ArgChecker.isTrue(DoubleMath.fuzzyEquals(options[i].getTimeToExpiry(), maturity, 1e-15),
           "All options must have the same maturity " + maturity + "; have one with maturity " + options[i].getTimeToExpiry());
       strikes[i] = options[i].getStrike();
       blackVols[i] = data[i].getBlackVolatility();

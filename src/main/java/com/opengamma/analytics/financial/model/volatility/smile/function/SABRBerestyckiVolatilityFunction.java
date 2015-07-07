@@ -11,9 +11,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -53,14 +53,14 @@ public class SABRBerestyckiVolatilityFunction extends VolatilityFunctionProvider
         double i0;
         final double beta1 = 1 - beta;
 
-        if (CompareUtils.closeEquals(forward, k, EPS)) {
+        if (DoubleMath.fuzzyEquals(forward, k, EPS)) {
           i0 = alpha / Math.pow(k, beta1);
         } else {
 
           final double x = Math.log(forward / k);
 
-          if (CompareUtils.closeEquals(nu, 0, EPS)) {
-            if (CompareUtils.closeEquals(beta, 1.0, EPS)) {
+          if (DoubleMath.fuzzyEquals(nu, 0d, EPS)) {
+            if (DoubleMath.fuzzyEquals(beta, 1.0, EPS)) {
               return alpha; // this is just log-normal
             }
             i0 = x * alpha * beta1 / (Math.pow(forward, beta1) - Math.pow(k, beta1));

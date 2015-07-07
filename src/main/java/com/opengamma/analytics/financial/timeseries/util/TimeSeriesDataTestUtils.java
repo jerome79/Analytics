@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.timeseries.util;
 
-import com.opengamma.analytics.util.CompareUtils;
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.util.timeseries.DoubleTimeSeries;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -75,7 +75,7 @@ public class TimeSeriesDataTestUtils {
       if (!ts1.timesArray()[i].equals(ts2.timesArray()[i])) {
         throw new IllegalArgumentException("Time series did not contain the same dates at index " + i);
       }
-      if (!CompareUtils.closeEquals(ts1.valuesArrayFast()[i], ts2.valuesArrayFast()[i], maxDifference)) {
+      if (!DoubleMath.fuzzyEquals(ts1.valuesArrayFast()[i], ts2.valuesArrayFast()[i], maxDifference)) {
         throw new IllegalArgumentException("Time-series did not contain approximately-equal values at " +
             ts1.timesArray()[i] + ": " + ts1.valuesArrayFast()[i] + " and " + ts2.valuesArrayFast()[i]);
       }

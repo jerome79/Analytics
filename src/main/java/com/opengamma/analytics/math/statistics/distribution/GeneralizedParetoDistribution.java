@@ -10,7 +10,7 @@ import java.util.Date;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
 
-import com.opengamma.analytics.util.CompareUtils;
+import com.google.common.math.DoubleMath;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -82,7 +82,7 @@ public class GeneralizedParetoDistribution implements ProbabilityDistribution<Do
    */
   public GeneralizedParetoDistribution(final double mu, final double sigma, final double ksi, final RandomEngine engine) {
     ArgChecker.isTrue(sigma > 0, "sigma must be > 0");
-    ArgChecker.isTrue(!CompareUtils.closeEquals(ksi, 0, 1e-15), "ksi cannot be zero");
+    ArgChecker.isTrue(!DoubleMath.fuzzyEquals(ksi, 0d, 1e-15), "ksi cannot be zero");
     ArgChecker.notNull(engine, "engine");
     _mu = mu;
     _sigma = sigma;
