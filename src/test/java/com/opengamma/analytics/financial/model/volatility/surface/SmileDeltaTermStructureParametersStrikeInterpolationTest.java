@@ -55,7 +55,9 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
   }
 
   public void constructor() {
-    final SmileDeltaTermStructureParametersStrikeInterpolation smileTerm2 = new SmileDeltaTermStructureParametersStrikeInterpolation(TIME_TO_EXPIRY, DELTA, ATM, RISK_REVERSAL, STRANGLE);
+    final SmileDeltaTermStructureParametersStrikeInterpolation smileTerm2 =
+        new SmileDeltaTermStructureParametersStrikeInterpolation(
+        SMILE_TERM.getName(), TIME_TO_EXPIRY, DELTA, ATM, RISK_REVERSAL, STRANGLE);
     assertEquals("Smile by delta term structure: constructor", SMILE_TERM, smileTerm2);
   }
 
@@ -64,7 +66,8 @@ public class SmileDeltaTermStructureParametersStrikeInterpolationTest {
     for (int loopexp = 0; loopexp < NB_EXP; loopexp++) {
       vol[loopexp] = VOLATILITY_TERM[loopexp].getVolatility();
     }
-    final SmileDeltaTermStructureParametersStrikeInterpolation smileTermVol = new SmileDeltaTermStructureParametersStrikeInterpolation(TIME_TO_EXPIRY, DELTA, vol);
+    final SmileDeltaTermStructureParametersStrikeInterpolation smileTermVol =
+        new SmileDeltaTermStructureParametersStrikeInterpolation(SMILE_TERM.getName(), TIME_TO_EXPIRY, DELTA, vol);
     assertEquals("Smile by delta term structure: constructor", SMILE_TERM, smileTermVol);
   }
 
