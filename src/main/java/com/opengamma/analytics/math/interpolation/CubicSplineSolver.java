@@ -163,7 +163,7 @@ abstract class CubicSplineSolver {
 
   /**
    * Cubic spline is obtained by solving a linear problem Ax=b where A is a square matrix and x,b are vector
-   * @param intervals
+   * @param intervals  the intervals
    * @return Endpoint-independent part of the matrix A
    */
   protected double[][] getCommonMatrixElements(final double[] intervals) {

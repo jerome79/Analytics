@@ -15,20 +15,20 @@ public abstract class PiecewisePolynomialInterpolator2D {
 
   /**
    * Given a set of data points (x0Values_i, x1Values_j, yValues_{ij}), 2d spline interpolation is returned such that f(x0Values_i, x1Values_j) = yValues_{ij}
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
+   * @param x0Values  the values
+   * @param x1Values  the values
+   * @param yValues  the values
    * @return {@link PiecewisePolynomialResult2D} containing positions of knots in x0 direction, positions of knots in x1 direction, coefficients of interpolant, 
    * number of intervals in x0 direction, number of intervals in x1 direction, order of polynomial function
    */
   public abstract PiecewisePolynomialResult2D interpolate(final double[] x0Values, final double[] x1Values, final double[][] yValues);
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Keys 
-   * @param x1Keys 
+   * @param x0Values  the values
+   * @param x1Values  the values
+   * @param yValues  the values
+   * @param x0Keys  the keys
+   * @param x1Keys  the keys
    * @return Values of 2D interpolant at (x0Key_i, x1Keys_j) 
    */
   public DoubleMatrix2D interpolate(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double[] x0Keys, final double[] x1Keys) {
@@ -82,11 +82,11 @@ public abstract class PiecewisePolynomialInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Key 
-   * @param x1Key 
+   * @param x0Values  the values
+   * @param x1Values  the values
+   * @param yValues  the values
+   * @param x0Key  the key
+   * @param x1Key  the key
    * @return Value of 2D interpolant at (x0Key, x1Key) 
    */
   public double interpolate(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double x0Key, final double x1Key) {
@@ -125,11 +125,11 @@ public abstract class PiecewisePolynomialInterpolator2D {
   }
 
   /**
-   * @param coefMat 
-   * @param x0 
-   * @param x1 
-   * @param leftKnot0 
-   * @param leftKnot1 
+   * @param coefMat  the coefMat
+   * @param x0  the x0
+   * @param x1  the x1
+   * @param leftKnot0  the leftKnot0
+   * @param leftKnot1  the leftKnot1
    * @return sum_{i=0}^{order0-1} sum_{j=0}^{order1-1} coefMat_{ij} (x0-leftKnots0)^{order0-1-i} (x1-leftKnots1)^{order0-1-j}
    */
   protected double getValue(final DoubleMatrix2D coefMat, final double x0, final double x1, final double leftKnot0, final double leftKnot1) {

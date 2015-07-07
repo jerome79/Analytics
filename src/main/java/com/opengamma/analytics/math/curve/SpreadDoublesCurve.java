@@ -154,7 +154,7 @@ public class SpreadDoublesCurve
         buf.append(curve.getName());
       }
       if (i != _curves.length - 1) {
-        buf.append(_spreadFunction.getOperationName());
+        buf.append(_spreadFunction.getName());
       }
       i++;
     }

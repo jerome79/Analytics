@@ -37,8 +37,8 @@ public class SpreadDoublesCurveTest {
 
   });
   private static final ConstantDoublesCurve CONSTANT1 = ConstantDoublesCurve.from(0.02);
-  private static final CurveSpreadFunction ADD = CurveSpreadFunctionFactory.of("+");
-  private static final CurveSpreadFunction SUBTRACT = CurveSpreadFunctionFactory.of("-");
+  private static final CurveSpreadFunction ADD = AddCurveSpreadFunction.INSTANCE;
+  private static final CurveSpreadFunction SUBTRACT = SubtractCurveSpreadFunction.INSTANCE;
   private static final String NAME1 = "X";
   private static final String NAME2 = "Y";
   private static final String NAME3 = "Z";

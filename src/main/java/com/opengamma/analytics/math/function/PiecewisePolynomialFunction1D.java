@@ -27,7 +27,7 @@ public class PiecewisePolynomialFunction1D {
 
   /** 
    * @param pp PiecewisePolynomialResult
-   * @param xKey  
+   * @param xKey  the key
    * @return Values of piecewise polynomial functions at xKey 
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple splines, an element in the return values corresponds to each spline 
    */
@@ -62,7 +62,7 @@ public class PiecewisePolynomialFunction1D {
 
   /**
    * @param pp PiecewisePolynomialResult
-   * @param xKeys 
+   * @param xKeys  the key
    * @return Values of piecewise polynomial functions at xKeys 
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple piecewise polynomials, a row vector of return value corresponds to each piecewise polynomial
    */
@@ -107,7 +107,7 @@ public class PiecewisePolynomialFunction1D {
 
   /**
    * @param pp PiecewisePolynomialResult
-   * @param xKeys 
+   * @param xKeys  the key
    * @return Values of piecewise polynomial functions at xKeys
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple piecewise polynomials, 
    * one element of return vector of DoubleMatrix2D corresponds to each piecewise polynomial
@@ -164,7 +164,7 @@ public class PiecewisePolynomialFunction1D {
 
   /** 
    * @param pp PiecewisePolynomialResult
-   * @param xKey 
+   * @param xKey  the key
    * @return First derivatives of piecewise polynomial functions at xKey 
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple piecewise polynomials, an element in the return values corresponds to each piecewise polynomial 
    */
@@ -196,8 +196,8 @@ public class PiecewisePolynomialFunction1D {
   }
 
   /**
-   * @param pp 
-   * @param xKeys 
+   * @param pp  the polynomial
+   * @param xKeys  the key
    * @return First derivatives of piecewise polynomial functions at xKeys 
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple piecewise polynomials, a row vector of return value corresponds to each piecewise polynomial
    */
@@ -230,7 +230,7 @@ public class PiecewisePolynomialFunction1D {
 
   /** 
    * @param pp PiecewisePolynomialResult
-   * @param xKey 
+   * @param xKey  the key
    * @return Second derivatives of piecewise polynomial functions at xKey 
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple piecewise polynomials, an element in the return values corresponds to each piecewise polynomial 
    */
@@ -262,8 +262,8 @@ public class PiecewisePolynomialFunction1D {
   }
 
   /**
-   * @param pp 
-   * @param xKeys 
+   * @param pp  the polynomial
+   * @param xKeys  the key
    * @return Second derivatives of piecewise polynomial functions at xKeys 
    * When _dim in PiecewisePolynomialResult is greater than 1, i.e., the struct contains multiple piecewise polynomials, a row vector of return value corresponds to each piecewise polynomial
    */
@@ -296,8 +296,8 @@ public class PiecewisePolynomialFunction1D {
 
   /** 
    * @param pp PiecewisePolynomialResult
-   * @param initialKey 
-   * @param xKey 
+   * @param initialKey  the initial key
+   * @param xKey  the key
    * @return Integral of piecewise polynomial between initialKey and xKey 
    */
   public double integrate(final PiecewisePolynomialResult pp, final double initialKey, final double xKey) {
@@ -356,8 +356,8 @@ public class PiecewisePolynomialFunction1D {
 
   /** 
    * @param pp PiecewisePolynomialResult
-   * @param initialKey 
-   * @param xKeys 
+   * @param initialKey  the initial key
+   * @param xKeys  the keys
    * @return Integral of piecewise polynomial between initialKey and xKeys 
    */
   public DoubleMatrix1D integrate(final PiecewisePolynomialResult pp, final double initialKey, final double[] xKeys) {
@@ -419,7 +419,7 @@ public class PiecewisePolynomialFunction1D {
 
   /**
    * @param coefs {a_n,a_{n-1},...} of f(x) = a_n x^{n} + a_{n-1} x^{n-1} + ....
-   * @param x 
+   * @param x   the x-value
    * @param leftknot Knot specifying underlying interpolation function
    * @return Value of the underlying interpolation function at the value of x
    */

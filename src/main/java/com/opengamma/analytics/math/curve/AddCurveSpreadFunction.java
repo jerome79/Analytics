@@ -20,40 +20,32 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  */
 public class AddCurveSpreadFunction implements CurveSpreadFunction {
+
+  /** An instance of this function */
+  public static final AddCurveSpreadFunction INSTANCE = new AddCurveSpreadFunction();
   /** The operation name */
   public static final String NAME = "+";
-  /** An instance of this function */
-  private static final AddCurveSpreadFunction INSTANCE = new AddCurveSpreadFunction();
 
   /**
-   * Gets an instance of this function
-   * @return The instance
+   * Restricted constructor.
    */
-  public static CurveSpreadFunction getInstance() {
-    return INSTANCE;
+  private AddCurveSpreadFunction() {
   }
 
   /**
-   * @deprecated Use {@link #getInstance()}
-   */
-  @Deprecated
-  public AddCurveSpreadFunction() {
-  }
-
-  /**
+   * Evaluates the function.
+   * 
    * @param curves An array of curves, not null or empty
    * @return A function that will find the value of each curve at the given input <i>x</i> and return the sum of these values
    */
   @SuppressWarnings("unchecked")
   @Override
   public Function<Double, Double> evaluate(final Curve<Double, Double>... curves) {
-    ArgChecker.notNull(curves, "x");
     ArgChecker.notEmpty(curves, "curves");
     return new Function<Double, Double>() {
 
       @Override
       public Double evaluate(final Double... x) {
-        ArgChecker.notNull(x, "x");
         ArgChecker.notEmpty(x, "x");
         final double x0 = x[0];
         double y = curves[0].getYValue(x0);
@@ -64,11 +56,6 @@ public class AddCurveSpreadFunction implements CurveSpreadFunction {
       }
 
     };
-  }
-
-  @Override
-  public String getOperationName() {
-    return NAME;
   }
 
   @Override

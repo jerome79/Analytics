@@ -43,7 +43,7 @@ public class FunctionalCubeAdditiveShiftFunction implements CubeShiftFunction<Fu
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCube evaluate(final FunctionalDoublesCube cube, final double x, final double y, final double z, final double shift) {
@@ -53,7 +53,7 @@ public class FunctionalCubeAdditiveShiftFunction implements CubeShiftFunction<Fu
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCube evaluate(final FunctionalDoublesCube cube, final double x, final double y, final double z, final double shift, final String newName) {
@@ -63,7 +63,7 @@ public class FunctionalCubeAdditiveShiftFunction implements CubeShiftFunction<Fu
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCube evaluate(final FunctionalDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] shift) {
@@ -73,7 +73,7 @@ public class FunctionalCubeAdditiveShiftFunction implements CubeShiftFunction<Fu
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCube evaluate(final FunctionalDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] shift, final String newName) {

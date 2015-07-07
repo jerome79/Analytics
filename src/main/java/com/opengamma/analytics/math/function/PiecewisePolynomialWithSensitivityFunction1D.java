@@ -22,7 +22,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
 
   /** 
    * @param pp {@link PiecewisePolynomialResultsWithSensitivity}
-   * @param xKey 
+   * @param xKey  the key
    * @return Node sensitivity value at x=xKey
    */
   public DoubleMatrix1D nodeSensitivity(final PiecewisePolynomialResultsWithSensitivity pp, final double xKey) {
@@ -56,7 +56,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
 
   /** 
    * @param pp {@link PiecewisePolynomialResultsWithSensitivity}
-   * @param xKeys 
+   * @param xKeys  the keys
    * @return Node sensitivity value at x=xKeys
    */
   public DoubleMatrix1D[] nodeSensitivity(final PiecewisePolynomialResultsWithSensitivity pp, final double[] xKeys) {
@@ -99,7 +99,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
 
   /** 
    * @param pp {@link PiecewisePolynomialResultsWithSensitivity}
-   * @param xKey 
+   * @param xKey  the key
    * @return Node sensitivity of derivative value at x=xKey
    */
   public DoubleMatrix1D differentiateNodeSensitivity(final PiecewisePolynomialResultsWithSensitivity pp, final double xKey) {
@@ -134,7 +134,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
 
   /** 
    * @param pp {@link PiecewisePolynomialResultsWithSensitivity}
-   * @param xKeys 
+   * @param xKeys  the keys
    * @return Node sensitivity of derivative value at x=xKeys
    */
   public DoubleMatrix1D[] differentiateNodeSensitivity(final PiecewisePolynomialResultsWithSensitivity pp, final double[] xKeys) {
@@ -166,7 +166,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
 
   /** 
    * @param pp {@link PiecewisePolynomialResultsWithSensitivity}
-   * @param xKey 
+   * @param xKey  the key
    * @return Node sensitivity of second derivative value at x=xKey
    */
   public DoubleMatrix1D differentiateTwiceNodeSensitivity(final PiecewisePolynomialResultsWithSensitivity pp, final double xKey) {
@@ -201,7 +201,7 @@ public class PiecewisePolynomialWithSensitivityFunction1D extends PiecewisePolyn
 
   /** 
    * @param pp {@link PiecewisePolynomialResultsWithSensitivity}
-   * @param xKeys 
+   * @param xKeys  the keys
    * @return Node sensitivity of second derivative value at x=xKeys
    */
   public DoubleMatrix1D[] differentiateTwiceNodeSensitivity(final PiecewisePolynomialResultsWithSensitivity pp, final double[] xKeys) {

@@ -34,7 +34,7 @@ public class ConstantCubeMultiplicativeShiftFunction implements CubeShiftFunctio
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double x, final double y, final double z, final double shift) {
@@ -44,7 +44,7 @@ public class ConstantCubeMultiplicativeShiftFunction implements CubeShiftFunctio
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double x, final double y, final double z, final double percentage, final String newName) {
@@ -54,7 +54,7 @@ public class ConstantCubeMultiplicativeShiftFunction implements CubeShiftFunctio
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] percentage) {
@@ -64,7 +64,7 @@ public class ConstantCubeMultiplicativeShiftFunction implements CubeShiftFunctio
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(final ConstantDoublesCube cube, final double[] xShift, final double[] yShift, final double[] zShift, final double[] percentage, final String newName) {

@@ -51,7 +51,7 @@ public class ConstantDoublesCube extends Cube<Double, Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getXData() {
@@ -60,7 +60,7 @@ public class ConstantDoublesCube extends Cube<Double, Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getYData() {
@@ -69,7 +69,7 @@ public class ConstantDoublesCube extends Cube<Double, Double, Double, Double> {
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getZData() {

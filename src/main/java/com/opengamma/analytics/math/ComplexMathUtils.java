@@ -21,7 +21,6 @@ public class ComplexMathUtils {
 
   public static ComplexNumber add(final ComplexNumber... z) {
     ArgChecker.notNull(z, "z");
-    int n = z.length;
     double res = 0.0;
     double img = 0.0;
     for (ComplexNumber aZ : z) {

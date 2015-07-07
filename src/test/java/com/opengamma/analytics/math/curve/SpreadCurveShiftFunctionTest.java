@@ -23,7 +23,7 @@ public class SpreadCurveShiftFunctionTest {
   private static final InterpolatedDoublesCurve CURVE1;
   private static final LinearInterpolator1D LINEAR = new LinearInterpolator1D();
   private static final ConstantDoublesCurve CURVE2 = ConstantDoublesCurve.from(4, "B");
-  private static final AddCurveSpreadFunction SPREAD_FUNCTION = new AddCurveSpreadFunction();
+  private static final AddCurveSpreadFunction SPREAD_FUNCTION = AddCurveSpreadFunction.INSTANCE;
   private static final SpreadDoublesCurve SPREAD;
   private static final SpreadCurveShiftFunction F = new SpreadCurveShiftFunction();
   private static final double SHIFT = 0.12;

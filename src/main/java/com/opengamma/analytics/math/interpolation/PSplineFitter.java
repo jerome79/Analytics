@@ -14,6 +14,7 @@ import com.opengamma.analytics.math.statistics.leastsquare.GeneralizedLeastSquar
 /**
  * 
  */
+@SuppressWarnings("deprecation")
 public class PSplineFitter {
 
   private final BasisFunctionGenerator _generator = new BasisFunctionGenerator();

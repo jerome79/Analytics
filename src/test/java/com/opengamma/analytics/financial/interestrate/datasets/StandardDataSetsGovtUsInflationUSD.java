@@ -316,7 +316,7 @@ public class StandardDataSetsGovtUsInflationUSD {
     }
     SeasonalCurve seasonalCurve = new SeasonalCurve(seasonalStep, SEASONAL_FACTORS, false);
     // Total adjustment as multiplication between seasonal and start.
-    DoublesCurve adjustmentCurve = new SpreadDoublesCurve(MultiplyCurveSpreadFunction.getInstance(), startCurve, seasonalCurve);
+    DoublesCurve adjustmentCurve = new SpreadDoublesCurve(MultiplyCurveSpreadFunction.INSTANCE, startCurve, seasonalCurve);
     GeneratorPriceIndexCurve generatorFixLinAnchor = new GeneratorPriceIndexCurveInterpolatedAnchor(
         LAST_FIXING_END_CALCULATOR, INTERPOLATOR_LINEAR, times[nbTimes - 1], 1.0);
     GeneratorPriceIndexCurve genAdjustment =

@@ -342,10 +342,6 @@ public class DoublesCurveTestCase {
       super(data, isSorted, name);
     }
 
-    public DummyCurve(final Set<DoublesPair> data, final boolean isSorted, final String name) {
-      super(data, isSorted, name);
-    }
-
     public DummyCurve(final List<Double> xData, final List<Double> yData, final boolean isSorted, final String name) {
       super(xData, yData, isSorted, name);
     }

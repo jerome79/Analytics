@@ -27,10 +27,10 @@ public class PiecewisePolynomialResult {
 
   /**
    * Constructor
-   * @param knots 
-   * @param coefMatrix 
-   * @param order 
-   * @param dim 
+   * @param knots  the knots
+   * @param coefMatrix  the coefMatrix
+   * @param order  the order
+   * @param dim  the dim
    */
   public PiecewisePolynomialResult(final DoubleMatrix1D knots, final DoubleMatrix2D coefMatrix, final int order, final int dim) {
 

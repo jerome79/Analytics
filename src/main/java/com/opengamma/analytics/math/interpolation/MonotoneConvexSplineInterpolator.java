@@ -99,7 +99,7 @@ public class MonotoneConvexSplineInterpolator extends PiecewisePolynomialInterpo
   /**
    * Since Monotone Convex spline method introduces extra knots in some cases and the number of knots depends on yValues, 
    * this multidimensional method can not be supported 
-   * @param xValues 
+   * @param xValues   the x-values
    * @param yValuesMatrix Multidimensional y values
    * @return Error is returned 
    */
@@ -208,8 +208,8 @@ public class MonotoneConvexSplineInterpolator extends PiecewisePolynomialInterpo
   /**
    * Since this interpolation method introduces new breakpoints in certain cases, {@link PiecewisePolynomialResultsWithSensitivity} is not well-defined
    * Instead the node sensitivity is computed in {@link MonotoneConvexSplineInterpolator1D} via {@link Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle}
-   * @param xValues 
-   * @param yValues 
+   * @param xValues  the x-values
+   * @param yValues  the y-values
    * @return UnsupportedOperationException
    */
   @Override

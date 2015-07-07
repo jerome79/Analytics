@@ -35,7 +35,7 @@ public class ConstantCurveShiftFunction implements CurveShiftFunction<ConstantDo
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCurve evaluate(final ConstantDoublesCurve curve, final double x, final double shift) {
@@ -45,7 +45,7 @@ public class ConstantCurveShiftFunction implements CurveShiftFunction<ConstantDo
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCurve evaluate(final ConstantDoublesCurve curve, final double x, final double shift, final String newName) {
@@ -55,7 +55,7 @@ public class ConstantCurveShiftFunction implements CurveShiftFunction<ConstantDo
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCurve evaluate(final ConstantDoublesCurve curve, final double[] xShift, final double[] yShift) {
@@ -65,7 +65,7 @@ public class ConstantCurveShiftFunction implements CurveShiftFunction<ConstantDo
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCurve evaluate(final ConstantDoublesCurve curve, final double[] xShift, final double[] yShift, final String newName) {

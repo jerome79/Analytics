@@ -34,9 +34,9 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
 @Test
 public class YieldCurveUtilsTest {
   /** Adds yield curves */
-  private static final AddCurveSpreadFunction ADD_CURVE_FUNCTION = new AddCurveSpreadFunction();
+  private static final AddCurveSpreadFunction ADD_CURVE_FUNCTION = AddCurveSpreadFunction.INSTANCE;
   /** Multiplies yield curves */
-  private static final MultiplyCurveSpreadFunction MULTIPLY_CURVE_FUNCTION = new MultiplyCurveSpreadFunction();
+  private static final MultiplyCurveSpreadFunction MULTIPLY_CURVE_FUNCTION = MultiplyCurveSpreadFunction.INSTANCE;
   /** The interpolator for the original curve */
   private static final Interpolator1D INTERPOLATOR = CombinedInterpolatorExtrapolatorFactory.getInterpolator(Interpolator1DFactory.DOUBLE_QUADRATIC,
       Interpolator1DFactory.FLAT_EXTRAPOLATOR, Interpolator1DFactory.LINEAR_EXTRAPOLATOR);

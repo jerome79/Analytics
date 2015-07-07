@@ -42,11 +42,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Key 
-   * @param x1Key 
+   * @param x0Values  the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Key   the key
+   * @param x1Key   the key
    * @return Value of 2D interpolant at (x0Key, x1Key) 
    */
   public double interpolate(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double x0Key, final double x1Key) {
@@ -55,11 +55,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Keys 
-   * @param x1Keys 
+   * @param x0Values   the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Keys   the keys
+   * @param x1Keys   the keys
    * @return Values of 2D interpolant at (x0Key_i, x1Keys_j) 
    */
   public DoubleMatrix2D interpolate(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double[] x0Keys, final double[] x1Keys) {
@@ -68,11 +68,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Key 
-   * @param x1Key 
+   * @param x0Values  the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Key   the key
+   * @param x1Key   the key
    * @return Value of first derivative with respect to x0 at (x0Key, x1Key) 
    */
   public double differentiateX0(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double x0Key, final double x1Key) {
@@ -82,11 +82,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Keys 
-   * @param x1Keys 
+   * @param x0Values   the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Keys   the keys
+   * @param x1Keys   the keys
    * @return Values of first derivative with respect to x0 at (x0Key_i, x1Keys_j) 
    */
   public DoubleMatrix2D differentiateX0(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double[] x0Keys, final double[] x1Keys) {
@@ -96,11 +96,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Key 
-   * @param x1Key 
+   * @param x0Values  the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Key   the key
+   * @param x1Key   the key
    * @return Value of second derivative with respect to x0 at (x0Key, x1Key) 
    */
   public double differentiateX0Twice(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double x0Key, final double x1Key) {
@@ -110,11 +110,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Keys 
-   * @param x1Keys 
+   * @param x0Values   the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Keys   the keys
+   * @param x1Keys   the keys
    * @return Values of second derivative with respect to x0 at (x0Key_i, x1Keys_j) 
    */
   public DoubleMatrix2D differentiateX0Twice(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double[] x0Keys, final double[] x1Keys) {
@@ -125,11 +125,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Key 
-   * @param x1Key 
+   * @param x0Values  the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Key   the key
+   * @param x1Key   the key
    * @return Value of first derivative with respect to x1 at (x0Key, x1Key) 
    */
   public double differentiateX1(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double x0Key, final double x1Key) {
@@ -139,11 +139,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Keys 
-   * @param x1Keys 
+   * @param x0Values   the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Keys   the keys
+   * @param x1Keys   the keys
    * @return Values of first derivative with respect to x1 at (x0Key_i, x1Keys_j) 
    */
   public DoubleMatrix2D differentiateX1(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double[] x0Keys, final double[] x1Keys) {
@@ -153,11 +153,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Key 
-   * @param x1Key 
+   * @param x0Values  the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Key   the key
+   * @param x1Key   the key
    * @return Value of second derivative with respect to x1 at (x0Key, x1Key) 
    */
   public double differentiateX1Twice(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double x0Key, final double x1Key) {
@@ -167,11 +167,11 @@ public class MeshgridInterpolator2D {
   }
 
   /**
-   * @param x0Values 
-   * @param x1Values 
-   * @param yValues 
-   * @param x0Keys 
-   * @param x1Keys 
+   * @param x0Values   the values
+   * @param x1Values   the values
+   * @param yValues   the values
+   * @param x0Keys   the keys
+   * @param x1Keys   the keys
    * @return Values of second derivative with respect to x1 at (x0Key_i, x1Keys_j) 
    */
   public DoubleMatrix2D differentiateX1Twice(final double[] x0Values, final double[] x1Values, final double[][] yValues, final double[] x0Keys, final double[] x1Keys) {

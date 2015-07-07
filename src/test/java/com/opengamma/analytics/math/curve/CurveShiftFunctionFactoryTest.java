@@ -29,8 +29,10 @@ public class CurveShiftFunctionFactoryTest {
   };
   private static final ConstantDoublesCurve CONSTANT = ConstantDoublesCurve.from(3.4);
   private static final FunctionalDoublesCurve FUNCTIONAL = FunctionalDoublesCurve.from(F);
-  private static final InterpolatedDoublesCurve INTERPOLATED = InterpolatedDoublesCurve.from(new double[] {1, 2 }, new double[] {1.2, 3.4 }, new LinearInterpolator1D());
-  private static final SpreadDoublesCurve SPREAD = SpreadDoublesCurve.from(new AddCurveSpreadFunction(), new DoublesCurve[] {INTERPOLATED, CONSTANT });
+  private static final InterpolatedDoublesCurve INTERPOLATED = InterpolatedDoublesCurve.from(
+      new double[] {1, 2}, new double[] {1.2, 3.4}, new LinearInterpolator1D());
+  private static final SpreadDoublesCurve SPREAD = SpreadDoublesCurve.from(
+      AddCurveSpreadFunction.INSTANCE, new DoublesCurve[] {INTERPOLATED, CONSTANT});
   private static final DoublesCurve DUMMY = new DoublesCurve() {
 
     @Override

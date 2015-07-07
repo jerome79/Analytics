@@ -514,7 +514,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getXData() {
@@ -523,7 +523,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getYData() {
@@ -532,7 +532,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getZData() {
@@ -541,7 +541,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getValues() {
@@ -550,7 +550,7 @@ public class InterpolatedFromSurfacesDoublesCube extends Cube<Double, Double, Do
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public int size() {
