@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -39,7 +37,7 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
    * @param curves  The array of underlying curves.
 
    */
-  public PriceIndexCurveAddPriceIndexSpreadCurve(final String name, final boolean substract, final PriceIndexCurve... curves) {
+  public PriceIndexCurveAddPriceIndexSpreadCurve(String name, boolean substract, PriceIndexCurve... curves) {
     ArgChecker.notNull(curves, "Curves");
     _name = name;
     _sign = substract ? -1.0 : 1.0;
@@ -47,7 +45,7 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
   }
 
   @Override
-  public double getPriceIndex(final Double timeToIndex) {
+  public double getPriceIndex(Double timeToIndex) {
     double priceIndex = _curves[0].getPriceIndex(timeToIndex);
     for (int loopcurve = 1; loopcurve < _curves.length; loopcurve++) {
       priceIndex += _sign * _curves[loopcurve].getPriceIndex(timeToIndex);
@@ -56,32 +54,34 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
   }
 
   @Override
-  public double getInflationRate(final Double firstTime, final Double secondTime) {
+  public double getInflationRate(Double firstTime, Double secondTime) {
     ArgChecker.isTrue(firstTime < secondTime, "firstTime should be before secondTime");
     return this.getPriceIndex(secondTime) / this.getPriceIndex(firstTime) - 1.0;
   }
 
   @Override
-  public double[] getPriceIndexParameterSensitivity(final double time) {
-    final DoubleArrayList result = new DoubleArrayList();
-    double[] temp;
-    temp = _curves[0].getPriceIndexParameterSensitivity(time);
-    for (final double element : temp) {
-      result.add(element);
+  public double[] getPriceIndexParameterSensitivity(double time) {
+    // calculate size of the result
+    int size = 0;
+    for (int loopcurve = 0; loopcurve < _curves.length; loopcurve++) {
+      size += _curves[loopcurve].getPriceIndexParameterSensitivity(time).length;
     }
-    for (int loopcurve = 1; loopcurve < _curves.length; loopcurve++) {
-      temp = _curves[loopcurve].getPriceIndexParameterSensitivity(time);
-      for (final double element : temp) {
-        result.add(element);
+    // create result
+    double[] result = new double[size];
+    int i = 0;
+    for (int loopcurve = 0; loopcurve < _curves.length; loopcurve++) {
+      double[] temp = _curves[loopcurve].getPriceIndexParameterSensitivity(time);
+      for (double element : temp) {
+        result[i++] = element;
       }
     }
-    return result.toDoubleArray();
+    return result;
   }
 
   @Override
   public int getNumberOfParameters() {
     int result = 0;
-    for (final PriceIndexCurve curve : _curves) {
+    for (PriceIndexCurve curve : _curves) {
       result += curve.getNumberOfParameters();
     }
     return result;
@@ -89,8 +89,8 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
 
   @Override
   public List<String> getUnderlyingCurvesNames() {
-    final List<String> names = new ArrayList<>();
-    for (final PriceIndexCurve curve : _curves) {
+    List<String> names = new ArrayList<>();
+    for (PriceIndexCurve curve : _curves) {
       names.add(curve.getName());
     }
     return names;
@@ -116,7 +116,7 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    int prime = 31;
     int result = 1;
     result = prime * result + _curves.hashCode();
     long temp;
@@ -126,7 +126,7 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
   }
 
   @Override
-  public boolean equals(final Object obj) {
+  public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
@@ -136,7 +136,7 @@ public class PriceIndexCurveAddPriceIndexSpreadCurve implements PriceIndexCurve 
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final PriceIndexCurveAddPriceIndexSpreadCurve other = (PriceIndexCurveAddPriceIndexSpreadCurve) obj;
+    PriceIndexCurveAddPriceIndexSpreadCurve other = (PriceIndexCurveAddPriceIndexSpreadCurve) obj;
     if (!Objects.equals(_curves, other._curves)) {
       return false;
     }

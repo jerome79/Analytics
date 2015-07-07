@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -35,7 +33,7 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
    * @param subtract If true, the rate of all curves, except the first one, will be subtracted from the first one. If false, all the rates are added.
    * @param curves The array of underlying curves.
    */
-  public YieldAndDiscountAddZeroSpreadCurve(final String name, final boolean subtract, final YieldAndDiscountCurve... curves) {
+  public YieldAndDiscountAddZeroSpreadCurve(String name, boolean subtract, YieldAndDiscountCurve... curves) {
     super(name);
     ArgChecker.notNull(curves, "Curves");
     _sign = subtract ? -1.0 : 1.0;
@@ -43,7 +41,7 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
   }
 
   @Override
-  public double getInterestRate(final Double t) {
+  public double getInterestRate(Double t) {
     double rate = _curves[0].getInterestRate(t);
     for (int loopcurve = 1; loopcurve < _curves.length; loopcurve++) {
       rate += _sign * _curves[loopcurve].getInterestRate(t);
@@ -52,7 +50,7 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
   }
 
   @Override
-  public double getForwardRate(final double t) {
+  public double getForwardRate(double t) {
     double f = _curves[0].getForwardRate(t);
     for (int loopcurve = 1; loopcurve < _curves.length; loopcurve++) {
       f += _sign * _curves[loopcurve].getForwardRate(t);
@@ -61,35 +59,37 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
   }
 
   @Override
-  public double[] getInterestRateParameterSensitivity(final double time) {
-    final DoubleArrayList result = new DoubleArrayList();
-    double[] temp;
-    temp = _curves[0].getInterestRateParameterSensitivity(time);
-    for (final double element : temp) {
-      result.add(element);
+  public double[] getInterestRateParameterSensitivity(double time) {
+    // calculate size of the result
+    int size = 0;
+    for (int loopcurve = 0; loopcurve < _curves.length; loopcurve++) {
+      size += _curves[loopcurve].getInterestRateParameterSensitivity(time).length;
     }
-    for (int loopcurve = 1; loopcurve < _curves.length; loopcurve++) {
-      temp = _curves[loopcurve].getInterestRateParameterSensitivity(time);
-      for (final double element : temp) {
-        result.add(element);
+    // create result
+    double[] result = new double[size];
+    int i = 0;
+    for (int loopcurve = 0; loopcurve < _curves.length; loopcurve++) {
+      double[] temp = _curves[loopcurve].getInterestRateParameterSensitivity(time);
+      for (double element : temp) {
+        result[i++] = element;
       }
     }
-    return result.toDoubleArray();
+    return result;
   }
 
   @Override
   public int getNumberOfParameters() {
     int result = 0;
-    for (final YieldAndDiscountCurve curve : _curves) {
+    for (YieldAndDiscountCurve curve : _curves) {
       result += curve.getNumberOfParameters();
     }
     return result;
   }
 
   @Override
-  public int getNumberOfIntrinsicParameters(final Set<String> curvesNames) {
+  public int getNumberOfIntrinsicParameters(Set<String> curvesNames) {
     int result = 0;
-    for (final YieldAndDiscountCurve curve : _curves) {
+    for (YieldAndDiscountCurve curve : _curves) {
       if (!curvesNames.contains(curve.getName())) {
         result += curve.getNumberOfParameters();
       }
@@ -99,8 +99,8 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
 
   @Override
   public List<String> getUnderlyingCurvesNames() {
-    final List<String> names = new ArrayList<>();
-    for (final YieldAndDiscountCurve curve : _curves) {
+    List<String> names = new ArrayList<>();
+    for (YieldAndDiscountCurve curve : _curves) {
       names.add(curve.getName());
     }
     return names;
@@ -125,7 +125,7 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    int prime = 31;
     int result = 1;
     result = prime * result + Arrays.hashCode(_curves);
     long temp;
@@ -135,7 +135,7 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
   }
 
   @Override
-  public boolean equals(final Object obj) {
+  public boolean equals(Object obj) {
     if (this == obj) {
       return true;
     }
@@ -145,7 +145,7 @@ public class YieldAndDiscountAddZeroSpreadCurve extends YieldAndDiscountCurve {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final YieldAndDiscountAddZeroSpreadCurve other = (YieldAndDiscountAddZeroSpreadCurve) obj;
+    YieldAndDiscountAddZeroSpreadCurve other = (YieldAndDiscountAddZeroSpreadCurve) obj;
     if (!Arrays.equals(_curves, other._curves)) {
       return false;
     }
