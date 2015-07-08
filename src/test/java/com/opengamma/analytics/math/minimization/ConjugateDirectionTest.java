@@ -12,7 +12,9 @@ import org.testng.annotations.Test;
  */
 @Test
 public class ConjugateDirectionTest extends MultidimensionalMinimizerTestCase {
-  private static final double EPS = 1e-6;
+
+  // EPS set to 5e-6, not 1e-6, for 32-bit Windows
+  private static final double EPS = 5e-6;
 
   private static ScalarMinimizer LINE_MINIMIZER = new BrentMinimizer1D();
   private static ConjugateDirectionVectorMinimizer MINIMIZER =
