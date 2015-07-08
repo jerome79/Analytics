@@ -702,7 +702,7 @@ public class MixedBivariateLogNormalFitterTest {
 
     double[] xx = new double[nDataPts];
     final double[] yy = new double[nDataPts];
-    double[] aaGuess1 = new double[nParams];
+    double[] aaGuess1 = new double[] {0.3, 0.3, 0.3, 0.3, 0.9, 0.9, 0.9 }; // the first try always successes. 
     final double[] aaGuess1X = new double[nParamsX];
     final double[] aaGuess1Y = new double[nParamsY];
     final double[] rhos = new double[nNorms];
@@ -744,9 +744,6 @@ public class MixedBivariateLogNormalFitterTest {
     final double[] inSigmasZ = objTrueZ.getSigmasZ();
     final double[] inRelativePartialForwardsZ = objTrueZ.getRelativeForwardsZ();
 
-    for (int i = 0; i < nParams; ++i) {
-      aaGuess1[i] = 1e-2 + obj.nextDouble();
-    }
     MixedBivariateLogNormalFitter fitter1 = new MixedBivariateLogNormalFitter();
 
     boolean fitDone = false;
@@ -942,7 +939,7 @@ public class MixedBivariateLogNormalFitterTest {
     final double time = 1.0;
 
     final double[] yy = new double[nDataPts];
-    double[] aaGuess1 = new double[nParams];
+    double[] aaGuess1 = new double[] {0.3, 0.3, 0.3, 0.3, 0.9, 0.9, 0.9 }; // the first try always successes. 
     final double[] aaGuess1X = new double[nParamsX];
     final double[] aaGuess1Y = new double[nParamsY];
     final double[] rhos = new double[nNorms];
@@ -979,9 +976,6 @@ public class MixedBivariateLogNormalFitterTest {
       rhos[i] = 0.2 * (0.5 * i + 1.);
     }
 
-    for (int i = 0; i < nParams; ++i) {
-      aaGuess1[i] = 1e-2 + obj.nextDouble();
-    }
     MixedBivariateLogNormalFitter fitter1 = new MixedBivariateLogNormalFitter();
 
     boolean fitDone = false;
@@ -1101,7 +1095,7 @@ public class MixedBivariateLogNormalFitterTest {
 
     double[] xx = new double[nDataPts];
     final double[] yy = new double[nDataPts];
-    double[] aaGuess1 = new double[nParams];
+    double[] aaGuess1 = new double[] {0.3, 0.3, 0.3, 0.3, 0.9, 0.9, 0.9 }; // the first try always successes. 
     final double[] aaGuess1X = new double[nParamsX];
     final double[] aaGuess1Y = new double[nParamsY];
     final double[] rhos = new double[nNorms];
@@ -1138,9 +1132,6 @@ public class MixedBivariateLogNormalFitterTest {
       rhos[i] = 0.2 * (0.5 * i + 1.);
     }
 
-    for (int i = 0; i < nParams; ++i) {
-      aaGuess1[i] = 1e-2 + obj.nextDouble();
-    }
     MixedBivariateLogNormalFitter fitter1 = new MixedBivariateLogNormalFitter();
 
     boolean fitDone = false;
@@ -1214,10 +1205,7 @@ public class MixedBivariateLogNormalFitterTest {
       yyZ[j] = objTrueZ.getImpliedVolatilityZ(option, fwdZ);
     }
 
-    double[] rhosGuess = new double[nNorms];
-    for (int i = 0; i < nNorms; ++i) {
-      rhosGuess[i] = 1. - obj.nextDouble();
-    }
+    double[] rhosGuess = new double[] {0.25, 0.25 };
 
     MixedBivariateLogNormalCorrelationFinder fitter = new MixedBivariateLogNormalCorrelationFinder();
 
