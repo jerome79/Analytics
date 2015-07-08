@@ -172,7 +172,7 @@ public class MixedBivariateLogNormalFitter {
 
       k = k + 1;
 
-      ///confirming positive parameters and NotNaN
+      //      confirming positive parameters and NotNaN
       boolean confPositiveParams = false;
       while (confPositiveParams == false) {
 
