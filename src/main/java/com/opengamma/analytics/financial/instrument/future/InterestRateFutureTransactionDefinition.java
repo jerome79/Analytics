@@ -9,12 +9,9 @@ import java.time.ZonedDateTime;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
-import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureSecurity;
 import com.opengamma.analytics.financial.interestrate.future.derivative.InterestRateFutureTransaction;
-import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -33,54 +30,6 @@ public class InterestRateFutureTransactionDefinition extends FuturesTransactionD
   public InterestRateFutureTransactionDefinition(final InterestRateFutureSecurityDefinition underlying, final long quantity, final ZonedDateTime transactionDate,
       final double transactionPrice) {
     super(underlying, quantity, transactionDate, transactionPrice);
-  }
-
-  /**
-   * @param transactionDate The transaction date of the future, not null
-   * @param transactionPrice The transaction price
-   * @param quantity The quantity
-   * @param lastTradingDate The last trading date, not null
-   * @param fixingPeriodStartDate The start date of the Ibor fixing period, not null
-   * @param fixingPeriodEndDate The end date of the Ibor fixing period, not null. Must be after the fixing period start date
-   * @param iborIndex The Ibor index, not null
-   * @param notional  The notional
-   * @param paymentAccrualFactor The payment accrual factor, not negative or zero
-   * @param name The name, not null
-   * @param calendar The holiday calendar, not null
-   * @deprecated Deprecated since 2.2.0.M17. Use the constructor with underlying.
-   */
-  @Deprecated
-  public InterestRateFutureTransactionDefinition(final ZonedDateTime transactionDate, final double transactionPrice, final int quantity, final ZonedDateTime lastTradingDate,
-      final ZonedDateTime fixingPeriodStartDate, final ZonedDateTime fixingPeriodEndDate, final IborIndex iborIndex, final double notional, final double paymentAccrualFactor,
-      final String name, final HolidayCalendar calendar) {
-    super(new InterestRateFutureSecurityDefinition(lastTradingDate, fixingPeriodStartDate, fixingPeriodEndDate, iborIndex, notional, paymentAccrualFactor,
-        name, calendar), quantity, transactionDate, transactionPrice);
-  }
-
-  /**
-   * Build a interest rate futures transaction from the fixing period start date.
-   * @param transactionDate The date at which the transaction was done.
-   * @param transactionPrice The price at which the transaction was done.
-   * @param quantity The quantity/number of contract.
-   * @param fixingPeriodStartDate The start date of the fixing period.
-   * @param iborIndex The Ibor index associated to the future.
-   * @param notional Future notional.
-   * @param paymentAccrualFactor Future payment accrual factor.
-   * @param name The future name.
-   * @param calendar The holiday calendar for the ibor leg.
-   * @return The interest rate futures.
-   * @deprecated Deprecated since 2.2.0.M17. Use the constructor with underlying.
-   */
-  @Deprecated
-  public static InterestRateFutureTransactionDefinition fromFixingPeriodStartDate(final ZonedDateTime transactionDate, final double transactionPrice, final int quantity,
-      final ZonedDateTime fixingPeriodStartDate, final IborIndex iborIndex, final double notional, final double paymentAccrualFactor, final String name,
-      final HolidayCalendar calendar) {
-    ArgChecker.notNull(fixingPeriodStartDate, "Fixing period start date");
-    ArgChecker.notNull(iborIndex, "Ibor index");
-    final ZonedDateTime lastTradingDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, -iborIndex.getSpotLag(), calendar);
-    final ZonedDateTime fixingPeriodEndDate = ScheduleCalculator.getAdjustedDate(fixingPeriodStartDate, iborIndex, calendar);
-    return new InterestRateFutureTransactionDefinition(transactionDate, transactionPrice, quantity, lastTradingDate, fixingPeriodStartDate, fixingPeriodEndDate, iborIndex, notional,
-        paymentAccrualFactor, name, calendar);
   }
 
   public InterestRateFutureTransactionDefinition withNewNotionalAndTransactionPrice(final double notional, final double transactionPrice) {

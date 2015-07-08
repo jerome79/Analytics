@@ -103,11 +103,6 @@ public class CouponCommodityPhysicalSettleDefinition extends CouponCommodityDefi
     return getNotional();
   }
 
-  /**
-   * {@inheritDoc}
-   * @deprecated Use the method that does not take yield curve names
-   */
-  @Deprecated
   @Override
   public CouponCommodity toDerivative(final ZonedDateTime date) {
     ArgChecker.inOrderOrEqual(date, getSettlementDate(), "date", "expiry date");
@@ -116,7 +111,8 @@ public class CouponCommodityPhysicalSettleDefinition extends CouponCommodityDefi
     final double noticeLastTime = TimeCalculator.getTimeBetween(date, _noticeLastDate);
     final double firstDeliveryTime = TimeCalculator.getTimeBetween(date, _firstDeliveryDate);
     final double lastDeliveryTime = TimeCalculator.getTimeBetween(date, _lastDeliveryDate);
-    return new CouponCommodityPhysicalSettle(getPaymentYearFractione(), getUnderlying(), getUnitName(), getNotional(), settlementTime, getCalendar(), noticeFirstTime, noticeLastTime,
+    return new CouponCommodityPhysicalSettle(getPaymentYearFractione(), getUnderlying(), getUnitName(), getNotional(),
+        settlementTime, getCalendar(), noticeFirstTime, noticeLastTime,
         firstDeliveryTime, lastDeliveryTime);
   }
 

@@ -95,7 +95,6 @@ import com.opengamma.analytics.financial.interestrate.inflation.derivative.Coupo
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponInterpolationGearing;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthly;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthlyGearing;
-import com.opengamma.analytics.financial.interestrate.payments.ForexForward;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMSSpread;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -227,11 +226,6 @@ public class InstrumentDerivativeVisitorDelegate<DATA_TYPE, RESULT_TYPE> impleme
   @Override
   public RESULT_TYPE visitSwaptionBermudaFixedIbor(final SwaptionBermudaFixedIbor swaption, final DATA_TYPE data) {
     return _delegate.visitSwaptionBermudaFixedIbor(swaption, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitForexForward(final ForexForward fx, final DATA_TYPE data) {
-    return _delegate.visitForexForward(fx, data);
   }
 
   @Override
@@ -382,11 +376,6 @@ public class InstrumentDerivativeVisitorDelegate<DATA_TYPE, RESULT_TYPE> impleme
   @Override
   public RESULT_TYPE visitSwaptionBermudaFixedIbor(final SwaptionBermudaFixedIbor swaption) {
     return _delegate.visitSwaptionBermudaFixedIbor(swaption);
-  }
-
-  @Override
-  public RESULT_TYPE visitForexForward(final ForexForward fx) {
-    return _delegate.visitForexForward(fx);
   }
 
   @Override

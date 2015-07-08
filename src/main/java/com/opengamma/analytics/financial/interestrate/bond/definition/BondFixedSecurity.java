@@ -47,49 +47,6 @@ public class BondFixedSecurity extends BondSecurity<PaymentFixed, CouponFixed> {
    * @param factorToNextCoupon The factor from spot up to the next coupon.
    * @param yieldConvention The yield (to maturity) computation convention.
    * @param couponPerYear Number of coupon per year.
-   * @param repoCurveName The name of the curve used for settlement amount discounting.
-   * @param issuer The bond issuer name.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public BondFixedSecurity(final AnnuityPaymentFixed nominal, final AnnuityCouponFixed coupon, final double settlementTime, final double accruedInterest, final double factorToNextCoupon,
-      final YieldConvention yieldConvention, final int couponPerYear, final String repoCurveName, final String issuer) {
-    this(nominal, coupon, settlementTime, accruedInterest, factorToNextCoupon, yieldConvention, couponPerYear, repoCurveName, new LegalEntity(null, issuer, null, null, null));
-  }
-
-  /**
-   * Fixed coupon bond constructor from the nominal and the coupons.
-   * @param nominal The notional payments. For bullet bond, it is restricted to a single payment.
-   * @param coupon The bond fixed coupons. The coupons notional should be in line with the bond nominal.
-   * @param settlementTime The time (in years) to settlement date.
-   * @param accruedInterest The accrued interest at the settlement date. The accrued interest is an amount (in line with the nominal).
-   * @param factorToNextCoupon The factor from spot up to the next coupon.
-   * @param yieldConvention The yield (to maturity) computation convention.
-   * @param couponPerYear Number of coupon per year.
-   * @param repoCurveName The name of the curve used for settlement amount discounting.
-   * @param issuer The bond issuer name.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public BondFixedSecurity(final AnnuityPaymentFixed nominal, final AnnuityCouponFixed coupon, final double settlementTime, final double accruedInterest, final double factorToNextCoupon,
-      final YieldConvention yieldConvention, final int couponPerYear, final String repoCurveName, final LegalEntity issuer) {
-    super(nominal, coupon, settlementTime, repoCurveName, issuer);
-    ArgChecker.notNull(yieldConvention, "Yield convention");
-    _yieldConvention = yieldConvention;
-    _accruedInterest = accruedInterest;
-    _couponPerYear = couponPerYear;
-    _factorToNextCoupon = factorToNextCoupon;
-  }
-
-  /**
-   * Fixed coupon bond constructor from the nominal and the coupons. The legal entity contains only the issuer name.
-   * @param nominal The notional payments. For bullet bond, it is restricted to a single payment.
-   * @param coupon The bond fixed coupons. The coupons notional should be in line with the bond nominal.
-   * @param settlementTime The time (in years) to settlement date.
-   * @param accruedInterest The accrued interest at the settlement date. The accrued interest is an amount (in line with the nominal).
-   * @param factorToNextCoupon The factor from spot up to the next coupon.
-   * @param yieldConvention The yield (to maturity) computation convention.
-   * @param couponPerYear Number of coupon per year.
    * @param issuer The bond issuer name.
    */
   public BondFixedSecurity(final AnnuityPaymentFixed nominal, final AnnuityCouponFixed coupon, final double settlementTime, final double accruedInterest, final double factorToNextCoupon,

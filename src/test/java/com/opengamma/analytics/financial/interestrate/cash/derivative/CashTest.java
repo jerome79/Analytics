@@ -40,12 +40,6 @@ public class CashTest {
     new Cash(CCY, T + 1, T, NOTIONAL, R, FRACTION);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetName() {
-    new Cash(CCY, T - 1, T, NOTIONAL, R, FRACTION).getYieldCurveName();
-  }
-
   @Test
   /**
    * Tests the equal and hash code methods.

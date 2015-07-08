@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.interestrate.bond.definition;
 
 import java.util.Objects;
 
-import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Coupon;
@@ -15,7 +14,6 @@ import com.opengamma.analytics.financial.interestrate.payments.derivative.Paymen
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
-import com.opengamma.strata.collect.tuple.Pair;
 
 /**
  * Describes a generic single currency bond issue.
@@ -43,47 +41,6 @@ public abstract class BondSecurity<N extends Payment, C extends Coupon> implemen
    * The bond issuer.
    */
   private final LegalEntity _issuer;
-  /**
-   * The name of the curve used for settlement amount discounting.
-   */
-  private final String _discountingCurveName;
-
-  /**
-   * Bond constructor from the bond nominal and coupon.
-   * @param nominal The notional payments.
-   * @param coupon The bond coupons.
-   * @param settlementTime The time (in years) to settlement date.
-   * @param discountingCurveName The name of the curve used for settlement amount discounting.
-   * @param issuer The bond issuer name.
-   * @deprecated Use the constructor that does not take a curve name
-   */
-  @Deprecated
-  public BondSecurity(final Annuity<N> nominal, final Annuity<C> coupon, final double settlementTime, final String discountingCurveName, final String issuer) {
-    this(nominal, coupon, settlementTime, discountingCurveName, new LegalEntity(null, issuer, null, null, null));
-  }
-
-  /**
-   * Bond constructor from the bond nominal and coupon.
-   * @param nominal The notional payments.
-   * @param coupon The bond coupons.
-   * @param settlementTime The time (in years) to settlement date.
-   * @param discountingCurveName The name of the curve used for settlement amount discounting.
-   * @param issuer The bond issuer name.
-   * @deprecated Use the constructor that does not take a curve name
-   */
-  @Deprecated
-  public BondSecurity(final Annuity<N> nominal, final Annuity<C> coupon, final double settlementTime, final String discountingCurveName, final LegalEntity issuer) {
-    ArgChecker.notNull(nominal, "Nominal");
-    ArgChecker.notNull(coupon, "Coupon");
-    ArgChecker.notNull(discountingCurveName, "Repo curve name");
-    ArgChecker.notNull(issuer, "Issuer");
-    _nominal = nominal;
-    _coupon = coupon;
-    _settlementTime = settlementTime;
-    _discountingCurveName = discountingCurveName;
-    _issuer = issuer;
-    _issuerName = issuer.getShortName();
-  }
 
   /**
    * Bond constructor from the bond nominal and coupon.
@@ -110,7 +67,6 @@ public abstract class BondSecurity<N extends Payment, C extends Coupon> implemen
     _nominal = nominal;
     _coupon = coupon;
     _settlementTime = settlementTime;
-    _discountingCurveName = null;
     _issuerName = issuer.getShortName();
     _issuer = issuer;
   }
@@ -148,19 +104,6 @@ public abstract class BondSecurity<N extends Payment, C extends Coupon> implemen
   }
 
   /**
-   * Gets the name of the curve used for settlement amount discounting.
-   * @return The curve name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getRepoCurveName() {
-    if (_discountingCurveName == null) {
-      throw new IllegalStateException("Repo curve name was not set");
-    }
-    return _discountingCurveName;
-  }
-
-  /**
    * Gets the issuer name.
    * @return The issuer name.
    */
@@ -174,26 +117,6 @@ public abstract class BondSecurity<N extends Payment, C extends Coupon> implemen
    */
   public LegalEntity getIssuerEntity() {
     return _issuer;
-  }
-
-  /**
-   * Gets the bond issuer name and currency.
-   * @return The name/currency.
-   * @deprecated This information is no longer used in the curve providers.
-   */
-  @Deprecated
-  public Pair<String, Currency> getIssuerCcy() {
-    return Pair.of(_issuerName, _nominal.getCurrency());
-  }
-
-  /**
-   * Gets the name of the curve used for discounting.
-   * @return The curve name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getDiscountingCurveName() {
-    return getNominal().getDiscountCurve();
   }
 
   @Override

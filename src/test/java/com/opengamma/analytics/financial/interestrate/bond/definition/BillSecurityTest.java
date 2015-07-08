@@ -80,12 +80,6 @@ public class BillSecurityTest {
     new BillSecurity(EUR, END_TIME, SETTLE_TIME, NOTIONAL, YIELD_CONVENTION, ACCRUAL_FACTOR, ISSUER_BEL);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetName() {
-    BILL_SEC.getDiscountingCurveName();
-  }
-
   @Test
   /**
    * Tests the bill getters.

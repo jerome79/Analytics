@@ -640,55 +640,6 @@ public class BondFixedSecurityDefinition extends BondSecurityDefinition<PaymentF
     return (AnnuityCouponFixedDefinition) super.getCoupons();
   }
 
-  /**
-   * @param date The valuation date
-   * @param settlementDate The settlement date
-   * @param yieldCurveNames The yield curve names
-   * @return A fixed-coupon bond security
-   * @deprecated Use the method that does not take yield curve names
-   */
-  @Deprecated
-  public BondFixedSecurity toDerivative(final ZonedDateTime date, final ZonedDateTime settlementDate, final String... yieldCurveNames) {
-    // Implementation note: First yield curve used for coupon and notional (credit), the second for risk free settlement.
-    ArgChecker.notNull(date, "date");
-    ArgChecker.notNull(yieldCurveNames, "yield curve names");
-    ArgChecker.isTrue(yieldCurveNames.length > 1, "at least two curves required");
-    final String creditCurveName = yieldCurveNames[0];
-    final String riskFreeCurveName = yieldCurveNames[1];
-    double settleTime;
-    double accruedInterestAtSettle;
-    if (settlementDate.isBefore(date)) {
-      settleTime = 0.0;
-      accruedInterestAtSettle = 0.0;
-    } else {
-      settleTime = TimeCalculator.getTimeBetween(date, settlementDate);
-      accruedInterestAtSettle = accruedInterest(settlementDate);
-    }
-    final AnnuityPaymentFixed nominal = (AnnuityPaymentFixed) getNominal().toDerivative(date);
-    AnnuityCouponFixedDefinition couponDefinition = getCoupons().trimBefore(settlementDate);
-    final CouponFixedDefinition[] couponExPeriodArray = new CouponFixedDefinition[couponDefinition.getNumberOfPayments()];
-    System.arraycopy(couponDefinition.getPayments(), 0, couponExPeriodArray, 0, couponDefinition.getNumberOfPayments());
-    if (getExCouponDays() != 0) {
-      final ZonedDateTime exDividendDate = ScheduleCalculator.getAdjustedDate(couponDefinition.getNthPayment(0).getPaymentDate(), -getExCouponDays(), getCalendar());
-      if (settlementDate.isAfter(exDividendDate)) {
-        // Implementation note: Ex-dividend period: the next coupon is not received but its date is required for yield calculation
-        couponExPeriodArray[0] = new CouponFixedDefinition(couponDefinition.getNthPayment(0), 0.0);
-      }
-    }
-    final AnnuityCouponFixedDefinition couponDefinitionExPeriod = new AnnuityCouponFixedDefinition(couponExPeriodArray, getCalendar());
-    final AnnuityCouponFixed couponStandard = couponDefinitionExPeriod.toDerivative(date);
-    final AnnuityPaymentFixed nominalStandard = nominal.trimBefore(settleTime);
-    final double factorSpot = getDayCount().getAccruedInterest(couponDefinition.getNthPayment(0).getAccrualStartDate(), settlementDate,
-        couponDefinition.getNthPayment(0).getAccrualEndDate(), 1.0, _couponPerYear);
-    final double factorPeriod = getDayCount().getAccruedInterest(couponDefinition.getNthPayment(0).getAccrualStartDate(),
-        couponDefinition.getNthPayment(0).getAccrualEndDate(), couponDefinition.getNthPayment(0).getAccrualEndDate(), 1.0, _couponPerYear);
-    final double factor = (factorPeriod - factorSpot) / factorPeriod;
-    final BondFixedSecurity bondStandard = new BondFixedSecurity(nominalStandard, couponStandard, settleTime, accruedInterestAtSettle, factor, getYieldConvention(),
-        _couponPerYear, riskFreeCurveName, getIssuerEntity());
-    return bondStandard;
-
-  }
-
   @Override
   public BondFixedSecurity toDerivative(final ZonedDateTime date) {
     ArgChecker.notNull(date, "date");

@@ -26,9 +26,6 @@ public class ForexTest {
   private static final double NOMINAL_1 = 100000000;
   private static final double FX_RATE = 1.4177;
 
-  private static final String DISCOUNTING_CURVE_NAME_CUR_1 = "Discounting EUR";
-  private static final String DISCOUNTING_CURVE_NAME_CUR_2 = "Discounting USD";
-
   private static final PaymentFixed PAY_1 = new PaymentFixed(CUR_1, PAYMENT_TIME, NOMINAL_1);
   private static final PaymentFixed PAY_2 = new PaymentFixed(CUR_2, PAYMENT_TIME, -NOMINAL_1 * FX_RATE);
 
@@ -64,8 +61,8 @@ public class ForexTest {
     assertTrue(FX.equals(newFx));
     assertTrue(FX.hashCode() == newFx.hashCode());
     Forex modifiedFx;
-    final PaymentFixed payModified1 = new PaymentFixed(CUR_1, PAYMENT_TIME, NOMINAL_1 * 10.0, DISCOUNTING_CURVE_NAME_CUR_1);
-    final PaymentFixed payModified2 = new PaymentFixed(CUR_2, PAYMENT_TIME, -NOMINAL_1 * 10.0, DISCOUNTING_CURVE_NAME_CUR_2);
+    final PaymentFixed payModified1 = new PaymentFixed(CUR_1, PAYMENT_TIME, NOMINAL_1 * 10.0);
+    final PaymentFixed payModified2 = new PaymentFixed(CUR_2, PAYMENT_TIME, -NOMINAL_1 * 10.0);
     modifiedFx = new Forex(payModified1, PAY_2);
     assertFalse(FX.equals(modifiedFx));
     modifiedFx = new Forex(PAY_1, payModified2);

@@ -60,43 +60,6 @@ public class CouponIborRatchet extends CouponIborSpread {
    * Constructor from all the details.
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
-   * @param discountingCurveName The name of the discounting curve.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @param fixingPeriodStartTime Time (in years) up to the start of the fixing period.
-   * @param fixingPeriodEndTime Time (in years) up to the end of the fixing period.
-   * @param fixingYearFraction The year fraction (or accrual factor) for the fixing period.
-   * @param forwardCurveName The name of the forward curve.
-   * @param index The coupon Ibor index. Should of the same currency as the payment.
-   * @param mainCoefficients The coefficients of the main payment (before floor and cap). Array of length 3.
-   * @param floorCoefficients The coefficients of the floor. Array of length 3.
-   * @param capCoefficients The coefficients of the cap. Array of length 3.
-   * @deprecated Use the constructor that does not take yield curve names.
-   */
-  @Deprecated
-  public CouponIborRatchet(final Currency currency, final double paymentTime, final String discountingCurveName, final double paymentYearFraction,
-      final double notional, final double fixingTime, final double fixingPeriodStartTime,
-      final double fixingPeriodEndTime, final double fixingYearFraction, final String forwardCurveName, final IborIndex index, final double[] mainCoefficients,
-      final double[] floorCoefficients, final double[] capCoefficients) {
-    super(currency, paymentTime, discountingCurveName, paymentYearFraction, notional, fixingTime, index, fixingPeriodStartTime, fixingPeriodEndTime, fixingYearFraction, 0.0, forwardCurveName);
-    ArgChecker.notNull(index, "Index");
-    ArgChecker.notNull(mainCoefficients, "Main coefficients");
-    ArgChecker.notNull(floorCoefficients, "Floor coefficients");
-    ArgChecker.notNull(capCoefficients, "Cap coefficients");
-    ArgChecker.isTrue(mainCoefficients.length == 3, "Requires 3 main coefficients");
-    ArgChecker.isTrue(floorCoefficients.length == 3, "Requires 3 floor coefficients");
-    ArgChecker.isTrue(capCoefficients.length == 3, "Requires 3 cap coefficients");
-    _index = index;
-    _mainCoefficients = mainCoefficients;
-    _floorCoefficients = floorCoefficients;
-    _capCoefficients = capCoefficients;
-  }
-
-  /**
-   * Constructor from all the details.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
    * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
    * @param notional Coupon notional.
    * @param fixingTime Time (in years) up to fixing.
@@ -148,16 +111,11 @@ public class CouponIborRatchet extends CouponIborSpread {
     return _capCoefficients;
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public CouponIborRatchet withNotional(final double notional) {
-    try {
-      return new CouponIborRatchet(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(), notional, getFixingTime(), getFixingPeriodStartTime(),
-          getFixingPeriodEndTime(), getFixingAccrualFactor(), getForwardCurveName(), _index, _mainCoefficients, _floorCoefficients, _capCoefficients);
-    } catch (final IllegalStateException e) {
-      return new CouponIborRatchet(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), getFixingPeriodStartTime(),
-          getFixingPeriodEndTime(), getFixingAccrualFactor(), _index, _mainCoefficients, _floorCoefficients, _capCoefficients);
-    }
+    return new CouponIborRatchet(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(),
+        getFixingPeriodStartTime(), getFixingPeriodEndTime(), getFixingAccrualFactor(), _index, _mainCoefficients,
+        _floorCoefficients, _capCoefficients);
   }
 
   @Override

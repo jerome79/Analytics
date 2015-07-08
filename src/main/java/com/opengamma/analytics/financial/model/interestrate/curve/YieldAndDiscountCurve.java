@@ -122,18 +122,6 @@ public abstract class YieldAndDiscountCurve implements InterestRateModel<Double>
   }
 
   /**
-   * Create another {@link YieldAndDiscountCurve} with the zero-coupon rates shifted by a given amount.
-   * @param shift The shift amount.
-   * @return The new curve.
-   * @deprecated Use {@link YieldCurveUtils#withParallelShift}
-   */
-  @Deprecated
-  public YieldAndDiscountCurve withParallelShift(final double shift) {
-    return new YieldAndDiscountAddZeroSpreadCurve(_name + "WithParallelShift", false, this,
-        YieldCurve.from(ConstantDoublesCurve.from(shift)));
-  }
-
-  /**
    * Create another {@link YieldAndDiscountCurve} with the zero-coupon rates shifted by a given amount at a given time.
    * The shift is done around the given time within the default range 1.0E-3.
    * @param t The time.

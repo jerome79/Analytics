@@ -49,17 +49,4 @@ public final class RollDateAdjusterFactory
     addInstance(EndOfMonthRollDateAdjuster.getAdjuster());
   }
 
-  /**
-   * Gets the named adjuster.
-   * 
-   * @param name  the name, not null
-   * @return the adjuster, not null
-   * @throws IllegalArgumentException if the adjuster was not found in the map
-   * @deprecated Use {@link #of(String)} or {@link #instance(String)}.
-   */
-  @Deprecated
-  public static RollDateAdjuster getAdjuster(String name) {
-    return INSTANCE.instance(name);
-  }
-
 }

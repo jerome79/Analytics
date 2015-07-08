@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.instrument.payment.CapFloor;
-import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
@@ -43,45 +42,6 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
    * The cap (true) / floor (false) flag.
    */
   private final boolean _isCap;
-  /**
-   * The forward curve name used in to estimate the fixing index.
-   */
-  private final String _forwardCurveName;
-
-  /**
-   * Constructor from all the cap/floor details.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param fundingCurveName Name of the funding curve.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @param index The Ibor-like index on which the coupon fixes.
-   * @param fixingPeriodStartTime Time (in years) up to the start of the fixing period.
-   * @param fixingPeriodEndTime Time (in years) up to the end of the fixing period.
-   * @param fixingYearFraction The year fraction (or accrual factor) for the fixing period.
-   * @param forwardCurveName Name of the forward (or estimation) curve.
-   * @param strike The strike
-   * @param isCap The cap/floor flag.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public CapFloorIbor(final Currency currency, final double paymentTime, final String fundingCurveName, final double paymentYearFraction, final double notional,
-      final double fixingTime, final IborIndex index, final double fixingPeriodStartTime, final double fixingPeriodEndTime, final double fixingYearFraction,
-      final String forwardCurveName, final double strike, final boolean isCap) {
-    super(currency, paymentTime, fundingCurveName, paymentYearFraction, notional, fixingTime);
-    ArgChecker.isTrue(fixingPeriodStartTime >= fixingTime, "fixing period start < fixing time");
-    _fixingPeriodStartTime = fixingPeriodStartTime;
-    ArgChecker.isTrue(fixingPeriodEndTime >= fixingPeriodStartTime, "fixing period end < fixing period start");
-    _fixingPeriodEndTime = fixingPeriodEndTime;
-    ArgChecker.isTrue(fixingYearFraction >= 0, "forward year fraction < 0");
-    _fixingAccrualFactor = fixingYearFraction;
-    ArgChecker.notNull(forwardCurveName, "forward curve name");
-    _forwardCurveName = forwardCurveName;
-    _index = index;
-    _strike = strike;
-    _isCap = isCap;
-  }
 
   /**
    * Constructor from all the cap/floor details.
@@ -106,7 +66,6 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
     _fixingPeriodEndTime = fixingPeriodEndTime;
     ArgChecker.isTrue(fixingYearFraction >= 0, "forward year fraction < 0");
     _fixingAccrualFactor = fixingYearFraction;
-    _forwardCurveName = null;
     _index = index;
     _strike = strike;
     _isCap = isCap;
@@ -117,15 +76,10 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
    * @param strike The new strike.
    * @return The cap/floor.
    */
-  @SuppressWarnings("deprecation")
   public CapFloorIbor withStrike(final double strike) {
-    try {
-      return new CapFloorIbor(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(), getNotional(), getFixingTime(), getIndex(), getFixingPeriodStartTime(),
-          getFixingPeriodEndTime(), getFixingAccrualFactor(), getForwardCurveName(), strike, _isCap);
-    } catch (final IllegalStateException e) {
-      return new CapFloorIbor(getCurrency(), getPaymentTime(), getPaymentYearFraction(), getNotional(), getFixingTime(), getIndex(), getFixingPeriodStartTime(),
-          getFixingPeriodEndTime(), getFixingAccrualFactor(), strike, _isCap);
-    }
+    return new CapFloorIbor(
+        getCurrency(), getPaymentTime(), getPaymentYearFraction(), getNotional(), getFixingTime(), getIndex(),
+        getFixingPeriodStartTime(), getFixingPeriodEndTime(), getFixingAccrualFactor(), strike, _isCap);
   }
 
   /**
@@ -137,13 +91,10 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
    */
   @SuppressWarnings("deprecation")
   public static CapFloorIbor from(final CouponIbor coupon, final double strike, final boolean isCap) {
-    try {
-      return new CapFloorIbor(coupon.getCurrency(), coupon.getPaymentTime(), coupon.getFundingCurveName(), coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getFixingTime(),
-          coupon.getIndex(), coupon.getFixingPeriodStartTime(), coupon.getFixingPeriodEndTime(), coupon.getFixingAccrualFactor(), coupon.getForwardCurveName(), strike, isCap);
-    } catch (final IllegalStateException e) {
-      return new CapFloorIbor(coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getFixingTime(),
-          coupon.getIndex(), coupon.getFixingPeriodStartTime(), coupon.getFixingPeriodEndTime(), coupon.getFixingAccrualFactor(), strike, isCap);
-    }
+    return new CapFloorIbor(
+        coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(), coupon.getNotional(),
+        coupon.getFixingTime(), coupon.getIndex(), coupon.getFixingPeriodStartTime(), coupon.getFixingPeriodEndTime(),
+        coupon.getFixingAccrualFactor(), strike, isCap);
   }
 
   /**
@@ -188,47 +139,24 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
     return _isCap;
   }
 
-  /**
-   * Gets the forward curve name.
-   * @return The name.
-   * @deprecated Curve names should not be stored in {@link InstrumentDerivative}s.
-   */
-  @Deprecated
-  public String getForwardCurveName() {
-    if (_forwardCurveName == null) {
-      throw new IllegalStateException("Forward curve name was not set");
-    }
-    return _forwardCurveName;
-  }
-
   @Override
   public double payOff(final double fixing) {
     final double omega = (_isCap) ? 1.0 : -1.0;
     return Math.max(omega * (fixing - _strike), 0);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public Coupon withNotional(final double notional) {
-    try {
-      return new CapFloorIbor(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(), notional, getFixingTime(), _index, _fixingPeriodStartTime, _fixingPeriodEndTime,
-          _fixingAccrualFactor, _forwardCurveName, _strike, _isCap);
-    } catch (final IllegalStateException e) {
-      return new CapFloorIbor(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _index, _fixingPeriodStartTime, _fixingPeriodEndTime,
-          _fixingAccrualFactor, _strike, _isCap);
-    }
+    return new CapFloorIbor(
+        getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _index,
+        _fixingPeriodStartTime, _fixingPeriodEndTime, _fixingAccrualFactor, _strike, _isCap);
   }
 
   @SuppressWarnings("deprecation")
   public CouponIborSpread toCoupon() {
-    try {
-      return new CouponIborSpread(getCurrency(), getPaymentTime(), getFundingCurveName(), getFixingAccrualFactor(), getNotional(), getFixingTime(), _index, _fixingPeriodStartTime,
-          _fixingPeriodEndTime,
-          _fixingAccrualFactor, _forwardCurveName);
-    } catch (final IllegalStateException e) {
-      return new CouponIborSpread(getCurrency(), getPaymentTime(), getFixingAccrualFactor(), getNotional(), getFixingTime(), _index, _fixingPeriodStartTime, _fixingPeriodEndTime,
-          _fixingAccrualFactor);
-    }
+    return new CouponIborSpread(
+        getCurrency(), getPaymentTime(), getFixingAccrualFactor(), getNotional(), getFixingTime(), _index,
+        _fixingPeriodStartTime, _fixingPeriodEndTime, _fixingAccrualFactor);
   }
 
   @Override
@@ -252,7 +180,6 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
     result = prime * result + (int) (temp ^ (temp >>> 32));
     temp = Double.doubleToLongBits(_fixingPeriodStartTime);
     result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result + ((_forwardCurveName == null) ? 0 : _forwardCurveName.hashCode());
     result = prime * result + _index.hashCode();
     result = prime * result + (_isCap ? 1231 : 1237);
     temp = Double.doubleToLongBits(_strike);
@@ -285,9 +212,6 @@ public class CapFloorIbor extends CouponFloating implements CapFloor {
       return false;
     }
     if (Double.compare(_fixingAccrualFactor, other._fixingAccrualFactor) != 0) {
-      return false;
-    }
-    if (!Objects.equals(_forwardCurveName, other._forwardCurveName)) {
       return false;
     }
     if (!Objects.equals(_index, other._index)) {

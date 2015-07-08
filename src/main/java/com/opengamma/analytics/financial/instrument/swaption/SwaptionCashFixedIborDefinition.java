@@ -11,7 +11,6 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
-import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
@@ -68,22 +67,6 @@ public final class SwaptionCashFixedIborDefinition implements InstrumentDefiniti
     _isCall = isCall;
     _settlementDate = underlyingSwap.getFixedLeg().getNthPayment(0).getAccrualStartDate();
     _expiry = new Expiry(expiryDate);
-  }
-
-  /**
-   * Builder from the expiry date, the underlying swap and the long/short flag.
-   * @param expiryDate The expiry date.
-   * @param underlyingSwap The underlying swap.
-   * @param isLong The long (true) / short (false) flag.
-   * @return The swaption.
-   * @deprecated This relies on the {@link AnnuityDefinition#isPayer()} method to determine if the swaption is a call or a put, which is deprecated
-   */
-  @Deprecated
-  public static SwaptionCashFixedIborDefinition from(final ZonedDateTime expiryDate, final SwapFixedIborDefinition underlyingSwap, final boolean isLong) {
-    ArgChecker.notNull(expiryDate, "expiry date");
-    ArgChecker.notNull(underlyingSwap, "underlying swap");
-    // Implementation note: cash-settle swaptions underlying have the same rate on all coupons and standard conventions.
-    return new SwaptionCashFixedIborDefinition(expiryDate, underlyingSwap, underlyingSwap.getFixedLeg().isPayer(), isLong);
   }
 
   /**

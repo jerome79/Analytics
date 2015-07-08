@@ -140,20 +140,6 @@ public class BondIborSecurityDefinition extends BondSecurityDefinition<PaymentFi
     return _dayCount;
   }
 
-  /**
-   * @param date The valuation date, not null
-   * @param indexFixingTS The index fixing time series, not null
-   * @param settlementDate The settlement date, not null
-   * @param yieldCurveNames The yield curve names, not null, must have at least two entries
-   * @return The security
-   * @deprecated Use the version that does not take curve names
-   */
-  @Deprecated
-  public BondIborSecurity toDerivative(final ZonedDateTime date, final DoubleTimeSeries<ZonedDateTime> indexFixingTS, final ZonedDateTime settlementDate,
-      final String... yieldCurveNames) {
-    throw new UnsupportedOperationException();
-  }
-
   @Override
   public BondIborSecurity toDerivative(final ZonedDateTime date) {
     ArgChecker.notNull(date, "date");

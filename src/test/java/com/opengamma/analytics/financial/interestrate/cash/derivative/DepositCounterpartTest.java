@@ -55,12 +55,6 @@ public class DepositCounterpartTest {
     new DepositCounterpart(EUR, SPOT_TIME, END_TIME, NOTIONAL, NOTIONAL, RATE, DEPOSIT_AF, null);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetCurveName() {
-    DEPOSIT_CTP.getYieldCurveName();
-  }
-
   @Test
   /**
    * Tests the getters

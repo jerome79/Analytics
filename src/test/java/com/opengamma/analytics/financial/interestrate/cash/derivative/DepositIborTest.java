@@ -50,12 +50,6 @@ public class DepositIborTest {
     new DepositIbor(EUR, SPOT_TIME, END_TIME, NOTIONAL, NOTIONAL, RATE, DEPOSIT_AF, null);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetCurveName() {
-    DEPOSIT_IBOR.getYieldCurveName();
-  }
-
   @Test
   /**
    * Tests the getters

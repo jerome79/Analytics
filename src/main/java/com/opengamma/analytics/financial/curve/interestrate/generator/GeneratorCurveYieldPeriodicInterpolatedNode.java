@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.curve.interestrate.generator;
 
-import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldPeriodicCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
@@ -60,16 +59,6 @@ public class GeneratorCurveYieldPeriodicInterpolatedNode extends GeneratorYDCurv
   public YieldAndDiscountCurve generateCurve(final String name, final double[] x) {
     ArgChecker.isTrue(x.length == _nbPoints, "Incorrect dimension for the rates");
     return new YieldPeriodicCurve(name, _compoundingPeriodsPerYear, new InterpolatedDoublesCurve(_nodePoints, x, _interpolator, true, name));
-  }
-
-  /**
-   * {@inheritDoc}
-   * @deprecated Curve builders that use and populate {@link YieldCurveBundle}s are deprecated.
-   */
-  @Deprecated
-  @Override
-  public YieldAndDiscountCurve generateCurve(final String name, final YieldCurveBundle bundle, final double[] parameters) {
-    return generateCurve(name, parameters);
   }
 
   @Override

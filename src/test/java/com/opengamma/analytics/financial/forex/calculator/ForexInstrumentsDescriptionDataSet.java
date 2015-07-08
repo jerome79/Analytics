@@ -92,16 +92,6 @@ public class ForexInstrumentsDescriptionDataSet {
   /**
    * Creates a vanilla FX option
    * @return A vanilla FX option
-   * @deprecated Use the non-deprecated method that does not use yield curve names
-   */
-  @Deprecated
-  public static ForexOptionVanilla createForexOptionVanillaDeprecated() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * Creates a vanilla FX option
-   * @return A vanilla FX option
    */
   public static ForexOptionVanilla createForexOptionVanilla() {
     return createForexOptionVanillaDefinition().toDerivative(REFERENCE_DATE);
@@ -150,16 +140,6 @@ public class ForexInstrumentsDescriptionDataSet {
   /**
    * Creates a non-deliverable FX option
    * @return A non-deliverable FX option
-   * @deprecated Use the non-deprecated method that does not use yield curve names
-   */
-  @Deprecated
-  public static ForexNonDeliverableOption createForexNonDeliverableOptionDeprecated() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * Creates a non-deliverable FX option
-   * @return A non-deliverable FX option
    */
   public static ForexNonDeliverableOption createForexNonDeliverableOption() {
     return createForexNonDeliverableOptionDefinition().toDerivative(REFERENCE_DATE);
@@ -171,16 +151,6 @@ public class ForexInstrumentsDescriptionDataSet {
    */
   public static ForexOptionDigitalDefinition createForexOptionDigitalDefinition() {
     return new ForexOptionDigitalDefinition(FX_DEFINITION, EXPIRATION_DATE, IS_CALL, IS_LONG);
-  }
-
-  /**
-   * Creates a FX digital option
-   * @return A FX digital option
-   * @deprecated Use the non-deprecated method that does not use yield curve names
-   */
-  @Deprecated
-  public static ForexOptionDigital createForexOptionDigitalDeprecated() {
-    throw new UnsupportedOperationException();
   }
 
   /**

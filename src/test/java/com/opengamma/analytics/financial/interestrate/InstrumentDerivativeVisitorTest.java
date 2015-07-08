@@ -103,7 +103,6 @@ import com.opengamma.analytics.financial.interestrate.inflation.derivative.Coupo
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponInterpolationGearing;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthly;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthlyGearing;
-import com.opengamma.analytics.financial.interestrate.payments.ForexForward;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMSSpread;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -381,11 +380,6 @@ public class InstrumentDerivativeVisitorTest {
     }
 
     @Override
-    public String visitForexForward(final ForexForward fx, final T data) {
-      throw new UnsupportedOperationException("Not implemented because derivative is deprecated");
-    }
-
-    @Override
     public String visitCash(final Cash cash, final T data) {
       return getValue(cash, true);
     }
@@ -493,11 +487,6 @@ public class InstrumentDerivativeVisitorTest {
     @Override
     public String visitSwaptionBermudaFixedIbor(final SwaptionBermudaFixedIbor swaption) {
       return getValue(swaption, false);
-    }
-
-    @Override
-    public String visitForexForward(final ForexForward fx) {
-      throw new UnsupportedOperationException("Not implemented because derivative is deprecated");
     }
 
     @Override

@@ -32,28 +32,6 @@ public class DepositIbor extends Cash {
    * @param rate The deposit rate.
    * @param accrualFactor The accrual factor (or year fraction).
    * @param index The associated index.
-   * @param indexCurveName The name of the curve associated to the index.
-   * @deprecated Use the constructor that does not take yield curve names
-   */
-  @Deprecated
-  public DepositIbor(final Currency currency, final double startTime, final double endTime, final double notional, final double initialAmount, final double rate, final double accrualFactor,
-      final IborIndex index, final String indexCurveName) {
-    super(currency, startTime, endTime, notional, initialAmount, rate, accrualFactor, indexCurveName);
-    ArgChecker.notNull(index, "Index");
-    ArgChecker.isTrue(currency.equals(index.getCurrency()), "Currency should be equal to index currency");
-    _index = index;
-  }
-
-  /**
-   * Constructor from all details.
-   * @param currency The currency
-   * @param startTime The deposit start time.
-   * @param endTime The deposit end (or maturity) time.
-   * @param notional The deposit notional.
-   * @param initialAmount The initial amount. Usually is equal to the notional or 0 if the amount has been paid in the past. Should be of the same sign as notional.
-   * @param rate The deposit rate.
-   * @param accrualFactor The accrual factor (or year fraction).
-   * @param index The associated index.
    */
   public DepositIbor(final Currency currency, final double startTime, final double endTime, final double notional, final double initialAmount, final double rate, final double accrualFactor,
       final IborIndex index) {

@@ -40,33 +40,6 @@ public class CapFloorCMS extends CouponFloating implements CapFloor {
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
    * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param fundingCurveName The funding curve name, not null
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @param underlyingSwap A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
-   * @param settlementTime The time (in years) to underlying swap settlement.
-   * @param strike The strike.
-   * @param isCap The cap (true) /floor (false) flag.
-   * @deprecated Use the constructor that does not take a yield curve name
-   */
-  @Deprecated
-  public CapFloorCMS(final Currency currency, final double paymentTime, final String fundingCurveName, final double paymentYearFraction, final double notional,
-      final double fixingTime, final SwapFixedCoupon<? extends Payment> underlyingSwap, final double settlementTime,
-      final double strike, final boolean isCap) {
-    super(currency, paymentTime, fundingCurveName, paymentYearFraction, notional, fixingTime);
-    ArgChecker.notNull(underlyingSwap, "underlying swap");
-    ArgChecker.isTrue(underlyingSwap.isIborOrFixed(), "underlying swap not of vanilla type");
-    _underlyingSwap = underlyingSwap;
-    _settlementTime = settlementTime;
-    _strike = strike;
-    _isCap = isCap;
-  }
-
-  /**
-   * Constructor from floating coupon details and underlying swap.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
    * @param notional Coupon notional.
    * @param fixingTime Time (in years) up to fixing.
    * @param underlyingSwap A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
@@ -93,15 +66,10 @@ public class CapFloorCMS extends CouponFloating implements CapFloor {
    * @param isCap The cap (true) /floor (false) flag.
    * @return The CMS cap/floor.
    */
-  @SuppressWarnings("deprecation")
   public static CapFloorCMS from(final CouponCMS coupon, final double strike, final boolean isCap) {
-    try {
-      return new CapFloorCMS(coupon.getCurrency(), coupon.getPaymentTime(), coupon.getUnderlyingSwap().getFixedLeg().getNthPayment(0).getFundingCurveName(),
-          coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getFixingTime(), coupon.getUnderlyingSwap(), coupon.getSettlementTime(), strike, isCap);
-    } catch (final IllegalStateException e) {
-      return new CapFloorCMS(coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(), coupon.getNotional(),
-          coupon.getFixingTime(), coupon.getUnderlyingSwap(), coupon.getSettlementTime(), strike, isCap);
-    }
+    return new CapFloorCMS(
+        coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(), coupon.getNotional(),
+        coupon.getFixingTime(), coupon.getUnderlyingSwap(), coupon.getSettlementTime(), strike, isCap);
   }
 
   /**
@@ -137,15 +105,9 @@ public class CapFloorCMS extends CouponFloating implements CapFloor {
   }
 
   @Override
-  @SuppressWarnings("deprecation")
   public Coupon withNotional(final double notional) {
-    try {
-      return new CapFloorCMS(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(),
-          notional, getFixingTime(), _underlyingSwap, _settlementTime, _strike, _isCap);
-    } catch (final IllegalStateException e) {
-      return new CapFloorCMS(getCurrency(), getPaymentTime(), getPaymentYearFraction(),
-          notional, getFixingTime(), _underlyingSwap, _settlementTime, _strike, _isCap);
-    }
+    return new CapFloorCMS(getCurrency(), getPaymentTime(), getPaymentYearFraction(),
+        notional, getFixingTime(), _underlyingSwap, _settlementTime, _strike, _isCap);
   }
 
   @Override

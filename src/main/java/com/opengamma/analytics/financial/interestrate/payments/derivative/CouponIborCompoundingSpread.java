@@ -110,6 +110,7 @@ public class CouponIborCompoundingSpread extends Coupon implements DepositIndexC
    * Returns the Ibor index underlying the coupon.
    * @return The index.
    */
+  @Override
   public IborIndex getIndex() {
     return _index;
   }
@@ -126,6 +127,7 @@ public class CouponIborCompoundingSpread extends Coupon implements DepositIndexC
    * Returns the fixing times for the different remaining periods.
    * @return The times.
    */
+  @Override
   public double[] getFixingTimes() {
     return _fixingTimes;
   }
@@ -134,6 +136,7 @@ public class CouponIborCompoundingSpread extends Coupon implements DepositIndexC
    * Gets the fixing period start times (in years).
    * @return The times.
    */
+  @Override
   public double[] getFixingPeriodStartTimes() {
     return _fixingPeriodStartTimes;
   }
@@ -142,6 +145,7 @@ public class CouponIborCompoundingSpread extends Coupon implements DepositIndexC
    * Gets the fixing period end times (in years).
    * @return The times.
    */
+  @Override
   public double[] getFixingPeriodEndTimes() {
     return _fixingPeriodEndTimes;
   }
@@ -150,6 +154,7 @@ public class CouponIborCompoundingSpread extends Coupon implements DepositIndexC
    * Returns the fixing period accrual factors for each sub-period.
    * @return The factors.
    */
+  @Override
   public double[] getFixingPeriodAccrualFactors() {
     return _fixingPeriodAccrualFactors;
   }

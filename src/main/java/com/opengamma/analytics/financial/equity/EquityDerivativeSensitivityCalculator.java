@@ -12,9 +12,6 @@ import java.util.List;
 import com.opengamma.analytics.financial.equity.option.EquityIndexOption;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
-import com.opengamma.analytics.financial.interestrate.NodeYieldSensitivityCalculator;
-import com.opengamma.analytics.financial.interestrate.PresentValueNodeSensitivityCalculator;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.GeneralSmileInterpolator;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.SurfaceArrayUtils;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.sabr.SmileSurfaceDataBundle;
@@ -22,13 +19,11 @@ import com.opengamma.analytics.financial.model.volatility.surface.BlackVolatilit
 import com.opengamma.analytics.financial.model.volatility.surface.BlackVolatilitySurfaceMoneynessFcnBackedByGrid;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurfaceInterpolator;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.math.surface.InterpolatedSurfaceAdditiveShiftFunction;
 import com.opengamma.analytics.math.surface.NodalDoublesSurface;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.strata.collect.ArgChecker;
-import com.opengamma.strata.collect.tuple.DoublesPair;
 import com.opengamma.strata.collect.tuple.Triple;
 
 /**
@@ -144,35 +139,6 @@ public class EquityDerivativeSensitivityCalculator {
    */
   public Double calcPV01(final InstrumentDerivative derivative, final StaticReplicationDataBundle market) {
     return calcDiscountRateSensitivity(derivative, market) / 10000;
-  }
-
-  /**
-   * This calculates the sensitivity of the present value (PV) to the continuously-compounded discount rates at the knot points of the funding curve. <p>
-   * The return format is a DoubleMatrix1D (i.e. a vector) with length equal to the total number of knots in the curve <p>
-   * The change of a curve due to the movement of a single knot is interpolator-dependent, so an instrument can have sensitivity to knots at times beyond its maturity
-   * @param derivative the EquityDerivative
-   * @param market the EquityOptionDataBundle
-   * @return A DoubleMatrix1D containing bucketed delta in order and length of market.getDiscountCurve(). Currency amount per unit amount change in discount rate
-   */
-  public DoubleMatrix1D calcDeltaBucketed(final InstrumentDerivative derivative, final StaticReplicationDataBundle market) {
-    ArgChecker.notNull(derivative, "null EquityDerivative");
-    ArgChecker.notNull(market, "null EquityOptionDataBundle");
-
-    // We know that the EquityDerivative only has true sensitivity to one maturity on one curve.
-    // A function written for interestRate sensitivities spreads this sensitivity across yield nodes
-    // NodeSensitivityCalculator.curveToNodeSensitivities(curveSensitivities, interpolatedCurves)
-
-    if (!(market.getDiscountCurve() instanceof YieldCurve)) {
-      throw new IllegalArgumentException("Can only handle YieldCurve");
-    }
-    final YieldCurve discCrv = (YieldCurve) market.getDiscountCurve();
-
-    final double settlement = derivative.accept(SETTLEMENT_CALCULATOR);
-    final double sens = calcDiscountRateSensitivity(derivative, market);
-
-    final NodeYieldSensitivityCalculator distributor = PresentValueNodeSensitivityCalculator.getDefaultInstance();
-    final List<Double> result = distributor.curveToNodeSensitivity(Arrays.asList(DoublesPair.of(settlement, sens)), discCrv);
-    return new DoubleMatrix1D(result.toArray(new Double[result.size()]));
   }
 
   /**

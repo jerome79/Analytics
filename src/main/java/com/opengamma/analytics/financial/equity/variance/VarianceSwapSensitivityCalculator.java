@@ -5,20 +5,11 @@
  */
 package com.opengamma.analytics.financial.equity.variance;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.opengamma.analytics.financial.equity.EquityDerivativeSensitivityCalculator;
 import com.opengamma.analytics.financial.equity.StaticReplicationDataBundle;
 import com.opengamma.analytics.financial.equity.variance.pricing.VarianceSwapStaticReplication;
-import com.opengamma.analytics.financial.interestrate.NodeYieldSensitivityCalculator;
-import com.opengamma.analytics.financial.interestrate.PresentValueNodeSensitivityCalculator;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
-import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
-import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.strata.collect.ArgChecker;
-import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
  * This Calculator provides price sensitivities for the VarianceSwap derivative to changes in
@@ -96,33 +87,6 @@ public final class VarianceSwapSensitivityCalculator extends EquityDerivativeSen
    */
   public Double calcPV01(final VarianceSwap swap, final StaticReplicationDataBundle market) {
     return calcDiscountRateSensitivity(swap, market) / 10000;
-  }
-
-  /**
-   * This calculates the sensitivity of the present value (PV) to the continuously-compounded discount rates at the knot points of the funding curve. <p>
-   * The return format is a DoubleMatrix1D (i.e. a vector) with length equal to the total number of knots in the curve <p>
-   * The change of a curve due to the movement of a single knot is interpolator-dependent, so an instrument can have sensitivity to knots at times beyond its maturity
-   * @param swap the VarianceSwap
-   * @param market the EquityOptionDataBundle
-   * @return A DoubleMatrix1D containing bucketed delta in order and length of market.getDiscountCurve(). Currency amount per unit amount change in discount rate
-   */
-  public DoubleMatrix1D calcDeltaBucketed(final VarianceSwap swap, final StaticReplicationDataBundle market) {
-    ArgChecker.notNull(swap, "null VarianceSwap");
-    ArgChecker.notNull(market, "null EquityOptionDataBundle");
-
-    // We know that the VarianceSwap only has true sensitivity to one maturity on one curve.
-    // A function written for interestRate sensitivities spreads this sensitivity across yield nodes
-
-    final YieldAndDiscountCurve discCrv = market.getDiscountCurve();
-    if (!(discCrv instanceof YieldCurve)) {
-      throw new IllegalArgumentException("Can only handle YieldCurve");
-    }
-    final double settlement = swap.getTimeToSettlement();
-    final double sens = calcDiscountRateSensitivity(swap, market);
-
-    final NodeYieldSensitivityCalculator distributor = PresentValueNodeSensitivityCalculator.getDefaultInstance();
-    final List<Double> result = distributor.curveToNodeSensitivity(Arrays.asList(DoublesPair.of(settlement, sens)), (YieldCurve) discCrv);
-    return new DoubleMatrix1D(result.toArray(new Double[result.size()]));
   }
 
   /**

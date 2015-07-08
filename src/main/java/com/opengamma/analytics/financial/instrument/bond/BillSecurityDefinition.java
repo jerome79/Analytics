@@ -189,19 +189,6 @@ public class BillSecurityDefinition implements InstrumentDefinition<BillSecurity
    * Convert the "Definition" version to the "Derivative" version.
    * @param date The reference date.
    * @param settlementDate The bill settlement date.
-   * @param yieldCurveNames The yield curves names. [0] discounting curve, [1] credit curve.
-   * @return The bill security.
-   * @deprecated Use the version without yield curve names
-   */
-  @Deprecated
-  public BillSecurity toDerivative(final ZonedDateTime date, final ZonedDateTime settlementDate, final String... yieldCurveNames) {
-    throw new UnsupportedOperationException(this.getClass().getCanonicalName());
-  }
-
-  /**
-   * Convert the "Definition" version to the "Derivative" version.
-   * @param date The reference date.
-   * @param settlementDate The bill settlement date.
    * @return The bill security.
    */
   public BillSecurity toDerivative(final ZonedDateTime date, final ZonedDateTime settlementDate) {

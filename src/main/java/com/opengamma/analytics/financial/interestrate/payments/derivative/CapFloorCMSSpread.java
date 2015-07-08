@@ -64,43 +64,6 @@ public class CapFloorCMSSpread extends CouponFloating implements CapFloor {
    * @param settlementTime The time (in years) to underlying swap settlement.
    * @param strike The strike.
    * @param isCap The cap (true) /floor (false) flag.
-   * @param fundingCurveName The discounting curve name. Should be compatible with the swaps dicsounting curve.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public CapFloorCMSSpread(final Currency currency, final double paymentTime, final double paymentYearFraction, final double notional, final double fixingTime,
-      final SwapFixedCoupon<? extends Payment> underlyingSwap1, final IndexSwap cmsIndex1, final SwapFixedCoupon<? extends Payment> underlyingSwap2, final IndexSwap cmsIndex2,
-      final double settlementTime, final double strike, final boolean isCap, final String fundingCurveName) {
-    super(currency, paymentTime, fundingCurveName, paymentYearFraction, notional, fixingTime);
-    ArgChecker.notNull(underlyingSwap1, "underlying swap");
-    ArgChecker.isTrue(underlyingSwap1.isIborOrFixed(), "underlying swap not of vanilla type");
-    ArgChecker.notNull(underlyingSwap2, "underlying swap");
-    ArgChecker.isTrue(underlyingSwap2.isIborOrFixed(), "underlying swap not of vanilla type");
-    ArgChecker.isTrue(fundingCurveName.equals(underlyingSwap1.getFixedLeg().getDiscountCurve()), "coherence in pricing");
-    ArgChecker.isTrue(fundingCurveName.equals(underlyingSwap2.getFixedLeg().getDiscountCurve()), "coherence in pricing");
-    _underlyingSwap1 = underlyingSwap1;
-    _cmsIndex1 = cmsIndex1;
-    _underlyingSwap2 = underlyingSwap2;
-    _cmsIndex2 = cmsIndex2;
-    _settlementTime = settlementTime;
-    _strike = strike;
-    _isCap = isCap;
-  }
-
-  /**
-   *
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @param underlyingSwap1 A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
-   * @param cmsIndex1 The index associated to the first CMS.
-   * @param underlyingSwap2 A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
-   * @param cmsIndex2 The index associated to the first CMS.
-   * @param settlementTime The time (in years) to underlying swap settlement.
-   * @param strike The strike.
-   * @param isCap The cap (true) /floor (false) flag.
    */
   public CapFloorCMSSpread(final Currency currency, final double paymentTime, final double paymentYearFraction, final double notional, final double fixingTime,
       final SwapFixedCoupon<? extends Payment> underlyingSwap1, final IndexSwap cmsIndex1, final SwapFixedCoupon<? extends Payment> underlyingSwap2, final IndexSwap cmsIndex2,
@@ -117,27 +80,6 @@ public class CapFloorCMSSpread extends CouponFloating implements CapFloor {
     _settlementTime = settlementTime;
     _strike = strike;
     _isCap = isCap;
-  }
-
-  /**
-   * Builder from a floating coupon, the CMS details and the strike and cap/floor flag.
-   * @param coupon A floating coupon.
-   * @param underlyingSwap1 A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
-   * @param cmsIndex1 The index associated to the first CMS.
-   * @param underlyingSwap2 A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
-   * @param cmsIndex2 The index associated to the first CMS.
-   * @param settlementTime The time (in years) to underlying swap settlement.
-   * @param strike The strike.
-   * @param isCap The cap (true) /floor (false) flag.
-   * @return The CMS spread cap/floor.
-   */
-  @SuppressWarnings("deprecation")
-  public static CapFloorCMSSpread from(final CouponFloating coupon, final SwapFixedCoupon<Coupon> underlyingSwap1, final IndexSwap cmsIndex1, final SwapFixedCoupon<Coupon> underlyingSwap2,
-      final IndexSwap cmsIndex2, final double settlementTime, final double strike, final boolean isCap) {
-    ArgChecker.notNull(coupon, "floating coupon");
-    ArgChecker.isTrue(coupon.getFundingCurveName().equals(underlyingSwap2.getFixedLeg().getDiscountCurve()), "coherence in pricing");
-    return new CapFloorCMSSpread(coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getFixingTime(), underlyingSwap1, cmsIndex1,
-        underlyingSwap2, cmsIndex2, settlementTime, strike, isCap, coupon.getFundingCurveName());
   }
 
   /**
@@ -199,16 +141,11 @@ public class CapFloorCMSSpread extends CouponFloating implements CapFloor {
     return Math.max(omega * (fixing - _strike), 0);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public CapFloorCMSSpread withNotional(final double notional) {
-    try {
-      return new CapFloorCMSSpread(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _underlyingSwap1, _cmsIndex1, _underlyingSwap2, _cmsIndex2, _settlementTime,
-          _strike, _isCap, getFundingCurveName());
-    } catch (final IllegalStateException e) {
-      return new CapFloorCMSSpread(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _underlyingSwap1, _cmsIndex1, _underlyingSwap2, _cmsIndex2, _settlementTime,
-          _strike, _isCap);
-    }
+    return new CapFloorCMSSpread(
+        getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _underlyingSwap1,
+        _cmsIndex1, _underlyingSwap2, _cmsIndex2, _settlementTime, _strike, _isCap);
   }
 
   @Override

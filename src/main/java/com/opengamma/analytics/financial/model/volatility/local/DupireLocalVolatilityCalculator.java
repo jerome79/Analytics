@@ -118,51 +118,6 @@ public class DupireLocalVolatilityCalculator {
     };
   }
 
-  /**
-   * Classic Dupire local volatility formula in terms of the Black Volatility surface (parameterised by strike)
-   * 
-   * @param impliedVolatilitySurface Black Volatility surface (parameterised by strike)
-   * @param spot Level of underlying
-   * @param drift The risk free rate minus The dividend yield (r-q), or the difference between the domestic and foreign risk free rates in FX
-   * @return A Local Volatility surface parameterised by expiry and strike
-   * @deprecated Don't use
-   */
-  @Deprecated
-  public LocalVolatilitySurfaceStrike getLocalVolatility(final BlackVolatilitySurfaceStrike impliedVolatilitySurface, final double spot, final double drift) {
-
-    final Function<Double, Double> locVol = new Function<Double, Double>() {
-
-      @SuppressWarnings("synthetic-access")
-      @Override
-      public Double evaluate(final Double... x) {
-        final double t = x[0];
-        final double s = x[1];
-
-        final double vol = impliedVolatilitySurface.getVolatility(t, s);
-
-        final double divT = getFirstTimeDev(impliedVolatilitySurface.getSurface(), t, s, vol);
-        double var;
-        if (s == 0) {
-          var = vol * vol + 2 * vol * t * (divT);
-        } else {
-          final double divK = getFirstStrikeDev(impliedVolatilitySurface.getSurface(), t, s, vol, spot);
-          final double divK2 = getSecondStrikeDev(impliedVolatilitySurface.getSurface(), t, s, vol, spot);
-          final double h1 = (Math.log(spot / s) + (drift + vol * vol / 2) * t) / vol;
-          final double h2 = h1 - vol * t;
-          var = (vol * vol + 2 * vol * t * (divT + drift * s * divK)) / (1 + 2 * h1 * s * divK + s * s * (h1 * h2 * divK * divK + t * vol * divK2));
-          if (var < 0.0) {
-            s_logger.error("Negative variance; returning 0");
-            var = 0.0;
-          }
-        }
-        return Math.sqrt(var);
-      }
-    };
-
-    return new LocalVolatilitySurfaceStrike(FunctionalDoublesSurface.from(locVol)) {
-    };
-  }
-
   //TODO replace this
   public <T extends StrikeType> LocalVolatilitySurface<?> getLocalVolatilitySurface(final BlackVolatilitySurface<T> impliedVolatilitySurface,
       final ForwardCurve forwardCurve) {

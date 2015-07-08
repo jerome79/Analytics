@@ -5,7 +5,6 @@
  */
 package com.opengamma.analytics.financial.curve.interestrate.generator;
 
-import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountAddZeroFixedCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
@@ -54,17 +53,6 @@ public class GeneratorCurveAddYieldFixed extends GeneratorYDCurve {
   @Override
   public YieldAndDiscountCurve generateCurve(final String name, final double[] parameters) {
     final YieldAndDiscountCurve newCurve = _generator.generateCurve(name + "-0", parameters);
-    return new YieldAndDiscountAddZeroFixedCurve(name, _substract, newCurve, _fixedCurve);
-  }
-
-  /**
-   * {@inheritDoc}
-   * @deprecated Curve builders that use and populate {@link YieldCurveBundle}s are deprecated.
-   */
-  @Deprecated
-  @Override
-  public YieldAndDiscountCurve generateCurve(final String name, final YieldCurveBundle bundle, final double[] parameters) {
-    final YieldAndDiscountCurve newCurve = _generator.generateCurve(name + "-0", bundle, parameters);
     return new YieldAndDiscountAddZeroFixedCurve(name, _substract, newCurve, _fixedCurve);
   }
 

@@ -490,7 +490,7 @@ public class InflationIssuerProviderDiscount implements InflationIssuerProviderI
   @Override
   public Set<String> getAllCurveNames() {
     final Set<String> names = new TreeSet<>();
-    names.addAll(_inflationProvider.getAllNames());
+    names.addAll(_inflationProvider.getAllCurveNames());
     final Set<Pair<Object, LegalEntityFilter<LegalEntity>>> issuerSet = _issuerCurves.keySet();
     for (final Pair<Object, LegalEntityFilter<LegalEntity>> issuer : issuerSet) {
       names.add(_issuerCurves.get(issuer).getName());

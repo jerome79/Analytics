@@ -64,12 +64,6 @@ public class DepositZeroTest {
     new DepositZero(EUR, START_TIME, END_TIME, NOTIONAL, NOTIONAL, DEPOSIT_AF, null, INTEREST_AMOUNT);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetCurveName() {
-    DEPOSIT.getDiscountingCurveName();
-  }
-
   @Test
   /**
    * Tests the getters

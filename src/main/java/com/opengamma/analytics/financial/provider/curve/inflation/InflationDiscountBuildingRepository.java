@@ -134,7 +134,7 @@ public class InflationDiscountBuildingRepository {
     int loopc;
     final LinkedHashMap<String, Pair<Integer, Integer>> mapBlockOut = new LinkedHashMap<>();
     // Curve names manipulation
-    final Set<String> allCurveName1 = multicurves.getAllNames();
+    final Set<String> allCurveName1 = multicurves.getAllCurveNames();
     final int nbCurrentCurves = currentCurvesList.size();
     final LinkedHashSet<String> currentCurves = new LinkedHashSet<>(currentCurvesList);
     final LinkedHashSet<String> beforeCurveName = new LinkedHashSet<>(allCurveName1);
