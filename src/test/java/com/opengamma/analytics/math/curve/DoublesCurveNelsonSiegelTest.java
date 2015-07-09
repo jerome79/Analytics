@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.differentiation.ScalarFirstOrderDifferentiator;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * Test.
@@ -76,7 +76,7 @@ public class DoublesCurveNelsonSiegelTest {
     final double bump = 0.00001;
     final Double[] sensitivityComputed0 = CURVE_NS.getYValueParameterSensitivity(0.0);
     final double[] sensitivityExpected0 = new double[] {1.0, 1.0, 0.0, 0.0 };
-    assertArrayEquals("DoublesCurveNelsonSiegel: parameter sensitivity", sensitivityExpected0, ArrayUtils.toPrimitive(sensitivityComputed0), TOLERANCE_SENSITIVITY);
+    assertArrayEquals("DoublesCurveNelsonSiegel: parameter sensitivity", sensitivityExpected0, DoubleArrayMath.toPrimitive(sensitivityComputed0), TOLERANCE_SENSITIVITY);
     final double[][] parametersBumped = new double[4][];
     final DoublesCurveNelsonSiegel[] curveBumped = new DoublesCurveNelsonSiegel[4];
     for (int loopp = 0; loopp < 4; loopp++) {
@@ -94,7 +94,7 @@ public class DoublesCurveNelsonSiegelTest {
         final double valueBumped = curveBumped[loopp].getYValue(t);
         sensitivityExpected[loopp] = (valueBumped - valueComputed) / bump;
       }
-      assertArrayEquals("DoublesCurveNelsonSiegel: parameter sensitivity " + loopt, sensitivityExpected, ArrayUtils.toPrimitive(sensitivityComputed), TOLERANCE_SENSITIVITY);
+      assertArrayEquals("DoublesCurveNelsonSiegel: parameter sensitivity " + loopt, sensitivityExpected, DoubleArrayMath.toPrimitive(sensitivityComputed), TOLERANCE_SENSITIVITY);
     }
   }
 

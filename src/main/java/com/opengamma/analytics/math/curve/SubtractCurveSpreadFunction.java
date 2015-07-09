@@ -20,27 +20,21 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  */
 public class SubtractCurveSpreadFunction implements CurveSpreadFunction {
+
+  /** An instance of this function */
+  public static final SubtractCurveSpreadFunction INSTANCE = new SubtractCurveSpreadFunction();
   /** The operation name */
   public static final String NAME = "-";
-  /** An instance of this function */
-  private static final SubtractCurveSpreadFunction INSTANCE = new SubtractCurveSpreadFunction();
 
   /**
-   * Gets an instance of this function
-   * @return The instance
+   * Restricted constructor.
    */
-  public static CurveSpreadFunction getInstance() {
-    return INSTANCE;
+  private SubtractCurveSpreadFunction() {
   }
 
   /**
-   * @deprecated Use {@link #getInstance()}
-   */
-  @Deprecated
-  public SubtractCurveSpreadFunction() {
-  }
-
-  /**
+   * Evaluates the function.
+   * 
    * @param curves An array of curves, not null or empty
    * @return A function that will find the value of each curve at the given input <i>x</i> and subtract each in turn
    */
@@ -62,11 +56,6 @@ public class SubtractCurveSpreadFunction implements CurveSpreadFunction {
       }
 
     };
-  }
-
-  @Override
-  public String getOperationName() {
-    return NAME;
   }
 
   @Override

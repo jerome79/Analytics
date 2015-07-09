@@ -12,8 +12,8 @@ import java.util.Objects;
 import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * The implementation of a YieldAndDiscount curve where the curve is stored with maturities and zero-coupon continuously-compounded rates.
@@ -77,7 +77,7 @@ public class YieldCurve extends YieldAndDiscountCurve {
 
   @Override
   public double[] getInterestRateParameterSensitivity(final double t) {
-    return ArrayUtils.toPrimitive(_curve.getYValueParameterSensitivity(t));
+    return DoubleArrayMath.toPrimitive(_curve.getYValueParameterSensitivity(t));
   }
 
   @Override

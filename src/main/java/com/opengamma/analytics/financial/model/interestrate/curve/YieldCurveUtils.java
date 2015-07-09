@@ -31,9 +31,9 @@ import com.opengamma.strata.collect.tuple.DoublesPair;
  */
 public class YieldCurveUtils {
   /** Curve spread function that adds two curves */
-  private static final CurveSpreadFunction ADD_SPREAD = AddCurveSpreadFunction.getInstance();
+  private static final CurveSpreadFunction ADD_SPREAD = AddCurveSpreadFunction.INSTANCE;
   /** Curve spread function that multiplies one curve by another */
-  private static final CurveSpreadFunction MULTIPLY_SPREAD = MultiplyCurveSpreadFunction.getInstance();
+  private static final CurveSpreadFunction MULTIPLY_SPREAD = MultiplyCurveSpreadFunction.INSTANCE;
   /** Suffix for parallel shifts */
   public static final String PARALLEL_SHIFT_NAME = "_WithParallelShift";
   /** Suffix for bucketed shifts */

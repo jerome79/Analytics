@@ -21,8 +21,8 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * 
@@ -87,7 +87,7 @@ public class GeneralizedLeastSquare {
   GeneralizedLeastSquareResults<Double> solve(
       double[] x, double[] y, double[] sigma, List<Function1D<Double, Double>> basisFunctions,
       double lambda, int differenceOrder) {
-    return solve(ArrayUtils.toObject(x), y, sigma, basisFunctions, lambda, differenceOrder);
+    return solve(DoubleArrayMath.toObject(x), y, sigma, basisFunctions, lambda, differenceOrder);
   }
 
   /**

@@ -88,7 +88,7 @@ public abstract class PenaltyMatrixGenerator {
 
   /**
    * Assume a tensor has been flattened to a vector as {A_{0,0}, A_{0,1},...._A_{0,m}, A_{1,0}, A_{1,1},...._A_{1,m},...,A_{n,0}, A_{n,1},...._A_{n,m}}
-   *  (see {@link flattenMatrix}) that is, the <b>last</b> index changes most rapidly.  This produces a penalty matrix that acts on a given set of indexes only<P>
+   *  (see {@link #flattenMatrix}) that is, the <b>last</b> index changes most rapidly.  This produces a penalty matrix that acts on a given set of indexes only<P>
    * To produce a penalty matrix that acts on multiple indexes, produce one for each set of indexes and add them together (scaling if necessary)  
    * @param numElements The range of each index. In the example above, this would be {n,m} 
    * @param k Difference order. Require size[indices] > k
@@ -104,7 +104,7 @@ public abstract class PenaltyMatrixGenerator {
 
   /**
    * Assume a tensor has been flattened to a vector as {A_{0,0}, A_{0,1},...._A_{0,m}, A_{1,0}, A_{1,1},...._A_{1,m},...,A_{n,0}, A_{n,1},...._A_{n,m}}
-   * (see {@link flattenMatrix}) that is, the <b>last</b> index changes most rapidly.  This produces the sum of penalty matrices (or order given by k) with each scaled 
+   * (see {@link #flattenMatrix}) that is, the <b>last</b> index changes most rapidly.  This produces the sum of penalty matrices (or order given by k) with each scaled 
    * by lambda. 
    * @param numElements The range of each index. In the example above, this would be {n,m} 
    * @param k The difference order for each dimension 
@@ -294,7 +294,7 @@ public abstract class PenaltyMatrixGenerator {
 
   /**
    * Assume a tensor has been flattened to a vector as {A_{0,0}, A_{0,1},...._A_{0,m}, A_{1,0}, A_{1,1},...._A_{1,m},...,A_{n,0}, A_{n,1},...._A_{n,m}}
-   *  (see {@link flattenMatrix}) that is, the <b>last</b> index changes most rapidly. 
+   *  (see {@link #flattenMatrix}) that is, the <b>last</b> index changes most rapidly. 
    * Given a matrix, M, that acts on the elements of one index only, i.e.
    * $$y_{i, i_1, i_2, \dots,i_{k-1}, i_{k+1},\dots, i_n} =  \sum_{i_k=0}^{N_k-1} M_{i,i_k}  x_{i_1, i_2, \dots,i_k,\dots, i_n} $$
    * form the larger matrix that acts on the flattened vector.  

@@ -31,7 +31,7 @@ public abstract class PiecewisePolynomialInterpolator {
   /**
    * @param xValues X values of data
    * @param yValues Y values of data
-   * @param xKey 
+   * @param xKey  the key
    * @return value of the underlying cubic spline function at the value of x
    */
   public double interpolate(final double[] xValues, final double[] yValues, final double xKey) {
@@ -67,7 +67,7 @@ public abstract class PiecewisePolynomialInterpolator {
   /**
    * @param xValues X values of data
    * @param yValues Y values of data
-   * @param xKeys 
+   * @param xKeys  the keys
    * @return Values of the underlying cubic spline function at the values of x
    */
   public DoubleMatrix1D interpolate(final double[] xValues, final double[] yValues, final double[] xKeys) {
@@ -107,9 +107,9 @@ public abstract class PiecewisePolynomialInterpolator {
   }
 
   /**
-   * @param xValues 
-   * @param yValues 
-   * @param xMatrix 
+   * @param xValues  the values
+   * @param yValues  the values
+   * @param xMatrix  the matrix
    * @return Values of the underlying cubic spline function at the values of x
    */
   public DoubleMatrix2D interpolate(final double[] xValues, final double[] yValues, final double[][] xMatrix) {
@@ -134,9 +134,9 @@ public abstract class PiecewisePolynomialInterpolator {
   }
 
   /**
-   * @param xValues 
-   * @param yValuesMatrix 
-   * @param x 
+   * @param xValues  the values
+   * @param yValuesMatrix  the matrix
+   * @param x  the x
    * @return Values of the underlying cubic spline functions interpolating {yValuesMatrix.RowVectors} at the value of x
    */
   public DoubleMatrix1D interpolate(final double[] xValues, final double[][] yValuesMatrix, final double x) {
@@ -154,9 +154,9 @@ public abstract class PiecewisePolynomialInterpolator {
   }
 
   /**
-   * @param xValues 
-   * @param yValuesMatrix 
-   * @param x 
+   * @param xValues  the values
+   * @param yValuesMatrix  the matrix
+   * @param x  the s
    * @return Values of the underlying cubic spline functions interpolating {yValuesMatrix.RowVectors} at the values of x
    */
   public DoubleMatrix2D interpolate(final double[] xValues, final double[][] yValuesMatrix, final double[] x) {
@@ -177,9 +177,9 @@ public abstract class PiecewisePolynomialInterpolator {
   }
 
   /**
-   * @param xValues 
-   * @param yValuesMatrix 
-   * @param xMatrix 
+   * @param xValues  the values
+   * @param yValuesMatrix  the matrix
+   * @param xMatrix  the matrix
    * @return Values of the underlying cubic spline functions interpolating {yValuesMatrix.RowVectors} at the values of xMatrix
    */
   public DoubleMatrix2D[] interpolate(final double[] xValues, final double[][] yValuesMatrix, final double[][] xMatrix) {
@@ -216,7 +216,7 @@ public abstract class PiecewisePolynomialInterpolator {
 
   /**
    * @param coefs {a_n,a_{n-1},...} of f(x) = a_n x^{n} + a_{n-1} x^{n-1} + ....
-   * @param x 
+   * @param x  the x
    * @param leftknot Knot specifying underlying interpolation function
    * @return Value of the underlying interpolation function at the value of x
    */

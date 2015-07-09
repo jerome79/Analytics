@@ -52,7 +52,7 @@ public class TimeSeriesRelativeWeightedDifferenceOperatorTest {
             .put(LocalDate.of(2014, 1, 2), 1.11)
             .put(LocalDate.of(2014, 1, 3), 1.11)
             .build();
-    compareTimeseries(result, expected);
+    compareTimeseries(result, expected, 1e-10);
   }
 
   /**
@@ -88,7 +88,7 @@ public class TimeSeriesRelativeWeightedDifferenceOperatorTest {
             .put(LocalDate.of(2014, 1, 2), 0)
             .put(LocalDate.of(2014, 1, 3), 1.11)
             .build();
-    compareTimeseries(result, expected);
+    compareTimeseries(result, expected, 1e-10);
   }
 
 }

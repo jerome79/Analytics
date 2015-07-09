@@ -8,9 +8,9 @@ package com.opengamma.analytics.math.rootfinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.function.RealPolynomialFunction1D;
 import com.opengamma.analytics.math.number.ComplexNumber;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -31,7 +31,7 @@ public class CubicRealRootFinder implements Polynomial1DRootFinder<Double> {
     final ComplexNumber[] result = ROOT_FINDER.getRoots(function);
     final List<Double> reals = new ArrayList<>();
     for (final ComplexNumber c : result) {
-      if (CompareUtils.closeEquals(c.getImaginary(), 0, 1e-16)) {
+      if (DoubleMath.fuzzyEquals(c.getImaginary(), 0d, 1e-16)) {
         reals.add(c.getReal());
       }
     }

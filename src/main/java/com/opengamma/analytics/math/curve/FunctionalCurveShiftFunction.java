@@ -44,7 +44,7 @@ public class FunctionalCurveShiftFunction implements CurveShiftFunction<Function
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCurve evaluate(final FunctionalDoublesCurve curve, final double x, final double shift) {
@@ -54,7 +54,7 @@ public class FunctionalCurveShiftFunction implements CurveShiftFunction<Function
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCurve evaluate(final FunctionalDoublesCurve curve, final double x, final double shift, final String newName) {
@@ -64,7 +64,7 @@ public class FunctionalCurveShiftFunction implements CurveShiftFunction<Function
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCurve evaluate(final FunctionalDoublesCurve curve, final double[] xShift, final double[] yShift) {
@@ -74,7 +74,7 @@ public class FunctionalCurveShiftFunction implements CurveShiftFunction<Function
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public FunctionalDoublesCurve evaluate(final FunctionalDoublesCurve curve, final double[] xShift, final double[] yShift, final String newName) {

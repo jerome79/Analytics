@@ -29,7 +29,7 @@ public final class DateUtils {
    * The number of days in one year (estimated as 365.25).
    */
   //TODO change this to 365.2425 to be consistent with JSR-310
-  public static final double DAYS_PER_YEAR = 365.25;
+  private static final double DAYS_PER_YEAR = 365.25;
   /**
    * The number of milliseconds in one day.
    */

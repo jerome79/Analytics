@@ -8,7 +8,9 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import org.testng.Assert;
@@ -35,7 +37,6 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.MultiCurrencyAmount;
 import com.opengamma.strata.basics.date.HolidayCalendar;
@@ -46,29 +47,32 @@ import com.opengamma.strata.basics.date.HolidayCalendar;
 @Test
 public class DayPeriodPreCalculatedDiscountCurveTest {
 
+  private static final double DAYS_PER_YEAR = 365.25;
+
   private static double TOLERANCE = 1e-10;
   // note the time periods passed in must be a whole number divided by 365.25, otherwise the pre calculated factors
   // will not line up
-  private static double[] x = new double[] {0 / DateUtils.DAYS_PER_YEAR, 1 / DateUtils.DAYS_PER_YEAR,
-    2 / DateUtils.DAYS_PER_YEAR, 100 / DateUtils.DAYS_PER_YEAR, 293 / DateUtils.DAYS_PER_YEAR,
-    309 / DateUtils.DAYS_PER_YEAR, 428 / DateUtils.DAYS_PER_YEAR, 567 / DateUtils.DAYS_PER_YEAR,
-    5634 / DateUtils.DAYS_PER_YEAR };
+  private static double[] x = new double[] {0 / DAYS_PER_YEAR, 1 / DAYS_PER_YEAR,
+      2 / DAYS_PER_YEAR, 100 / DAYS_PER_YEAR, 293 / DAYS_PER_YEAR,
+      309 / DAYS_PER_YEAR, 428 / DAYS_PER_YEAR, 567 / DAYS_PER_YEAR,
+      5634 / DAYS_PER_YEAR};
   private static double[] y = new double[] {1.0, 0.75, 0.5, 0.25, 0.15, 0.12, 0.10, 0.9, 0.85 };
   private static InterpolatedDoublesCurve DOUBLES_CURVE = InterpolatedDoublesCurve.from(x, y, Interpolator1DFactory.LINEAR_INSTANCE);
   private static final DiscountCurve EXISTING_CURVE = DiscountCurve.from(DOUBLES_CURVE);
 
   @Test
   public void testGetDiscountFactor() throws Exception {
-    final DayPeriodPreCalculatedDiscountCurve curve = new DayPeriodPreCalculatedDiscountCurve("test", DOUBLES_CURVE, DateUtils.DAYS_PER_YEAR);
+    final DayPeriodPreCalculatedDiscountCurve curve = new DayPeriodPreCalculatedDiscountCurve("test", DOUBLES_CURVE,
+        DAYS_PER_YEAR);
     curve.preCalculateDiscountFactors(15);
     for (int i = 0; i < x[x.length - 1]; i++) {
-      final double t = i / DateUtils.DAYS_PER_YEAR;
+      final double t = i / DAYS_PER_YEAR;
       Assert.assertEquals(EXISTING_CURVE.getDiscountFactor(t), curve.getDiscountFactor(t), TOLERANCE);
     }
   }
 
   // Data for testing the curve on a swap
-  private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2012, 11, 5);
+  private static final ZonedDateTime REFERENCE_DATE = getUTCDate(2012, 11, 5);
   private static final MulticurveProviderDiscount MULTICURVES = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
 
   private static final MulticurveProviderDiscount MULTICURVES_WITH_PRECALCULATED_DISCOUNT = MulticurveProviderDiscountDataSets.createMulticurveEurUsd();
@@ -78,7 +82,7 @@ public class DayPeriodPreCalculatedDiscountCurveTest {
   private static final Currency EUR = EURIBOR3M.getCurrency();
   private static final HolidayCalendar CALENDAR = MulticurveProviderDiscountDataSets.getEURCalendar();
 
-  private static final ZonedDateTime START_DATE = DateUtils.getUTCDate(2013, 9, 9);
+  private static final ZonedDateTime START_DATE = getUTCDate(2013, 9, 9);
   private static final ZonedDateTime END_DATE_3 = ScheduleCalculator.getAdjustedDate(START_DATE, EURIBOR3M.getTenor(), EURIBOR3M, CALENDAR);
   private static final Period TOTAL_TENOR = EURIBOR3M.getTenor().plus(EURIBOR6M.getTenor());
   private static final ZonedDateTime END_DATE_6 = ScheduleCalculator.getAdjustedDate(START_DATE, TOTAL_TENOR, EURIBOR3M, CALENDAR);
@@ -219,4 +223,9 @@ public class DayPeriodPreCalculatedDiscountCurveTest {
           periodPreCalculatedCurve.getDiscountFactor(outputTime[i]), 1.0E-14);
     }
   }
+
+  private static ZonedDateTime getUTCDate(final int year, final int month, final int day) {
+    return LocalDate.of(year, month, day).atStartOfDay(ZoneOffset.UTC);
+  }
+
 }

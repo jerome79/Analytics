@@ -6,7 +6,6 @@
 package com.opengamma.analytics.financial.model.interestrate.curve;
 
 import com.opengamma.analytics.math.curve.DoublesCurve;
-import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -34,6 +33,12 @@ import com.opengamma.strata.collect.ArgChecker;
  * For more information, see <a href="http://jira.opengamma.com/browse/PLAT-4688">PLAT-4688</a>.
  */
 public class DayPeriodPreCalculatedDiscountCurve extends DiscountCurve {
+
+  /**
+   * The number of days in one year (estimated as 365.25).
+   */
+  private static final double DAYS_PER_YEAR = 365.25;
+
   /** Array containing the pre-calculated discount factors */
   private double[] _preCalculatedDiscountFactors;
   /** The days in a year - used to convert from a fraction of a year to a whole number of days */
@@ -47,7 +52,7 @@ public class DayPeriodPreCalculatedDiscountCurve extends DiscountCurve {
    * @param discountFactorCurve The underlying curve.
    */
   public DayPeriodPreCalculatedDiscountCurve(final String name, final DoublesCurve discountFactorCurve) {
-    this(name, discountFactorCurve, DateUtils.DAYS_PER_YEAR);
+    this(name, discountFactorCurve, DAYS_PER_YEAR);
   }
 
   /**

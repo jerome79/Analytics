@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.volatility.smile.function;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.BlackFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.CEVFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.CEVPriceFunction;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.BlackImpliedVolatilityFormula;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -38,8 +38,8 @@ public class SABRJohnsonVolatilityFunction extends VolatilityFunctionProvider<SA
         final double beta = data.getBeta();
         final double rho = data.getRho();
         final double nu = data.getNu();
-        if (CompareUtils.closeEquals(nu, 0, EPS)) {
-          if (CompareUtils.closeEquals(beta, 1.0, EPS)) {
+        if (DoubleMath.fuzzyEquals(nu, 0d, EPS)) {
+          if (DoubleMath.fuzzyEquals(beta, 1.0, EPS)) {
             return alpha; // this is just log-normal
           }
           throw new UnsupportedOperationException("Have not implemented the case where nu = 0, beta != 0");
@@ -48,7 +48,7 @@ public class SABRJohnsonVolatilityFunction extends VolatilityFunctionProvider<SA
           final double sigmaDD = alpha * beta * Math.pow(forward, beta - 1);
           final double eta = (1 - beta) / beta * forward;
           double sigmaBlend;
-          if (CompareUtils.closeEquals(forward, k, EPS)) {
+          if (DoubleMath.fuzzyEquals(forward, k, EPS)) {
             sigmaBlend = sigmaDD;
           } else {
             final double z = nu / sigmaDD * Math.log((forward + eta) / (k + eta));

@@ -64,7 +64,6 @@ import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.analytics.util.time.TimeCalculator;
 import com.opengamma.analytics.util.timeseries.zdt.ImmutableZonedDateTimeDoubleTimeSeries;
@@ -73,6 +72,7 @@ import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.basics.currency.FxMatrix;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
+import com.opengamma.strata.collect.DoubleArrayMath;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -246,11 +246,11 @@ public class InflationBuildingCurveWithDiscountAndSeasonalityTestUS {
         curveInflation[0].getNumberOfParameters(), curveInflation[1].getNumberOfParameters());
 
     assertArrayEquals("Curve construction: 1 unit / 3 units ",
-        ArrayUtils.toPrimitive(((YieldCurve) curveDsc[0]).getCurve().getXData()),
-        ArrayUtils.toPrimitive(((YieldCurve) curveDsc[1]).getCurve().getXData()), TOLERANCE_CAL);
+        DoubleArrayMath.toPrimitive(((YieldCurve) curveDsc[0]).getCurve().getXData()),
+        DoubleArrayMath.toPrimitive(((YieldCurve) curveDsc[1]).getCurve().getXData()), TOLERANCE_CAL);
     assertArrayEquals("Curve construction: 1 unit / 3 units ",
-        ArrayUtils.toPrimitive(((YieldCurve) curveDsc[0]).getCurve().getYData()),
-        ArrayUtils.toPrimitive(((YieldCurve) curveDsc[1]).getCurve().getYData()), TOLERANCE_CAL);
+        DoubleArrayMath.toPrimitive(((YieldCurve) curveDsc[0]).getCurve().getYData()),
+        DoubleArrayMath.toPrimitive(((YieldCurve) curveDsc[1]).getCurve().getYData()), TOLERANCE_CAL);
     double[] sample = {0.1, 0.8, 1.0, 1.01, 1.99, 2.0, 5.0, 10.0, 30.0 };
     for (int i = 0; i < sample.length; i++) {
       assertEquals(curveInflation[0].getPriceIndex(sample[i]), curveInflation[1].getPriceIndex(sample[i]),

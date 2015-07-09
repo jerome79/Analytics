@@ -7,10 +7,10 @@ package com.opengamma.analytics.financial.model.volatility;
 
 import java.util.Objects;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.NewtonRaphsonSingleRootFinder;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -191,7 +191,7 @@ public class BlackFormula {
    * @param vol  the vol
    */
   public final void setLognormalVol(final Double vol) {
-    ArgChecker.isTrue(vol > 0.0 || CompareUtils.closeEquals(vol, 0.0), "Cannot set vol to be negative.");
+    ArgChecker.isTrue(vol > 0.0 || DoubleMath.fuzzyEquals(vol, 0.0, 1e-15), "Cannot set vol to be negative.");
     _lognormalVol = vol;
   }
 

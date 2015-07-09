@@ -7,7 +7,7 @@ package com.opengamma.analytics.math.function;
 
 import java.util.Arrays;
 
-import com.opengamma.analytics.util.CompareUtils;
+import com.google.common.math.DoubleMath;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -235,7 +235,7 @@ public class RealPolynomialFunction1D extends DoubleFunction1D {
    */
   public RealPolynomialFunction1D toMonic() {
     final double an = _coefficients[_n - 1];
-    if (CompareUtils.closeEquals(an, 1)) {
+    if (DoubleMath.fuzzyEquals(an, (double) 1, 1e-15)) {
       return new RealPolynomialFunction1D(Arrays.copyOf(_coefficients, _n));
     }
     final double[] rescaled = new double[_n];

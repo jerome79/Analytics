@@ -16,10 +16,6 @@ import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
 public class LocalDateDoubleTimeSeriesTestUtils {
 
-  public static void compareTimeseries(LocalDateDoubleTimeSeries result, LocalDateDoubleTimeSeries expected) {
-    compareTimeseries(result, expected, 1e-10);
-  }
-
   public static void compareTimeseries(LocalDateDoubleTimeSeries result, LocalDateDoubleTimeSeries expected, Double tol) {
 
     assertThat(result.size()).isEqualTo(expected.size());

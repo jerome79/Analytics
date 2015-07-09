@@ -23,8 +23,8 @@ import org.joda.beans.impl.direct.DirectMetaPropertyMap;
 
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.DoubleArrayMath;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -542,7 +542,7 @@ public class InterpolatedDoublesCurve extends ArraysDoublesCurve {
   @Override
   public Double[] getYValueParameterSensitivity(final Double x) {
     ArgChecker.notNull(x, "x");
-    return ArrayUtils.toObject(interpolator.getNodeSensitivitiesForValue(dataBundle, x));
+    return DoubleArrayMath.toObject(interpolator.getNodeSensitivitiesForValue(dataBundle, x));
   }
 
   public Interpolator1D getInterpolator() {

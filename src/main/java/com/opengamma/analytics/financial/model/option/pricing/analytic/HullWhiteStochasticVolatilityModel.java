@@ -7,6 +7,7 @@ package com.opengamma.analytics.financial.model.option.pricing.analytic;
 
 import java.time.ZonedDateTime;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.definition.EuropeanVanillaOptionDefinition;
 import com.opengamma.analytics.financial.model.option.definition.HullWhiteStochasticVolatilityModelDataBundle;
 import com.opengamma.analytics.financial.model.option.definition.OptionDefinition;
@@ -16,7 +17,6 @@ import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.analytics.math.statistics.distribution.ProbabilityDistribution;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -55,7 +55,7 @@ public class HullWhiteStochasticVolatilityModel extends AnalyticOptionModel<Opti
         final double alpha = -beta * sigmaLR * sigmaLR;
         final double delta = beta * t;
         final double eDelta = Math.exp(delta);
-        final boolean betaIsZero = CompareUtils.closeEquals(beta, 0, ZERO);
+        final boolean betaIsZero = DoubleMath.fuzzyEquals(beta, 0d, ZERO);
         final double variance = sigma * sigma;
         final double meanVariance = getMeanVariance(betaIsZero, variance, alpha, t, beta, eDelta, delta);
         final double df = getDF(r, b, t);

@@ -56,7 +56,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getXData() {
@@ -65,7 +65,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getYData() {
@@ -74,7 +74,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getZData() {
@@ -83,7 +83,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public Double[] getValues() {
@@ -92,7 +92,7 @@ public class FunctionalDoublesCube extends Cube<Double, Double, Double, Double> 
 
   /**
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public int size() {

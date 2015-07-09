@@ -5,9 +5,9 @@
  */
 package com.opengamma.analytics.math.function.special;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -62,7 +62,7 @@ public class InverseIncompleteBetaFunction extends Function1D<Double, Double> {
     final double afac = -_lnGamma.evaluate(_a) - _lnGamma.evaluate(_b) + _lnGamma.evaluate(_a + _b);
     double error;
     for (int j = 0; j < 10; j++) {
-      if (CompareUtils.closeEquals(p, 0, 1e-16) || CompareUtils.closeEquals(p, 1, 1e-16)) {
+      if (DoubleMath.fuzzyEquals(p, 0d, 1e-16) || DoubleMath.fuzzyEquals(p, (double) 1, 1e-16)) {
         throw new MathException("a or b too small for accurate evaluation");
       }
       error = _beta.evaluate(p) - x;

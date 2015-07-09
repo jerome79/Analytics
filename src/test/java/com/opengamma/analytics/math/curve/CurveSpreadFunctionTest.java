@@ -18,10 +18,10 @@ import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
  */
 @Test
 public class CurveSpreadFunctionTest {
-  private static final CurveSpreadFunction ADD = CurveSpreadFunctionFactory.of("+");
-  private static final CurveSpreadFunction DIVIDE = CurveSpreadFunctionFactory.of("/");
-  private static final CurveSpreadFunction MULTIPLY = CurveSpreadFunctionFactory.of("*");
-  private static final CurveSpreadFunction SUBTRACT = CurveSpreadFunctionFactory.of("-");
+  private static final CurveSpreadFunction ADD = AddCurveSpreadFunction.INSTANCE;
+  private static final CurveSpreadFunction DIVIDE = DivideCurveSpreadFunction.INSTANCE;
+  private static final CurveSpreadFunction MULTIPLY = MultiplyCurveSpreadFunction.INSTANCE;
+  private static final CurveSpreadFunction SUBTRACT = SubtractCurveSpreadFunction.INSTANCE;
   private static final double[] X = new double[] {1, 2, 3, 4, 5, 6, 7, 8, 9 };
   private static final double[] Y1 = new double[] {2, 4, 6, 8, 10, 12, 14, 16, 18 };
   private static final double[] Y2 = new double[] {1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1 };
@@ -93,11 +93,11 @@ public class CurveSpreadFunctionTest {
   }
 
   @Test
-  public void testOperationName() {
-    assertEquals(ADD.getOperationName(), "+");
-    assertEquals(DIVIDE.getOperationName(), "/");
-    assertEquals(MULTIPLY.getOperationName(), "*");
-    assertEquals(SUBTRACT.getOperationName(), "-");
+  public void testName() {
+    assertEquals(ADD.getName(), "+");
+    assertEquals(DIVIDE.getName(), "/");
+    assertEquals(MULTIPLY.getName(), "*");
+    assertEquals(SUBTRACT.getName(), "-");
   }
 
   @SuppressWarnings("unchecked")

@@ -8,6 +8,7 @@ package com.opengamma.analytics.financial.equity.variance.pricing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.financial.model.volatility.smile.fitting.interpolation.ShiftedLogNormalTailExtrapolation;
 import com.opengamma.analytics.math.function.Function1D;
@@ -17,7 +18,6 @@ import com.opengamma.analytics.math.minimization.ParameterLimitsTransform.LimitT
 import com.opengamma.analytics.math.minimization.SingleRangeLimitTransform;
 import com.opengamma.analytics.math.rootfinding.VectorRootFinder;
 import com.opengamma.analytics.math.rootfinding.newton.BroydenVectorRootFinder;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -132,7 +132,7 @@ public class DisplacedDiffusionModel {
     final double target2Price = BlackFormulaRepository.price(_forward, strikeTarget2, _expiry, volTarget2, strikeTarget2 > _forward);
 
     // Handle trivial case 1: Same Vol ==> 0.0 shift
-    if (CompareUtils.closeEquals(volTarget1, volTarget2, DEF_TOL)) {
+    if (DoubleMath.fuzzyEquals(volTarget1, volTarget2, DEF_TOL)) {
       return new DoubleMatrix1D(new double[] {volTarget1, 0.0 });
     }
 

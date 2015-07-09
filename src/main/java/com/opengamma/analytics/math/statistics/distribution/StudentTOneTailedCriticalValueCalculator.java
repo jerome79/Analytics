@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.statistics.distribution;
 
 import cern.jet.random.engine.RandomEngine;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -32,7 +32,7 @@ public class StudentTOneTailedCriticalValueCalculator extends Function1D<Double,
   public Double evaluate(final Double x) {
     ArgChecker.notNull(x, "x");
     ArgChecker.notNegative(x, "x");
-    if (CompareUtils.closeEquals(x, 0.5, 1e-14)) {
+    if (DoubleMath.fuzzyEquals(x, 0.5, 1e-14)) {
       return 0.5;
     }
     return _dist.getInverseCDF(x);

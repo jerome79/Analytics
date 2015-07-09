@@ -5,8 +5,8 @@
  */
 package com.opengamma.analytics.math.function.special;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.math.function.Function1D;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -26,7 +26,7 @@ public class DiracDeltaFunction extends Function1D<Double, Double> {
   @Override
   public Double evaluate(final Double x) {
     ArgChecker.notNull(x, "x");
-    return CompareUtils.closeEquals(x, 0, 1e-16) ? Double.POSITIVE_INFINITY : 0;
+    return DoubleMath.fuzzyEquals(x, 0d, 1e-16) ? Double.POSITIVE_INFINITY : 0;
   }
 
 }

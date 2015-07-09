@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.Annuity;
 import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
@@ -38,7 +39,6 @@ import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedC
 import com.opengamma.analytics.financial.interestrate.swap.method.SwapFixedCouponDiscountingMethod;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.ParameterProviderInterface;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.tuple.DoublesPair;
 
 /**
@@ -93,7 +93,7 @@ public final class ParRateCurveSensitivityCalculator extends InstrumentDerivativ
     final Map<String, List<DoublesPair>> result = new HashMap<>();
     final List<DoublesPair> temp = new ArrayList<>();
     if (yearFrac == 0.0) {
-      if (!CompareUtils.closeEquals(ta, tb, 1e-16)) {
+      if (!DoubleMath.fuzzyEquals(ta, tb, 1e-16)) {
         throw new IllegalArgumentException("year fraction is zero, but payment time not equal the trade time");
       }
       temp.add(DoublesPair.of(ta, 1.0));

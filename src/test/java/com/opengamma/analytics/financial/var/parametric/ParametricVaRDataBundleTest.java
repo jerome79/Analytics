@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.Matrix;
-import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * Test.
@@ -73,7 +73,7 @@ public class ParametricVaRDataBundleTest {
 
       @Override
       public double[] getEntry(final int... indices) {
-        return ArrayUtils.EMPTY_DOUBLE_ARRAY;
+        return DoubleArrayMath.EMPTY_DOUBLE_ARRAY;
       }
 
     };

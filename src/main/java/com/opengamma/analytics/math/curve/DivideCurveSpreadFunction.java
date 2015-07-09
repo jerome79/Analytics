@@ -20,40 +20,32 @@ import com.opengamma.strata.collect.ArgChecker;
  * $$
  */
 public class DivideCurveSpreadFunction implements CurveSpreadFunction {
+
+  /** An instance of this function */
+  public static final DivideCurveSpreadFunction INSTANCE = new DivideCurveSpreadFunction();
   /** The operation name */
   public static final String NAME = "/";
-  /** An instance of this function */
-  private static final DivideCurveSpreadFunction INSTANCE = new DivideCurveSpreadFunction();
 
   /**
-   * Gets an instance of this function
-   * @return The instance
+   * Restricted constructor.
    */
-  public static CurveSpreadFunction getInstance() {
-    return INSTANCE;
+  private DivideCurveSpreadFunction() {
   }
 
   /**
-   * @deprecated Use {@link #getInstance()}
-   */
-  @Deprecated
-  public DivideCurveSpreadFunction() {
-  }
-
-  /**
+   * Evaluates the function.
+   * 
    * @param curves An array of curves, not null or empty
    * @return A function that will find the value of each curve at the given input <i>x</i> and divide each in turn
    */
   @SuppressWarnings("unchecked")
   @Override
   public Function<Double, Double> evaluate(final Curve<Double, Double>... curves) {
-    ArgChecker.notNull(curves, "x");
     ArgChecker.notEmpty(curves, "curves");
     return new Function<Double, Double>() {
 
       @Override
       public Double evaluate(final Double... x) {
-        ArgChecker.notNull(x, "x");
         ArgChecker.notEmpty(x, "x");
         final double x0 = x[0];
         double y = curves[0].getYValue(x0);
@@ -67,12 +59,8 @@ public class DivideCurveSpreadFunction implements CurveSpreadFunction {
   }
 
   @Override
-  public String getOperationName() {
-    return NAME;
-  }
-
-  @Override
   public String getName() {
     return NAME;
   }
+
 }

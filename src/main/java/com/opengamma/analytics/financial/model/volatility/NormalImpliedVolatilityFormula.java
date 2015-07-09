@@ -5,13 +5,13 @@
  */
 package com.opengamma.analytics.financial.model.volatility;
 
+import com.google.common.math.DoubleMath;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.NormalFunctionData;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.NormalPriceFunction;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.rootfinding.BisectionSingleRootFinder;
 import com.opengamma.analytics.math.rootfinding.BracketRoot;
-import com.opengamma.analytics.util.CompareUtils;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -45,7 +45,7 @@ public class NormalImpliedVolatilityFormula {
     final double f = data.getForward();
     final double k = option.getStrike();
     final double intrinsicPrice = numeraire * Math.max(0, (isCall ? 1 : -1) * (f - k));
-    ArgChecker.isTrue(optionPrice > intrinsicPrice || CompareUtils.closeEquals(optionPrice, intrinsicPrice, 1e-6), "option price (" + optionPrice + ") less than intrinsic value (" + intrinsicPrice
+    ArgChecker.isTrue(optionPrice > intrinsicPrice || DoubleMath.fuzzyEquals(optionPrice, intrinsicPrice, 1e-6), "option price (" + optionPrice + ") less than intrinsic value (" + intrinsicPrice
         + ")");
     if (Double.doubleToLongBits(optionPrice) == Double.doubleToLongBits(intrinsicPrice)) {
       return 0.0;

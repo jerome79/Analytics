@@ -28,10 +28,10 @@ public class PiecewisePolynomialResultsWithSensitivity extends PiecewisePolynomi
 
   /**
    * 
-   * @param knots  
-   * @param coefMatrix 
-   * @param order 
-   * @param dim 
+   * @param knots  the knots
+   * @param coefMatrix  the coefMatrix
+   * @param order  the order
+   * @param dim  the dim
    * @param coeffSense the sensitivity of the coefficients to the nodes (y-values)
    */
   public PiecewisePolynomialResultsWithSensitivity(DoubleMatrix1D knots, DoubleMatrix2D coefMatrix, int order, int dim, final DoubleMatrix2D[] coeffSense) {
@@ -53,7 +53,7 @@ public class PiecewisePolynomialResultsWithSensitivity extends PiecewisePolynomi
 
   /**
    * Access _coeffSense for the i-th interval
-   * @param interval 
+   * @param interval  the interval
    * @return _coeffSense for the i-th interval
    */
   public DoubleMatrix2D getCoefficientSensitivity(final int interval) {

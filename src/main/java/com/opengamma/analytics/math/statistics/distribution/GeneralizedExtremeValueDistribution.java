@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.math.statistics.distribution;
 
-import com.opengamma.analytics.util.CompareUtils;
+import com.google.common.math.DoubleMath;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -74,7 +74,7 @@ public class GeneralizedExtremeValueDistribution implements ProbabilityDistribut
     _mu = mu;
     _sigma = sigma;
     _ksi = ksi;
-    _ksiIsZero = CompareUtils.closeEquals(ksi, 0, 1e-13);
+    _ksiIsZero = DoubleMath.fuzzyEquals(ksi, 0d, 1e-13);
   }
 
   /**

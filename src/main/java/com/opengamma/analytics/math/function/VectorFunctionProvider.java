@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Interface for anything the provides a vector function which depends on some extraneous data
  * @param <T> type of extraneous data 
- * @see {@link VectorFunction}
+ * @see VectorFunction
  */
 public interface VectorFunctionProvider<T> {
 

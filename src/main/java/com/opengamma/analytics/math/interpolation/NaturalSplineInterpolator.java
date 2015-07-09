@@ -28,7 +28,7 @@ public class NaturalSplineInterpolator extends PiecewisePolynomialInterpolator {
 
   /**
    * 
-   * @param inherit 
+   * @param inherit  the solver
    */
   public NaturalSplineInterpolator(final CubicSplineSolver inherit) {
     _solver = inherit;

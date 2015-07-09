@@ -12,52 +12,6 @@ import java.util.Arrays;
  */
 public class ArrayUtils {
 
-  /**
-   * An empty {@code double} array.
-   */
-  public static final double[] EMPTY_DOUBLE_ARRAY = new double[0];
-  /**
-   * An empty {@code Double} array.
-   */
-  public static final Double[] EMPTY_DOUBLE_OBJECT_ARRAY = new Double[0];
-
-  //-------------------------------------------------------------------------
-  /**
-   * Converts a {@code double} array to a {@code Double} array.
-   * 
-   * @param array  the array to convert
-   * @return the converted array
-   */
-  public static Double[] toObject(double[] array) {
-    if (array.length == 0) {
-      return EMPTY_DOUBLE_OBJECT_ARRAY;
-    }
-    Double[] result = new Double[array.length];
-    for (int i = 0; i < array.length; i++) {
-      result[i] = new Double(array[i]);
-    }
-    return result;
-  }
-
-  /**
-   * Converts a {@code Double} array to a {@code double} array.
-   * <p>
-   * Throws an exception if null is found.
-   * 
-   * @param array  the array to convert
-   * @return the converted array
-   */
-  public static double[] toPrimitive(Double[] array) {
-    if (array.length == 0) {
-      return EMPTY_DOUBLE_ARRAY;
-    }
-    double[] result = new double[array.length];
-    for (int i = 0; i < array.length; i++) {
-      result[i] = array[i].doubleValue();
-    }
-    return result;
-  }
-
   //-------------------------------------------------------------------------
   /**
    * Adds one element to an array.

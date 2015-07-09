@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.function;
 
 import java.util.List;
 
-import com.opengamma.analytics.util.ArrayUtils;
 import com.opengamma.strata.collect.ArgChecker;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * abstraction for anything that provides a {@link VectorFunction} for a set of data points (as Double)
@@ -24,7 +24,7 @@ public abstract class DoublesVectorFunctionProvider implements VectorFunctionPro
   @Override
   public VectorFunction from(final Double[] x) {
     ArgChecker.notNull(x, "x");
-    return from(ArrayUtils.toPrimitive(x));
+    return from(DoubleArrayMath.toPrimitive(x));
   }
 
   /**

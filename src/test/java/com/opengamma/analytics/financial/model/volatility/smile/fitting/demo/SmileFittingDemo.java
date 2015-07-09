@@ -38,7 +38,7 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.statistics.leastsquare.GeneralizedLeastSquare;
 import com.opengamma.analytics.math.statistics.leastsquare.GeneralizedLeastSquareResults;
 import com.opengamma.analytics.math.statistics.leastsquare.LeastSquareResultsWithTransform;
-import com.opengamma.analytics.util.ArrayUtils;
+import com.opengamma.strata.collect.DoubleArrayMath;
 
 /**
  * The purpose of this class is to demonstrate the various methods in analytics for fitting/interpolating volatility 
@@ -250,7 +250,7 @@ public class SmileFittingDemo {
     double log10Lambda = 6;
     double lambda = Math.pow(10.0, log10Lambda);
 
-    GeneralizedLeastSquareResults<Double> res = gls.solve(ArrayUtils.toObject(STRIKES), var, ERRORS, set, lambda, penaltyOrder);
+    GeneralizedLeastSquareResults<Double> res = gls.solve(DoubleArrayMath.toObject(STRIKES), var, ERRORS, set, lambda, penaltyOrder);
     final Function1D<Double, Double> varFunc = res.getFunction();
     Function1D<Double, Double> smile = new Function1D<Double, Double>() {
       @Override

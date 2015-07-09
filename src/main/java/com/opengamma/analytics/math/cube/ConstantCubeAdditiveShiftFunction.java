@@ -34,7 +34,7 @@ public class ConstantCubeAdditiveShiftFunction implements CubeShiftFunction<Cons
   /**
   * {@inheritDoc}
   * @return Not supported
-  * @throws UnsupportedOperationException
+  * @throws UnsupportedOperationException always
   */
   @Override
   public ConstantDoublesCube evaluate(ConstantDoublesCube cube, double x, double y, double z, double shift) {
@@ -44,7 +44,7 @@ public class ConstantCubeAdditiveShiftFunction implements CubeShiftFunction<Cons
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(ConstantDoublesCube cube,
@@ -59,7 +59,7 @@ public class ConstantCubeAdditiveShiftFunction implements CubeShiftFunction<Cons
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(ConstantDoublesCube cube,
@@ -73,7 +73,7 @@ public class ConstantCubeAdditiveShiftFunction implements CubeShiftFunction<Cons
   /**
    * {@inheritDoc}
    * @return Not supported
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException always
    */
   @Override
   public ConstantDoublesCube evaluate(ConstantDoublesCube cube,
