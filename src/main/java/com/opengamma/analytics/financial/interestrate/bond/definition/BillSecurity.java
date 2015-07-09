@@ -8,13 +8,11 @@ package com.opengamma.analytics.financial.interestrate.bond.definition;
 import java.util.Objects;
 
 import com.opengamma.analytics.convention.yield.YieldConvention;
-import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.analytics.financial.legalentity.LegalEntity;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
-import com.opengamma.strata.collect.tuple.Pair;
 
 /**
  * Describes a (Treasury) Bill with settlement date.
@@ -57,65 +55,6 @@ public class BillSecurity implements InstrumentDerivative {
    * The name of the curve used for the bill cash flows (issuer credit).
    */
   private final String _creditCurveName;
-  /**
-   * The name of the curve used for settlement amount discounting.
-   */
-  private final String _discountingCurveName;
-
-  /**
-   * Constructor from all details. The legal entity contains only the issuer name.
-   * @param currency The bill currency.
-   * @param settlementTime The bill time to settlement.
-   * @param endTime The bill end or maturity time.
-   * @param notional The bill nominal.
-   * @param yieldConvention The yield (to maturity) computation convention.
-   * @param accrualFactor The accrual factor in the bill day count between settlement and maturity.
-   * @param issuer The bill issuer name.
-   * @param creditCurveName The name of the curve used for the bill cash flows (issuer credit).
-   * @param discountingCurveName The name of the curve used for settlement amount discounting.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public BillSecurity(final Currency currency, final double settlementTime, final double endTime, final double notional, final YieldConvention yieldConvention,
-      final double accrualFactor, final String issuer, final String creditCurveName, final String discountingCurveName) {
-    this(currency, settlementTime, endTime, notional, yieldConvention, accrualFactor, new LegalEntity(null, issuer, null, null, null), creditCurveName, discountingCurveName);
-  }
-
-  /**
-   * Constructor from all details.
-   * @param currency The bill currency.
-   * @param settlementTime The bill time to settlement.
-   * @param endTime The bill end or maturity time.
-   * @param notional The bill nominal.
-   * @param yieldConvention The yield (to maturity) computation convention.
-   * @param accrualFactor The accrual factor in the bill day count between settlement and maturity.
-   * @param issuer The bill issuer name.
-   * @param creditCurveName The name of the curve used for the bill cash flows (issuer credit).
-   * @param discountingCurveName The name of the curve used for settlement amount discounting.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public BillSecurity(final Currency currency, final double settlementTime, final double endTime, final double notional, final YieldConvention yieldConvention,
-      final double accrualFactor, final LegalEntity issuer, final String creditCurveName, final String discountingCurveName) {
-    ArgChecker.notNull(currency, "Currency");
-    ArgChecker.notNull(yieldConvention, "Yield convention");
-    ArgChecker.notNull(issuer, "Issuer");
-    ArgChecker.notNull(creditCurveName, "Credit curve");
-    ArgChecker.notNull(discountingCurveName, "Discounting curve");
-    ArgChecker.isTrue(notional > 0.0, "Notional should be positive");
-    ArgChecker.isTrue(endTime >= settlementTime, "End time should be after settlement time");
-    ArgChecker.isTrue(settlementTime >= 0, "Settlement time should be positive");
-    _currency = currency;
-    _endTime = endTime;
-    _settlementTime = settlementTime;
-    _notional = notional;
-    _yieldConvention = yieldConvention;
-    _accrualFactor = accrualFactor;
-    _issuerName = issuer.getShortName();
-    _issuer = issuer;
-    _creditCurveName = creditCurveName;
-    _discountingCurveName = discountingCurveName;
-  }
 
   /**
    * Constructor from all details. The legal entity contains only the issuer name.
@@ -159,7 +98,6 @@ public class BillSecurity implements InstrumentDerivative {
     _issuerName = issuer.getShortName();
     _issuer = issuer;
     _creditCurveName = null;
-    _discountingCurveName = null;
   }
 
   /**
@@ -226,42 +164,6 @@ public class BillSecurity implements InstrumentDerivative {
     return _issuer;
   }
 
-  /**
-   * Gets the bill issuer name and currency.
-   * @return The name/currency.
-   * @deprecated This information is no longer used in the curve providers.
-   */
-  @Deprecated
-  public Pair<String, Currency> getIssuerCcy() {
-    return Pair.of(_issuerName, _currency);
-  }
-
-  /**
-   * Gets the name of the curve used for settlement amount discounting.
-   * @return The name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getDiscountingCurveName() {
-    if (_discountingCurveName == null) {
-      throw new IllegalStateException("Discounting curve name was not set");
-    }
-    return _discountingCurveName;
-  }
-
-  /**
-   * Gets the name of the curve used for the bill cash flows (issuer credit).
-   * @return The name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getCreditCurveName() {
-    if (_creditCurveName == null) {
-      throw new IllegalStateException("Credit curve name was not set");
-    }
-    return _creditCurveName;
-  }
-
   @Override
   public String toString() {
     return "Bill " + _issuerName + " " + _currency + ": settle" + _settlementTime + " - maturity " + _endTime + " - notional " + _notional;
@@ -288,7 +190,6 @@ public class BillSecurity implements InstrumentDerivative {
     result = prime * result + (int) (temp ^ (temp >>> 32));
     result = prime * result + (_creditCurveName == null ? 0 : _creditCurveName.hashCode());
     result = prime * result + _currency.hashCode();
-    result = prime * result + (_discountingCurveName == null ? 0 : _discountingCurveName.hashCode());
     temp = Double.doubleToLongBits(_endTime);
     result = prime * result + (int) (temp ^ (temp >>> 32));
     result = prime * result + _issuerName.hashCode();
@@ -319,9 +220,6 @@ public class BillSecurity implements InstrumentDerivative {
       return false;
     }
     if (!Objects.equals(_currency, other._currency)) {
-      return false;
-    }
-    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
       return false;
     }
     if (Double.doubleToLongBits(_endTime) != Double.doubleToLongBits(other._endTime)) {

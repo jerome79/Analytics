@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
 import java.util.Objects;
 
-import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.ArgChecker;
@@ -25,27 +24,6 @@ public abstract class Payment implements InstrumentDerivative {
    * The payment time.
    */
   private final double _paymentTime;
-  /**
-   * The funding curve name used in pricing.
-   */
-  private final String _fundingCurveName;
-
-  /**
-   * Constructor for a Payment.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param fundingCurveName Name of the funding curve.
-   * @deprecated Use the constructor that does not take a curve name
-   */
-  @Deprecated
-  public Payment(final Currency currency, final double paymentTime, final String fundingCurveName) {
-    ArgChecker.notNull(currency, "currency");
-    ArgChecker.notNull(fundingCurveName, "funding curve name");
-    ArgChecker.isTrue(paymentTime >= 0.0, "payment time < 0");
-    _currency = currency;
-    _paymentTime = paymentTime;
-    _fundingCurveName = fundingCurveName;
-  }
 
   /**
    * Constructor for a Payment.
@@ -57,7 +35,6 @@ public abstract class Payment implements InstrumentDerivative {
     ArgChecker.isTrue(paymentTime >= 0.0, "payment time < 0");
     _currency = currency;
     _paymentTime = paymentTime;
-    _fundingCurveName = null;
   }
 
   /**
@@ -66,19 +43,6 @@ public abstract class Payment implements InstrumentDerivative {
    */
   public double getPaymentTime() {
     return _paymentTime;
-  }
-
-  /**
-   * Gets the _fundingCurveName field.
-   * @return The funding curve name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getFundingCurveName() {
-    if (_fundingCurveName == null) {
-      throw new IllegalStateException("Funding curve name was not set");
-    }
-    return _fundingCurveName;
   }
 
   /**
@@ -109,10 +73,6 @@ public abstract class Payment implements InstrumentDerivative {
     sb.append(_currency);
     sb.append(", payment time=");
     sb.append(_paymentTime);
-    if (_fundingCurveName != null) {
-      sb.append(", funding curve=");
-      sb.append(_fundingCurveName);
-    }
     return sb.toString();
   }
 
@@ -121,7 +81,6 @@ public abstract class Payment implements InstrumentDerivative {
     final int prime = 31;
     int result = 1;
     result = prime * result + _currency.hashCode();
-    result = prime * result + (_fundingCurveName == null ? 0 : _fundingCurveName.hashCode());
     long temp;
     temp = Double.doubleToLongBits(_paymentTime);
     result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -141,9 +100,6 @@ public abstract class Payment implements InstrumentDerivative {
     }
     final Payment other = (Payment) obj;
     if (!Objects.equals(_currency, other._currency)) {
-      return false;
-    }
-    if (!Objects.equals(_fundingCurveName, other._fundingCurveName)) {
       return false;
     }
     if (Double.doubleToLongBits(_paymentTime) != Double.doubleToLongBits(other._paymentTime)) {

@@ -95,7 +95,6 @@ import com.opengamma.analytics.financial.interestrate.inflation.derivative.Coupo
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponInterpolationGearing;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthly;
 import com.opengamma.analytics.financial.interestrate.inflation.derivative.CouponInflationZeroCouponMonthlyGearing;
-import com.opengamma.analytics.financial.interestrate.payments.ForexForward;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMS;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorCMSSpread;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.CapFloorIbor;
@@ -1464,18 +1463,6 @@ public abstract class InstrumentDerivativeVisitorAdapter<DATA_TYPE, RESULT_TYPE>
   @Override
   public RESULT_TYPE visitEquity(final Equity equity, final DATA_TYPE data) {
     return getException(equity, data);
-  }
-
-  //  -----     Deprecated     -----
-
-  @Override
-  public RESULT_TYPE visitForexForward(final ForexForward fx, final DATA_TYPE data) {
-    return getException(fx, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitForexForward(final ForexForward fx) {
-    return getException(fx);
   }
 
   /**

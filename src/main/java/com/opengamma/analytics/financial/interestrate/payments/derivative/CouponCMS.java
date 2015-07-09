@@ -30,28 +30,6 @@ public class CouponCMS extends CouponFloating {
    * Constructor from floating coupon details and underlying swap.
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
-   * @param fundingCurveName The funding curve name
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @param underlyingSwap A swap describing the CMS underlying. The rate and notional are not used. The swap should be of vanilla type.
-   * @param settlementTime The time (in years) to underlying swap settlement.
-   * @deprecated Use the constructor that does not take a curve name
-   */
-  @Deprecated
-  public CouponCMS(final Currency currency, final double paymentTime, final String fundingCurveName, final double paymentYearFraction, final double notional,
-      final double fixingTime, final SwapFixedCoupon<? extends Payment> underlyingSwap, final double settlementTime) {
-    super(currency, paymentTime, fundingCurveName, paymentYearFraction, notional, fixingTime);
-    ArgChecker.notNull(underlyingSwap, "underlying swap");
-    ArgChecker.isTrue(underlyingSwap.isIborOrFixed(), "underlying swap not of vanilla type");
-    _underlyingSwap = underlyingSwap;
-    _settlementTime = settlementTime;
-  }
-
-  /**
-   * Constructor from floating coupon details and underlying swap.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
    * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
    * @param notional Coupon notional.
    * @param fixingTime Time (in years) up to fixing.
@@ -78,13 +56,9 @@ public class CouponCMS extends CouponFloating {
   public static CouponCMS from(final CouponFloating coupon, final SwapFixedCoupon<? extends Payment> underlyingSwap, final double settlementTime) {
     ArgChecker.notNull(coupon, "floating coupon");
     ArgChecker.notNull(underlyingSwap, "underlying swap");
-    try {
-      return new CouponCMS(coupon.getCurrency(), coupon.getPaymentTime(), underlyingSwap.getFixedLeg().getNthPayment(0).getFundingCurveName(),
-          coupon.getPaymentYearFraction(), coupon.getNotional(), coupon.getFixingTime(), underlyingSwap, settlementTime);
-    } catch (final IllegalStateException e) {
-      return new CouponCMS(coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(), coupon.getNotional(),
-          coupon.getFixingTime(), underlyingSwap, settlementTime);
-    }
+    return new CouponCMS(
+        coupon.getCurrency(), coupon.getPaymentTime(), coupon.getPaymentYearFraction(),
+        coupon.getNotional(), coupon.getFixingTime(), underlyingSwap, settlementTime);
   }
 
   /**
@@ -103,15 +77,11 @@ public class CouponCMS extends CouponFloating {
     return _settlementTime;
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public CouponCMS withNotional(final double notional) {
-    try {
-      return new CouponCMS(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(), notional,
-          getFixingTime(), _underlyingSwap, _settlementTime);
-    } catch (final IllegalStateException e) {
-      return new CouponCMS(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _underlyingSwap, _settlementTime);
-    }
+    return new CouponCMS(
+        getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional,
+        getFixingTime(), _underlyingSwap, _settlementTime);
   }
 
   @Override

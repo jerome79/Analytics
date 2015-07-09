@@ -22,23 +22,6 @@ public abstract class CouponFloating extends Coupon {
    * Constructor from all the details.
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
-   * @param fundingCurveName Name of the funding curve.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @deprecated Use the constructor that does not take a curve name
-   */
-  @Deprecated
-  public CouponFloating(final Currency currency, final double paymentTime, final String fundingCurveName, final double paymentYearFraction, final double notional, final double fixingTime) {
-    super(currency, paymentTime, fundingCurveName, paymentYearFraction, notional);
-    ArgChecker.isTrue(fixingTime >= 0.0, "fixing time < 0");
-    _fixingTime = fixingTime;
-  }
-
-  /**
-   * Constructor from all the details.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
    * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
    * @param notional Coupon notional.
    * @param fixingTime Time (in years) up to fixing.

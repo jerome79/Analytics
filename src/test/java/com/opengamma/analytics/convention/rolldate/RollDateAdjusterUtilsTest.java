@@ -19,7 +19,8 @@ import com.opengamma.analytics.util.time.DateUtils;
 @Test
 public class RollDateAdjusterUtilsTest {
 
-  private static final RollDateAdjuster QUARTERLY_IMM_ADJUSTER = RollDateAdjusterFactory.getAdjuster(RollDateAdjusterFactory.QUARTERLY_IMM_ROLL_STRING);
+  private static final RollDateAdjuster QUARTERLY_IMM_ADJUSTER =
+      RollDateAdjusterFactory.of(RollDateAdjusterFactory.QUARTERLY_IMM_ROLL_STRING);
 
   @Test
   public void nthDate() {

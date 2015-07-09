@@ -51,7 +51,7 @@ public class SwaptionInstrumentsDescriptionDataSet {
   private static final ZonedDateTime REFERENCE_DATE = DateUtils.getUTCDate(2010, 8, 18);
 
   public static SwaptionCashFixedIborDefinition createSwaptionCashFixedIborDefinition() {
-    return SwaptionCashFixedIborDefinition.from(EXPIRY_DATE, SWAP, IS_LONG);
+    return SwaptionCashFixedIborDefinition.from(EXPIRY_DATE, SWAP, true, IS_LONG);
   }
 
   public static SwaptionCashFixedIbor createSwaptionCashFixedIbor() {

@@ -52,15 +52,6 @@ public interface CommodityProviderInterface extends ParameterCommodityProviderIn
   Set<CommodityUnderlying> getCommodityUnderlyings();
 
   /**
-   * Returns an unmodifiable sorted set of the names of all curves (discounting, forward, price index and issuers).
-   * If there are no curves, an empty set is returned.
-   * @return The names.
-   * @deprecated Use {@link #getAllCurveNames()}
-   */
-  @Deprecated
-  Set<String> getAllNames();
-
-  /**
    * Gets the sensitivity to the commodity parameters.
    * @param name The name of the curve
    * @param pointSensitivity The nodal point sensitivities

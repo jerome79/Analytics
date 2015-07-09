@@ -73,6 +73,7 @@ public class CouponONSpread extends Coupon implements DepositIndexCoupon<IndexON
    * Gets the OIS index of the instrument.
    * @return The index.
    */
+  @Override
   public IndexON getIndex() {
     return _index;
   }

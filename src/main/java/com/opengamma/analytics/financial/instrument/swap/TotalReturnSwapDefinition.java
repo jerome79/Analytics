@@ -12,7 +12,6 @@ import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
 import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
-import com.opengamma.analytics.financial.instrument.payment.CouponDefinition;
 import com.opengamma.analytics.financial.instrument.payment.PaymentDefinition;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.TotalReturnSwap;
 import com.opengamma.analytics.util.timeseries.zdt.ZonedDateTimeDoubleTimeSeries;
@@ -49,26 +48,6 @@ public abstract class TotalReturnSwapDefinition implements InstrumentDefinitionW
     _asset = asset;
     _effectiveDate = effectiveDate;
     _terminationDate = terminationDate;
-  }
-
-  /**
-   * Default constructor. 
-   * The effective date is the start accrual date of the first annuity payment; the first annuity payment must be a CouponDefinition.
-   * The termination date is the date of the last annuity payment.
-   * @param fundingLeg The funding leg, not null
-   * @param asset The asset, not null
-   * @deprecated Use the constructor with explicit effective date and termnation date.
-   */
-  @Deprecated
-  public TotalReturnSwapDefinition(final AnnuityDefinition<? extends PaymentDefinition> fundingLeg, final InstrumentDefinition<?> asset) {
-    ArgChecker.notNull(fundingLeg, "fundingLeg");
-    ArgChecker.notNull(asset, "asset");
-    _fundingLeg = fundingLeg;
-    _asset = asset;
-    PaymentDefinition payment0 = fundingLeg.getNthPayment(0);
-    ArgChecker.isTrue(payment0 instanceof CouponDefinition, "first payment must be of type CouponDefinition");
-    _effectiveDate = ((CouponDefinition) payment0).getAccrualStartDate();
-    _terminationDate = fundingLeg.getNthPayment(fundingLeg.getNumberOfPayments() - 1).getPaymentDate();
   }
 
   /**

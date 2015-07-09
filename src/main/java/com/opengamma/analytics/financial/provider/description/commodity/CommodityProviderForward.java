@@ -251,11 +251,6 @@ public class CommodityProviderForward implements CommodityProviderInterface {
   }
 
   @Override
-  public Set<String> getAllNames() {
-    return getAllCurveNames();
-  }
-
-  @Override
   public Set<String> getAllCurveNames() {
     final Set<String> names = new TreeSet<>();
     names.addAll(_multicurveProvider.getAllNames());

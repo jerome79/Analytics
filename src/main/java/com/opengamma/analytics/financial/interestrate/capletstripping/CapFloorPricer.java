@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.interestrate.capletstripping;
 
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.financial.model.volatility.SimpleOptionData;
-import com.opengamma.analytics.financial.model.volatility.VolatilityModel1D;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.strata.collect.ArgChecker;
@@ -40,23 +39,6 @@ public class CapFloorPricer {
   public double price(final double vol) {
     double sum = 0;
     for (int i = 0; i < _n; i++) {
-      sum += BlackFormulaRepository.price(_caplets[i], vol);
-    }
-    return sum;
-  }
-
-  /**
-   * Price a cap (floor) with a VolatilityModel1D. This allows the same cap to be prices with different models (different models include different
-   * parameters for the same model), with repeating calculations (e.g. as part of a caplet stripping routine)
-   * @param volModel VolatilityModel1D which gives a Black vol for a particular forward/strike/expiry
-   * @return The cap (floor) price
-   * @deprecated discourage use of {@link VolatilityModel1D}
-   */
-  @Deprecated
-  public double price(final VolatilityModel1D volModel) {
-    double sum = 0;
-    for (int i = 0; i < _n; i++) {
-      final double vol = volModel.getVolatility(_caplets[i]);
       sum += BlackFormulaRepository.price(_caplets[i], vol);
     }
     return sum;
@@ -103,18 +85,6 @@ public class CapFloorPricer {
   }
 
   /**
-   * 
-   * @param capletVolModel model of caplet volatility
-   * @return the implied volatility
-   * @deprecated discourage use of {@link VolatilityModel1D}
-   */
-  @Deprecated
-  public double impliedVol(final VolatilityModel1D capletVolModel) {
-    final double price = price(capletVolModel);
-    return impliedVol(price);
-  }
-
-  /**
    * get the implied volatility of a cap from a (caplet) volatility surface - this will give a (Black) volatility dependent on the
    * strike and expiry of each caplet.
    * @param volSurface The (caplet) volatility surface
@@ -146,18 +116,6 @@ public class CapFloorPricer {
       sum += BlackFormulaRepository.vega(_caplets[i], capVolatility);
     }
     return sum;
-  }
-
-  /**
-   * 
-   * @param capletVolModel model of caplet volatility
-   * @return the vega
-   * @deprecated discourage use of {@link VolatilityModel1D}
-   */
-  @Deprecated
-  public double vega(final VolatilityModel1D capletVolModel) {
-    final double vol = impliedVol(capletVolModel);
-    return vega(vol);
   }
 
   /**

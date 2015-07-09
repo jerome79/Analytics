@@ -143,24 +143,6 @@ public class YieldAndDiscountCurveTest {
   }
 
   @Test
-  public void testShift() {
-    double shift = 0.03;
-    int nbPt = 20;
-    YieldAndDiscountCurve shifted1 = YIELD.withParallelShift(shift);
-    for (int looppt = 0; looppt <= nbPt; looppt++) {
-      double time = TIME[0] + looppt * (TIME[TIME.length - 1] - TIME[0]) / nbPt;
-      assertEquals("ParallelShift", YIELD.getInterestRate(time) + shift, shifted1.getInterestRate(time), TOLERANCE_RATE);
-    }
-    double timeShift = 1.5;
-    YieldAndDiscountCurve shifted2 = YIELD.withSingleShift(timeShift, shift);
-    for (int looppt = 0; looppt <= nbPt; looppt++) {
-      double time = TIME[0] + looppt * (TIME[TIME.length - 1] - TIME[0]) / nbPt;
-      double localShift = Math.abs(time - timeShift) < 1.0E-3 ? shift : 0.0;
-      assertEquals("SingleShift", YIELD.getInterestRate(time) + localShift, shifted2.getInterestRate(time), TOLERANCE_RATE);
-    }
-  }
-
-  @Test
   /**
    * Tests the build of a discount curve from yields (cc).
    */

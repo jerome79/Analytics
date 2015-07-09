@@ -107,18 +107,6 @@ public class BondFixedSecurityTest {
     new BondFixedSecurity(NOMINAL_1, COUPON_1, SETTLEMENT_TIME_1, ACCRUED_AT_SPOT_1, FACTOR_TO_NEXT_1, null, PAYMENT_PER_YEAR, "Issuer");
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetDiscountingName() {
-    BOND_DESCRIPTION_1.getDiscountingCurveName();
-  }
-
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testRepoCurveName() {
-    BOND_DESCRIPTION_1.getRepoCurveName();
-  }
-
   @Test
   public void testGetters1() {
     assertEquals(NOMINAL_1, BOND_DESCRIPTION_1.getNominal());

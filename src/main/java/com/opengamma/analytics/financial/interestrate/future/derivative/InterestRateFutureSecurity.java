@@ -46,52 +46,6 @@ public class InterestRateFutureSecurity extends FuturesSecurity {
    * Future name.
    */
   private final String _name;
-  /**
-   * The discounting curve name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  private final String _discountingCurveName;
-  /**
-   * The name of the forward curve used in to estimate the fixing index.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  private final String _forwardCurveName;
-
-  /**
-   * Constructor from all the details.
-   * @param lastTradingTime Future last trading time.
-   * @param iborIndex Ibor index associated to the future.
-   * @param fixingPeriodStartTime Fixing period of the reference Ibor starting time.
-   * @param fixingPeriodEndTime Fixing period of the reference Ibor end time.
-   * @param fixingPeriodAccrualFactor Fixing period of the reference Ibor accrual factor.
-   * @param notional Future notional.
-   * @param paymentAccrualFactor Future payment accrual factor.
-   * @param name Future name.
-   * @param discountingCurveName The discounting curve name.
-   * @param forwardCurveName The forward curve name.
-   * @deprecated Use the constructor that does not take curve names
-   */
-  @Deprecated
-  public InterestRateFutureSecurity(final double lastTradingTime, final IborIndex iborIndex, final double fixingPeriodStartTime, final double fixingPeriodEndTime,
-      final double fixingPeriodAccrualFactor, final double notional, final double paymentAccrualFactor, final String name, final String discountingCurveName,
-      final String forwardCurveName) {
-    super(lastTradingTime);
-    ArgChecker.notNull(iborIndex, "Ibor index");
-    ArgChecker.notNull(name, "Name");
-    ArgChecker.notNull(discountingCurveName, "Discounting curve name");
-    ArgChecker.notNull(forwardCurveName, "Forward curve name");
-    _iborIndex = iborIndex;
-    _fixingPeriodStartTime = fixingPeriodStartTime;
-    _fixingPeriodEndTime = fixingPeriodEndTime;
-    _fixingPeriodAccrualFactor = fixingPeriodAccrualFactor;
-    _notional = notional;
-    _paymentAccrualFactor = paymentAccrualFactor;
-    _discountingCurveName = discountingCurveName;
-    _forwardCurveName = forwardCurveName;
-    _name = name;
-  }
 
   /**
    * Constructor from all the details.
@@ -116,8 +70,6 @@ public class InterestRateFutureSecurity extends FuturesSecurity {
     _notional = notional;
     _paymentAccrualFactor = paymentAccrualFactor;
     _name = name;
-    _discountingCurveName = null;
-    _forwardCurveName = null;
   }
 
   /**
@@ -177,32 +129,6 @@ public class InterestRateFutureSecurity extends FuturesSecurity {
   }
 
   /**
-   * Gets the discounting curve name.
-   * @return The name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getDiscountingCurveName() {
-    if (_discountingCurveName == null) {
-      throw new IllegalStateException("Discounting curve name was not set");
-    }
-    return _discountingCurveName;
-  }
-
-  /**
-   * Gets the forward curve name.
-   * @return The name.
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getForwardCurveName() {
-    if (_forwardCurveName == null) {
-      throw new IllegalStateException("Forward curve name was not set");
-    }
-    return _forwardCurveName;
-  }
-
-  /**
    * Gets the future name.
    * @return The name.
    */
@@ -252,8 +178,6 @@ public class InterestRateFutureSecurity extends FuturesSecurity {
     result = prime * result + (int) (temp ^ (temp >>> 32));
     temp = Double.doubleToLongBits(_fixingPeriodStartTime);
     result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result + (_forwardCurveName == null ? 0 : _forwardCurveName.hashCode());
-    result = prime * result + (_discountingCurveName == null ? 0 : _discountingCurveName.hashCode());
     result = prime * result + _iborIndex.hashCode();
     result = prime * result + (int) (temp ^ (temp >>> 32));
     result = prime * result + _name.hashCode();
@@ -286,12 +210,6 @@ public class InterestRateFutureSecurity extends FuturesSecurity {
       return false;
     }
     if (Double.doubleToLongBits(_fixingPeriodStartTime) != Double.doubleToLongBits(other._fixingPeriodStartTime)) {
-      return false;
-    }
-    if (!Objects.equals(_forwardCurveName, other._forwardCurveName)) {
-      return false;
-    }
-    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
       return false;
     }
     if (!Objects.equals(_iborIndex, other._iborIndex)) {

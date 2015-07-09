@@ -11,7 +11,6 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
-import com.opengamma.analytics.financial.instrument.annuity.AnnuityDefinition;
 import com.opengamma.analytics.financial.instrument.swap.SwapFixedIborSpreadDefinition;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
@@ -59,24 +58,6 @@ public final class SwaptionPhysicalFixedIborSpreadDefinition implements Instrume
     _isCall = isCall;
     _isLong = isLong;
     _expiry = new Expiry(expiryDate);
-  }
-
-  /**
-   * Builder from the expiry date, the underlying swap and the long/short flag. The strike stored in the {@link EuropeanVanillaOptionDefinition} should not be used for pricing as the
-   * strike can be different for each coupon and need to be computed at the pricing method level.
-   * @param expiryDate The expiry date.
-   * @param underlyingSwap The underlying swap.
-   * @param isLong The long (true) / short (false) flag.
-   * @return The swaption.
-   * @deprecated This relies on the {@link AnnuityDefinition#isPayer()} method to determine if the swaption is a call or a put, which is deprecated
-   */
-  @Deprecated
-  public static SwaptionPhysicalFixedIborSpreadDefinition from(final ZonedDateTime expiryDate, final SwapFixedIborSpreadDefinition underlyingSwap, final boolean isLong) {
-    ArgChecker.notNull(expiryDate, "expiry date");
-    ArgChecker.notNull(underlyingSwap, "underlying swap");
-    final double strike = underlyingSwap.getFixedLeg().getNthPayment(0).getRate();
-    // Implementation comment: The strike is working only for swap with same rate on all coupons and standard conventions. The strike equivalent is computed in the pricing methods.
-    return new SwaptionPhysicalFixedIborSpreadDefinition(expiryDate, strike, underlyingSwap, underlyingSwap.getFixedLeg().isPayer(), isLong);
   }
 
   /**

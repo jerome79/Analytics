@@ -97,12 +97,6 @@ public class BondIborSecurityTest {
     new BondIborSecurity(NOMINAL, null, STANDARD_SETTLEMENT_TIME);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetDiscounting() {
-    BOND_DESCRIPTION.getDiscountingCurveName();
-  }
-
   @Test
   public void testGetters() {
     assertEquals(NOMINAL, BOND_DESCRIPTION.getNominal());

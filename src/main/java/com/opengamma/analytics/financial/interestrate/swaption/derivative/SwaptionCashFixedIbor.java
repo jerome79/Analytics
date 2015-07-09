@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
-import com.opengamma.analytics.financial.interestrate.annuity.derivative.AnnuityCouponFixed;
 import com.opengamma.analytics.financial.interestrate.payments.derivative.Payment;
 import com.opengamma.analytics.financial.interestrate.swap.derivative.SwapFixedCoupon;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
@@ -69,25 +68,6 @@ public final class SwaptionCashFixedIbor extends EuropeanVanillaOption implement
     final double strike = underlyingSwap.getFixedLeg().getNthPayment(0).getFixedRate();
     // Implementation note: cash-settle swaptions underlying have the same rate on all coupons and standard conventions.
     return new SwaptionCashFixedIbor(expiryTime, strike, underlyingSwap, settlementTime, isCall, isLong);
-  }
-
-  /**
-   * Builder from the expiry date, the underlying swap and the long/short flag. The underlying swap is used to determine whether
-   * the swap is a payer or a receiver.
-   * @param expiryTime The expiry time.
-   * @param underlyingSwap The underlying swap.
-   * @param settlementTime The time (in years) to cash settlement.
-   * @param isLong The long (true) / short (false) flag.
-   * @return The swaption.
-   * @deprecated This relies on the {@link AnnuityCouponFixed#isPayer()} method to determine if the swaption is a call or a put, which is deprecated
-   */
-  @Deprecated
-  public static SwaptionCashFixedIbor from(final double expiryTime, final SwapFixedCoupon<? extends Payment> underlyingSwap, final double settlementTime,
-      final boolean isLong) {
-    ArgChecker.notNull(underlyingSwap, "underlying swap");
-    final double strike = underlyingSwap.getFixedLeg().getNthPayment(0).getFixedRate();
-    // Implementation note: cash-settle swaptions underlying have the same rate on all coupons and standard conventions.
-    return new SwaptionCashFixedIbor(expiryTime, strike, underlyingSwap, settlementTime, underlyingSwap.getFixedLeg().isPayer(), isLong);
   }
 
   /**

@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.curve.interestrate.generator;
 
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
-import com.opengamma.analytics.financial.interestrate.YieldCurveBundle;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderInterface;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
@@ -52,16 +51,6 @@ public class GeneratorCurveYieldInterpolatedNumber extends GeneratorYDCurve {
 
   @Override
   public YieldAndDiscountCurve generateCurve(final String name, final double[] parameters) {
-    throw new UnsupportedOperationException("Cannot generate curves for a GeneratorCurveYieldInterpolated");
-  }
-
-  /**
-   * {@inheritDoc}
-   * @deprecated Curve builders that use and populate {@link YieldCurveBundle}s are deprecated.
-   */
-  @Deprecated
-  @Override
-  public YieldAndDiscountCurve generateCurve(final String name, final YieldCurveBundle bundle, final double[] parameters) {
     throw new UnsupportedOperationException("Cannot generate curves for a GeneratorCurveYieldInterpolated");
   }
 

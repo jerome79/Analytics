@@ -26,23 +26,6 @@ public abstract class Coupon extends Payment {
    * Constructor of a generic coupon from details.
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
-   * @param fundingCurveName Name of the funding curve.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @deprecated Use the constructor that does not take a yield curve name
-   */
-  @Deprecated
-  public Coupon(final Currency currency, final double paymentTime, final String fundingCurveName, final double paymentYearFraction, final double notional) {
-    super(currency, paymentTime, fundingCurveName);
-    ArgChecker.isTrue(paymentYearFraction >= 0, "year fraction < 0");
-    _paymentAccrualFactor = paymentYearFraction;
-    _notional = notional;
-  }
-
-  /**
-   * Constructor of a generic coupon from details.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
    * @param paymentAccrualFactor The accrual factor (or year fraction) for the coupon payment.
    * @param notional Coupon notional.
    */

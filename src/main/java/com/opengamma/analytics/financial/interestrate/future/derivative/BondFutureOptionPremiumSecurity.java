@@ -33,10 +33,6 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
    * Strike price.
    */
   private final double _strike;
-  /**
-   * The discounting curve name.
-   */
-  private String _discountingCurveName;
 
   /**
    * Constructor of the option future from the details.
@@ -52,11 +48,6 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
     _expirationTime = expirationTime;
     _strike = strike;
     _isCall = isCall;
-    try {
-      _discountingCurveName = underlyingFuture.getDiscountingCurveName();
-    } catch (final IllegalStateException e) {
-      _discountingCurveName = null;
-    }
   }
 
   /**
@@ -99,14 +90,6 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
     return _underlyingFuture.getCurrency();
   }
 
-  /**
-   * Gets the discounting curve name.
-   * @return The discounting curve name.
-   */
-  public String getDiscountingCurveName() {
-    return _discountingCurveName;
-  }
-
   @Override
   public <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data) {
     ArgChecker.notNull(visitor, "visitor");
@@ -123,7 +106,6 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (_discountingCurveName == null ? 0 : _discountingCurveName.hashCode());
     long temp;
     temp = Double.doubleToLongBits(_expirationTime);
     result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -146,9 +128,6 @@ public class BondFutureOptionPremiumSecurity implements InstrumentDerivative {
       return false;
     }
     final BondFutureOptionPremiumSecurity other = (BondFutureOptionPremiumSecurity) obj;
-    if (!Objects.equals(_discountingCurveName, other._discountingCurveName)) {
-      return false;
-    }
     if (Double.doubleToLongBits(_expirationTime) != Double.doubleToLongBits(other._expirationTime)) {
       return false;
     }

@@ -124,16 +124,6 @@ public class Annuity<P extends Payment> implements InstrumentDerivative {
   }
 
   /**
-   * Return the discounting (or funding) curve name. Deduced from the first payment.
-   * @return The name.
-   * @deprecated Curve names should not be set in {@link InstrumentDerivative}s
-   */
-  @Deprecated
-  public String getDiscountCurve() {
-    return getNthPayment(0).getFundingCurveName();
-  }
-
-  /**
    * Create a new annuity with the payments of the original one paying strictly after the given time.
    * @param trimTime The time.
    * @return The trimmed annuity.

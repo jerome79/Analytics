@@ -39,30 +39,6 @@ public class ForexNonDeliverableForwardTest {
 
   private static final ForexNonDeliverableForward NDF = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME);
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void nullCurrency1Deprecated() {
-    new ForexNonDeliverableForward(null, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-  }
-
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void nullCurrency2Deprecated() {
-    new ForexNonDeliverableForward(KRW, null, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-  }
-
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void wrongDateOrderDeprecated() {
-    new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, PAYMENT_TIME, FIXING_TIME, KRW_DSC, USD_DSC);
-  }
-
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void sameCurrencyDeprecated() {
-    new ForexNonDeliverableForward(USD, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-  }
-
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void nullCurrency1() {
     new ForexNonDeliverableForward(null, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME);
@@ -94,32 +70,6 @@ public class ForexNonDeliverableForwardTest {
     assertEquals("Forex NDF getter", PAYMENT_TIME, NDF.getPaymentTime());
     assertEquals("Forex NDF getter", NOMINAL_USD, NDF.getNotionalCurrency2());
     assertEquals("Forex NDF getter", FX_RATE, NDF.getExchangeRate());
-  }
-
-  @SuppressWarnings("deprecation")
-  @Test
-  /**
-   * Tests the class equal and hashCode
-   */
-  public void equalHashDeprecated() {
-    final ForexNonDeliverableForward newNdf = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-    assertTrue(NDF.equals(newNdf));
-    assertTrue(NDF.hashCode() == newNdf.hashCode());
-    ForexNonDeliverableForward modifiedNdf;
-    modifiedNdf = new ForexNonDeliverableForward(Currency.EUR, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-    assertFalse("Forex NDF: equal - hash code", NDF.equals(modifiedNdf));
-    modifiedNdf = new ForexNonDeliverableForward(KRW, Currency.EUR, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-    assertFalse("Forex NDF: equal - hash code", NDF.equals(modifiedNdf));
-    modifiedNdf = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD + 100.0, FX_RATE, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-    assertFalse("Forex NDF: equal - hash code", NDF.equals(modifiedNdf));
-    modifiedNdf = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE + 1.0, FIXING_TIME, PAYMENT_TIME, KRW_DSC, USD_DSC);
-    assertFalse("Forex NDF: equal - hash code", NDF.equals(modifiedNdf));
-    modifiedNdf = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, FIXING_TIME - 0.01, PAYMENT_TIME, KRW_DSC, USD_DSC);
-    assertFalse("Forex NDF: equal - hash code", NDF.equals(modifiedNdf));
-    modifiedNdf = new ForexNonDeliverableForward(KRW, USD, NOMINAL_USD, FX_RATE, FIXING_TIME, PAYMENT_TIME + 0.01, KRW_DSC, USD_DSC);
-    assertFalse("Forex NDF: equal - hash code", NDF.equals(modifiedNdf));
-    assertFalse(NDF.equals(USD));
-    assertFalse(NDF.equals(null));
   }
 
   @Test

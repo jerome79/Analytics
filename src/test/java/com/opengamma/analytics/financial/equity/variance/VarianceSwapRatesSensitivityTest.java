@@ -25,7 +25,6 @@ import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolator;
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
 import com.opengamma.analytics.math.interpolation.Interpolator1DFactory;
-import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.analytics.math.surface.InterpolatedDoublesSurface;
 import com.opengamma.analytics.math.surface.NodalDoublesSurface;
 import com.opengamma.analytics.util.time.TimeCalculator;
@@ -129,22 +128,6 @@ public class VarianceSwapRatesSensitivityTest {
     final double pv01 = DELTA_CAL.calcPV01(swapStartsNow, MARKET);
 
     assertEquals(pv01 * 10000, rateSens, TOLERATED);
-  }
-
-  @Test
-  public void testBucketedDeltaVsPV01() {
-
-    final double rateSens = DELTA_CAL.calcDiscountRateSensitivity(swapStartsNow, MARKET);
-    final DoubleMatrix1D deltaBuckets = DELTA_CAL.calcDeltaBucketed(swapStartsNow, MARKET);
-    final int nDeltas = deltaBuckets.getNumberOfElements();
-    final int nYieldNodes = ((YieldCurve) MARKET.getDiscountCurve()).getCurve().size();
-    assertEquals(nDeltas, nYieldNodes, TOLERATED);
-
-    double bucketSum = 0.0;
-    for (int i = 0; i < nDeltas; i++) {
-      bucketSum += deltaBuckets.getEntry(i);
-    }
-    assertEquals(rateSens, bucketSum, TOLERATED);
   }
 
   @Test

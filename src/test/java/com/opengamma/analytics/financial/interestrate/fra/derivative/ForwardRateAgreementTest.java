@@ -79,18 +79,6 @@ public class ForwardRateAgreementTest {
         FRA_RATE);
   }
 
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetFundingCurveName() {
-    FRA.getFundingCurveName();
-  }
-
-  @SuppressWarnings("deprecation")
-  @Test(expectedExceptions = IllegalStateException.class)
-  public void testGetDiscountingCurveName() {
-    FRA.getForwardCurveName();
-  }
-
   @Test
   public void getter() {
     assertEquals(FRA.getFixingPeriodStartTime(), FIXING_PERIOD_START_TIME);

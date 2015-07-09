@@ -250,11 +250,6 @@ public class CommodityProviderDiscount implements CommodityProviderInterface {
     return _multicurveProvider.getCurve(index);
   }
 
-  @Override
-  public Set<String> getAllNames() {
-    return getAllCurveNames();
-  }
-
   /**
    * Sets the discounting curve for a given currency.
    * @param ccy The currency.

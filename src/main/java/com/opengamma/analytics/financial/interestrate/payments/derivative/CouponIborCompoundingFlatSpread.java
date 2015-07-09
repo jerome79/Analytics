@@ -130,32 +130,10 @@ public class CouponIborCompoundingFlatSpread extends Coupon implements DepositIn
   /**
    * Gets the fixing period start times (in years).
    * @return The times.
-   * 
-   * @deprecated use {@link #getFixingPeriodStartTimes()}.
-   */
-  @Deprecated
-  public double[] getFixingSubperiodsStartTimes() {
-    return _fixingSubperiodsStartTimes;
-  }
-
-  /**
-   * Gets the fixing period start times (in years).
-   * @return The times.
    */
   @Override
   public double[] getFixingPeriodStartTimes() {
     return _fixingSubperiodsStartTimes;
-  }
-
-  /**
-   * Gets the fixing period end times (in years).
-   * @return The times.
-   * 
-   * @deprecated use {@link #getFixingPeriodEndTimes()}.
-   */
-  @Deprecated
-  public double[] getFixingSubperiodsEndTimes() {
-    return _fixingSubperiodsEndTimes;
   }
 
   /**
@@ -165,16 +143,6 @@ public class CouponIborCompoundingFlatSpread extends Coupon implements DepositIn
   @Override
   public double[] getFixingPeriodEndTimes() {
     return _fixingSubperiodsEndTimes;
-  }
-
-  /**
-   * Returns the fixing period accrual factors for each sub-period.
-   * @return The factors.
-   * @deprecated use {@link #getFixingPeriodAccrualFactors()}.
-   */
-  @Deprecated
-  public double[] getFixingSubperiodsAccrualFactors() {
-    return _fixingSubperiodsAccrualFactors;
   }
 
   /**

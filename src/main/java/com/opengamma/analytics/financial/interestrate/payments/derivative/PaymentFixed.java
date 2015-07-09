@@ -24,20 +24,6 @@ public class PaymentFixed extends Payment {
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
    * @param paymentAmount The amount paid.
-   * @param fundingCurve Name of the funding curve.
-   * @deprecated Use the version that does not take a funding curve name
-   */
-  @Deprecated
-  public PaymentFixed(final Currency currency, final double paymentTime, final double paymentAmount, final String fundingCurve) {
-    super(currency, paymentTime, fundingCurve);
-    _amount = paymentAmount;
-  }
-
-  /**
-   * Fixed payment constructor.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param paymentAmount The amount paid.
    */
   public PaymentFixed(final Currency currency, final double paymentTime, final double paymentAmount) {
     super(currency, paymentTime);
@@ -49,13 +35,8 @@ public class PaymentFixed extends Payment {
    * @param paymentAmount The amount.
    * @return The fixed payment.
    */
-  @SuppressWarnings("deprecation")
   public PaymentFixed withAmount(final double paymentAmount) {
-    try {
-      return new PaymentFixed(getCurrency(), getPaymentTime(), paymentAmount, getFundingCurveName());
-    } catch (final IllegalStateException e) {
-      return new PaymentFixed(getCurrency(), getPaymentTime(), paymentAmount);
-    }
+    return new PaymentFixed(getCurrency(), getPaymentTime(), paymentAmount);
   }
 
   /**

@@ -86,12 +86,6 @@ public class InflationProviderDecoratedMulticurve implements InflationProviderIn
   }
 
   @Override
-  @Deprecated
-  public Set<String> getAllNames() {
-    throw new UnsupportedOperationException("not supported for decorated providers"); //TODO
-  }
-
-  @Override
   public Integer getNumberOfParameters(String name) {
     throw new UnsupportedOperationException("not supported for decorated providers"); //TODO
   }

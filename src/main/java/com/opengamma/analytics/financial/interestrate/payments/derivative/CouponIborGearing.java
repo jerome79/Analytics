@@ -7,7 +7,6 @@ package com.opengamma.analytics.financial.interestrate.payments.derivative;
 
 import java.util.Objects;
 
-import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;
@@ -46,45 +45,6 @@ public class CouponIborGearing extends CouponFloating {
    * The gearing (multiplicative) factor applied to the Ibor rate.
    */
   private final double _factor;
-  /**
-   * The forward curve name used in to estimate the fixing index.
-   */
-  private final String _forwardCurveName;
-
-  /**
-   * Constructor from all the details.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param discountingCurveName Name of the funding curve.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param fixingTime Time (in years) up to fixing.
-   * @param index Ibor-like index on which the coupon fixes. The index currency should be the same as the index currency.
-   * @param fixingPeriodStartTime The fixing period start time (in years).
-   * @param fixingPeriodEndTime The fixing period end time (in years).
-   * @param fixingAccrualFactor The fixing period accrual factor (or year fraction) in the fixing convention.
-   * @param spread The spread paid above the Ibor rate.
-   * @param factor The gearing (multiplicative) factor applied to the Ibor rate.
-   * @param forwardCurveName The forward curve name used in to estimate the fixing index.
-   * @deprecated Use the constructor that does not take yield curve names.
-   */
-  @Deprecated
-  public CouponIborGearing(final Currency currency, final double paymentTime, final String discountingCurveName, final double paymentYearFraction,
-      final double notional, final double fixingTime, final IborIndex index, final double fixingPeriodStartTime, final double fixingPeriodEndTime,
-      final double fixingAccrualFactor, final double spread, final double factor, final String forwardCurveName) {
-    super(currency, paymentTime, discountingCurveName, paymentYearFraction, notional, fixingTime);
-    ArgChecker.notNull(index, "Index");
-    ArgChecker.notNull(forwardCurveName, "Forward curve");
-    ArgChecker.isTrue(currency.equals(index.getCurrency()), "currency does not match index currency");
-    _index = index;
-    _fixingPeriodStartTime = fixingPeriodStartTime;
-    _fixingPeriodEndTime = fixingPeriodEndTime;
-    _fixingAccrualFactor = fixingAccrualFactor;
-    _spread = spread;
-    _factor = factor;
-    _forwardCurveName = forwardCurveName;
-    _spreadAmount = getNotional() * getPaymentYearFraction() * spread;
-  }
 
   /**
    * Constructor from all the details.
@@ -111,7 +71,6 @@ public class CouponIborGearing extends CouponFloating {
     _fixingAccrualFactor = fixingAccrualFactor;
     _spread = spread;
     _factor = factor;
-    _forwardCurveName = null;
     _spreadAmount = getNotional() * getPaymentYearFraction() * spread;
   }
 
@@ -171,35 +130,16 @@ public class CouponIborGearing extends CouponFloating {
     return _factor;
   }
 
-  /**
-   * Gets the forward curve name.
-   * @return the _forward curve name
-   * @deprecated Curve names should no longer be set in {@link InstrumentDefinition}s
-   */
-  @Deprecated
-  public String getForwardCurveName() {
-    if (_forwardCurveName == null) {
-      throw new IllegalStateException("Forward curve name was not set");
-    }
-    return _forwardCurveName;
-  }
-
-  @SuppressWarnings("deprecation")
   @Override
   public CouponIborGearing withNotional(final double notional) {
-    try {
-      return new CouponIborGearing(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(), notional, getFixingTime(), _index, _fixingPeriodStartTime, _fixingPeriodEndTime,
-          _fixingAccrualFactor, _spread, _factor, _forwardCurveName);
-    } catch (final IllegalStateException e) {
-      return new CouponIborGearing(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(), _index, _fixingPeriodStartTime, _fixingPeriodEndTime,
-          _fixingAccrualFactor, _spread, _factor);
-    }
+    return new CouponIborGearing(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional, getFixingTime(),
+        _index, _fixingPeriodStartTime, _fixingPeriodEndTime, _fixingAccrualFactor, _spread, _factor);
   }
 
   @Override
   public String toString() {
-    return "CouponIborGearing: " + super.toString() + ", fixing: [" + _fixingPeriodStartTime + " - " + _fixingPeriodEndTime + " - " + _fixingAccrualFactor + "], spread: " + _spread + ", factor: "
-        + _factor + ",forward curve: " + _forwardCurveName;
+    return "CouponIborGearing: " + super.toString() + ", fixing: [" + _fixingPeriodStartTime + " - " +
+        _fixingPeriodEndTime + " - " + _fixingAccrualFactor + "], spread: " + _spread + ", factor: " + _factor;
   }
 
   @Override
@@ -225,7 +165,6 @@ public class CouponIborGearing extends CouponFloating {
     result = prime * result + (int) (temp ^ (temp >>> 32));
     temp = Double.doubleToLongBits(_fixingPeriodStartTime);
     result = prime * result + (int) (temp ^ (temp >>> 32));
-    result = prime * result + (_forwardCurveName == null ? 0 : _forwardCurveName.hashCode());
     result = prime * result + _index.hashCode();
     temp = Double.doubleToLongBits(_spread);
     result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -256,9 +195,6 @@ public class CouponIborGearing extends CouponFloating {
       return false;
     }
     if (Double.doubleToLongBits(_fixingPeriodStartTime) != Double.doubleToLongBits(other._fixingPeriodStartTime)) {
-      return false;
-    }
-    if (!Objects.equals(_forwardCurveName, other._forwardCurveName)) {
       return false;
     }
     if (!Objects.equals(_index, other._index)) {

@@ -42,40 +42,6 @@ public class CouponONCompounded extends Coupon implements DepositIndexCoupon<Ind
   private final double _notionalAccrued;
 
   /**
-   * The forward curve name used in to estimate the fixing index.
-   */
-  private final String _forwardCurveName;
-
-  /**
-   * Constructor of a generic coupon from details. Deprecated version using the funding curve name.
-   * @param currency The payment currency.
-   * @param paymentTime Time (in years) up to the payment.
-   * @param fundingCurveName Name of the funding curve.
-   * @param paymentYearFraction The year fraction (or accrual factor) for the coupon payment.
-   * @param notional Coupon notional.
-   * @param index The OIS-like index on which the coupon fixes. Not null.
-   * @param fixingPeriodStartTimes The fixing period start time (in years).
-   * @param fixingPeriodEndTimes The fixing period end time (in years).
-   * @param fixingPeriodAccrualFactors The accrual factor (or year fraction) associated to the fixing period in the Index day count convention.
-   * @param notionalAccrued the notional accrued.
-   * @param forwardCurveName The name of the forward curve.
-   * @deprecated Use the constructor that does not take yield curve names
-   */
-  @Deprecated
-  public CouponONCompounded(final Currency currency, final double paymentTime, final String fundingCurveName, final double paymentYearFraction, final double notional, final IndexON index,
-      final double[] fixingPeriodStartTimes, final double[] fixingPeriodEndTimes, final double[] fixingPeriodAccrualFactors, final double notionalAccrued,
-      final String forwardCurveName) {
-    super(currency, paymentTime, fundingCurveName, paymentYearFraction, notional);
-    ArgChecker.notNull(index, "Coupon OIS: index");
-    _index = index;
-    _fixingPeriodStartTimes = fixingPeriodStartTimes;
-    _fixingPeriodEndTimes = fixingPeriodEndTimes;
-    _fixingPeriodAccrualFactors = fixingPeriodAccrualFactors;
-    _notionalAccrued = notionalAccrued;
-    _forwardCurveName = forwardCurveName;
-  }
-
-  /**
    * Constructor of a generic coupon from details. Same as the previous constructor but not using the funding curve name.
    * @param currency The payment currency.
    * @param paymentTime Time (in years) up to the payment.
@@ -96,7 +62,6 @@ public class CouponONCompounded extends Coupon implements DepositIndexCoupon<Ind
     _fixingPeriodEndTimes = fixingPeriodEndTimes;
     _fixingPeriodAccrualFactors = fixingPeriodAccrualFactors;
     _notionalAccrued = notionalAccrued;
-    _forwardCurveName = null;
   }
 
   /**
@@ -140,19 +105,10 @@ public class CouponONCompounded extends Coupon implements DepositIndexCoupon<Ind
     return _notionalAccrued;
   }
 
-  /**
-   * Gets the forward curve name.
-   * @return The name.
-   */
-  public String getForwardCurveName() {
-    return _forwardCurveName;
-  }
-
-  @SuppressWarnings("deprecation")
   @Override
   public CouponONCompounded withNotional(final double notional) {
-    return new CouponONCompounded(getCurrency(), getPaymentTime(), getFundingCurveName(), getPaymentYearFraction(), notional, _index, _fixingPeriodStartTimes, _fixingPeriodEndTimes,
-        _fixingPeriodAccrualFactors, _notionalAccrued, _forwardCurveName);
+    return new CouponONCompounded(getCurrency(), getPaymentTime(), getPaymentYearFraction(), notional,
+        _index, _fixingPeriodStartTimes, _fixingPeriodEndTimes, _fixingPeriodAccrualFactors, _notionalAccrued);
   }
 
   @Override
@@ -180,7 +136,6 @@ public class CouponONCompounded extends Coupon implements DepositIndexCoupon<Ind
     result = prime * result + Arrays.hashCode(_fixingPeriodAccrualFactors);
     result = prime * result + Arrays.hashCode(_fixingPeriodEndTimes);
     result = prime * result + Arrays.hashCode(_fixingPeriodStartTimes);
-    result = prime * result + ((_forwardCurveName == null) ? 0 : _forwardCurveName.hashCode());
     result = prime * result + ((_index == null) ? 0 : _index.hashCode());
     long temp;
     temp = Double.doubleToLongBits(_notionalAccrued);
@@ -207,13 +162,6 @@ public class CouponONCompounded extends Coupon implements DepositIndexCoupon<Ind
       return false;
     }
     if (!Arrays.equals(_fixingPeriodStartTimes, other._fixingPeriodStartTimes)) {
-      return false;
-    }
-    if (_forwardCurveName == null) {
-      if (other._forwardCurveName != null) {
-        return false;
-      }
-    } else if (!_forwardCurveName.equals(other._forwardCurveName)) {
       return false;
     }
     if (_index == null) {

@@ -75,11 +75,6 @@ public class InflationProviderDecoratedIssuer implements InflationProviderInterf
   }
 
   @Override
-  public Set<String> getAllNames() {
-    return _inflationDecorated.getAllNames();
-  }
-
-  @Override
   public double[] parameterSensitivity(final String name, final List<DoublesPair> pointSensitivity) {
     throw new UnsupportedOperationException("parameterSensitivity not supported for decorated providers");
   }

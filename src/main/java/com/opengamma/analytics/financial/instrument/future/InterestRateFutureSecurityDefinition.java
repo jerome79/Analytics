@@ -55,9 +55,8 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
   private final String _name;
   /**
    * The holiday calendar.
-   *  @deprecated Deprecated since 2.2.0.M17
    */
-  @Deprecated
+  // was deprecated after 2.2.0.M17, but re-enabled during refactoring
   private final HolidayCalendar _calendar;
 
   /**
@@ -219,9 +218,7 @@ public class InterestRateFutureSecurityDefinition extends FuturesSecurityDefinit
   /**
    * Gets the holiday calendar.
    * @return The holiday calendar
-   * @deprecated Deprecated since 2.2.0.M17
    */
-  @Deprecated
   public HolidayCalendar getCalendar() {
     return _calendar;
   }

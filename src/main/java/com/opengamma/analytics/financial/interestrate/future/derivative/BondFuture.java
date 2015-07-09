@@ -171,16 +171,6 @@ public class BondFuture implements InstrumentDerivative {
     return _deliveryBasket[0].getCurrency();
   }
 
-  /**
-   * Gets the discount factor name.
-   * @return The name.
-   * @deprecated The discounting curve name should not be set in derivatives
-   */
-  @Deprecated
-  public String getDiscountingCurveName() {
-    return _deliveryBasket[0].getDiscountingCurveName();
-  }
-
   @Override
   public <S, T> T accept(final InstrumentDerivativeVisitor<S, T> visitor, final S data) {
     ArgChecker.notNull(visitor, "visitor");
