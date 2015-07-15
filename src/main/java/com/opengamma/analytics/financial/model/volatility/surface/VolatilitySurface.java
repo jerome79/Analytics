@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableList;
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
 import com.opengamma.analytics.financial.model.volatility.curve.VolatilityCurve;
 import com.opengamma.analytics.math.Axis;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory;
@@ -101,7 +101,7 @@ public class VolatilitySurface implements VolatilityModel<DoublesPair> {
   }
 
   public VolatilityCurve getSlice(final Axis axis, final double here, final Interpolator1D interpolator) {
-    final Curve<Double, Double> curve = SurfaceSliceFunction.cut(_surface, axis, here, interpolator);
+    final DoublesCurve curve = SurfaceSliceFunction.cut(_surface, axis, here, interpolator);
     return new VolatilityCurve(curve);
   }
 

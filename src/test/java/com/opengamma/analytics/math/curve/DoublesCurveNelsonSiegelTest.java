@@ -112,7 +112,12 @@ public class DoublesCurveNelsonSiegelTest {
 
   @Test
   public void testDerivative() {
-    final Function1D<Double, Double> func = CURVE_NS.toFunction1D();
+    final Function1D<Double, Double> func = new Function1D<Double, Double>() {
+      @Override
+      public Double evaluate(Double x) {
+        return CURVE_NS.getYValue(x);
+      }
+    };
     final ScalarFirstOrderDifferentiator diff = new ScalarFirstOrderDifferentiator();
     final Function1D<Double, Double> grad = diff.differentiate(func);
 

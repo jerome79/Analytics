@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Contains methods for performing shifts on {@link Curve} without needing to know the exact type of the curve.
+ * Contains methods for performing shifts on {@link DoublesCurve} without needing to know the exact type of the curve.
  */
 public class CurveShiftFunctionFactory {
   /** Shift function for {@link ConstantDoublesCurve} */
@@ -44,13 +44,13 @@ public class CurveShiftFunctionFactory {
   }
 
   /**
-   * For a curve Curve<Double, Double>, return a parallel-shifted curve.
+   * For a curve DoublesCurve, return a parallel-shifted curve.
    * @param curve The original curve
    * @param shift The shift
    * @return A shifted curve with automatically-generated name
    * @throws IllegalArgumentException If the curve type is not constant, functional, interpolated, nodal or spread
    */
-  public static DoublesCurve getShiftedCurve(final Curve<Double, Double> curve, final double shift) {
+  public static DoublesCurve getShiftedCurve(final DoublesCurve curve, final double shift) {
     if (curve instanceof ConstantDoublesCurve) {
       return CONSTANT.evaluate((ConstantDoublesCurve) curve, shift);
     }
@@ -67,14 +67,14 @@ public class CurveShiftFunctionFactory {
   }
 
   /**
-   * For a curve Curve<Double, Double>, return a curve shifted at one point.
+   * For a curve DoublesCurve, return a curve shifted at one point.
    * @param curve The original curve
    * @param x The <i>x</i> value of the shift
    * @param shift The shift
    * @return A shifted curve with automatically-generated name
    * @throws IllegalArgumentException If the curve type is not constant, functional, interpolated, nodal or spread
    */
-  public static DoublesCurve getShiftedCurve(final Curve<Double, Double> curve, final double x, final double shift) {
+  public static DoublesCurve getShiftedCurve(final DoublesCurve curve, final double x, final double shift) {
     if (curve instanceof ConstantDoublesCurve) {
       throw new UnsupportedOperationException("Cannot shift a single point on a constant curve");
     }
@@ -91,14 +91,14 @@ public class CurveShiftFunctionFactory {
   }
 
   /**
-   * For a curve Curve<Double, Double>, return a parallel-shifted curve.
+   * For a curve DoublesCurve, return a parallel-shifted curve.
    * @param curve The original curve
    * @param x An array of <i>x</i> values to shift
    * @param y The shifts
    * @return A shifted curve with automatically-generated name
    * @throws IllegalArgumentException If the curve type is not constant, functional, interpolated, nodal or spread
    */
-  public static DoublesCurve getShiftedCurve(final Curve<Double, Double> curve, final double[] x, final double[] y) {
+  public static DoublesCurve getShiftedCurve(final DoublesCurve curve, final double[] x, final double[] y) {
     if (curve instanceof ConstantDoublesCurve) {
       throw new UnsupportedOperationException("Cannot shift a single point on a constant curve");
     }
@@ -115,14 +115,14 @@ public class CurveShiftFunctionFactory {
   }
 
   /**
-   * For a curve Curve<Double, Double>, return a parallel-shifted curve.
+   * For a curve DoublesCurve, return a parallel-shifted curve.
    * @param curve The original curve
    * @param shift The shift
    * @param newName The name of the shifted curve
    * @return A shifted curve
    * @throws IllegalArgumentException If the curve type is not constant, functional, interpolated, nodal or spread
    */
-  public static DoublesCurve getShiftedCurve(final Curve<Double, Double> curve, final double shift, final String newName) {
+  public static DoublesCurve getShiftedCurve(final DoublesCurve curve, final double shift, final String newName) {
     if (curve instanceof ConstantDoublesCurve) {
       return CONSTANT.evaluate((ConstantDoublesCurve) curve, shift, newName);
     }
@@ -139,7 +139,7 @@ public class CurveShiftFunctionFactory {
   }
 
   /**
-   * For a curve Curve<Double, Double>, return a curve shifted at one point.
+   * For a curve DoublesCurve, return a curve shifted at one point.
    * @param curve The original curve
    * @param x The <i>x</i> value of the shift
    * @param shift The shift
@@ -147,7 +147,7 @@ public class CurveShiftFunctionFactory {
    * @return A shifted curve
    * @throws IllegalArgumentException If the curve type is not constant, functional, interpolated, nodal or spread
    */
-  public static DoublesCurve getShiftedCurve(final Curve<Double, Double> curve, final double x, final double shift, final String newName) {
+  public static DoublesCurve getShiftedCurve(final DoublesCurve curve, final double x, final double shift, final String newName) {
     if (curve instanceof ConstantDoublesCurve) {
       throw new UnsupportedOperationException("Cannot shift a single point on a constant curve");
     }
@@ -164,7 +164,7 @@ public class CurveShiftFunctionFactory {
   }
 
   /**
-   * For a curve Curve<Double, Double>, return a parallel-shifted curve.
+   * For a curve DoublesCurve, return a parallel-shifted curve.
    * @param curve The original curve
    * @param x An array of <i>x</i> values to shift
    * @param y The shifts
@@ -172,7 +172,7 @@ public class CurveShiftFunctionFactory {
    * @return A shifted curve
    * @throws IllegalArgumentException If the curve type is not constant, functional, interpolated, nodal or spread
    */
-  public static DoublesCurve getShiftedCurve(final Curve<Double, Double> curve, final double[] x, final double[] y, final String newName) {
+  public static DoublesCurve getShiftedCurve(final DoublesCurve curve, final double[] x, final double[] y, final String newName) {
     if (curve instanceof ConstantDoublesCurve) {
       throw new UnsupportedOperationException("Cannot shift a single point on a constant curve");
     }

@@ -11,7 +11,7 @@ import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceConverter;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceMoneyness;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceStrike;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.surface.ConstantDoublesSurface;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
@@ -71,7 +71,7 @@ public class PDE1DCoefficientsProvider {
    * @param vol The volatility
    * @return a ConvectionDiffusionPDE1DStandardCofficients
    */
-  public ConvectionDiffusionPDE1DStandardCoefficients getBlackScholes(final Curve<Double, Double> rate, final Curve<Double, Double> yield, final Curve<Double, Double> vol) {
+  public ConvectionDiffusionPDE1DStandardCoefficients getBlackScholes(final DoublesCurve rate, final DoublesCurve yield, final DoublesCurve vol) {
 
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override
@@ -236,7 +236,7 @@ public class PDE1DCoefficientsProvider {
    * @return The data to run through a PDE solver that will give the time-zero option price as a function of the time-zero
    * value of the underlying
    */
-  public ConvectionDiffusionPDE1DStandardCoefficients getBackwardsLocalVol(final Curve<Double, Double> instRiskFreeRate, final Curve<Double, Double> instCostOfCarry, final double maturity,
+  public ConvectionDiffusionPDE1DStandardCoefficients getBackwardsLocalVol(final DoublesCurve instRiskFreeRate, final DoublesCurve instCostOfCarry, final double maturity,
       final LocalVolatilitySurfaceStrike localVol) {
 
     final Function<Double, Double> a = new Function<Double, Double>() {
@@ -591,7 +591,7 @@ public class PDE1DCoefficientsProvider {
    * @param localVol Local Volatility
    * @return Description of Fokker-Plank PDE
    */
-  public ConvectionDiffusionPDE1DFullCoefficients getFokkerPlank(final Curve<Double, Double> shortRate, final LocalVolatilitySurfaceStrike localVol) {
+  public ConvectionDiffusionPDE1DFullCoefficients getFokkerPlank(final DoublesCurve shortRate, final LocalVolatilitySurfaceStrike localVol) {
 
     final Function<Double, Double> alpha = new Function<Double, Double>() {
       @Override
@@ -629,7 +629,7 @@ public class PDE1DCoefficientsProvider {
    * @param localVol Local Volatility
    * @return Description of Fokker-Plank PDE
    */
-  public ConvectionDiffusionPDE1DStandardCoefficients getFokkerPlankInStandardCoefficients(final Curve<Double, Double> shortRate, final LocalVolatilitySurfaceStrike localVol) {
+  public ConvectionDiffusionPDE1DStandardCoefficients getFokkerPlankInStandardCoefficients(final DoublesCurve shortRate, final LocalVolatilitySurfaceStrike localVol) {
 
     final Function<Double, Double> a = new Function<Double, Double>() {
       @Override

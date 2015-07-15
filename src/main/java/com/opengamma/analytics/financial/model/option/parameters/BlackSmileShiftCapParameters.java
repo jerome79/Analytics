@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -26,7 +26,7 @@ public class BlackSmileShiftCapParameters implements VolatilityModel<double[]> {
   /**
    * The shift curve. The dimension is the expiration. Not null.
    */
-  private final Curve<Double, Double> _shift;
+  private final DoublesCurve _shift;
   /**
    * The Ibor index for which the volatility is valid. Not null.
    */
@@ -38,7 +38,7 @@ public class BlackSmileShiftCapParameters implements VolatilityModel<double[]> {
    * @param shift The shift curve.
    * @param index The Ibor index for which the volatility is valid.
    */
-  public BlackSmileShiftCapParameters(final Surface<Double, Double, Double> volatility, final Curve<Double, Double> shift, final IborIndex index) {
+  public BlackSmileShiftCapParameters(final Surface<Double, Double, Double> volatility, final DoublesCurve shift, final IborIndex index) {
     ArgChecker.notNull(volatility, "volatility");
     ArgChecker.notNull(index, "index");
     _volatility = volatility;

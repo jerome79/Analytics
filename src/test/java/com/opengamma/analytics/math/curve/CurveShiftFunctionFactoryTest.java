@@ -93,8 +93,8 @@ public class CurveShiftFunctionFactoryTest {
   @Test
   public void testGetShiftedCurve1() {
     final double shift = 2;
-    Curve<Double, Double> shifted = CurveShiftFunctionFactory.getShiftedCurve(CONSTANT, shift);
-    Curve<Double, Double> expected = new ConstantCurveShiftFunction().evaluate(CONSTANT, shift);
+    DoublesCurve shifted = CurveShiftFunctionFactory.getShiftedCurve(CONSTANT, shift);
+    DoublesCurve expected = new ConstantCurveShiftFunction().evaluate(CONSTANT, shift);
     assertEquals(shifted.getClass(), expected.getClass());
     assertEquals(shifted.getYValue(0.), expected.getYValue(0.));
     shifted = CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED, shift);
@@ -177,8 +177,8 @@ public class CurveShiftFunctionFactoryTest {
   public void testGetShiftedCurve2() {
     final double x = 1;
     final double shift = 2;
-    Curve<Double, Double> shifted = CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED, x, shift);
-    Curve<Double, Double> expected = new InterpolatedCurveShiftFunction().evaluate(INTERPOLATED, x, shift);
+    DoublesCurve shifted = CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED, x, shift);
+    DoublesCurve expected = new InterpolatedCurveShiftFunction().evaluate(INTERPOLATED, x, shift);
     assertEquals(shifted.getClass(), expected.getClass());
     assertArrayEquals(shifted.getXData(), expected.getXData());
     assertArrayEquals(shifted.getYData(), expected.getYData());
@@ -235,8 +235,8 @@ public class CurveShiftFunctionFactoryTest {
   public void testGetShiftedCurve3() {
     final double[] x = new double[] {1 };
     final double[] y = new double[] {2 };
-    Curve<Double, Double> shifted = CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED, x, y);
-    Curve<Double, Double> expected = new InterpolatedCurveShiftFunction().evaluate(INTERPOLATED, x, y);
+    DoublesCurve shifted = CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED, x, y);
+    DoublesCurve expected = new InterpolatedCurveShiftFunction().evaluate(INTERPOLATED, x, y);
     assertEquals(shifted.getClass(), expected.getClass());
     assertArrayEquals(shifted.getXData(), expected.getXData());
     assertArrayEquals(shifted.getYData(), expected.getYData());

@@ -16,7 +16,7 @@ import com.opengamma.strata.collect.named.Named;
  * each of the curves.
  */
 public interface CurveSpreadFunction
-    extends Function<Curve<Double, Double>, Function<Double, Double>>, Named {
+    extends Function<DoublesCurve, Function<Double, Double>>, Named {
 
   /**
    * Obtains a {@code CurveSpreadFunction} from a unique name.

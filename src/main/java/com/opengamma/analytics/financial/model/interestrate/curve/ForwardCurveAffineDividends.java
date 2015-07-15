@@ -11,7 +11,7 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.equity.variance.pricing.AffineDividends;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -37,7 +37,7 @@ public class ForwardCurveAffineDividends extends ForwardCurve {
    * @param dividends The dividends, not null
    * @return FunctionalDoublesCurve with discrete dividends of an affine form: d(i) = alpha[i] + beta[i]*share_price(tau[i]) 
    */
-  protected static Curve<Double, Double> getForwardCurve(final double spot, final YieldAndDiscountCurve riskFreeCurve, final AffineDividends dividends) {
+  protected static DoublesCurve getForwardCurve(final double spot, final YieldAndDiscountCurve riskFreeCurve, final AffineDividends dividends) {
     ArgChecker.isTrue(spot > 0, "Negative spot. S_0 = {}", spot);
     ArgChecker.notNull(riskFreeCurve, "null risk free curve");
     ArgChecker.notNull(dividends, "null dividends");

@@ -8,7 +8,7 @@ package com.opengamma.analytics.financial.model.interestrate.curve;
 import java.util.Objects;
 
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.RungeKuttaIntegrator1D;
@@ -19,11 +19,11 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class ForwardCurve {
   private static final RungeKuttaIntegrator1D INTEGRATOR = new RungeKuttaIntegrator1D();
-  private final Curve<Double, Double> _fwdCurve;
-  private final Curve<Double, Double> _drift;
+  private final DoublesCurve _fwdCurve;
+  private final DoublesCurve _drift;
   private final double _spot;
 
-  public ForwardCurve(final Curve<Double, Double> fwdCurve, final Curve<Double, Double> driftCurve) {
+  public ForwardCurve(final DoublesCurve fwdCurve, final DoublesCurve driftCurve) {
     ArgChecker.notNull(fwdCurve, "null fwdCurve");
     ArgChecker.notNull(driftCurve, "null driftCurve");
     _fwdCurve = fwdCurve;
@@ -31,7 +31,7 @@ public class ForwardCurve {
     _spot = _fwdCurve.getYValue(0.0);
   }
 
-  public ForwardCurve(final Curve<Double, Double> fwdCurve) {
+  public ForwardCurve(final DoublesCurve fwdCurve) {
     ArgChecker.notNull(fwdCurve, "curve");
     _fwdCurve = fwdCurve;
     _drift = getDriftCurve(fwdCurve);  //TODO YieldAndDiscountCurve should have a getForwardRate method, which should be used here
@@ -65,7 +65,7 @@ public class ForwardCurve {
    * @param spot The spot rate
    * @param driftCurve The drift curve
    */
-  public ForwardCurve(final double spot, final Curve<Double, Double> driftCurve) {
+  public ForwardCurve(final double spot, final DoublesCurve driftCurve) {
     ArgChecker.notNull(driftCurve, "null driftCurve");
     _drift = driftCurve;
     _fwdCurve = getForwardCurve(spot, driftCurve);
@@ -76,7 +76,7 @@ public class ForwardCurve {
     this(FunctionalDoublesCurve.from(func));
   }
 
-  public Curve<Double, Double> getForwardCurve() {
+  public DoublesCurve getForwardCurve() {
     return _fwdCurve;
   }
 
@@ -88,7 +88,7 @@ public class ForwardCurve {
    * Gets the drift.
    * @return the drift
    */
-  public Curve<Double, Double> getDriftCurve() {
+  public DoublesCurve getDriftCurve() {
     return _drift;
   }
 
@@ -100,7 +100,7 @@ public class ForwardCurve {
     return _spot;
   }
 
-  protected static Curve<Double, Double> getForwardCurve(final double spot, final YieldAndDiscountCurve riskFreeCurve, final YieldAndDiscountCurve costOfCarryCurve) {
+  protected static DoublesCurve getForwardCurve(final double spot, final YieldAndDiscountCurve riskFreeCurve, final YieldAndDiscountCurve costOfCarryCurve) {
     ArgChecker.notNull(riskFreeCurve, "risk-free curve");
     ArgChecker.notNull(costOfCarryCurve, "cost-of-carry curve");
     final Function1D<Double, Double> f = new Function1D<Double, Double>() {
@@ -115,7 +115,7 @@ public class ForwardCurve {
     };
   }
 
-  protected static Curve<Double, Double> getForwardCurve(final Double spot, final Double drift) {
+  protected static DoublesCurve getForwardCurve(final Double spot, final Double drift) {
     final Function1D<Double, Double> fwd = new Function1D<Double, Double>() {
 
       @Override
@@ -130,7 +130,7 @@ public class ForwardCurve {
     };
   }
 
-  protected static Curve<Double, Double> getForwardCurve(final Double spot, final Curve<Double, Double> driftCurve) {
+  protected static DoublesCurve getForwardCurve(final Double spot, final DoublesCurve driftCurve) {
     final Function1D<Double, Double> fwd = new Function1D<Double, Double>() {
 
       @Override
@@ -154,7 +154,7 @@ public class ForwardCurve {
     };
   }
 
-  protected static Curve<Double, Double> getDriftCurve(final Curve<Double, Double> fwdCurve) {
+  protected static DoublesCurve getDriftCurve(final DoublesCurve fwdCurve) {
     final Function1D<Double, Double> drift = new Function1D<Double, Double>() {
       private final double _eps = 1e-3;
 

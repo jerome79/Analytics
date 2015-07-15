@@ -7,7 +7,7 @@ package com.opengamma.analytics.financial.horizon;
 
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscountCurve;
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
@@ -41,7 +41,7 @@ public final class ConstantSpreadYieldCurveRolldownFunction implements RolldownF
     if (!(yieldCurve instanceof YieldCurve)) {
       throw new IllegalArgumentException("Can only handle YieldCurve");
     }
-    final Curve<Double, Double> curve = ((YieldCurve) yieldCurve).getCurve();
+    final DoublesCurve curve = ((YieldCurve) yieldCurve).getCurve();
     final Function1D<Double, Double> shiftedFunction = new Function1D<Double, Double>() {
 
       @Override

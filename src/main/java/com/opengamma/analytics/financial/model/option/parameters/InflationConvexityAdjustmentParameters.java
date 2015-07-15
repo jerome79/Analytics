@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IndexPrice;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.surface.Surface;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -40,7 +40,7 @@ public class InflationConvexityAdjustmentParameters {
   /**
    * The price index\rate volatility surface. The dimensions are the expiration. Not null.
    */
-  private final Curve<Double, Double> _priceIndexRateCorrelation;
+  private final DoublesCurve _priceIndexRateCorrelation;
   /**
    * The index  price for which the volatility is valid. Not null.
    */
@@ -56,7 +56,7 @@ public class InflationConvexityAdjustmentParameters {
    * @param index The index price for which the volatility is valid.
    */
   public InflationConvexityAdjustmentParameters(final double[] inflationTime, final double[] atmVolatility, final Surface<Double, Double, Double> priceIndexCorrelation,
-      final Surface<Double, Double, Double> liborCorrelation, final Curve<Double, Double> priceIndexRateCorrelation, final IndexPrice index) {
+      final Surface<Double, Double, Double> liborCorrelation, final DoublesCurve priceIndexRateCorrelation, final IndexPrice index) {
     ArgChecker.notNull(inflationTime, "inflation time");
     ArgChecker.notNull(atmVolatility, "price index correlation surface");
     ArgChecker.notNull(priceIndexCorrelation, "price index correlation");
@@ -107,7 +107,7 @@ public class InflationConvexityAdjustmentParameters {
    * Return the libor/price index correlation vector.
    * @return  The libor/price index correlation vector.
    */
-  public Curve<Double, Double> getPriceIndexRateCorrelation() {
+  public DoublesCurve getPriceIndexRateCorrelation() {
     return _priceIndexRateCorrelation;
   }
 

@@ -16,7 +16,7 @@ import com.opengamma.analytics.financial.model.interestrate.curve.YieldAndDiscou
 import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.provider.curve.CurveBuildingBlockBundle;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.tutorial.datasets.UsdDatasetAug21;
 import com.opengamma.analytics.util.time.DateUtils;
 import com.opengamma.strata.collect.tuple.Pair;
@@ -38,7 +38,7 @@ public class SwapRiskAnalysisAug21Usd {
     MulticurveProviderDiscount curves = curveBundle.getFirst();
     for (String yieldCurveName : curves.getAllCurveNames()) {
       YieldAndDiscountCurve yieldAndDiscountCurve = curves.getCurve(yieldCurveName);
-      Curve<Double, Double> yieldCurveValues = null;
+      DoublesCurve yieldCurveValues = null;
       if (yieldAndDiscountCurve instanceof YieldCurve) {
         yieldCurveValues = ((YieldCurve) yieldAndDiscountCurve).getCurve();
       } else if (yieldAndDiscountCurve instanceof DiscountCurve) {

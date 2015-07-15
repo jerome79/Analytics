@@ -12,8 +12,8 @@ import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.CurveShiftFunctionFactory;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.LinearInterpolator1D;
 
@@ -28,7 +28,7 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
   private static final InterpolatedDoublesCurve INTERPOLATED2 = InterpolatedDoublesCurve.fromSorted(new double[] {1, 2, 3, 4 }, new double[] {4, 5, 6, 7 }, INTERPOLATOR, "E");
   private static final double[] POINTS = new double[] {1, 2, 4 };
   @SuppressWarnings("unchecked")
-  private static final Curve<Double, Double>[] CURVES = new Curve[] {NODAL, INTERPOLATED1, INTERPOLATED2 };
+  private static final DoublesCurve[] CURVES = new DoublesCurve[] {NODAL, INTERPOLATED1, INTERPOLATED2};
   private static final String NAME = "D";
   private static final InterpolatedFromCurvesDoublesSurface SURFACE1 = InterpolatedFromCurvesDoublesSurface.fromSorted(true, POINTS, CURVES, INTERPOLATOR, NAME);
   private static final InterpolatedFromCurvesDoublesSurface SURFACE2 = InterpolatedFromCurvesDoublesSurface.fromSorted(false, POINTS, CURVES, INTERPOLATOR, NAME);
@@ -91,8 +91,8 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);
     assertTrue(surface.isXZCurves());
-    Curve<Double, Double>[] curves = surface.getCurves();
-    Curve<Double, Double> shifted = curves[0];
+    DoublesCurve[] curves = surface.getCurves();
+    DoublesCurve shifted = curves[0];
     assertParallelShiftedCurves(shift, shifted, NODAL, InterpolatedDoublesCurve.class);
     shifted = curves[1];
     assertParallelShiftedCurves(shift, shifted, INTERPOLATED1, InterpolatedDoublesCurve.class);
@@ -138,7 +138,7 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getName(), newName);
   }
 
-  private void assertParallelShiftedCurves(final double shift, final Curve<Double, Double> shifted, final Curve<Double, Double> original, final Class<?> clazz) {
+  private void assertParallelShiftedCurves(final double shift, final DoublesCurve shifted, final DoublesCurve original, final Class<?> clazz) {
     Double[] yData1;
     Double[] yData2;
     assertEquals(shifted.getClass(), clazz);
@@ -169,8 +169,8 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);
     assertTrue(surface.isXZCurves());
-    Curve<Double, Double>[] curves = surface.getCurves();
-    Curve<Double, Double> shifted = curves[0];
+    DoublesCurve[] curves = surface.getCurves();
+    DoublesCurve shifted = curves[0];
     assertCurveEquals(shifted, NODAL, false);
     shifted = curves[1];
     assertCurveEquals(shifted, INTERPOLATED1, false);
@@ -201,8 +201,8 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);
     assertFalse(surface.isXZCurves());
-    Curve<Double, Double>[] curves = surface.getCurves();
-    Curve<Double, Double> shifted = curves[0];
+    DoublesCurve[] curves = surface.getCurves();
+    DoublesCurve shifted = curves[0];
     assertCurveEquals(shifted, CurveShiftFunctionFactory.getShiftedCurve(NODAL, y, shift), false);
     shifted = curves[1];
     assertCurveEquals(shifted, INTERPOLATED1, false);
@@ -274,8 +274,8 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);
     assertTrue(surface.isXZCurves());
-    Curve<Double, Double>[] curves = surface.getCurves();
-    Curve<Double, Double> shifted = curves[0];
+    DoublesCurve[] curves = surface.getCurves();
+    DoublesCurve shifted = curves[0];
     assertCurveEquals(shifted, NODAL, false);
     shifted = curves[1];
     assertCurveEquals(shifted, CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED1, x[1], shift[1]), false);
@@ -306,8 +306,8 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getInterpolator(), INTERPOLATOR);
     assertArrayEquals(surface.getPoints(), POINTS, 0);
     assertFalse(surface.isXZCurves());
-    Curve<Double, Double>[] curves = surface.getCurves();
-    Curve<Double, Double> shifted = curves[0];
+    DoublesCurve[] curves = surface.getCurves();
+    DoublesCurve shifted = curves[0];
     assertCurveEquals(shifted, CurveShiftFunctionFactory.getShiftedCurve(NODAL, y[0], shift[0]), false);
     shifted = curves[1];
     assertCurveEquals(shifted, CurveShiftFunctionFactory.getShiftedCurve(INTERPOLATED1, y[1], shift[1]), false);
@@ -329,7 +329,7 @@ public class InterpolatedFromCurvesAdditiveSurfaceShiftFunctionTest {
     assertEquals(surface.getName(), newName);
   }
 
-  private void assertCurveEquals(final Curve<Double, Double> c1, final Curve<Double, Double> c2, final boolean testName) {
+  private void assertCurveEquals(final DoublesCurve c1, final DoublesCurve c2, final boolean testName) {
     assertEquals(c1.getClass(), c2.getClass());
     assertArrayEquals(c1.getXData(), c2.getXData());
     assertArrayEquals(c1.getYData(), c2.getYData());

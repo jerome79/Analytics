@@ -126,7 +126,7 @@ public class SpreadDoublesCurve
    */
   public Set<String> getUnderlyingNames() {
     final Set<String> result = new HashSet<>();
-    for (final Curve<Double, Double> curve : _curves) {
+    for (final DoublesCurve curve : _curves) {
       if (curve instanceof SpreadDoublesCurve) {
         result.addAll(((SpreadDoublesCurve) curve).getUnderlyingNames());
       } else {
@@ -147,7 +147,7 @@ public class SpreadDoublesCurve
     buf.append("=");
     int i = 0;
     buf.append("(");
-    for (final Curve<Double, Double> curve : _curves) {
+    for (final DoublesCurve curve : _curves) {
       if (curve instanceof SpreadDoublesCurve) {
         buf.append(((SpreadDoublesCurve) curve).getLongName().substring(2));
       } else {

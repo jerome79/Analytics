@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
 import com.opengamma.analytics.util.ParallelArrayBinarySort;
@@ -18,8 +18,9 @@ import com.opengamma.strata.collect.ArgChecker;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
- * A surface that is constructed from a set of parallel curves ({@link Curve}), with an interpolator to find points between these curves. The
- * curves are assumed to be coplanar (with the planes parallel to the <i>x</i> or <i>y</i> axis), with their orientation supplied on construction.
+ * A surface that is constructed from a set of parallel curves ({@link DoublesCurve}), with an
+ * interpolator to find points between these curves. The curves are assumed to be coplanar (with the
+ * planes parallel to the <i>x</i> or <i>y</i> axis), with their orientation supplied on construction.
  * 
  */
 public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double, Double> {
@@ -32,7 +33,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, false);
   }
@@ -45,7 +46,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, false);
   }
@@ -58,7 +59,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final List<Double> points, final List<DoublesCurve> curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, false);
   }
@@ -69,7 +70,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Map<Double, DoublesCurve> curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, curves, interpolator, false);
   }
@@ -83,7 +84,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, false, name);
   }
@@ -97,7 +98,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, false, name);
   }
@@ -111,7 +112,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final List<Double> points, final List<DoublesCurve> curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, false, name);
   }
@@ -123,7 +124,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface from(final boolean xzCurves, final Map<Double, DoublesCurve> curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, curves, interpolator, false, name);
   }
@@ -136,7 +137,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, true);
   }
@@ -149,7 +150,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, true);
   }
@@ -162,7 +163,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final List<Double> points, final List<DoublesCurve> curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, true);
   }
@@ -173,7 +174,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @return A surface with an automatically-generated name
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Map<Double, DoublesCurve> curves,
       final Interpolator1D interpolator) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, curves, interpolator, true);
   }
@@ -187,7 +188,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, true, name);
   }
@@ -201,7 +202,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, true, name);
   }
@@ -215,7 +216,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final List<Double> points, final List<DoublesCurve> curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, points, curves, interpolator, true, name);
   }
@@ -227,14 +228,14 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    * @return A surface 
    */
-  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves,
+  public static InterpolatedFromCurvesDoublesSurface fromSorted(final boolean xzCurves, final Map<Double, DoublesCurve> curves,
       final Interpolator1D interpolator, final String name) {
     return new InterpolatedFromCurvesDoublesSurface(xzCurves, curves, interpolator, true, name);
   }
 
   private final double[] _points;
   private final int _nCurves;
-  private final Curve<Double, Double>[] _curves;
+  private final DoublesCurve[] _curves;
   private final Interpolator1D _interpolator;
   private final boolean _xzCurves;
 
@@ -246,7 +247,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @param isSorted Are the intersection points of the curve sorted in increasing order
    */
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
     ArgChecker.notNull(points, "points");
@@ -273,7 +274,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param interpolator The interpolator
    * @param isSorted Are the intersection points of the curve sorted in increasing order
    */
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
     ArgChecker.notNull(points, "points");
@@ -305,7 +306,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param isSorted Are the intersection points of the curve sorted in increasing order
    */
   @SuppressWarnings("unchecked")
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final List<Double> points, final List<DoublesCurve> curves,
       final Interpolator1D interpolator, final boolean isSorted) {
     super();
     ArgChecker.notNull(points, "points");
@@ -315,10 +316,10 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     _nCurves = points.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
-    _curves = new Curve[_nCurves];
+    _curves = new DoublesCurve[_nCurves];
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points.get(i);
-      final Curve<Double, Double> curve = curves.get(i);
+      final DoublesCurve curve = curves.get(i);
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(curve, "curve");
       _points[i] = x;
@@ -337,7 +338,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param isSorted Are the intersection points of the curve sorted in increasing order
    */
   @SuppressWarnings("unchecked")
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves, final Interpolator1D interpolator,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Map<Double, DoublesCurve> curves, final Interpolator1D interpolator,
       final boolean isSorted) {
     super();
     ArgChecker.notNull(curves, "curves");
@@ -346,11 +347,11 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     _nCurves = curves.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
-    _curves = new Curve[_nCurves];
+    _curves = new DoublesCurve[_nCurves];
     int i = 0;
-    for (final Map.Entry<Double, Curve<Double, Double>> entry : curves.entrySet()) {
+    for (final Map.Entry<Double, DoublesCurve> entry : curves.entrySet()) {
       final Double x = entry.getKey();
-      final Curve<Double, Double> curve = entry.getValue();
+      final DoublesCurve curve = entry.getValue();
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(curve, "curve");
       _points[i] = x;
@@ -371,7 +372,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param isSorted Are the intersection points of the curve sorted in increasing order
    * @param name The name of the surface
    */
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final double[] points, final Curve<Double, Double>[] curves,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(points, "points");
@@ -400,7 +401,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    */
   @SuppressWarnings("unchecked")
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Double[] points, final Curve<Double, Double>[] curves,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Double[] points, final DoublesCurve[] curves,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(points, "points");
@@ -410,10 +411,10 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     _nCurves = points.length;
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
-    _curves = new Curve[_nCurves];
+    _curves = new DoublesCurve[_nCurves];
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points[i];
-      final Curve<Double, Double> curve = curves[i];
+      final DoublesCurve curve = curves[i];
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(curve, "curve");
       _points[i] = x;
@@ -435,7 +436,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    */
   @SuppressWarnings("unchecked")
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final List<Double> points, final List<Curve<Double, Double>> curves,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final List<Double> points, final List<DoublesCurve> curves,
       final Interpolator1D interpolator, final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(points, "points");
@@ -445,10 +446,10 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     _nCurves = points.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
-    _curves = new Curve[_nCurves];
+    _curves = new DoublesCurve[_nCurves];
     for (int i = 0; i < _nCurves; i++) {
       final Double x = points.get(i);
-      final Curve<Double, Double> curve = curves.get(i);
+      final DoublesCurve curve = curves.get(i);
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(curve, "curve");
       _points[i] = x;
@@ -468,7 +469,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
    * @param name The name of the surface
    */
   @SuppressWarnings("unchecked")
-  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Map<Double, Curve<Double, Double>> curves, final Interpolator1D interpolator,
+  public InterpolatedFromCurvesDoublesSurface(final boolean xzCurves, final Map<Double, DoublesCurve> curves, final Interpolator1D interpolator,
       final boolean isSorted, final String name) {
     super(name);
     ArgChecker.notNull(curves, "curves");
@@ -477,11 +478,11 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     _nCurves = curves.size();
     _xzCurves = xzCurves;
     _points = new double[_nCurves];
-    _curves = new Curve[_nCurves];
+    _curves = new DoublesCurve[_nCurves];
     int i = 0;
-    for (final Map.Entry<Double, Curve<Double, Double>> entry : curves.entrySet()) {
+    for (final Map.Entry<Double, DoublesCurve> entry : curves.entrySet()) {
       final Double x = entry.getKey();
-      final Curve<Double, Double> curve = entry.getValue();
+      final DoublesCurve curve = entry.getValue();
       ArgChecker.notNull(x, "x");
       ArgChecker.notNull(curve, "curve");
       _points[i] = x;
@@ -505,7 +506,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     if (_xzCurves) {
       final int index = Arrays.binarySearch(_points, y);
       if (index < 0) {
-        for (final Curve<Double, Double> curve : _curves) {
+        for (final DoublesCurve curve : _curves) {
           z[i++] = curve.getYValue(x);
         }
         return InterpolatedDoublesCurve.fromSorted(_points, z, _interpolator).getYValue(y);
@@ -514,7 +515,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
     }
     final int index = Arrays.binarySearch(_points, x);
     if (index < 0) {
-      for (final Curve<Double, Double> curve : _curves) {
+      for (final DoublesCurve curve : _curves) {
         z[i++] = curve.getYValue(y);
       }
       return InterpolatedDoublesCurve.fromSorted(_points, z, _interpolator).getYValue(x);
@@ -581,7 +582,7 @@ public class InterpolatedFromCurvesDoublesSurface extends Surface<Double, Double
   /**
    * @return The curves
    */
-  public Curve<Double, Double>[] getCurves() {
+  public DoublesCurve[] getCurves() {
     return _curves;
   }
 
