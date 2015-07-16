@@ -140,6 +140,8 @@ public class SABRDataSets {
 
   /**
    * Create a set of SABR parameter surface (linearly interpolated) with a given SABR function. Rho data is bumped by the shift with respect to SABR1.
+   * @param sabrFunction  the SABR function
+   * @param shift  the shift
    * @return The SABR parameters parameters.
    */
   public static SABRInterestRateParameters createSABR1RhoBumped(final VolatilityFunctionProvider<SABRFormulaData> sabrFunction, final double shift) {
@@ -187,6 +189,8 @@ public class SABRDataSets {
 
   /**
    * Create a set of SABR parameter surface (linearly interpolated) with a given SABR function. Nu data is bumped by 0.0001 with respect to SABR1.
+   * @param sabrFunction  the SABR function
+   * @param shift  the shift
    * @return The SABR parameters parameters.
    */
   public static SABRInterestRateParameters createSABR1NuBumped(final VolatilityFunctionProvider<SABRFormulaData> sabrFunction, final double shift) {

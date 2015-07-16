@@ -58,6 +58,7 @@ public class StandardDataSetsBlack {
 
   /**
    * Returns an interpolated surface (time-square on expiration / linear on log moneyness interpolation, flat extrapolation)
+   * @param shift  the shift
    * @return The surface.
    */
   public static InterpolatedDoublesSurface blackSurfaceExpiryLogMoneyness(final double shift) {

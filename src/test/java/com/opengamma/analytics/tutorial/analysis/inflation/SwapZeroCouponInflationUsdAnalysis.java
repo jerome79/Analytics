@@ -20,7 +20,6 @@ import com.opengamma.analytics.financial.provider.curve.CurveCalibrationTestsUti
 import com.opengamma.analytics.financial.provider.description.inflation.InflationProviderDiscount;
 import com.opengamma.analytics.util.export.ExportUtils;
 import com.opengamma.analytics.util.time.DateUtils;
-import com.opengamma.strata.basics.currency.Currency;
 import com.opengamma.strata.collect.tuple.Pair;
 
 /**
@@ -30,7 +29,6 @@ import com.opengamma.strata.collect.tuple.Pair;
 public class SwapZeroCouponInflationUsdAnalysis {
 
   private static final ZonedDateTime CAlIBRATION_DATE = DateUtils.getUTCDate(2014, 10, 9);
-  private static final Currency USD = Currency.USD;
   private static final GeneratorSwapFixedInflationZeroCoupon GENERATOR_ZCINFLATION_US =
       GeneratorSwapFixedInflationMaster.getInstance().getGenerator("USCPI");
   private static final IndexPrice US_CPI = GENERATOR_ZCINFLATION_US.getIndexPrice();
