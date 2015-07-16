@@ -86,7 +86,6 @@ import com.opengamma.analytics.financial.instrument.swaption.SwaptionCashFixedIb
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionInstrumentsDescriptionDataSet;
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionPhysicalFixedIborDefinition;
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionPhysicalFixedIborSpreadDefinition;
-import com.opengamma.analytics.financial.instrument.varianceswap.VarianceSwapDefinition;
 import com.opengamma.analytics.financial.interestrate.ContinuousInterestRate;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.model.option.definition.Barrier;
@@ -102,7 +101,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
-import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
 /**
  *
@@ -228,8 +226,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
   public static final ForexNonDeliverableOptionDefinition FX_NDO = new ForexNonDeliverableOptionDefinition(FX_NDF, true, false);
   public static final ForexOptionDigitalDefinition FX_DIGITAL = new ForexOptionDigitalDefinition(FX, SETTLE_DATE, IS_PAYER, IS_EOM);
 
-  public static final VarianceSwapDefinition VARIANCE_SWAP = VarianceSwapDefinition
-      .fromVarianceParams(SETTLE_DATE, SETTLE_DATE.plusYears(1), SETTLE_DATE, CUR, C, 1, 0.03, 1000);
   private static final Set<InstrumentDefinition<?>> ALL_INSTRUMENTS = Sets.newHashSet();
   private static final Set<InstrumentDerivative> ALL_DERIVATIVES = Sets.newHashSet();
 
@@ -296,7 +292,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_INSTRUMENTS.add(SWAPTION_CASH);
     ALL_INSTRUMENTS.add(SWAPTION_PHYS);
     ALL_INSTRUMENTS.add(SWAPTION_PHYS_SPREAD);
-    ALL_INSTRUMENTS.add(VARIANCE_SWAP);
     ALL_INSTRUMENTS.add(XCCY_SWAP);
 
     final ZonedDateTime endDate = DateUtils.getUTCDate(2013, 11, 1);
@@ -371,7 +366,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_DERIVATIVES.add(SWAPTION_CASH.toDerivative(SWAPTION_CASH.getExpiry().getExpiry().minusDays(1)));
     ALL_DERIVATIVES.add(SWAPTION_PHYS.toDerivative(SWAPTION_PHYS.getExpiry().getExpiry().minusDays(1)));
     ALL_DERIVATIVES.add(SWAPTION_PHYS_SPREAD.toDerivative(SWAPTION_PHYS_SPREAD.getExpiry().getExpiry().minusDays(10)));
-    ALL_DERIVATIVES.add(VARIANCE_SWAP.toDerivative(SETTLE_DATE.minusDays(100), LocalDateDoubleTimeSeries.empty()));
     ALL_DERIVATIVES.add(XCCY_SWAP.toDerivative(XCCY_SWAP.getFirstLeg().getPayments()[0].getPaymentDate(), new ZonedDateTimeDoubleTimeSeries[] {ts, ts }));
   }
 

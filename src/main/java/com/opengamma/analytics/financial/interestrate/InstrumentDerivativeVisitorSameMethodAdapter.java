@@ -104,9 +104,6 @@ import com.opengamma.analytics.financial.interestrate.swaption.derivative.Swapti
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionCashFixedIbor;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedCompoundedONCompounded;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
-import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
-import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
-import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 
 /**
  * Adapter that uses the same method regardless of the type of the derivative.
@@ -1059,36 +1056,6 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
   @Override
   public RESULT_TYPE visitForexOptionDigital(final ForexOptionDigital derivative) {
     return visit(derivative);
-  }
-
-  @Override
-  public RESULT_TYPE visitVarianceSwap(final VarianceSwap varianceSwap) {
-    return visit(varianceSwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitVarianceSwap(final VarianceSwap varianceSwap, final DATA_TYPE data) {
-    return visit(varianceSwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilitySwap(final VolatilitySwap volatilitySwap) {
-    return visit(volatilitySwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilitySwap(final VolatilitySwap volatilitySwap, final DATA_TYPE data) {
-    return visit(volatilitySwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitFXVolatilitySwap(final FXVolatilitySwap volatilitySwap) {
-    return visit(volatilitySwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitFXVolatilitySwap(final FXVolatilitySwap volatilitySwap, final DATA_TYPE data) {
-    return visit(volatilitySwap, data);
   }
 
   @Override

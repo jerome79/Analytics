@@ -104,9 +104,6 @@ import com.opengamma.analytics.financial.interestrate.swaption.derivative.Swapti
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionCashFixedIbor;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedCompoundedONCompounded;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
-import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
-import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
-import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 
 /**
  *
@@ -1059,36 +1056,6 @@ public abstract class InstrumentDerivativeVisitorAdapter<DATA_TYPE, RESULT_TYPE>
   }
 
   //  -----     Variance and volatility swaps     -----
-
-  @Override
-  public RESULT_TYPE visitVarianceSwap(final VarianceSwap varianceSwap, final DATA_TYPE data) {
-    return getException(varianceSwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitVarianceSwap(final VarianceSwap varianceSwap) {
-    return getException(varianceSwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilitySwap(final VolatilitySwap volatilitySwap, final DATA_TYPE data) {
-    return getException(volatilitySwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilitySwap(final VolatilitySwap volatilitySwap) {
-    return getException(volatilitySwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitFXVolatilitySwap(final FXVolatilitySwap volatilitySwap, final DATA_TYPE data) {
-    return getException(volatilitySwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitFXVolatilitySwap(final FXVolatilitySwap volatilitySwap) {
-    return getException(volatilitySwap);
-  }
 
   @Override
   public RESULT_TYPE visitTotalReturnSwap(final TotalReturnSwap totalReturnSwap) {

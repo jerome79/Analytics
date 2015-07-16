@@ -104,9 +104,6 @@ import com.opengamma.analytics.financial.interestrate.swaption.derivative.Swapti
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionCashFixedIbor;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedCompoundedONCompounded;
 import com.opengamma.analytics.financial.interestrate.swaption.derivative.SwaptionPhysicalFixedIbor;
-import com.opengamma.analytics.financial.varianceswap.VarianceSwap;
-import com.opengamma.analytics.financial.volatilityswap.FXVolatilitySwap;
-import com.opengamma.analytics.financial.volatilityswap.VolatilitySwap;
 
 /**
  *
@@ -597,51 +594,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
   RESULT_TYPE visitForexOptionDigital(ForexOptionDigital derivative);
 
   //  -----     Variance and volatility swaps     -----
-
-  /**
-   * Variance swap method.
-   * @param varianceSwap A variance swap
-   * @return The result
-   */
-  RESULT_TYPE visitVarianceSwap(VarianceSwap varianceSwap);
-
-  /**
-   * Variance swap method that takes data.
-   * @param varianceSwap A variance swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitVarianceSwap(VarianceSwap varianceSwap, DATA_TYPE data);
-
-  /**
-   * Volatility swap method.
-   * @param volatilitySwap A volatility swap
-   * @return The result
-   */
-  RESULT_TYPE visitVolatilitySwap(VolatilitySwap volatilitySwap);
-
-  /**
-   * Volatility swap method that takes data.
-   * @param volatilitySwap A volatility swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitVolatilitySwap(VolatilitySwap volatilitySwap, DATA_TYPE data);
-
-  /**
-   * FX volatility swap method.
-   * @param volatilitySwap A volatility swap
-   * @return The result
-   */
-  RESULT_TYPE visitFXVolatilitySwap(FXVolatilitySwap volatilitySwap);
-
-  /**
-   * FX volatility swap method that takes data.
-   * @param volatilitySwap A volatility swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitFXVolatilitySwap(FXVolatilitySwap volatilitySwap, DATA_TYPE data);
 
   /**
    * The total return swap method.

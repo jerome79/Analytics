@@ -116,9 +116,6 @@ import com.opengamma.analytics.financial.instrument.swaption.SwaptionCashFixedCo
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionCashFixedIborDefinition;
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionPhysicalFixedIborDefinition;
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionPhysicalFixedIborSpreadDefinition;
-import com.opengamma.analytics.financial.instrument.varianceswap.VarianceSwapDefinition;
-import com.opengamma.analytics.financial.instrument.volatilityswap.FXVolatilitySwapDefinition;
-import com.opengamma.analytics.financial.instrument.volatilityswap.VolatilitySwapDefinition;
 
 /**
  * Class testing the instrument definition visitor.
@@ -889,36 +886,6 @@ public class InstrumentDefinitionVisitorTest {
     @Override
     public String visitForexOptionDigitalDefinition(final ForexOptionDigitalDefinition fx) {
       return getValue(fx, false);
-    }
-
-    @Override
-    public String visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap) {
-      return getValue(varianceSwap, false);
-    }
-
-    @Override
-    public String visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap, final T data) {
-      return getValue(varianceSwap, true);
-    }
-
-    @Override
-    public String visitVolatilitySwapDefinition(final VolatilitySwapDefinition volatilitySwap) {
-      return getValue(volatilitySwap, false);
-    }
-
-    @Override
-    public String visitVolatilitySwapDefinition(final VolatilitySwapDefinition volatilitySwap, final T data) {
-      return getValue(volatilitySwap, true);
-    }
-
-    @Override
-    public String visitFXVolatilitySwapDefinition(final FXVolatilitySwapDefinition volatilitySwap) {
-      return getValue(volatilitySwap, false);
-    }
-
-    @Override
-    public String visitFXVolatilitySwapDefinition(final FXVolatilitySwapDefinition volatilitySwap, final T data) {
-      return getValue(volatilitySwap, true);
     }
 
     @Override

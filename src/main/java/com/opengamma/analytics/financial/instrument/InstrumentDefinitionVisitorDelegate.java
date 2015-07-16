@@ -104,9 +104,6 @@ import com.opengamma.analytics.financial.instrument.swaption.SwaptionCashFixedCo
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionCashFixedIborDefinition;
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionPhysicalFixedIborDefinition;
 import com.opengamma.analytics.financial.instrument.swaption.SwaptionPhysicalFixedIborSpreadDefinition;
-import com.opengamma.analytics.financial.instrument.varianceswap.VarianceSwapDefinition;
-import com.opengamma.analytics.financial.instrument.volatilityswap.FXVolatilitySwapDefinition;
-import com.opengamma.analytics.financial.instrument.volatilityswap.VolatilitySwapDefinition;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -1078,36 +1075,6 @@ public class InstrumentDefinitionVisitorDelegate<DATA_TYPE, RESULT_TYPE> impleme
   @Override
   public RESULT_TYPE visitForexOptionDigitalDefinition(final ForexOptionDigitalDefinition fx) {
     return _delegate.visitForexOptionDigitalDefinition(fx);
-  }
-
-  @Override
-  public RESULT_TYPE visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap) {
-    return _delegate.visitVarianceSwapDefinition(varianceSwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap, final DATA_TYPE data) {
-    return _delegate.visitVarianceSwapDefinition(varianceSwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilitySwapDefinition(final VolatilitySwapDefinition volatilitySwap) {
-    return _delegate.visitVolatilitySwapDefinition(volatilitySwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilitySwapDefinition(final VolatilitySwapDefinition volatilitySwap, final DATA_TYPE data) {
-    return _delegate.visitVolatilitySwapDefinition(volatilitySwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitFXVolatilitySwapDefinition(final FXVolatilitySwapDefinition volatilitySwap) {
-    return _delegate.visitFXVolatilitySwapDefinition(volatilitySwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitFXVolatilitySwapDefinition(final FXVolatilitySwapDefinition volatilitySwap, final DATA_TYPE data) {
-    return _delegate.visitFXVolatilitySwapDefinition(volatilitySwap, data);
   }
 
   @Override
