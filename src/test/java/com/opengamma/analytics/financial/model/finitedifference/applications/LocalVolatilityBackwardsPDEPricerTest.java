@@ -21,7 +21,7 @@ import com.opengamma.analytics.financial.model.volatility.smile.function.MultiHo
 import com.opengamma.analytics.financial.model.volatility.surface.MixedLogNormalVolatilitySurface;
 import com.opengamma.analytics.financial.model.volatility.surface.PriceSurface;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
@@ -39,7 +39,7 @@ public class LocalVolatilityBackwardsPDEPricerTest {
   private static final LocalVolatilityBackwardsPDEPricer PRICER = new LocalVolatilityBackwardsPDEPricer();
   private static final ForwardCurve FWD_CURVE;
   private static final YieldAndDiscountCurve DIS_CURVE;
-  private static final Curve<Double, Double> RISK_FREE_CURVE;
+  private static final DoublesCurve RISK_FREE_CURVE;
   private static final LocalVolatilitySurfaceStrike LOCAL_VOL_SUR;
   private static final double S0 = 10.0;
   private static final double R = 0.07;

@@ -22,7 +22,7 @@ import com.opengamma.analytics.financial.model.interestrate.curve.YieldCurve;
 import com.opengamma.analytics.financial.provider.description.inflation.InflationProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.interestrate.MulticurveProviderDiscount;
 import com.opengamma.analytics.financial.provider.sensitivity.multicurve.MultipleCurrencyParameterSensitivity;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.matrix.DoubleMatrix1D;
 import com.opengamma.strata.basics.currency.Currency;
@@ -264,7 +264,7 @@ public class ExportUtils {
     for (String yieldCurveName : curves.getAllCurveNames()) {
       boolean transformDfToZeroRates = false;
       YieldAndDiscountCurve yieldAndDiscountCurve = curves.getCurve(yieldCurveName);
-      Curve<Double, Double> yieldCurveValues = null;
+      DoublesCurve yieldCurveValues = null;
 
       if (yieldAndDiscountCurve instanceof YieldCurve) {
         yieldCurveValues = ((YieldCurve) yieldAndDiscountCurve).getCurve();

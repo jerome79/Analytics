@@ -8,9 +8,10 @@ package com.opengamma.analytics.math.surface;
 import static com.opengamma.analytics.math.surface.SurfaceShiftFunctionFactory.getFunction;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
+
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
@@ -70,8 +71,9 @@ public class SurfaceShiftFunctionFactoryTest {
   private static final InterpolatedDoublesSurface INTERPOLATED = InterpolatedDoublesSurface.from(new double[] {1, 2, 1, 2 }, new double[] {1, 2, 3, 4 }, new double[] {1.2, 3.4, 5.6, 7.8 },
       new GridInterpolator2D(LINEAR, LINEAR));
   @SuppressWarnings("unchecked")
-  private static final InterpolatedFromCurvesDoublesSurface INTERPOLATED_FROM_CURVES = InterpolatedFromCurvesDoublesSurface.from(true, new double[] {1 },
-      new Curve[] {InterpolatedDoublesCurve.from(new double[] {1, 2 }, new double[] {3, 4 }, LINEAR) }, LINEAR);
+  private static final InterpolatedFromCurvesDoublesSurface INTERPOLATED_FROM_CURVES =
+      InterpolatedFromCurvesDoublesSurface.from(true, new double[] {1},
+          new DoublesCurve[] {InterpolatedDoublesCurve.from(new double[] {1, 2}, new double[] {3, 4}, LINEAR)}, LINEAR);
   private static final NodalDoublesSurface NODAL = NodalDoublesSurface.from(new double[] {1, 2 }, new double[] {1, 2 }, new double[] {1.2, 3.4 });
 
   @Test(expectedExceptions = IllegalArgumentException.class)

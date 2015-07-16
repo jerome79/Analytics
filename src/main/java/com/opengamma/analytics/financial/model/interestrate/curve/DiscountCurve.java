@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.Interpolator1D;
@@ -117,7 +116,7 @@ public class DiscountCurve extends YieldAndDiscountCurve {
    * Gets the underlying curve.
    * @return The curve.
    */
-  public Curve<Double, Double> getCurve() {
+  public DoublesCurve getCurve() {
     return _curve;
   }
 

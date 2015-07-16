@@ -71,7 +71,7 @@ public class SpreadCurveShiftFunctionTest {
   @Test
   public void testParallel() {
     SpreadDoublesCurve shifted = F.evaluate(SPREAD, SHIFT);
-    Curve<Double, Double>[] c = shifted.getUnderlyingCurves();
+    DoublesCurve[] c = shifted.getUnderlyingCurves();
     assertEquals(c[0], CURVE1);
     assertEquals(c[1], CURVE2);
     assertEquals(c[2].getClass(), ConstantDoublesCurve.class);

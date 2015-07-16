@@ -8,17 +8,17 @@ package com.opengamma.analytics.financial.model.volatility.curve;
 import java.util.Objects;
 
 import com.opengamma.analytics.financial.model.volatility.VolatilityTermStructure;
-import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.CurveShiftFunctionFactory;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * VolatilityTermStructure backed by a Curve<Double, Double>
+ * VolatilityTermStructure backed by a DoublesCurve
  */
 public class VolatilityCurve implements VolatilityTermStructure {
-  private final Curve<Double, Double> _curve;
+  private final DoublesCurve _curve;
 
-  public VolatilityCurve(final Curve<Double, Double> curve) {
+  public VolatilityCurve(final DoublesCurve curve) {
     ArgChecker.notNull(curve, "curve");
     _curve = curve;
   }
@@ -28,7 +28,7 @@ public class VolatilityCurve implements VolatilityTermStructure {
     return _curve.getYValue(x);
   }
 
-  public Curve<Double, Double> getCurve() {
+  public DoublesCurve getCurve() {
     return _curve;
   }
 

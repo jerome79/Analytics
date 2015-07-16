@@ -9,7 +9,7 @@ package com.opengamma.analytics.math.curve;
  * Given a curve and some form of shift, return a shifted curve (where the shift can be defined in several ways).
  * @param <T> The type of the curve to shift
  */
-public interface CurveShiftFunction<T extends Curve<Double, Double>> {
+public interface CurveShiftFunction<T extends DoublesCurve> {
 
   /**
    * Returns a new curve shifted by a constant <i>y</i> amount (i.e. a shift parallel to the <i>x</i> axis). The name of the new curve will

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import com.opengamma.analytics.financial.model.volatility.smile.function.SmileModelData;
 import com.opengamma.analytics.financial.model.volatility.smile.function.VolatilityFunctionProvider;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.InterpolatedCurveBuildingFunction;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
@@ -165,7 +165,7 @@ public abstract class VolatilitySurfaceFitter<T extends SmileModelData> {
           final double[] theta = new double[_nSmileModelParameters];
           int p = 0;
           for (final String name : _parameterNames) {
-            final Curve<Double, Double> curve = curves.get(name);
+            final DoublesCurve curve = curves.get(name);
             theta[p++] = curve.getYValue(t);
           }
           final T data = toSmileModelData(theta);

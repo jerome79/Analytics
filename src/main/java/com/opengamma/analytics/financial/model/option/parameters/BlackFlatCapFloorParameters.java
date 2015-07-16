@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import com.opengamma.analytics.financial.instrument.index.IborIndex;
 import com.opengamma.analytics.financial.model.volatility.VolatilityModel;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -20,7 +20,7 @@ public class BlackFlatCapFloorParameters implements VolatilityModel<double[]> {
   /**
    * The volatility curve. The dimension is the expiration. Not null.
    */
-  private final Curve<Double, Double> _volatility;
+  private final DoublesCurve _volatility;
   /**
    * The Ibor index for which the volatility is valid. Not null.
    */
@@ -31,7 +31,7 @@ public class BlackFlatCapFloorParameters implements VolatilityModel<double[]> {
    * @param volatility The Black volatility curve.
    * @param index The Ibor index for which the volatility is valid.
    */
-  public BlackFlatCapFloorParameters(final Curve<Double, Double> volatility, final IborIndex index) {
+  public BlackFlatCapFloorParameters(final DoublesCurve volatility, final IborIndex index) {
     ArgChecker.notNull(volatility, "volatility");
     ArgChecker.notNull(index, "index");
     _volatility = volatility;

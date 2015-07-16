@@ -29,7 +29,6 @@ import com.opengamma.analytics.financial.provider.description.inflation.Inflatio
 import com.opengamma.analytics.financial.provider.description.inflation.InflationIssuerProviderDiscount;
 import com.opengamma.analytics.financial.provider.description.inflation.InflationProviderDiscount;
 import com.opengamma.analytics.financial.schedule.ScheduleCalculator;
-import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.InterpolatedDoublesCurve;
 import com.opengamma.analytics.math.interpolation.CombinedInterpolatorExtrapolatorFactory;
 import com.opengamma.analytics.math.interpolation.GridInterpolator2D;
@@ -87,7 +86,8 @@ public class InflationMarketModelConvexityAdjustmentCouponTest {
       INTERPOLATOR_LINEAR_2D);
   private static final Surface<Double, Double, Double> PRICE_INDEX_CORRELATION = CORRELATION_SURFACE;
   private static final Surface<Double, Double, Double> LIBOR_CORRELATION = CORRELATION_SURFACE;
-  private static final Curve<Double, Double> PRICE_INDEX_RATE_CORRELATION = InterpolatedDoublesCurve.from(new double[] {1.0, 10.0, 30.0 }, new double[] {-0.15, -0.15, -0.15 }, INTERPOLATOR_LINEAR);
+  private static final InterpolatedDoublesCurve PRICE_INDEX_RATE_CORRELATION =
+      InterpolatedDoublesCurve.from(new double[] {1.0, 10.0, 30.0}, new double[] {-0.15, -0.15, -0.15}, INTERPOLATOR_LINEAR);
 
   private static final InflationConvexityAdjustmentParameters INFLATION_PARAM = new InflationConvexityAdjustmentParameters(INFLATION_TIME, ATM_VOLATILITY, LIBOR_CORRELATION, PRICE_INDEX_CORRELATION,
       PRICE_INDEX_RATE_CORRELATION, PRICE_INDEX_EUR);

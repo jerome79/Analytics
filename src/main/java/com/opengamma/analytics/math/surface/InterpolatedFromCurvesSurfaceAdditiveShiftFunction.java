@@ -7,8 +7,8 @@ package com.opengamma.analytics.math.surface;
 
 import java.util.Arrays;
 
-import com.opengamma.analytics.math.curve.Curve;
 import com.opengamma.analytics.math.curve.CurveShiftFunctionFactory;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
@@ -35,9 +35,9 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
     ArgChecker.notNull(surface, "surface");
     final boolean xzCurves = surface.isXZCurves();
     final double[] points = surface.getPoints();
-    final Curve<Double, Double>[] curves = surface.getCurves();
+    final DoublesCurve[] curves = surface.getCurves();
     final int n = curves.length;
-    final Curve<Double, Double>[] newCurves = new Curve[curves.length];
+    final DoublesCurve[] newCurves = new DoublesCurve[curves.length];
     for (int i = 0; i < n; i++) {
       newCurves[i] = CurveShiftFunctionFactory.getShiftedCurve(curves[i], shift);
     }
@@ -68,18 +68,18 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
     final double[] points = surface.getPoints();
     if (xzCurves) {
       final int index = Arrays.binarySearch(points, y);
-      final Curve<Double, Double>[] curves = surface.getCurves();
+      final DoublesCurve[] curves = surface.getCurves();
       if (index >= 0) {
-        final Curve<Double, Double>[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
+        final DoublesCurve[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
         newCurves[index] = CurveShiftFunctionFactory.getShiftedCurve(curves[index], x, shift);
         return InterpolatedFromCurvesDoublesSurface.fromSorted(xzCurves, points, newCurves, surface.getInterpolator(), newName);
       }
       throw new UnsupportedOperationException("Cannot get shift for y-value not in original list of curves: asked for " + y);
     }
     final int index = Arrays.binarySearch(points, x);
-    final Curve<Double, Double>[] curves = surface.getCurves();
+    final DoublesCurve[] curves = surface.getCurves();
     if (index >= 0) {
-      final Curve<Double, Double>[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
+      final DoublesCurve[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
       newCurves[index] = CurveShiftFunctionFactory.getShiftedCurve(curves[index], y, shift);
       return InterpolatedFromCurvesDoublesSurface.fromSorted(xzCurves, points, newCurves, surface.getInterpolator(), newName);
     }
@@ -116,7 +116,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
     final boolean xzCurves = surface.isXZCurves();
     final double[] points = surface.getPoints();
     if (xzCurves) {
-      final Curve<Double, Double>[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
+      final DoublesCurve[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
       for (int i = 0; i < n; i++) {
         final int index = Arrays.binarySearch(points, yShift[i]);
         boolean foundValue = false;
@@ -130,7 +130,7 @@ public class InterpolatedFromCurvesSurfaceAdditiveShiftFunction implements Surfa
       }
       return InterpolatedFromCurvesDoublesSurface.fromSorted(xzCurves, points, newCurves, surface.getInterpolator(), newName);
     }
-    final Curve<Double, Double>[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
+    final DoublesCurve[] newCurves = Arrays.copyOf(surface.getCurves(), points.length);
     for (int i = 0; i < n; i++) {
       final int index = Arrays.binarySearch(points, xShift[i]);
       boolean foundValue = false;

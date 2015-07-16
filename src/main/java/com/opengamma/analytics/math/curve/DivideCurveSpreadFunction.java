@@ -40,7 +40,7 @@ public class DivideCurveSpreadFunction implements CurveSpreadFunction {
    */
   @SuppressWarnings("unchecked")
   @Override
-  public Function<Double, Double> evaluate(final Curve<Double, Double>... curves) {
+  public Function<Double, Double> evaluate(final DoublesCurve... curves) {
     ArgChecker.notEmpty(curves, "curves");
     return new Function<Double, Double>() {
 

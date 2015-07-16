@@ -5,7 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.finitedifference;
 
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -18,13 +18,16 @@ import com.opengamma.strata.collect.ArgChecker;
  */
 public class TimeIndependentConvectionDiffusionPDEDataBundle {
 
-  private final Curve<Double, Double> _a;
-  private final Curve<Double, Double> _b;
-  private final Curve<Double, Double> _c;
+  private final DoublesCurve _a;
+  private final DoublesCurve _b;
+  private final DoublesCurve _c;
   private final Function1D<Double, Double> _initialCondition;
 
-  public TimeIndependentConvectionDiffusionPDEDataBundle(final Curve<Double, Double> a, final Curve<Double, Double> b, final Curve<Double, Double> c,
-      final Function1D<Double, Double> initialCondition) {
+  public TimeIndependentConvectionDiffusionPDEDataBundle(
+      DoublesCurve a,
+      DoublesCurve b,
+      DoublesCurve c,
+      Function1D<Double, Double> initialCondition) {
     ArgChecker.notNull(a, "null a");
     ArgChecker.notNull(b, "null b");
     ArgChecker.notNull(c, "null c");
@@ -35,19 +38,19 @@ public class TimeIndependentConvectionDiffusionPDEDataBundle {
     _initialCondition = initialCondition;
   }
 
-  public double getA(final double x) {
+  public double getA(double x) {
     return _a.getYValue(x);
   }
 
-  public double getB(final double x) {
+  public double getB(double x) {
     return _b.getYValue(x);
   }
 
-  public double getC(final double x) {
+  public double getC(double x) {
     return _c.getYValue(x);
   }
 
-  public double getInitialValue(final double x) {
+  public double getInitialValue(double x) {
     return _initialCondition.evaluate(x);
   }
 

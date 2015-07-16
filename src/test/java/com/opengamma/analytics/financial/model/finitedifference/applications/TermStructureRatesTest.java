@@ -26,7 +26,7 @@ import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.E
 import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceStrike;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.integration.Integrator1D;
@@ -42,7 +42,7 @@ public class TermStructureRatesTest {
 
   private static final LocalVolatilityBackwardsPDEPricer PRICER = new LocalVolatilityBackwardsPDEPricer();
   private static final ForwardCurve FWD_CURVE;
-  private static final Curve<Double, Double> RISK_FREE_CURVE;
+  private static final DoublesCurve RISK_FREE_CURVE;
   private static final LocalVolatilitySurfaceStrike LOCAL_VOL_SUR;
   private static final double S0 = 10.0;
   private static final double T = 5.0;

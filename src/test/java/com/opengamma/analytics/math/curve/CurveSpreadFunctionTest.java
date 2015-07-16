@@ -50,46 +50,46 @@ public class CurveSpreadFunctionTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurves1() {
-    ADD.evaluate((Curve<Double, Double>[]) null);
+    ADD.evaluate((DoublesCurve[]) null);
   }
 
   @SuppressWarnings("unchecked")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyCurves1() {
-    ADD.evaluate(new Curve[0]);
+    ADD.evaluate(new DoublesCurve[0]);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurves2() {
-    ADD.evaluate((Curve<Double, Double>[]) null);
+    ADD.evaluate((DoublesCurve[]) null);
   }
 
   @SuppressWarnings("unchecked")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyCurves2() {
-    ADD.evaluate(new Curve[0]);
+    ADD.evaluate(new DoublesCurve[0]);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurves3() {
-    ADD.evaluate((Curve<Double, Double>[]) null);
+    ADD.evaluate((DoublesCurve[]) null);
   }
 
   @SuppressWarnings("unchecked")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyCurves3() {
-    ADD.evaluate(new Curve[0]);
+    ADD.evaluate(new DoublesCurve[0]);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testNullCurves4() {
-    ADD.evaluate((Curve<Double, Double>[]) null);
+    ADD.evaluate((DoublesCurve[]) null);
   }
 
   @SuppressWarnings("unchecked")
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testEmptyCurves4() {
-    ADD.evaluate(new Curve[0]);
+    ADD.evaluate(new DoublesCurve[0]);
   }
 
   @Test
@@ -103,7 +103,7 @@ public class CurveSpreadFunctionTest {
   @SuppressWarnings("unchecked")
   @Test
   public void testConstant() {
-    final Curve<Double, Double>[] curves = new Curve[] {CONSTANT1, CONSTANT2 };
+    final DoublesCurve[] curves = new DoublesCurve[] {CONSTANT1, CONSTANT2};
     final double y1 = 2;
     final double y2 = 1.1;
     Function<Double, Double> f = ADD.evaluate(curves);
@@ -120,7 +120,7 @@ public class CurveSpreadFunctionTest {
   @Test
   public void testFunctional() {
     final double x = 3.5;
-    final Curve<Double, Double>[] curves = new Curve[] {FUNCTIONAL1, FUNCTIONAL2 };
+    final DoublesCurve[] curves = new DoublesCurve[] {FUNCTIONAL1, FUNCTIONAL2};
     Function<Double, Double> f = ADD.evaluate(curves);
     assertEquals(f.evaluate(x), F1.evaluate(x) + F2.evaluate(x), 0);
     f = DIVIDE.evaluate(curves);
@@ -135,7 +135,7 @@ public class CurveSpreadFunctionTest {
   @Test
   public void testInterpolated() {
     final double x = 3.5;
-    final Curve<Double, Double>[] curves = new Curve[] {INTERPOLATED1, INTERPOLATED2 };
+    final DoublesCurve[] curves = new DoublesCurve[] {INTERPOLATED1, INTERPOLATED2};
     Function<Double, Double> f = ADD.evaluate(curves);
     assertEquals(f.evaluate(x), INTERPOLATED1.getYValue(x) + INTERPOLATED2.getYValue(x), 0);
     f = DIVIDE.evaluate(curves);

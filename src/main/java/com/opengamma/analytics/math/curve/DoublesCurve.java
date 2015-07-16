@@ -6,34 +6,87 @@
 package com.opengamma.analytics.math.curve;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
+import org.joda.beans.Bean;
 import org.joda.beans.BeanBuilder;
 import org.joda.beans.BeanDefinition;
 import org.joda.beans.JodaBeanUtils;
 import org.joda.beans.MetaProperty;
+import org.joda.beans.Property;
+import org.joda.beans.PropertyDefinition;
+import org.joda.beans.impl.direct.DirectMetaBean;
+import org.joda.beans.impl.direct.DirectMetaProperty;
 import org.joda.beans.impl.direct.DirectMetaPropertyMap;
+
+import com.opengamma.analytics.math.function.Function1D;
+import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * Parent class for a family of curves that have real <i>x</i> and <i>y</i> values.
  */
 @BeanDefinition
 public abstract class DoublesCurve
-    extends Curve<Double, Double> {
+    implements Bean {
 
   /**
-   * Constructor
+   * Atomic used to generate a name.
+   */
+  private static final AtomicLong ATOMIC = new AtomicLong();
+
+  /**
+   * The curve name.
+   */
+  @PropertyDefinition(validate = "notNull", set = "private")
+  private String name;
+
+  /**
+   * Constructs a curve with an automatically-generated name.
    */
   protected DoublesCurve() {
+    this(Long.toString(ATOMIC.getAndIncrement()));
   }
 
   /**
-   * Constructor with a name.
+   * Constructs a curve with the given name.
    * 
-   * @param name  the curve name, not null
+   * @param name  the name of the curve, not null
    */
-  protected DoublesCurve(final String name) {
-    super(name);
+  protected DoublesCurve(String name) {
+    this.name = ArgChecker.notNull(name, "name");
   }
+
+  //-------------------------------------------------------------------------
+  /**
+   * Gets the <i>x</i> data for this curve.
+   * 
+   * @return the <i>x</i> data for this curve, not null
+   */
+  public abstract Double[] getXData();
+
+  /**
+   * Gets the <i>y</i> data for this curve.
+   * 
+   * @return the <i>y</i> data for this curve, not null
+   */
+  public abstract Double[] getYData();
+
+  /**
+   * Gets the number of data points used to construct this curve.
+   * 
+   * @return the number of data points used to construct this curve
+   */
+  public abstract int size();
+
+  //-------------------------------------------------------------------------
+  /**
+   * Given an <i>x</i> value, return the <i>y</i> value from this curve.
+   * 
+   * @param x  the <i>x</i> value, not null
+   * @return the <i>y</i> value, not null
+   */
+  public abstract Double getYValue(Double x);
 
   //-------------------------------------------------------------------------
   /**
@@ -71,27 +124,70 @@ public abstract class DoublesCurve
     return DoublesCurve.Meta.INSTANCE;
   }
 
+  @Override
+  public <R> Property<R> property(String propertyName) {
+    return metaBean().<R>metaProperty(propertyName).createProperty(this);
+  }
+
+  @Override
+  public Set<String> propertyNames() {
+    return metaBean().metaPropertyMap().keySet();
+  }
+
   //-----------------------------------------------------------------------
+  /**
+   * Gets the curve name.
+   * @return the value of the property, not null
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Sets the curve name.
+   * @param name  the new value of the property, not null
+   */
+  private void setName(String name) {
+    JodaBeanUtils.notNull(name, "name");
+    this.name = name;
+  }
+
+  /**
+   * Gets the the {@code name} property.
+   * @return the property, not null
+   */
+  public final Property<String> name() {
+    return metaBean().name().createProperty(this);
+  }
+
+  //-----------------------------------------------------------------------
+  @Override
+  public DoublesCurve clone() {
+    return JodaBeanUtils.cloneAlways(this);
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (obj == this) {
       return true;
     }
     if (obj != null && obj.getClass() == this.getClass()) {
-      return super.equals(obj);
+      DoublesCurve other = (DoublesCurve) obj;
+      return JodaBeanUtils.equal(getName(), other.getName());
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    int hash = 7;
-    return hash ^ super.hashCode();
+    int hash = getClass().hashCode();
+    hash = hash * 31 + JodaBeanUtils.hashCode(getName());
+    return hash;
   }
 
   @Override
   public String toString() {
-    StringBuilder buf = new StringBuilder(32);
+    StringBuilder buf = new StringBuilder(64);
     buf.append("DoublesCurve{");
     int len = buf.length();
     toString(buf);
@@ -102,31 +198,45 @@ public abstract class DoublesCurve
     return buf.toString();
   }
 
-  @Override
   protected void toString(StringBuilder buf) {
-    super.toString(buf);
+    buf.append("name").append('=').append(JodaBeanUtils.toString(getName())).append(',').append(' ');
   }
 
   //-----------------------------------------------------------------------
   /**
    * The meta-bean for {@code DoublesCurve}.
    */
-  public static class Meta extends Curve.Meta<Double, Double> {
+  public static class Meta extends DirectMetaBean {
     /**
      * The singleton instance of the meta-bean.
      */
     static final Meta INSTANCE = new Meta();
 
     /**
+     * The meta-property for the {@code name} property.
+     */
+    private final MetaProperty<String> _name = DirectMetaProperty.ofReadWrite(
+        this, "name", DoublesCurve.class, String.class);
+    /**
      * The meta-properties.
      */
     private final Map<String, MetaProperty<?>> _metaPropertyMap$ = new DirectMetaPropertyMap(
-        this, (DirectMetaPropertyMap) super.metaPropertyMap());
+        this, null,
+        "name");
 
     /**
      * Restricted constructor.
      */
     protected Meta() {
+    }
+
+    @Override
+    protected MetaProperty<?> metaPropertyGet(String propertyName) {
+      switch (propertyName.hashCode()) {
+        case 3373707:  // name
+          return _name;
+      }
+      return super.metaPropertyGet(propertyName);
     }
 
     @Override
@@ -145,6 +255,39 @@ public abstract class DoublesCurve
     }
 
     //-----------------------------------------------------------------------
+    /**
+     * The meta-property for the {@code name} property.
+     * @return the meta-property, not null
+     */
+    public final MetaProperty<String> name() {
+      return _name;
+    }
+
+    //-----------------------------------------------------------------------
+    @Override
+    protected Object propertyGet(Bean bean, String propertyName, boolean quiet) {
+      switch (propertyName.hashCode()) {
+        case 3373707:  // name
+          return ((DoublesCurve) bean).getName();
+      }
+      return super.propertyGet(bean, propertyName, quiet);
+    }
+
+    @Override
+    protected void propertySet(Bean bean, String propertyName, Object newValue, boolean quiet) {
+      switch (propertyName.hashCode()) {
+        case 3373707:  // name
+          ((DoublesCurve) bean).setName((String) newValue);
+          return;
+      }
+      super.propertySet(bean, propertyName, newValue, quiet);
+    }
+
+    @Override
+    protected void validate(Bean bean) {
+      JodaBeanUtils.notNull(((DoublesCurve) bean).name, "name");
+    }
+
   }
 
   ///CLOVER:ON

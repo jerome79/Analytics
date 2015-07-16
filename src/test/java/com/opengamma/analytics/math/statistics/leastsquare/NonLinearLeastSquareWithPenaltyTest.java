@@ -13,7 +13,7 @@ import java.util.List;
 import org.apache.commons.math3.random.Well44497b;
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.curve.FunctionalDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.interpolation.BasisFunctionAggregation;
@@ -38,7 +38,7 @@ public class NonLinearLeastSquareWithPenaltyTest {
   private static double[] TENORS = new double[] {1, 2, 3, 5, 7, 10, 15, 20 };
   private static int FREQ = 2;
   static int N_SWAPS = 8;
-  private static Function1D<Curve<Double, Double>, DoubleMatrix1D> swapRateFunction;
+  private static Function1D<DoublesCurve, DoubleMatrix1D> swapRateFunction;
 
   // pSpline parameters
   private static int N_KNOTS = 20;
@@ -57,10 +57,10 @@ public class NonLinearLeastSquareWithPenaltyTest {
     PENALTY_MAT = (DoubleMatrix2D) MA.scale(PenaltyMatrixGenerator.getPenaltyMatrix(nWeights, DIFFERENCE_ORDER), LAMBDA);
 
     // map from curve to swap rates
-    swapRateFunction = new Function1D<Curve<Double, Double>, DoubleMatrix1D>() {
+    swapRateFunction = new Function1D<DoublesCurve, DoubleMatrix1D>() {
       @SuppressWarnings("synthetic-access")
       @Override
-      public DoubleMatrix1D evaluate(Curve<Double, Double> curve) {
+      public DoubleMatrix1D evaluate(DoublesCurve curve) {
         double[] res = new double[N_SWAPS];
         double sum = 0.0;
 

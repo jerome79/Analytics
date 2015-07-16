@@ -21,7 +21,7 @@ import com.opengamma.analytics.financial.model.finitedifference.ThetaMethodFinit
 import com.opengamma.analytics.financial.model.interestrate.curve.ForwardCurve;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.formula.EuropeanVanillaOption;
 import com.opengamma.analytics.financial.model.volatility.local.LocalVolatilitySurfaceStrike;
-import com.opengamma.analytics.math.curve.Curve;
+import com.opengamma.analytics.math.curve.DoublesCurve;
 import com.opengamma.analytics.math.function.Function;
 import com.opengamma.analytics.math.function.Function1D;
 import com.opengamma.analytics.math.surface.FunctionalDoublesSurface;
@@ -116,7 +116,7 @@ public class LocalVolatilityBackwardsPDEPricer {
    * @param timeNodes Number of time nodes
    * @return The option price
    */
-  public double price(final ForwardCurve fwd, final Curve<Double, Double> riskFreeRate, final EuropeanVanillaOption option, final LocalVolatilitySurfaceStrike localVol, final boolean isAmerican,
+  public double price(final ForwardCurve fwd, final DoublesCurve riskFreeRate, final EuropeanVanillaOption option, final LocalVolatilitySurfaceStrike localVol, final boolean isAmerican,
       final int spaceNodes, final int timeNodes) {
 
     final double t = option.getTimeToExpiry();
@@ -176,7 +176,7 @@ public class LocalVolatilityBackwardsPDEPricer {
    * @param sd The number of standard deviations from s0 to place the boundaries. Values between 3 and 6 are recommended.
    * @return The option price
    */
-  public double price(final ForwardCurve fwd, final Curve<Double, Double> riskFreeRate, final EuropeanVanillaOption option, final LocalVolatilitySurfaceStrike localVol, final boolean isAmerican,
+  public double price(final ForwardCurve fwd, final DoublesCurve riskFreeRate, final EuropeanVanillaOption option, final LocalVolatilitySurfaceStrike localVol, final boolean isAmerican,
       final int spaceNodes, final int timeNodes, final double beta, final double lambda, final double sd) {
 
     final double t = option.getTimeToExpiry();
@@ -235,7 +235,7 @@ public class LocalVolatilityBackwardsPDEPricer {
    * @param theta the theta to use on different grids
    * @return The option price
    */
-  public double price(final ForwardCurve fwd, final Curve<Double, Double> riskFreeRate, final EuropeanVanillaOption option, final LocalVolatilitySurfaceStrike localVol, final boolean isAmerican,
+  public double price(final ForwardCurve fwd, final DoublesCurve riskFreeRate, final EuropeanVanillaOption option, final LocalVolatilitySurfaceStrike localVol, final boolean isAmerican,
       final PDEGrid1D[] grid, final double[] theta) {
 
     final int n = grid.length;
@@ -243,7 +243,7 @@ public class LocalVolatilityBackwardsPDEPricer {
     final double t = option.getTimeToExpiry();
     final double k = option.getStrike();
     final double s0 = fwd.getSpot();
-    final Curve<Double, Double> costOfCarry = fwd.getDriftCurve();
+    final DoublesCurve costOfCarry = fwd.getDriftCurve();
 
     // TODO allow change in grid size and remapping (via spline?) of nodes
     // ensure the grids are consistent
