@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.financial.future;
 
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFuture;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFuture;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexDividendFuture;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
@@ -26,16 +23,6 @@ public final class SettlementTimeCalculator extends InstrumentDerivativeVisitorA
   }
 
   @Override
-  public Double visitAgricultureFuture(final AgricultureFuture future) {
-    return future.getExpiry();
-  }
-
-  @Override
-  public Double visitEnergyFuture(final EnergyFuture future) {
-    return future.getExpiry();
-  }
-
-  @Override
   public Double visitEquityFuture(final EquityFuture future) {
     return future.getTimeToSettlement();
   }
@@ -45,8 +32,4 @@ public final class SettlementTimeCalculator extends InstrumentDerivativeVisitorA
     return future.getTimeToSettlement();
   }
 
-  @Override
-  public Double visitMetalFuture(final MetalFuture future) {
-    return future.getExpiry();
-  }
 }

@@ -18,16 +18,7 @@ import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
 import com.opengamma.analytics.financial.ExerciseDecisionType;
-import com.opengamma.analytics.financial.commodity.definition.AgricultureForwardDefinition;
-import com.opengamma.analytics.financial.commodity.definition.AgricultureFutureDefinition;
-import com.opengamma.analytics.financial.commodity.definition.AgricultureFutureOptionDefinition;
-import com.opengamma.analytics.financial.commodity.definition.EnergyForwardDefinition;
-import com.opengamma.analytics.financial.commodity.definition.EnergyFutureDefinition;
-import com.opengamma.analytics.financial.commodity.definition.EnergyFutureOptionDefinition;
-import com.opengamma.analytics.financial.commodity.definition.MetalForwardDefinition;
-import com.opengamma.analytics.financial.commodity.definition.MetalFutureDefinition;
-import com.opengamma.analytics.financial.commodity.definition.MetalFutureOptionDefinition;
-import com.opengamma.analytics.financial.commodity.definition.SettlementType;
+import com.opengamma.analytics.financial.SettlementType;
 import com.opengamma.analytics.financial.equity.future.definition.EquityIndexDividendFutureDefinition;
 import com.opengamma.analytics.financial.equity.future.definition.IndexFutureDefinition;
 import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOptionDefinition;
@@ -211,20 +202,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
   public static final FederalFundsFutureSecurityDefinition FF_SECURITY = FederalFundsFutureSecurityDefinition.from(SETTLE_DATE, INDEX_ON, NOTIONAL, 0.25, "a", C);
   public static final FederalFundsFutureTransactionDefinition FF_TRANSACTION = new FederalFundsFutureTransactionDefinition(FF_SECURITY, 100, SETTLE_DATE, 0.97);
 
-  public static final AgricultureForwardDefinition AG_FWD = AgricultureForwardDefinition.withCashSettlement(SETTLE_DATE.plusYears(1), StandardId.of("a", "b"), 100, NOTIONAL, "tonnes", 76, CUR,
-      SETTLE_DATE);
-  public static final AgricultureFutureDefinition AG_FUTURE = AgricultureFutureDefinition.withPhysicalSettlement(SETTLE_DATE, StandardId.of("a", "b"), 100, SETTLE_DATE, SETTLE_DATE, NOTIONAL,
-      "tonnes", 100, CUR, SETTLE_DATE.minusYears(1));
-  public static final AgricultureFutureOptionDefinition AG_FUTURE_OPTION = new AgricultureFutureOptionDefinition(SETTLE_DATE, AG_FUTURE, 100, ExerciseDecisionType.AMERICAN, true);
-  public static final EnergyForwardDefinition ENERGY_FWD = EnergyForwardDefinition.withCashSettlement(SETTLE_DATE.plusYears(1), StandardId.of("a", "b"), 100, NOTIONAL, "watts", 76, CUR, SETTLE_DATE);
-  public static final EnergyFutureDefinition ENERGY_FUTURE = EnergyFutureDefinition.withPhysicalSettlement(SETTLE_DATE, StandardId.of("a", "b"), 100, SETTLE_DATE, SETTLE_DATE, NOTIONAL, "tonnes",
-      100, CUR, SETTLE_DATE.minusYears(1));
-  public static final EnergyFutureOptionDefinition ENERGY_FUTURE_OPTION = new EnergyFutureOptionDefinition(SETTLE_DATE, ENERGY_FUTURE, 100, ExerciseDecisionType.AMERICAN, true);
-  public static final MetalForwardDefinition METAL_FWD = MetalForwardDefinition.withCashSettlement(SETTLE_DATE.plusYears(1), StandardId.of("a", "b"), 100, NOTIONAL, "troy oz", 1776, CUR, SETTLE_DATE);
-  public static final MetalFutureDefinition METAL_FUTURE = MetalFutureDefinition.withPhysicalSettlement(SETTLE_DATE, StandardId.of("a", "b"), 100, SETTLE_DATE, SETTLE_DATE, NOTIONAL, "tonnes", 100,
-      CUR, SETTLE_DATE.minusYears(1));
-  public static final MetalFutureOptionDefinition METAL_FUTURE_OPTION = new MetalFutureOptionDefinition(SETTLE_DATE, METAL_FUTURE, 100, ExerciseDecisionType.AMERICAN, true);
-
   public static final IndexFutureDefinition INDEX_FUTURE = new IndexFutureDefinition(SETTLE_DATE, SETTLE_DATE, 100, CUR, 100, StandardId.of("a", "b"));
   public static final EquityIndexDividendFutureDefinition EQUITY_INDEX_DIVIDEND_FUTURE = new EquityIndexDividendFutureDefinition(SETTLE_DATE, SETTLE_DATE, 1200, CUR, 100);
   public static final EquityIndexOptionDefinition EQUITY_INDEX_OPTION = new EquityIndexOptionDefinition(true, 100, CUR, ExerciseDecisionType.AMERICAN, SETTLE_DATE, SETTLE_DATE.toLocalDate(), 25,
@@ -276,9 +253,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
   private static final Set<InstrumentDerivative> ALL_DERIVATIVES = Sets.newHashSet();
 
   static {
-    ALL_INSTRUMENTS.add(AG_FUTURE);
-    ALL_INSTRUMENTS.add(AG_FUTURE_OPTION);
-    ALL_INSTRUMENTS.add(AG_FWD);
     ALL_INSTRUMENTS.add(ANNUITY_FIXED);
     ALL_INSTRUMENTS.add(ANNUITY_IBOR);
     ALL_INSTRUMENTS.add(ANNUITY_COUPON_CMS);
@@ -312,9 +286,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_INSTRUMENTS.add(DEPOSIT_COUNTERPART);
     ALL_INSTRUMENTS.add(DEPOSIT_IBOR);
     ALL_INSTRUMENTS.add(DEPOSIT_ZERO);
-    ALL_INSTRUMENTS.add(ENERGY_FUTURE);
-    ALL_INSTRUMENTS.add(ENERGY_FUTURE_OPTION);
-    ALL_INSTRUMENTS.add(ENERGY_FWD);
     ALL_INSTRUMENTS.add(INDEX_FUTURE);
     ALL_INSTRUMENTS.add(EQUITY_INDEX_DIVIDEND_FUTURE);
     ALL_INSTRUMENTS.add(EQUITY_INDEX_FUTURE_OPTION);
@@ -341,9 +312,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_INSTRUMENTS.add(IR_FUT_OPT_PREMIUM_SEC_DEF);
     ALL_INSTRUMENTS.add(IR_FUT_OPT_PREMIUM_T_DEF);
     ALL_INSTRUMENTS.add(IR_FUT_SECURITY_DEFINITION);
-    ALL_INSTRUMENTS.add(METAL_FUTURE);
-    ALL_INSTRUMENTS.add(METAL_FUTURE_OPTION);
-    ALL_INSTRUMENTS.add(METAL_FWD);
     ALL_INSTRUMENTS.add(PAYMENT_FIXED);
     ALL_INSTRUMENTS.add(SWAP);
     ALL_INSTRUMENTS.add(SWAP_IBOR_IBOR);
@@ -366,9 +334,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
       date = date.plusDays(1);
     }
     final ZonedDateTimeDoubleTimeSeries ts = ImmutableZonedDateTimeDoubleTimeSeries.of(dates, data, ZoneOffset.UTC);
-    ALL_DERIVATIVES.add(AG_FUTURE.toDerivative(AG_FUTURE.getSettlementDate()));
-    ALL_DERIVATIVES.add(AG_FUTURE_OPTION.toDerivative(AG_FUTURE_OPTION.getExpiryDate().minusDays(1)));
-    ALL_DERIVATIVES.add(AG_FWD.toDerivative(AG_FWD.getSettlementDate()));
     ALL_DERIVATIVES.add(ANNUITY_FIXED.toDerivative(ANNUITY_FIXED.getPayments()[0].getPaymentDate(), ts));
     ALL_DERIVATIVES.add(ANNUITY_IBOR.toDerivative(ANNUITY_IBOR.getPayments()[0].getFixingDate(), ts));
     ALL_DERIVATIVES.add(ANNUITY_COUPON_CMS.toDerivative(ANNUITY_COUPON_CMS.getPayments()[0].getFixingDate().minusDays(1), ts));
@@ -402,9 +367,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_DERIVATIVES.add(DEPOSIT_COUNTERPART.toDerivative(DEPOSIT_COUNTERPART.getStartDate()));
     ALL_DERIVATIVES.add(DEPOSIT_IBOR.toDerivative(DEPOSIT_IBOR.getStartDate()));
     ALL_DERIVATIVES.add(DEPOSIT_ZERO.toDerivative(DEPOSIT_ZERO.getStartDate()));
-    ALL_DERIVATIVES.add(ENERGY_FUTURE.toDerivative(ENERGY_FUTURE.getSettlementDate()));
-    ALL_DERIVATIVES.add(ENERGY_FUTURE_OPTION.toDerivative(ENERGY_FUTURE_OPTION.getExpiryDate().minusDays(1)));
-    ALL_DERIVATIVES.add(ENERGY_FWD.toDerivative(ENERGY_FWD.getSettlementDate()));
     ALL_DERIVATIVES.add(INDEX_FUTURE.toDerivative(SETTLE_DATE.plusDays(1)));
     ALL_DERIVATIVES.add(EQUITY_INDEX_DIVIDEND_FUTURE.toDerivative(SETTLE_DATE.plusDays(1)));
     ALL_DERIVATIVES.add(EQUITY_INDEX_OPTION.toDerivative(SETTLE_DATE.minusDays(100)));
@@ -431,9 +393,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_DERIVATIVES.add(IR_FUT_OPT_PREMIUM_SEC_DEF.toDerivative(IR_FUT_OPT_PREMIUM_SEC_DEF.getExpirationDate().minusDays(1)));
     ALL_DERIVATIVES.add(IR_FUT_OPT_PREMIUM_T_DEF.toDerivative(IR_FUT_OPT_PREMIUM_T_DEF.getUnderlyingOption().getExpirationDate().minusDays(1)));
     ALL_DERIVATIVES.add(IR_FUT_SECURITY_DEFINITION.toDerivative(IR_FUT_SECURITY_DEFINITION.getLastTradingDate().minusDays(1)));
-    ALL_DERIVATIVES.add(METAL_FUTURE.toDerivative(METAL_FUTURE.getSettlementDate()));
-    ALL_DERIVATIVES.add(METAL_FUTURE_OPTION.toDerivative(METAL_FUTURE_OPTION.getExpiryDate().minusDays(1)));
-    ALL_DERIVATIVES.add(METAL_FWD.toDerivative(METAL_FWD.getSettlementDate()));
     ALL_DERIVATIVES.add(PAYMENT_FIXED.toDerivative(PAYMENT_FIXED.getPaymentDate().minusDays(1)));
     ALL_DERIVATIVES.add(SWAP.toDerivative(SWAP.getSecondLeg().getPayments()[0].getPaymentDate(), new ZonedDateTimeDoubleTimeSeries[] {ts, ts }));
     ALL_DERIVATIVES.add(SWAP_IBOR_IBOR.toDerivative(SWAP_IBOR_IBOR.getFirstLeg().getPayments()[0].getPaymentDate(), new ZonedDateTimeDoubleTimeSeries[] {ts, ts }));

@@ -5,25 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureForward;
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFuture;
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFutureOption;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyForward;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFuture;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFutureOption;
-import com.opengamma.analytics.financial.commodity.derivative.MetalForward;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFuture;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFutureOption;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.AgricultureFutureSecurity;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.AgricultureFutureTransaction;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodityCashSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodityPhysicalSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.EnergyFutureSecurity;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.EnergyFutureTransaction;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.ForwardCommodityCashSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.ForwardCommodityPhysicalSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.MetalFutureSecurity;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.MetalFutureTransaction;
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.equity.future.derivative.CashSettledFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
@@ -630,84 +611,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
   RESULT_TYPE visitForexOptionDigital(ForexOptionDigital derivative, DATA_TYPE data);
 
   RESULT_TYPE visitForexOptionDigital(ForexOptionDigital derivative);
-
-  //  -----     Commodity      -----
-
-  RESULT_TYPE visitMetalForward(MetalForward future, DATA_TYPE data);
-
-  RESULT_TYPE visitMetalForward(MetalForward future);
-
-  RESULT_TYPE visitMetalFuture(MetalFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitMetalFuture(MetalFuture future);
-
-  RESULT_TYPE visitMetalFutureOption(MetalFutureOption future, DATA_TYPE data);
-
-  RESULT_TYPE visitMetalFutureOption(MetalFutureOption future);
-
-  RESULT_TYPE visitAgricultureForward(AgricultureForward future, DATA_TYPE data);
-
-  RESULT_TYPE visitAgricultureForward(AgricultureForward future);
-
-  RESULT_TYPE visitAgricultureFuture(AgricultureFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitAgricultureFuture(AgricultureFuture future);
-
-  RESULT_TYPE visitAgricultureFutureOption(AgricultureFutureOption future, DATA_TYPE data);
-
-  RESULT_TYPE visitAgricultureFutureOption(AgricultureFutureOption future);
-
-  RESULT_TYPE visitEnergyForward(EnergyForward future, DATA_TYPE data);
-
-  RESULT_TYPE visitEnergyForward(EnergyForward future);
-
-  RESULT_TYPE visitEnergyFuture(EnergyFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitEnergyFuture(EnergyFuture future);
-
-  RESULT_TYPE visitEnergyFutureOption(EnergyFutureOption future, DATA_TYPE data);
-
-  RESULT_TYPE visitEnergyFutureOption(EnergyFutureOption future);
-
-  RESULT_TYPE visitMetalFutureSecurity(MetalFutureSecurity future, DATA_TYPE data);
-
-  RESULT_TYPE visitMetalFutureSecurity(MetalFutureSecurity future);
-
-  RESULT_TYPE visitEnergyFutureSecurity(EnergyFutureSecurity future, DATA_TYPE data);
-
-  RESULT_TYPE visitEnergyFutureSecurity(EnergyFutureSecurity future);
-
-  RESULT_TYPE visitAgricultureFutureSecurity(AgricultureFutureSecurity future, DATA_TYPE data);
-
-  RESULT_TYPE visitAgricultureFutureSecurity(AgricultureFutureSecurity future);
-
-  RESULT_TYPE visitMetalFutureTransaction(MetalFutureTransaction future, DATA_TYPE data);
-
-  RESULT_TYPE visitMetalFutureTransaction(MetalFutureTransaction future);
-
-  RESULT_TYPE visitEnergyFutureTransaction(EnergyFutureTransaction future, DATA_TYPE data);
-
-  RESULT_TYPE visitEnergyFutureTransaction(EnergyFutureTransaction future);
-
-  RESULT_TYPE visitAgricultureFutureTransaction(AgricultureFutureTransaction future, DATA_TYPE data);
-
-  RESULT_TYPE visitAgricultureFutureTransaction(AgricultureFutureTransaction future);
-
-  RESULT_TYPE visitCouponCommodityCashSettle(CouponCommodityCashSettle coupon, DATA_TYPE data);
-
-  RESULT_TYPE visitCouponCommodityCashSettle(CouponCommodityCashSettle coupon);
-
-  RESULT_TYPE visitCouponCommodityPhysicalSettle(CouponCommodityPhysicalSettle coupon, DATA_TYPE data);
-
-  RESULT_TYPE visitCouponCommodityPhysicalSettle(CouponCommodityPhysicalSettle coupon);
-
-  RESULT_TYPE visitForwardCommodityCashSettle(ForwardCommodityCashSettle forward, DATA_TYPE data);
-
-  RESULT_TYPE visitForwardCommodityCashSettle(ForwardCommodityCashSettle forward);
-
-  RESULT_TYPE visitForwardCommodityPhysicalSettle(ForwardCommodityPhysicalSettle forward, DATA_TYPE data);
-
-  RESULT_TYPE visitForwardCommodityPhysicalSettle(ForwardCommodityPhysicalSettle forward);
 
   //  -----     Equity     -----
 

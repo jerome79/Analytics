@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.financial.future;
 
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFuture;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFuture;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.CashSettledFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexDividendFuture;
@@ -29,20 +26,6 @@ public abstract class MarkToMarketFuturesCalculator extends InstrumentDerivative
   }
 
   @Override
-  public Double visitAgricultureFuture(final AgricultureFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return Double.valueOf(getResult(dataBundle, future.getReferencePrice(), future.getUnitAmount(), future.getExpiry()));
-  }
-
-  @Override
-  public Double visitEnergyFuture(final EnergyFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return Double.valueOf(getResult(dataBundle, future.getReferencePrice(), future.getUnitAmount(), future.getExpiry()));
-  }
-
-  @Override
   public Double visitEquityFuture(final EquityFuture future, final SimpleFutureDataBundle dataBundle) {
     ArgChecker.notNull(future, "future");
     ArgChecker.notNull(dataBundle, "data bundle");
@@ -54,13 +37,6 @@ public abstract class MarkToMarketFuturesCalculator extends InstrumentDerivative
     ArgChecker.notNull(future, "future");
     ArgChecker.notNull(dataBundle, "data bundle");
     return Double.valueOf(getResult(dataBundle, future.getStrike(), future.getUnitAmount(), future.getTimeToSettlement()));
-  }
-
-  @Override
-  public Double visitMetalFuture(final MetalFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return Double.valueOf(getResult(dataBundle, future.getReferencePrice(), future.getUnitAmount(), future.getExpiry()));
   }
 
   @Override

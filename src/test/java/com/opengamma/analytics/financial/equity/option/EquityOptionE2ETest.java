@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 import com.opengamma.analytics.convention.businessday.BusinessDayDateUtils;
 import com.opengamma.analytics.financial.ExerciseDecisionType;
-import com.opengamma.analytics.financial.commodity.definition.SettlementType;
+import com.opengamma.analytics.financial.SettlementType;
 import com.opengamma.analytics.financial.datasets.CalendarUSD;
 import com.opengamma.analytics.financial.equity.StaticReplicationDataBundle;
 import com.opengamma.analytics.financial.equity.variance.pricing.AffineDividends;

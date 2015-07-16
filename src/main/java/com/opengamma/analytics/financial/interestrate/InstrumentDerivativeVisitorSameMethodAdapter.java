@@ -5,25 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureForward;
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFuture;
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFutureOption;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyForward;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFuture;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFutureOption;
-import com.opengamma.analytics.financial.commodity.derivative.MetalForward;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFuture;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFutureOption;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.AgricultureFutureSecurity;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.AgricultureFutureTransaction;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodityCashSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.CouponCommodityPhysicalSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.EnergyFutureSecurity;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.EnergyFutureTransaction;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.ForwardCommodityCashSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.ForwardCommodityPhysicalSettle;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.MetalFutureSecurity;
-import com.opengamma.analytics.financial.commodity.multicurvecommodity.derivative.MetalFutureTransaction;
 import com.opengamma.analytics.financial.equity.Equity;
 import com.opengamma.analytics.financial.equity.future.derivative.CashSettledFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
@@ -1093,86 +1074,6 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
   }
 
   @Override
-  public RESULT_TYPE visitMetalForward(final MetalForward future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalForward(final MetalForward future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFuture(final MetalFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFuture(final MetalFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFutureOption(final MetalFutureOption future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFutureOption(final MetalFutureOption future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureForward(final AgricultureForward future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureForward(final AgricultureForward future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFuture(final AgricultureFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFuture(final AgricultureFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFutureOption(final AgricultureFutureOption future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFutureOption(final AgricultureFutureOption future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyForward(final EnergyForward future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyForward(final EnergyForward future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFuture(final EnergyFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFuture(final EnergyFuture future) {
-    return visit(future);
-  }
-
-  @Override
   public RESULT_TYPE visitEquityFuture(final EquityFuture future, final DATA_TYPE data) {
     return visit(future, data);
   }
@@ -1220,16 +1121,6 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
   @Override
   public RESULT_TYPE visitEquityOption(final EquityOption option, final DATA_TYPE data) {
     return visit(option, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFutureOption(final EnergyFutureOption future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFutureOption(final EnergyFutureOption future) {
-    return visit(future);
   }
 
   @Override
@@ -1310,106 +1201,6 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
   @Override
   public RESULT_TYPE visitVolatilityIndexFuture(final VolatilityIndexFuture future) {
     return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFutureSecurity(final AgricultureFutureSecurity future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFutureSecurity(final AgricultureFutureSecurity future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFutureTransaction(final AgricultureFutureTransaction future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitAgricultureFutureTransaction(final AgricultureFutureTransaction future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFutureSecurity(final EnergyFutureSecurity future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFutureSecurity(final EnergyFutureSecurity future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFutureTransaction(final EnergyFutureTransaction future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEnergyFutureTransaction(final EnergyFutureTransaction future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFutureSecurity(final MetalFutureSecurity future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFutureSecurity(final MetalFutureSecurity future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFutureTransaction(final MetalFutureTransaction future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitMetalFutureTransaction(final MetalFutureTransaction future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitCouponCommodityCashSettle(final CouponCommodityCashSettle coupon, final DATA_TYPE data) {
-    return visit(coupon, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitCouponCommodityCashSettle(final CouponCommodityCashSettle coupon) {
-    return visit(coupon);
-  }
-
-  @Override
-  public RESULT_TYPE visitCouponCommodityPhysicalSettle(final CouponCommodityPhysicalSettle coupon, final DATA_TYPE data) {
-    return visit(coupon, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitCouponCommodityPhysicalSettle(final CouponCommodityPhysicalSettle coupon) {
-    return visit(coupon);
-  }
-
-  @Override
-  public RESULT_TYPE visitForwardCommodityCashSettle(final ForwardCommodityCashSettle forward, final DATA_TYPE data) {
-    return visit(forward, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitForwardCommodityCashSettle(final ForwardCommodityCashSettle forward) {
-    return visit(forward);
-  }
-
-  @Override
-  public RESULT_TYPE visitForwardCommodityPhysicalSettle(final ForwardCommodityPhysicalSettle forward, final DATA_TYPE data) {
-    return visit(forward, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitForwardCommodityPhysicalSettle(final ForwardCommodityPhysicalSettle forward) {
-    return visit(forward);
   }
 
   @Override

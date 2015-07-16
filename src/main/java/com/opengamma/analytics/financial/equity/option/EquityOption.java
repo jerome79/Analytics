@@ -8,7 +8,7 @@ package com.opengamma.analytics.financial.equity.option;
 import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
-import com.opengamma.analytics.financial.commodity.definition.SettlementType;
+import com.opengamma.analytics.financial.SettlementType;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivative;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitor;
 import com.opengamma.strata.basics.currency.Currency;

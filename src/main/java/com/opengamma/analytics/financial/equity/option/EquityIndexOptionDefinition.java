@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.opengamma.analytics.financial.ExerciseDecisionType;
-import com.opengamma.analytics.financial.commodity.definition.SettlementType;
+import com.opengamma.analytics.financial.SettlementType;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinition;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.util.time.TimeCalculator;

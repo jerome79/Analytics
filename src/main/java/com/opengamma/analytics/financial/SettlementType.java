@@ -3,10 +3,10 @@
  *
  * Please see distribution for license.
  */
-package com.opengamma.analytics.financial.commodity.definition;
+package com.opengamma.analytics.financial;
 
 /**
- * Settlement types for {@code CommodityFutureDefinition}
+ * Settlement types - cash or physical.
  */
 public enum SettlementType {
   /**

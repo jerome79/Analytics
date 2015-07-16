@@ -27,7 +27,7 @@ public class EquityIndexFutureDefinition extends IndexFutureDefinition {
    * @param strikePrice reference price
    * @param currency currency
    * @param unitAmount  size of a unit
-   * @param underlying  identifier of the underlying commodity
+   * @param underlying  identifier of the underlying
    */
   public EquityIndexFutureDefinition(final ZonedDateTime expiryDate, final ZonedDateTime settlementDate, final double strikePrice,
       final Currency currency, final double unitAmount, final StandardId underlying) {

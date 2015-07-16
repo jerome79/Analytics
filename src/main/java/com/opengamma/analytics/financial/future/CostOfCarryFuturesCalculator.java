@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.financial.future;
 
-import com.opengamma.analytics.financial.commodity.derivative.AgricultureFuture;
-import com.opengamma.analytics.financial.commodity.derivative.EnergyFuture;
-import com.opengamma.analytics.financial.commodity.derivative.MetalFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
 import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexDividendFuture;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
@@ -23,20 +20,6 @@ public abstract class CostOfCarryFuturesCalculator extends InstrumentDerivativeV
   }
 
   @Override
-  public Double visitAgricultureFuture(final AgricultureFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return getResult(dataBundle, future.getReferencePrice(), future.getUnitAmount(), future.getExpiry());
-  }
-
-  @Override
-  public Double visitEnergyFuture(final EnergyFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return getResult(dataBundle, future.getReferencePrice(), future.getUnitAmount(), future.getExpiry());
-  }
-
-  @Override
   public Double visitEquityFuture(final EquityFuture future, final SimpleFutureDataBundle dataBundle) {
     ArgChecker.notNull(future, "future");
     ArgChecker.notNull(dataBundle, "data bundle");
@@ -48,13 +31,6 @@ public abstract class CostOfCarryFuturesCalculator extends InstrumentDerivativeV
     ArgChecker.notNull(future, "future");
     ArgChecker.notNull(dataBundle, "data bundle");
     return getResult(dataBundle, future.getStrike(), future.getUnitAmount(), future.getTimeToSettlement());
-  }
-
-  @Override
-  public Double visitMetalFuture(final MetalFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return getResult(dataBundle, future.getReferencePrice(), future.getUnitAmount(), future.getExpiry());
   }
 
   abstract double getResult(SimpleFutureDataBundle dataBundle, double strike, double unitAmount, double t);

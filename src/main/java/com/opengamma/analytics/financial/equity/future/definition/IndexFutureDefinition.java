@@ -8,7 +8,7 @@ package com.opengamma.analytics.financial.equity.future.definition;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-import com.opengamma.analytics.financial.commodity.definition.SettlementType;
+import com.opengamma.analytics.financial.SettlementType;
 import com.opengamma.analytics.financial.equity.future.derivative.IndexFuture;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionVisitor;
 import com.opengamma.analytics.financial.instrument.InstrumentDefinitionWithData;
@@ -25,7 +25,7 @@ public class IndexFutureDefinition implements InstrumentDefinitionWithData<Index
   private final ZonedDateTime _expiryDate;
   /** Date on which payment is made */
   private final ZonedDateTime _settlementDate;
-  /** Identifier of the underlying commodity */
+  /** Identifier of the underlying */
   private final StandardId _underlying;
   /** reference price. Typically the price at which the trade was last margined */
   private final double _referencePrice;
