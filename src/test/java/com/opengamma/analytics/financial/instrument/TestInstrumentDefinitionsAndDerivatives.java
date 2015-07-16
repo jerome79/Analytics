@@ -17,14 +17,6 @@ import org.testng.collections.Sets;
 import com.opengamma.analytics.convention.daycount.DayCount;
 import com.opengamma.analytics.convention.daycount.DayCounts;
 import com.opengamma.analytics.convention.yield.SimpleYieldConvention;
-import com.opengamma.analytics.financial.ExerciseDecisionType;
-import com.opengamma.analytics.financial.SettlementType;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexDividendFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.IndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityOptionDefinition;
-import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwapDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableForwardDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableOptionDefinition;
@@ -110,7 +102,6 @@ import com.opengamma.strata.basics.date.BusinessDayConvention;
 import com.opengamma.strata.basics.date.BusinessDayConventions;
 import com.opengamma.strata.basics.date.HolidayCalendar;
 import com.opengamma.strata.basics.date.HolidayCalendars;
-import com.opengamma.strata.collect.id.StandardId;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 
 /**
@@ -202,14 +193,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
   public static final FederalFundsFutureSecurityDefinition FF_SECURITY = FederalFundsFutureSecurityDefinition.from(SETTLE_DATE, INDEX_ON, NOTIONAL, 0.25, "a", C);
   public static final FederalFundsFutureTransactionDefinition FF_TRANSACTION = new FederalFundsFutureTransactionDefinition(FF_SECURITY, 100, SETTLE_DATE, 0.97);
 
-  public static final IndexFutureDefinition INDEX_FUTURE = new IndexFutureDefinition(SETTLE_DATE, SETTLE_DATE, 100, CUR, 100, StandardId.of("a", "b"));
-  public static final EquityIndexDividendFutureDefinition EQUITY_INDEX_DIVIDEND_FUTURE = new EquityIndexDividendFutureDefinition(SETTLE_DATE, SETTLE_DATE, 1200, CUR, 100);
-  public static final EquityIndexOptionDefinition EQUITY_INDEX_OPTION = new EquityIndexOptionDefinition(true, 100, CUR, ExerciseDecisionType.AMERICAN, SETTLE_DATE, SETTLE_DATE.toLocalDate(), 25,
-      SettlementType.CASH);
-  public static final EquityOptionDefinition EQUITY_OPTION = new EquityOptionDefinition(false, 34, CUR, ExerciseDecisionType.EUROPEAN, SETTLE_DATE, SETTLE_DATE.toLocalDate(), 25,
-      SettlementType.PHYSICAL);
-  public static final EquityIndexFutureOptionDefinition EQUITY_INDEX_FUTURE_OPTION = new EquityIndexFutureOptionDefinition(SETTLE_DATE, INDEX_FUTURE, 100, ExerciseDecisionType.EUROPEAN, true, 100, 0);
-
   public static final InterestRateFutureSecurityDefinition IR_FUT_SECURITY_DEFINITION = FutureInstrumentsDescriptionDataSet.createInterestRateFutureSecurityDefinition();
   public static final InterestRateFutureOptionMarginSecurityDefinition IR_FUT_OPT_MARGIN_SEC_DEF = FutureInstrumentsDescriptionDataSet.createInterestRateFutureOptionMarginSecurityDefinition();
   public static final InterestRateFutureOptionMarginTransactionDefinition IR_FUT_OPT_MARGIN_T_DEF = FutureInstrumentsDescriptionDataSet.createInterestRateFutureOptionMarginTransactionDefinition();
@@ -247,8 +230,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
 
   public static final VarianceSwapDefinition VARIANCE_SWAP = VarianceSwapDefinition
       .fromVarianceParams(SETTLE_DATE, SETTLE_DATE.plusYears(1), SETTLE_DATE, CUR, C, 1, 0.03, 1000);
-  public static final EquityVarianceSwapDefinition EQUITY_VARIANCE_SWAP = EquityVarianceSwapDefinition.fromVarianceParams(SETTLE_DATE, SETTLE_DATE.plusYears(1), SETTLE_DATE,
-      CUR, C, 1, 0.03, 1000, true);
   private static final Set<InstrumentDefinition<?>> ALL_INSTRUMENTS = Sets.newHashSet();
   private static final Set<InstrumentDerivative> ALL_DERIVATIVES = Sets.newHashSet();
 
@@ -286,12 +267,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_INSTRUMENTS.add(DEPOSIT_COUNTERPART);
     ALL_INSTRUMENTS.add(DEPOSIT_IBOR);
     ALL_INSTRUMENTS.add(DEPOSIT_ZERO);
-    ALL_INSTRUMENTS.add(INDEX_FUTURE);
-    ALL_INSTRUMENTS.add(EQUITY_INDEX_DIVIDEND_FUTURE);
-    ALL_INSTRUMENTS.add(EQUITY_INDEX_FUTURE_OPTION);
-    ALL_INSTRUMENTS.add(EQUITY_INDEX_OPTION);
-    ALL_INSTRUMENTS.add(EQUITY_OPTION);
-    ALL_INSTRUMENTS.add(EQUITY_VARIANCE_SWAP);
     ALL_INSTRUMENTS.add(FF_SECURITY);
     ALL_INSTRUMENTS.add(FF_TRANSACTION);
     ALL_INSTRUMENTS.add(FRA);
@@ -367,12 +342,6 @@ public class TestInstrumentDefinitionsAndDerivatives {
     ALL_DERIVATIVES.add(DEPOSIT_COUNTERPART.toDerivative(DEPOSIT_COUNTERPART.getStartDate()));
     ALL_DERIVATIVES.add(DEPOSIT_IBOR.toDerivative(DEPOSIT_IBOR.getStartDate()));
     ALL_DERIVATIVES.add(DEPOSIT_ZERO.toDerivative(DEPOSIT_ZERO.getStartDate()));
-    ALL_DERIVATIVES.add(INDEX_FUTURE.toDerivative(SETTLE_DATE.plusDays(1)));
-    ALL_DERIVATIVES.add(EQUITY_INDEX_DIVIDEND_FUTURE.toDerivative(SETTLE_DATE.plusDays(1)));
-    ALL_DERIVATIVES.add(EQUITY_INDEX_OPTION.toDerivative(SETTLE_DATE.minusDays(100)));
-    ALL_DERIVATIVES.add(EQUITY_INDEX_FUTURE_OPTION.toDerivative(SETTLE_DATE.minusDays(100)));
-    ALL_DERIVATIVES.add(EQUITY_OPTION.toDerivative(SETTLE_DATE.minusDays(100)));
-    ALL_DERIVATIVES.add(EQUITY_VARIANCE_SWAP.toDerivative(SETTLE_DATE.minusDays(100), LocalDateDoubleTimeSeries.empty()));
     ALL_DERIVATIVES.add(FF_SECURITY.toDerivative(FF_SECURITY.getFixingPeriodDate()[0]));
     ALL_DERIVATIVES.add(FF_TRANSACTION.toDerivative(FF_TRANSACTION.getTradeDate(), new DoubleTimeSeries[] {ts, ts }));
     ALL_DERIVATIVES.add(FRA.toDerivative(FRA.getAccrualStartDate(), ts));

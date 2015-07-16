@@ -5,18 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import com.opengamma.analytics.financial.equity.Equity;
-import com.opengamma.analytics.financial.equity.future.derivative.CashSettledFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexDividendFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.IndexFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.VolatilityIndexFuture;
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOption;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOption;
-import com.opengamma.analytics.financial.equity.option.EquityOption;
-import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwap;
-import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwap;
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableForward;
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableOption;
@@ -1074,72 +1062,12 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
   }
 
   @Override
-  public RESULT_TYPE visitEquityFuture(final EquityFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityFuture(final EquityFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexDividendFuture(final EquityIndexDividendFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexDividendFuture(final EquityIndexDividendFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexOption(final EquityIndexOption option) {
-    return visit(option);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexOption(final EquityIndexOption option, final DATA_TYPE data) {
-    return visit(option, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFutureOption(final EquityIndexFutureOption option) {
-    return visit(option);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFutureOption(final EquityIndexFutureOption option, final DATA_TYPE data) {
-    return visit(option, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityOption(final EquityOption option) {
-    return visit(option);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityOption(final EquityOption option, final DATA_TYPE data) {
-    return visit(option, data);
-  }
-
-  @Override
   public RESULT_TYPE visitVarianceSwap(final VarianceSwap varianceSwap) {
     return visit(varianceSwap);
   }
 
   @Override
   public RESULT_TYPE visitVarianceSwap(final VarianceSwap varianceSwap, final DATA_TYPE data) {
-    return visit(varianceSwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityVarianceSwap(final EquityVarianceSwap varianceSwap) {
-    return visit(varianceSwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityVarianceSwap(final EquityVarianceSwap varianceSwap, final DATA_TYPE data) {
     return visit(varianceSwap, data);
   }
 
@@ -1161,46 +1089,6 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
   @Override
   public RESULT_TYPE visitFXVolatilitySwap(final FXVolatilitySwap volatilitySwap, final DATA_TYPE data) {
     return visit(volatilitySwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitCashSettledFuture(final CashSettledFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitCashSettledFuture(final CashSettledFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitIndexFuture(final IndexFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitIndexFuture(final IndexFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFuture(final EquityIndexFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFuture(final EquityIndexFuture future) {
-    return visit(future);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilityIndexFuture(final VolatilityIndexFuture future, final DATA_TYPE data) {
-    return visit(future, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilityIndexFuture(final VolatilityIndexFuture future) {
-    return visit(future);
   }
 
   @Override
@@ -1233,23 +1121,4 @@ public abstract class InstrumentDerivativeVisitorSameMethodAdapter<DATA_TYPE, RE
     return visit(totalReturnSwap, data);
   }
 
-  @Override
-  public RESULT_TYPE visitEquityTotalReturnSwap(final EquityTotalReturnSwap totalReturnSwap) {
-    return visit(totalReturnSwap);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityTotalReturnSwap(final EquityTotalReturnSwap totalReturnSwap, final DATA_TYPE data) {
-    return visit(totalReturnSwap, data);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquity(final Equity equity) {
-    return visit(equity);
-  }
-
-  @Override
-  public RESULT_TYPE visitEquity(final Equity equity, final DATA_TYPE data) {
-    return visit(equity, data);
-  }
 }

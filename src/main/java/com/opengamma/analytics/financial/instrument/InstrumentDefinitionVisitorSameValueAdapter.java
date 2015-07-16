@@ -5,17 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument;
 
-import com.opengamma.analytics.financial.equity.EquityDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexDividendFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.IndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.VolatilityIndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityOptionDefinition;
-import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwapDefinition;
-import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwapDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableForwardDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableOptionDefinition;
@@ -1090,72 +1079,12 @@ public class InstrumentDefinitionVisitorSameValueAdapter<DATA_TYPE, RESULT_TYPE>
   }
 
   @Override
-  public RESULT_TYPE visitEquityFutureDefinition(final EquityFutureDefinition future, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityFutureDefinition(final EquityFutureDefinition future) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexDividendFutureDefinition(final EquityIndexDividendFutureDefinition future, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexDividendFutureDefinition(final EquityIndexDividendFutureDefinition future) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexOptionDefinition(final EquityIndexOptionDefinition option, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexOptionDefinition(final EquityIndexOptionDefinition option) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFutureOptionDefinition(final EquityIndexFutureOptionDefinition option, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFutureOptionDefinition(final EquityIndexFutureOptionDefinition option) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityOptionDefinition(final EquityOptionDefinition option, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityOptionDefinition(final EquityOptionDefinition option) {
-    return _value;
-  }
-
-  @Override
   public RESULT_TYPE visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap) {
     return _value;
   }
 
   @Override
   public RESULT_TYPE visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityVarianceSwapDefinition(final EquityVarianceSwapDefinition varianceSwap) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityVarianceSwapDefinition(final EquityVarianceSwapDefinition varianceSwap, final DATA_TYPE data) {
     return _value;
   }
 
@@ -1206,56 +1135,6 @@ public class InstrumentDefinitionVisitorSameValueAdapter<DATA_TYPE, RESULT_TYPE>
 
   @Override
   public RESULT_TYPE visitBillTotalReturnSwapDefinition(final BillTotalReturnSwapDefinition totalReturnSwap, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityTotalReturnSwapDefinition(final EquityTotalReturnSwapDefinition totalReturnSwap) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityTotalReturnSwapDefinition(final EquityTotalReturnSwapDefinition totalReturnSwap, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityDefinition(final EquityDefinition equity) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityDefinition(final EquityDefinition equity, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitIndexFutureDefinition(final IndexFutureDefinition future, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitIndexFutureDefinition(final IndexFutureDefinition future) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFutureDefinition(final EquityIndexFutureDefinition future, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitEquityIndexFutureDefinition(final EquityIndexFutureDefinition future) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilityIndexFutureDefinition(final VolatilityIndexFutureDefinition future, final DATA_TYPE data) {
-    return _value;
-  }
-
-  @Override
-  public RESULT_TYPE visitVolatilityIndexFutureDefinition(final VolatilityIndexFutureDefinition future) {
     return _value;
   }
 

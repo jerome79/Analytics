@@ -17,17 +17,6 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.financial.equity.EquityDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexDividendFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.IndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.VolatilityIndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityOptionDefinition;
-import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwapDefinition;
-import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwapDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableForwardDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableOptionDefinition;
@@ -903,72 +892,12 @@ public class InstrumentDefinitionVisitorTest {
     }
 
     @Override
-    public String visitEquityFutureDefinition(final EquityFutureDefinition future, final T data) {
-      return getValue(future, true);
-    }
-
-    @Override
-    public String visitEquityFutureDefinition(final EquityFutureDefinition future) {
-      return getValue(future, false);
-    }
-
-    @Override
-    public String visitEquityIndexDividendFutureDefinition(final EquityIndexDividendFutureDefinition future, final T data) {
-      return getValue(future, true);
-    }
-
-    @Override
-    public String visitEquityIndexDividendFutureDefinition(final EquityIndexDividendFutureDefinition future) {
-      return getValue(future, false);
-    }
-
-    @Override
-    public String visitEquityIndexOptionDefinition(final EquityIndexOptionDefinition option, final T data) {
-      return getValue(option, true);
-    }
-
-    @Override
-    public String visitEquityIndexOptionDefinition(final EquityIndexOptionDefinition option) {
-      return getValue(option, false);
-    }
-
-    @Override
-    public String visitEquityIndexFutureOptionDefinition(final EquityIndexFutureOptionDefinition option, final T data) {
-      return getValue(option, true);
-    }
-
-    @Override
-    public String visitEquityIndexFutureOptionDefinition(final EquityIndexFutureOptionDefinition option) {
-      return getValue(option, false);
-    }
-
-    @Override
-    public String visitEquityOptionDefinition(final EquityOptionDefinition option, final T data) {
-      return getValue(option, true);
-    }
-
-    @Override
-    public String visitEquityOptionDefinition(final EquityOptionDefinition option) {
-      return getValue(option, false);
-    }
-
-    @Override
     public String visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap) {
       return getValue(varianceSwap, false);
     }
 
     @Override
     public String visitVarianceSwapDefinition(final VarianceSwapDefinition varianceSwap, final T data) {
-      return getValue(varianceSwap, true);
-    }
-
-    @Override
-    public String visitEquityVarianceSwapDefinition(final EquityVarianceSwapDefinition varianceSwap) {
-      return getValue(varianceSwap, false);
-    }
-
-    @Override
-    public String visitEquityVarianceSwapDefinition(final EquityVarianceSwapDefinition varianceSwap, final T data) {
       return getValue(varianceSwap, true);
     }
 
@@ -1010,26 +939,6 @@ public class InstrumentDefinitionVisitorTest {
     @Override
     public String visitBondTotalReturnSwapDefinition(final BondTotalReturnSwapDefinition totalReturnSwap, final T data) {
       return getValue(totalReturnSwap, true);
-    }
-
-    @Override
-    public String visitEquityTotalReturnSwapDefinition(final EquityTotalReturnSwapDefinition totalReturnSwap) {
-      return getValue(totalReturnSwap, false);
-    }
-
-    @Override
-    public String visitEquityTotalReturnSwapDefinition(final EquityTotalReturnSwapDefinition totalReturnSwap, final T data) {
-      return getValue(totalReturnSwap, true);
-    }
-
-    @Override
-    public String visitEquityDefinition(final EquityDefinition equity) {
-      return getValue(equity, false);
-    }
-
-    @Override
-    public String visitEquityDefinition(final EquityDefinition equity, final T data) {
-      return getValue(equity, true);
     }
 
     @Override
@@ -1080,36 +989,6 @@ public class InstrumentDefinitionVisitorTest {
     @Override
     public String visitCouponFixedCompoundingDefinition(final CouponFixedCompoundingDefinition payment) {
       return getValue(payment, false);
-    }
-
-    @Override
-    public String visitIndexFutureDefinition(final IndexFutureDefinition future, final T data) {
-      return getValue(future, true);
-    }
-
-    @Override
-    public String visitIndexFutureDefinition(final IndexFutureDefinition future) {
-      return getValue(future, false);
-    }
-
-    @Override
-    public String visitEquityIndexFutureDefinition(final EquityIndexFutureDefinition future, final T data) {
-      return getValue(future, true);
-    }
-
-    @Override
-    public String visitEquityIndexFutureDefinition(final EquityIndexFutureDefinition future) {
-      return getValue(future, false);
-    }
-
-    @Override
-    public String visitVolatilityIndexFutureDefinition(final VolatilityIndexFutureDefinition future, final T data) {
-      return getValue(future, true);
-    }
-
-    @Override
-    public String visitVolatilityIndexFutureDefinition(final VolatilityIndexFutureDefinition future) {
-      return getValue(future, false);
     }
 
     @Override

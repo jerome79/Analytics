@@ -5,11 +5,8 @@
  */
 package com.opengamma.analytics.financial.future;
 
-import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexDividendFuture;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
 import com.opengamma.analytics.financial.simpleinstruments.pricing.SimpleFutureDataBundle;
-import com.opengamma.strata.collect.ArgChecker;
 
 /**
  * 
@@ -17,20 +14,6 @@ import com.opengamma.strata.collect.ArgChecker;
 public abstract class CostOfCarryFuturesCalculator extends InstrumentDerivativeVisitorAdapter<SimpleFutureDataBundle, Double> {
 
   /* package */CostOfCarryFuturesCalculator() {
-  }
-
-  @Override
-  public Double visitEquityFuture(final EquityFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return getResult(dataBundle, future.getStrike(), future.getUnitAmount(), future.getTimeToSettlement());
-  }
-
-  @Override
-  public Double visitEquityIndexDividendFuture(final EquityIndexDividendFuture future, final SimpleFutureDataBundle dataBundle) {
-    ArgChecker.notNull(future, "future");
-    ArgChecker.notNull(dataBundle, "data bundle");
-    return getResult(dataBundle, future.getStrike(), future.getUnitAmount(), future.getTimeToSettlement());
   }
 
   abstract double getResult(SimpleFutureDataBundle dataBundle, double strike, double unitAmount, double t);

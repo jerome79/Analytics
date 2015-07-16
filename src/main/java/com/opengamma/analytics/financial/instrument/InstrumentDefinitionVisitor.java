@@ -5,17 +5,6 @@
  */
 package com.opengamma.analytics.financial.instrument;
 
-import com.opengamma.analytics.financial.equity.EquityDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexDividendFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.EquityIndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.IndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.future.definition.VolatilityIndexFutureDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOptionDefinition;
-import com.opengamma.analytics.financial.equity.option.EquityOptionDefinition;
-import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwapDefinition;
-import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwapDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableForwardDefinition;
 import com.opengamma.analytics.financial.forex.definition.ForexNonDeliverableOptionDefinition;
@@ -1542,128 +1531,6 @@ public interface InstrumentDefinitionVisitor<DATA_TYPE, RESULT_TYPE> {
    */
   RESULT_TYPE visitForexOptionDigitalDefinition(ForexOptionDigitalDefinition fx);
 
-  // -----     Equity    -----
-
-  /**
-   * Equity future method that takes data.
-   * @param future An equity future
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityFutureDefinition(EquityFutureDefinition future, DATA_TYPE data);
-
-  /**
-   * Equity future method.
-   * @param future An equity future
-   * @return The result
-   */
-  RESULT_TYPE visitEquityFutureDefinition(EquityFutureDefinition future);
-
-  /**
-   * Index future method that takes data.
-   * @param future An index future
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitIndexFutureDefinition(IndexFutureDefinition future, DATA_TYPE data);
-
-  /**
-   * Index future method.
-   * @param future An index future
-   * @return The result
-   */
-  RESULT_TYPE visitIndexFutureDefinition(IndexFutureDefinition future);
-
-  /**
-   * Equity index future method that takes data.
-   * @param future An equity index future
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexFutureDefinition(EquityIndexFutureDefinition future, DATA_TYPE data);
-
-  /**
-   * Equity index future method.
-   * @param future An equity index future
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexFutureDefinition(EquityIndexFutureDefinition future);
-
-  /**
-   * Equity index dividend future method that takes data.
-   * @param future An equity index dividend future
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexDividendFutureDefinition(EquityIndexDividendFutureDefinition future, DATA_TYPE data);
-
-  /**
-   * Equity index dividend future method.
-   * @param future An equity index dividend future
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexDividendFutureDefinition(EquityIndexDividendFutureDefinition future);
-
-  /**
-   * Volatility index future method that takes data.
-   * @param future A volatility index future
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitVolatilityIndexFutureDefinition(VolatilityIndexFutureDefinition future, DATA_TYPE data);
-
-  /**
-   * Volatility index future method.
-   * @param future A volatility index future
-   * @return The result
-   */
-  RESULT_TYPE visitVolatilityIndexFutureDefinition(VolatilityIndexFutureDefinition future);
-
-  /**
-   * Equity index option method that takes data.
-   * @param option An equity index option
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexOptionDefinition(EquityIndexOptionDefinition option, DATA_TYPE data);
-
-  /**
-   * Equity index option method.
-   * @param option An equity index option
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexOptionDefinition(EquityIndexOptionDefinition option);
-
-  /**
-   * Equity option method that takes data.
-   * @param option An equity option
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityOptionDefinition(EquityOptionDefinition option, DATA_TYPE data);
-
-  /**
-   * Equity option method.
-   * @param option An equity option
-   * @return The result
-   */
-  RESULT_TYPE visitEquityOptionDefinition(EquityOptionDefinition option);
-
-  /**
-   * Equity index future option method that takes data.
-   * @param option An equity index future option
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexFutureOptionDefinition(EquityIndexFutureOptionDefinition option, DATA_TYPE data);
-
-  /**
-   * Equity index future option method.
-   * @param option An equity index future option
-   * @return The result
-   */
-  RESULT_TYPE visitEquityIndexFutureOptionDefinition(EquityIndexFutureOptionDefinition option);
-
   // -----     Variance and volatility swap      -----
 
   /**
@@ -1680,21 +1547,6 @@ public interface InstrumentDefinitionVisitor<DATA_TYPE, RESULT_TYPE> {
    * @return The result
    */
   RESULT_TYPE visitVarianceSwapDefinition(VarianceSwapDefinition varianceSwap, DATA_TYPE data);
-
-  /**
-   * Variance swap method.
-   * @param varianceSwap A variance swap
-   * @return The result
-   */
-  RESULT_TYPE visitEquityVarianceSwapDefinition(EquityVarianceSwapDefinition varianceSwap);
-
-  /**
-   * Variance swap method that takes data.
-   * @param varianceSwap A variance swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityVarianceSwapDefinition(EquityVarianceSwapDefinition varianceSwap, DATA_TYPE data);
 
   /**
    * Volatility swap method.
@@ -1771,33 +1623,4 @@ public interface InstrumentDefinitionVisitor<DATA_TYPE, RESULT_TYPE> {
    */
   RESULT_TYPE visitBillTotalReturnSwapDefinition(BillTotalReturnSwapDefinition totalReturnSwap, DATA_TYPE data);
 
-  /**
-   * The equity total return swap method.
-   * @param totalReturnSwap A equity total return swap
-   * @return The result
-   */
-  RESULT_TYPE visitEquityTotalReturnSwapDefinition(EquityTotalReturnSwapDefinition totalReturnSwap);
-
-  /**
-   * The equity total return swap method.
-   * @param totalReturnSwap A equity total return swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityTotalReturnSwapDefinition(EquityTotalReturnSwapDefinition totalReturnSwap, DATA_TYPE data);
-
-  /**
-   * The equity method.
-   * @param equity A equity
-   * @return The result
-   */
-  RESULT_TYPE visitEquityDefinition(EquityDefinition equity);
-
-  /**
-   * The equity method.
-   * @param equity An equity
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityDefinition(EquityDefinition equity, DATA_TYPE data);
 }

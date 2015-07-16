@@ -5,18 +5,6 @@
  */
 package com.opengamma.analytics.financial.interestrate;
 
-import com.opengamma.analytics.financial.equity.Equity;
-import com.opengamma.analytics.financial.equity.future.derivative.CashSettledFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexDividendFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.EquityIndexFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.IndexFuture;
-import com.opengamma.analytics.financial.equity.future.derivative.VolatilityIndexFuture;
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOption;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOption;
-import com.opengamma.analytics.financial.equity.option.EquityOption;
-import com.opengamma.analytics.financial.equity.trs.definition.EquityTotalReturnSwap;
-import com.opengamma.analytics.financial.equity.variance.EquityVarianceSwap;
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableForward;
 import com.opengamma.analytics.financial.forex.derivative.ForexNonDeliverableOption;
@@ -486,10 +474,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
 
   // -----     Futures   -----
 
-  RESULT_TYPE visitCashSettledFuture(CashSettledFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitCashSettledFuture(CashSettledFuture future);
-
   RESULT_TYPE visitBondFuture(BondFuture bondFuture, DATA_TYPE data);
 
   RESULT_TYPE visitBondFuture(BondFuture future);
@@ -612,40 +596,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
 
   RESULT_TYPE visitForexOptionDigital(ForexOptionDigital derivative);
 
-  //  -----     Equity     -----
-
-  RESULT_TYPE visitEquityFuture(EquityFuture future);
-
-  RESULT_TYPE visitEquityFuture(EquityFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitIndexFuture(IndexFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitIndexFuture(IndexFuture future);
-
-  RESULT_TYPE visitEquityIndexFuture(EquityIndexFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitEquityIndexFuture(EquityIndexFuture future);
-
-  RESULT_TYPE visitEquityIndexDividendFuture(EquityIndexDividendFuture future);
-
-  RESULT_TYPE visitEquityIndexDividendFuture(EquityIndexDividendFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitVolatilityIndexFuture(VolatilityIndexFuture future, DATA_TYPE data);
-
-  RESULT_TYPE visitVolatilityIndexFuture(VolatilityIndexFuture future);
-
-  RESULT_TYPE visitEquityIndexOption(EquityIndexOption option, DATA_TYPE data);
-
-  RESULT_TYPE visitEquityIndexOption(EquityIndexOption option);
-
-  RESULT_TYPE visitEquityOption(EquityOption option, DATA_TYPE data);
-
-  RESULT_TYPE visitEquityOption(EquityOption option);
-
-  RESULT_TYPE visitEquityIndexFutureOption(EquityIndexFutureOption option, DATA_TYPE data);
-
-  RESULT_TYPE visitEquityIndexFutureOption(EquityIndexFutureOption option);
-
   //  -----     Variance and volatility swaps     -----
 
   /**
@@ -662,21 +612,6 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
    * @return The result
    */
   RESULT_TYPE visitVarianceSwap(VarianceSwap varianceSwap, DATA_TYPE data);
-
-  /**
-   * Variance swap method.
-   * @param varianceSwap A variance swap
-   * @return The result
-   */
-  RESULT_TYPE visitEquityVarianceSwap(EquityVarianceSwap varianceSwap);
-
-  /**
-   * Variance swap method that takes data.
-   * @param varianceSwap A variance swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityVarianceSwap(EquityVarianceSwap varianceSwap, DATA_TYPE data);
 
   /**
    * Volatility swap method.
@@ -753,33 +688,4 @@ public interface InstrumentDerivativeVisitor<DATA_TYPE, RESULT_TYPE> {
    */
   RESULT_TYPE visitBillTotalReturnSwap(BillTotalReturnSwap totalReturnSwap, DATA_TYPE data);
 
-  /**
-   * The equity total return swap method.
-   * @param totalReturnSwap A equity total return swap
-   * @return The result
-   */
-  RESULT_TYPE visitEquityTotalReturnSwap(EquityTotalReturnSwap totalReturnSwap);
-
-  /**
-   * The equity total return swap method.
-   * @param totalReturnSwap A equity total return swap
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquityTotalReturnSwap(EquityTotalReturnSwap totalReturnSwap, DATA_TYPE data);
-
-  /**
-   * The equity method.
-   * @param equity A equity
-   * @return The result
-   */
-  RESULT_TYPE visitEquity(Equity equity);
-
-  /**
-   * The equity method.
-   * @param equity An equity
-   * @param data The data
-   * @return The result
-   */
-  RESULT_TYPE visitEquity(Equity equity, DATA_TYPE data);
 }

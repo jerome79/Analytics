@@ -5,9 +5,6 @@
  */
 package com.opengamma.analytics.financial.provider.calculator.generic;
 
-import com.opengamma.analytics.financial.equity.option.EquityIndexFutureOption;
-import com.opengamma.analytics.financial.equity.option.EquityIndexOption;
-import com.opengamma.analytics.financial.equity.option.EquityOption;
 import com.opengamma.analytics.financial.forex.derivative.Forex;
 import com.opengamma.analytics.financial.forex.derivative.ForexSwap;
 import com.opengamma.analytics.financial.interestrate.InstrumentDerivativeVisitorAdapter;
@@ -305,21 +302,6 @@ public class LastTimeCalculator extends InstrumentDerivativeVisitorAdapter<Objec
   @Override
   public Double visitInterestRateFutureOptionPremiumTransaction(final InterestRateFutureOptionPremiumTransaction option) {
     return option.getUnderlyingSecurity().getExpirationTime();
-  }
-
-  @Override
-  public Double visitEquityIndexOption(final EquityIndexOption option) {
-    return option.getTimeToExpiry();
-  }
-
-  @Override
-  public Double visitEquityOption(final EquityOption option) {
-    return option.getTimeToExpiry();
-  }
-
-  @Override
-  public Double visitEquityIndexFutureOption(final EquityIndexFutureOption option) {
-    return option.getExpiry();
   }
 
   // -----     Inflation     -----
