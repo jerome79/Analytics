@@ -3,7 +3,7 @@
  *
  * Please see distribution for license.
  */
-package com.opengamma.analytics.tutorial.datasets;
+package com.opengamma.analytics.financial.provider.calculator.discounting;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
