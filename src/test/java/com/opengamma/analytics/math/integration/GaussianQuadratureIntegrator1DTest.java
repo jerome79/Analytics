@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2009 - 2009 by OpenGamma Inc.
- *
+ * Copyright (C) 2009 - present by OpenGamma Inc. and the OpenGamma group of companies
+ * 
  * Please see distribution for license.
  */
 package com.opengamma.analytics.math.integration;
@@ -9,7 +9,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import org.testng.annotations.Test;
 
-import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.math.function.Function1D;
 
 /**
@@ -132,46 +131,4 @@ public class GaussianQuadratureIntegrator1DTest {
     assertEquals(expected, res2, 1e-15);
   }
 
-  /**
-   * This test demonstrates why it is a bad idea to use quadrature methods for non-smooth functions 
-   */
-  @Test
-  public void testBlackFormula() {
-    final double fwd = 5;
-    final double strike = 6.5;
-    final double t = 1.5;
-    final double vol = 0.35;
-    final double expected = BlackFormulaRepository.price(fwd, strike, t, vol, true);
-
-    final Function1D<Double, Double> func = getBlackIntergrand(fwd, strike, t, vol);
-
-    final Function1D<Double, Double> fullIntergrand = new Function1D<Double, Double>() {
-      @Override
-      public Double evaluate(final Double x) {
-        return func.evaluate(x) * Math.exp(-x * x);
-      }
-    };
-
-    final RungeKuttaIntegrator1D rk = new RungeKuttaIntegrator1D(1e-15);
-    final double resRK = rk.integrate(fullIntergrand, 0., 10.); //The strike > fwd, so can start the integration at z=0 (i.e. s = fwd)
-    assertEquals("Runge Kutta", expected, resRK, 1e-15);
-
-    final GaussHermiteQuadratureIntegrator1D gh = new GaussHermiteQuadratureIntegrator1D(40);
-    final double resGH = gh.integrateFromPolyFunc(func);
-    assertEquals("Gauss Hermite", expected, resGH, 1e-2); //terrible accuracy even with 40 points 
-  }
-
-  private Function1D<Double, Double> getBlackIntergrand(final double fwd, final double k, final double t, final double vol) {
-    final double rootPI = Math.sqrt(Math.PI);
-    final double sigmaSqrTO2 = vol * vol * t / 2;
-    final double sigmaRoot2T = vol * Math.sqrt(2 * t);
-
-    return new Function1D<Double, Double>() {
-      @Override
-      public Double evaluate(final Double x) {
-        final double s = fwd * Math.exp(-sigmaSqrTO2 + sigmaRoot2T * x);
-        return Math.max(s - k, 0) / rootPI;
-      }
-    };
-  }
 }
