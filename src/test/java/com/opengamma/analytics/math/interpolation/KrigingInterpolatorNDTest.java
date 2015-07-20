@@ -8,13 +8,11 @@ package com.opengamma.analytics.math.interpolation;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
-import org.testng.annotations.Test;
-
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.random.engine.RandomEngine;
+import org.testng.annotations.Test;
 
-import com.opengamma.analytics.math.MathException;
 import com.opengamma.analytics.math.interpolation.data.InterpolatorNDDataBundle;
 
 /**

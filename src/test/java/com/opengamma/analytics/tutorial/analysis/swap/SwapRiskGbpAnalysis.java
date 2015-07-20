@@ -160,6 +160,7 @@ public class SwapRiskGbpAnalysis {
     }
   }
   private static final AnnuityCouponFixedDefinition FIXED_LEG_2_DEFINITION = new AnnuityCouponFixedDefinition(CPN_FIXED_2_DEFINITION, LON);
+  @SuppressWarnings("unchecked")
   private static final AnnuityDefinition<? extends CouponDefinition> IBOR_LEG_2_DEFINITION = (AnnuityDefinition<? extends CouponDefinition>)
       new FloatingAnnuityDefinitionBuilder().
           payer(!PAYER_2).notional(NOTIONAL_PROV_1).startDate(EFFECTIVE_DATE_2).endDate(MATURITY_DATE_2).
@@ -188,11 +189,6 @@ public class SwapRiskGbpAnalysis {
       RecentDataSetsMulticurveOisMeetingDatesGbp.getCurvesGbpOis(VALUATION_DATE);
   private static final MulticurveProviderDiscount MULTICURVE_BOE = MULTICURVE_BOE_PAIR.getFirst();
   private static final CurveBuildingBlockBundle BLOCK_BOE = MULTICURVE_BOE_PAIR.getSecond();
-
-  private static final Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> MULTICURVE_STD_BOE_PAIR =
-      RecentDataSetsMulticurveOisMeetingDatesGbp.getCurvesGbpOisWithStdInstruments(VALUATION_DATE);
-  private static final MulticurveProviderDiscount MULTICURVE_STD_BOE = MULTICURVE_BOE_PAIR.getFirst();
-  private static final CurveBuildingBlockBundle BLOCK_STD_BOE = MULTICURVE_BOE_PAIR.getSecond();
 
   private static final Annuity<?> FIXED_LEG_1 = FIXED_LEG_1_DEFINITION.toDerivative(VALUATION_DATE);
   private static final Annuity<?> ON_LEG_1 = ON_LEG_1_DEFINITION.toDerivative(VALUATION_DATE, TS_FIXED_SONIA_WITHOUT_TODAY);

@@ -60,6 +60,7 @@ public class NormalDataSets {
 
   /**
    * Returns the simple expiration/tenor normal volatility surface shifted by the given amount.
+   * @param shift  the shift
    * @return Volatility surface.
    */
   public static InterpolatedDoublesSurface normalSurfaceSwaptionExpiryTenor(double shift) {

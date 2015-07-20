@@ -42,6 +42,8 @@ public abstract class InterpolationQuantileMethod extends QuantileCalculationMet
   
   /**
    * Internal method returning the sample size correction for the specific implementation.
+   * 
+   * @param sampleSize  the sample size
    * @return The correction.
    */
   abstract int sampleCorrection(int sampleSize);

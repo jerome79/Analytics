@@ -51,7 +51,9 @@ public class HullWhiteDataSets {
    * Create constant discounting and forward curves.
    * @param dsc The discounting curve level.
    * @param fwd The forward curve level.
-   * @return
+   * @param ccy The currency.
+   * @param index The index.
+   * @return the data sets
    */
   public static MulticurveProviderDiscount curves1(final double dsc, final double fwd, final Currency ccy, final IborIndex index) {
     final MulticurveProviderDiscount curves = new MulticurveProviderDiscount();
