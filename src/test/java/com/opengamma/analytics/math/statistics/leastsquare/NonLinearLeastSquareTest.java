@@ -8,10 +8,9 @@ package com.opengamma.analytics.math.statistics.leastsquare;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
-import org.testng.annotations.Test;
-
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.MersenneTwister64;
+import org.testng.annotations.Test;
 
 import com.opengamma.analytics.math.FunctionUtils;
 import com.opengamma.analytics.math.function.Function1D;
@@ -23,8 +22,6 @@ import com.opengamma.analytics.math.matrix.DoubleMatrix2D;
 import com.opengamma.analytics.math.matrix.DoubleMatrixUtils;
 import com.opengamma.analytics.math.matrix.MatrixAlgebra;
 import com.opengamma.analytics.math.matrix.OGMatrixAlgebra;
-import com.opengamma.analytics.math.minimization.BrentMinimizer1D;
-import com.opengamma.analytics.math.minimization.ConjugateGradientVectorMinimizer;
 import com.opengamma.analytics.math.statistics.distribution.NormalDistribution;
 import com.opengamma.strata.collect.ArgChecker;
 
@@ -160,18 +157,6 @@ public class NonLinearLeastSquareTest {
     assertEquals(1.0, result.getFitParameters().getEntry(1), 1e-8);
     assertEquals(0.0, result.getFitParameters().getEntry(2), 1e-8);
     assertEquals(0.0, result.getFitParameters().getEntry(3), 1e-8);
-  }
-
-  public void solveExactFromChiSqTest() {
-    final DoubleMatrix1D start = new DoubleMatrix1D(new double[] {1.2, 0.8, -0.2, -0.3 });
-    final Function1D<DoubleMatrix1D, Double> f = getChiSqFunction(X, Y, SIGMA, PARAM_FUNCTION);
-    final ConjugateGradientVectorMinimizer minimizer = new ConjugateGradientVectorMinimizer(new BrentMinimizer1D());
-    final DoubleMatrix1D solution = minimizer.minimize(f, start);
-    assertEquals(0.0, f.evaluate(solution), 1e-8);
-    assertEquals(1.0, solution.getEntry(0), 1e-8);
-    assertEquals(1.0, solution.getEntry(1), 1e-8);
-    assertEquals(0.0, solution.getEntry(2), 1e-8);
-    assertEquals(0.0, solution.getEntry(3), 1e-8);
   }
 
   public void solveExactWithoutGradientTest() {
