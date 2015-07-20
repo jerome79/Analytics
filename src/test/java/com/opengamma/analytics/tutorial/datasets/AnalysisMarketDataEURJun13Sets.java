@@ -210,7 +210,7 @@ public class AnalysisMarketDataEURJun13Sets {
    * Create a provider with shifted curve (shift of one parameter/zero-coupon point)
    * @param shift The size of the shift.
    * @param nodeIndex The index of the node to shift.
-   * @return
+   * @return multicurve
    */
   public static MulticurveProviderDiscount getSinglecurveEURShiftParameterPoint(final double shift, final int nodeIndex) {
     Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> multicurvePair0 = CURVES_PAR_SPREAD_MQ_WITHOUT_TODAY_BLOCK.get(1);
@@ -255,7 +255,7 @@ public class AnalysisMarketDataEURJun13Sets {
    * @param shift The size of the shift.
    * @param nodeIndex The index of the node to shift.
    * @param dscShift Flag to indicate if the discounting curve (true) or the forward curve (false) should be shifted.
-   * @return
+   * @return the pair
    */
   public static Pair<MulticurveProviderDiscount, CurveBuildingBlockBundle> getCurvesEURShiftMarketPoint(final double shift,
       final int nodeIndex, final boolean dscShift) {
@@ -281,7 +281,7 @@ public class AnalysisMarketDataEURJun13Sets {
    * @param shift The size of the shift.
    * @param nodeIndex The index of the node to shift.
    * @param dscShift Flag to indicate if the discounting curve (true) or the forward curve (false) should be shifted.
-   * @return
+   * @return the pair
    */
   public static MulticurveProviderDiscount getMulticurvesEURShiftParameterPoint(final double shift,
       final int nodeIndex, final boolean dscShift) {

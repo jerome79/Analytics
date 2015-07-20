@@ -232,6 +232,7 @@ public class SwaptionUsdAnalysis {
     AnnuityCouponFixedDefinition fixegLeg =
         new AnnuityCouponFixedDefinition((CouponFixedDefinition[]) fixedGeneric.getPayments(), NYC);
     /** Ibor leg */
+    @SuppressWarnings("unchecked")
     AnnuityDefinition<? extends CouponDefinition> iborGeneric =
         (AnnuityDefinition<? extends CouponDefinition>)
         new FloatingAnnuityDefinitionBuilder().payer(!payer).notional(notionalProvider).startDate(effectiveDate).

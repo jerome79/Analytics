@@ -137,8 +137,7 @@ public class SwapGammaMultiCurveProfitJPYAnalysis {
   }
 
   private void exportMatrix(double[][] matrix, String fileName) {
-    try {
-      final FileWriter writer = new FileWriter(fileName);
+    try (FileWriter writer = new FileWriter(fileName)) {
       for (int loop1 = 0; loop1 < matrix.length; loop1++) {
         String line = "";
         for (int loop2 = 0; loop2 < matrix[loop1].length; loop2++) {
@@ -147,7 +146,6 @@ public class SwapGammaMultiCurveProfitJPYAnalysis {
         writer.append(line + "0 \n");
       }
       writer.flush();
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
     }
@@ -156,7 +154,7 @@ public class SwapGammaMultiCurveProfitJPYAnalysis {
   /**
    * Uses historical data to estimate the difference between intra-curve cross-gamma and full cross-gamma.
    * The result file is exported in the root directory of OG-Analytics.
-   * @throws IOException
+   * @throws IOException if an error occurs
    */
   @Test(enabled = false)
   public void crossGammaCompJpyHts() throws IOException {
@@ -236,14 +234,12 @@ public class SwapGammaMultiCurveProfitJPYAnalysis {
       }
     }
     String fileName = "swap-multicurve-delta-gamma-pl-" + TENOR_START.toString() + "x" + TENOR_SWAP.toString() + ".csv";
-    try {
-      final FileWriter writer = new FileWriter(fileName);
+    try (FileWriter writer = new FileWriter(fileName)) {
       for (int loopsc = 0; loopsc < nbScenarios; loopsc++) {
         String line = plFullR[loopsc] + "," + plDelta[loopsc] + "," + plGammaCross[loopsc] + "," + plGammaIntra[loopsc] + "," + plGammaCol[loopsc] + " \n";
         writer.append(line);
       }
       writer.flush();
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
     }

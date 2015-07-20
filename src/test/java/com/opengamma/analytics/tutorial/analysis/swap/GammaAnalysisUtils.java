@@ -27,8 +27,9 @@ public class GammaAnalysisUtils {
   /**
    * Parse a csv file to extract the curves shifts.
    * @param filename The name of the file (and its path).
+   * @param scaling  the scaling
    * @return The shifts as a double[][] : shift[i][j] is the i-th scenario and j-th node.
-   * @throws IOException
+   * @throws IOException if an error occurs
    */
   public static double[][] parseShifts(String filename, double scaling) throws IOException {
     ArgChecker.notNull(filename, "fine name");

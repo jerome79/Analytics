@@ -186,10 +186,8 @@ public abstract class VectorRootFinderTest {
     assertEquals(-1.0, x1.getData()[1], eps);
   }
 
-  /**
-   * Note: at the root (1,1) the Jacobian is singular which leads to very slow convergence and is why
-   * we switch to using SVD rather than the default LU
-   */
+  // Note: at the root (1,1) the Jacobian is singular which leads to very slow convergence and is why
+  // we switch to using SVD rather than the default LU
   protected void assertFunction2D(final NewtonVectorRootFinder rootFinder, final double eps) {
     final DoubleMatrix1D x0 = new DoubleMatrix1D(-0.0, 0.0);
     final DoubleMatrix1D x1 = rootFinder.getRoot(FUNCTION2D, JACOBIAN2D, x0);

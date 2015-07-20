@@ -249,8 +249,7 @@ public class MulticurveBuildingDiscountingSimpleWithoutDiscountTest {
     ZonedDateTime startDate = ScheduleCalculator.getAdjustedDate(NOW, USDLIBOR3M.getSpotLag() + startIndex * jump, NYC);
     final double[] rateDsc = new double[nbDate];
     final double[] startTime = new double[nbDate];
-    try {
-      final FileWriter writer = new FileWriter("fwd-dsc.csv");
+    try (FileWriter writer = new FileWriter("fwd-dsc.csv")) {
       for (int loopdate = 0; loopdate < nbDate; loopdate++) {
         startTime[loopdate] = TimeCalculator.getTimeBetween(NOW, startDate);
         final ZonedDateTime endDate = ScheduleCalculator.getAdjustedDate(startDate, USDLIBOR3M, NYC);
@@ -261,7 +260,6 @@ public class MulticurveBuildingDiscountingSimpleWithoutDiscountTest {
         writer.append(0.0 + "," + startTime[loopdate] + "," + rateDsc[loopdate] + "\n");
       }
       writer.flush();
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
     }

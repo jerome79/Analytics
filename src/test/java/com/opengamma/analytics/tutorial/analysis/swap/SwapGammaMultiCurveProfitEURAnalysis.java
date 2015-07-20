@@ -100,8 +100,7 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
 
   @Test(enabled = false)
   public void crossGammaZeroSingleExport() {
-    try {
-      final FileWriter writer = new FileWriter("swap-x-gamma-single.csv");
+    try (FileWriter writer = new FileWriter("swap-x-gamma-single.csv")) {
       for (int loopnodei = 0; loopnodei < NB_NODE_EUR; loopnodei++) {
         String line = "";
         for (int loopnode2 = 0; loopnode2 < NB_NODE_EUR; loopnode2++) {
@@ -110,7 +109,6 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
         writer.append(line + "0 \n");
       }
       writer.flush();
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
     }
@@ -190,8 +188,7 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
       }
     }
 
-    try {
-      final FileWriter writer = new FileWriter("swap-x-gamma-multicurve.csv");
+    try (FileWriter writer = new FileWriter("swap-x-gamma-multicurve.csv")) {
       for (int i = 0; i < 2; i++) {
         for (int loopnodei = 0; loopnodei < nbNode[i]; loopnodei++) {
           String line = "";
@@ -204,15 +201,13 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
         }
       }
       writer.flush();
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
     }
   }
 
   private void exportMatrix(double[][] matrix, String fileName) {
-    try {
-      final FileWriter writer = new FileWriter("swap-x-gamma-multicurve.csv");
+    try (FileWriter writer = new FileWriter("swap-x-gamma-multicurve.csv")) {
       for (int i = 0; i < 2; i++) {
         for (int loop1 = 0; loop1 < matrix.length; loop1++) {
           String line = "";
@@ -225,7 +220,6 @@ public class SwapGammaMultiCurveProfitEURAnalysis {
         }
       }
       writer.flush();
-      writer.close();
     } catch (final IOException e) {
       e.printStackTrace();
     }

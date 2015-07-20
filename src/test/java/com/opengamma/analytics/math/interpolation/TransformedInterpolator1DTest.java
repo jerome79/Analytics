@@ -27,7 +27,6 @@ public class TransformedInterpolator1DTest {
   private static final double[] X_DATA = new double[] {0, 0.4, 1.0, 1.5, 2.2, 4.8, 5.0 };
   private static final double[] Y_DATA = new double[] {.1, .95, .05, .05, .9, 0.2, 0.1 };
   private static final double[] YSTAR_DATA;
-  private static final Interpolator1DDataBundle DATA_BUNDLE;
   private static final Interpolator1DDataBundle TRANS_DATA_BUNDLE;
 
   static {
@@ -36,7 +35,6 @@ public class TransformedInterpolator1DTest {
     for (int i = 0; i < n; i++) {
       YSTAR_DATA[i] = TRANSFORM.transform(Y_DATA[i]);
     }
-    DATA_BUNDLE = INTERPOLATOR_BASE.getDataBundleFromSortedArrays(X_DATA, Y_DATA);
     TRANS_DATA_BUNDLE = INTERPOLATOR.getDataBundleFromSortedArrays(X_DATA, YSTAR_DATA);
   }
 

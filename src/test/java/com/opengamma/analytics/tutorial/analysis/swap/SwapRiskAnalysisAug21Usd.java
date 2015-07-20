@@ -43,6 +43,8 @@ public class SwapRiskAnalysisAug21Usd {
         yieldCurveValues = ((YieldCurve) yieldAndDiscountCurve).getCurve();
       } else if (yieldAndDiscountCurve instanceof DiscountCurve) {
         yieldCurveValues = ((DiscountCurve) yieldAndDiscountCurve).getCurve();
+      } else {
+        throw new IllegalArgumentException();
       }
       Double[] dateFractions = yieldCurveValues.getXData();
       Double[] zeroRates = yieldCurveValues.getYData();
