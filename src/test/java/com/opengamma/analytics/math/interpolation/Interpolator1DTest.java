@@ -30,9 +30,17 @@ public class Interpolator1DTest {
     final int dim = xValues.length;
     final int nData = xValues[0].length;
     final int nKeys = 11 * nData;
-    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(), new LinearInterpolator1D(),
-      new LogLinearInterpolator1D(), new NaturalCubicSplineInterpolator1D(), new PCHIPInterpolator1D(), new PCHIPYieldCurveInterpolator1D(),
-      new LogNaturalCubicMonotonicityPreservingInterpolator1D(), new StepInterpolator1D(), new StepUpperInterpolator1D(), new TimeSquareInterpolator1D() };
+    final Interpolator1D[] interp = new Interpolator1D[] {
+        new DoubleQuadraticInterpolator1D(),
+        new ExponentialInterpolator1D(),
+        new LinearInterpolator1D(),
+        new LogLinearInterpolator1D(),
+        new NaturalCubicSplineInterpolator1D(),
+        new PCHIPInterpolator1D(),
+        new LogNaturalCubicMonotonicityPreservingInterpolator1D(),
+        new StepInterpolator1D(),
+        new StepUpperInterpolator1D(),
+        new TimeSquareInterpolator1D()};
     final int nMethods = interp.length;
     for (int j = 0; j < dim; ++j) {
       for (int i = 0; i < nMethods; ++i) {
@@ -48,42 +56,6 @@ public class Interpolator1DTest {
         }
       }
     }
-
-    final double[][] xValues1 = new double[][] { {1., 2., 3., 4. }, {1., 2.1, 2.9, 4.1 } };
-    final double[][] yValues1 = new double[][] { {1., 5, 8., 15. }, {1., 5, 8., 15. } };
-    final int dim1 = 2;
-    final int nData1 = xValues1[0].length;
-    final int nKeys1 = 11 * nData1;
-
-    final Interpolator1D interp1 = new QuadraticSplineInterpolator1D();
-    for (int i = 0; i < dim1; ++i) {
-      final double xMin = xValues1[i][0];
-      final double xMax = xValues1[i][nData1 - 1];
-
-      for (int m = 0; m < nKeys1 - 1; ++m) {
-        final double xKey = xMin + (xMax - xMin) * (m + 1.) / nKeys1;
-        Interpolator1DDataBundle data = interp1.getDataBundleFromSortedArrays(xValues1[i], yValues1[i]);
-        assertEquals(interp1.firstDerivative(data, xKey), 0.5 * (interp1.interpolate(data, xKey + EPS) - interp1.interpolate(data, xKey - EPS)) / EPS, EPS);
-      }
-    }
-
-    final double[][] xValues2 = new double[][] { {1., 2., 3., 4. }, {1., 2.1, 2.9, 4.1 } };
-    final double[][] yValues2 = new double[][] { {1., 5, 8., 15. }, {1., 5, 8., 15. } };
-    final int dim2 = 2;
-    final int nData2 = xValues2[0].length;
-    final int nKeys2 = 11 * nData2;
-
-    final Interpolator1D interp2 = new MonotonicIncreasingInterpolator1D();
-    for (int i = 0; i < dim2; ++i) {
-      final double xMin = xValues2[i][0];
-      final double xMax = xValues2[i][nData2 - 1];
-
-      for (int m = 0; m < nKeys2 - 1; ++m) {
-        final double xKey = xMin + (xMax - xMin) * (m + 1.) / nKeys2;
-        Interpolator1DDataBundle data = interp2.getDataBundleFromSortedArrays(xValues2[i], yValues2[i]);
-        assertEquals(interp2.firstDerivative(data, xKey), 0.5 * (interp2.interpolate(data, xKey + EPS) - interp2.interpolate(data, xKey - EPS)) / EPS, EPS);
-      }
-    }
   }
 
   /**
@@ -95,9 +67,16 @@ public class Interpolator1DTest {
     final int dim = xValues.length;
     final int nData = xValues[0].length;
     final int nKeys = 11 * nData;
-    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(), new LinearInterpolator1D(),
-      new LogLinearInterpolator1D(), new NaturalCubicSplineInterpolator1D(), new PCHIPInterpolator1D(), new PCHIPYieldCurveInterpolator1D(),
-      new StepInterpolator1D(), new StepUpperInterpolator1D(), new TimeSquareInterpolator1D() };
+    final Interpolator1D[] interp = new Interpolator1D[] {
+        new DoubleQuadraticInterpolator1D(),
+        new ExponentialInterpolator1D(),
+        new LinearInterpolator1D(),
+        new LogLinearInterpolator1D(),
+        new NaturalCubicSplineInterpolator1D(),
+        new PCHIPInterpolator1D(),
+        new StepInterpolator1D(),
+        new StepUpperInterpolator1D(),
+        new TimeSquareInterpolator1D()};
     final int nMethods = interp.length;
     for (int j = 0; j < dim; ++j) {
       for (int i = 0; i < nMethods; ++i) {
@@ -124,9 +103,15 @@ public class Interpolator1DTest {
     final int dim = xValues.length;
     final int nData = xValues[0].length;
     final int nKeys = 11 * nData;
-    final Interpolator1D[] interp = new Interpolator1D[] {new DoubleQuadraticInterpolator1D(), new ExponentialInterpolator1D(), new LinearInterpolator1D(),
-      new LogLinearInterpolator1D(), new NaturalCubicSplineInterpolator1D(), new PCHIPYieldCurveInterpolator1D(),
-      new StepInterpolator1D(), new StepUpperInterpolator1D(), new TimeSquareInterpolator1D() };
+    final Interpolator1D[] interp = new Interpolator1D[] {
+        new DoubleQuadraticInterpolator1D(),
+        new ExponentialInterpolator1D(),
+        new LinearInterpolator1D(),
+        new LogLinearInterpolator1D(),
+        new NaturalCubicSplineInterpolator1D(),
+        new StepInterpolator1D(),
+        new StepUpperInterpolator1D(),
+        new TimeSquareInterpolator1D()};
     final int nMethods = interp.length;
     for (int j = 0; j < dim; ++j) {
       for (int i = 0; i < nMethods; ++i) {
@@ -203,15 +188,18 @@ public class Interpolator1DTest {
       xKeys[i] = xMin + (xMax - xMin) / (10 * nData - 1) * i;
     }
 
-    final PiecewisePolynomialInterpolator[] bareInterp = new PiecewisePolynomialInterpolator[] {new CubicSplineInterpolator(), new ConstrainedCubicSplineInterpolator(),
-      new MonotonicityPreservingCubicSplineInterpolator(new NaturalSplineInterpolator()),
-      new MonotonicityPreservingQuinticSplineInterpolator(new NaturalSplineInterpolator()), new NaturalSplineInterpolator(),
-      new NonnegativityPreservingCubicSplineInterpolator(new NaturalSplineInterpolator()), new NonnegativityPreservingQuinticSplineInterpolator(new NaturalSplineInterpolator()),
-      new CubicSplineInterpolator(), new SemiLocalCubicSplineInterpolator(), new MonotoneConvexSplineInterpolator(), new ShapePreservingCubicSplineInterpolator() };
-    final Interpolator1D[] wrappedInterp = new PiecewisePolynomialInterpolator1D[] {new ClampedCubicSplineInterpolator1D(), new ConstrainedCubicSplineInterpolator1D(),
-      new MonotonicityPreservingCubicSplineInterpolator1D(), new MonotonicityPreservingQuinticSplineInterpolator1D(), new NaturalSplineInterpolator1D(),
-      new NonnegativityPreservingCubicSplineInterpolator1D(), new NonnegativityPreservingQuinticSplineInterpolator1D(), new NotAKnotCubicSplineInterpolator1D(),
-      new SemiLocalCubicSplineInterpolator1D(), new MonotoneConvexSplineInterpolator1D(), new ShapePreservingCubicSplineInterpolator1D() };
+    final PiecewisePolynomialInterpolator[] bareInterp = new PiecewisePolynomialInterpolator[] {
+        new CubicSplineInterpolator(),
+        new ConstrainedCubicSplineInterpolator(),
+        new MonotonicityPreservingCubicSplineInterpolator(new NaturalSplineInterpolator()),
+        new NaturalSplineInterpolator(),
+        new NonnegativityPreservingCubicSplineInterpolator(new NaturalSplineInterpolator()),
+        new CubicSplineInterpolator(), new SemiLocalCubicSplineInterpolator()};
+    final Interpolator1D[] wrappedInterp = new PiecewisePolynomialInterpolator1D[] {
+        new ClampedCubicSplineInterpolator1D(),
+        new ConstrainedCubicSplineInterpolator1D(),
+        new NonnegativityPreservingCubicSplineInterpolator1D(),
+        new SemiLocalCubicSplineInterpolator1D()};
     final int nMethods = bareInterp.length;
     final PiecewisePolynomialFunction1D function = new PiecewisePolynomialFunction1D();
 
