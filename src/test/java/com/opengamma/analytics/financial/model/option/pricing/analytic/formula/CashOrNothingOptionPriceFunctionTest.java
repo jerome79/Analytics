@@ -57,6 +57,7 @@ public class CashOrNothingOptionPriceFunctionTest {
     assertThrowsIllegalArg(() -> PRICER.price(FORWARD1, -STRIKE, TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.price(FORWARD1, STRIKE, -TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.price(FORWARD1, STRIKE, TIME, -VOLATILITY, true));
+    assertThrowsIllegalArg(() -> PRICER.price(FORWARD1, STRIKE, TIME, 0d, true));
   }
 
   public void test_delta() {
@@ -79,6 +80,7 @@ public class CashOrNothingOptionPriceFunctionTest {
     assertThrowsIllegalArg(() -> PRICER.delta(FORWARD1, -STRIKE, TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.delta(FORWARD1, STRIKE, -TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.delta(FORWARD1, STRIKE, TIME, -VOLATILITY, true));
+    assertThrowsIllegalArg(() -> PRICER.delta(FORWARD1, STRIKE, TIME, 0d, true));
   }
 
   public void test_gamma() {
@@ -101,6 +103,7 @@ public class CashOrNothingOptionPriceFunctionTest {
     assertThrowsIllegalArg(() -> PRICER.gamma(FORWARD1, -STRIKE, TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.gamma(FORWARD1, STRIKE, -TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.gamma(FORWARD1, STRIKE, TIME, -VOLATILITY, true));
+    assertThrowsIllegalArg(() -> PRICER.gamma(FORWARD1, STRIKE, TIME, 0d, true));
   }
 
   public void test_theta() {
@@ -125,6 +128,7 @@ public class CashOrNothingOptionPriceFunctionTest {
     assertThrowsIllegalArg(() -> PRICER.theta(FORWARD1, -STRIKE, TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.theta(FORWARD1, STRIKE, -TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.theta(FORWARD1, STRIKE, TIME, -VOLATILITY, true));
+    assertThrowsIllegalArg(() -> PRICER.theta(FORWARD1, STRIKE, TIME, 0d, true));
   }
 
   public void test_vega() {
@@ -149,6 +153,7 @@ public class CashOrNothingOptionPriceFunctionTest {
     assertThrowsIllegalArg(() -> PRICER.vega(FORWARD1, -STRIKE, TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.vega(FORWARD1, STRIKE, -TIME, VOLATILITY, true));
     assertThrowsIllegalArg(() -> PRICER.vega(FORWARD1, STRIKE, TIME, -VOLATILITY, true));
+    assertThrowsIllegalArg(() -> PRICER.vega(FORWARD1, STRIKE, TIME, 0d, true));
   }
 
 }

@@ -49,7 +49,7 @@ public class CashOrNothingOptionPriceFunction {
   public double price(double forward, double strike, double timeToExpiry, double lognormalVol, boolean isCall) {
     ArgChecker.isTrue(forward > 0.0, "negative spot; have {}", forward);
     ArgChecker.isTrue(strike > 0.0, "negative strike; have {}", strike);
-    ArgChecker.isTrue(lognormalVol >= 0.0, "negative lognormalVol; have {}", lognormalVol);
+    ArgChecker.isTrue(lognormalVol > 0.0, "negative lognormalVol; have {}", lognormalVol);
     ArgChecker.isTrue(timeToExpiry >= 0.0, "negative timeToExpiry; have {}", timeToExpiry);
     double sigRootT = lognormalVol * Math.sqrt(timeToExpiry);
     double logMoneyness = Math.log(forward / strike);
@@ -74,7 +74,7 @@ public class CashOrNothingOptionPriceFunction {
   public double delta(double forward, double strike, double timeToExpiry, double lognormalVol, boolean isCall) {
     ArgChecker.isTrue(forward > 0.0, "negative spot; have {}", forward);
     ArgChecker.isTrue(strike > 0.0, "negative strike; have {}", strike);
-    ArgChecker.isTrue(lognormalVol >= 0.0, "negative lognormalVol; have {}", lognormalVol);
+    ArgChecker.isTrue(lognormalVol > 0.0, "negative lognormalVol; have {}", lognormalVol);
     ArgChecker.isTrue(timeToExpiry >= 0.0, "negative timeToExpiry; have {}", timeToExpiry);
     double sigRootT = lognormalVol * Math.sqrt(timeToExpiry);
     if (sigRootT < _small) {
@@ -99,7 +99,7 @@ public class CashOrNothingOptionPriceFunction {
   public double gamma(double forward, double strike, double timeToExpiry, double lognormalVol, boolean isCall) {
     ArgChecker.isTrue(forward > 0.0, "negative spot; have {}", forward);
     ArgChecker.isTrue(strike > 0.0, "negative strike; have {}", strike);
-    ArgChecker.isTrue(lognormalVol >= 0.0, "negative lognormalVol; have {}", lognormalVol);
+    ArgChecker.isTrue(lognormalVol > 0.0, "negative lognormalVol; have {}", lognormalVol);
     ArgChecker.isTrue(timeToExpiry >= 0.0, "negative timeToExpiry; have {}", timeToExpiry);
     double sigRootT = lognormalVol * Math.sqrt(timeToExpiry);
     if (sigRootT < _small) {
@@ -125,7 +125,7 @@ public class CashOrNothingOptionPriceFunction {
   public double theta(double forward, double strike, double timeToExpiry, double lognormalVol, boolean isCall) {
     ArgChecker.isTrue(forward > 0.0, "negative spot; have {}", forward);
     ArgChecker.isTrue(strike > 0.0, "negative strike; have {}", strike);
-    ArgChecker.isTrue(lognormalVol >= 0.0, "negative lognormalVol; have {}", lognormalVol);
+    ArgChecker.isTrue(lognormalVol > 0.0, "negative lognormalVol; have {}", lognormalVol);
     ArgChecker.isTrue(timeToExpiry >= 0.0, "negative timeToExpiry; have {}", timeToExpiry);
     double sigRootT = lognormalVol * Math.sqrt(timeToExpiry);
     if (sigRootT < _small) {
@@ -152,7 +152,7 @@ public class CashOrNothingOptionPriceFunction {
   public double vega(double forward, double strike, double timeToExpiry, double lognormalVol, boolean isCall) {
     ArgChecker.isTrue(forward > 0.0, "negative spot; have {}", forward);
     ArgChecker.isTrue(strike > 0.0, "negative strike; have {}", strike);
-    ArgChecker.isTrue(lognormalVol >= 0.0, "negative lognormalVol; have {}", lognormalVol);
+    ArgChecker.isTrue(lognormalVol > 0.0, "negative lognormalVol; have {}", lognormalVol);
     ArgChecker.isTrue(timeToExpiry >= 0.0, "negative timeToExpiry; have {}", timeToExpiry);
     double sigRootT = lognormalVol * Math.sqrt(timeToExpiry);
     if (sigRootT < _small) {
