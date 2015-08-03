@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.financial.model.option.pricing.analytic.formula;
 
+import static com.opengamma.strata.collect.TestHelper.assertThrowsIllegalArg;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -21,6 +22,7 @@ import com.opengamma.analytics.financial.model.option.definition.EuropeanStandar
 import com.opengamma.analytics.financial.model.option.definition.StandardOptionDataBundle;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.AnalyticOptionModel;
 import com.opengamma.analytics.financial.model.option.pricing.analytic.EuropeanStandardBarrierOptionModel;
+import com.opengamma.analytics.financial.model.volatility.BlackFormulaRepository;
 import com.opengamma.analytics.financial.model.volatility.surface.VolatilitySurface;
 import com.opengamma.analytics.math.curve.ConstantDoublesCurve;
 import com.opengamma.analytics.math.function.Function1D;
@@ -161,7 +163,7 @@ public class BlackBarrierPriceFunctionTest {
     assertTrue("VeryLowKnockInBarrier doesn't match rebate", Math.abs(pxDownOutCall / pxVanillaCall - 1) < 1e-6);
 
     // Derivatives
-    final double[] derivs = new double[5];
+    final double[] derivs = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(VANILLA_CALL_K100, veryLowKnockIn, REBATE, SPOT, COST_OF_CARRY, RATE_DOM, VOLATILITY, derivs);
     assertTrue("Impossible KnockIn: rate sens is incorrect", derivs[2] / Math.abs((-1 * EXPIRY_TIME * DF_DOM * REBATE) - 1) < 1e-6);
     assertEquals("Impossible KnockIn: Encountered derivative, other than d/dr, != 0", 0.0, derivs[0] + derivs[1] + derivs[3] + derivs[4], 1.0e-6);
@@ -184,7 +186,7 @@ public class BlackBarrierPriceFunctionTest {
     assertEquals("Impossible KnockOut: Delta doesn't match vanilla", vanillaDerivs[1] * DF_FOR / DF_DOM, derivs[0], 1e-6);
   }
 
-  @Test
+  @Test(enabled = false)
   /**
    * Tests the comparison with the other implementation. This test may be removed when only one version remains.
    */
@@ -240,7 +242,7 @@ public class BlackBarrierPriceFunctionTest {
    * Tests the adjoint implementation (with computation of the derivatives).
    */
   public void adjointPrice() {
-    final double[] derivatives = new double[5];
+    final double[] derivatives = new double[7];
     final double priceDI = BARRIER_FUNCTION.getPrice(VANILLA_CALL_K100, BARRIER_DOWN_IN, REBATE, SPOT, COST_OF_CARRY, RATE_DOM, VOLATILITY);
     final double priceDIAdjoint = BARRIER_FUNCTION.getPriceAdjoint(VANILLA_CALL_K100, BARRIER_DOWN_IN, REBATE, SPOT, COST_OF_CARRY, RATE_DOM, VOLATILITY, derivatives);
     assertEquals("Black single barrier: Adjoint price Down In", priceDI, priceDIAdjoint, 1.0E-10);
@@ -264,7 +266,7 @@ public class BlackBarrierPriceFunctionTest {
     final double shiftRate = 1.0E-8;
     final double shiftCoC = 1.0E-8;
     final double shiftVol = 1.0E-8;
-    final double[] derivatives = new double[5];
+    final double[] derivatives = new double[7];
     // DOWN-IN
     final double priceDI = BARRIER_FUNCTION.getPriceAdjoint(VANILLA_CALL_K100, BARRIER_DOWN_IN, REBATE, SPOT, COST_OF_CARRY, RATE_DOM, VOLATILITY, derivatives);
     final double priceDISpot = BARRIER_FUNCTION.getPrice(VANILLA_CALL_K100, BARRIER_DOWN_IN, REBATE, SPOT + shiftSpot, COST_OF_CARRY, RATE_DOM, VOLATILITY);
@@ -307,4 +309,203 @@ public class BlackBarrierPriceFunctionTest {
     assertEquals("Black single barrier: Adjoint cost-of-carry derivative - Up Out", (priceUOVol - priceUO) / shiftVol, derivatives[4], 2.0E-5);
   }
 
+  private static final EuropeanVanillaOption[] OPTIONS;
+  private static final Barrier[] BARRIERS;
+  private static final double[] SPOTS;
+  static {
+    EuropeanVanillaOption call100 = new EuropeanVanillaOption(STRIKE_MID, EXPIRY_TIME, IS_CALL);
+    EuropeanVanillaOption put100 = new EuropeanVanillaOption(STRIKE_MID, EXPIRY_TIME, !IS_CALL);
+    OPTIONS = new EuropeanVanillaOption[] {call100, put100 };
+    Barrier downAndIn90 = new Barrier(KnockType.IN, BarrierType.DOWN, ObservationType.CONTINUOUS, 90);
+    Barrier downAndIn110 = new Barrier(KnockType.IN, BarrierType.DOWN, ObservationType.CONTINUOUS, 110);
+    Barrier downAndOut90 = new Barrier(KnockType.OUT, BarrierType.DOWN, ObservationType.CONTINUOUS, 90);
+    Barrier downAndOut110 = new Barrier(KnockType.OUT, BarrierType.DOWN, ObservationType.CONTINUOUS, 110);
+    Barrier upAndIn90 = new Barrier(KnockType.IN, BarrierType.UP, ObservationType.CONTINUOUS, 90);
+    Barrier upAndIn110 = new Barrier(KnockType.IN, BarrierType.UP, ObservationType.CONTINUOUS, 110);
+    Barrier upAndOut90 = new Barrier(KnockType.OUT, BarrierType.UP, ObservationType.CONTINUOUS, 90);
+    Barrier upAndOut110 = new Barrier(KnockType.OUT, BarrierType.UP, ObservationType.CONTINUOUS, 110);
+    BARRIERS = new Barrier[] {
+      downAndIn90, downAndIn110, downAndOut90, downAndOut110, upAndIn90, upAndIn110, upAndOut90, upAndOut110 };
+    double spot114 = 114.0;
+    double spot108 = 108.0;
+    double spot100p = 100.01;
+    double spot100m = 100.01;
+    double spot93 = 93.0;
+    double spot88 = 88.0;
+    SPOTS = new double[] {spot114, spot108, spot100p, spot100m, spot93, spot88 };
+  }
+
+  @Test
+  public void test_small_time() {
+    double eps = 1.0e-12;
+    double time1 = 1.e-17;
+    double time2 = 1.e-15;
+    EuropeanVanillaOption call100Time1 = new EuropeanVanillaOption(STRIKE_MID, time1, IS_CALL);
+    EuropeanVanillaOption call100Time2 = new EuropeanVanillaOption(STRIKE_MID, time2, IS_CALL);
+    EuropeanVanillaOption put100Time1 = new EuropeanVanillaOption(STRIKE_MID, EXPIRY_TIME, !IS_CALL);
+    EuropeanVanillaOption put100Time2 = new EuropeanVanillaOption(STRIKE_MID, EXPIRY_TIME, !IS_CALL);
+    double[] derivatives1 = new double[7];
+    double[] derivatives2 = new double[7];
+    double[] derivatives3 = new double[7];
+    double[] derivatives4 = new double[7];
+    for (Barrier barrier : BARRIERS) {
+      for (double spot : SPOTS) {
+        if (!(barrier.getBarrierType() == BarrierType.DOWN && spot < barrier.getBarrierLevel()) &&
+            !(barrier.getBarrierType() == BarrierType.UP && spot > barrier.getBarrierLevel())) {
+          //          System.out.println(spot + "\t" + barrier.getBarrierType() + "\t" + barrier.getKnockType() + "\t" +
+          //              barrier.getBarrierLevel());
+          double call0 = BARRIER_FUNCTION.getPrice(call100Time1, barrier, REBATE, spot, COST_OF_CARRY,
+              RATE_DOM, VOLATILITY);
+          double call1 = BARRIER_FUNCTION.getPriceAdjoint(call100Time1, barrier, REBATE, spot, COST_OF_CARRY,
+              RATE_DOM, VOLATILITY, derivatives1);
+          double call2 = BARRIER_FUNCTION.getPriceAdjoint(call100Time2, barrier, REBATE, spot, COST_OF_CARRY,
+              RATE_DOM, VOLATILITY, derivatives2);
+          assertEquals(call0, call2, eps);
+          assertEquals(call1, call2, eps);
+          //          System.out.println(call1 + "\t" + call2);
+          double put0 = BARRIER_FUNCTION.getPrice(put100Time1, barrier, REBATE, spot, COST_OF_CARRY,
+              RATE_DOM, VOLATILITY);
+          double put1 = BARRIER_FUNCTION.getPriceAdjoint(put100Time1, barrier, REBATE, spot, COST_OF_CARRY,
+              RATE_DOM, VOLATILITY, derivatives3);
+          double put2 = BARRIER_FUNCTION.getPriceAdjoint(put100Time2, barrier, REBATE, spot, COST_OF_CARRY,
+              RATE_DOM, VOLATILITY, derivatives4);
+          assertEquals(put0, put2, eps);
+          assertEquals(put1, put2, eps);
+          for (int i = 0; i < 7; ++i) {
+            //            System.out.println(i);
+            assertEquals(derivatives1[i], derivatives2[i], eps);
+            assertEquals(derivatives3[i], derivatives4[i], eps);
+          }
+        }
+      }
+    }
+  }
+
+  @Test
+  public void test_small_vol() {
+    double eps = 1.0e-12;
+    double vol1 = 1.e-17;
+    double vol2 = 1.e-15;
+    double[] derivatives1 = new double[7];
+    double[] derivatives2 = new double[7];
+    for (EuropeanVanillaOption option : OPTIONS) {
+      for (Barrier barrier : BARRIERS) {
+        for (double spot : SPOTS) {
+          if (!(barrier.getBarrierType() == BarrierType.DOWN && spot < barrier.getBarrierLevel()) &&
+              !(barrier.getBarrierType() == BarrierType.UP && spot > barrier.getBarrierLevel())) {
+            double call0 = BARRIER_FUNCTION.getPrice(option, barrier, REBATE, spot, COST_OF_CARRY,
+                RATE_DOM, vol1);
+            double call1 = BARRIER_FUNCTION.getPriceAdjoint(option, barrier, REBATE, spot, COST_OF_CARRY,
+                RATE_DOM, vol1, derivatives1);
+            double call2 = BARRIER_FUNCTION.getPriceAdjoint(option, barrier, REBATE, spot, COST_OF_CARRY,
+                RATE_DOM, vol2, derivatives2);
+            assertEquals(call0, call2, eps);
+            assertEquals(call1, call2, eps);
+            for (int i = 0; i < 7; ++i) {
+              if (Math.abs(derivatives2[i]) < 1d / eps) {
+                assertEquals(derivatives1[i], derivatives2[i], eps);
+              } else { // handle infinite case
+                assertTrue((derivatives1[i] > 1d / eps && derivatives2[i] > 1d / eps)
+                    || (derivatives1[i] < -1d / eps && derivatives2[i] < -1d / eps));
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @Test
+  public void test_downInParity_all() {
+    double eps = 1.0e-12;
+    double[] deriv = new double[7];
+    Barrier[][] barriers = new Barrier[][] { {BARRIERS[0], BARRIERS[2] }, {BARRIERS[1], BARRIERS[3] },
+      {BARRIERS[4], BARRIERS[6] }, {BARRIERS[5], BARRIERS[7] } };
+    for (EuropeanVanillaOption option : OPTIONS) {
+      for (Barrier[] barrier : barriers) {
+        for (double spot : SPOTS) {
+          if (barrier[0].getBarrierType() == BarrierType.DOWN && spot < barrier[0].getBarrierLevel() ||
+              barrier[0].getBarrierType() == BarrierType.UP && spot > barrier[0].getBarrierLevel()) {
+            assertThrowsIllegalArg(() -> BARRIER_FUNCTION.getPrice(
+                option, barrier[0], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY));
+            assertThrowsIllegalArg(() -> BARRIER_FUNCTION.getPrice(
+                option, barrier[1], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY));
+            assertThrowsIllegalArg(() -> BARRIER_FUNCTION.getPriceAdjoint(
+                option, barrier[0], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY, deriv));
+            assertThrowsIllegalArg(() -> BARRIER_FUNCTION.getPriceAdjoint(
+                option, barrier[1], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY, deriv));
+          } else {
+            double inPlusOut1 =
+                BARRIER_FUNCTION.getPrice(option, barrier[0], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY) +
+                    BARRIER_FUNCTION.getPrice(option, barrier[1], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY);
+            double inPlusOut2 = BARRIER_FUNCTION.getPriceAdjoint(
+                option, barrier[0], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY, deriv) +
+                BARRIER_FUNCTION.getPriceAdjoint(
+                    option, barrier[1], 0d, spot, COST_OF_CARRY, RATE_DOM, VOLATILITY, deriv);
+            double forward = spot * Math.exp(COST_OF_CARRY * EXPIRY_TIME);
+            double df = Math.exp(-RATE_DOM * EXPIRY_TIME);
+            double vanilla = df * BlackFormulaRepository.price(
+                forward, STRIKE_MID, EXPIRY_TIME, VOLATILITY, option.isCall());
+            assertEquals(inPlusOut1, vanilla, eps);
+            assertEquals(inPlusOut2, vanilla, eps);
+          }
+        }
+      }
+    }
+  }
+
+  @Test
+  public void test_getPriceAdjoint_all() {
+    double eps = 1.0e-6; // relative shift
+    for (EuropeanVanillaOption option : OPTIONS) {
+      for (Barrier barrier : BARRIERS) {
+        for (double spot : SPOTS) {
+          if (barrier.getBarrierType() == BarrierType.DOWN && spot < barrier.getBarrierLevel() ||
+              barrier.getBarrierType() == BarrierType.UP && spot > barrier.getBarrierLevel()) {
+            assertThrowsIllegalArg(() -> testGreeks(
+                option, barrier, spot, REBATE, COST_OF_CARRY, RATE_DOM, VOLATILITY, eps));
+          } else {
+            testGreeks(option, barrier, spot, REBATE, COST_OF_CARRY, RATE_DOM, VOLATILITY, eps);
+          }
+        }
+      }
+    }
+  }
+
+  private void testGreeks(EuropeanVanillaOption option, Barrier barrier, double spot, double rebate, double cost,
+      double rate, double vol, double eps) {
+    double up = 1d + eps;
+    double dw = 1d - eps;
+    double[] deriv = new double[7];
+    double[] derivUp = new double[7];
+    double[] derivDw = new double[7];
+    BARRIER_FUNCTION.getPriceAdjoint(option, barrier, rebate, spot, cost, rate, vol, deriv);
+    // delta, gamma
+    double priceUp = BARRIER_FUNCTION.getPriceAdjoint(option, barrier, rebate, spot * up, cost, rate, vol, derivUp);
+    double priceDw = BARRIER_FUNCTION.getPriceAdjoint(option, barrier, rebate, spot * dw, cost, rate, vol, derivDw);
+    assertEquals(deriv[0], 0.5 * (priceUp - priceDw) / spot / eps, eps);
+    assertEquals(deriv[6], 0.5 * (derivUp[0] - derivDw[0]) / spot / eps, eps);
+    // dual delta
+    double strikeBase = option.getStrike();
+    priceUp = BARRIER_FUNCTION.getPrice(option.withStrike(strikeBase * up), barrier, rebate, spot, cost, rate, vol);
+    priceDw = BARRIER_FUNCTION.getPrice(option.withStrike(strikeBase * dw), barrier, rebate, spot, cost, rate, vol);
+    assertEquals(deriv[1], 0.5 * (priceUp - priceDw) / strikeBase / eps, eps);
+    // rho
+    priceUp = BARRIER_FUNCTION.getPrice(option, barrier, rebate, spot, cost, rate * up, vol);
+    priceDw = BARRIER_FUNCTION.getPrice(option, barrier, rebate, spot, cost, rate * dw, vol);
+    assertEquals(deriv[2], 0.5 * (priceUp - priceDw) / rate / eps, eps);
+    // carry rho
+    priceUp = BARRIER_FUNCTION.getPrice(option, barrier, rebate, spot, cost * up, rate, vol);
+    priceDw = BARRIER_FUNCTION.getPrice(option, barrier, rebate, spot, cost * dw, rate, vol);
+    assertEquals(deriv[3], 0.5 * (priceUp - priceDw) / cost / eps, eps);
+    // vega
+    priceUp = BARRIER_FUNCTION.getPrice(option, barrier, rebate, spot, cost, rate, vol * up);
+    priceDw = BARRIER_FUNCTION.getPrice(option, barrier, rebate, spot, cost, rate, vol * dw);
+    assertEquals(deriv[4], 0.5 * (priceUp - priceDw) / vol / eps, eps);
+    // theta
+    double timeBase = option.getTimeToExpiry();
+    priceUp = BARRIER_FUNCTION.getPrice(option.withTimeToExpiry(timeBase * up), barrier, rebate, spot, cost, rate, vol);
+    priceDw = BARRIER_FUNCTION.getPrice(option.withTimeToExpiry(timeBase * dw), barrier, rebate, spot, cost, rate, vol);
+    assertEquals(deriv[5], 0.5 * (priceUp - priceDw) / timeBase / eps, eps);
+  }
 }

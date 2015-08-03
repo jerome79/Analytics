@@ -115,7 +115,7 @@ public final class ForexOptionSingleBarrierBlackMethod {
     final double sign = (optionForex.getUnderlyingOption().isLong() ? 1.0 : -1.0);
     final double volatility = smileMulticurves.getVolatility(optionForex.getCurrency1(), optionForex.getCurrency2(), optionForex.getUnderlyingOption().getTimeToExpiry(), optionForex
         .getUnderlyingOption().getStrike(), forward);
-    final double[] priceDerivatives = new double[5];
+    final double[] priceDerivatives = new double[7];
     double price = BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volatility,
         priceDerivatives);
     price *= Math.abs(foreignAmount) * sign;
@@ -156,7 +156,7 @@ public final class ForexOptionSingleBarrierBlackMethod {
         .getUnderlyingOption().getStrike(), forward);
     // The Barrier pricing method parameterizes as a function of rate (r=rateDomestic), and costOfCarry (b=rateDomestic-rateForeign)
     // We wish to compute derivatives wrt rateDomestic and rateForeign, not the costOfCarry parameter.
-    final double[] priceDerivatives = new double[5];
+    final double[] priceDerivatives = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volatility, priceDerivatives);
     // Backward sweep
     final double priceBar = 1.0;
@@ -198,7 +198,7 @@ public final class ForexOptionSingleBarrierBlackMethod {
     final double sign = (optionForex.getUnderlyingOption().isLong() ? 1.0 : -1.0);
     final double volatility = smileMulticurves.getVolatility(optionForex.getCurrency1(), optionForex.getCurrency2(), optionForex.getUnderlyingOption().getTimeToExpiry(), optionForex
         .getUnderlyingOption().getStrike(), forward);
-    final double[] priceDerivatives = new double[5];
+    final double[] priceDerivatives = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volatility, priceDerivatives);
     final double volatilitySensitivityValue = priceDerivatives[4] * Math.abs(foreignAmount) * sign;
     final DoublesPair point = DoublesPair.of(optionForex.getUnderlyingOption().getTimeToExpiry(), optionForex.getUnderlyingOption().getStrike());
@@ -270,8 +270,8 @@ public final class ForexOptionSingleBarrierBlackMethod {
     // Bump and compute vega
     final double spotUp = (1.0 + relShift) * spot;
     final double spotDown = (1.0 - relShift) * spot;
-    final double[] adjointUp = new double[5];
-    final double[] adjointDown = new double[5];
+    final double[] adjointUp = new double[7];
+    final double[] adjointDown = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spotUp, rateDomestic - rateForeign, rateDomestic, vol, adjointUp);
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spotDown, rateDomestic - rateForeign, rateDomestic, vol, adjointDown);
     final double deltaUp = adjointUp[0] * Math.abs(foreignAmount) * sign;
@@ -321,8 +321,8 @@ public final class ForexOptionSingleBarrierBlackMethod {
     // Bump and compute vega
     final double volUp = (1.0 + relShift) * vol;
     final double volDown = (1.0 - relShift) * vol;
-    final double[] adjointUp = new double[5];
-    final double[] adjointDown = new double[5];
+    final double[] adjointUp = new double[7];
+    final double[] adjointDown = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volUp, adjointUp);
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volDown, adjointDown);
     final double vegaUp = adjointUp[4] * Math.abs(foreignAmount) * sign;
@@ -392,8 +392,8 @@ public final class ForexOptionSingleBarrierBlackMethod {
     // Bump *spot* and compute vega
     final double spotUp = (1.0 + relShift) * spot;
     final double spotDown = (1.0 - relShift) * spot;
-    final double[] adjointUp = new double[5];
-    final double[] adjointDown = new double[5];
+    final double[] adjointUp = new double[7];
+    final double[] adjointDown = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spotUp, rateDomestic - rateForeign, rateDomestic, vol, adjointUp);
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spotDown, rateDomestic - rateForeign, rateDomestic, vol, adjointDown);
     final double vegaUp = adjointUp[4] * Math.abs(foreignAmount) * sign;
@@ -432,8 +432,8 @@ public final class ForexOptionSingleBarrierBlackMethod {
     // Bump *vol* and compute delta
     final double volUp = (1.0 + relShift) * vol;
     final double volDown = (1.0 - relShift) * vol;
-    final double[] adjointUp = new double[5];
-    final double[] adjointDown = new double[5];
+    final double[] adjointUp = new double[7];
+    final double[] adjointDown = new double[7];
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volUp, adjointUp);
     BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, rateDomestic - rateForeign, rateDomestic, volDown, adjointDown);
     final double deltaUp = adjointUp[0] * Math.abs(foreignAmount) * sign;

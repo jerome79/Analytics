@@ -327,7 +327,7 @@ public class ForexOptionSingleBarrierBlackMethodTest {
     final double rateDomestic = -Math.log(dfDomestic) / payTime;
     final double rateForeign = -Math.log(dfForeign) / payTime;
     final double volatility = SMILE_TERM.getVolatility(Triple.of(timeToExpiry, STRIKE, forward));
-    final double[] derivatives = new double[5];
+    final double[] derivatives = new double[7];
     BLACK_BARRIER_FUNCTION.getPriceAdjoint(VANILLA_LONG, BARRIER_KI, REBATE / NOTIONAL, SPOT, rateDomestic - rateForeign, rateDomestic, volatility, derivatives);
     assertEquals("Forex vanilla option: vega", derivatives[4] * NOTIONAL, sensi.getVega().getMap().get(point));
     final PresentValueForexBlackVolatilitySensitivity sensiShort = METHOD_BARRIER.presentValueBlackVolatilitySensitivity(BARRIER_SHORT, SMILE_MULTICURVES);
@@ -466,7 +466,7 @@ public class ForexOptionSingleBarrierBlackMethodTest {
     // Bump vol and compute *price*
 
     final double vegaFD = (pxVolUp - pxVolDown) / (2 * relShift * vol);
-    final double[] adjoint = new double[5];
+    final double[] adjoint = new double[7];
     final double pxBaseTest = BLACK_BARRIER_FUNCTION.getPriceAdjoint(optionForex.getUnderlyingOption(), optionForex.getBarrier(), rebateByForeignUnit, spot, costOfCarry,
         rateDomestic, vol, adjoint);
     final double vegaBlack = adjoint[4];
