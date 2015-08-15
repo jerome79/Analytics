@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.math.function;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import com.opengamma.analytics.math.FunctionUtils;
@@ -16,7 +17,9 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * Give a struct {@link PiecewisePolynomialResult}, Compute value, first derivative and integral of piecewise polynomial function
  */
-public class PiecewisePolynomialFunction1D {
+public class PiecewisePolynomialFunction1D implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Default constructor

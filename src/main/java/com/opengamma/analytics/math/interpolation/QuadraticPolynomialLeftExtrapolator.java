@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
+import java.io.Serializable;
+
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
@@ -14,7 +16,9 @@ import com.opengamma.strata.collect.ArgChecker;
  * The extrapolation is completed by applying a quadratic extrapolant on the discount factor (not log of the discount factor), 
  * where the point (0.,1.) is inserted and the first derivative value is assumed to be continuous at firstKey.
  */
-public class QuadraticPolynomialLeftExtrapolator implements CurveExtrapolator, Extrapolator1D {
+public class QuadraticPolynomialLeftExtrapolator implements CurveExtrapolator, Extrapolator1D, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** The extrapolator name. */
   public static final String NAME = "QuadraticLeft";

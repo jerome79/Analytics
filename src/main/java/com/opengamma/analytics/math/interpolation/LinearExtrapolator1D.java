@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
+import java.io.Serializable;
+
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
@@ -12,7 +14,9 @@ import com.opengamma.strata.collect.ArgChecker;
 /**
  * 
  */
-public class LinearExtrapolator1D implements CurveExtrapolator, Extrapolator1D {
+public class LinearExtrapolator1D implements CurveExtrapolator, Extrapolator1D, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** The extrapolator name. */
   public static final String NAME = "Linear";

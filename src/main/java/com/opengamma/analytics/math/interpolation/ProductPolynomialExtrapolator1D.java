@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
+import java.io.Serializable;
+
 import com.opengamma.analytics.math.function.PiecewisePolynomialFunction1D;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DPiecewisePoynomialWithExtraKnotsDataBundle;
@@ -15,7 +17,9 @@ import com.opengamma.strata.collect.ArgChecker;
  * Given a data set {xValues[i], yValues[i]}, extrapolate {x[i], x[i] * y[i]} by a polynomial function defined by ProductPiecewisePolynomialInterpolator1D, 
  * that is, use polynomial coefficients for the leftmost (rightmost) interval obtained in ProductPiecewisePolynomialInterpolator1D.
  */
-public class ProductPolynomialExtrapolator1D implements CurveExtrapolator, Extrapolator1D {
+public class ProductPolynomialExtrapolator1D implements CurveExtrapolator, Extrapolator1D, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** The extrapolator name. */
   public static final String NAME = "ProductPolynomial";
