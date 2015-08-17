@@ -5,6 +5,7 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -24,10 +25,12 @@ import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
 
 /**
- * 
+ *
  */
 @BeanDefinition
-public final class FlatExtrapolator1D implements CurveExtrapolator, Extrapolator1D, ImmutableBean {
+public final class FlatExtrapolator1D implements CurveExtrapolator, Extrapolator1D, ImmutableBean, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** The extrapolator name. */
   public static final String NAME = "Flat";

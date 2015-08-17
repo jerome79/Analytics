@@ -5,6 +5,8 @@
  */
 package com.opengamma.analytics.math.interpolation;
 
+import java.io.Serializable;
+
 import com.opengamma.analytics.math.interpolation.data.Interpolator1DDataBundle;
 import com.opengamma.strata.basics.interpolator.CurveExtrapolator;
 import com.opengamma.strata.collect.ArgChecker;
@@ -14,7 +16,9 @@ import com.opengamma.strata.collect.ArgChecker;
  * which is smoothly connected with a log-interpolator exp(F(x)), such as {@link LogNaturalCubicMonotonicityPreservingInterpolator1D}, 
  * i.e., F'(x) = f'(x) at a respectivie endpoint. 
  */
-public class LogLinearExtrapolator1D implements CurveExtrapolator, Extrapolator1D {
+public class LogLinearExtrapolator1D implements CurveExtrapolator, Extrapolator1D, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** The extrapolator name. */
   public static final String NAME = "LogLinear";
