@@ -1,0 +1,23 @@
+sudo: false
+language: java
+jdk:
+  - oraclejdk8
+addons:
+  apt:
+    packages:
+    - oracle-java8-installer
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+install:
+  - mkdir -p target
+  - cd target
+  - git clone https://github.com/OpenGamma/Strata.git Strata
+  - cd Strata
+  - mvn install -e -B -DskipTests
+  - cd ..
+  - cd ..
+script:
+  - mvn install -e -B -Dstrict
+  - rm -rf $HOME/.m2/repository/com/opengamma/analytics
+  - rm -rf $HOME/.m2/repository/com/opengamma/strata
